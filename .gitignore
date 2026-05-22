@@ -14,8 +14,10 @@ build/
 # Data (generated, large)
 data/
 
-# Results (generated)
-results/
+# Results — diagnostics, plots, CSVs are tracked; large activation files excluded
+results/activations/
+results/*.pt
+results/*.npy
 
 # Model weights / HuggingFace cache
 *.bin
