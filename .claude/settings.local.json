@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat ~/.ssh/config 2>/dev/null | grep -A5 \"spark-06aa\" || echo \"spark-06aa SSH config: NOT FOUND\")",
+      "Bash(ssh spark-06aa *)",
+      "Bash(scp '/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/00_pilot_gate.py' '/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/configs/config.yaml' spark-06aa:~/reasoning-on-manifold/)"
+    ]
+  }
+}

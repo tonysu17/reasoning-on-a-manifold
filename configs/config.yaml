@@ -1,0 +1,126 @@
+# ============================================================
+# Reasoning on a Manifold — Experiment Configuration
+# ============================================================
+# Central question: do individual reasoning behaviours (backtracking,
+# uncertainty, example-testing, knowledge augmentation) each occupy their
+# own low-dimensional manifold in the residual stream?
+
+project:
+  seed: 42
+
+# ── Models ────────────────────────────────────────────────
+models:
+  primary:
+    id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+    short_name: "R1-1.5B"
+    n_layers: 28
+    hidden_dim: 1536
+    dtype: "float16"
+    use_4bit: false
+    # Layer Huang et al. use for Qwen-1.5B / Qwen-7B
+    steering_layer: 27
+
+  secondary:
+    id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    short_name: "R1-7B"
+    n_layers: 28
+    hidden_dim: 3584
+    dtype: "float16"
+    use_4bit: false
+    steering_layer: 27
+
+  tertiary:
+    id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+    short_name: "R1-8B"
+    n_layers: 32
+    hidden_dim: 4096
+    dtype: "float16"
+    use_4bit: false
+    steering_layer: 31
+
+# ── Phase 1: Task generation ──────────────────────────────
+tasks:
+  n_per_category: 100          # 1000 tasks total across 10 categories
+  batch_size: 25               # Tasks per GPT-4o call
+  generation_model: "gpt-4o"
+  categories:
+    - "mathematical_logic"
+    - "spatial_reasoning"
+    - "verbal_logic"
+    - "pattern_recognition"
+    - "lateral_thinking"
+    - "causal_reasoning"
+    - "probabilistic_thinking"
+    - "systems_thinking"
+    - "creative_problem_solving"
+    - "scientific_reasoning"
+
+# ── Phase 2: Chain generation ─────────────────────────────
+chains:
+  max_new_tokens: 8192         # Pilot revealed 4096 still truncates open-ended creative tasks
+  temperature: 0.0             # Greedy decoding (Venhoff protocol)
+  checkpoint_every: 50
+
+# ── Phase 3: Annotation ───────────────────────────────────
+annotation:
+  # Claude Sonnet 4.5 via AWS proxy (GPT-4o unavailable on this proxy)
+  # Deviation from Venhoff noted in methods section
+  model: "eu.anthropic.claude-sonnet-4-5-20250929-v1:0"
+  provider: "anthropic_aws_proxy"
+  prompt_source: "venhoff_2025_appendix_a"  # verbatim, hyphenated labels
+  temperature: 0.0
+  # Six behaviours from Venhoff et al. taxonomy (arXiv:2506.18167)
+  # Label names are hyphenated lowercase exactly as in Appendix A
+  labels:
+    - backtracking
+    - uncertainty-estimation
+    - example-testing
+    - adding-knowledge
+    - initializing
+    - deduction
+  # The four we care about (distinct to thinking models)
+  target_behaviours:
+    - backtracking
+    - uncertainty-estimation
+    - example-testing
+    - adding-knowledge
+  min_instances_for_pca: 100   # Minimum per behaviour per layer
+
+# ── Phase 4: Activation extraction ───────────────────────
+extraction:
+  n_preceding_tokens: 1        # Token just before behaviour onset
+  n_execution_tokens: 10       # First N tokens of the behaviour
+  pooling: "mean"              # Mean-pool across token positions
+  layers: null                 # null = all layers; or list e.g. [20,21,...,27]
+
+# ── Phase 5: PCA analysis ─────────────────────────────────
+pca:
+  max_components: 50
+  variance_thresholds: [0.50, 0.70, 0.80, 0.90, 0.95]
+
+# ── Phase 6: Steering vectors ─────────────────────────────
+steering:
+  # k values to try for manifold projection (top-k PCA components)
+  k_values: [1, 3, 5, 10, "auto"]   # "auto" = k for 70% variance
+  mode: "subtract"                   # reduce the behaviour
+
+# ── Phase 7: Evaluation ───────────────────────────────────
+evaluation:
+  alpha_values: [0.0, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0]
+  n_test_tasks: 50
+  annotation_model: "gpt-4o-2024-11-20"  # re-annotate steered outputs (pinned)
+  benchmarks:
+    - name: "gsm8k"
+      dataset_id: "openai/gsm8k"
+      split: "test"
+
+# ── Paths ─────────────────────────────────────────────────
+paths:
+  tasks: "data/tasks.json"
+  chains: "data/chains_{model}.json"
+  annotated: "data/annotated_{model}.json"
+  activations: "data/activations/{model}"
+  pca_results: "results/pca/{model}"
+  steering_vectors: "results/steering_vectors/{model}"
+  eval_results: "results/eval/{model}"
+  figures: "results/figures"

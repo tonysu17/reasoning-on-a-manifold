@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Secrets
+.env
+*.env
+
+# Data (generated, large)
+data/
+
+# Results (generated)
+results/
+
+# Model weights / HuggingFace cache
+*.bin
+*.safetensors
+*.gguf
+hf_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Weights & Biases
+wandb/
