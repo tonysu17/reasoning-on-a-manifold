@@ -54,6 +54,8 @@ def main():
                         help="Annotate pilot chains (data/chains_pilot.json)")
     parser.add_argument("--smoke", action="store_true",
                         help="Smoke test: annotate first 3 chains only")
+    parser.add_argument("--kill-after", type=int, default=None, metavar="N",
+                        help="Exit after annotating N chains (for resume-logic smoke test)")
     args = parser.parse_args()
 
     proxy_url = os.environ.get("CLAUDE_PROXY_URL")
@@ -82,28 +84,21 @@ def main():
     if args.smoke:
         chains = chains[:3]
         logger.info(f"SMOKE TEST: annotating {len(chains)} chains")
+    elif args.kill_after:
+        logger.info(f"KILL-AFTER={args.kill_after}: resume smoke test mode")
     elif args.pilot:
         logger.info(f"PILOT: annotating {len(chains)} chains → {out_path}")
     else:
         logger.info(f"Annotating {len(chains)} chains → {out_path}")
 
-    # Resume detection — skip only successfully annotated chains
+    # Early-exit check — all chains fully complete?
     if out_path.exists():
         existing = load_annotated(out_path)
-        failed = [c for c in existing if not c.get("annotations")]
-        if len(existing) >= len(chains) and not failed:
+        n_complete = sum(1 for c in existing if c.get("annotation_complete", False))
+        if n_complete >= len(chains):
             logger.info(f"Already complete at {out_path}")
             _print_report(existing, out_path, pilot=args.pilot)
             return
-        if failed:
-            logger.info(f"Found {len(failed)} chains with empty annotations — will retry")
-            # Remove failed records so annotate_chains will re-process them
-            good = [c for c in existing if c.get("annotations")]
-            from src.annotation import _save_json
-            _save_json(good, out_path)
-            logger.info(f"Resuming from {len(good)} successful annotations")
-        else:
-            logger.info(f"Found {len(existing)} existing — resuming")
 
     annotated = annotate_chains(
         chains,
@@ -111,6 +106,7 @@ def main():
         checkpoint_every=5 if (args.pilot or args.smoke) else 25,
         proxy_url=proxy_url,
         proxy_key=proxy_key,
+        kill_after=args.kill_after,
     )
 
     _print_report(annotated, out_path, pilot=args.pilot)

@@ -284,7 +284,7 @@ def annotate_chain(
     max_retries: int = 3,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
-) -> list[dict]:
+) -> tuple[list[dict], bool]:
     """
     Annotate a single chain.
 
@@ -292,16 +292,22 @@ def annotate_chain(
     the AWS API Gateway 29-second hard timeout.  Chunks are split on paragraph
     boundaries with overlap; overlap spans are discarded at merge time.
 
-    Returns [] on repeated failure.
+    Returns:
+        (spans, complete)
+        spans    — list of {"label": str, "text": str} dicts; [] on total failure
+        complete — True iff every chunk succeeded (safe to mark chain as done)
+                   False if any chunk failed (chain has partial annotations;
+                   must be retried on next resume)
     """
     if not chain_text.strip():
-        return []
+        return [], True  # empty chain → trivially complete
 
     estimated_tokens = _estimate_tokens(chain_text)
 
     if estimated_tokens <= CHUNK_THRESHOLD_TOKENS:
-        # Short chain — annotate in one request
-        return _annotate_single(chain_text, max_retries, proxy_url, proxy_key)
+        # Short chain — single request
+        spans = _annotate_single(chain_text, max_retries, proxy_url, proxy_key)
+        return spans, bool(spans)
 
     # Long chain — split into chunks and annotate each
     logger.info(f"  Chain ~{estimated_tokens} tokens — chunking for annotation")
@@ -309,6 +315,7 @@ def annotate_chain(
     logger.info(f"  Split into {len(chunks)} chunks")
 
     chunk_annotations: list[list[dict]] = []
+    any_failed = False
     for i, chunk in enumerate(chunks):
         prefix = _CONTINUATION_PREFIX if i > 0 else ""
         anns = _annotate_single(
@@ -316,9 +323,11 @@ def annotate_chain(
         )
         if not anns:
             logger.warning(f"  Chunk {i+1}/{len(chunks)} failed — returning partial")
+            any_failed = True
         chunk_annotations.append(anns)
 
-    return merge_chunk_annotations(chunks, chunk_annotations)
+    spans = merge_chunk_annotations(chunks, chunk_annotations)
+    return spans, not any_failed
 
 
 def _annotate_single(
@@ -354,14 +363,20 @@ def annotate_chains(
     checkpoint_every: int = 25,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
+    kill_after: Optional[int] = None,
 ) -> list[dict]:
     """
     Annotate all chains sequentially with checkpointing.
 
-    Safe to interrupt and resume — re-running skips already-annotated chains.
+    Safe to interrupt and resume — re-running retries any chain that did not
+    complete all its chunks (annotation_complete=False).
 
-    Returns list of dicts: original chain fields + "annotations" list of
-    {"label": str, "text": str} dicts.
+    Args:
+        kill_after: if set, exit after annotating this many NEW chains.
+                    Used for resume-logic smoke tests.
+
+    Returns list of dicts: original chain fields + "annotations" +
+    "annotation_complete" (True iff all chunks succeeded).
     """
     from tqdm import tqdm
 
@@ -371,30 +386,53 @@ def annotate_chains(
     if save_path and save_path.exists():
         with open(save_path) as f:
             annotated = json.load(f)
-        logger.info(f"Resuming annotation from checkpoint: {len(annotated)}/{len(chains)}")
+        n_complete = sum(1 for a in annotated if a.get("annotation_complete", False))
+        n_partial  = len(annotated) - n_complete
+        logger.info(
+            f"Resuming annotation from checkpoint: {len(annotated)}/{len(chains)} "
+            f"({n_complete} complete, {n_partial} partial — will retry partial)"
+        )
 
-    done_ids = {a["task_id"] for a in annotated}
+    # Backward-compatibility: records written before annotation_complete was added
+    # are treated as complete if they have non-empty annotations.
+    def _is_complete(record: dict) -> bool:
+        if "annotation_complete" in record:
+            return bool(record["annotation_complete"])
+        return bool(record.get("annotations"))  # legacy: non-empty → assume complete
 
-    # Always iterate all chains and rely on done_ids to skip completed ones.
-    # Using chains[start:] caused a bug: after removing failed records the
-    # slice index no longer matched done_ids, leaving gaps.
+    # Only skip chains that are fully complete.
+    # Partial chains (some chunks failed) must be retried.
+    done_ids = {a["task_id"] for a in annotated if _is_complete(a)}
+
+    # Remove partial-completion records so they will be re-processed.
+    annotated = [a for a in annotated if _is_complete(a)]
+
+    # Always iterate all chains; rely on done_ids to skip fully-completed ones.
+    new_count = 0
     for chain in tqdm(chains, initial=len(done_ids), total=len(chains),
                       desc="Annotating chains"):
         if chain["task_id"] in done_ids:
             continue
 
-        anns = annotate_chain(
+        anns, complete = annotate_chain(
             chain["chain"],
             proxy_url=proxy_url,
             proxy_key=proxy_key,
         )
-        annotated.append({**chain, "annotations": anns})
+        annotated.append({**chain, "annotations": anns, "annotation_complete": complete})
+        new_count += 1
 
         if save_path and len(annotated) % checkpoint_every == 0:
             _save_json(annotated, save_path)
             logger.info(f"  checkpoint: {len(annotated)}/{len(chains)}")
 
         time.sleep(0.3)  # rate-limit headroom
+
+        if kill_after and new_count >= kill_after:
+            logger.info(f"  --kill-after {kill_after} reached — saving and exiting")
+            if save_path:
+                _save_json(annotated, save_path)
+            break
 
     if save_path:
         _save_json(annotated, save_path)
