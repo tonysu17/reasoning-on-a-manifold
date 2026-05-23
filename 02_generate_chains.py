@@ -55,8 +55,8 @@ def main():
                         help="Model size (default: 1.5b)")
     parser.add_argument("--tasks", default="data/tasks.json",
                         help="Input tasks file (default: data/tasks.json)")
-    parser.add_argument("--max-tokens", type=int, default=2048,
-                        help="Max new tokens per chain (default: 2048)")
+    parser.add_argument("--max-tokens", type=int, default=8192,
+                        help="Max new tokens per chain (default: 8192)")
     parser.add_argument("--4bit", action="store_true", dest="use_4bit",
                         help="Use 4-bit quantisation (for <8 GB VRAM)")
     parser.add_argument("--cache-dir", default=None,
