@@ -53,8 +53,8 @@ def main():
     parser = argparse.ArgumentParser(description="Phase 2: Chain generation")
     parser.add_argument("--model", choices=list(MODELS), default="1.5b",
                         help="Model size (default: 1.5b)")
-    parser.add_argument("--tasks", default="data/tasks.json",
-                        help="Input tasks file (default: data/tasks.json)")
+    parser.add_argument("--tasks", default="data/tasks_final.json",
+                        help="Input tasks file (default: data/tasks_final.json)")
     parser.add_argument("--max-tokens", type=int, default=8192,
                         help="Max new tokens per chain (default: 8192)")
     parser.add_argument("--4bit", action="store_true", dest="use_4bit",
@@ -67,8 +67,14 @@ def main():
 
     tasks_path = Path(args.tasks)
     if not tasks_path.exists():
-        logger.error(f"Tasks not found at {tasks_path}. Run 01_generate_tasks.py first.")
-        sys.exit(1)
+        # Fall back to legacy path for backward compatibility
+        fallback = Path("data/tasks.json")
+        if fallback.exists():
+            logger.warning(f"{tasks_path} not found — falling back to {fallback}")
+            tasks_path = fallback
+        else:
+            logger.error(f"Tasks not found at {tasks_path}. Run 04_cleanup_tasks.py first.")
+            sys.exit(1)
 
     tasks = load_tasks(tasks_path)
     if args.smoke:

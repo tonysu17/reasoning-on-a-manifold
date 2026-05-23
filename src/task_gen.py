@@ -58,6 +58,27 @@ Return a JSON array where every element has exactly these keys:
 
 Return ONLY the JSON array. No other text."""
 
+# Used when existing tasks / blocklist context is provided to prevent repetition.
+_USER_WITH_CONTEXT = """Generate {n} diverse, challenging reasoning tasks for the category: {category}.
+Description: {description}
+
+Requirements:
+- Each task requires at least 3–5 reasoning steps (not answerable in one sentence)
+- Self-contained (no external resources, links, or images needed)
+- Mix of moderate and hard difficulty
+- Do NOT include the answer, solution hints, or worked examples
+- CRITICALLY: Generate entirely new, original scenarios. Do NOT produce any variation, \
+rephrasing, or lightly disguised version of the following existing/blocked tasks:
+
+{context}
+
+Return a JSON array where every element has exactly these keys:
+  "id":         "{prefix}_{start:03d}", "{prefix}_{start1:03d}", ... (sequential from {start})
+  "prompt":     the full task text as a clear, complete question or problem statement
+  "difficulty": "moderate" or "hard"
+
+Return ONLY the JSON array. No other text."""
+
 
 def _proxy_call(
     messages: list[dict],
@@ -97,22 +118,35 @@ def _call_api(
     n: int,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
+    context_summaries: Optional[list[str]] = None,
 ) -> list[dict]:
-    prompt = _USER.format(
-        n=n,
-        category=category,
-        description=description,
-        prefix=prefix,
-        start=start,
-        start1=start + 1,
-    )
+    if context_summaries:
+        context_str = "\n".join(f"- {s}" for s in context_summaries)
+        prompt = _USER_WITH_CONTEXT.format(
+            n=n,
+            category=category,
+            description=description,
+            context=context_str,
+            prefix=prefix,
+            start=start,
+            start1=start + 1,
+        )
+    else:
+        prompt = _USER.format(
+            n=n,
+            category=category,
+            description=description,
+            prefix=prefix,
+            start=start,
+            start1=start + 1,
+        )
     for attempt in range(3):
         try:
             text = _proxy_call(
                 messages=[
                     {"role": "user", "content": _SYSTEM + "\n\n" + prompt},
                 ],
-                max_tokens=1024,
+                max_tokens=2048,  # increased from 1024 to avoid truncation
                 proxy_url=proxy_url,
                 proxy_key=proxy_key,
             )
@@ -169,8 +203,12 @@ def generate_tasks(
         for b in range(n_batches):
             start = b * batch_size
             n_this = min(batch_size, n_per_category - start)
+            # Pass tasks already generated in this category as context so the
+            # model does not repeat the same classic problems across batches.
+            context = [t["prompt"][:120] for t in cat_tasks] if cat_tasks else None
             batch = _call_api(cat_name, cat_desc, prefix, start, n_this,
-                              proxy_url, proxy_key)
+                              proxy_url, proxy_key,
+                              context_summaries=context)
             cat_tasks.extend(batch)
             time.sleep(0.5)
 
