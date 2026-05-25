@@ -108,7 +108,11 @@ def main():
             from src.annotation import annotate_chains
             ann_path = eval_dir / "annotated_steered.json"
             logger.info("Re-annotating steered outputs …")
-            annotated = annotate_chains(results, save_path=ann_path)
+            annotated = annotate_chains(
+                results,
+                save_path=ann_path,
+                dedup_keys=("task_id", "behaviour", "method", "alpha"),
+            )
             summary = aggregate_results(results, annotated)
             save_summary(summary, eval_dir / "eval_summary.json")
             print_summary_table(summary)

@@ -159,9 +159,12 @@ def run_steering_experiment(
         for alpha in alpha_values:
             methods = [("vanilla", None)]
             if alpha > 0:
+                # vecs["manifold_projected"] is keyed by k values 1, 3, 5, 10
+                # and the literal string "auto" (= projection at auto_k).
+                # We use the "auto" variant as our canonical manifold method.
                 methods += [
                     ("single_direction", vecs["single_direction"]),
-                    ("manifold_projected", vecs["manifold_projected"][auto_k]),
+                    ("manifold_projected", vecs["manifold_projected"]["auto"]),
                 ]
 
             for method_name, vec in methods:

@@ -361,7 +361,13 @@ def main():
     def _make_serializable(obj):
         if isinstance(obj, Path):
             return str(obj)
-        raise TypeError
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        if isinstance(obj, (np.integer, np.floating, np.bool_)):
+            return obj.item()
+        if isinstance(obj, (set, frozenset, tuple)):
+            return list(obj)
+        raise TypeError(f"Not JSON serialisable: {type(obj).__name__}")
 
     json_path.write_text(json.dumps(payload, indent=2, default=_make_serializable))
 

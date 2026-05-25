@@ -60,8 +60,14 @@ def cosine(u: np.ndarray, v: np.ndarray) -> float:
     return float(np.dot(u, v) / (nu * nv))
 
 
-def load_steering_vector(steer_dir: Path, behaviour: str, layer: int) -> np.ndarray:
-    p = steer_dir / f"{behaviour}_layer{layer}.npy"
+def load_steering_vector(steer_dir: Path, behaviour: str, layer: int,
+                          variant: str = "manifold_kauto") -> np.ndarray:
+    """Load one steering vector per behaviour. Filenames follow
+    src.steering.save_steering_vectors: {beh}_single.npy and
+    {beh}_manifold_k{k}.npy where k is one of the configured k_values
+    (1,3,5,10,"auto"). The `layer` arg is accepted for API compatibility
+    but unused — Phase 6 saves one vector per behaviour, not per layer."""
+    p = steer_dir / f"{behaviour}_{variant}.npy"
     if not p.exists():
         raise FileNotFoundError(f"Steering vector missing: {p}")
     return np.load(p)
@@ -135,6 +141,10 @@ def main():
     parser.add_argument("--behaviours", nargs="+", default=TARGET_BEHAVIOURS)
     parser.add_argument("--pca-topk", type=int, default=50)
     parser.add_argument("--tangent-dim", type=int, default=10)
+    parser.add_argument("--variant", default="manifold_kauto",
+                        help="Which steering vector variant to compose. One of: "
+                             "single, manifold_k1, manifold_k3, manifold_k5, "
+                             "manifold_k10, manifold_kauto (default).")
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args()
 
@@ -157,7 +167,7 @@ def main():
     activations = {}
     for b in args.behaviours:
         try:
-            vectors[b]      = load_steering_vector(steer_dir, b, args.layer)
+            vectors[b]      = load_steering_vector(steer_dir, b, args.layer, variant=args.variant)
             activations[b]  = load_activations(act_dir, b, args.layer)
             logger.info(f"Loaded {b}: ||v||={np.linalg.norm(vectors[b]):.4f}, N_act={activations[b].shape[0]}")
         except FileNotFoundError as e:

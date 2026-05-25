@@ -375,6 +375,7 @@ def annotate_chains(
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
     kill_after: Optional[int] = None,
+    dedup_keys: tuple = ("task_id",),
 ) -> list[dict]:
     """
     Annotate all chains sequentially with checkpointing.
@@ -383,8 +384,14 @@ def annotate_chains(
     complete all its chunks (annotation_complete=False).
 
     Args:
-        kill_after: if set, exit after annotating this many NEW chains.
-                    Used for resume-logic smoke tests.
+        kill_after:  if set, exit after annotating this many NEW chains.
+                     Used for resume-logic smoke tests.
+        dedup_keys:  tuple of dict-keys that identifies a chain for resume.
+                     Default ("task_id",) is correct for Phase 3 where each
+                     task has one chain. For Phase 7 — which generates many
+                     steered chains per task_id (one per behaviour, method,
+                     alpha) — pass ("task_id", "behaviour", "method", "alpha")
+                     so each steered variant is annotated separately.
 
     Returns list of dicts: original chain fields + "annotations" +
     "annotation_complete" (True iff all chunks succeeded).
@@ -413,7 +420,9 @@ def annotate_chains(
 
     # Only skip chains that are fully complete.
     # Partial chains (some chunks failed) must be retried.
-    done_ids = {a["task_id"] for a in annotated if _is_complete(a)}
+    def _chain_key(c: dict) -> tuple:
+        return tuple(c[k] for k in dedup_keys)
+    done_ids = {_chain_key(a) for a in annotated if _is_complete(a)}
 
     # Remove partial-completion records so they will be re-processed.
     annotated = [a for a in annotated if _is_complete(a)]
@@ -422,7 +431,7 @@ def annotate_chains(
     new_count = 0
     for chain in tqdm(chains, initial=len(done_ids), total=len(chains),
                       desc="Annotating chains"):
-        if chain["task_id"] in done_ids:
+        if _chain_key(chain) in done_ids:
             continue
 
         anns, complete = annotate_chain(

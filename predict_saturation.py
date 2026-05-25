@@ -191,8 +191,12 @@ def load_phase5b_diagnostics(diag_path: Path) -> dict:
         return json.load(f)
 
 
-def load_steering_vector(steering_dir: Path, behaviour: str, layer: int) -> np.ndarray:
-    p = steering_dir / f"{behaviour}_layer{layer}.npy"
+def load_steering_vector(steering_dir: Path, behaviour: str, layer: int,
+                          variant: str = "single") -> np.ndarray:
+    """Phase 6 saves steering vectors as {behaviour}_{variant}.npy.
+    For saturation prediction we want the single-direction (Venhoff DOM)
+    vector, since alpha* is derived for that vector specifically."""
+    p = steering_dir / f"{behaviour}_{variant}.npy"
     if not p.exists():
         raise FileNotFoundError(f"Steering vector missing: {p}")
     return np.load(p)
@@ -222,6 +226,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--model-short", default="R1-1.5B")
     parser.add_argument("--layer", type=int, default=27)
+    parser.add_argument("--variant", default="single",
+                        help="Steering vector variant to use (default: single).")
     parser.add_argument("--tangent-dim", type=int, default=10,
                         help="Local tangent-bundle dim for projecting v_b. Default 10 (matches power_analysis m).")
     parser.add_argument("--curvature-diagnostic", default="tangent_space_variation_deg",
@@ -262,7 +268,7 @@ def main():
 
         # 2) load steering vector and activations
         try:
-            v = load_steering_vector(steer_dir, b, args.layer)
+            v = load_steering_vector(steer_dir, b, args.layer, variant=args.variant)
         except FileNotFoundError as e:
             logger.warning(f"  {e}; skipping {b}")
             predictions[b] = {"alpha_star_pred": float("nan"),
