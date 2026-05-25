@@ -37,12 +37,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-TARGET_BEHAVIOURS = [
-    "BACKTRACKING",
-    "UNCERTAINTY_ESTIMATION",
-    "EXAMPLE_TESTING",
-    "KNOWLEDGE_AUGMENTATION",
-]
+from src.annotation import TARGET_BEHAVIOURS
 
 # Huang et al.'s recommended steering layers
 STEERING_LAYERS = {"R1-1.5B": 27, "R1-7B": 27, "R1-8B": 31}
@@ -68,7 +63,13 @@ def main():
 
     # Discover available layers from filenames
     if args.layers is None:
-        npy_files = list(act_dir.glob("backtracking_layer*.npy"))
+        # Pick the first behaviour that has any extractions, so layer discovery
+         # doesn't depend on backtracking specifically being non-empty.
+        npy_files = []
+        for beh in TARGET_BEHAVIOURS:
+            npy_files = list(act_dir.glob(f"{beh}_layer*.npy"))
+            if npy_files:
+                break
         layers = sorted(int(p.stem.split("layer")[1]) for p in npy_files)
         if not layers:
             logger.error("No activation files found.")

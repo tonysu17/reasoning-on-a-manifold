@@ -28,14 +28,9 @@ from typing import Optional
 import numpy as np
 from sklearn.decomposition import PCA
 
-logger = logging.getLogger(__name__)
+from src.annotation import TARGET_BEHAVIOURS
 
-TARGET_BEHAVIOURS = [
-    "BACKTRACKING",
-    "UNCERTAINTY_ESTIMATION",
-    "EXAMPLE_TESTING",
-    "KNOWLEDGE_AUGMENTATION",
-]
+logger = logging.getLogger(__name__)
 
 
 # ── Core vector operations ────────────────────────────────────────────────────
@@ -156,7 +151,7 @@ def build_steering_vectors(
     # Load all activation matrices for this layer upfront
     all_acts: dict[str, np.ndarray] = {}
     for beh in behaviours:
-        path = activations_dir / f"{beh.lower()}_layer{layer}.npy"
+        path = activations_dir / f"{beh}_layer{layer}.npy"
         if not path.exists():
             logger.warning(f"Missing: {path}")
             continue
@@ -205,10 +200,9 @@ def save_steering_vectors(vectors: dict, save_dir: Path) -> None:
 
     metadata = {}
     for beh, data in vectors.items():
-        b = beh.lower()
-        np.save(save_dir / f"{b}_single.npy", data["single_direction"])
+        np.save(save_dir / f"{beh}_single.npy", data["single_direction"])
         for k, vec in data["manifold_projected"].items():
-            np.save(save_dir / f"{b}_manifold_k{k}.npy", vec)
+            np.save(save_dir / f"{beh}_manifold_k{k}.npy", vec)
         metadata[beh] = {
             "layer": data["layer"],
             "n_on": data["n_on"],
@@ -229,12 +223,11 @@ def load_steering_vectors(save_dir: Path) -> dict:
 
     vectors = {}
     for beh, meta in metadata.items():
-        b = beh.lower()
         vectors[beh] = {
             "layer": meta["layer"],
-            "single_direction": np.load(save_dir / f"{b}_single.npy"),
+            "single_direction": np.load(save_dir / f"{beh}_single.npy"),
             "manifold_projected": {
-                k: np.load(save_dir / f"{b}_manifold_k{k}.npy")
+                k: np.load(save_dir / f"{beh}_manifold_k{k}.npy")
                 for k in meta["k_values"]
             },
             "n_on": meta["n_on"],

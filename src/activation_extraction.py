@@ -28,14 +28,9 @@ from typing import Optional
 import numpy as np
 from tqdm import tqdm
 
-logger = logging.getLogger(__name__)
+from src.annotation import TARGET_BEHAVIOURS
 
-TARGET_BEHAVIOURS = [
-    "BACKTRACKING",
-    "UNCERTAINTY_ESTIMATION",
-    "EXAMPLE_TESTING",
-    "KNOWLEDGE_AUGMENTATION",
-]
+logger = logging.getLogger(__name__)
 
 
 # ── Token-position mapping ────────────────────────────────────────────────────
@@ -161,12 +156,12 @@ def extract_activations(
                 model(**inputs)
 
             for ann in annotations:
-                cat = ann["category"].upper()
+                cat = ann["label"]
                 if cat not in behaviours:
                     continue
 
                 # Find sentence position in chain_text
-                sent_offset = _find_sentence_offset(chain_text, ann.get("sentence", ""))
+                sent_offset = _find_sentence_offset(chain_text, ann["text"])
                 if sent_offset is None:
                     n_skipped[cat] += 1
                     continue
@@ -200,7 +195,7 @@ def extract_activations(
             vecs = acc[beh][layer_idx]
             if vecs:
                 mat = np.stack(vecs)  # (N, hidden_dim)
-                np.save(save_dir / f"{beh.lower()}_layer{layer_idx}.npy", mat)
+                np.save(save_dir / f"{beh}_layer{layer_idx}.npy", mat)
                 results[beh][layer_idx] = mat
             else:
                 logger.warning(f"    Layer {layer_idx}: no vectors!")
@@ -223,7 +218,7 @@ def load_activations(
     behaviour: str,
     layer: int,
 ) -> np.ndarray:
-    path = Path(save_dir) / f"{behaviour.lower()}_layer{layer}.npy"
+    path = Path(save_dir) / f"{behaviour}_layer{layer}.npy"
     return np.load(path)
 
 
@@ -251,7 +246,7 @@ def load_all_activations(
     for beh in behaviours:
         results[beh] = {}
         for layer in layers:
-            path = save_dir / f"{beh.lower()}_layer{layer}.npy"
+            path = save_dir / f"{beh}_layer{layer}.npy"
             if path.exists():
                 results[beh][layer] = np.load(path)
     return results

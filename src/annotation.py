@@ -33,9 +33,9 @@ import requests
 
 # Token threshold above which chunking is applied
 # 29s API Gateway hard limit @ ~80 tok/s output = ~2300 tokens max per chunk
-CHUNK_THRESHOLD_TOKENS = 1800
-CHUNK_TARGET_TOKENS    = 1500
-CHUNK_OVERLAP_TOKENS   = 150
+CHUNK_THRESHOLD_TOKENS = 1200
+CHUNK_TARGET_TOKENS    = 1000
+CHUNK_OVERLAP_TOKENS   = 100
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +51,17 @@ VALID_LABELS = frozenset({
     "uncertainty-estimation",
     "backtracking",
 })
+
+# The 4 behaviours we care about (distinct to thinking models).
+# Single source of truth — imported by extraction/PCA/steering/eval/patching.
+# All downstream filenames are built as {behaviour}_layer{N}.npy with the
+# raw hyphenated lowercase name (no .lower() or transforms).
+TARGET_BEHAVIOURS = [
+    "backtracking",
+    "uncertainty-estimation",
+    "example-testing",
+    "adding-knowledge",
+]
 
 # Expected sentence fractions from Venhoff et al. Figure 2 (R1-Distill models).
 VENHOFF_FRACTIONS = {

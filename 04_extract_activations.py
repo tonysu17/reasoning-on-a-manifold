@@ -59,15 +59,24 @@ def main():
     save_dir = Path(f"data/activations/{short}")
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # Skip if already done
+    # Skip if already done — but only if every target behaviour got non-zero
+    # extractions, otherwise re-run (avoids silently accepting a partially
+    # botched extraction).
     meta_path = save_dir / "metadata.json"
     if meta_path.exists() and not args.smoke:
-        logger.info(f"Activations already present at {save_dir}")
         import json
         with open(meta_path) as f:
             meta = json.load(f)
-        logger.info(f"  Extracted: {meta.get('n_extracted', {})}")
-        return
+        n_ext = meta.get("n_extracted", {})
+        from src.annotation import TARGET_BEHAVIOURS
+        if all(n_ext.get(b, 0) > 0 for b in TARGET_BEHAVIOURS):
+            logger.info(f"Activations already present at {save_dir}")
+            logger.info(f"  Extracted: {n_ext}")
+            return
+        logger.warning(
+            f"metadata.json exists but some behaviours have 0 extractions: {n_ext}. "
+            f"Re-running extraction."
+        )
 
     annotated = load_annotated(annotated_path)
     if args.smoke:

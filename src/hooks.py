@@ -75,8 +75,12 @@ class ActivationCache:
 
     def _make_hook(self, idx: int):
         def _hook(module, input, output):
-            # output[0] is hidden states: (batch, seq_len, hidden_dim)
-            self._cache[idx] = output[0].detach().cpu().float()
+            # HF transformer blocks may return either a tuple
+            # (hidden_states, present_kv, ...) or just the hidden_states tensor
+            # depending on the version. Handle both — we want the full 3D
+            # (batch, seq_len, hidden_dim) tensor in the cache.
+            h = output[0] if isinstance(output, tuple) else output
+            self._cache[idx] = h.detach().cpu().float()
         return _hook
 
     def _register(self) -> None:

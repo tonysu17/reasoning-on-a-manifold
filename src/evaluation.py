@@ -27,7 +27,7 @@ def behaviour_fraction(annotated_chain: list[dict], target: str) -> float:
     """Fraction of sentences in *annotated_chain* classified as *target*."""
     if not annotated_chain:
         return 0.0
-    n_target = sum(1 for a in annotated_chain if a["category"] == target)
+    n_target = sum(1 for a in annotated_chain if a["label"] == target)
     return n_target / len(annotated_chain)
 
 
@@ -49,7 +49,7 @@ def aggregate_results(
           {behaviour: {method: {alpha: {"mean": float, "std": float, "n": int}}}}
     """
     if target_behaviours is None:
-        from src.activation_extraction import TARGET_BEHAVIOURS
+        from src.annotation import TARGET_BEHAVIOURS
         target_behaviours = TARGET_BEHAVIOURS
 
     # Index annotations by (task_id, behaviour, method, alpha)

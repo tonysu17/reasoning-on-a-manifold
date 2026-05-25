@@ -99,7 +99,7 @@ def analyse_at_layer(
     activations_dir = Path(activations_dir)
     results = {}
     for beh in behaviours:
-        path = activations_dir / f"{beh.lower()}_layer{layer}.npy"
+        path = activations_dir / f"{beh}_layer{layer}.npy"
         if not path.exists():
             logger.warning(f"Missing: {path}")
             continue
@@ -142,11 +142,10 @@ def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None)
         if "components" not in data:
             summary[beh] = data
             continue
-        b = beh.lower()
-        np.save(save_dir / f"{b}_components{suffix}.npy", data["components"])
-        np.save(save_dir / f"{b}_eigenvalues{suffix}.npy", data["eigenvalues"])
-        np.save(save_dir / f"{b}_cumvar{suffix}.npy", data["cumulative_variance"])
-        np.save(save_dir / f"{b}_mean{suffix}.npy", data["mean"])
+        np.save(save_dir / f"{beh}_components{suffix}.npy", data["components"])
+        np.save(save_dir / f"{beh}_eigenvalues{suffix}.npy", data["eigenvalues"])
+        np.save(save_dir / f"{beh}_cumvar{suffix}.npy", data["cumulative_variance"])
+        np.save(save_dir / f"{beh}_mean{suffix}.npy", data["mean"])
         summary[beh] = {
             k: (v.tolist() if isinstance(v, np.ndarray) else v)
             for k, v in data.items()
@@ -166,7 +165,7 @@ def load_pca_summary(save_dir: Path, layer: Optional[int] = None) -> dict:
 
 
 def load_pca_components(save_dir: Path, behaviour: str, layer: int) -> np.ndarray:
-    return np.load(Path(save_dir) / f"{behaviour.lower()}_components_layer{layer}.npy")
+    return np.load(Path(save_dir) / f"{behaviour}_components_layer{layer}.npy")
 
 
 # ── Reporting ─────────────────────────────────────────────────────────────────
