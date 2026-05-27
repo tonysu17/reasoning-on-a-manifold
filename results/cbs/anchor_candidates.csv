@@ -1,0 +1,400 @@
+task_id,sentence_idx,category,behaviour,task_domain_hint,context_3,sentence,tier_estimate
+MATH_076,18,mathematical_logic,deduction,,"Let me formalize this.
+Suppose k is expressed as a sum of distinct powers of 2: k = 2^{a_1} + 2^{a_2} + ... + 2^{a_m}.
+Now, consider k+1.","If the binary representation of k ends with a 0, then k+1 is just k with the last bit flipped to 1, which is still a sum of distinct powers of 2.",
+MATH_084,58,mathematical_logic,deduction,,"Let me consider a = √2. I need to find an irrational number b such that (√2)^b is rational. Let me set b = log_√2 (c), where c is rational. Then, (√2)^b = c. So, if I can find a rational number c such that log_√2 (c) is irrational, then b would be irrational.
+But log_√2 (c) is equal to 2 * log_2 (c). So, if c is a power of 2, then log_2 (c) is rational, so log_√2 (c) is rational. But if c is not a power of 2, then log_2 (c) is irrational, so log_√2 (c) is irrational. Therefore, if I choose c to be an irrational power of 2, then b would be irrational.
+But c is supposed to be rational. So, if I choose c = 2^(k), where k is irrational, then log_2 (c) = k is irrational, so log_√2 (c) = 2k is irrational. Therefore, b = 2k is irrational.","So, if I set a = √2 and b = 2k, where k is irrational, then (√2)^b = (√2)^(2k) = (2^(1/2))^(2k) = 2^k.",
+MATH_009,5,mathematical_logic,deduction,,"First, the base case. I need to verify that the statement holds true for the initial value(s) of n. Since the function is defined for all natural numbers starting from 0, but the problem specifies n ≥ 1, I should check n = 1 and n = 2.
+Wait, let me make sure.
+The function is defined as f(0) = 1, f(1) = 1, and for n ≥ 2, f(n) = f(n-1) + f(n-2).","So, for n = 1, f(1) = 1, and 2^1 = 2. So, 1 < 2, which is true. For n = 2, f(2) = f(1) + f(0) = 1 + 1 = 2, and 2^2 = 4. So, 2 < 4, which is also true. So, the base cases hold.",
+MATH_048,2,mathematical_logic,adding-knowledge,,"Okay, so I have this function f: ℕ → ℕ, and it's defined with three properties. I need to prove that f(n) is equal to the number of 1's in the binary representation of n. Hmm, interesting. Let me try to break this down step by step.
+First, let me make sure I understand the function f. It's defined recursively, right? So, f(1) is 1. Then, for any n ≥ 1, f(2n) is equal to f(n). And for any n ≥ 1, f(2n+1) is equal to f(2n) + 1. So, essentially, f(n) depends on whether n is even or odd. If it's even, it's the same as f(n/2). If it's odd, it's one more than f(n/2).","Wait, so this function f(n) is somehow counting something related to the binary digits of n. The problem says it's supposed to be the number of 1's in the binary representation.",
+MATH_091,1,mathematical_logic,adding-knowledge,,"Okay, so I have this problem where I need to express the statement ""There exists exactly one even prime number"" using logical quantifiers and predicates. Then, I have to use the formal definition of prime numbers to check if this statement is true or false. Hmm, let me break this down step by step.
+
+First, let's understand the predicates given: P(x) is ""x is prime"" and E(x) is ""x is even."" The domain is all positive integers. So, I need to translate the statement into logical terms. The statement is about the existence of exactly one even prime number.","I know that ""there exists exactly one"" is a bit tricky because it involves both existence and uniqueness. In logic, to express ""there exists exactly one x such that P(x) is true,"" we can use the existential quantifier combined with a uniqueness quantifier. The standard way to write this is ∃x (P(x) ∧ ∀y (P(y) → y = x)).",
+MATH_084,67,mathematical_logic,adding-knowledge,,"It's 2 raised to an irrational power, which is usually irrational.
+Wait, maybe I can use the fact that if I have a = √2 and b = log_√2 (2), which is 2, but that's rational. So that doesn't help.
+Hmm, maybe I need to think about this differently.","Let me recall that for any irrational number a, if I can find another irrational number b such that a^b is rational, then I'm done.",
+SPAT_096,74,spatial_reasoning,deduction,,"Wait, perhaps I should model the entire movement using vectors step by step.
+First movement: 4 meters north. Starting at (0,0), moving north 4 meters is (0,4).
+
+Second movement: 3 meters east. From (0,4), moving east 3 meters is (3,4).
+
+Third movement: 5 meters in the direction of 135 degrees from east. So, the direction vector is (cos(135°), sin(135°)) = (-√2/2, √2/2). So, displacement is 5*(-√2/2, √2/2) = (-5√2/2, 5√2/2). So, adding that to (3,4) gives (3 - 5√2/2, 4 + 5√2/2).
+
+So, the final position is (3 - 5√2/2, 4 + 5√2/2). Let me compute that numerically.
+
+√2 ≈ 1.41421356, so 5√2 ≈ 7.0710678, so 5√2/2 ≈ 3.5355339. So, x = 3 - 3.5355339 ≈ -0.5355339, and y = 4 + 3.5355339 ≈ 7.5355339. So, the final position is approximately (-0.5355, 7.5355).
+Wait, but that's conflicting with the initial approach of (3, -1). So, which one is correct?","I think the vector approach is more accurate because it's based on the direction of movement after each turn, which is determined by the angles given.",
+SPAT_074,10,spatial_reasoning,deduction,,"Let me try to sketch this out mentally.
+If I fix the starting corner, say at the origin (0,0,0), then the diagonally opposite corner would be at (6,8,10). But since the ant is restricted to the surface, it can't go through the interior, so it has to move along the surfaces.
+To find the shortest path, I need to find the shortest distance on the surface, which can be found by unfolding the box into a plane and then measuring the straight line between the two points.","So, let's consider different ways to unfold the box. Each unfolding will result in a different rectangle, and the distance will be the hypotenuse of a right triangle whose sides are the sum of two dimensions.",
+SPAT_108,197,spatial_reasoning,deduction,,"The beam will return to its starting point when it has traveled a distance that is a multiple of both the horizontal and vertical periods.
+The horizontal period is 16 cm, and the vertical period is 15 cm.
+Therefore, the beam will return to its starting point after traveling a distance that is a multiple of both 16 and 15, which is the LCM of 16 and 15, which is 240 cm.","Therefore, the beam will return to its starting point after traveling 240 cm.",
+SPAT_087,15,spatial_reasoning,adding-knowledge,,"Let me just double-check my calculations to make sure I didn't make a mistake.
+For D to A: sqrt(20^2 + 15^2) = sqrt(400 + 225) = sqrt(625) = 25. Correct.
+
+For D to B: sqrt(20^2 + (15 - 30)^2) = sqrt(400 + 225) = sqrt(625) = 25. Correct.
+
+For D to C: sqrt((20 - 40)^2 + 15^2) = sqrt(400 + 225) = sqrt(625) = 25. Correct.
+So, all distances are indeed 25 km.","That makes sense because D is the circumcenter of triangle ABC, which is an equilateral triangle? Wait, no, triangle ABC isn't equilateral. Let me see.
+
+Wait, triangle ABC has points A(0,0), B(0,30), and C(40,0). So, sides AB is 30 km, AC is 40 km, and BC is sqrt((40)^2 + (30)^2) = 50 km. So, triangle ABC is a right-angled triangle at A, with sides 30, 40, 50.
+
+So, the circumradius of a right-angled triangle is half the hypotenuse. The hypotenuse is BC, which is 50 km, so the circumradius is 25 km. That explains why the distance from D to each of A, B, and C is 25 km. So, that's consistent.",
+SPAT_055,1,spatial_reasoning,adding-knowledge,,"Okay, so I have this problem where a cube is painted red on all six faces and then cut into 64 smaller cubes of equal size. I need to figure out how many of these smaller cubes have paint on exactly two faces. Hmm, let me think about how to approach this.","First, I know that when you paint a cube and then cut it into smaller cubes, the smaller cubes can have 0, 1, 2, or 3 painted faces depending on their position in the larger cube. The ones with 3 painted faces are the ones at the corners, right? Since each corner cube has three faces exposed. Then, the ones with 2 painted faces are along the edges but not at the corners. Finally, the ones with 1 painted face are on the faces but not on any edge, and the ones with no painted faces are inside the cube, completely surrounded by other cubes.",
+SPAT_110,46,spatial_reasoning,adding-knowledge,,"But the center of the bottom face is not a vertex, so the ant can't reach it directly. Therefore, perhaps the ant needs to move to a vertex that is adjacent to the center of the bottom face.
+Wait, maybe I'm overcomplicating this. Let me think differently.
+Since the ant is moving along edges, it can only reach vertices. So, the ant needs to reach a vertex that is adjacent to the center of the bottom face. But the center of the bottom face is not a vertex, so the ant can't reach it directly. Therefore, perhaps the ant needs to move to a vertex that is adjacent to the center of the bottom face.","But in a regular dodecahedron, each vertex is connected to three edges, and each edge is connected to two vertices.",
+VERB_013,2,verbal_logic,adding-knowledge,,"Alright, let me try to figure out this logic problem. So, we have four statements about a group of students, and we also know that Maria plays chess and Tom is in the debate club. We need to determine what we can, cannot, or maybe conclude about three things: whether Maria is eligible for the honors program, whether Tom plays a musical instrument, and whether Tom plays chess. Each of these has to do with different categories: chess players, musical instruments, debate club members, and honors program eligibility.
+
+First, let me list out the four statements again to make sure I have them all:
+
+1. Every student who plays chess also plays at least one musical instrument.
+2. Some students who play musical instruments are in the debate club.
+3. No student in the debate club has failed mathematics.
+4. All students who have not failed mathematics are eligible for the honors program.
+
+And we know that Maria plays chess and Tom is in the debate club.
+
+Okay, so let's break this down step by step","Statement 2: Some students who play musical instruments are in the debate club. So, there exists at least one student who both plays a musical instrument and is in the debate club. But we don't know who exactly, just that some overlap exists.
+
+Statement 3: No student in the debate club has failed mathematics. So, any student in the debate club is either passing or failing, but this statement specifically says that no debate club member has failed mathematics. So, all debate club members are passing mathematics.
+
+Statement 4: All students who have not failed mathematics are eligible for the honors program. So, if someone hasn't failed math, they're eligible for honors. That means everyone who is passing math is eligible for honors.",
+VERB_033,1,verbal_logic,adding-knowledge,,"Okay, so I need to analyze this syllogism to see if it's logically valid. The argument is:
+
+All effective leaders inspire trust. Some effective leaders are introverts. Therefore, some people who inspire trust are introverts.
+
+Hmm, let me break this down. It's a syllogism with two premises and a conclusion. The first premise is a universal statement: all effective leaders inspire trust. The second premise is a particular statement: some effective leaders are introverts. The conclusion is an existential statement: some people who inspire trust are introverts.","I remember that syllogisms can be valid or invalid based on whether the conclusion necessarily follows from the premises. So, I need to check if the conclusion is a logical consequence of the premises.
+
+First, let's recall the structure of a syllogism. It has a major premise, a minor premise, and a conclusion. The major premise is a general statement, the minor premise is a specific statement, and the conclusion is what we're trying to reach.",
+VERB_096,1,verbal_logic,adding-knowledge,,"Alright, so I've got this analogy chain to complete: DROUGHT is to FAMINE as INFLATION is to _____ as _____ is to EXTINCTION as NEGLIGENCE is to _____. Each part needs to follow the same pattern, and I need to figure out what that pattern is. Let me break this down step by step.","First, I'll look at the first part: DROUGHT to FAMINE. I know that droughts are periods of dryness, and famine is a severe lack of food and resources.",
+VERB_007,166,verbal_logic,deduction,,"Wait, but in that case, the guilty person is G, and Witness C is lying.
+Wait, so the only valid scenario is when G is guilty, B is innocent, and C is innocent, with Witness C lying.
+Wait, if G is guilty, then Witness C's statement is false, so Witness C is lying. So, that's consistent.","Wait, if G is guilty, then Witness C's statement is ""The gardener is innocent, and if the butler is innocent, then the chef is guilty."" Since G is guilty, ¬G is true, so the first part of the statement is false, making the entire statement false. So, Witness C is lying.",
+VERB_071,128,verbal_logic,deduction,,"I think the pattern is that the first term is the entity, and the second term is the result.
+So, in the first case, Caterpillar (arachnoid) becomes Butterfly (winged).
+So, the first term is the entity, the second term is the result.","In the case of 'Cocoon is to Moth,' the first term is a cocoon, which is a sprout, and the second term is a moth, which is an insect.",
+VERB_097,80,verbal_logic,deduction,,"Wait, but in both cases, only one person is guilty. So, both are possible. But the problem is asking to determine who committed the theft, implying a unique answer. So, perhaps I need to consider that both M and C guilty is not allowed, but in reality, both are allowed because Witness B's statement is true in both cases.
+Wait, but if both M and C guilty, then Witness B's statement is false, which is not allowed. So, both M and C guilty is invalid. So, only one of them can be guilty.
+
+Therefore, the possible scenarios are:
+
+1. M guilty, B and C innocent.
+2. C guilty, B and M innocent.
+But the problem says exactly one person is guilty, so both are possible. But the problem is asking to determine who committed the theft, so perhaps both are possible, but the problem expects a unique answer. So, maybe I need to check if both are possible or if one is invalid.","Wait, let's think about the implications.
+
+If M is guilty, then Witness B's statement is true because (C ∨ M) is true and ¬(C ∧ M) is true (since C is innocent). So, that works.
+
+If C is guilty, then Witness B's statement is true because (C ∨ M) is true and ¬(C ∧ M) is true (since M is innocent). So, that works.
+
+But if both M and C guilty, then Witness B's statement is false, which is not allowed.",
+PATT_042,108,pattern_recognition,deduction,,"in Row 1, third element is ○, but in Row 6, fourth element is the same as Row 1's third element, which is ○.
+in Row 1, third element is ○, but in Row 6, fourth element is the same as Row 1's third element, which is ○.
+in Row 1, third element is ○, but in Row 6, fourth element is the same as Row 1's third element, which is ○.","in Row 1, third element is ○, but in Row 6, fourth element is the same as Row 1's third element, which is ○.",
+PATT_097,8,pattern_recognition,deduction,,"If each row's differences are increasing by 1, then Row 4 should have differences of 5, 6, 7, so the next number is 18 + 7 = 25. That seems consistent.
+But let me check if there's another pattern, maybe in the columns as well. Sometimes matrices have patterns that are consistent across rows and columns.
+Looking at the columns:
+
+Column 1: 1, 2, 4, 7  
+Differences: 1 to 2 is +1, 2 to 4 is +2, 4 to 7 is +3. So, differences are 1, 2, 3. That's an incrementing pattern.
+
+Column 2: 3, 5, 8, 12  
+Differences: 3 to 5 is +2, 5 to 8 is +3, 8 to 12 is +4. So, differences are 2, 3, 4. Again, incrementing by 1.
+
+Column 3: 6, 9, 13, 18  
+Differences: 6 to 9 is +3, 9 to 13 is +4, 13 to 18 is +5. So, differences are 3, 4, 5. Incrementing by 1.
+
+Column 4: 10, 14, 19, ?  
+Differences: 10 to 14 is +4, 14 to 19 is +5, so the next difference should be +6. Therefore, the missing number is 19 + 6 = 25.","Okay, so both the rows and columns are following their own incremental patterns. Each row's differences increase by 1, and each column's differences also increase by 1. So, the missing number in Row 4 is 25, and the next number in Row 5 would follow the same pattern.",
+PATT_106,66,pattern_recognition,deduction,,"So transformed word is C, T, H, E, I → CTHEI, but the example says BREAD → DTGCF.
+So:
+
+- B is 1, shifted by 1: 1 + 1 = 2 → C
+- R is 17, shifted by 2: 17 + 2 = 19 → T
+- E is 4, shifted by 3: 4 + 3 = 7 → G
+- A is 0, shifted by 4: 0 + 4 = 4 → E
+- D is 3, shifted by 5: 3 + 5 = 8 → H
+
+So transformed word is C, T, G, E, H → CTGEH, but the example says BREAD → DTGCF.
+Wait, maybe the shift is adding the position number to the letter's position, but starting from A=1.","So:
+
+- B is 2, shifted by 1: 2 + 1 = 3 → C
+- R is 18, shifted by 2: 18 + 2 = 20 → T
+- E is 5, shifted by 3: 5 + 3 = 8 → H
+- A is 1, shifted by 4: 1 + 4 = 5 → E
+- D is 4, shifted by 5: 4 + 5 = 9 → I
+
+So transformed word is C, T, H, E, I → CTHEI, but the example says BREAD → DTGCF.",
+PATT_031,46,pattern_recognition,adding-knowledge,,"Wait, that's not matching. Maybe I'm not seeing it.
+Alternatively, maybe the starting letters are following the Greek letters in reverse order, but not necessarily the entire reverse. Let me think differently.
+Wait, maybe the starting letters are following the Greek letters in reverse order, but not necessarily the entire reverse. Let me see:
+
+If I take the starting letters D, G, S, O, T and reverse them, I get T, O, S, G, D.","Looking at the reverse order of the Greek alphabet, which is Z, Y, X, W, V, U, T, S, R, Q, P, O, N, M, L, K, J, I, H, G, F, E, D, C, B, A.",
+PATT_060,3,pattern_recognition,adding-knowledge,,"Okay, so I have this sequence here: 2, 6, 12, 20, 30, 42, 56, 72, 90. I need to figure out the pattern and then find the next three terms, as well as a general formula for the nth term. Hmm, let me start by looking at the differences between consecutive terms. That often helps in identifying patterns.
+First, let me list out the terms and their differences:
+
+Term 1: 2  
+Term 2: 6  
+Term 3: 12  
+Term 4: 20  
+Term 5: 30  
+Term 6: 42  
+Term 7: 56  
+Term 8: 72  
+Term 9: 90
+
+Now, let's compute the differences between each term:
+
+6 - 2 = 4  
+12 - 6 = 6  
+20 - 12 = 8  
+30 - 20 = 10  
+42 - 30 = 12  
+56 - 42 = 14  
+72 - 56 = 16  
+90 - 72 = 18
+
+So, the differences are: 4, 6, 8, 10, 12, 14, 16, 18.
+Looking at these differences, they seem to be increasing by 2 each time. That suggests that the original sequence is a quadratic sequence because the second differences are constant.","In a quadratic sequence, the nth term can be expressed as a quadratic function of n, like an² + bn + c.",
+PATT_018,100,pattern_recognition,adding-knowledge,,"Compute the first differences:
+
+10-3=7
+
+29-10=19
+
+66-29=37
+
+127-66=61
+
+Second differences:
+
+19-7=12
+
+37-19=18
+
+61-37=24
+
+Third differences:
+
+18-12=6
+
+24-18=6
+
+So, third differences are 6,6. So, that's consistent with a cubic function.
+Wait, but earlier, when I tried to model it as a cubic function, I got f(n)=6n³ -30n² +55n -28, which didn't fit n=4. But when I tried f(n)=n³ +2, it fits all the given terms.
+Wait, so maybe I made a mistake in solving the cubic equations.
+
+Wait, let me try solving the cubic equations again.","Equation 1: b + c + d = -3
+
+Equation 2:4b + 2c + d = -38
+
+Equation 3:9b + 3c + d = -133
+
+Equation 4:16b + 4c + d = -318",
+CAUS_010,91,causal_reasoning,deduction,,"Alternatively, maybe the factory is using defective tools or machinery, which could cause defects even when the temperature is controlled.
+Wait, but the problem doesn't mention anything about workers' safety, so maybe that's not the case.
+Alternatively, maybe the factory is using defective materials, which are causing defects regardless of temperature.","Alternatively, maybe the factory is using defective tools or machinery, which could cause defects even when the temperature is controlled.",
+CAUS_097,1,causal_reasoning,deduction,,"Okay, so I'm trying to figure out whether the factory caused the 40% decrease in crop yields by March. The factory says their wastewater treatment is good, but the independent tests found higher levels of nitrogen in the river. They also mention that the region had slightly below-average rainfall that season. Hmm, I need to break this down step by step.","First, I should consider the temporal sequence. The factory started operations in January, and the yield decrease happened by March. So, the factory's actions happened before the yield decrease. That makes sense because if the factory was upstream, their actions would affect the downstream community. So, the factory's actions (wastewater treatment) should cause the yield decrease.",
+CAUS_054,44,causal_reasoning,deduction,,"So, maybe the effect on revenue is more direct because it's a result of bus frequency.
+So, bus frequency caused both ridership and revenue, but revenue is more directly caused because it's a result of bus frequency.
+Similarly, parking fees caused both decreased congestion and revenue, but revenue is more directly caused because it's a one-time increase.","So, in terms of individual effects:
+
+- Bike lanes caused increased bicycle commuting (40%), increased bus ridership (25%), and decreased traffic congestion (20%).",
+CAUS_042,4,causal_reasoning,adding-knowledge,,"First, I should think about possible reasons why the correlation might not be causal. Maybe there are other factors that influence both roses and break-ins.
+For example, maybe houses with gardens that have roses are more likely to have a certain type of crime, like theft, but not necessarily because of the roses themselves.
+Or perhaps the presence of roses affects the neighbors' behavior in some way that's not directly related to the roses.","I remember something about confounding variables. That's when a third variable affects both the treatment (planting roses) and the outcome (break-ins), making it hard to tell if the treatment caused the outcome.",
+CAUS_056,1,causal_reasoning,adding-knowledge,,"Okay, so I need to figure out why Wing A patients recover faster than Wing B. The user mentioned that both wings have the same treatment and similar health profiles, so the difference must be due to something else. Let me break down the details.
+
+Wing A has larger east-facing windows, morning sunlight, 5th floor, near the nurse's station, and newer furniture. Wing B has smaller west-facing windows, afternoon sunlight, 2nd floor, closer to the cafeteria, and older furniture.","First, I should consider the environment. Morning sunlight is usually better for recovery because it's brighter and provides more energy.",
+CAUS_007,23,causal_reasoning,adding-knowledge,,"Other factors are more likely to be influencing the observed increase.
+### Determining the Program's Actual Contribution
+
+To evaluate the program's actual contribution, consider the following metrics and steps:
+1. **Raw Injury Numbers:**
+   - Focus on the number of residents injured in the past year, excluding injuries from other causes like car accidents or falls.","2. **Additional Metrics:**
+   - **Bike-Sharing Users:** Track the number of residents using bikes, which can indicate bike-sharing activity.
+   - **Residential Building Population:** Examine the population of the area, as new buildings might attract residents who bike more.
+   - **Bike Rentals:** Monitor bike rental volumes to understand bike-sharing usage.
+   - **Injury Reporting:** Look at the number of injuries reported in the past year to compare with other factors.",
+PROB_057,48,probabilistic_thinking,adding-knowledge,,"Wait, in a geometric distribution, the probability of success on each trial is constant, but here, the probability changes because the composition of the bag changes as marbles are drawn.
+
+So, it's not a geometric distribution, but a negative hypergeometric distribution.
+
+I think the negative hypergeometric distribution models exactly this scenario: the number of failures before the first success in a sequence of draws without replacement.
+So, the expectation for the number of failures before the first success is given by:
+
+E = r * (K + 1) / (N + 1)
+Wait, no, that doesn't seem right. Let me check.","Wait, actually, the expectation for the number of failures before the first success in negative hypergeometric is:
+
+E = r * (K + 1) / (N + 1)
+
+But I'm not sure. Let me try to derive it.
+
+Alternatively, I can use the formula for expectation in negative hypergeometric distribution.
+
+The expectation is given by:
+
+E = r * (K + 1) / (N + 1)",
+PROB_078,37,probabilistic_thinking,adding-knowledge,,"But the question is phrased as, ""what is the probability the defective item came from Machine A versus Machine B?"" So, it's asking for the probability of A versus B, which is 4/13 vs 9/13.
+
+Alternatively, if it's asking for the ratio, it's 4:9.
+
+But in the problem statement, it's not specified, but in the context of probability questions, when it's asking for the probability of one versus another, it's often the ratio.
+
+But let me think again.
+Wait, in the problem statement, it's given that the defective item came from either A or B, but the records are unclear. So, the defective item is definitely from A or B, but we don't know which one. So, the probability that it came from A is 4/13, and from B is 9/13.
+
+Therefore, the ratio is 4:9.
+But the question is phrased as, ""what is the probability the defective item came from Machine A versus Machine B?"" So, it's asking for the probability of A versus B, which is 4/13 vs 9/13.
+
+Alternatively, if it's asking for the ratio, it's 4:9.
+
+But in ","Wait, in the problem statement, it's given that the defective item came from either A or B, but the records are unclear which one. So, the defective item is definitely from A or B, but we don't know which one.",
+PROB_052,50,probabilistic_thinking,adding-knowledge,,"Wait, actually,
+the probability that Bob wins on his second turn is the probability that the first three turns (Alice, Bob, Carol) all didn't result in a win, and then Bob wins on his second turn. So, that's (5/6)^3 * (5/6) * (1/6).
+the first three turns: Alice, Bob, Carol. Each has a 5/6 chance of not winning. Then, the fourth turn is Alice again, but Bob hasn't won yet.",Bob can only win on his own turns.,
+PROB_068,44,probabilistic_thinking,deduction,,"Wait, but the question is asking which option gives a higher probability, or are they equivalent.
+So, the answer is that they are equivalent, so the probability is 1/2.
+But in the final answer, I need to write it as \boxed{\frac{1}{2}}.
+
+Alternatively, maybe I can write that both options result in a 50% probability, so they are equivalent.
+
+But the problem says ""which option gives you a higher probability, or are they equivalent?""","So, the answer is that they are equivalent, so the probability is 1/2.",
+PROB_072,2,probabilistic_thinking,deduction,,"First, I'll note the initial number of truly qualified candidates as 200 out of 1000 total candidates.
+**Round 1:**
+- **Elimination:** 40% of 1000 candidates are eliminated, which is 400 candidates.
+- **True Qualifications Eliminated:** 10% of 400 eliminated candidates are truly qualified, so 40 candidates are eliminated.
+- **Remaining True Qualifications:** 200 - 40 = 160.
+- **Candidates Remaining:** 1000 - 400 = 600.","**Round 2:**
+- **Elimination:** 40% of 600 candidates are eliminated, which is 240 candidates.
+- **True Qualifications Eliminated:** 10% of 240 eliminated candidates are truly qualified, so 24 candidates are eliminated.
+- **Remaining True Qualifications:** 160 - 24 = 136.
+- **Candidates Remaining:** 600 - 240 = 360.",
+PROB_105,50,probabilistic_thinking,deduction,,"Wait, 0.009 / 0.2785 is equal to 0.009 / 0.2785.
+
+Let me compute 0.009 divided by 0.2785.
+First, 0.2785 goes into 0.009 how many times?
+
+0.2785 * 0.032 = 0.008896
+
+Subtract that from 0.009: 0.009 - 0.008896 = 0.000104
+
+So, 0.009 / 0.2785 ≈ 0.032 + (0.000104 / 0.2785) ≈ 0.032 + 0.000373 ≈ 0.032373
+
+So, approximately 0.032373, which is about 3.2373%.
+
+So, approximately 3.24%.
+But when I thought of 9 / 2785, that's 0.00322, which is 0.322%, which is way off. So, that was a mistake.","Wait, 0.009 / 0.2785 is equal to 0.032373, which is approximately 3.24%.
+
+So, 3.24% is the correct probability.",
+SYST_021,21,systems_thinking,adding-knowledge,,"I'm not entirely sure about all the potential outcomes, but I think I have a basic understanding.
+I should organize these thoughts into layers, starting from short-term effects on productivity and team metrics, then moving to long-term impacts on project success and innovation, and finally considering how these might influence team morale and culture.
+I might be missing some nuances, like how personal projects could affect team dynamics or how feedback loops might influence each other.",Maybe I should look into studies or examples of similar policies and see how they've affected companies.,
+SYST_099,27,systems_thinking,adding-knowledge,,"- **Quality Control:** Invest in more robust quality control systems, maybe through automation or better data analytics.
+Also, have a quality control review process to ensure that any defects are addressed promptly.
+- **Sales:** Develop a quality guarantee program to ensure that defects are addressed before the product is sold.","Also, consider offering a refund or replacement policy for defective products.",
+SYST_067,1,systems_thinking,adding-knowledge,,"Okay, so I'm trying to figure out how a company that's using an agile development methodology might change when they introduce a new metric called defect rate. They noticed that their code quality is declining and technical debt is increasing, so they added this new metric. I need to analyze how this multi-metric system might evolve over time, considering various factors like developer incentives, gaming behaviors, trade-offs between metrics, team dynamics, product quality, and customer satisfaction. Also, I have to think about system archetypes like 'shifting the burden' or 'fixes that fail.'","First, I should understand what defect rate is. It's the number of defects found per story point in a sprint.",
+SYST_088,13,systems_thinking,deduction,,"- **Documentation Time**: This is a subsystem. The EHR automates some tasks, but if the tasks are too complex or if the system requires more input, it could take longer.
+Also, if the system is too rigid, it might slow down the workflow, making tasks seem more time-consuming.
+- **Nurse Satisfaction**: This is another subsystem. If the EHR is user-friendly, nurses might be satisfied. But if it's too complicated, they might feel frustrated.","Also, if the system introduces new features that are hard to manage, nurses might lose trust.",
+SYST_083,65,systems_thinking,deduction,,"That seems manageable, but maybe there's a pattern where patients arrive in waves, causing some bays to get overloaded.
+Wait, perhaps the bays are getting filled up, and then patients have to wait longer than they should.
+Maybe the bays are getting filled up too quickly, causing a backlog that's not being managed properly.","Also, maybe the treatment isn't being done in a way that's efficient. For example, if some treatments are longer than others, or if there's a mix of treatments that aren't being handled optimally, it could lead to overcrowding.",
+SYST_096,158,systems_thinking,deduction,,"but I'm not sure if that directly addresses the triage bottleneck.
+Alternatively, adding exam rooms could help if triage isn't the bottleneck.
+I'm not sure. I think I need to make a decision.","The bottleneck is likely triage, so the intervention that addresses it is improving triage.",
+CREA_033,169,creative_problem_solving,deduction,,"Alternatively, they could use the hotel's facilities to host the conference and then offer the attendees the option to join in-person if they prefer.
+Wait, maybe they can use the hotel's rooms for the conference and then offer the attendees the option to stay in the hotel for the duration.
+Another idea is to use the hotel's facilities to host the conference and then offer the attendees the option to join in-person if they prefer.","Alternatively, they could use the hotel's facilities to host the conference and then offer the attendees the option to join in-person if they prefer.",
+CREA_006,112,creative_problem_solving,deduction,,"Let me outline the core mechanics in more detail:
+
+- **Game Board**: A path with different sections, each requiring a certain number of resources to pass or complete.
+
+- **Game Pieces**: Buttons, beads, marbles, stones, and small objects.
+
+- **Resource Collection**: Players collect resources, which can be placed on the board or used to move.
+
+- **Trading Rules**: Players can trade resources with neighbors, with certain conditions (e.g., need at least two resources).
+- **Game Pieces**: Buttons, beads, marbles, stones, and small objects.
+
+- **Resource Collection**: Players collect resources, which can be placed on the board or used to move.
+
+- **Trading Rules**: Players can trade resources with neighbors, with certain conditions (e.g., need at least two resources).
+
+- **Win Condition**: Building a specific structure (e.g., a bridge or fort) requires enough resources.
+
+- **Time Limit**: The game must take exactly 30 minutes, so each turn must be timed to fit within this timeframe.
+
+- **Ed",The timing of these actions should be timed to keep the game moving towards the win condition.,
+CREA_087,148,creative_problem_solving,deduction,,"I should also consider the technology. Since it's a museum, maybe include some interactive elements like projections or simulations.
+For example, a projection of a medieval village with different scenes that change over time, or a simulation of a village day, where visitors can interact with different parts of it.
+I should also think about the flow of the exhibit. Maybe start with an introduction to the village, then move through each section, and end with a conclusion or a final activity. Each section can have a different focus, like history, culture, traditions, and environment.","I should also consider the materials. Since it's a museum, maybe use materials that are easy to handle, like wood, stone, metal, or fabric. Maybe include different textures, like stone, wood, metal, or fabric, to create different environments.",
+CREA_001,204,creative_problem_solving,adding-knowledge,,"I need to make sure the explanation is clear and not too long.
+They might not have enough time to think deeply, so I should keep it concise and to the point.
+I should also consider the cultural context.","Since their language doesn't have words for democracy, I need to explain it in a way that's understandable to them.",
+CREA_014,21,creative_problem_solving,adding-knowledge,,"Maybe the district can partner with local businesses to provide internet access or transportation.
+For example, offering free Wi-Fi in schools or partnering with local taxi services to provide rides.
+That could make it easier for students to get to school without driving.",I'm also thinking about the possibility of offering online tutoring or homework help services. This could be a cost-effective way to support students without needing physical classrooms.,
+CREA_066,218,creative_problem_solving,adding-knowledge,,"I also need to think about the community's perspective.
+They might be against culling, so I need to make sure that the strategy is feasible and that the solution is acceptable.
+Maybe I can involve them in the decision-making process, ensuring that the solution is feasible and that they're happy with the changes.",Long-term maintenance is important too.,
+SCIE_103,119,scientific_reasoning,deduction,,"Wait, maybe I should structure the experiments to test each hypothesis.
+For each hypothesis, I can design an experiment.
+
+Hypothesis 1: Old medium contains a nutrient that fresh medium lacks.
+
+Test: Can strain X grow in fresh medium without the old medium? If yes, then the old medium isn't necessary. If no, then it's necessary.
+
+Hypothesis 2: Old medium contains an inhibitor that fresh medium lacks.
+
+Test: Can strain X grow in fresh medium with different concentrations of the old medium? If a small amount is needed, then it's necessary. If not, then it's not necessary.
+
+Hypothesis 3: Old medium contains a component that fresh medium lacks, which the bacteria can't produce.
+
+Test: Can strain X grow in fresh medium with other bacterial species? If it can, then the old medium isn't necessary. If not, then it's necessary.
+
+Hypothesis 4: Old medium contains a component that fresh medium lacks, which the bacteria can't use because it's not present in sufficient quantity.
+
+Test: Can strain X ","If the old medium has a nutrient that the fresh medium lacks, then strain X can't grow without it. So, testing if it can grow without the old medium would show it's necessary.
+
+If the old medium has an inhibitor, then strain X can't grow without it. Testing with different concentrations would show if a small amount is needed.",
+SCIE_095,60,scientific_reasoning,deduction,,"Alternatively, maybe I can have each group have plants in both east and west windows, but each group is exposed to different light conditions in the morning and afternoon.
+Wait, perhaps I can have each group have plants in both east and west windows, but each group is exposed to different light conditions in the morning and afternoon.
+Alternatively, maybe I can have each group have plants in both east and west windows, but each group is exposed to different light conditions in the morning and afternoon.","Wait, perhaps I can have each group have plants in both east and west windows, but each group is exposed to different light conditions in the morning and afternoon.",
+SCIE_089,25,scientific_reasoning,deduction,,"If the rocks were formed in a region that's high up, maybe the folding caused the layers to be higher, but the actual elevation of the rock layers themselves hasn't changed. So the fossils are in a higher position in the rock layers, but the rock layers are still at the same elevation.
+Wait, but if the rock layers are folded, the top part is higher, but the layers themselves are still at the same elevation.
+So the top of the rock is higher, but the layers are still at the same elevation as they were before folding. That would mean the fossils are in a higher position in the rock layers, but the rock layers themselves haven't moved up in elevation.","I'm also considering the idea of the rock layers being compressed, which would make the top part higher, but the layers themselves are still at the same elevation. So the fossils are in a higher position in the rock layers, but the rock layers haven't moved up in elevation.",
+SCIE_001,3,scientific_reasoning,adding-knowledge,,"Okay, so I have this question about a pharmaceutical company testing a new drug on 1000 patients with chronic pain. After 8 weeks, 65% of the drug group reported reduced pain compared to 40% in the placebo group. But wait, 30% of the drug group dropped out due to side effects, while only 5% dropped out in the placebo group. The question is asking me to evaluate the strength of evidence for this drug's effectiveness, identify any biases that might be present, and then figure out what additional information I would need to determine if the drug should be approved.
+
+Alright, let me break this down step by step.
+First, I need to understand the data provided. There are two groups: the drug group and the placebo group. Each group had 1000 patients, right? So, 1000 patients in each group. 
+
+In the drug group, 65% reported reduced pain. That means 650 patients (since 65% of 1000 is 650) experienced reduced pain. In the placebo group, 40% reported reduced pain, which is 400 patients. So, the dr","To evaluate the strength of evidence, I should probably calculate the difference in pain reduction and then determine if that difference is statistically significant. I might need to use a hypothesis test, like a chi-square test or a z-test for proportions.",
+SCIE_091,67,scientific_reasoning,adding-knowledge,,"Wait, but the ecologist observed the same in both areas, so maybe the water is the main factor.
+I need to find variables that could explain the observation.
+Alternatively,",**soil composition** could vary.,
+SCIE_081,102,scientific_reasoning,adding-knowledge,,"In terms of bleaching percentage, Location A has the highest, so maybe it's more vulnerable. Location C is moderate, and Location B is the least affected. So, industrial pollution is the main cause for A, but less so for B and C.
+I think I need to consider the extent of coral bleaching. Location A has the highest percentage, so maybe it's more vulnerable to bleaching. Location C is moderate, and Location B is the least affected. So, industrial pollution is the main cause for A, but less so for B and C.
+I think I need to consider other possible causes.","For example, nutrient runoff from industrial activities could be a factor. If Location A is near an industrial port, it might be releasing more nutrients into the water, leading to algal blooms and bleaching. Location C, being a protected area, might have less nutrient runoff, so the effect is lessened. Location B, being remote, might have less nutrient input, so the effect is minimal.",
+LATE_058,56,lateral_thinking,deduction,,"So, if the torque is trying to rotate the door to the right, the hinges on the left would try to rotate it back to the left.
+I'm not getting anywhere.
+Maybe I should think about the hinge's position relative to the door's weight.","If the door is heavy on the right side, the hinges on the left might pull it back.",
+LATE_046,34,lateral_thinking,deduction,,"So, perhaps the original group was arranged in such a way that they couldn't all be together in a row without violating the separation rule.
+But on the fifteenth day, only two are coming, so the teacher can rearrange them into a group, but the original group couldn't.
+Wait, but the original group was always five, and they were always separated by at least one child.","So, perhaps the original group was arranged in such a way that they couldn't all be together in a row without violating the separation rule.",
+LATE_056,172,lateral_thinking,deduction,,"Wait, but the question is about lying, so they shouldn't be lying.
+They should answer.
+So, maybe it's about the way they process the question.","When asked if they're lying, they might be more likely to say no, but in this case, they say no, but they don't answer.",
+LATE_029,70,lateral_thinking,adding-knowledge,,"Wait, I'm stuck.
+Let me think about the movement of the star relative to the Earth. If the star is moving relative to the Earth, but the star's proper motion is zero, that would mean it's not moving relative to the Earth. So, it must be moving relative to the Sun or something else.
+But the problem says the telescope's tracking and calibration have been verified as functioning perfectly. So, the star shouldn't be moving because of tracking errors. Therefore, it must be due to something else.","Wait, maybe it's due to the movement of the Earth's surface itself.",
+LATE_051,139,lateral_thinking,adding-knowledge,,"Wait, I'm going in circles.
+Let me try to think about the sun's position again.
+At noon, the sun is at its highest point.","If the sun is coming from the west, shadows are east. If it's coming from the east, shadows are west. If it's coming from the north, shadows are south. If it's coming from the south, shadows are north.",
+LATE_096,26,lateral_thinking,adding-knowledge,,"Wait, I think I've heard that plants can be sensitive to humidity levels.
+For example, plants might prefer a certain amount of humidity, and the greenhouse might have a different humidity level that affects their growth.
+Wait, I think I've heard that plants can be sensitive to humidity levels.","For example, plants might prefer a certain amount of humidity, and the greenhouse might have a different humidity level that affects their growth.",
