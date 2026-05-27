@@ -1,55 +1,66 @@
 """
-src/cbs/annotation.py — CBS-tier + cross-domain sentence annotator.
+src/cbs/annotation.py — CBS-tier + cross-domain sentence annotator (M1).
 
 Purpose
 -------
-Second-pass annotation over Phase-3 behaviour-labelled sentences, assigning
-each `adding-knowledge` / `deduction` sentence:
-
-  * a CBS tier in {1 retrieval, 2 recombination, 3 novel application},
-  * a `knowledge_domain` label,
-  * a binary `cross_domain` flag,
-  * a one-sentence rationale and an explicit confidence.
+Second-pass annotation over Phase-3 behaviour-labelled sentences. Adds CBS
+tier in {1 retrieval, 2 recombination, 3 novel application}, a
+`knowledge_domain` label, a binary `cross_domain` flag, a one-sentence
+rationale and an explicit confidence. Only sentences whose Phase-3 behaviour
+is in {adding-knowledge, deduction} are annotated.
 
 Inputs / Outputs
 ----------------
 Inputs:
   * Phase 3 annotated chains  (`data/annotated_R1-1.5B.json`)
-  * Sonnet 4.5 client         (proxy; see `src/annotation.py` for transport)
+  * Sonnet 4.5 client over CLAUDE_PROXY_URL / CLAUDE_PROXY_KEY
 
 Outputs:
-  * `data/chains_cbs_annotated_R1-1.5B.json` (Phase 3 + CBS fields)
-  * Optional `results/cbs/{model}/kappa_run1_run2.json` under `--dual-seed-kappa`
+  * `data/chains_cbs_annotated_R1-1.5B.json` (Phase 3 + cbs_* fields)
+  * Optional `results/cbs/{model}/kappa_run1_run2.json` (dual-seed kappa)
+  * Optional `results/cbs/{model}/pilot_for_human_review.csv`
 
 Validation
 ----------
-P0.2 pilot pass criteria (synthesis §P0.2):
-  * Cohen's kappa >= 0.5
-  * human-vs-Sonnet >= 70%
-  * tier-3 rate >= 5%
-
-Fail-stop on any criterion failure; write
-`results/cbs/{model}/FAILSTOP_M1.md` with three options for the user.
+* Mocked-Sonnet unit tests (this module).
+* P0.2 pilot (synthesis §P0.2):
+    Cohen's kappa >= 0.5, human-vs-Sonnet >= 70%, tier-3 rate >= 5%.
+  On any failure: halt and write
+  `results/cbs/{model}/FAILSTOP_M1.md` with three options.
 
 Milestone
 ---------
-M1 (synthesis §M1.1–§M1.5). P0.3 lays down the skeleton.
+M1 (synthesis §M1.1–§M1.5).
 """
 
 from __future__ import annotations
 
+import json
 import logging
+import os
+import re
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Optional, Protocol
+from typing import Any, Callable, Iterable, Optional, Protocol
 
-from src.cbs.schemas import CBSResult, TASK_DOMAINS
+from src.cbs.schemas import (
+    CBSResult,
+    CBS_TIERS,
+    CONFIDENCE_VALUES,
+    TASK_DOMAINS,
+)
 
 logger = logging.getLogger(__name__)
 
 
-# The locked CBS prompt template. Anchors are filled in only AFTER P0.2
-# anchor curation completes. Until then the placeholder is used and results
-# are tagged `pilot-only`.
+# Annotation model — Phase-3 model, kept identical for transport consistency.
+ANNOTATION_MODEL_CBS = "eu.anthropic.claude-sonnet-4-5-20250929-v1:0"
+
+
+# ── CBS prompt template (locked at P0.3) ────────────────────────────────────
+# Curly braces around literal JSON / set examples are doubled per Python
+# format-string conventions. Substituted fields: anchor_block, task_domain,
+# task_prompt, prev_sentences, behaviour, sentence.
 
 CBS_PROMPT_TEMPLATE: str = """\
 You are annotating a single sentence from a mathematical reasoning chain
@@ -110,23 +121,184 @@ PLACEHOLDER_ANCHOR_BLOCK: str = (
 )
 
 
+# Task-home-domain classification prompt — short, one-shot, cached per task.
+
+TASK_DOMAIN_PROMPT: str = """\
+Classify the home mathematical domain of this problem.
+
+PROBLEM: {task_prompt}
+
+Domain options (one of):
+  algebra, geometry, number_theory, combinatorics, calculus, probability,
+  logic, other
+
+Respond as JSON only, no preamble:
+{{"domain": "<one option>"}}
+"""
+
+
+# Behaviour labels that get CBS annotation. The other Venhoff labels are
+# passed through unchanged (synthesis §M1.1).
+TARGETED_BEHAVIOURS: tuple[str, ...] = ("adding-knowledge", "deduction")
+
+
+# ── Sonnet client protocol + production proxy client ────────────────────────
+
 class SonnetClient(Protocol):
     """Minimal protocol any client must satisfy.
 
-    Implementations return the raw assistant-message string. Annotation code
-    parses the JSON itself so the client need not be JSON-aware.
+    Production: ProxyClient (this module).
+    Tests:      MockSonnetClient (in src/cbs/tests/test_annotation.py).
     """
 
     def complete(self, prompt: str, *, seed: int, temperature: float) -> str:
         ...
 
 
-def annotate_task_domain(task: dict, client: SonnetClient) -> str:
-    """One-shot Sonnet call to classify a task's home domain.
+class ProxyClient:
+    """Production Sonnet client over the same proxy used in Phase 3.
 
-    Returns one of `TASK_DOMAINS`. Caller should cache by `task["id"]`.
+    Honours CLAUDE_PROXY_URL / CLAUDE_PROXY_KEY in the environment, matching
+    src/annotation.py's transport. The `seed` field is logged but not sent —
+    most proxy back-ends do not honour the OpenAI-style `seed` parameter, so
+    the dual-seed kappa mechanism uses temperature variation instead.
     """
-    raise NotImplementedError("Filled in at M1 (synthesis §M1.3).")
+
+    def __init__(
+        self,
+        *,
+        model_id: str = ANNOTATION_MODEL_CBS,
+        proxy_url: Optional[str] = None,
+        proxy_key: Optional[str] = None,
+        max_tokens: int = 512,
+        timeout_s: int = 120,
+    ) -> None:
+        self.model_id = model_id
+        self.proxy_url = proxy_url or os.environ.get("CLAUDE_PROXY_URL")
+        self.proxy_key = proxy_key or os.environ.get("CLAUDE_PROXY_KEY")
+        if not self.proxy_url or not self.proxy_key:
+            raise RuntimeError(
+                "CLAUDE_PROXY_URL / CLAUDE_PROXY_KEY must be set in the "
+                "environment to use ProxyClient."
+            )
+        self.max_tokens = max_tokens
+        self.timeout_s = timeout_s
+
+    def complete(self, prompt: str, *, seed: int = 0, temperature: float = 0.0) -> str:
+        import requests  # imported lazily so the test suite needs no network
+        resp = requests.post(
+            self.proxy_url,
+            json={
+                "model": self.model_id,
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": self.max_tokens,
+                "temperature": float(temperature),
+            },
+            headers={"X-Api-Key": self.proxy_key, "Content-Type": "application/json"},
+            timeout=self.timeout_s,
+        )
+        resp.raise_for_status()
+        return resp.json()["content"][0]["text"]
+
+
+# ── JSON parsing helpers ────────────────────────────────────────────────────
+
+def _extract_json_object(text: str) -> dict:
+    """Find the first JSON object in `text` and return it.
+
+    Tolerates code-fence wrapping (```json ... ```) and pre/post-amble that
+    some models emit despite the prompt.
+    """
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```\s*$", "", text)
+        text = text.strip()
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict):
+            return obj
+    except (json.JSONDecodeError, ValueError):
+        pass
+    # Fallback: find the first balanced { ... } block in the response.
+    start = text.find("{")
+    if start < 0:
+        raise ValueError(f"no JSON object found in: {text[:120]!r}")
+    depth = 0
+    end = -1
+    for i in range(start, len(text)):
+        ch = text[i]
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+    if end < 0:
+        raise ValueError(f"unbalanced braces in: {text[:120]!r}")
+    candidate = text[start:end]
+    try:
+        return json.loads(candidate)
+    except (json.JSONDecodeError, ValueError) as exc:
+        raise ValueError(f"malformed JSON ({exc}) in: {candidate[:120]!r}")
+
+
+def _coerce_bool(v: Any) -> bool:
+    if isinstance(v, bool):
+        return v
+    if isinstance(v, str):
+        if v.strip().lower() in {"true", "yes", "1"}:
+            return True
+        if v.strip().lower() in {"false", "no", "0"}:
+            return False
+    if isinstance(v, (int, float)):
+        return bool(v)
+    raise ValueError(f"cannot coerce to bool: {v!r}")
+
+
+def _normalise_domain(raw: str) -> str:
+    """Lowercase + replace hyphens with underscores; return as-is if not in
+    TASK_DOMAINS so the caller can apply its fallback policy."""
+    return str(raw or "").strip().lower().replace("-", "_")
+
+
+# ── annotate_task_domain ────────────────────────────────────────────────────
+
+def annotate_task_domain(task: dict, client: SonnetClient) -> str:
+    """Classify a task's home mathematical domain.
+
+    Returns one of TASK_DOMAINS. On parse failure or an unrecognised label,
+    returns "other" so a single ambiguous task does not stall the pipeline.
+    """
+    prompt = TASK_DOMAIN_PROMPT.format(task_prompt=str(task.get("instruction", ""))[:4000])
+    try:
+        raw = client.complete(prompt, seed=0, temperature=0.0)
+        obj = _extract_json_object(raw)
+    except (ValueError, Exception) as exc:  # noqa: BLE001
+        logger.warning("task-domain classification failed for %s (%s); "
+                       "defaulting to 'other'",
+                       task.get("task_id"), exc)
+        return "other"
+    domain = _normalise_domain(obj.get("domain", ""))
+    if domain not in TASK_DOMAINS:
+        return "other"
+    return domain
+
+
+# ── annotate_sentence_cbs ───────────────────────────────────────────────────
+
+def _format_prev_sentences(prev_sentences: Iterable[str]) -> str:
+    last3 = list(prev_sentences)[-3:]
+    if not last3:
+        return "(none)"
+    return "\n".join(f"- {str(s).strip()}" for s in last3)
+
+
+def _seed_to_temperature(seed: int) -> float:
+    """Default seed→temperature mapping for dual-seed kappa pilots
+    (synthesis §P0.2): seed 0 → T=0.0, seed >= 1 → T=0.3."""
+    return 0.0 if seed == 0 else 0.3
 
 
 def annotate_sentence_cbs(
@@ -136,14 +308,87 @@ def annotate_sentence_cbs(
     task_prompt: str,
     prev_sentences: list[str],
     client: SonnetClient,
+    *,
     seed: int = 0,
     anchor_block: str = PLACEHOLDER_ANCHOR_BLOCK,
 ) -> CBSResult:
-    """Annotate one sentence; returns a CBSResult.
+    """Classify one sentence; return a `CBSResult`.
 
-    Raises on malformed model output; callers handle retries.
+    Raises `ValueError` on malformed model output or an invalid tier so the
+    caller (annotate_chains_cbs) can log and continue rather than abort the
+    chain. The runner adds retry logic on top.
     """
-    raise NotImplementedError("Filled in at M1 (synthesis §M1.3).")
+    prompt = CBS_PROMPT_TEMPLATE.format(
+        anchor_block=anchor_block,
+        task_domain=task_domain,
+        task_prompt=str(task_prompt)[:2000],
+        prev_sentences=_format_prev_sentences(prev_sentences),
+        behaviour=behaviour,
+        sentence=str(sentence).strip(),
+    )
+    raw = client.complete(prompt, seed=seed, temperature=_seed_to_temperature(seed))
+    obj = _extract_json_object(raw)
+
+    # Tier may come back as int or str.
+    tier_raw = obj.get("tier")
+    if isinstance(tier_raw, str) and tier_raw.strip().isdigit():
+        tier_raw = int(tier_raw.strip())
+    if tier_raw not in CBS_TIERS:
+        raise ValueError(f"tier must be in {CBS_TIERS}, got {tier_raw!r} "
+                         f"from raw response {raw[:160]!r}")
+
+    knowledge_domain = _normalise_domain(obj.get("knowledge_domain", ""))
+    if knowledge_domain not in TASK_DOMAINS:
+        knowledge_domain = "other"
+
+    confidence = str(obj.get("confidence", "low")).strip().lower()
+    if confidence not in CONFIDENCE_VALUES:
+        confidence = "low"
+
+    return CBSResult(
+        tier=int(tier_raw),
+        knowledge_domain=knowledge_domain,
+        cross_domain=_coerce_bool(obj.get("cross_domain", False)),
+        rationale=str(obj.get("rationale", "")).strip()[:200],
+        confidence=confidence,    # type: ignore[arg-type]
+    )
+
+
+# ── annotate_chains_cbs ─────────────────────────────────────────────────────
+
+def _annotate_one_span(
+    span: dict,
+    span_idx: int,
+    spans: list[dict],
+    *,
+    task_domain: str,
+    chain_id: str,
+    task_prompt: str,
+    client: SonnetClient,
+    seed: int,
+    anchor_block: str,
+) -> tuple[int, Optional[CBSResult]]:
+    """Helper: annotate one targeted span; return (idx, cbs_result_or_None).
+    Errors are logged and swallowed so one bad sentence does not abort
+    annotation of the rest of the chain (the runner saves what we have)."""
+    prev = [s.get("text", "") for s in spans[max(0, span_idx - 3):span_idx]]
+    try:
+        cbs = annotate_sentence_cbs(
+            sentence=span.get("text", ""),
+            behaviour=span.get("label", ""),
+            task_domain=task_domain,
+            task_prompt=task_prompt,
+            prev_sentences=prev,
+            client=client,
+            seed=seed,
+            anchor_block=anchor_block,
+        )
+        return span_idx, cbs
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("CBS annotation failed for %s:%d (%s): %s",
+                       chain_id, span_idx,
+                       (span.get("text", "") or "")[:60], exc)
+        return span_idx, None
 
 
 def annotate_chains_cbs(
@@ -154,20 +399,210 @@ def annotate_chains_cbs(
     max_workers: int = 8,
     anchor_block: str = PLACEHOLDER_ANCHOR_BLOCK,
     task_domain_cache: Optional[dict[str, str]] = None,
+    behaviours_to_annotate: tuple[str, ...] = TARGETED_BEHAVIOURS,
 ) -> list[dict]:
-    """Add `cbs_*` fields to every sentence with behaviour in
-    {adding-knowledge, deduction}; pass other sentences through unchanged."""
-    raise NotImplementedError("Filled in at M1 (synthesis §M1.3).")
+    """Add `cbs_*` fields to every sentence whose behaviour is in
+    `behaviours_to_annotate`. Other sentences pass through unchanged.
 
+    Parallelism: sequential over chains (so the per-task task_domain cache
+    is correct); within each chain, sentences run in parallel via
+    ThreadPoolExecutor with `max_workers` workers.
+    """
+    cache = dict(task_domain_cache) if task_domain_cache else {}
+    out: list[dict] = []
+    for chain in annotated_chains:
+        chain_id = chain.get("task_id") or chain.get("id") or "<unknown>"
+        if chain_id not in cache:
+            cache[chain_id] = annotate_task_domain(chain, client)
+        td = cache[chain_id]
+
+        spans = chain.get("annotations", []) or []
+        targeted_idx = [i for i, s in enumerate(spans)
+                        if s.get("label") in behaviours_to_annotate]
+        task_prompt = chain.get("instruction", "")
+
+        results: dict[int, Optional[CBSResult]] = {}
+
+        def _task(i: int) -> tuple[int, Optional[CBSResult]]:
+            return _annotate_one_span(
+                spans[i], i, spans,
+                task_domain=td, chain_id=chain_id, task_prompt=task_prompt,
+                client=client, seed=seed, anchor_block=anchor_block,
+            )
+
+        if max_workers > 1 and len(targeted_idx) > 1:
+            with ThreadPoolExecutor(max_workers=max_workers) as ex:
+                for i, cbs in ex.map(_task, targeted_idx):
+                    results[i] = cbs
+        else:
+            for i in targeted_idx:
+                _, cbs = _task(i)
+                results[i] = cbs
+
+        new_spans: list[dict] = []
+        for i, span in enumerate(spans):
+            cbs = results.get(i)
+            if cbs is not None:
+                new_spans.append({
+                    **span,
+                    "cbs_tier": cbs.tier,
+                    "cbs_knowledge_domain": cbs.knowledge_domain,
+                    "cbs_cross_domain": cbs.cross_domain,
+                    "cbs_rationale": cbs.rationale,
+                    "cbs_confidence": cbs.confidence,
+                })
+            else:
+                new_spans.append(dict(span))
+        out.append({**chain, "annotations": new_spans})
+    return out
+
+
+# ── Cohen's kappa over the 3 CBS tiers ─────────────────────────────────────
+
+def cohen_kappa_three_tier(a: list[int], b: list[int]) -> float:
+    """Cohen's kappa between two equal-length tier-label lists.
+
+    Treats {1, 2, 3} as nominal categories. Uses sklearn when available;
+    falls back to the closed-form definition otherwise.
+    """
+    if len(a) != len(b):
+        raise ValueError(f"length mismatch: len(a)={len(a)} len(b)={len(b)}")
+    if not a:
+        return 0.0
+    try:
+        from sklearn.metrics import cohen_kappa_score
+        return float(cohen_kappa_score(a, b, labels=list(CBS_TIERS)))
+    except ImportError:
+        from collections import Counter
+        n = len(a)
+        po = sum(1 for x, y in zip(a, b) if x == y) / n
+        ca = Counter(a)
+        cb = Counter(b)
+        pe = sum(ca[t] / n * cb[t] / n for t in CBS_TIERS)
+        if pe >= 1.0:
+            return 1.0
+        return float((po - pe) / (1 - pe))
+
+
+# ── Anchor candidates for P0.2 curation ────────────────────────────────────
 
 def build_anchor_candidates_csv(
     annotated_chains_path: Path,
     out_csv: Path,
     *,
+    client: Optional[SonnetClient] = None,
     n_per_category: int = 6,
-    behaviours: tuple[str, ...] = ("adding-knowledge", "deduction"),
+    behaviours: tuple[str, ...] = TARGETED_BEHAVIOURS,
     seed: int = 0,
+    rank_with_pilot_tier: bool = True,
 ) -> Path:
-    """Sample ~60 sentences stratified by task category for human anchor
-    curation (P0.2). Returns the output path."""
-    raise NotImplementedError("Filled in at M1 / P0.2 (synthesis §P0.2).")
+    """Sample candidate anchor sentences stratified by task category for
+    P0.2 manual curation.
+
+    Writes a CSV ranked by Sonnet's prior CBS-tier estimate (per synthesis
+    §P0.2). When `client` is None or `rank_with_pilot_tier=False`, emits
+    candidates without tier estimates so Tony can curate manually.
+
+    Columns: task_id, sentence_idx, category, behaviour, task_domain_hint,
+             context_3, sentence, tier_estimate.
+    """
+    import csv
+    import random
+    from collections import defaultdict
+
+    annotated_chains_path = Path(annotated_chains_path)
+    out_csv = Path(out_csv)
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(annotated_chains_path) as f:
+        chains = json.load(f)
+
+    # Bucket targeted spans by category.
+    by_category: dict[str, list[dict]] = defaultdict(list)
+    for chain in chains:
+        category = chain.get("category", "unknown")
+        spans = chain.get("annotations", []) or []
+        for i, span in enumerate(spans):
+            if span.get("label") in behaviours:
+                context_3 = [s.get("text", "") for s in spans[max(0, i - 3):i]]
+                by_category[category].append({
+                    "task_id": chain.get("task_id", ""),
+                    "sentence_idx": i,
+                    "category": category,
+                    "behaviour": span.get("label", ""),
+                    "task_domain_hint": "",         # filled below
+                    "context_3": "\n".join(context_3)[:1000],
+                    "sentence": span.get("text", ""),
+                    "tier_estimate": "",            # filled below when ranking
+                    "_chain_instruction": chain.get("instruction", ""),
+                })
+
+    rng = random.Random(seed)
+    sampled: list[dict] = []
+    for category, candidates in by_category.items():
+        k = min(n_per_category, len(candidates))
+        sampled.extend(rng.sample(candidates, k))
+
+    # Optionally pre-classify with a placeholder-anchor CBS call so Tony has
+    # a hint at ordering for review. Costs ~$0.06 for 60 candidates.
+    if client is not None and rank_with_pilot_tier:
+        td_cache: dict[str, str] = {}
+        for row in sampled:
+            tid = row["task_id"]
+            if tid not in td_cache:
+                td_cache[tid] = annotate_task_domain(
+                    {"task_id": tid, "instruction": row.pop("_chain_instruction")},
+                    client,
+                )
+            row["task_domain_hint"] = td_cache[tid]
+            try:
+                cbs = annotate_sentence_cbs(
+                    sentence=row["sentence"], behaviour=row["behaviour"],
+                    task_domain=td_cache[tid],
+                    task_prompt="",            # avoid leaking task into rank-pass
+                    prev_sentences=row["context_3"].split("\n")[-3:],
+                    client=client, seed=0,
+                )
+                row["tier_estimate"] = cbs.tier
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("anchor-candidate tier estimate failed: %s", exc)
+                row["tier_estimate"] = ""
+    else:
+        # Strip the internal helper column.
+        for row in sampled:
+            row.pop("_chain_instruction", None)
+
+    # Sort by tier estimate so high-CBS sentences cluster (NaN/empty last).
+    def _tier_key(r: dict) -> tuple[int, int]:
+        t = r.get("tier_estimate", "")
+        return (0, int(t)) if isinstance(t, int) or (isinstance(t, str) and t.isdigit()) else (1, 0)
+
+    sampled.sort(key=_tier_key, reverse=True)
+
+    fieldnames = ["task_id", "sentence_idx", "category", "behaviour",
+                  "task_domain_hint", "context_3", "sentence",
+                  "tier_estimate"]
+    with open(out_csv, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fieldnames)
+        w.writeheader()
+        for row in sampled:
+            w.writerow({k: row.get(k, "") for k in fieldnames})
+
+    logger.info("wrote %d anchor candidates to %s", len(sampled), out_csv)
+    return out_csv
+
+
+__all__ = [
+    "ANNOTATION_MODEL_CBS",
+    "CBS_PROMPT_TEMPLATE",
+    "PLACEHOLDER_ANCHOR_BLOCK",
+    "TASK_DOMAIN_PROMPT",
+    "TARGETED_BEHAVIOURS",
+    "SonnetClient",
+    "ProxyClient",
+    "annotate_task_domain",
+    "annotate_sentence_cbs",
+    "annotate_chains_cbs",
+    "cohen_kappa_three_tier",
+    "build_anchor_candidates_csv",
+]
