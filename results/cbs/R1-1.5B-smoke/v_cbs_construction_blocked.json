@@ -1,0 +1,9 @@
+{
+  "status": "blocked",
+  "blockers": [
+    "CBS annotations missing or sparse at data/chains_cbs_annotated_R1-1.5B.json",
+    "P0.2 anchor lock + 08_annotate_cbs full run required",
+    "or: missing activation file ([Errno 2] No such file or directory: 'data/chains_cbs_annotated_R1-1.5B.json')"
+  ],
+  "synthesis_reference": "\u00a7M5.2"
+}
