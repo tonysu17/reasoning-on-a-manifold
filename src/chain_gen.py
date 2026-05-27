@@ -20,6 +20,21 @@ from tqdm import tqdm
 logger = logging.getLogger(__name__)
 
 
+def _seed_torch(seed: int) -> None:
+    """Set torch RNG state for reproducible sampling.
+
+    Only meaningful when `do_sample=True`. Greedy decoding (T=0) ignores
+    the RNG state entirely.
+
+    Used by `generate_chain` to support the M4.5 multi-seed regeneration
+    path (synthesis §M4.5).
+    """
+    import torch
+    torch.manual_seed(int(seed))
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(int(seed))
+
+
 # ── Prompt template ───────────────────────────────────────────────────────────
 # DeepSeek-R1-Distill models need <think>\n appended to the assistant turn to
 # force the model into chain-of-thought mode.  We prefer apply_chat_template
@@ -117,14 +132,21 @@ def generate_chain(
     instruction: str,
     max_new_tokens: int = 2048,
     temperature: float = 0.0,
+    seed: int = 0,
 ) -> dict:
     """
     Generate one reasoning chain for an instruction.
 
+    `seed` controls torch RNG state and is only meaningful when
+    `temperature > 0` (do_sample=True). Greedy decoding (T=0) is
+    deterministic regardless of seed.
+
     Returns a dict with:
-        instruction, prompt, chain, full_text, n_tokens
+        instruction, prompt, chain, full_text, n_tokens, seed, temperature
     """
     import torch
+
+    _seed_torch(seed)
 
     prompt = format_prompt(tokenizer, instruction)
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
@@ -148,6 +170,8 @@ def generate_chain(
         "chain": chain,
         "full_text": prompt + chain,
         "n_tokens": len(new_ids),
+        "seed": int(seed),
+        "temperature": float(temperature),
     }
 
 
@@ -160,7 +184,9 @@ def generate_chains(
     max_new_tokens: int = 2048,
     temperature: float = 0.0,
     save_path: Optional[Path] = None,
-    checkpoint_every: int = 50,
+    checkpoint_every: int = 10,
+    seed: int = 0,
+    dedup_keys: tuple = ("task_id",),
 ) -> list[dict]:
     """
     Generate reasoning chains for a list of tasks.
@@ -168,37 +194,49 @@ def generate_chains(
     Checkpoints every `checkpoint_every` tasks so you can resume after
     interruption by re-running the same command.
 
+    `seed` controls torch RNG state for sampled generation. Only
+    meaningful when `temperature > 0`. The seed is recorded on every
+    chain record so multi-seed re-generation (synthesis §M4.5) can mark
+    runs.
+
     Args:
         model / tokenizer: loaded via load_model()
         tasks:             list of {id, prompt, category, difficulty}
         save_path:         JSON file for output (and checkpoints)
+        seed:              torch RNG seed for sampled decoding
+        dedup_keys:        tuple of dict-keys identifying a chain for resume.
+                           Default ("task_id",) is the original behaviour;
+                           pass ("task_id", "seed") for multi-seed runs.
 
     Returns:
-        List of chain records: {task_id, category, instruction,
-                                prompt, chain, full_text, n_tokens}
+        List of chain records: {task_id, category, instruction, prompt,
+                                chain, full_text, n_tokens, seed, temperature}
     """
     chains: list[dict] = []
     save_path = Path(save_path) if save_path else None
 
-    # Resume from checkpoint
-    start = 0
     if save_path and save_path.exists():
         with open(save_path) as f:
             chains = json.load(f)
-        start = len(chains)
-        logger.info(f"Resuming from checkpoint: {start}/{len(tasks)} done")
+        logger.info(f"Resuming from checkpoint: {len(chains)}/{len(tasks)} done")
 
-    completed_ids = {c["task_id"] for c in chains}
+    def _chain_key(rec: dict) -> tuple:
+        return tuple(rec.get(k) for k in dedup_keys)
 
-    for task in tqdm(tasks[start:], initial=start, total=len(tasks),
-                     desc="Generating chains"):
+    completed = {_chain_key(c) for c in chains}
+
+    for task in tqdm(tasks, initial=len(chains), total=len(tasks),
+                     desc=f"Generating chains (seed={seed}, T={temperature})"):
         tid = task["id"]
-        if tid in completed_ids:
+        if _chain_key({"task_id": tid, "seed": seed}) in completed:
             continue
 
         try:
-            result = generate_chain(model, tokenizer, task["prompt"],
-                                    max_new_tokens, temperature)
+            result = generate_chain(
+                model, tokenizer, task["prompt"],
+                max_new_tokens=max_new_tokens,
+                temperature=temperature, seed=seed,
+            )
             record = {
                 "task_id": tid,
                 "category": task.get("category", "unknown"),
@@ -207,6 +245,8 @@ def generate_chains(
                 "chain": result["chain"],
                 "full_text": result["full_text"],
                 "n_tokens": result["n_tokens"],
+                "seed": int(seed),
+                "temperature": float(temperature),
             }
         except Exception as exc:
             logger.warning(f"Task {tid} failed: {exc}")
@@ -218,10 +258,13 @@ def generate_chains(
                 "chain": "",
                 "full_text": "",
                 "n_tokens": 0,
+                "seed": int(seed),
+                "temperature": float(temperature),
                 "error": str(exc),
             }
 
         chains.append(record)
+        completed.add(_chain_key(record))
 
         if save_path and len(chains) % checkpoint_every == 0:
             _save_json(chains, save_path)
