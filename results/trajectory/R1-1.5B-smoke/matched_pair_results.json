@@ -1,0 +1,15 @@
+{
+  "status": "blocked",
+  "blockers": [
+    "multi_seed_chains missing: data/chains_R1-1.5B_multiseed.json; generate via 02_generate_chains.py --temperature 0.7 --seeds 0,...,19 after M4.5 chain_gen change lands.",
+    "cbs_annotations missing: data/chains_cbs_annotated_R1-1.5B.json; run 08_annotate_cbs.py with the locked anchor block after P0.2.",
+    "Phase 7 answer-checker labels (success/failure) required."
+  ],
+  "skip_matched_pair_flag": false,
+  "synthesis_reference": "\u00a7M4.4 / \u00a7M4.5",
+  "what_will_run_when_unblocked": [
+    "build_matched_pairs(success_chains, failure_chains, cbs_tier_filter=3, similarity_threshold=0.6)",
+    "paired_geometric_tests on centroid_distance, OOS residual, deduction-subspace projection (per layer).",
+    "Sensitivity sweep at Jaccard >= {0.5, 0.6, 0.7}."
+  ]
+}

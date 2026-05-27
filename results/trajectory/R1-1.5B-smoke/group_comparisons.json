@@ -1,0 +1,335 @@
+{
+  "model_suffix": "R1-1.5B-smoke",
+  "trajectory_dir": "results/trajectory/R1-1.5B-smoke",
+  "layers": [
+    17,
+    27
+  ],
+  "records": [
+    {
+      "layer": 17,
+      "n_chains": 20,
+      "comparisons": [
+        {
+          "group_col": "truncated",
+          "rationale": "P0.4 stratification; primary cohort split for build-now smoke (no success/failure labels yet).",
+          "rows": [
+            {
+              "stat": "arc_length",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.05567595459236326,
+              "cliffs_delta": 0.5384615384615384,
+              "ci95_lo": -0.03296703296703297,
+              "ci95_hi": 1.0
+            },
+            {
+              "stat": "mean_curvature",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": 0.0,
+              "ci95_lo": 0.0,
+              "ci95_hi": 0.0
+            },
+            {
+              "stat": "max_curvature",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": 0.0,
+              "ci95_lo": 0.0,
+              "ci95_hi": 0.0
+            },
+            {
+              "stat": "cone_angle",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.6426470588235295,
+              "cliffs_delta": 0.14285714285714285,
+              "ci95_lo": -0.37417582417582396,
+              "ci95_hi": 0.6483516483516484
+            },
+            {
+              "stat": "return_rate",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.20466831961820187,
+              "cliffs_delta": 0.3626373626373626,
+              "ci95_lo": -0.19835164835164812,
+              "ci95_hi": 0.7697802197802193
+            },
+            {
+              "stat": "n_transitions",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.03232546658587463,
+              "cliffs_delta": 0.6043956043956044,
+              "ci95_lo": 0.03186813186813232,
+              "ci95_hi": 1.0
+            }
+          ]
+        },
+        {
+          "group_col": "long_chain",
+          "rationale": "median-split on T (median=14.5); positional control.",
+          "rows": [
+            {
+              "stat": "arc_length",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.0002461281279052297,
+              "cliffs_delta": -0.98,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.9095000000000005
+            },
+            {
+              "stat": "mean_curvature",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": -0.72,
+              "ci95_lo": -0.9904999999999998,
+              "ci95_hi": -0.4095000000000005
+            },
+            {
+              "stat": "max_curvature",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": -0.88,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.68
+            },
+            {
+              "stat": "cone_angle",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.00579535854433471,
+              "cliffs_delta": -0.74,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.34
+            },
+            {
+              "stat": "return_rate",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.0024133553534221547,
+              "cliffs_delta": -0.81,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.5
+            },
+            {
+              "stat": "n_transitions",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.0004542217440546294,
+              "cliffs_delta": -0.93,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.76
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer": 27,
+      "n_chains": 20,
+      "comparisons": [
+        {
+          "group_col": "truncated",
+          "rationale": "P0.4 stratification; primary cohort split for build-now smoke (no success/failure labels yet).",
+          "rows": [
+            {
+              "stat": "arc_length",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.05567595459236326,
+              "cliffs_delta": 0.5384615384615384,
+              "ci95_lo": -0.07692307692307693,
+              "ci95_hi": 1.0
+            },
+            {
+              "stat": "mean_curvature",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": 0.0,
+              "ci95_lo": 0.0,
+              "ci95_hi": 0.0
+            },
+            {
+              "stat": "max_curvature",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": 0.0,
+              "ci95_lo": 0.0,
+              "ci95_hi": 0.0
+            },
+            {
+              "stat": "cone_angle",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.3928792569659443,
+              "cliffs_delta": 0.25274725274725274,
+              "ci95_lo": -0.23076923076923078,
+              "ci95_hi": 0.7362637362637363
+            },
+            {
+              "stat": "return_rate",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.4755647241030404,
+              "cliffs_delta": 0.2087912087912088,
+              "ci95_lo": -0.34065934065934067,
+              "ci95_hi": 0.6703296703296703
+            },
+            {
+              "stat": "n_transitions",
+              "group_col": "truncated",
+              "group_a": "False",
+              "group_b": "True",
+              "n_a": 13,
+              "n_b": 7,
+              "wilcoxon_p": 0.34146615931585256,
+              "cliffs_delta": 0.27472527472527475,
+              "ci95_lo": -0.2967032967032967,
+              "ci95_hi": 0.8137362637362633
+            }
+          ]
+        },
+        {
+          "group_col": "long_chain",
+          "rationale": "median-split on T (median=14.5); positional control.",
+          "rows": [
+            {
+              "stat": "arc_length",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.0002461281279052297,
+              "cliffs_delta": -0.98,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.88
+            },
+            {
+              "stat": "mean_curvature",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": -0.68,
+              "ci95_lo": -0.92,
+              "ci95_hi": -0.36950000000000044
+            },
+            {
+              "stat": "max_curvature",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": NaN,
+              "cliffs_delta": -0.9,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.7
+            },
+            {
+              "stat": "cone_angle",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.025748080821108073,
+              "cliffs_delta": -0.6,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.14950000000000047
+            },
+            {
+              "stat": "return_rate",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.003947853114329796,
+              "cliffs_delta": -0.77,
+              "ci95_lo": -1.0,
+              "ci95_hi": -0.36
+            },
+            {
+              "stat": "n_transitions",
+              "group_col": "long_chain",
+              "group_a": "0",
+              "group_b": "1",
+              "n_a": 10,
+              "n_b": 10,
+              "wilcoxon_p": 0.007586237112085649,
+              "cliffs_delta": -0.71,
+              "ci95_lo": -0.98,
+              "ci95_hi": -0.34
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "smoke-only, not paper-grade"
+}
