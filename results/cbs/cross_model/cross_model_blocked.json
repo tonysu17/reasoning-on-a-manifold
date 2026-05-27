@@ -1,0 +1,23 @@
+{
+  "status": "blocked",
+  "blockers": [
+    "missing R1 geometry_results.json: results/cbs/R1-1.5B/geometry_results.json",
+    "missing Baseline geometry_results.json \u2014 Extension A pipeline blocker: results/cbs/QwenMath-1.5B/geometry_results.json"
+  ],
+  "synthesis_reference": "\u00a7M6.2",
+  "what_will_run_when_unblocked": [
+    "cross_model_compare on geometry_results.json pairs.",
+    "trajectory_wasserstein on (success, failure) flag distributions.",
+    "cross_model_classifier on R1 success/failure features tested against the baseline.",
+    "structured-null report if baseline tier-3 rate < 3%."
+  ],
+  "needed_prereqs": [
+    "Phase 2b: 02b_generate_baseline_chains.py",
+    "Phase 3:  03_annotate_chains.py --model-short QwenMath-1.5B",
+    "Phase 4:  04_extract_activations.py --model qwen-math-1.5b",
+    "M1:       08_annotate_cbs.py --model-suffix QwenMath-1.5B",
+    "M2:       09_cbs_geometry.py --model-suffix QwenMath-1.5B",
+    "M3:       10_trajectory_build.py --model-suffix QwenMath-1.5B",
+    "M4:       11_trajectory_analysis.py --model-suffix QwenMath-1.5B"
+  ]
+}
