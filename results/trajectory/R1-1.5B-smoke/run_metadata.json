@@ -1,0 +1,24 @@
+{
+  "activations_dir": "data/activations/R1-1.5B-smoke",
+  "chains_source": "data/annotated_R1-1.5B.json",
+  "layers": [
+    17,
+    27
+  ],
+  "target_behaviours": [
+    "backtracking",
+    "uncertainty-estimation",
+    "example-testing",
+    "adding-knowledge"
+  ],
+  "truncation_policy": "stratify",
+  "n_chains_input": 20,
+  "n_trajectories_built": 40,
+  "row_index_sizes": {
+    "backtracking": 97,
+    "uncertainty-estimation": 145,
+    "example-testing": 145,
+    "adding-knowledge": 51
+  },
+  "note": "smoke-only, not paper-grade \u2014 labels from synthetic / Phase 3 only, CBS fields absent until P0.2 lock"
+}
