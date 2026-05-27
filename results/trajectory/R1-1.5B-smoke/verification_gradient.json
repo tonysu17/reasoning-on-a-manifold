@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "blockers": [
+    "Phase 7 answer-checker labels (correct/incorrect) required.",
+    "cbs_annotations missing: data/chains_cbs_annotated_R1-1.5B.json."
+  ],
+  "synthesis_reference": "\u00a7M4.2",
+  "what_will_run_when_unblocked": [
+    "verification_gradient(correct_acts, incorrect_acts, cv_folds=5, seed=0)",
+    "cosine(probe_weights, v_CBS) and cosine(probe_weights, v_adding_knowledge_centroid) filled in by the M5 ablation step."
+  ]
+}
