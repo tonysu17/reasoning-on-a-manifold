@@ -495,6 +495,7 @@ def build_anchor_candidates_csv(
     behaviours: tuple[str, ...] = TARGETED_BEHAVIOURS,
     seed: int = 0,
     rank_with_pilot_tier: bool = True,
+    balance_behaviours: bool = False,
 ) -> Path:
     """Sample candidate anchor sentences stratified by task category for
     P0.2 manual curation.
@@ -502,6 +503,11 @@ def build_anchor_candidates_csv(
     Writes a CSV ranked by Sonnet's prior CBS-tier estimate (per synthesis
     §P0.2). When `client` is None or `rank_with_pilot_tier=False`, emits
     candidates without tier estimates so Tony can curate manually.
+
+    When `balance_behaviours=True`, stratifies further across (category,
+    behaviour) cells with `n_per_category // len(behaviours)` per cell, so
+    rare-behaviour candidates (e.g. adding-knowledge at ~15% base rate)
+    are over-sampled relative to the corpus.
 
     Columns: task_id, sentence_idx, category, behaviour, task_domain_hint,
              context_3, sentence, tier_estimate.
@@ -517,31 +523,42 @@ def build_anchor_candidates_csv(
     with open(annotated_chains_path) as f:
         chains = json.load(f)
 
-    # Bucket targeted spans by category.
-    by_category: dict[str, list[dict]] = defaultdict(list)
+    # Bucket targeted spans by (category, behaviour) cell.
+    by_cell: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for chain in chains:
         category = chain.get("category", "unknown")
         spans = chain.get("annotations", []) or []
         for i, span in enumerate(spans):
-            if span.get("label") in behaviours:
+            label = span.get("label")
+            if label in behaviours:
                 context_3 = [s.get("text", "") for s in spans[max(0, i - 3):i]]
-                by_category[category].append({
+                by_cell[(category, label)].append({
                     "task_id": chain.get("task_id", ""),
                     "sentence_idx": i,
                     "category": category,
-                    "behaviour": span.get("label", ""),
-                    "task_domain_hint": "",         # filled below
+                    "behaviour": label,
+                    "task_domain_hint": "",
                     "context_3": "\n".join(context_3)[:1000],
                     "sentence": span.get("text", ""),
-                    "tier_estimate": "",            # filled below when ranking
+                    "tier_estimate": "",
                     "_chain_instruction": chain.get("instruction", ""),
                 })
 
     rng = random.Random(seed)
     sampled: list[dict] = []
-    for category, candidates in by_category.items():
-        k = min(n_per_category, len(candidates))
-        sampled.extend(rng.sample(candidates, k))
+    if balance_behaviours:
+        per_cell = max(1, n_per_category // max(1, len(behaviours)))
+        for (cat, beh), bucket in by_cell.items():
+            k = min(per_cell, len(bucket))
+            sampled.extend(rng.sample(bucket, k))
+    else:
+        # Backward-compatible: aggregate across behaviours per category.
+        by_category: dict[str, list[dict]] = defaultdict(list)
+        for (cat, _), bucket in by_cell.items():
+            by_category[cat].extend(bucket)
+        for category, candidates in by_category.items():
+            k = min(n_per_category, len(candidates))
+            sampled.extend(rng.sample(candidates, k))
 
     # Optionally pre-classify with a placeholder-anchor CBS call so Tony has
     # a hint at ordering for review. Costs ~$0.06 for 60 candidates.

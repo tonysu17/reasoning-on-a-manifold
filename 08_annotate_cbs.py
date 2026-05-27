@@ -66,6 +66,9 @@ def parse_args() -> argparse.Namespace:
                    help="Emit anchor_candidates.csv for P0.2 curation; "
                         "does not run the annotator.")
     p.add_argument("--anchors-per-category", type=int, default=6)
+    p.add_argument("--behaviour-balance", action="store_true",
+                   help="Stratify candidates across (category, behaviour) "
+                        "cells; over-samples rare behaviours (synthesis §P0.2).")
     p.add_argument("--max-workers", type=int, default=8)
     p.add_argument("--model-suffix", default="R1-1.5B")
     p.add_argument("--out-dir", default=None,
@@ -345,6 +348,7 @@ def run_build_anchors(args: argparse.Namespace) -> int:
         n_per_category=args.anchors_per_category,
         seed=args.seed,
         rank_with_pilot_tier=client is not None,
+        balance_behaviours=args.behaviour_balance,
     )
     print(f"\n>> Anchor candidates written to {out_csv}")
     print(">> NEXT STEP (human task): Tony picks 15 anchors (5 per tier) and "
