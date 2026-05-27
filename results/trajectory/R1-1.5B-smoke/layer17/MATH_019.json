@@ -1,0 +1,85 @@
+{
+  "chain_id": "MATH_019",
+  "layer": 17,
+  "T": 9,
+  "arc_length": 617.8489379882812,
+  "mean_curvature": 0.022025190027696744,
+  "max_curvature": 0.026700744405388832,
+  "n_transitions": 3,
+  "return_rate": 0.25,
+  "cone_angle": 0.7313286066055298,
+  "n_tier3_sentences": 0,
+  "n_cross_domain_sentences": 0,
+  "truncated": false,
+  "behaviours_visited": [
+    "example-testing",
+    "uncertainty-estimation",
+    "adding-knowledge"
+  ],
+  "sentence_ids": [
+    "MATH_019:1",
+    "MATH_019:10",
+    "MATH_019:11",
+    "MATH_019:14",
+    "MATH_019:16",
+    "MATH_019:18",
+    "MATH_019:22",
+    "MATH_019:24",
+    "MATH_019:27"
+  ],
+  "behaviours": [
+    "adding-knowledge",
+    "adding-knowledge",
+    "adding-knowledge",
+    "example-testing",
+    "adding-knowledge",
+    "example-testing",
+    "uncertainty-estimation",
+    "uncertainty-estimation",
+    "uncertainty-estimation"
+  ],
+  "cbs_tiers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "cross_domain": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "arc_length_sequence": [
+    0.0,
+    87.86433410644531,
+    161.46121215820312,
+    228.7884979248047,
+    320.68463134765625,
+    415.45526123046875,
+    496.39764404296875,
+    546.4988403320312,
+    617.8489379882812
+  ],
+  "curvature_sequence": [
+    null,
+    0.0218060240149498,
+    0.023381484672427177,
+    0.021488921716809273,
+    0.020386964082717896,
+    0.01927916519343853,
+    0.021133026108145714,
+    0.026700744405388832,
+    null
+  ]
+}
