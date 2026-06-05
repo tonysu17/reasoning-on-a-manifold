@@ -158,6 +158,8 @@ consistency action and the merge:
    projection (tests subspace, not curvature); single-annotator labels (the
    3-annotator agreement work mitigates this); ~50% chain truncation;
    first-10-token mean-pooling collapses the trajectory.
-4. Minor leftovers: provenance stamps on `05c`/`compute_layer_triangulation`/
-   figure scripts; `require_file` on the remaining figure scripts. Re-enable
-   `tdd-guard` only after its validator is fixed (§4).
+4. **[DONE]** provenance stamps now on `05c`/`compute_layer_triangulation`/
+   `make_explainer_figs`/`make_fresh_figures`/`render_html`; `require_file`
+   wired through the input-reading scripts. The only standing item is to
+   re-enable `tdd-guard` once its validator is fixed (§4) — it is currently
+   disabled because it blocks all `.py` edits.
