@@ -83,7 +83,7 @@ def manifold_projected_vector(
         logger.warning(f"Cannot project: k={k} but only {on_activations.shape[0]} samples")
         return r
 
-    pca = PCA(n_components=n_components)
+    pca = PCA(n_components=n_components, svd_solver="full")  # exact + reproducible
     pca.fit(on_activations)
     V = pca.components_  # (k, hidden_dim)
 
@@ -100,10 +100,10 @@ def manifold_projected_vector(
 
 def auto_k(on_activations: np.ndarray, variance_threshold: float = 0.70) -> int:
     """Return the smallest k such that the top-k PCs explain >= threshold variance."""
-    max_k = min(on_activations.shape[0] - 1, on_activations.shape[1], 50)
+    max_k = min(on_activations.shape[0] - 1, on_activations.shape[1], 100)
     if max_k < 1:
         return 1
-    pca = PCA(n_components=max_k)
+    pca = PCA(n_components=max_k, svd_solver="full")  # exact + reproducible
     pca.fit(on_activations)
     cumvar = np.cumsum(pca.explained_variance_ratio_)
     idx = int(np.searchsorted(cumvar, variance_threshold))

@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "reasoning-on-manifold"
@@ -36,3 +36,10 @@ cbs = [
 
 [tool.setuptools.packages.find]
 include = ["src*"]
+
+[tool.pytest.ini_options]
+# Discover both the core regression suite (tests/) and the CBS suite.
+# pythonpath="." puts the repo root on sys.path so `import src.<module>` works
+# regardless of which directory pytest is invoked from.
+testpaths = ["tests", "src/cbs/tests"]
+pythonpath = ["."]

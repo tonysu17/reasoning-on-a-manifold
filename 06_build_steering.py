@@ -32,7 +32,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-STEERING_LAYERS = {"R1-1.5B": 27, "R1-7B": 27, "R1-8B": 31}
+from src.config import STEERING_LAYERS  # single source of truth: configs/config.yaml
 
 
 def main():

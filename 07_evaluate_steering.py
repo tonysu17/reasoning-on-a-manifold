@@ -17,7 +17,7 @@ Output: results/eval/<model>/steering_results.json
 
 Requirements:
   pip install .[gpu]
-  Input: data/tasks.json + results/steering_vectors/<model>/
+  Input: data/tasks_final.json + results/steering_vectors/<model>/
 
 Runtime: ~4–6 hours on RTX 4090
 """
@@ -75,8 +75,14 @@ def main():
     eval_dir.mkdir(parents=True, exist_ok=True)
     results_path = eval_dir / "steering_results.json"
 
-    tasks = load_tasks(Path("data/tasks.json"))
-    # Use last n_test tasks as held-out (they were never used in activation extraction)
+    # Canonical corpus is tasks_final.json (data/tasks.json is a stale May-21
+    # snapshot — see data/MANIFEST.md). Reading the stale file desynchronised
+    # the eval prompts from the corpus the chains/activations were built on.
+    tasks = load_tasks(Path("data/tasks_final.json"))
+    # Use last n_test tasks as held-out.
+    # NOTE: this is only a true hold-out if activation extraction excluded these
+    # tasks. The current pipeline extracts over the whole corpus, so verify the
+    # split before treating Phase-7 numbers as out-of-sample generalisation.
     test_tasks = tasks[-args.n_test:]
     if args.smoke:
         test_tasks = test_tasks[:3]

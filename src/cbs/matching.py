@@ -241,6 +241,69 @@ def paired_geometric_tests(
             "stats": stats_out, "note": "ok"}
 
 
+# ── Cross-validated linear probe (shared by M4 gradient + M5 fail-stop) ─────
+
+def cv_probe(
+    X: np.ndarray,
+    y: np.ndarray,
+    groups: "np.ndarray | None" = None,
+    *,
+    cv_folds: int = 5,
+    seed: int = 0,
+) -> "tuple[list[float], np.ndarray | None]":
+    """CV accuracy of a logistic probe, with optional chain-aware splitting.
+
+    If `groups` (one chain id per row) is provided, uses StratifiedGroupKFold so
+    that sentences from the SAME chain never span train and test. Without this,
+    multiple sentences per chain leak across folds and inflate accuracy — a real
+    hazard here because tier-3 / success sentences cluster within chains. If
+    `groups` is None it falls back to StratifiedKFold and logs a leakage warning.
+
+    Returns (accuracies, mean_unit_weight) — `mean_unit_weight` is None when no
+    fold could be fit (too few samples or groups).
+    """
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import StratifiedKFold, StratifiedGroupKFold
+
+    X = np.asarray(X)
+    y = np.asarray(y)
+    if groups is not None:
+        groups = np.asarray(groups)
+        n_units = int(np.unique(groups).size)
+    else:
+        n_units = int(min(np.sum(y == 1), np.sum(y == 0)))
+        logger.warning(
+            "cv_probe running WITHOUT chain groups: sentences from the same "
+            "chain may leak across CV folds and inflate accuracy. Pass `groups` "
+            "(per-row chain ids) for a leak-free estimate."
+        )
+    folds = min(cv_folds, n_units)
+    if folds < 2:
+        return [], None
+
+    if groups is not None:
+        splitter = StratifiedGroupKFold(n_splits=folds, shuffle=True, random_state=seed)
+        split_iter = splitter.split(X, y, groups)
+    else:
+        splitter = StratifiedKFold(n_splits=folds, shuffle=True, random_state=seed)
+        split_iter = splitter.split(X, y)
+
+    accs: list[float] = []
+    weights: list[np.ndarray] = []
+    for train_idx, test_idx in split_iter:
+        clf = LogisticRegression(max_iter=1000, solver="liblinear")
+        clf.fit(X[train_idx], y[train_idx])
+        accs.append(float(clf.score(X[test_idx], y[test_idx])))
+        weights.append(clf.coef_[0])
+    if not weights:
+        return [], None
+    mean_w = np.mean(weights, axis=0)
+    norm = np.linalg.norm(mean_w)
+    if norm > 0:
+        mean_w = mean_w / norm
+    return accs, mean_w
+
+
 # ── Verification gradient (5-fold CV probe) ────────────────────────────────
 
 def verification_gradient(
@@ -249,6 +312,8 @@ def verification_gradient(
     *,
     cv_folds: int = 5,
     seed: int = 0,
+    correct_groups: "np.ndarray | None" = None,
+    incorrect_groups: "np.ndarray | None" = None,
 ) -> dict:
     """5-fold-CV linear probe with success/failure labels.
 
@@ -281,52 +346,35 @@ def verification_gradient(
         np.ones(correct_acts.shape[0]),
         np.zeros(incorrect_acts.shape[0]),
     ])
+    groups = None
+    if correct_groups is not None and incorrect_groups is not None:
+        groups = np.concatenate([np.asarray(correct_groups),
+                                 np.asarray(incorrect_groups)])
+
+    empty = {"probe_weights": np.zeros(X.shape[1]),
+             "cv_accuracy_mean": 0.0,
+             "cv_accuracy_std": 0.0,
+             "cv_accuracies": [],
+             "n_correct": int(correct_acts.shape[0]),
+             "n_incorrect": int(incorrect_acts.shape[0]),
+             "stable": False}
     try:
-        from sklearn.model_selection import StratifiedKFold
-        from sklearn.linear_model import LogisticRegression
+        accs, mean_w = cv_probe(X, y, groups, cv_folds=cv_folds, seed=seed)
     except ImportError:
-        return {"probe_weights": np.zeros(X.shape[1]),
-                "cv_accuracy_mean": 0.0,
-                "cv_accuracy_std": 0.0,
-                "cv_accuracies": [],
-                "n_correct": int(correct_acts.shape[0]),
-                "n_incorrect": int(incorrect_acts.shape[0]),
-                "stable": False,
-                "note": "sklearn unavailable"}
+        return {**empty, "note": "sklearn unavailable"}
+    if not accs:
+        return {**empty, "note": "too few samples/groups for CV"}
 
-    actual_folds = min(cv_folds, int(min(np.sum(y), np.sum(1 - y))))
-    if actual_folds < 2:
-        return {"probe_weights": np.zeros(X.shape[1]),
-                "cv_accuracy_mean": 0.0,
-                "cv_accuracy_std": 0.0,
-                "cv_accuracies": [],
-                "n_correct": int(correct_acts.shape[0]),
-                "n_incorrect": int(incorrect_acts.shape[0]),
-                "stable": False,
-                "note": "too few samples for CV"}
-
-    kf = StratifiedKFold(n_splits=actual_folds, shuffle=True, random_state=seed)
-    accs: list[float] = []
-    weights: list[np.ndarray] = []
-    for train_idx, test_idx in kf.split(X, y):
-        clf = LogisticRegression(max_iter=1000, solver="liblinear")
-        clf.fit(X[train_idx], y[train_idx])
-        accs.append(float(clf.score(X[test_idx], y[test_idx])))
-        weights.append(clf.coef_[0])
-    mean_w = np.mean(weights, axis=0)
-    norm = np.linalg.norm(mean_w)
-    if norm > 0:
-        mean_w = mean_w / norm
-    mean_acc = float(np.mean(accs))
     std_acc = float(np.std(accs))
     return {
         "probe_weights": mean_w,
-        "cv_accuracy_mean": mean_acc,
+        "cv_accuracy_mean": float(np.mean(accs)),
         "cv_accuracy_std": std_acc,
         "cv_accuracies": accs,
         "n_correct": int(correct_acts.shape[0]),
         "n_incorrect": int(incorrect_acts.shape[0]),
         "stable": bool(std_acc <= 0.15),
+        "grouped": groups is not None,
     }
 
 
@@ -335,4 +383,5 @@ __all__ = [
     "build_matched_pairs",
     "paired_geometric_tests",
     "verification_gradient",
+    "cv_probe",
 ]

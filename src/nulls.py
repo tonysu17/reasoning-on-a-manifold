@@ -54,7 +54,8 @@ def top_k_variance_ratio(activations: np.ndarray, k: int = 10) -> float:
     """Cumulative explained variance in the top k principal components."""
     if activations.shape[0] < 2:
         return float("nan")
-    pca = PCA(n_components=min(k, activations.shape[0] - 1, activations.shape[1]))
+    pca = PCA(n_components=min(k, activations.shape[0] - 1, activations.shape[1]),
+              svd_solver="full")  # exact + reproducible (see src/pca.py note)
     pca.fit(activations)
     return float(pca.explained_variance_ratio_.cumsum()[-1])
 
@@ -63,7 +64,8 @@ def participation_ratio(activations: np.ndarray) -> float:
     """PR = (sum(eig))^2 / sum(eig^2). Sample-size-robust effective dimension."""
     if activations.shape[0] < 2:
         return float("nan")
-    pca = PCA(n_components=min(activations.shape[0] - 1, activations.shape[1]))
+    pca = PCA(n_components=min(activations.shape[0] - 1, activations.shape[1]),
+              svd_solver="full")  # exact + reproducible (see src/pca.py note)
     pca.fit(activations)
     e = pca.explained_variance_
     if (e ** 2).sum() == 0:

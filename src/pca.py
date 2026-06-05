@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 def analyse_behaviour(
     activation_matrix: np.ndarray,
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict:
     """
     Fit PCA to one behaviour's activation matrix and return all metrics.
@@ -60,7 +60,10 @@ def analyse_behaviour(
             "d_eff_90": 1, "d_eff_95": 1, "participation_ratio": 1.0,
         }
 
-    pca = PCA(n_components=k)
+    # svd_solver="full": exact + deterministic. The default "auto" picks the
+    # randomized solver for these (N≈50-145, d=1536, small-k) shapes, which is
+    # non-reproducible without a fixed random_state. Full SVD is cheap at this N.
+    pca = PCA(n_components=k, svd_solver="full")
     pca.fit(activation_matrix)
 
     cumvar = np.cumsum(pca.explained_variance_ratio_)
@@ -93,7 +96,7 @@ def analyse_at_layer(
     activations_dir: Path,
     behaviours: list[str],
     layer: int,
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict[str, dict]:
     """Run PCA on all behaviours at one layer."""
     activations_dir = Path(activations_dir)
@@ -113,7 +116,7 @@ def analyse_across_layers(
     activations_dir: Path,
     behaviours: list[str],
     layers: list[int],
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict[str, dict[int, dict]]:
     """Run PCA for all behaviours across multiple layers."""
     results: dict[str, dict[int, dict]] = {b: {} for b in behaviours}

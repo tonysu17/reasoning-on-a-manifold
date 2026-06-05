@@ -55,7 +55,8 @@ logger = logging.getLogger(__name__)
 # Constants matching 05_pca_analysis.py for consistency
 
 from src.annotation import TARGET_BEHAVIOURS
-STEERING_LAYERS = {"R1-1.5B": 27, "R1-7B": 27, "R1-8B": 31}
+from src.config import STEERING_LAYERS  # single source: configs/config.yaml
+                                        # (previously omitted QwenMath-1.5B here)
 
 
 # Activation + chain-id loading
@@ -68,21 +69,26 @@ def load_activations(act_dir: Path, behaviour: str, layer: int) -> np.ndarray:
     return np.load(fname)
 
 
+def _find_sentence_offset(chain_text: str, sentence_text: str):
+    """Replicates src/activation_extraction.py:_find_sentence_offset exactly."""
+    idx = chain_text.find(sentence_text)
+    if idx >= 0:
+        return idx
+    prefix = sentence_text[:40].strip()
+    if len(prefix) >= 10:
+        idx = chain_text.find(prefix)
+        if idx >= 0:
+            return idx
+    return None
+
+
 def load_chain_id_map(annotated_path: Path, target_behaviours) -> dict:
     """Load chain_id per sentence per behaviour from the annotation file.
 
-    Expected structure of annotated JSON:
-      [
-        { "task_id": "...", "chain_id": "...", "annotations": [
-            {"label": "...", "text": "..."}, ...
-        ]},
-        ...
-      ]
+    Apply Phase 4's find_sentence_offset filter so the chain_id array length
+    matches the activation-matrix row count exactly.
 
-    Returns dict {behaviour_uppercase: ndarray of chain_ids per sentence}.
-    The ordering of chain_ids MUST match the row ordering of the activation
-    matrices saved by Phase 4. If Phase 4 used a different ordering, this
-    function needs to be adapted accordingly.
+    Returns dict {behaviour: ndarray of chain_ids per sentence}.
     """
     if not annotated_path.exists():
         logger.warning(f"Annotation file {annotated_path} not found; chain IDs unavailable.")
@@ -92,12 +98,22 @@ def load_chain_id_map(annotated_path: Path, target_behaviours) -> dict:
         chains = json.load(f)
 
     per_beh = {b: [] for b in target_behaviours}
+    n_filtered = {b: 0 for b in target_behaviours}
     for chain in chains:
+        chain_text = chain.get("chain", "")
         cid = chain.get("chain_id") or chain.get("task_id")
         for ann in chain.get("annotations", []):
             label = ann.get("label", "")
-            if label in per_beh:
-                per_beh[label].append(cid)
+            if label not in per_beh:
+                continue
+            # Apply the same filter Phase 4 applied
+            if _find_sentence_offset(chain_text, ann.get("text", "")) is None:
+                n_filtered[label] += 1
+                continue
+            per_beh[label].append(cid)
+    for b, n in n_filtered.items():
+        if n > 0:
+            logger.info(f"  filtered {n} unlocatable {b} annotations (matches Phase 4 skip)")
     return {b: np.array(v) if v else None for b, v in per_beh.items()}
 
 
@@ -288,7 +304,12 @@ def write_summary(per_behaviour: dict, null_results: dict, args, out_path: Path)
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--model-short", default="R1-1.5B")
-    parser.add_argument("--layer", type=int, default=None, help="Target layer (default: model's steering layer).")
+    parser.add_argument("--layer", type=int, default=None,
+                        help="Single target layer (default: model's steering layer). "
+                             "Use --layers for multi-layer runs.")
+    parser.add_argument("--layers", nargs="+", type=int, default=None,
+                        help="Multiple target layers — overrides --layer if set. "
+                             "Used in the multi-criteria triangulation workflow.")
     parser.add_argument("--n-resamples", type=int, default=500,
                         help="Monte Carlo resamples per null. Default 500.")
     parser.add_argument("--k", nargs="+", type=int, default=[10, 30, 100],
@@ -301,8 +322,13 @@ def main():
                         help="Skip the null-hypothesis hierarchy (faster).")
     args = parser.parse_args()
 
-    if args.layer is None:
-        args.layer = STEERING_LAYERS.get(args.model_short, 27)
+    # Determine which layers to process
+    if args.layers is not None:
+        layers_to_run = args.layers
+    elif args.layer is not None:
+        layers_to_run = [args.layer]
+    else:
+        layers_to_run = [STEERING_LAYERS.get(args.model_short, 27)]
 
     act_dir       = Path(f"data/activations/{args.model_short}")
     annotated_p   = Path(f"data/annotated_{args.model_short}.json")
@@ -313,72 +339,77 @@ def main():
         logger.error(f"Activations not found at {act_dir}. Run 04_extract_activations.py first.")
         sys.exit(1)
 
-    # Load per-behaviour activations and (optionally) chain IDs
-    activations_by_beh = {}
-    for b in TARGET_BEHAVIOURS:
-        try:
-            activations_by_beh[b] = load_activations(act_dir, b, args.layer)
-            logger.info(f"Loaded {b}: shape={activations_by_beh[b].shape}")
-        except FileNotFoundError as e:
-            logger.warning(f"Skipping {b}: {e}")
+    logger.info(f"Running 5b across {len(layers_to_run)} layer(s): {layers_to_run}")
+    for layer_idx, current_layer in enumerate(layers_to_run):
+        logger.info(f"=== Layer {current_layer} ({layer_idx+1}/{len(layers_to_run)}) ===")
+        args.layer = current_layer
 
-    if not activations_by_beh:
-        logger.error("No activation files found for any target behaviour.")
-        sys.exit(1)
+        # Load per-behaviour activations and (optionally) chain IDs
+        activations_by_beh = {}
+        for b in TARGET_BEHAVIOURS:
+            try:
+                activations_by_beh[b] = load_activations(act_dir, b, args.layer)
+                logger.info(f"Loaded {b}: shape={activations_by_beh[b].shape}")
+            except FileNotFoundError as e:
+                logger.warning(f"Skipping {b}: {e}")
 
-    chain_ids_by_beh = load_chain_id_map(annotated_p, list(activations_by_beh.keys()))
+        if not activations_by_beh:
+            logger.error("No activation files found for any target behaviour.")
+            sys.exit(1)
 
-    # Per-behaviour diagnostics
-    per_behaviour = {}
-    for b, X in activations_by_beh.items():
-        logger.info(f"=== {b} ===")
-        per_behaviour[b] = diagnose_behaviour(
-            X, chain_ids_by_beh.get(b), b,
-            n_resamples=args.n_resamples,
-            k_values=tuple(args.k),
-            intrinsic_dim_for_tangent=args.intrinsic_dim_for_tangent,
-            pca_topk_for_curvature=args.pca_topk,
-        )
+        chain_ids_by_beh = load_chain_id_map(annotated_p, list(activations_by_beh.keys()))
 
-    # Null hierarchy across behaviours
-    null_results = {}
-    if not args.skip_nulls:
-        logger.info("=== Null hypothesis hierarchy ===")
-        null_results = run_null_hierarchy_at_layer(
-            activations_by_beh, chain_ids_by_beh, args.n_resamples,
-        )
+        # Per-behaviour diagnostics
+        per_behaviour = {}
+        for b, X in activations_by_beh.items():
+            logger.info(f"=== {b} ===")
+            per_behaviour[b] = diagnose_behaviour(
+                X, chain_ids_by_beh.get(b), b,
+                n_resamples=args.n_resamples,
+                k_values=tuple(args.k),
+                intrinsic_dim_for_tangent=args.intrinsic_dim_for_tangent,
+                pca_topk_for_curvature=args.pca_topk,
+            )
 
-    # Persist
-    payload = {
-        "model_short": args.model_short,
-        "layer": args.layer,
-        "args": vars(args),
-        "per_behaviour": per_behaviour,
-        "null_hierarchy": null_results,
-    }
-    json_path = out_dir / f"diagnostics_layer{args.layer}.json"
+        # Null hierarchy across behaviours
+        null_results = {}
+        if not args.skip_nulls:
+            logger.info("=== Null hypothesis hierarchy ===")
+            null_results = run_null_hierarchy_at_layer(
+                activations_by_beh, chain_ids_by_beh, args.n_resamples,
+            )
 
-    def _make_serializable(obj):
-        if isinstance(obj, Path):
-            return str(obj)
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        if isinstance(obj, (np.integer, np.floating, np.bool_)):
-            return obj.item()
-        if isinstance(obj, (set, frozenset, tuple)):
-            return list(obj)
-        raise TypeError(f"Not JSON serialisable: {type(obj).__name__}")
+        # Persist
+        payload = {
+            "model_short": args.model_short,
+            "layer": args.layer,
+            "args": vars(args),
+            "per_behaviour": per_behaviour,
+            "null_hierarchy": null_results,
+        }
+        json_path = out_dir / f"diagnostics_layer{args.layer}.json"
 
-    json_path.write_text(json.dumps(payload, indent=2, default=_make_serializable))
+        def _make_serializable(obj):
+            if isinstance(obj, Path):
+                return str(obj)
+            if isinstance(obj, np.ndarray):
+                return obj.tolist()
+            if isinstance(obj, (np.integer, np.floating, np.bool_)):
+                return obj.item()
+            if isinstance(obj, (set, frozenset, tuple)):
+                return list(obj)
+            raise TypeError(f"Not JSON serialisable: {type(obj).__name__}")
 
-    md_path = out_dir / f"summary_layer{args.layer}.md"
-    write_summary(per_behaviour, null_results, args, md_path)
+        json_path.write_text(json.dumps(payload, indent=2, default=_make_serializable))
 
-    print("\n" + "=" * 60)
-    print(f"Phase 5b complete - layer {args.layer}")
-    print("=" * 60)
-    print(f"JSON: {json_path}")
-    print(f"MD:   {md_path}")
+        md_path = out_dir / f"summary_layer{args.layer}.md"
+        write_summary(per_behaviour, null_results, args, md_path)
+
+        print("\n" + "=" * 60)
+        print(f"Phase 5b complete - layer {args.layer}")
+        print("=" * 60)
+        print(f"JSON: {json_path}")
+        print(f"MD:   {md_path}")
 
 
 if __name__ == "__main__":

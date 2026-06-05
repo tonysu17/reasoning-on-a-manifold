@@ -264,26 +264,49 @@ def _twoNN_point_estimate(X: np.ndarray, fraction: float = 0.9) -> float:
 def local_intrinsic_dim(
     X: np.ndarray,
     k: int = 20,
-    estimator: str = "twoNN",
+    estimator: str = "mle",
 ) -> np.ndarray:
-    """Per-row intrinsic-dim estimate via TwoNN over the local k-NN cloud.
+    """Per-row local intrinsic-dimension estimate over each point's k-NN cloud.
+
+    estimator="mle" (default): Levina-Bickel maximum-likelihood estimator,
+        m_k(i) = [ (1/(k-1)) * sum_{j=1}^{k-1} log(r_k(i) / r_j(i)) ]^{-1},
+        where r_j(i) is the distance from point i to its j-th nearest
+        neighbour. This is the standard, low-bias local ID estimator.
+
+    estimator="twoNN": LEGACY per-row TwoNN fit on the k-NN cloud. Retained for
+        backward compatibility ONLY — it is severely upward-biased on small
+        clouds (empirically returns ~9-13 for a true dimension of 3). Do not
+        use for new analysis. See tests/test_intrinsic_dim.py.
 
     Returns (N,) array of estimates; NaN entries indicate degenerate clouds
-    (too few neighbours or all-equal distances). N < k + 1 produces all-NaN.
+    (too few neighbours or zero distances). N < k + 1 produces all-NaN.
     """
-    if estimator != "twoNN":
-        raise ValueError(f"unsupported estimator: {estimator}")
     X = np.asarray(X)
     n = X.shape[0]
     if n < k + 1:
         return np.full(n, np.nan)
     from sklearn.neighbors import NearestNeighbors
     nn = NearestNeighbors(n_neighbors=k + 1).fit(X)
-    _, indices = nn.kneighbors(X)
-    out = np.empty(n)
-    for i in range(n):
-        out[i] = _twoNN_point_estimate(X[indices[i]])
-    return out
+    dists, indices = nn.kneighbors(X)
+
+    if estimator == "twoNN":
+        out = np.empty(n)
+        for i in range(n):
+            out[i] = _twoNN_point_estimate(X[indices[i]])
+        return out
+    if estimator != "mle":
+        raise ValueError(f"unsupported estimator: {estimator!r}")
+
+    # Levina-Bickel MLE. dists[:, 0] is the self-distance (0); use cols 1..k.
+    r = dists[:, 1:k + 1]                 # (n, k): r_1 <= ... <= r_k
+    rk = r[:, -1:]                        # (n, 1): r_k
+    with np.errstate(divide="ignore", invalid="ignore"):
+        log_ratios = np.log(rk / r[:, :-1])           # (n, k-1): log(r_k / r_j)
+        denom = log_ratios.sum(axis=1) / (k - 1)
+        m = 1.0 / denom
+    m = np.where(np.isfinite(m), m, np.nan)
+    m[(r <= 0).any(axis=1)] = np.nan      # degenerate (coincident) neighbours
+    return m
 
 
 # ── Bootstrap CI ────────────────────────────────────────────────────────────

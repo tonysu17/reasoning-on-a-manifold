@@ -23,6 +23,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import numpy as np
+
 from src.pca import (
     analyse_across_layers,
     analyse_at_layer,
@@ -39,9 +41,115 @@ logger = logging.getLogger(__name__)
 
 from src.annotation import TARGET_BEHAVIOURS
 
-# Huang et al.'s recommended steering layers
-STEERING_LAYERS = {"R1-1.5B": 27, "R1-7B": 27, "R1-8B": 31}
+# Huang et al.'s recommended steering layers — single source: configs/config.yaml
+from src.config import STEERING_LAYERS
 
+
+
+
+# ── Per-layer null hierarchy (added) ──────────────────────────────────────────
+
+def _find_sentence_offset(chain_text: str, sentence_text: str):
+    """Replicates src/activation_extraction.py:_find_sentence_offset exactly.
+    Returns the char offset where the sentence begins, or None if untraceable.
+    """
+    idx = chain_text.find(sentence_text)
+    if idx >= 0:
+        return idx
+    prefix = sentence_text[:40].strip()
+    if len(prefix) >= 10:
+        idx = chain_text.find(prefix)
+        if idx >= 0:
+            return idx
+    return None
+
+
+def _load_chain_id_map(annotated_path, target_behaviours):
+    """Return {behaviour: ndarray of chain_ids per row in extraction order}.
+
+    The order MUST match how activation_extraction.py iterated through chains
+    and annotations. To keep counts aligned with the activation matrices, we
+    apply Phase 4's same find_sentence_offset filter — annotations whose text
+    couldn't be located in the chain were skipped during extraction, so we skip
+    them here too.
+    """
+    with open(annotated_path) as f:
+        chains = json.load(f)
+    per_beh = {b: [] for b in target_behaviours}
+    n_filtered = {b: 0 for b in target_behaviours}
+    for chain in chains:
+        chain_text = chain.get("chain", "")
+        cid = chain.get("chain_id") or chain["task_id"]
+        for ann in chain.get("annotations", []):
+            label = ann.get("label", "")
+            if label not in per_beh:
+                continue
+            # Apply the same filter Phase 4 applied
+            if _find_sentence_offset(chain_text, ann.get("text", "")) is None:
+                n_filtered[label] += 1
+                continue
+            per_beh[label].append(cid)
+    for b, n in n_filtered.items():
+        if n > 0:
+            logger.info(f"  chain_id loader filtered {n} unlocatable {b} annotations (Phase 4 skipped these too)")
+    return {b: (np.array(v) if v else None) for b, v in per_beh.items()}
+
+
+def _build_pooled(act_dir, layer, target_behaviours, chain_id_map):
+    """Return X_pooled, chain_ids_pooled, labels_pooled at one layer."""
+    X_parts, chain_parts, label_parts = [], [], []
+    for b in target_behaviours:
+        path = act_dir / f"{b}_layer{layer}.npy"
+        if not path.exists():
+            continue
+        X_b = np.load(path)
+        cids_b = chain_id_map.get(b)
+        if cids_b is None or len(cids_b) != X_b.shape[0]:
+            logger.warning(f"  chain_ids length mismatch for {b} layer {layer}: "
+                           f"{None if cids_b is None else len(cids_b)} vs N={X_b.shape[0]}; using proxy")
+            cids_b = np.array([f"{b}_proxy"] * X_b.shape[0])
+        X_parts.append(X_b)
+        chain_parts.append(cids_b)
+        label_parts.append(np.array([b] * X_b.shape[0]))
+    return np.vstack(X_parts), np.concatenate(chain_parts), np.concatenate(label_parts)
+
+
+def compute_per_layer_nulls(act_dir, annotated_path, layers, target_behaviours,
+                             n_resamples=100):
+    """Run chain-stratified permutation null at every layer for every target
+    behaviour. Returns a nested dict {behaviour: {layer: {real, null_mean, p_value}}}.
+    """
+    from src.nulls import chain_stratified_permutation_null, top_k_variance_ratio
+    chain_id_map = _load_chain_id_map(annotated_path, target_behaviours)
+    results = {b: {} for b in target_behaviours}
+    for L in layers:
+        try:
+            X, chains, labels = _build_pooled(act_dir, L, target_behaviours, chain_id_map)
+        except Exception as e:
+            logger.warning(f"  layer {L}: build_pooled failed ({e}); skipping")
+            continue
+        for b in target_behaviours:
+            if b not in labels:
+                continue
+            try:
+                r = chain_stratified_permutation_null(
+                    activations=X, chain_ids=chains, labels=labels,
+                    target_label=b,
+                    statistic_fn=top_k_variance_ratio,
+                    statistic_name="top10_var_ratio",
+                    n_resamples=n_resamples,
+                )
+                results[b][int(L)] = {
+                    "real_value": r.real_value,
+                    "null_mean":  r.null_mean,
+                    "null_p2_5":  r.null_p2_5,
+                    "null_p97_5": r.null_p97_5,
+                    "p_value":    r.p_value,
+                }
+            except Exception as e:
+                logger.warning(f"  null at {b}@L{L} failed: {e}")
+        logger.info(f"  layer {L}: nulls computed for {len(results)} behaviours")
+    return results
 
 def main():
     parser = argparse.ArgumentParser(description="Phase 5: PCA manifold analysis")
@@ -51,6 +159,13 @@ def main():
     parser.add_argument("--focus-layer", type=int, default=None,
                         help="Primary layer to display in summary table "
                              "(default: Huang's recommended layer)")
+    parser.add_argument("--with-nulls", action="store_true",
+                        help="Compute chain-stratified permutation null p-value "
+                             "at every layer per behaviour (B=100 by default).")
+    parser.add_argument("--null-resamples", type=int, default=100,
+                        help="Number of resamples for the per-layer null (default 100).")
+    parser.add_argument("--annotated", type=Path, default=None,
+                        help="Path to annotated chains JSON (needed for chain IDs).")
     args = parser.parse_args()
 
     act_dir = Path(f"data/activations/{args.model_short}")
@@ -88,6 +203,22 @@ def main():
         layer_res = {beh: all_results[beh][layer]
                      for beh in TARGET_BEHAVIOURS if layer in all_results[beh]}
         save_pca_results(layer_res, save_dir, layer=layer)
+
+    # Optional: per-layer chain-stratified null
+    if args.with_nulls:
+        annotated_path = args.annotated or Path(f"data/annotated_{args.model_short}.json")
+        if not annotated_path.exists():
+            logger.warning(f"--with-nulls: annotated file {annotated_path} not found; skipping nulls")
+        else:
+            logger.info(f"Computing chain-stratified null at all layers (B={args.null_resamples})...")
+            null_results = compute_per_layer_nulls(
+                act_dir, annotated_path, layers, TARGET_BEHAVIOURS,
+                n_resamples=args.null_resamples,
+            )
+            null_path = save_dir / "null_pvalues_per_layer.json"
+            with open(null_path, "w") as f:
+                json.dump(null_results, f, indent=2)
+            logger.info(f"Per-layer null p-values saved → {null_path}")
 
     # Save layer-wise d_eff profiles (for plotting)
     profiles = {}

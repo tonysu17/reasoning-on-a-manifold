@@ -29,6 +29,19 @@ models:
     use_4bit: false
     steering_layer: 27
 
+  # Non-thinking baseline for Extension 1 (companion document Section 3).
+  # Identity verified empirically: embedding cos sim 0.994 vs R1-Distill-Qwen-1.5B
+  # (vs 0.84 for the Instruct variant). See results/base_model_verification/.
+  baseline:
+    id: "Qwen/Qwen2.5-Math-1.5B"
+    short_name: "QwenMath-1.5B"   # matches the short-name the runners pass via --model
+    n_layers: 28
+    hidden_dim: 1536
+    dtype: "float16"
+    use_4bit: false
+    steering_layer: 27          # matches R1-1.5B for direct comparability
+    is_thinking: false          # no <think>...</think> template; differential behaviour fractions are part of the finding
+
   tertiary:
     id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
     short_name: "R1-8B"
