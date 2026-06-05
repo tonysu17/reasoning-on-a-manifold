@@ -94,12 +94,13 @@ The `tdd-guard` PreToolUse hook in `.claude/settings.json` was found to be malfu
 
 ## 5. Full backlog from the sub-audits
 
-**Status (2026-06-05, second pass):** most of this backlog is now IMPLEMENTED
-(commits `4181201` Group A, `d7d147e` #16, `e453c1e` Group C, `8150bbf` Group D,
-`d7cba5f` Group F, `43f6b2e` #18-partial). Test suite is **192 passing**. Each
-item below is annotated **[DONE]** or **[DEFERRED — reason]**. The estimator
-changes assume the multi-annotator geometry is regenerated on the fixed code
-(coordinated with the parallel session).
+**Status (2026-06-05, second pass):** the **entire §5 backlog is now IMPLEMENTED**
+(commits `4181201` A, `d7d147e` #16, `e453c1e` C, `8150bbf` D, `d7cba5f` F,
+`43f6b2e`+`ba52881` #18, `33d34fa` overwrite-safety, `fbf7093` #15 bootstrap,
+`ea3070d` input-validation). Test suite is **220 passing**. Every item below is
+**[DONE]**. The estimator changes assume the multi-annotator geometry is
+regenerated on the fixed code (the one action that remains, owned by the
+parallel session — see §6).
 
 Lower-severity findings surfaced by the parallel runner/CBS audits.
 
@@ -112,7 +113,7 @@ Lower-severity findings surfaced by the parallel runner/CBS audits.
 - **[DONE]** `09_cbs_geometry.py` real loader — implemented `_load_real_labels` (real tiers aligned to `build_row_index`); uses real labels when present and **never stamps `labels_source:"real"` on synthetic data** again.
 - **[DONE]** `09` mannwhitneyu — now catches `ValueError` (all-identical inputs) too.
 - **[DONE]** `cbs/annotation.py` — narrowed the over-broad catch + added a non-dict-JSON guard (was an uncaught-crash path).
-- **[DEFERRED — touches in-flight files]** Overwrite safety for `02`/`02b`/`03`: these are the *expensive* writers (chains/annotations) and are in the parallel session's active path, so a write-then-backup was not added now to avoid editing running scripts. Worth doing once that session is idle. (`12` writes via `tmp.rename`.)
+- **[DONE]** Overwrite safety — `src.config.backup_existing()` (copy to `.bak`) wired into `generate_chains`/`annotate_chains` at the resume check (they already wrote atomically via `tmp.rename`; this adds a last-good snapshot), and the non-atomic savers `save_pca_results`/`save_steering_vectors` now back up + write via `tmp.replace`.
 
 ### Reproducibility / provenance (MEDIUM)
 - **[DONE]** CBS `seed` — `08/09/11/12/13` `--seed` default → `config.SEED` (42); `12` gained a `--seed` arg; `08` threads it into `annotate_chains_cbs`.
@@ -121,7 +122,7 @@ Lower-severity findings surfaced by the parallel runner/CBS audits.
 
 ### Duplication (MEDIUM/LOW)
 - **[DONE]** `_find_sentence_offset` — canonical `src/text_offsets.py`; all 5 sites import it (verified same object in a test).
-- **[PARTIAL] `MODELS` dicts** (#18) — `07` now includes the baseline + safety models (was the `--model qwen-math-1.5b` crash). **[DEFERRED]** full unification of the three short-code registries via `src.config.MODELS` needs a per-model `cli_alias` in `config.yaml`; `02`/`04` are also in the parallel session's in-flight path.
+- **[DONE] `MODELS` dicts** (#18) — added per-model `cli_alias` to `config.yaml` + `MODELS_BY_CLI`/`model_tuple`/`model_dict` in `src.config`. `02`/`04`/`07` now build their `--model` registries from config (04/07 all 5 models; 02 keeps its thinking-only `{1.5b,7b,8b}` subset). Eliminated the divergence that left 07 missing the baseline.
 
 ### Schema / data (LOW)
 - **[DONE]** `cohort.is_truncated` cap sourced from `config.chains.max_new_tokens`.
@@ -131,16 +132,32 @@ Lower-severity findings surfaced by the parallel runner/CBS audits.
 
 ### Docs (LOW)
 - **[DONE]** `predict_saturation.py` docstring corrected to the real filename convention. (`06b` had no stale ref.)
-- **[DEFERRED — low value]** Ad-hoc scripts (`make_fresh_figures`, `render_html`, `validate_pilot_lengths`, …) lack input validation. Throwaway analysis scripts; not worth the churn now.
+- **[DONE]** `src.config.require_file(path, hint)` exits with a one-line message instead of a raw traceback; wired into `build_phase6` (ACT) and `robustness_geometry` (ACT + ANNOT). (Other figure scripts still unguarded — trivial to extend with the same helper.)
 
-### True paired cross-model bootstrap (the residual of #15)
-- **[DEFERRED — needs producer changes]** `cross_model_compare` is honestly labelled `p_normal_approx` (done). A genuine paired bootstrap needs `05`/`05b` to persist per-resample arrays so the comparison can resample them — a cross-cutting change on large GPU runners.
+### True cross-model bootstrap (the residual of #15)
+- **[DONE]** `bootstrap_ci` gained `return_dist`; `09_cbs_geometry` persists `effect_size_boots`; `cross_model_compare` now does a genuine two-sample bootstrap of the effect-size difference when both distributions are present (key `p_value` + `p_method ∈ {two_sample_bootstrap, normal_approx_from_ci, none}`), falling back to the normal approximation otherwise.
 
 ---
 
 ## 6. Next-session checklist (ordered)
 
-1. **Merge** `audit/se-robustness-fixes` → `main` (~11 commits; the first bundles pre-existing WIP, later commits bundle the parallel session's `config.yaml` safety-model + the untracked ad-hoc scripts — see commit messages). Re-run `pytest` (expect **192**).
-2. **Regenerate** all geometry/robustness results on the fixed estimators (the May 28–30 `results/geometric` + `results/robustness` are from the biased code) so the 3-annotator comparison is uniform; refresh the TwoNN dims in `PROGRESS.md`.
-3. **Remaining (all DEFERRED above, by choice):** overwrite-safety on `02`/`03` (after the parallel run is idle); full `MODELS`→`config` unification (add `cli_alias`); true paired cross-model bootstrap (persist resample arrays in `05`/`05b`); ad-hoc-script arg validation.
-4. Re-enable `tdd-guard` only after its validator is fixed (§4).
+The §5 backlog is fully implemented. What remains is **not code** — it's the
+consistency action and the merge:
+
+1. **Regenerate** all geometry/robustness results on the fixed estimators (the
+   May 28–30 `results/geometric` + `results/robustness` are from the biased
+   code) so the 3-annotator comparison is uniform — `robustness_geometry.py`
+   imports the three estimators that changed. Then refresh the TwoNN dims in
+   `PROGRESS.md`. **This is owned by the parallel session.**
+2. **Merge** `audit/se-robustness-fixes` → `main` (~19 commits; the first bundles
+   pre-existing WIP, several bundle the parallel session's `config.yaml`
+   safety-model edits + the untracked ad-hoc scripts — see commit messages).
+   Re-run `pytest` (expect **220**).
+3. **Methodological cautions** (research-design, unchanged): small N for
+   intrinsic-dim/curvature; "manifold-projected steering" is a *linear*
+   projection (tests subspace, not curvature); single-annotator labels (the
+   3-annotator agreement work mitigates this); ~50% chain truncation;
+   first-10-token mean-pooling collapses the trajectory.
+4. Minor leftovers: provenance stamps on `05c`/`compute_layer_triangulation`/
+   figure scripts; `require_file` on the remaining figure scripts. Re-enable
+   `tdd-guard` only after its validator is fixed (§4).
