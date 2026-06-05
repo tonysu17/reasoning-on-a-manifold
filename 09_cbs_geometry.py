@@ -29,6 +29,7 @@ import argparse
 import json
 import logging
 import sys
+import zlib
 from pathlib import Path
 from typing import Optional
 
@@ -266,8 +267,8 @@ def main() -> int:
                                layer, behaviour, n)
                 continue
 
-            tiers = _synthetic_tier_labels(n, args.seed + layer + hash(behaviour) % 1000)
-            cd = _synthetic_crossdomain_labels(n, args.seed + layer + hash(behaviour) % 1000)
+            tiers = _synthetic_tier_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
+            cd = _synthetic_crossdomain_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
 
             label = "synthetic" if args.synthetic_tiers else "real"
             cell = _compute_layer_behaviour(
