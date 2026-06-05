@@ -29,6 +29,7 @@ from pathlib import Path
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.trajectory import compare_groups, PHASE_4_BEHAVIOURS
 
 logger = logging.getLogger("11_trajectory_analysis")
@@ -51,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--jaccard-threshold", type=float, default=0.6)
     p.add_argument("--skip-matched-pair", action="store_true")
     p.add_argument("--skip-verification-gradient", action="store_true")
-    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--seed", type=int, default=SEED)  # config.SEED (was 0)
     p.add_argument("--log-level", default="INFO")
     return p.parse_args()
 
@@ -210,7 +211,10 @@ def main() -> int:
             "synthesis_reference": "§M4.2",
             "what_will_run_when_unblocked": [
                 ("verification_gradient(correct_acts, incorrect_acts, "
-                 "cv_folds=5, seed=0)"),
+                 "cv_folds=5, seed=0, correct_groups=<chain_ids>, "
+                 "incorrect_groups=<chain_ids>)  # groups REQUIRED: chain-aware "
+                 "CV (StratifiedGroupKFold) so same-chain sentences don't leak "
+                 "across folds — see src/cbs/matching.cv_probe"),
                 ("cosine(probe_weights, v_CBS) and "
                  "cosine(probe_weights, v_adding_knowledge_centroid) "
                  "filled in by the M5 ablation step."),

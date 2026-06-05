@@ -30,23 +30,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-MODELS = {
-    "1.5b": {
-        "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
-        "short": "R1-1.5B",
-        "dtype": "float16",
-    },
-    "7b": {
-        "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-        "short": "R1-7B",
-        "dtype": "float16",
-    },
-    "8b": {
-        "id": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
-        "short": "R1-8B",
-        "dtype": "float16",
-    },
-}
+# Single source of truth: configs/config.yaml (keyed by each model's cli_alias).
+# Thinking models only here — the non-thinking baseline (QwenMath) is generated
+# by 02b_generate_baseline_chains.py, and gpt-oss uses the harmony format.
+from src.config import model_dict
+MODELS = {alias: model_dict(alias) for alias in ("1.5b", "7b", "8b")}
 
 
 def _parse_seeds(seeds_arg: str) -> list[int]:

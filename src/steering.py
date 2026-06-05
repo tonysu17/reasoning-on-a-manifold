@@ -83,7 +83,7 @@ def manifold_projected_vector(
         logger.warning(f"Cannot project: k={k} but only {on_activations.shape[0]} samples")
         return r
 
-    pca = PCA(n_components=n_components)
+    pca = PCA(n_components=n_components, svd_solver="full")  # exact + reproducible
     pca.fit(on_activations)
     V = pca.components_  # (k, hidden_dim)
 
@@ -100,10 +100,10 @@ def manifold_projected_vector(
 
 def auto_k(on_activations: np.ndarray, variance_threshold: float = 0.70) -> int:
     """Return the smallest k such that the top-k PCs explain >= threshold variance."""
-    max_k = min(on_activations.shape[0] - 1, on_activations.shape[1], 50)
+    max_k = min(on_activations.shape[0] - 1, on_activations.shape[1], 100)
     if max_k < 1:
         return 1
-    pca = PCA(n_components=max_k)
+    pca = PCA(n_components=max_k, svd_solver="full")  # exact + reproducible
     pca.fit(on_activations)
     cumvar = np.cumsum(pca.explained_variance_ratio_)
     idx = int(np.searchsorted(cumvar, variance_threshold))
@@ -194,11 +194,14 @@ def build_steering_vectors(
 
 # ── Save / load ───────────────────────────────────────────────────────────────
 
-def save_steering_vectors(vectors: dict, save_dir: Path) -> None:
+def save_steering_vectors(vectors: dict, save_dir: Path,
+                          provenance: Optional[dict] = None) -> None:
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
     metadata = {}
+    if provenance is not None:
+        metadata["_provenance"] = provenance
     for beh, data in vectors.items():
         np.save(save_dir / f"{beh}_single.npy", data["single_direction"])
         for k, vec in data["manifold_projected"].items():
@@ -211,8 +214,15 @@ def save_steering_vectors(vectors: dict, save_dir: Path) -> None:
             "k_values": list(data["manifold_projected"].keys()),
         }
 
-    with open(save_dir / "metadata.json", "w") as f:
+    # Back up a prior metadata (a shorter re-run shouldn't clobber it) and write
+    # atomically so an interrupted write can't leave a corrupt metadata.json.
+    from src.config import backup_existing
+    meta_path = save_dir / "metadata.json"
+    backup_existing(meta_path)
+    tmp = meta_path.with_suffix(".json.tmp")
+    with open(tmp, "w") as f:
         json.dump(metadata, f, indent=2)
+    tmp.replace(meta_path)
     logger.info(f"Steering vectors saved → {save_dir}")
 
 
@@ -223,6 +233,8 @@ def load_steering_vectors(save_dir: Path) -> dict:
 
     vectors = {}
     for beh, meta in metadata.items():
+        if beh.startswith("_"):
+            continue  # metadata keys like _provenance, not a behaviour
         vectors[beh] = {
             "layer": meta["layer"],
             "single_direction": np.load(save_dir / f"{beh}_single.npy"),

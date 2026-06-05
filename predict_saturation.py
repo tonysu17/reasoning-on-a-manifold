@@ -14,8 +14,9 @@ where
 
 This script:
   1. Loads Phase 5b curvature output (results/geometric/<model>/diagnostics_layer<N>.json)
-  2. Loads Phase 6 steering vectors (results/steering_vectors/<model>/<beh>_layer<N>.npy)
-  3. Loads the per-behaviour PCA basis (results/pca/<model>/<beh>_components.npy)
+  2. Loads Phase 6 steering vectors (results/steering_vectors/<model>/<beh>_single.npy
+     and <beh>_manifold_k<k>.npy; see src/steering.save_steering_vectors)
+  3. Loads the per-behaviour PCA basis (results/pca/<model>/<beh>_components_layer<N>.npy)
   4. Projects each steering vector onto the local tangent bundle
   5. Outputs predicted alpha*_b per behaviour
   6. If Phase 7 saturation results are available, computes cross-behaviour

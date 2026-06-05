@@ -28,9 +28,12 @@ M2 (synthesis §M2).
 
 from __future__ import annotations
 
+import logging
 from typing import Any, Callable, Optional, Sequence
 
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 
 # ── Centroid distance ───────────────────────────────────────────────────────
@@ -107,22 +110,36 @@ def principal_angles(
 def build_union_basis(
     per_behaviour_pcs: dict[str, np.ndarray],
     variance_threshold: float = 0.95,
+    per_behaviour_weights: "dict[str, np.ndarray] | None" = None,
 ) -> np.ndarray:
-    """Concatenate per-behaviour top PCs, orthonormalise via QR, return basis
+    """Concatenate per-behaviour top PCs, orthonormalise via SVD, return basis
     covering `variance_threshold` of the joint variance (default 0.95).
 
-    `per_behaviour_pcs` maps behaviour name -> (d, k_b) PCs (columns).
+    `per_behaviour_pcs` maps behaviour name -> (d, k_b) PC directions (columns).
+
+    IMPORTANT (calibration): PC *directions* are unit-norm, so WITHOUT weighting
+    the SVD singular values reflect only the geometric overlap of the directions,
+    not how much activation variance each captures — `variance_threshold` is then
+    a cut on direction-spectral-energy, NOT activation variance. Pass
+    `per_behaviour_weights` (behaviour -> (k_b,) explained variance / eigenvalues)
+    to scale each column by sqrt(eigenvalue) so the threshold means activation
+    variance as advertised. See AUDIT.md §5 and tests/test_cbs_geometry_extra.py.
     """
     if not per_behaviour_pcs:
         raise ValueError("per_behaviour_pcs is empty")
-    blocks = list(per_behaviour_pcs.values())
-    if not blocks:
-        raise ValueError("no PC blocks provided")
-    d = blocks[0].shape[0]
-    for V in blocks:
+    d = next(iter(per_behaviour_pcs.values())).shape[0]
+    blocks = []
+    for beh, V in per_behaviour_pcs.items():
         if V.ndim != 2 or V.shape[0] != d:
             raise ValueError(f"PC block shape mismatch: expected (d={d}, _), "
-                             f"got {V.shape}")
+                             f"got {V.shape} for {beh!r}")
+        if per_behaviour_weights is not None and beh in per_behaviour_weights:
+            w = np.asarray(per_behaviour_weights[beh], dtype=float)
+            if w.shape[0] != V.shape[1]:
+                raise ValueError(f"weights for {beh!r} have {w.shape[0]} entries, "
+                                 f"expected {V.shape[1]}")
+            V = V * np.sqrt(np.maximum(w, 0.0))[None, :]
+        blocks.append(V)
     stacked = np.concatenate(blocks, axis=1)
     # Use SVD to get orthonormal columns ordered by singular value (variance).
     U, S, _ = np.linalg.svd(stacked, full_matrices=False)
@@ -204,6 +221,16 @@ def jonckheere_terpstra(
     ni = np.array([g.size for g in groups], dtype=float)
     sum_ni2 = float(np.sum(ni * ni))
     mean_jt = (n * n - sum_ni2) / 4.0
+    # NOTE: this is the NO-TIES variance. It is exact for continuous inputs
+    # (ties are measure-zero) and CONSERVATIVE under ties. The statistic itself
+    # credits ties (+0.5). We warn rather than silently approximate if a
+    # discretized input arrives with non-negligible ties (AUDIT.md §5).
+    vs = np.sort(values)
+    n_ties = int(np.sum(vs[1:] == vs[:-1])) if n > 1 else 0
+    if n > 1 and n_ties / (n - 1) > 0.05:
+        logger.warning("jonckheere_terpstra: %.0f%% of values are tied; the "
+                       "no-ties variance is used (conservative) so the p-value "
+                       "is approximate.", 100.0 * n_ties / (n - 1))
     var_jt = (n * n * (2 * n + 3) - float(np.sum(ni * ni * (2 * ni + 3)))) / 72.0
 
     if var_jt <= 0:
@@ -264,26 +291,49 @@ def _twoNN_point_estimate(X: np.ndarray, fraction: float = 0.9) -> float:
 def local_intrinsic_dim(
     X: np.ndarray,
     k: int = 20,
-    estimator: str = "twoNN",
+    estimator: str = "mle",
 ) -> np.ndarray:
-    """Per-row intrinsic-dim estimate via TwoNN over the local k-NN cloud.
+    """Per-row local intrinsic-dimension estimate over each point's k-NN cloud.
+
+    estimator="mle" (default): Levina-Bickel maximum-likelihood estimator,
+        m_k(i) = [ (1/(k-1)) * sum_{j=1}^{k-1} log(r_k(i) / r_j(i)) ]^{-1},
+        where r_j(i) is the distance from point i to its j-th nearest
+        neighbour. This is the standard, low-bias local ID estimator.
+
+    estimator="twoNN": LEGACY per-row TwoNN fit on the k-NN cloud. Retained for
+        backward compatibility ONLY — it is severely upward-biased on small
+        clouds (empirically returns ~9-13 for a true dimension of 3). Do not
+        use for new analysis. See tests/test_intrinsic_dim.py.
 
     Returns (N,) array of estimates; NaN entries indicate degenerate clouds
-    (too few neighbours or all-equal distances). N < k + 1 produces all-NaN.
+    (too few neighbours or zero distances). N < k + 1 produces all-NaN.
     """
-    if estimator != "twoNN":
-        raise ValueError(f"unsupported estimator: {estimator}")
     X = np.asarray(X)
     n = X.shape[0]
     if n < k + 1:
         return np.full(n, np.nan)
     from sklearn.neighbors import NearestNeighbors
     nn = NearestNeighbors(n_neighbors=k + 1).fit(X)
-    _, indices = nn.kneighbors(X)
-    out = np.empty(n)
-    for i in range(n):
-        out[i] = _twoNN_point_estimate(X[indices[i]])
-    return out
+    dists, indices = nn.kneighbors(X)
+
+    if estimator == "twoNN":
+        out = np.empty(n)
+        for i in range(n):
+            out[i] = _twoNN_point_estimate(X[indices[i]])
+        return out
+    if estimator != "mle":
+        raise ValueError(f"unsupported estimator: {estimator!r}")
+
+    # Levina-Bickel MLE. dists[:, 0] is the self-distance (0); use cols 1..k.
+    r = dists[:, 1:k + 1]                 # (n, k): r_1 <= ... <= r_k
+    rk = r[:, -1:]                        # (n, 1): r_k
+    with np.errstate(divide="ignore", invalid="ignore"):
+        log_ratios = np.log(rk / r[:, :-1])           # (n, k-1): log(r_k / r_j)
+        denom = log_ratios.sum(axis=1) / (k - 1)
+        m = 1.0 / denom
+    m = np.where(np.isfinite(m), m, np.nan)
+    m[(r <= 0).any(axis=1)] = np.nan      # degenerate (coincident) neighbours
+    return m
 
 
 # ── Bootstrap CI ────────────────────────────────────────────────────────────
@@ -295,8 +345,9 @@ def bootstrap_ci(
     ci: float = 0.95,
     rng: Optional[np.random.Generator] = None,
     paired: bool = True,
+    return_dist: bool = False,
     **kwargs: Any,
-) -> tuple[float, float]:
+) -> tuple:
     """Percentile bootstrap CI for a scalar statistic.
 
     Parameters
@@ -340,6 +391,11 @@ def bootstrap_ci(
             stats[b] = float(fn(*resampled, **kwargs))
     alpha = (1.0 - ci) / 2.0
     lo, hi = np.quantile(stats, [alpha, 1.0 - alpha])
+    if return_dist:
+        # The bootstrap distribution itself, so a downstream cross-model test can
+        # do a genuine two-sample bootstrap instead of a Gaussian-from-CI approx
+        # (AUDIT.md §5, cross_model_compare). See src/cbs/comparison.py.
+        return float(lo), float(hi), stats
     return float(lo), float(hi)
 
 

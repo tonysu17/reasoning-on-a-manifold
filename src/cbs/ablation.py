@@ -73,6 +73,8 @@ def validate_v_cbs(
     *,
     cv_folds: int = 5,
     seed: int = 0,
+    tier3_groups: "np.ndarray | None" = None,
+    tier1_groups: "np.ndarray | None" = None,
 ) -> dict:
     """Validate v_CBS against the hard fail-stop conditions.
 
@@ -102,28 +104,24 @@ def validate_v_cbs(
     v_cbs_unit = v_cbs / v_cbs_norm if v_cbs_norm > 0 else v_cbs
     cos_sim = float(v_cbs_unit @ centroid)
 
-    # 5-fold CV linear probe (tier-3 vs tier-1 sentences).
+    # 5-fold CV linear probe (tier-3 vs tier-1 sentences). Uses chain-aware
+    # splitting when groups are supplied — without it, sentences from the same
+    # chain leak across folds and inflate the accuracy this hard fail-stop
+    # consumes. See src/cbs/matching.cv_probe.
     t3 = np.asarray(tier3_acts)
     t1 = np.asarray(tier1_acts)
     X = np.concatenate([t3, t1], axis=0)
     y = np.concatenate([np.ones(t3.shape[0]), np.zeros(t1.shape[0])])
+    groups = None
+    if tier3_groups is not None and tier1_groups is not None:
+        groups = np.concatenate([np.asarray(tier3_groups),
+                                 np.asarray(tier1_groups)])
     try:
-        from sklearn.linear_model import LogisticRegression
-        from sklearn.model_selection import StratifiedKFold
-        actual_folds = min(cv_folds,
-                           int(min(t3.shape[0], t1.shape[0])))
-        if actual_folds < 2:
-            cv_mean = 0.0
-            cv_std = 1.0
-            cv_accs: list[float] = []
+        from src.cbs.matching import cv_probe
+        cv_accs, _ = cv_probe(X, y, groups, cv_folds=cv_folds, seed=seed)
+        if not cv_accs:
+            cv_mean, cv_std = 0.0, 1.0
         else:
-            kf = StratifiedKFold(n_splits=actual_folds, shuffle=True,
-                                 random_state=seed)
-            cv_accs = []
-            for train_idx, test_idx in kf.split(X, y):
-                clf = LogisticRegression(max_iter=1000, solver="liblinear")
-                clf.fit(X[train_idx], y[train_idx])
-                cv_accs.append(float(clf.score(X[test_idx], y[test_idx])))
             cv_mean = float(np.mean(cv_accs))
             cv_std = float(np.std(cv_accs))
     except ImportError:

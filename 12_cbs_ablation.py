@@ -25,6 +25,7 @@ from pathlib import Path
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.ablation import (
     FAILSTOP_COS_MAX,
     FAILSTOP_PROBE_ACC_MIN,
@@ -58,6 +59,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--conditions",
                    default="baseline,v_cbs,v_random,v_adding_knowledge")
     p.add_argument("--seeds-per-task", type=int, default=5)
+    p.add_argument("--seed", type=int, default=SEED,
+                   help="RNG seed for the v_cbs validation CV probe (config.SEED).")
     p.add_argument("--model-suffix", default="R1-1.5B")
     p.add_argument("--out-dir", type=Path, default=None)
     p.add_argument("--dry-run-validate-only", action="store_true",
@@ -75,9 +78,13 @@ def setup_logging(level: str) -> None:
 
 
 def _load_tier_acts(cbs_annotations_path: Path, activations_dir: Path,
-                    layer: int) -> tuple[np.ndarray, np.ndarray]:
+                    layer: int) -> tuple:
     """Pull tier-3 and tier-1 activation rows from per-behaviour matrices,
-    using the M3 row-index reconstruction (only target behaviours)."""
+    using the M3 row-index reconstruction (only target behaviours).
+
+    Returns (t3, t1, t3_chain_ids, t1_chain_ids). The chain ids are passed as
+    CV groups to validate_v_cbs so the hard fail-stop probe does not leak
+    same-chain sentences across folds (see src/cbs/matching.cv_probe)."""
     from src.cbs.trajectory import (PHASE_4_BEHAVIOURS, build_row_index,
                                      load_layer_activations)
     with open(cbs_annotations_path) as f:
@@ -87,6 +94,8 @@ def _load_tier_acts(cbs_annotations_path: Path, activations_dir: Path,
                                           behaviours=PHASE_4_BEHAVIOURS)
     t3_rows: list[np.ndarray] = []
     t1_rows: list[np.ndarray] = []
+    t3_groups: list = []
+    t1_groups: list = []
     for beh, items in row_index.items():
         # Look up per-row tier from the chains source.
         mat = activations.get(beh)
@@ -101,13 +110,14 @@ def _load_tier_acts(cbs_annotations_path: Path, activations_dir: Path,
                     tier_by_key[(cid, i)] = int(span.get("cbs_tier", 0))
         for row, key in enumerate(items):
             tier = tier_by_key.get(key, 0)
+            cid = key[0] if isinstance(key, (tuple, list)) else key
             if tier == 3 and row < mat.shape[0]:
-                t3_rows.append(mat[row])
+                t3_rows.append(mat[row]); t3_groups.append(cid)
             elif tier == 1 and row < mat.shape[0]:
-                t1_rows.append(mat[row])
+                t1_rows.append(mat[row]); t1_groups.append(cid)
     t3 = np.stack(t3_rows) if t3_rows else np.zeros((0, 0))
     t1 = np.stack(t1_rows) if t1_rows else np.zeros((0, 0))
-    return t3, t1
+    return t3, t1, np.array(t3_groups), np.array(t1_groups)
 
 
 def _load_adding_knowledge_centroid(activations_dir: Path, layer: int) -> np.ndarray:
@@ -174,8 +184,8 @@ def main() -> int:
                         v_path, v_cbs_preloaded.shape)
         else:
             v_cbs_preloaded = None
-        t3, t1 = _load_tier_acts(args.cbs_annotations,
-                                  args.activations_dir, layer)
+        t3, t1, t3_groups, t1_groups = _load_tier_acts(args.cbs_annotations,
+                                                        args.activations_dir, layer)
     except FileNotFoundError as exc:
         logger.warning("v_cbs construction blocked: %s", exc)
         (out_dir / "v_cbs_construction_blocked.json").write_text(json.dumps({
@@ -221,7 +231,8 @@ def main() -> int:
         return 2
 
     # ── Step 3: validate (HARD FAIL-STOP) ──────────────────────────────
-    report = validate_v_cbs(v_cbs, centroid, t3, t1, cv_folds=5, seed=0)
+    report = validate_v_cbs(v_cbs, centroid, t3, t1, cv_folds=5, seed=args.seed,
+                            tier3_groups=t3_groups, tier1_groups=t1_groups)
     val_path.write_text(json.dumps(report, indent=2,
                                     default=lambda o: o.tolist()
                                     if hasattr(o, "tolist") else str(o)))

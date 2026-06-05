@@ -50,7 +50,9 @@ def cross_model_compare(
     seed: int = 0,
 ) -> dict:
     """Per geometric statistic: report
-        {value_r1, value_base, delta, bootstrap_p}.
+        {value_r1, value_base, delta, p_value, p_method}.
+        p_method is "two_sample_bootstrap" when both sides persisted their
+        effect-size bootstrap distributions, else "normal_approx_from_ci".
 
     Inputs are the JSON outputs of `09_cbs_geometry.py` for the two models.
     The function joins per (layer, behaviour, statistic, label_scheme) and
@@ -84,27 +86,43 @@ def cross_model_compare(
         v_r1 = float(r1.get("effect_size", float("nan")))
         v_bs = float(bs.get("effect_size", float("nan")))
         delta = v_r1 - v_bs
-        # Bootstrap p — use the CI overlap; absent overlap -> small p.
         ci_r1 = r1.get("effect_size_ci95", [float("nan"), float("nan")])
         ci_bs = bs.get("effect_size_ci95", [float("nan"), float("nan")])
-        if all(np.isfinite(x) for x in ci_r1 + ci_bs):
-            # crude approximation: how many bootstrap draws have
-            # delta sign-flipped under independent samples from each side.
-            # Without raw bootstrap arrays we use the CI to derive a
-            # Gaussian approximation and bootstrap-resample.
+        boots_r1 = r1.get("effect_size_boots")
+        boots_bs = bs.get("effect_size_boots")
+
+        if boots_r1 and boots_bs:
+            # GENUINE two-sample bootstrap: resample each model's effect-size
+            # bootstrap distribution independently (the two models are
+            # independent — there is no pairing across models) and form the
+            # difference distribution. Two-sided p = fraction on the wrong side
+            # of zero, doubled. This is what #15 was waiting on (09 now persists
+            # effect_size_boots). See AUDIT.md §5.
+            a = np.asarray(boots_r1, dtype=float)
+            b = np.asarray(boots_bs, dtype=float)
+            ia = rng.integers(0, a.shape[0], size=n_bootstrap)
+            ib = rng.integers(0, b.shape[0], size=n_bootstrap)
+            diff = a[ia] - b[ib]
+            p = float(min(1.0, 2.0 * min((diff <= 0).mean(), (diff >= 0).mean())))
+            method = "two_sample_bootstrap"
+        elif all(np.isfinite(x) for x in ci_r1 + ci_bs) and delta != 0:
+            # Fallback: NORMAL approximation from the CIs (not a bootstrap).
+            # Reached only when the producer didn't persist bootstrap arrays.
             sd_r1 = max(1e-9, (ci_r1[1] - ci_r1[0]) / 3.92)
             sd_bs = max(1e-9, (ci_bs[1] - ci_bs[0]) / 3.92)
             draws_r1 = rng.normal(loc=v_r1, scale=sd_r1, size=n_bootstrap)
             draws_bs = rng.normal(loc=v_bs, scale=sd_bs, size=n_bootstrap)
             deltas = draws_r1 - draws_bs
             p = float(np.mean(deltas * np.sign(delta) <= 0))
+            method = "normal_approx_from_ci"
         else:
             p = float("nan")
+            method = "none"
         out_records.append({
             "layer": layer, "behaviour": behaviour,
             "statistic": statistic, "label_scheme": label_scheme,
             "value_r1": v_r1, "value_base": v_bs,
-            "delta": delta, "bootstrap_p": p,
+            "delta": delta, "p_value": p, "p_method": method,
             "ci95_r1": ci_r1, "ci95_base": ci_bs,
         })
     return {"records": out_records,

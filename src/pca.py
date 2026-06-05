@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 def analyse_behaviour(
     activation_matrix: np.ndarray,
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict:
     """
     Fit PCA to one behaviour's activation matrix and return all metrics.
@@ -60,7 +60,10 @@ def analyse_behaviour(
             "d_eff_90": 1, "d_eff_95": 1, "participation_ratio": 1.0,
         }
 
-    pca = PCA(n_components=k)
+    # svd_solver="full": exact + deterministic. The default "auto" picks the
+    # randomized solver for these (N≈50-145, d=1536, small-k) shapes, which is
+    # non-reproducible without a fixed random_state. Full SVD is cheap at this N.
+    pca = PCA(n_components=k, svd_solver="full")
     pca.fit(activation_matrix)
 
     cumvar = np.cumsum(pca.explained_variance_ratio_)
@@ -93,7 +96,7 @@ def analyse_at_layer(
     activations_dir: Path,
     behaviours: list[str],
     layer: int,
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict[str, dict]:
     """Run PCA on all behaviours at one layer."""
     activations_dir = Path(activations_dir)
@@ -113,7 +116,7 @@ def analyse_across_layers(
     activations_dir: Path,
     behaviours: list[str],
     layers: list[int],
-    max_components: int = 50,
+    max_components: int = 100,
 ) -> dict[str, dict[int, dict]]:
     """Run PCA for all behaviours across multiple layers."""
     results: dict[str, dict[int, dict]] = {b: {} for b in behaviours}
@@ -127,15 +130,21 @@ def analyse_across_layers(
 
 # ── Saving / loading ──────────────────────────────────────────────────────────
 
-def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None) -> None:
+def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None,
+                     provenance: Optional[dict] = None) -> None:
     """
     Save PCA results to *save_dir*.
     Large arrays (components, eigenvalues, cumvar) go to .npy files.
-    Scalar metrics go to a summary JSON.
+    Scalar metrics go to a summary JSON. Optional `provenance` (git/seed/inputs,
+    from src.config.provenance) is written to a sibling provenance.json so a
+    result can be traced to the code+inputs that produced it (AUDIT.md §5).
     """
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_layer{layer}" if layer is not None else ""
+    if provenance is not None:
+        with open(save_dir / f"provenance{suffix}.json", "w") as f:
+            json.dump(provenance, f, indent=2)
     summary = {}
 
     for beh, data in results.items():
@@ -153,8 +162,15 @@ def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None)
                          "explained_variance_ratio", "mean")
         }
 
-    with open(save_dir / f"summary{suffix}.json", "w") as f:
+    # Back up a prior summary (a shorter re-run shouldn't clobber it) and write
+    # atomically so an interrupted write can't leave a corrupt summary.json.
+    from src.config import backup_existing
+    summary_path = save_dir / f"summary{suffix}.json"
+    backup_existing(summary_path)
+    tmp = summary_path.with_suffix(".json.tmp")
+    with open(tmp, "w") as f:
         json.dump(summary, f, indent=2)
+    tmp.replace(summary_path)
     logger.info(f"PCA results saved → {save_dir}")
 
 

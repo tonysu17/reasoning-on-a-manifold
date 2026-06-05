@@ -68,20 +68,9 @@ def _sentence_to_token_positions(
     return positions
 
 
-def _find_sentence_offset(chain_text: str, sentence_text: str) -> Optional[int]:
-    """
-    Find the character offset of *sentence_text* inside *chain_text*.
-    Falls back to matching the first 40 characters (handles minor GPT truncation).
-    """
-    idx = chain_text.find(sentence_text)
-    if idx >= 0:
-        return idx
-    prefix = sentence_text[:40].strip()
-    if len(prefix) >= 10:
-        idx = chain_text.find(prefix)
-        if idx >= 0:
-            return idx
-    return None
+# Canonical implementation lives in src/text_offsets.py (single source of truth);
+# re-exported here under the historical private name for backward compatibility.
+from src.text_offsets import find_sentence_offset as _find_sentence_offset
 
 
 # ── Main extraction ───────────────────────────────────────────────────────────

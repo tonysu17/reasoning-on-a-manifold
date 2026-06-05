@@ -33,6 +33,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from src.config import SEED
 from src.cbs.annotation import (
     ProxyClient,
     TARGETED_BEHAVIOURS,
@@ -57,7 +58,7 @@ def parse_args() -> argparse.Namespace:
                    default="data/annotated_R1-1.5B.json", type=Path)
     p.add_argument("--out",
                    default="data/chains_cbs_annotated_R1-1.5B.json", type=Path)
-    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--seed", type=int, default=SEED)  # config.SEED (was 0)
     p.add_argument("--dual-seed-kappa", action="store_true")
     p.add_argument("--pilot", action="store_true",
                    help="Stratified pilot run (synthesis §P0.2).")
@@ -289,7 +290,7 @@ def run_dual_seed_full(args: argparse.Namespace, out_dir: Path) -> int:
     client = ProxyClient()
     anchor_block = _load_anchor_block(args.anchor_block_path)
 
-    out1 = annotate_chains_cbs(chains, client, seed=0,
+    out1 = annotate_chains_cbs(chains, client, seed=args.seed,
                                max_workers=args.max_workers,
                                anchor_block=anchor_block)
     out2 = annotate_chains_cbs(chains, client, seed=1,
