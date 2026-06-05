@@ -10,6 +10,7 @@ import yaml
 
 from src.config import (
     load_config, STEERING_LAYERS, MODELS, SEED, TARGET_BEHAVIOURS, CONFIG_PATH,
+    PEAK_LAYERS, provenance,
 )
 
 
@@ -50,6 +51,26 @@ def test_target_behaviours_are_the_four():
     assert set(TARGET_BEHAVIOURS) == {
         "backtracking", "uncertainty-estimation", "example-testing", "adding-knowledge",
     }
+
+
+def test_peak_layers_from_config():
+    cfg = load_config()
+    assert PEAK_LAYERS == {k: int(v) for k, v in cfg["analysis"]["peak_layers"].items()}
+    assert PEAK_LAYERS["adding-knowledge"] == 17
+
+
+def test_provenance_has_git_and_seed():
+    p = provenance()
+    assert p["seed"] == SEED
+    assert "git_commit" in p and isinstance(p["git_dirty"], bool)
+
+
+def test_provenance_captures_args_and_input_hashes(tmp_path):
+    f = tmp_path / "x.txt"
+    f.write_text("hello")
+    p = provenance(args={"model": "R1-1.5B", "k": 5}, inputs=[str(f)])
+    assert p["args"]["model"] == "R1-1.5B" and p["args"]["k"] == 5
+    assert isinstance(p["input_sha256"][str(f)], str) and len(p["input_sha256"][str(f)]) == 16
 
 
 def test_runners_import_shared_steering_layers():

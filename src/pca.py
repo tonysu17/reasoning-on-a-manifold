@@ -130,15 +130,21 @@ def analyse_across_layers(
 
 # ── Saving / loading ──────────────────────────────────────────────────────────
 
-def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None) -> None:
+def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None,
+                     provenance: Optional[dict] = None) -> None:
     """
     Save PCA results to *save_dir*.
     Large arrays (components, eigenvalues, cumvar) go to .npy files.
-    Scalar metrics go to a summary JSON.
+    Scalar metrics go to a summary JSON. Optional `provenance` (git/seed/inputs,
+    from src.config.provenance) is written to a sibling provenance.json so a
+    result can be traced to the code+inputs that produced it (AUDIT.md §5).
     """
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_layer{layer}" if layer is not None else ""
+    if provenance is not None:
+        with open(save_dir / f"provenance{suffix}.json", "w") as f:
+            json.dump(provenance, f, indent=2)
     summary = {}
 
     for beh, data in results.items():

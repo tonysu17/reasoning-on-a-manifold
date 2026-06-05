@@ -62,14 +62,66 @@ def get_target_behaviours(cfg: "dict | None" = None) -> list:
     ))
 
 
+def get_peak_layers(cfg: "dict | None" = None) -> dict:
+    """Per-behaviour peak (PR-trough) layers from layer triangulation. Previously
+    hardcoded + duplicated in build_phase6.py and robustness_geometry.py."""
+    cfg = cfg or load_config()
+    return dict((cfg.get("analysis") or {}).get("peak_layers", {}))
+
+
+def provenance(args=None, inputs=None) -> dict:
+    """Provenance stamp to embed in result files so any figure/JSON can be traced
+    to the exact code + config + inputs that produced it (AUDIT.md §5).
+
+    Captures the git commit (+ dirty flag), the config seed, the runner args,
+    and optional input-file SHA-256s. Best-effort: never raises. Deliberately
+    omits a timestamp so the stamp is reproducible (stamp the time at the call
+    site if needed)."""
+    import hashlib
+    import subprocess
+
+    def _git(*a):
+        try:
+            return subprocess.check_output(
+                ["git", *a], cwd=str(CONFIG_PATH.parent.parent),
+                stderr=subprocess.DEVNULL).decode().strip()
+        except Exception:
+            return None
+
+    stamp: dict = {
+        "git_commit": _git("rev-parse", "HEAD"),
+        "git_dirty": bool(_git("status", "--porcelain")),
+        "seed": SEED,
+    }
+    if args is not None:
+        raw = vars(args) if hasattr(args, "__dict__") else dict(args)
+        stamp["args"] = {
+            k: (v if isinstance(v, (int, float, bool, str, type(None))) else str(v))
+            for k, v in raw.items()
+        }
+    if inputs:
+        digests = {}
+        for p in inputs:
+            try:
+                with open(p, "rb") as f:
+                    digests[str(p)] = hashlib.sha256(f.read()).hexdigest()[:16]
+            except Exception:
+                digests[str(p)] = None
+        stamp["input_sha256"] = digests
+    return stamp
+
+
 # Module-level conveniences (computed once from the YAML).
 _CFG = load_config()
 MODELS = _model_registry(_CFG)
 STEERING_LAYERS = get_steering_layers(_CFG)
 SEED = get_seed(_CFG)
 TARGET_BEHAVIOURS = get_target_behaviours(_CFG)
+PEAK_LAYERS = get_peak_layers(_CFG)
 
 __all__ = [
     "load_config", "get_steering_layers", "get_seed", "get_target_behaviours",
+    "get_peak_layers", "provenance",
     "CONFIG_PATH", "MODELS", "STEERING_LAYERS", "SEED", "TARGET_BEHAVIOURS",
+    "PEAK_LAYERS",
 ]

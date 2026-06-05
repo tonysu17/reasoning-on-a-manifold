@@ -51,6 +51,29 @@ models:
     use_4bit: false
     steering_layer: 31
 
+  # ── Safety-reasoning extension: OpenAI gpt-oss-20b ──────────────────────
+  # Deliberative-alignment testbed (see ../safety_reasoning_extension.md).
+  # MoE (top-4/32 of 32 experts); CoT lives in the harmony `analysis` channel,
+  # NOT a <think> block; reasoning effort is configurable (low/medium/high).
+  # Residual stream is extractable via output_hidden_states — MXFP4 quantises
+  # WEIGHTS ONLY, so activations are bf16. ~48 GB in bf16 on the DGX Spark
+  # (non-Hopper) vs ~16 GB on Hopper-MXFP4. ANALYSE THE RESIDUAL STREAM ONLY:
+  # the top-4/32 MoE routing makes MLP-output directions vary token-to-token.
+  safety_gpt_oss:
+    id: "openai/gpt-oss-20b"
+    short_name: "gpt-oss-20b"
+    n_layers: 24
+    hidden_dim: 2880
+    dtype: "bfloat16"            # MXFP4 weights dequantise to bf16 off-Hopper
+    use_4bit: false
+    family: "gpt_oss"
+    reasoning_format: "harmony"
+    reasoning_effort: "high"
+    requires_transformers: ">=4.55.1"
+    # Late-layer Huang analogue (~0.96 depth -> 23/24). CONFIRM via attribution
+    # patching on the Spark before locking; Venhoff mid-layer analogue ~= 15.
+    steering_layer: 23
+
 # ── Phase 1: Task generation ──────────────────────────────
 tasks:
   n_per_category: 100          # 1000 tasks total across 10 categories
@@ -116,6 +139,17 @@ steering:
   # k values to try for manifold projection (top-k PCA components)
   k_values: [1, 3, 5, 10, "auto"]   # "auto" = k for 70% variance
   mode: "subtract"                   # reduce the behaviour
+
+# ── Analysis: per-behaviour peak (PR-trough) layers ───────
+# Derived from layer triangulation (compute_layer_triangulation.py); the layer
+# at which each behaviour's manifold is most concentrated. Previously hardcoded
+# (and duplicated) in build_phase6.py and robustness_geometry.py.
+analysis:
+  peak_layers:
+    backtracking: 14
+    uncertainty-estimation: 14
+    adding-knowledge: 17
+    example-testing: 27
 
 # ── Phase 7: Evaluation ───────────────────────────────────
 evaluation:

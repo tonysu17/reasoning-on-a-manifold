@@ -42,26 +42,15 @@ logger = logging.getLogger(__name__)
 from src.annotation import TARGET_BEHAVIOURS
 
 # Huang et al.'s recommended steering layers — single source: configs/config.yaml
-from src.config import STEERING_LAYERS
+from src.config import STEERING_LAYERS, provenance
 
 
 
 
 # ── Per-layer null hierarchy (added) ──────────────────────────────────────────
 
-def _find_sentence_offset(chain_text: str, sentence_text: str):
-    """Replicates src/activation_extraction.py:_find_sentence_offset exactly.
-    Returns the char offset where the sentence begins, or None if untraceable.
-    """
-    idx = chain_text.find(sentence_text)
-    if idx >= 0:
-        return idx
-    prefix = sentence_text[:40].strip()
-    if len(prefix) >= 10:
-        idx = chain_text.find(prefix)
-        if idx >= 0:
-            return idx
-    return None
+# Single source of truth (was a verbatim copy; drift here misaligns rows).
+from src.text_offsets import find_sentence_offset as _find_sentence_offset
 
 
 def _load_chain_id_map(annotated_path, target_behaviours):
@@ -202,7 +191,7 @@ def main():
     for layer in layers:
         layer_res = {beh: all_results[beh][layer]
                      for beh in TARGET_BEHAVIOURS if layer in all_results[beh]}
-        save_pca_results(layer_res, save_dir, layer=layer)
+        save_pca_results(layer_res, save_dir, layer=layer, provenance=provenance(args))
 
     # Optional: per-layer chain-stratified null
     if args.with_nulls:

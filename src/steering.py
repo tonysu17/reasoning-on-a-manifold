@@ -194,11 +194,14 @@ def build_steering_vectors(
 
 # ── Save / load ───────────────────────────────────────────────────────────────
 
-def save_steering_vectors(vectors: dict, save_dir: Path) -> None:
+def save_steering_vectors(vectors: dict, save_dir: Path,
+                          provenance: Optional[dict] = None) -> None:
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
     metadata = {}
+    if provenance is not None:
+        metadata["_provenance"] = provenance
     for beh, data in vectors.items():
         np.save(save_dir / f"{beh}_single.npy", data["single_direction"])
         for k, vec in data["manifold_projected"].items():
@@ -223,6 +226,8 @@ def load_steering_vectors(save_dir: Path) -> dict:
 
     vectors = {}
     for beh, meta in metadata.items():
+        if beh.startswith("_"):
+            continue  # metadata keys like _provenance, not a behaviour
         vectors[beh] = {
             "layer": meta["layer"],
             "single_direction": np.load(save_dir / f"{beh}_single.npy"),

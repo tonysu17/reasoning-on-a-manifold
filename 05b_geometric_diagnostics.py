@@ -69,17 +69,8 @@ def load_activations(act_dir: Path, behaviour: str, layer: int) -> np.ndarray:
     return np.load(fname)
 
 
-def _find_sentence_offset(chain_text: str, sentence_text: str):
-    """Replicates src/activation_extraction.py:_find_sentence_offset exactly."""
-    idx = chain_text.find(sentence_text)
-    if idx >= 0:
-        return idx
-    prefix = sentence_text[:40].strip()
-    if len(prefix) >= 10:
-        idx = chain_text.find(prefix)
-        if idx >= 0:
-            return idx
-    return None
+# Single source of truth (was a verbatim copy; drift here misaligns rows).
+from src.text_offsets import find_sentence_offset as _find_sentence_offset
 
 
 def load_chain_id_map(annotated_path: Path, target_behaviours) -> dict:

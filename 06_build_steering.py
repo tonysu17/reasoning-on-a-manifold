@@ -32,7 +32,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-from src.config import STEERING_LAYERS  # single source of truth: configs/config.yaml
+from src.config import STEERING_LAYERS, provenance  # single source: configs/config.yaml
 
 
 def main():
@@ -60,7 +60,7 @@ def main():
     )
 
     save_dir = Path(f"results/steering_vectors/{args.model_short}")
-    save_steering_vectors(vectors, save_dir)
+    save_steering_vectors(vectors, save_dir, provenance=provenance(args))
 
     print(f"\n{'='*55}")
     print(f"Steering vectors built at layer {layer}")
