@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from src.chain_gen import generate_chains, load_chains, load_model
+from src.chain_gen import generate_chains, generate_chains_batched, load_chains, load_model
 from src.task_gen import load_tasks
 
 logging.basicConfig(
@@ -87,6 +87,12 @@ def main():
                         help="HuggingFace model cache directory")
     parser.add_argument("--smoke", action="store_true",
                         help="Smoke test: run on the first 5 tasks only")
+    parser.add_argument("--batch-size", type=int, default=1,
+                        help="Generation batch size. 1 (default) = original "
+                             "single-sequence path, unchanged. >1 batches prompts "
+                             "(left-padded) for throughput on shared GPUs; resumes "
+                             "from the same checkpoint file, so already-generated "
+                             "chains are preserved.")
     args = parser.parse_args()
 
     tasks_path = Path(args.tasks)
@@ -135,15 +141,27 @@ def main():
 
     total = 0
     for seed in seeds:
-        logger.info(f"== seed {seed}, temperature {args.temperature} ==")
-        chains = generate_chains(
-            model, tokenizer, tasks,
-            max_new_tokens=args.max_tokens,
-            temperature=args.temperature,
-            save_path=out_path,
-            seed=seed,
-            dedup_keys=dedup_keys,
-        )
+        logger.info(f"== seed {seed}, temperature {args.temperature}, "
+                    f"batch_size {args.batch_size} ==")
+        if args.batch_size > 1:
+            chains = generate_chains_batched(
+                model, tokenizer, tasks,
+                max_new_tokens=args.max_tokens,
+                temperature=args.temperature,
+                save_path=out_path,
+                batch_size=args.batch_size,
+                seed=seed,
+                dedup_keys=dedup_keys,
+            )
+        else:
+            chains = generate_chains(
+                model, tokenizer, tasks,
+                max_new_tokens=args.max_tokens,
+                temperature=args.temperature,
+                save_path=out_path,
+                seed=seed,
+                dedup_keys=dedup_keys,
+            )
         total = len(chains)
 
     success = sum(1 for c in load_chains(out_path) if c["n_tokens"] > 0) if out_path.exists() else 0

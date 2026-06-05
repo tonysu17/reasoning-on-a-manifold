@@ -284,6 +284,163 @@ def generate_chains(
     return chains
 
 
+# ── Batched generation (throughput on shared GPUs) ────────────────────────────
+
+def _truncate_at_eos(ids, eos_id):
+    """Trim a generated id-sequence at the first EOS (inclusive), matching the
+    length `model.generate` returns for single-sequence decoding. In a batch,
+    sequences that finish early are right-padded with pad/eos filler; this drops
+    it so `n_tokens` and the decoded text match the single-sequence path."""
+    if eos_id is None:
+        return ids
+    hits = (ids == eos_id).nonzero(as_tuple=True)[0]
+    if len(hits) > 0:
+        return ids[: int(hits[0]) + 1]
+    return ids
+
+
+def generate_chains_batched(
+    model,
+    tokenizer,
+    tasks: list[dict],
+    max_new_tokens: int = 2048,
+    temperature: float = 0.0,
+    save_path: Optional[Path] = None,
+    checkpoint_every: int = 10,
+    batch_size: int = 8,
+    seed: int = 0,
+    dedup_keys: tuple = ("task_id",),
+) -> list[dict]:
+    """Throughput-oriented batched variant of `generate_chains`.
+
+    Behaviourally identical to `generate_chains` w.r.t. resume, checkpointing,
+    output file, and record schema — ONLY the generation is batched (left-padded
+    + attention-masked, the correct form for decoder-only models). Greedy (T=0)
+    outputs match the single-sequence path up to floating-point reduction order;
+    padded positions are masked so they cannot affect real tokens.
+
+    Resume safety (preserving anything already generated):
+      * loads any existing `save_path`, builds the `completed` key-set, and only
+        generates tasks NOT already present — nothing is recomputed or lost;
+      * checkpoints (atomic tmp+rename) after EVERY batch, so an interruption
+        costs at most one batch, all of which is regenerable on the next run.
+
+    A batch that errors (e.g. CUDA OOM at a large batch_size) falls back to
+    per-task generation for that batch, so one heavy task can't drop the rest.
+    """
+    import torch
+
+    chains: list[dict] = []
+    save_path = Path(save_path) if save_path else None
+    if save_path and save_path.exists():
+        with open(save_path) as f:
+            chains = json.load(f)
+        logger.info(f"Resuming from checkpoint: {len(chains)}/{len(tasks)} done")
+
+    def _chain_key(rec: dict) -> tuple:
+        return tuple(rec.get(k) for k in dedup_keys)
+
+    completed = {_chain_key(c) for c in chains}
+    remaining = [
+        t for t in tasks
+        if _chain_key({"task_id": t["id"], "seed": seed}) not in completed
+    ]
+    logger.info(
+        f"Batched generation: {len(remaining)} remaining of {len(tasks)} "
+        f"(batch_size={batch_size}, max_new_tokens={max_new_tokens})"
+    )
+    if not remaining:
+        if save_path:
+            _save_json(chains, save_path)
+        return chains
+
+    _seed_torch(seed)
+    eos_id = tokenizer.eos_token_id
+
+    def _record(task: dict, prompt: str, gen_ids) -> dict:
+        ids = _truncate_at_eos(gen_ids, eos_id)
+        ids_list = ids.tolist() if hasattr(ids, "tolist") else list(ids)
+        chain = tokenizer.decode(ids_list, skip_special_tokens=True)
+        return {
+            "task_id": task["id"],
+            "category": task.get("category", "unknown"),
+            "instruction": task["prompt"],
+            "prompt": prompt,
+            "chain": chain,
+            "full_text": prompt + chain,
+            "n_tokens": len(ids_list),
+            "seed": int(seed),
+            "temperature": float(temperature),
+        }
+
+    def _per_task_fallback(task: dict) -> dict:
+        try:
+            r = generate_chain(
+                model, tokenizer, task["prompt"],
+                max_new_tokens=max_new_tokens, temperature=temperature, seed=seed,
+            )
+            return {
+                "task_id": task["id"], "category": task.get("category", "unknown"),
+                "instruction": task["prompt"], "prompt": r["prompt"],
+                "chain": r["chain"], "full_text": r["full_text"],
+                "n_tokens": r["n_tokens"], "seed": int(seed),
+                "temperature": float(temperature),
+            }
+        except Exception as exc:  # noqa: BLE001
+            logger.warning(f"Task {task['id']} failed: {exc}")
+            return {
+                "task_id": task["id"], "category": task.get("category", "unknown"),
+                "instruction": task["prompt"], "prompt": "", "chain": "",
+                "full_text": "", "n_tokens": 0, "seed": int(seed),
+                "temperature": float(temperature), "error": str(exc),
+            }
+
+    prev_padding_side = tokenizer.padding_side
+    tokenizer.padding_side = "left"  # REQUIRED for correct decoder-only batched generation
+    pbar = tqdm(total=len(tasks), initial=len(chains),
+                desc=f"Generating chains (batched, seed={seed}, T={temperature})")
+    try:
+        for start in range(0, len(remaining), batch_size):
+            batch = remaining[start:start + batch_size]
+            prompts = [format_prompt(tokenizer, t["prompt"]) for t in batch]
+            try:
+                enc = tokenizer(prompts, return_tensors="pt", padding=True).to(model.device)
+                in_len = enc.input_ids.shape[1]
+                with torch.no_grad():
+                    out = model.generate(
+                        **enc,
+                        max_new_tokens=max_new_tokens,
+                        do_sample=(temperature > 0),
+                        temperature=temperature if temperature > 0 else 1.0,
+                        pad_token_id=eos_id,
+                    )
+                for task, prompt, seq in zip(batch, prompts, out):
+                    chains.append(_record(task, prompt, seq[in_len:]))
+            except Exception as exc:  # noqa: BLE001
+                logger.warning(
+                    f"Batch [{start}:{start + len(batch)}] failed ({exc}); "
+                    f"falling back to per-task generation"
+                )
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+                for task in batch:
+                    chains.append(_per_task_fallback(task))
+
+            pbar.update(len(batch))
+            if save_path:
+                _save_json(chains, save_path)  # atomic; resume point after every batch
+                logger.info(f"  checkpoint: {len(chains)}/{len(tasks)}")
+    finally:
+        pbar.close()
+        tokenizer.padding_side = prev_padding_side  # restore caller's setting
+
+    if save_path:
+        _save_json(chains, save_path)
+    success = sum(1 for c in chains if c["n_tokens"] > 0)
+    logger.info(f"Done (batched): {success}/{len(chains)} chains → {save_path}")
+    return chains
+
+
 def load_chains(path: Path) -> list[dict]:
     with open(path) as f:
         return json.load(f)
