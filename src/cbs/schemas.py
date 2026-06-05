@@ -60,6 +60,18 @@ class CBSResult:
     confidence: Literal["high", "medium", "low"]
 
     def __post_init__(self) -> None:
+        # Coerce common wire-format variants so a model emitting "3"/3.0 or
+        # cross_domain as "yes"/"true" doesn't spuriously fail validation
+        # (AUDIT.md §5 schema fragility).
+        if isinstance(self.tier, (str, float)):
+            try:
+                self.tier = int(self.tier)
+            except (TypeError, ValueError):
+                pass
+        if isinstance(self.cross_domain, str):
+            self.cross_domain = self.cross_domain.strip().lower() in {
+                "true", "yes", "1", "y", "t",
+            }
         if self.tier not in CBS_TIERS:
             raise ValueError(f"tier must be in {CBS_TIERS}, got {self.tier!r}")
         if self.knowledge_domain not in TASK_DOMAINS:

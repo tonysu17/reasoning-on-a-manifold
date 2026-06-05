@@ -207,7 +207,7 @@ def paired_geometric_tests(
     delta_cd = cliffs_delta(cd_success, cd_failure)
     try:
         ci_cd = bootstrap_ci(cliffs_delta, cd_success, cd_failure,
-                             n_bootstrap=500, paired=False)
+                             n_bootstrap=500, paired=True)
     except Exception:  # noqa: BLE001
         ci_cd = (float("nan"), float("nan"))
     stats_out["centroid_distance"] = {
@@ -226,7 +226,7 @@ def paired_geometric_tests(
         delta_proj = cliffs_delta(proj_s, proj_f)
         try:
             ci_proj = bootstrap_ci(cliffs_delta, proj_s, proj_f,
-                                   n_bootstrap=500, paired=False)
+                                   n_bootstrap=500, paired=True)
         except Exception:  # noqa: BLE001
             ci_proj = (float("nan"), float("nan"))
         stats_out["deduction_projection"] = {

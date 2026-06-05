@@ -28,9 +28,12 @@ M2 (synthesis §M2).
 
 from __future__ import annotations
 
+import logging
 from typing import Any, Callable, Optional, Sequence
 
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 
 # ── Centroid distance ───────────────────────────────────────────────────────
@@ -107,22 +110,36 @@ def principal_angles(
 def build_union_basis(
     per_behaviour_pcs: dict[str, np.ndarray],
     variance_threshold: float = 0.95,
+    per_behaviour_weights: "dict[str, np.ndarray] | None" = None,
 ) -> np.ndarray:
-    """Concatenate per-behaviour top PCs, orthonormalise via QR, return basis
+    """Concatenate per-behaviour top PCs, orthonormalise via SVD, return basis
     covering `variance_threshold` of the joint variance (default 0.95).
 
-    `per_behaviour_pcs` maps behaviour name -> (d, k_b) PCs (columns).
+    `per_behaviour_pcs` maps behaviour name -> (d, k_b) PC directions (columns).
+
+    IMPORTANT (calibration): PC *directions* are unit-norm, so WITHOUT weighting
+    the SVD singular values reflect only the geometric overlap of the directions,
+    not how much activation variance each captures — `variance_threshold` is then
+    a cut on direction-spectral-energy, NOT activation variance. Pass
+    `per_behaviour_weights` (behaviour -> (k_b,) explained variance / eigenvalues)
+    to scale each column by sqrt(eigenvalue) so the threshold means activation
+    variance as advertised. See AUDIT.md §5 and tests/test_cbs_geometry_extra.py.
     """
     if not per_behaviour_pcs:
         raise ValueError("per_behaviour_pcs is empty")
-    blocks = list(per_behaviour_pcs.values())
-    if not blocks:
-        raise ValueError("no PC blocks provided")
-    d = blocks[0].shape[0]
-    for V in blocks:
+    d = next(iter(per_behaviour_pcs.values())).shape[0]
+    blocks = []
+    for beh, V in per_behaviour_pcs.items():
         if V.ndim != 2 or V.shape[0] != d:
             raise ValueError(f"PC block shape mismatch: expected (d={d}, _), "
-                             f"got {V.shape}")
+                             f"got {V.shape} for {beh!r}")
+        if per_behaviour_weights is not None and beh in per_behaviour_weights:
+            w = np.asarray(per_behaviour_weights[beh], dtype=float)
+            if w.shape[0] != V.shape[1]:
+                raise ValueError(f"weights for {beh!r} have {w.shape[0]} entries, "
+                                 f"expected {V.shape[1]}")
+            V = V * np.sqrt(np.maximum(w, 0.0))[None, :]
+        blocks.append(V)
     stacked = np.concatenate(blocks, axis=1)
     # Use SVD to get orthonormal columns ordered by singular value (variance).
     U, S, _ = np.linalg.svd(stacked, full_matrices=False)
@@ -204,6 +221,16 @@ def jonckheere_terpstra(
     ni = np.array([g.size for g in groups], dtype=float)
     sum_ni2 = float(np.sum(ni * ni))
     mean_jt = (n * n - sum_ni2) / 4.0
+    # NOTE: this is the NO-TIES variance. It is exact for continuous inputs
+    # (ties are measure-zero) and CONSERVATIVE under ties. The statistic itself
+    # credits ties (+0.5). We warn rather than silently approximate if a
+    # discretized input arrives with non-negligible ties (AUDIT.md §5).
+    vs = np.sort(values)
+    n_ties = int(np.sum(vs[1:] == vs[:-1])) if n > 1 else 0
+    if n > 1 and n_ties / (n - 1) > 0.05:
+        logger.warning("jonckheere_terpstra: %.0f%% of values are tied; the "
+                       "no-ties variance is used (conservative) so the p-value "
+                       "is approximate.", 100.0 * n_ties / (n - 1))
     var_jt = (n * n * (2 * n + 3) - float(np.sum(ni * ni * (2 * ni + 3)))) / 72.0
 
     if var_jt <= 0:

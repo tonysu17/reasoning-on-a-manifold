@@ -275,10 +275,15 @@ def annotate_task_domain(task: dict, client: SonnetClient) -> str:
     try:
         raw = client.complete(prompt, seed=0, temperature=0.0)
         obj = _extract_json_object(raw)
-    except (ValueError, Exception) as exc:  # noqa: BLE001
+    except Exception as exc:  # API call + JSON parse: diverse failure types, all -> 'other'
         logger.warning("task-domain classification failed for %s (%s); "
                        "defaulting to 'other'",
                        task.get("task_id"), exc)
+        return "other"
+    if not isinstance(obj, dict):
+        # Guard: a non-dict JSON (e.g. a list) would crash the .get below.
+        logger.warning("task-domain response for %s was not a JSON object (%s); "
+                       "defaulting to 'other'", task.get("task_id"), type(obj).__name__)
         return "other"
     domain = _normalise_domain(obj.get("domain", ""))
     if domain not in TASK_DOMAINS:

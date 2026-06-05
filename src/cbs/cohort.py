@@ -12,8 +12,20 @@ Synthesis-plan reference: §P0.4.
 
 from __future__ import annotations
 
-# Phase-2 generation cap (see configs/config.yaml and synthesis §P0.4).
-DEFAULT_MAX_NEW_TOKENS: int = 8192
+
+def _default_max_new_tokens() -> int:
+    """Phase-2 generation cap, sourced from configs/config.yaml (chains.max_new_tokens)
+    so a config change can't silently desync truncation labelling. Falls back to
+    8192 if the config is unavailable."""
+    try:
+        from src.config import load_config
+        return int((load_config().get("chains") or {}).get("max_new_tokens", 8192))
+    except Exception:
+        return 8192
+
+
+# Phase-2 generation cap (sourced from config; see synthesis §P0.4).
+DEFAULT_MAX_NEW_TOKENS: int = _default_max_new_tokens()
 
 
 def is_truncated(chain: dict, *,
