@@ -89,6 +89,20 @@ def test_backup_existing_missing_returns_none(tmp_path):
     assert backup_existing(tmp_path / "absent.json") is None
 
 
+def test_require_file_returns_when_present(tmp_path):
+    from src.config import require_file
+    f = tmp_path / "x"
+    f.write_text("y")
+    assert require_file(f) == f
+
+
+def test_require_file_exits_when_missing(tmp_path):
+    import pytest
+    from src.config import require_file
+    with pytest.raises(SystemExit):
+        require_file(tmp_path / "nope", hint="run upstream phase")
+
+
 def test_model_cli_resolver():
     from src.config import MODELS_BY_CLI, model_tuple, model_dict
     cfg = load_config()

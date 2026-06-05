@@ -8,10 +8,11 @@ import numpy as np
 from src.steering import build_steering_vectors, save_steering_vectors
 from src.annotation import TARGET_BEHAVIOURS
 
-from src.config import PEAK_LAYERS as PEAK, provenance  # single source (was hardcoded)
+from src.config import PEAK_LAYERS as PEAK, provenance, require_file  # single source
 
 ACT = Path("data/activations/R1-1.5B")
 OUT = Path("results/steering_vectors/R1-1.5B")
+require_file(ACT, "run 04_extract_activations.py first to produce activations")
 
 by_layer = defaultdict(list)
 for b, L in PEAK.items():

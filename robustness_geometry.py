@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefm
 log = logging.getLogger(__name__)
 ACT = Path("data/activations/R1-1.5B"); ANNOT = Path("data/annotated_R1-1.5B.json")
 OUT = Path("results/robustness")
-from src.config import PEAK_LAYERS as PEAK, SEED, provenance  # single source (was hardcoded)
+from src.config import PEAK_LAYERS as PEAK, SEED, provenance, require_file  # single source
 TARGETS = list(PEAK)
 B_DIM = 10          # resamples for the corr-dim keystone
 B_CURV = 8          # resamples for the curvature control (slower)
@@ -93,6 +93,8 @@ def main():
     ANNOT = Path(a.annotated) if a.annotated else Path(f"data/annotated_{a.model_short}.json")
     OUT = Path(f"results/robustness/{a.model_short}")
     OUT.mkdir(parents=True, exist_ok=True)
+    require_file(ANNOT, "run 03_annotate_chains.py first")
+    require_file(ACT, "run 04_extract_activations.py first")
     cidmap = load_chain_ids(ANNOT, TARGETS); res = {}
     for b, L in PEAK.items():
         Xr = np.load(ACT / f"{b}_layer{L}.npy").astype(np.float32)

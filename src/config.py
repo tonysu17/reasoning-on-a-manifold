@@ -94,6 +94,21 @@ def get_peak_layers(cfg: "dict | None" = None) -> dict:
     return dict((cfg.get("analysis") or {}).get("peak_layers", {}))
 
 
+def require_file(path, hint: str = ""):
+    """Exit with a clear one-line message instead of a raw traceback when an
+    expected input (file or directory) is missing — for the ad-hoc analysis
+    scripts that hardcode their inputs (AUDIT.md §5). Returns the Path."""
+    from pathlib import Path as _P
+    import sys as _sys
+    p = _P(path)
+    if not p.exists():
+        msg = f"ERROR: required input not found: {p}"
+        if hint:
+            msg += f"\n  hint: {hint}"
+        _sys.exit(msg)
+    return p
+
+
 def backup_existing(path) -> "Path | None":
     """Copy an existing file to ``<name>.bak`` before a run overwrites it, so a
     shorter or failed re-run can't silently destroy a good prior artifact
@@ -165,7 +180,8 @@ MODELS_BY_CLI = _models_by_cli(_CFG)
 
 __all__ = [
     "load_config", "get_steering_layers", "get_seed", "get_target_behaviours",
-    "get_peak_layers", "provenance", "backup_existing", "model_tuple", "model_dict",
+    "get_peak_layers", "provenance", "backup_existing", "require_file",
+    "model_tuple", "model_dict",
     "CONFIG_PATH", "MODELS", "STEERING_LAYERS", "SEED", "TARGET_BEHAVIOURS",
     "PEAK_LAYERS", "MODELS_BY_CLI",
 ]
