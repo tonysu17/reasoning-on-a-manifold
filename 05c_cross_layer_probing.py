@@ -48,6 +48,7 @@ logger = logging.getLogger(__name__)
 
 
 from src.annotation import TARGET_BEHAVIOURS
+from src.config import provenance
 ALL_LABELS = TARGET_BEHAVIOURS + ["initializing", "deduction"]
 
 
@@ -169,7 +170,7 @@ def subspace_angle_evolution(
         sorted_L = sorted(bases.keys())
         per_beh = {}
         for i, L in enumerate(sorted_L):
-            for k_gap in (1, 3, 7, 14):
+            for k_gap in (3, 7, 14):  # non-adjacent only (residual identity makes gap=1 redundant)
                 target_L = L + k_gap
                 # Find nearest available layer near L + k_gap
                 candidates = [Lc for Lc in sorted_L if Lc > L]
@@ -190,7 +191,8 @@ def subspace_angle_evolution(
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--model-short", default="R1-1.5B")
-    parser.add_argument("--layers", nargs="+", type=int, default=[3, 7, 10, 14, 17, 21, 24, 27])
+    parser.add_argument("--layers", nargs="+", type=int, default=list(range(28)),
+                        help="Layers to probe (default: all 28 for the layer-sweep figure).")
     parser.add_argument("--behaviours", nargs="+", default=TARGET_BEHAVIOURS)
     parser.add_argument("--top-k", type=int, default=10, help="PCA dim for subspace angle. Default 10.")
     parser.add_argument("--out-dir", type=Path, default=None)
@@ -215,6 +217,7 @@ def main():
     angle_results = subspace_angle_evolution(act_dir, args.behaviours, args.layers,
                                               top_k=args.top_k)
     (args.out_dir / "subspace_angles.json").write_text(json.dumps(angle_results, indent=2))
+    (args.out_dir / "provenance.json").write_text(json.dumps(provenance(args), indent=2))
 
     # Plot probe curves
     try:
