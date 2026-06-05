@@ -50,7 +50,7 @@ def cross_model_compare(
     seed: int = 0,
 ) -> dict:
     """Per geometric statistic: report
-        {value_r1, value_base, delta, bootstrap_p}.
+        {value_r1, value_base, delta, p_normal_approx, p_method}.
 
     Inputs are the JSON outputs of `09_cbs_geometry.py` for the two models.
     The function joins per (layer, behaviour, statistic, label_scheme) and
@@ -84,14 +84,16 @@ def cross_model_compare(
         v_r1 = float(r1.get("effect_size", float("nan")))
         v_bs = float(bs.get("effect_size", float("nan")))
         delta = v_r1 - v_bs
-        # Bootstrap p — use the CI overlap; absent overlap -> small p.
+        # NOTE: this is a NORMAL-APPROXIMATION two-sample p-value, NOT a
+        # bootstrap. The upstream geometry results only persist effect sizes
+        # and their 95% CIs, not the raw resample arrays, so we approximate
+        # each side as Gaussian (sd = CI width / 3.92) and compute the
+        # sign-flip probability of the difference. A *true* paired bootstrap
+        # requires the producers (05/05b) to emit per-resample arrays — see
+        # AUDIT.md. Reported as p_normal_approx so the method is not overstated.
         ci_r1 = r1.get("effect_size_ci95", [float("nan"), float("nan")])
         ci_bs = bs.get("effect_size_ci95", [float("nan"), float("nan")])
-        if all(np.isfinite(x) for x in ci_r1 + ci_bs):
-            # crude approximation: how many bootstrap draws have
-            # delta sign-flipped under independent samples from each side.
-            # Without raw bootstrap arrays we use the CI to derive a
-            # Gaussian approximation and bootstrap-resample.
+        if all(np.isfinite(x) for x in ci_r1 + ci_bs) and delta != 0:
             sd_r1 = max(1e-9, (ci_r1[1] - ci_r1[0]) / 3.92)
             sd_bs = max(1e-9, (ci_bs[1] - ci_bs[0]) / 3.92)
             draws_r1 = rng.normal(loc=v_r1, scale=sd_r1, size=n_bootstrap)
@@ -104,7 +106,8 @@ def cross_model_compare(
             "layer": layer, "behaviour": behaviour,
             "statistic": statistic, "label_scheme": label_scheme,
             "value_r1": v_r1, "value_base": v_bs,
-            "delta": delta, "bootstrap_p": p,
+            "delta": delta, "p_normal_approx": p,
+            "p_method": "normal_approx_from_ci",
             "ci95_r1": ci_r1, "ci95_base": ci_bs,
         })
     return {"records": out_records,
