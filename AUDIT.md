@@ -21,7 +21,7 @@ python -m pytest            # 164 tests: 98 CBS + 66 core/config/leakage
 | 2 | `twoNN_estimate` biased high ~35–50% (F=1.0 leverage point) | CRITICAL | **FIXED** |
 | 3 | `local_intrinsic_dim` (CBS) biased ~3–4× (TwoNN on 21-pt clouds) | CRITICAL | **FIXED** |
 | 4 | sklearn PCA randomized solver, no seed → steering vectors non-reproducible | HIGH | **FIXED** |
-| 5 | Data leakage: CV probes split per-sentence, no chain grouping → inflated causal gate | HIGH | **FIXED** (opt-in groups) |
+| 5 | Data leakage: CV probes split per-sentence, no chain grouping → inflated causal gate | HIGH | **FIXED** + live in M5 (12 passes chain_id groups) |
 | 6 | `power_analysis` silently writes all-NaN table that looks like a null result | HIGH | **FIXED** |
 | 7 | `geodesic_euclidean_ratio` symmetrization halves one-way edges (flat→0.73) | MEDIUM | **FIXED** |
 | 8 | `config.yaml` never loaded; `MODELS`/`STEERING_LAYERS` duplicated & divergent | HIGH | **FIXED** (STEERING_LAYERS) / **OPEN** (MODELS) |
@@ -30,8 +30,8 @@ python -m pytest            # 164 tests: 98 CBS + 66 core/config/leakage
 | 11 | README fictional (setup.sh / scripts/ / external/ don't exist) | MEDIUM | **FIXED** (rewritten) |
 | 12 | `07_evaluate_steering.py` read stale `data/tasks.json` | HIGH | **FIXED** |
 | 13 | Core scientific pipeline had zero tests | HIGH | **FIXED** (66 tests) |
-| 14 | `09_cbs_geometry.py` non-deterministic (`hash()` seeding) | CRITICAL | **OPEN** |
-| 15 | `cross_model_compare` "bootstrap_p" is not a bootstrap | MEDIUM | **OPEN** |
+| 14 | `09_cbs_geometry.py` non-deterministic (`hash()` seeding) | CRITICAL | **FIXED** (zlib.crc32) |
+| 15 | `cross_model_compare` "bootstrap_p" is not a bootstrap | MEDIUM | **FIXED** (relabelled p_normal_approx) |
 | 16 | Bootstrap CIs resample derived quantities → too narrow | MEDIUM | **OPEN** |
 | 17 | Activation patching uses lexical markers as behaviour proxy | MEDIUM | **OPEN (methodological)** |
 | 18 | `MODELS` dicts in 02/04/07 still duplicated/divergent | MEDIUM | **OPEN** |
@@ -71,8 +71,7 @@ Added a shared `cv_probe(X, y, groups=...)` using `StratifiedGroupKFold` when ch
 
 ## 3. Open issues & recommendations
 
-- **#14 `09_cbs_geometry.py` `hash()` seeding** — `hash(behaviour)` is salted per-process (PYTHONHASHSEED); the whole `geometry_results.json` changes every run. Replace with a deterministic mapping (e.g. `behaviours.index(b)` or `hashlib`).
-- **#15 `cross_model_compare` bootstrap_p** — reconstructs a Gaussian from a CI width; it is not a bootstrap and is the load-bearing distillation contrast. Re-implement as a genuine paired bootstrap over the underlying samples.
+- **#15 (residual) true paired bootstrap** — the cross-model p is now honestly labelled `p_normal_approx` (Gaussian-from-CI), but a genuine paired bootstrap still requires the producers (`05`/`05b`) to persist per-resample arrays so `cross_model_compare` can resample them. Deferred.
 - **#16 Bootstrap CIs** — `intrinsic_dim`/`curvature` bootstrap *derived* quantities (μ ratios, pairwise distances), which are dependent → CIs too narrow (e.g. `[0.575, 0.587]`). Resample points and recompute end-to-end.
 - **#17 Activation patching proxy** — `behaviour_marker_logprob` scores behaviours by tokens like `"wait"`/`"actually"`; this conflates behaviour with surface lexis and patches position *i* across non-aligned chains. Needs a validated behaviour metric and positional alignment before it can support a "Paper 2 main" causal claim.
 - **#18 MODELS dicts** — 02/04/07 still carry divergent `MODELS` (07 uses tuple values keyed `"1.5b"` and lacks the baseline). Migrate to `src.config.MODELS`.
