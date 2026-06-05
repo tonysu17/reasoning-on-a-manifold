@@ -13,6 +13,7 @@ models:
   primary:
     id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
     short_name: "R1-1.5B"
+    cli_alias: "1.5b"            # --model value used by 02/04/07
     n_layers: 28
     hidden_dim: 1536
     dtype: "float16"
@@ -23,6 +24,7 @@ models:
   secondary:
     id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     short_name: "R1-7B"
+    cli_alias: "7b"
     n_layers: 28
     hidden_dim: 3584
     dtype: "float16"
@@ -35,6 +37,7 @@ models:
   baseline:
     id: "Qwen/Qwen2.5-Math-1.5B"
     short_name: "QwenMath-1.5B"   # matches the short-name the runners pass via --model
+    cli_alias: "qwen-math-1.5b"
     n_layers: 28
     hidden_dim: 1536
     dtype: "float16"
@@ -45,6 +48,7 @@ models:
   tertiary:
     id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
     short_name: "R1-8B"
+    cli_alias: "8b"
     n_layers: 32
     hidden_dim: 4096
     dtype: "float16"
@@ -62,6 +66,7 @@ models:
   safety_gpt_oss:
     id: "openai/gpt-oss-20b"
     short_name: "gpt-oss-20b"
+    cli_alias: "gpt-oss-20b"
     n_layers: 24
     hidden_dim: 2880
     dtype: "bfloat16"            # MXFP4 weights dequantise to bf16 off-Hopper

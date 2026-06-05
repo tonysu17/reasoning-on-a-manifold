@@ -49,6 +49,31 @@ def get_steering_layers(cfg: "dict | None" = None) -> dict:
             for sn, spec in _model_registry(cfg).items()}
 
 
+def _models_by_cli(cfg: dict) -> dict:
+    """cli_alias (the --model value) -> full model spec. Single source for the
+    per-runner MODELS dicts in 02/04/07, which previously hand-maintained
+    divergent copies keyed by short codes like '1.5b'."""
+    out: dict[str, dict] = {}
+    for spec in _model_registry(cfg).values():
+        alias = spec.get("cli_alias")
+        if alias:
+            out[alias] = spec
+    return out
+
+
+def model_tuple(alias: str, cfg: "dict | None" = None) -> tuple:
+    """(id, short_name, dtype) for a runner --model alias (the 04/07 shape)."""
+    cfg = cfg or load_config()
+    m = _models_by_cli(cfg)[alias]
+    return (m["id"], m["short_name"], m["dtype"])
+
+
+def model_dict(alias: str, cfg: "dict | None" = None) -> dict:
+    """{id, short, dtype} for a runner --model alias (the 02 shape)."""
+    m_id, short, dtype = model_tuple(alias, cfg)
+    return {"id": m_id, "short": short, "dtype": dtype}
+
+
 def get_seed(cfg: "dict | None" = None) -> int:
     cfg = cfg or load_config()
     return int((cfg.get("project") or {}).get("seed", 42))
@@ -118,10 +143,11 @@ STEERING_LAYERS = get_steering_layers(_CFG)
 SEED = get_seed(_CFG)
 TARGET_BEHAVIOURS = get_target_behaviours(_CFG)
 PEAK_LAYERS = get_peak_layers(_CFG)
+MODELS_BY_CLI = _models_by_cli(_CFG)
 
 __all__ = [
     "load_config", "get_steering_layers", "get_seed", "get_target_behaviours",
-    "get_peak_layers", "provenance",
+    "get_peak_layers", "provenance", "model_tuple", "model_dict",
     "CONFIG_PATH", "MODELS", "STEERING_LAYERS", "SEED", "TARGET_BEHAVIOURS",
-    "PEAK_LAYERS",
+    "PEAK_LAYERS", "MODELS_BY_CLI",
 ]

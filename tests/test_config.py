@@ -73,6 +73,19 @@ def test_provenance_captures_args_and_input_hashes(tmp_path):
     assert isinstance(p["input_sha256"][str(f)], str) and len(p["input_sha256"][str(f)]) == 16
 
 
+def test_model_cli_resolver():
+    from src.config import MODELS_BY_CLI, model_tuple, model_dict
+    cfg = load_config()
+    expected = {m["cli_alias"] for m in cfg["models"].values() if "cli_alias" in m}
+    assert set(MODELS_BY_CLI) == expected
+    # 04/07 tuple shape
+    mid, short, dtype = model_tuple("1.5b")
+    assert short == "R1-1.5B" and dtype == "float16"
+    # 02 dict shape
+    d = model_dict("qwen-math-1.5b")
+    assert d["short"] == "QwenMath-1.5B" and set(d) == {"id", "short", "dtype"}
+
+
 def test_runners_import_shared_steering_layers():
     """The migrated runners must expose the SAME object as src.config, proving
     the duplication is gone."""
