@@ -35,6 +35,7 @@ from typing import Optional
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.geometry import (
     bootstrap_ci,
     build_union_basis,
@@ -67,7 +68,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--top-pcs-per-behaviour", type=int, default=20)
     p.add_argument("--n-bootstrap", type=int, default=1000)
     p.add_argument("--variance-thresholds", default="0.90,0.95,0.99")
-    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--seed", type=int, default=SEED)  # config.SEED (was 0)
     p.add_argument("--synthetic-tiers", action="store_true",
                    help="Assign per-row tiers via rng. Required when no CBS "
                         "annotations exist (build-now smoke).")
@@ -191,7 +192,9 @@ def _compute_layer_behaviour(
                 from scipy.stats import mannwhitneyu
                 stat_u, p_u = mannwhitneyu(v[cd], v[~cd], alternative="two-sided")
                 test_stat = float(stat_u)
-            except ImportError:
+            except (ImportError, ValueError):
+                # ImportError: scipy absent. ValueError: mannwhitneyu rejects
+                # all-identical inputs. Either way, emit NaN rather than crash.
                 test_stat = float("nan")
                 p_u = float("nan")
             cd_delta = cliffs_delta(v[cd], v[~cd])
@@ -218,6 +221,39 @@ def _compute_layer_behaviour(
     return {"results": results}
 
 
+def _load_real_labels(cbs_annotations_path: Path,
+                      behaviours: list) -> "dict[str, tuple[np.ndarray, np.ndarray]]":
+    """Load REAL CBS tier + cross-domain labels per behaviour, aligned with the
+    Phase-4 activation row ordering (src.cbs.trajectory.build_row_index).
+
+    Returns {behaviour: (tiers (int, 0 if unannotated), cross_domain (bool))}.
+    The caller must verify each array length matches the loaded activation
+    matrix before use, and keep only tier in {1,2,3} rows. Replaces the old
+    `pass` stub that left geometry on synthetic tiers while stamping
+    labels_source="real" (AUDIT.md §5)."""
+    from src.cbs.trajectory import build_row_index
+    with open(cbs_annotations_path) as f:
+        chains = json.load(f)
+    row_index = build_row_index(chains, target_behaviours=list(behaviours))
+    label_by_key: dict[tuple, tuple[int, bool]] = {}
+    for chain in chains:
+        cid = chain.get("task_id", "")
+        for i, span in enumerate(chain.get("annotations", []) or []):
+            if span.get("label") in behaviours and "cbs_tier" in span:
+                label_by_key[(cid, i)] = (int(span.get("cbs_tier", 0)),
+                                          bool(span.get("cbs_cross_domain", False)))
+    out: dict[str, tuple[np.ndarray, np.ndarray]] = {}
+    for beh, items in row_index.items():
+        tiers = np.zeros(len(items), dtype=int)
+        cds = np.zeros(len(items), dtype=bool)
+        for row, key in enumerate(items):
+            t, c = label_by_key.get(key, (0, False))
+            tiers[row] = t
+            cds[row] = c
+        out[beh] = (tiers, cds)
+    return out
+
+
 def main() -> int:
     args = parse_args()
     setup_logging(args.log_level)
@@ -233,18 +269,26 @@ def main() -> int:
 
     rng = np.random.default_rng(args.seed)
 
-    # Load CBS annotations once if present.
-    cbs_lookup: dict[tuple[str, int], dict[int, int]] = {}
+    # Load REAL CBS labels if a real annotations file is present; otherwise
+    # fall back to synthetic tiers AND label them honestly as synthetic.
+    real_labels: "dict | None" = None
     if args.cbs_annotations.exists() and not args.synthetic_tiers:
         logger.info("loading CBS annotations from %s", args.cbs_annotations)
-        # cbs_lookup not used in smoke; placeholder for full-run extension.
-        # See M3 / Phase 4 follow-on for the row-to-sentence mapping.
-        pass
-    else:
-        if not args.synthetic_tiers:
-            logger.warning("no CBS annotations at %s; falling back to "
-                           "--synthetic-tiers", args.cbs_annotations)
-            args.synthetic_tiers = True
+        try:
+            real_labels = _load_real_labels(args.cbs_annotations, behaviours)
+            n_annot = sum(int((t > 0).sum()) for t, _ in real_labels.values())
+            if n_annot == 0:
+                logger.warning("CBS annotations present but 0 tiered sentences "
+                               "for target behaviours; using synthetic tiers.")
+                real_labels = None
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("failed to load real CBS labels (%s); using synthetic "
+                           "tiers.", exc)
+            real_labels = None
+    if real_labels is None and not args.synthetic_tiers:
+        logger.warning("no usable CBS annotations at %s; falling back to "
+                       "--synthetic-tiers", args.cbs_annotations)
+        args.synthetic_tiers = True
 
     geometry_records: list[dict] = []
     principal_angle_records: list[dict] = []
@@ -267,12 +311,33 @@ def main() -> int:
                                layer, behaviour, n)
                 continue
 
-            tiers = _synthetic_tier_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
-            cd = _synthetic_crossdomain_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
+            # Real labels if available for this behaviour and row-aligned;
+            # otherwise synthetic. label is stamped to match what is ACTUALLY
+            # used (never "real" on synthetic data — the old stub's bug).
+            Xeff = X
+            if real_labels is not None and behaviour in real_labels:
+                tiers_all, cd_all = real_labels[behaviour]
+                if tiers_all.shape[0] != n:
+                    logger.warning("layer=%d behaviour=%s: real-label rows (%d) != "
+                                   "activation rows (%d); skipping (cannot align).",
+                                   layer, behaviour, tiers_all.shape[0], n)
+                    continue
+                keep = np.isin(tiers_all, (1, 2, 3))
+                if int(keep.sum()) < 10:
+                    logger.warning("layer=%d behaviour=%s: only %d tiered rows; "
+                                   "skipping.", layer, behaviour, int(keep.sum()))
+                    continue
+                Xeff = X[keep]
+                tiers = tiers_all[keep]
+                cd = cd_all[keep]
+                label = "real"
+            else:
+                tiers = _synthetic_tier_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
+                cd = _synthetic_crossdomain_labels(n, args.seed + layer + zlib.crc32(behaviour.encode()) % 1000)
+                label = "synthetic"
 
-            label = "synthetic" if args.synthetic_tiers else "real"
             cell = _compute_layer_behaviour(
-                X=X, tiers=tiers, cross_domain=cd,
+                X=Xeff, tiers=tiers, cross_domain=cd,
                 union_basis=union_basis, k_local=args.k_local_id,
                 n_bootstrap=args.n_bootstrap, rng=rng,
             )
@@ -285,7 +350,7 @@ def main() -> int:
             if args.shuffle_control:
                 shuffled = rng.permutation(tiers)
                 cell_s = _compute_layer_behaviour(
-                    X=X, tiers=shuffled, cross_domain=cd,
+                    X=Xeff, tiers=shuffled, cross_domain=cd,
                     union_basis=union_basis, k_local=args.k_local_id,
                     n_bootstrap=args.n_bootstrap, rng=rng,
                 )
@@ -299,7 +364,7 @@ def main() -> int:
                 rev_map = {1: 3, 2: 2, 3: 1}
                 rev = np.array([rev_map[int(t)] for t in tiers])
                 cell_r = _compute_layer_behaviour(
-                    X=X, tiers=rev, cross_domain=cd,
+                    X=Xeff, tiers=rev, cross_domain=cd,
                     union_basis=union_basis, k_local=args.k_local_id,
                     n_bootstrap=args.n_bootstrap, rng=rng,
                 )

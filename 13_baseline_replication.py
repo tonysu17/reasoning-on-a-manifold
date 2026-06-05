@@ -31,6 +31,7 @@ from typing import Optional
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.comparison import (
     cross_model_classifier,
     cross_model_compare,
@@ -55,7 +56,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--tier3-rate-floor", type=float, default=0.03,
                    help="Below this baseline tier-3 rate, report a "
                         "structured null per synthesis §M6.4.")
-    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--seed", type=int, default=SEED)  # config.SEED (was 0)
     p.add_argument("--log-level", default="INFO")
     return p.parse_args()
 

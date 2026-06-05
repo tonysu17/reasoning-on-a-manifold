@@ -95,3 +95,34 @@ def test_is_truncated_uses_cap():
     closed = {"n_tokens": DEFAULT_MAX_NEW_TOKENS, "chain": "done</think>"}
     assert is_truncated(capped) is True
     assert is_truncated(closed) is False
+
+
+# ── 09_cbs_geometry real-label loader (replaces the synthetic-mislabel stub) ──
+
+def test_load_real_labels_maps_tiers(tmp_path):
+    """_load_real_labels must align real cbs_tier/cross_domain to the Phase-4
+    row order (build_row_index), so geometry on real annotations is no longer
+    silently synthetic-but-labelled-'real' (AUDIT.md §5)."""
+    import json
+    import importlib
+    mod = importlib.import_module("09_cbs_geometry")
+
+    chains = [
+        {"task_id": "c0", "annotations": [
+            {"label": "deduction"},  # i=0, not a target behaviour
+            {"label": "adding-knowledge", "cbs_tier": 3, "cbs_cross_domain": True},   # i=1
+            {"label": "adding-knowledge", "cbs_tier": 1, "cbs_cross_domain": False},  # i=2
+        ]},
+        {"task_id": "c1", "annotations": [
+            {"label": "adding-knowledge", "cbs_tier": 2, "cbs_cross_domain": False},  # i=0
+        ]},
+    ]
+    f = tmp_path / "cbs.json"
+    f.write_text(json.dumps(chains))
+
+    out = mod._load_real_labels(f, ["adding-knowledge"])
+    tiers, cds = out["adding-knowledge"]
+    # row order: (c0,1),(c0,2),(c1,0)
+    assert list(tiers) == [3, 1, 2]
+    assert list(cds) == [True, False, False]
+
