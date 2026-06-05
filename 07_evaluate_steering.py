@@ -43,10 +43,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Coverage kept in sync with 04_extract_activations.py (was missing the baseline
+# and safety models, so `--model qwen-math-1.5b` crashed on a choices error).
+# NOTE: 02/04/07 still keep separate short-code dicts; unifying them via
+# src.config.MODELS needs a per-model `cli_alias` in config.yaml (deferred —
+# see AUDIT.md §5 #18).
 MODELS = {
-    "1.5b": ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", "R1-1.5B", "float16"),
-    "7b":   ("deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",   "R1-7B",   "float16"),
-    "8b":   ("deepseek-ai/DeepSeek-R1-Distill-Llama-8B",  "R1-8B",   "float16"),
+    "1.5b":           ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", "R1-1.5B",       "float16"),
+    "7b":             ("deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",   "R1-7B",         "float16"),
+    "8b":             ("deepseek-ai/DeepSeek-R1-Distill-Llama-8B",  "R1-8B",         "float16"),
+    "qwen-math-1.5b": ("Qwen/Qwen2.5-Math-1.5B",                    "QwenMath-1.5B", "float16"),
+    "gpt-oss-20b":    ("openai/gpt-oss-20b",                        "gpt-oss-20b",   "bfloat16"),
 }
 
 
