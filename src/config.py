@@ -94,6 +94,24 @@ def get_peak_layers(cfg: "dict | None" = None) -> dict:
     return dict((cfg.get("analysis") or {}).get("peak_layers", {}))
 
 
+def backup_existing(path) -> "Path | None":
+    """Copy an existing file to ``<name>.bak`` before a run overwrites it, so a
+    shorter or failed re-run can't silently destroy a good prior artifact
+    (AUDIT.md §5). Copy (not move) so resume logic can still read the original.
+    Best-effort; returns the .bak path or None."""
+    from pathlib import Path as _P
+    import shutil
+    p = _P(path)
+    if not p.exists():
+        return None
+    bak = p.with_suffix(p.suffix + ".bak")
+    try:
+        shutil.copy2(p, bak)
+        return bak
+    except OSError:
+        return None
+
+
 def provenance(args=None, inputs=None) -> dict:
     """Provenance stamp to embed in result files so any figure/JSON can be traced
     to the exact code + config + inputs that produced it (AUDIT.md §5).
@@ -147,7 +165,7 @@ MODELS_BY_CLI = _models_by_cli(_CFG)
 
 __all__ = [
     "load_config", "get_steering_layers", "get_seed", "get_target_behaviours",
-    "get_peak_layers", "provenance", "model_tuple", "model_dict",
+    "get_peak_layers", "provenance", "backup_existing", "model_tuple", "model_dict",
     "CONFIG_PATH", "MODELS", "STEERING_LAYERS", "SEED", "TARGET_BEHAVIOURS",
     "PEAK_LAYERS", "MODELS_BY_CLI",
 ]

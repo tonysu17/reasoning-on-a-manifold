@@ -73,6 +73,22 @@ def test_provenance_captures_args_and_input_hashes(tmp_path):
     assert isinstance(p["input_sha256"][str(f)], str) and len(p["input_sha256"][str(f)]) == 16
 
 
+def test_backup_existing_copies_and_preserves_original(tmp_path):
+    from src.config import backup_existing
+    f = tmp_path / "out.json"
+    f.write_text("v1")
+    bak = backup_existing(f)
+    assert bak is not None and bak.read_text() == "v1"
+    assert f.exists()                      # copy, not move (resume still reads it)
+    f.write_text("v2")
+    assert bak.read_text() == "v1"         # backup is an independent snapshot
+
+
+def test_backup_existing_missing_returns_none(tmp_path):
+    from src.config import backup_existing
+    assert backup_existing(tmp_path / "absent.json") is None
+
+
 def test_model_cli_resolver():
     from src.config import MODELS_BY_CLI, model_tuple, model_dict
     cfg = load_config()

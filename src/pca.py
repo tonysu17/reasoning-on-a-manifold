@@ -162,8 +162,15 @@ def save_pca_results(results: dict, save_dir: Path, layer: Optional[int] = None,
                          "explained_variance_ratio", "mean")
         }
 
-    with open(save_dir / f"summary{suffix}.json", "w") as f:
+    # Back up a prior summary (a shorter re-run shouldn't clobber it) and write
+    # atomically so an interrupted write can't leave a corrupt summary.json.
+    from src.config import backup_existing
+    summary_path = save_dir / f"summary{suffix}.json"
+    backup_existing(summary_path)
+    tmp = summary_path.with_suffix(".json.tmp")
+    with open(tmp, "w") as f:
         json.dump(summary, f, indent=2)
+    tmp.replace(summary_path)
     logger.info(f"PCA results saved → {save_dir}")
 
 

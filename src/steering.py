@@ -214,8 +214,15 @@ def save_steering_vectors(vectors: dict, save_dir: Path,
             "k_values": list(data["manifold_projected"].keys()),
         }
 
-    with open(save_dir / "metadata.json", "w") as f:
+    # Back up a prior metadata (a shorter re-run shouldn't clobber it) and write
+    # atomically so an interrupted write can't leave a corrupt metadata.json.
+    from src.config import backup_existing
+    meta_path = save_dir / "metadata.json"
+    backup_existing(meta_path)
+    tmp = meta_path.with_suffix(".json.tmp")
+    with open(tmp, "w") as f:
         json.dump(metadata, f, indent=2)
+    tmp.replace(meta_path)
     logger.info(f"Steering vectors saved → {save_dir}")
 
 
