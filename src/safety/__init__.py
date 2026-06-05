@@ -37,7 +37,7 @@ from src.safety.refusal_direction import (
 from src.safety.geometry_analysis import (
     analyze_recipes, summarise, build_per_model, load_safety_activations,
 )
-from src.safety import stimuli, deliberation, shallowness
+from src.safety import stimuli, deliberation, shallowness, extraction
 
 __all__ = [
     "refusal_direction", "project", "directional_ablation",

@@ -219,3 +219,84 @@ def test_runner_module_imports_and_has_main():
     mod = importlib.import_module("14_safety_geometry")
     assert hasattr(mod, "main")
     assert "gpt-oss-20b" in mod.DEFAULT_MODELS
+
+
+def test_extract_runner_imports():
+    import importlib
+    mod = importlib.import_module("04s_extract_safety")
+    assert hasattr(mod, "main")
+
+
+# ── Safety extraction pass (end-to-end over a fake model) ─────────────────────
+
+def test_extract_and_save_safety_activations_roundtrip(tmp_path):
+    import zlib
+    import torch
+    import torch.nn as nn
+    from src.safety.extraction import extract_prompt_activations, save_safety_activations
+    from src.safety.stimuli import Stimulus
+
+    HID = 16
+
+    class _Blk(nn.Module):
+        def __init__(self, delta):
+            super().__init__()
+            self.delta = float(delta)
+
+        def forward(self, h):
+            return (h + self.delta,)
+
+    class _Inner(nn.Module):
+        def __init__(self, nl, vocab, hid):
+            super().__init__()
+            self.embed = nn.Embedding(vocab, hid)
+            self.layers = nn.ModuleList([_Blk(i + 1) for i in range(nl)])
+
+    class _Model(nn.Module):
+        def __init__(self, nl=6, vocab=64, hid=HID):
+            super().__init__()
+            self.model = _Inner(nl, vocab, hid)
+            self._v = vocab
+
+        @property
+        def device(self):
+            return torch.device("cpu")
+
+        def forward(self, input_ids=None, attention_mask=None, **_):
+            h = self.model.embed(input_ids % self._v)
+            for b in self.model.layers:
+                h = b(h)[0]
+            return h
+
+    class _Tok:
+        eos_token_id = 0
+
+        def apply_chat_template(self, msgs, tokenize=False, add_generation_prompt=False, **kw):
+            return msgs[-1]["content"]
+
+        def __call__(self, text, return_tensors=None):
+            ids = [zlib.crc32(w.encode()) % 50 + 1 for w in text.split()] or [1]
+            t = torch.tensor([ids], dtype=torch.long)
+            return {"input_ids": t, "attention_mask": torch.ones_like(t)}
+
+    stims = [
+        Stimulus("h1", "alpha beta gamma", "harmful"),
+        Stimulus("h2", "delta epsilon zeta", "harmful"),
+        Stimulus("b1", "one two three", "benign"),
+        Stimulus("b2", "four five six", "benign"),
+    ]
+    acts, order = extract_prompt_activations(_Model(), _Tok(), stims, layers=[0, 3, 5], family="base")
+    assert acts["harmful"][5].shape == (2, HID)
+    assert acts["benign"][0].shape == (2, HID)
+    assert order["harmful"] == ["h1", "h2"]
+
+    out = tmp_path / "R1-1.5B"
+    save_safety_activations(acts, out, order)          # benign -> harmless on disk
+    assert (out / "harmful_layer5.npy").exists()
+    assert (out / "harmless_layer5.npy").exists()       # alias applied
+    assert (out / "stimulus_order.json").exists()
+
+    loaded = load_safety_activations(out)               # the loader the runner uses
+    assert set(loaded) == {0, 3, 5}
+    assert loaded[5]["harmful"].shape == (2, HID)
+    assert loaded[5]["harmless"].shape == (2, HID)
