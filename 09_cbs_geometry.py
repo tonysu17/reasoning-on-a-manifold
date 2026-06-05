@@ -165,11 +165,15 @@ def _compute_layer_behaviour(
         # CBS tier ordinal test (JT)
         jt = jonckheere_terpstra(v, t)
         cd_eff = cliffs_delta(v[t == 3], v[t == 1]) if (np.any(t == 3) and np.any(t == 1)) else 0.0
+        eff_boots = None
         try:
-            ci_lo, ci_hi = bootstrap_ci(
-                cliffs_delta, v[t == 3], v[t == 1],
-                n_bootstrap=n_bootstrap, paired=False, rng=rng,
-            ) if (np.any(t == 3) and np.any(t == 1)) else (float("nan"), float("nan"))
+            if np.any(t == 3) and np.any(t == 1):
+                ci_lo, ci_hi, eff_boots = bootstrap_ci(
+                    cliffs_delta, v[t == 3], v[t == 1],
+                    n_bootstrap=n_bootstrap, paired=False, rng=rng, return_dist=True,
+                )
+            else:
+                ci_lo, ci_hi = float("nan"), float("nan")
         except Exception as exc:  # noqa: BLE001
             logger.warning("bootstrap_ci failed (%s); emitting NaN", exc)
             ci_lo, ci_hi = float("nan"), float("nan")
@@ -181,6 +185,10 @@ def _compute_layer_behaviour(
             "p_holm": float("nan"),                  # filled later
             "effect_size": cd_eff,
             "effect_size_ci95": [ci_lo, ci_hi],
+            # bootstrap distribution (capped) so a cross-model contrast can do a
+            # genuine two-sample bootstrap rather than a Gaussian-from-CI approx.
+            "effect_size_boots": ([float(x) for x in eff_boots[:500]]
+                                  if eff_boots is not None else None),
             "n_total": int(valid.sum()),
             "n_per_tier": jt["n_per_tier"],
             "trend_direction": jt["trend_direction"],
@@ -198,10 +206,11 @@ def _compute_layer_behaviour(
                 test_stat = float("nan")
                 p_u = float("nan")
             cd_delta = cliffs_delta(v[cd], v[~cd])
+            cd_boots = None
             try:
-                ci_lo_b, ci_hi_b = bootstrap_ci(
+                ci_lo_b, ci_hi_b, cd_boots = bootstrap_ci(
                     cliffs_delta, v[cd], v[~cd],
-                    n_bootstrap=n_bootstrap, paired=False, rng=rng,
+                    n_bootstrap=n_bootstrap, paired=False, rng=rng, return_dist=True,
                 )
             except Exception:  # noqa: BLE001
                 ci_lo_b, ci_hi_b = float("nan"), float("nan")
@@ -213,6 +222,8 @@ def _compute_layer_behaviour(
                 "p_holm": float("nan"),
                 "effect_size": cd_delta,
                 "effect_size_ci95": [ci_lo_b, ci_hi_b],
+                "effect_size_boots": ([float(x) for x in cd_boots[:500]]
+                                      if cd_boots is not None else None),
                 "n_total": int(valid.sum()),
                 "n_cross_domain": int(cd.sum()),
                 "n_in_domain": int((~cd).sum()),

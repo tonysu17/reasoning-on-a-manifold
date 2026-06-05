@@ -345,8 +345,9 @@ def bootstrap_ci(
     ci: float = 0.95,
     rng: Optional[np.random.Generator] = None,
     paired: bool = True,
+    return_dist: bool = False,
     **kwargs: Any,
-) -> tuple[float, float]:
+) -> tuple:
     """Percentile bootstrap CI for a scalar statistic.
 
     Parameters
@@ -390,6 +391,11 @@ def bootstrap_ci(
             stats[b] = float(fn(*resampled, **kwargs))
     alpha = (1.0 - ci) / 2.0
     lo, hi = np.quantile(stats, [alpha, 1.0 - alpha])
+    if return_dist:
+        # The bootstrap distribution itself, so a downstream cross-model test can
+        # do a genuine two-sample bootstrap instead of a Gaussian-from-CI approx
+        # (AUDIT.md §5, cross_model_compare). See src/cbs/comparison.py.
+        return float(lo), float(hi), stats
     return float(lo), float(hi)
 
 
