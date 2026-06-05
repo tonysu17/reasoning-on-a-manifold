@@ -210,7 +210,10 @@ def main() -> int:
             "synthesis_reference": "§M4.2",
             "what_will_run_when_unblocked": [
                 ("verification_gradient(correct_acts, incorrect_acts, "
-                 "cv_folds=5, seed=0)"),
+                 "cv_folds=5, seed=0, correct_groups=<chain_ids>, "
+                 "incorrect_groups=<chain_ids>)  # groups REQUIRED: chain-aware "
+                 "CV (StratifiedGroupKFold) so same-chain sentences don't leak "
+                 "across folds — see src/cbs/matching.cv_probe"),
                 ("cosine(probe_weights, v_CBS) and "
                  "cosine(probe_weights, v_adding_knowledge_centroid) "
                  "filled in by the M5 ablation step."),
