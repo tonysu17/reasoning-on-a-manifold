@@ -89,3 +89,50 @@ Added a shared `cv_probe(X, y, groups=...)` using `StratifiedGroupKFold` when ch
 ## 4. Note on tooling
 
 The `tdd-guard` PreToolUse hook in `.claude/settings.json` was found to be malfunctioning — its internal validator returns prose instead of JSON, so it `block`ed **every** `.py`/`.toml` edit with a parse error (it ignores `.md`/`.json`/`.yaml`). It was disabled for this work via its own native switch, `.claude/tdd-guard/data/config.json` → `{"guardEnabled": false}` (settings.json untouched). Re-enable with `{"guardEnabled": true}` once its validator config is fixed; re-enabling while broken will block all code edits again.
+
+---
+
+## 5. Full backlog from the sub-audits (not yet actioned)
+
+Lower-severity findings surfaced by the parallel runner/CBS audits. Not triaged into the table in §1; logged here so they aren't lost.
+
+### Statistical correctness (MEDIUM)
+- **`src/cbs/geometry.py::build_union_basis`** — the variance-threshold cut is applied to singular values of stacked **unit-norm** per-behaviour PC columns, which are stripped of eigenvalue scale. So `variance_threshold=0.95` does *not* mean 95% of activation variance; it's 95% of the spectral energy of the stacked directions. Re-derive what the union-basis dimensionality should mean, or weight columns by their eigenvalues.
+- **`src/cbs/matching.py::paired_geometric_tests`** — Cliff's-delta bootstrap CI uses `paired=False` on a *matched* pair (inflates the CI ~5×), while the Wilcoxon reported alongside is paired. Make the CI paired for internal consistency.
+- **`src/cbs/geometry.py::jonckheere_terpstra`** — no tie correction in the variance, though the docstring advertises tie handling. Harmless on continuous CBS inputs (conservative); fix the variance or the docstring before any discretized input reaches it.
+
+### Silent-failure / robustness (MEDIUM)
+- **`09_cbs_geometry.py` real-annotation loader is a `pass` stub** — when a real CBS annotations file exists it still falls through to synthetic tiers, yet stamps `labels_source:"real"`. **Wire the real loader before trusting any "real" geometry output.** (Higher impact than its severity suggests — it silently mislabels provenance.)
+- **`09_cbs_geometry.py` mannwhitneyu** wrapped in `try/except ImportError` → silent NaN if scipy missing.
+- **`src/cbs/annotation.py:~278`** — `except (ValueError, Exception)` is an over-broad catch that masks `KeyError`/`AttributeError` and silently defaults the task domain to `"other"`. Narrow it.
+- **Overwrite safety** — several runners (`02`, `02b`, `03`, `12`) write outputs in place; a partial/failed run with fewer records can overwrite a good full artifact with no backup. Add a record-count guard or write-then-backup.
+
+### Reproducibility / provenance (MEDIUM)
+- **CBS phases (08–13) default `seed=0`**, ignoring config `SEED=42`. Thread `src.config.SEED` (and add a `--seed` arg where missing, e.g. `12_cbs_ablation.py`).
+- **No provenance stamps** — most result writers (`05`, `05c`, `06`, `build_phase6`, `compute_layer_triangulation`, `robustness_geometry`, figure scripts) record no git hash / input-file hash / seed. Add a shared `_stamp(out_dir, args)` helper so every figure is traceable to code+inputs.
+- **`build_phase6.py` / `robustness_geometry.py` hardcode per-behaviour peak layers** (`{backtracking:14, uncertainty:14, adding-knowledge:17, example-testing:27}`) diverging from config's single `steering_layer:27`. Source from a `candidate_layers.json` (triangulation output) or config.
+
+### Duplication (MEDIUM/LOW)
+- **`_find_sentence_offset` reimplemented in 4 files** (`05`, `05b`, `compare_annotators`, `robustness_geometry`), each claiming to "replicate `src/activation_extraction.py` exactly". Extract one shared helper — drift here silently misaligns chain-id arrays with activation rows.
+- **`MODELS` dicts in `02`/`04`/`07` still divergent** (#18) — `STEERING_LAYERS` was migrated to `src.config` for `05`/`05b`/`06` only. `07` uses tuple values keyed `"1.5b"` and lacks the baseline → `--model qwen-math-1.5b` crashes.
+
+### Schema / data (LOW)
+- **`src/cbs/cohort.py::is_truncated`** hardcodes the `</think>` sentinel and `n_tokens >= 8192`; if `chains.max_new_tokens` changes it mislabels every chain as non-truncated (corrupts the P0.4 stratification). Source the cap from config.
+- **`schemas.py`** strict types (`tier` ∈ {1,2,3} int, `cross_domain` bool) — real data emitting `"3"`/`3.0`/`"yes"` bypasses the dataclass unless it flows through the coercing annotator.
+- **Sentence-ID convention mismatch** — `matching._tier_spans` indexes by position in the *filtered* annotation list; `trajectory.build_trajectory` uses `f"{chain_id}:{i}"` from the *full* span list. If a lookup keyed one way meets ids built the other way, pairs silently drop. Add an integration test crossing the two modules.
+- **`data/MANIFEST.md` is gitignored** (because `data/` is) → local-only. Force-track it (`git add -f`) or fold its content into README/AUDIT so collaborators see which data files are canonical.
+
+### Docs (LOW)
+- Stale docstrings in `predict_saturation.py` / `06b_steering_composition.py` reference steering-vector filenames that don't match the actual `{beh}_single.npy` / `{beh}_manifold_k{k}.npy` convention.
+- Ad-hoc scripts (`build_phase6`, `make_fresh_figures`, `render_html`, `compare_annotators`, `validate_pilot_lengths`) lack input validation — they crash with raw tracebacks on missing files.
+
+---
+
+## 6. Next-session checklist (ordered)
+
+1. **Merge** `audit/se-robustness-fixes` → `main` (5 commits; note pre-existing WIP was bundled into the first — see commit message). Re-run `pytest` (expect 164).
+2. **Regenerate** the TwoNN dimensions in `PROGRESS.md` (the 9.4–27.9 values are from the biased estimator).
+3. **#16** point-resampled bootstrap CIs in `curvature.py` / `intrinsic_dim.py` (touches the just-fixed estimators — re-verify against `tests/`).
+4. **CBS `seed`** → thread `src.config.SEED` through 08–13.
+5. **`09_cbs_geometry` real loader** + **`07` MODELS** baseline/migration.
+6. The remaining §5 items as capacity allows; re-enable `tdd-guard` only after its validator is fixed (§4).
