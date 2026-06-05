@@ -9,11 +9,13 @@ For each annotated chain:
   3. Map each annotated sentence to its token positions (one preceding token +
      first N execution tokens), following Venhoff et al.
   4. Mean-pool activations across those positions.
-  5. Accumulate into per-behaviour, per-layer matrices and save as .npy files.
+  5. Accumulate into per-behaviour, per-layer matrices, flushed to shard files
+     every `flush_every` chains to bound peak memory, then concatenated and saved
+     as .npy with a `complete` integrity flag in metadata.
 
 Output layout (in activations_dir/):
     {behaviour}_layer{n}.npy          float32 array (N_instances, hidden_dim)
-    extraction_metadata.json
+    metadata.json                     includes `complete` + `saved_layers`
 
 Requires: torch, transformers  (pip install .[gpu])
 """
@@ -96,6 +98,8 @@ def extract_activations(
     n_preceding: int = 1,
     n_execution: int = 10,
     max_chains: Optional[int] = None,
+    flush_every: int = 100,
+    keep_in_memory: bool = True,
 ) -> dict[str, dict[int, np.ndarray]]:
     """
     Extract per-behaviour activation matrices across all annotated chains.
@@ -109,6 +113,12 @@ def extract_activations(
         n_preceding:        tokens before behaviour onset to include
         n_execution:        first N tokens of the behaviour to include
         max_chains:         process at most this many chains (debugging)
+        flush_every:        flush accumulators to shard files every N chains to
+                            bound peak memory (prevents the OOM-during-write that
+                            previously truncated a behaviour to 1/28 layers)
+        keep_in_memory:     if False, free each final array after saving and
+                            return only structure/counts (callers that only need
+                            the .npy files on disk should pass False)
 
     Returns:
         {behaviour: {layer_idx: ndarray(N_instances, hidden_dim)}}
@@ -124,14 +134,36 @@ def extract_activations(
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # Accumulators: behaviour → layer → list of float32 vectors
+    # Accumulators: behaviour → layer → list of float32 vectors. To bound peak
+    # memory (an all-at-once dump previously OOM-killed extraction mid-write,
+    # truncating a behaviour to 1/28 layers), accumulators are flushed to
+    # per-(behaviour, layer) shard files every `flush_every` chains, then
+    # concatenated at the end.
     acc: dict[str, dict[int, list]] = {b: {l: [] for l in layers} for b in behaviours}
     n_extracted = {b: 0 for b in behaviours}
     n_skipped = {b: 0 for b in behaviours}
 
+    shard_dir = save_dir / "_shards"
+    if shard_dir.exists():
+        import shutil
+        shutil.rmtree(shard_dir)          # avoid contaminating with a prior run's shards
+    shard_dir.mkdir(parents=True, exist_ok=True)
+    shard_idx = {b: {l: 0 for l in layers} for b in behaviours}
+
+    def _flush() -> None:
+        """Write current in-RAM vectors to shard files and free the RAM."""
+        for b in behaviours:
+            for l in layers:
+                vecs = acc[b][l]
+                if not vecs:
+                    continue
+                np.save(shard_dir / f"{b}_layer{l}.part{shard_idx[b][l]:05d}.npy", np.stack(vecs))
+                shard_idx[b][l] += 1
+                acc[b][l] = []
+
     chains = annotated_chains[:max_chains] if max_chains else annotated_chains
 
-    for chain in tqdm(chains, desc="Extracting activations"):
+    for chain_i, chain in enumerate(tqdm(chains, desc="Extracting activations")):
         annotations = chain.get("annotations", [])
         if not annotations:
             continue
@@ -184,22 +216,46 @@ def extract_activations(
 
                 n_extracted[cat] += 1
 
-    # ── Save ────────────────────────────────────────────────────────────
+        if (chain_i + 1) % flush_every == 0:
+            _flush()
+
+    _flush()  # final partial batch
+
+    # ── Save: concatenate shards per (behaviour, layer) ──────────────────
+    # Peak memory here is bounded to ONE (behaviour, layer) array at a time, not
+    # the whole corpus, so the final write cannot OOM the way it did before.
     results: dict[str, dict[int, np.ndarray]] = {}
+    saved_layers: dict[str, list[int]] = {b: [] for b in behaviours}
     logger.info("Extraction summary:")
 
     for beh in behaviours:
         results[beh] = {}
         logger.info(f"  {beh}: {n_extracted[beh]} extracted, {n_skipped[beh]} skipped")
         for layer_idx in layers:
-            vecs = acc[beh][layer_idx]
-            if vecs:
-                mat = np.stack(vecs)  # (N, hidden_dim)
+            shards = sorted(shard_dir.glob(f"{beh}_layer{layer_idx}.part*.npy"))
+            if shards:
+                mat = np.concatenate([np.load(s) for s in shards], axis=0)
                 np.save(save_dir / f"{beh}_layer{layer_idx}.npy", mat)
-                results[beh][layer_idx] = mat
+                if keep_in_memory:
+                    results[beh][layer_idx] = mat
+                saved_layers[beh].append(layer_idx)
+                for s in shards:
+                    s.unlink()
+                del mat
             else:
                 logger.warning(f"    Layer {layer_idx}: no vectors!")
 
+    try:
+        shard_dir.rmdir()
+    except OSError:
+        pass
+
+    # Integrity marker: written LAST, only after every expected (behaviour, layer)
+    # file is on disk. `complete` lets downstream refuse to run on a partial set
+    # instead of silently using it (the failure that truncated a behaviour).
+    complete = all(
+        len(saved_layers[b]) == len(layers) for b in behaviours if n_extracted[b] > 0
+    )
     with open(save_dir / "metadata.json", "w") as f:
         json.dump({
             "behaviours": behaviours,
@@ -208,9 +264,54 @@ def extract_activations(
             "n_execution": n_execution,
             "n_extracted": n_extracted,
             "n_skipped": n_skipped,
+            "saved_layers": saved_layers,
+            "complete": complete,
         }, f, indent=2)
 
+    if not complete:
+        missing = {b: len(saved_layers[b]) for b in behaviours
+                   if n_extracted[b] > 0 and len(saved_layers[b]) != len(layers)}
+        logger.error(f"Extraction INCOMPLETE — behaviours missing layers "
+                     f"(have/expected {len(layers)}): {missing}. metadata.complete=False.")
+
     return results
+
+
+def verify_extraction_complete(
+    save_dir: Path,
+    behaviours: Optional[list[str]] = None,
+    layers: Optional[list[int]] = None,
+) -> tuple[bool, list[str]]:
+    """
+    Validate that an activation extraction finished cleanly.
+
+    Returns (ok, problems). `ok` is True only if metadata.json exists, its
+    `complete` flag is True, and every expected {behaviour}_layer{n}.npy file is
+    present for behaviours that had instances. Callers use this to refuse to build
+    geometry on a partially written set — the failure mode that truncated a
+    behaviour to 1/28 layers after an OOM mid-write and then propagated silently.
+    """
+    save_dir = Path(save_dir)
+    meta_path = save_dir / "metadata.json"
+    if not meta_path.exists():
+        return False, ["metadata.json missing (extraction did not finish saving)"]
+    with open(meta_path) as f:
+        meta = json.load(f)
+    if behaviours is None:
+        behaviours = meta.get("behaviours", [])
+    if layers is None:
+        layers = meta.get("layers", [])
+    problems: list[str] = []
+    n_extracted = meta.get("n_extracted", {})
+    for beh in behaviours:
+        if n_extracted.get(beh, 0) == 0:
+            continue  # legitimately empty behaviour — nothing to check
+        for layer in layers:
+            if not (save_dir / f"{beh}_layer{layer}.npy").exists():
+                problems.append(f"{beh}_layer{layer}.npy missing")
+    if not meta.get("complete", False):
+        problems.append("metadata.complete is not True")
+    return (len(problems) == 0), problems
 
 
 def load_activations(
