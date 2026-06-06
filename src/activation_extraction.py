@@ -8,7 +8,8 @@ For each annotated chain:
      at every layer.
   3. Map each annotated sentence to its token positions (one preceding token +
      first N execution tokens), following Venhoff et al.
-  4. Mean-pool activations across those positions.
+  4. Pool activations across those positions (configurable: mean / last /
+     first / max — see _pool() and config.yaml extraction.pooling).
   5. Accumulate into per-behaviour, per-layer matrices and save as .npy files.
 
 Output layout (in activations_dir/):
@@ -73,6 +74,36 @@ def _sentence_to_token_positions(
 from src.text_offsets import find_sentence_offset as _find_sentence_offset
 
 
+# ── Pooling over a behaviour span's token positions ──────────────────────────
+
+POOLING_MODES = ("mean", "last", "first", "max")
+
+
+def _pool(acts, mode: str):
+    """Pool a (n_positions, hidden) activation slice into a (hidden,) vector.
+
+    positions are ordered [preceding ...] + [execution ...] (increasing token
+    index), so acts[-1] is the LAST execution token and acts[0] the first.
+
+      mean  — average over positions (order-invariant; smears the within-span
+              trajectory and can cancel opposing directions).
+      last  — last execution token: in a causal transformer this is the only
+              position that has attended over the whole span (most
+              context-complete), and it is the residual the model decodes from.
+      first — first position (onset; mostly the lexical marker).
+      max   — element-wise max (robustness check).
+    """
+    if mode == "mean":
+        return acts.mean(dim=0)
+    if mode == "last":
+        return acts[-1]
+    if mode == "first":
+        return acts[0]
+    if mode == "max":
+        return acts.max(dim=0).values
+    raise ValueError(f"unknown pooling mode {mode!r}; expected one of {POOLING_MODES}")
+
+
 # ── Main extraction ───────────────────────────────────────────────────────────
 
 def extract_activations(
@@ -85,6 +116,7 @@ def extract_activations(
     n_preceding: int = 1,
     n_execution: int = 10,
     max_chains: Optional[int] = None,
+    pooling: Optional[str] = None,
 ) -> dict[str, dict[int, np.ndarray]]:
     """
     Extract per-behaviour activation matrices across all annotated chains.
@@ -109,6 +141,19 @@ def extract_activations(
         behaviours = TARGET_BEHAVIOURS
     if layers is None:
         layers = list(range(len(model.model.layers)))
+    # Pooling strategy: explicit arg > config.yaml (extraction.pooling) > "mean".
+    # Default "mean" keeps existing extractions (incl. the in-flight multi-
+    # annotator arms) unchanged; set extraction.pooling: "last" in config to
+    # switch without touching the runners. See _pool() and pooling_sweep.py.
+    if pooling is None:
+        try:
+            from src.config import load_config
+            pooling = load_config().get("extraction", {}).get("pooling", "mean")
+        except Exception:
+            pooling = "mean"
+    if pooling not in POOLING_MODES:
+        raise ValueError(f"unknown pooling {pooling!r}; expected one of {POOLING_MODES}")
+    logger.info(f"Pooling mode: {pooling}")
 
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
@@ -168,7 +213,8 @@ def extract_activations(
                     continue
 
                 for layer_idx in layers:
-                    vec = cache.mean_at_positions(layer_idx, positions, batch_idx=0)
+                    sl = cache[layer_idx][0, positions, :]   # (n_positions, hidden)
+                    vec = _pool(sl, pooling)
                     acc[cat][layer_idx].append(vec.numpy().astype(np.float32))
 
                 n_extracted[cat] += 1
@@ -195,6 +241,7 @@ def extract_activations(
             "layers": layers,
             "n_preceding": n_preceding,
             "n_execution": n_execution,
+            "pooling": pooling,
             "n_extracted": n_extracted,
             "n_skipped": n_skipped,
         }, f, indent=2)
