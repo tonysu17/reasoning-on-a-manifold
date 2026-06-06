@@ -8,14 +8,19 @@ For each annotated chain:
      at every layer.
   3. Map each annotated sentence to its token positions (one preceding token +
      first N execution tokens), following Venhoff et al.
-  4. Mean-pool activations across those positions.
+  4. Pool activations across those positions (configurable: mean / last /
+     first / max — see _pool() and config.yaml extraction.pooling). An optional
+     sweep (config.yaml extraction.pooling_sweep) pools several modes from the
+     SAME forward pass for a mean-vs-last sensitivity comparison.
   5. Accumulate into per-behaviour, per-layer matrices, flushed to shard files
-     every `flush_every` chains to bound peak memory, then concatenated and saved
-     as .npy with a `complete` integrity flag in metadata.
+     every `flush_every` chains to bound peak memory, then concatenated and
+     saved as .npy with a `complete` integrity flag in metadata.
 
 Output layout (in activations_dir/):
     {behaviour}_layer{n}.npy          float32 array (N_instances, hidden_dim)
     metadata.json                     includes `complete` + `saved_layers`
+    pool_<mode>/                      extra pooling-sweep modes (if enabled)
+    pooling_sweep.json                mean-vs-last comparison (if sweep enabled)
 
 Requires: torch, transformers  (pip install .[gpu])
 """
@@ -70,20 +75,39 @@ def _sentence_to_token_positions(
     return positions
 
 
-def _find_sentence_offset(chain_text: str, sentence_text: str) -> Optional[int]:
+# Canonical implementation lives in src/text_offsets.py (single source of truth);
+# re-exported here under the historical private name for backward compatibility.
+from src.text_offsets import find_sentence_offset as _find_sentence_offset
+
+
+# ── Pooling over a behaviour span's token positions ──────────────────────────
+
+POOLING_MODES = ("mean", "last", "first", "max")
+
+
+def _pool(acts, mode: str):
+    """Pool a (n_positions, hidden) activation slice into a (hidden,) vector.
+
+    positions are ordered [preceding ...] + [execution ...] (increasing token
+    index), so acts[-1] is the LAST execution token and acts[0] the first.
+
+      mean  — average over positions (order-invariant; smears the within-span
+              trajectory and can cancel opposing directions).
+      last  — last execution token: in a causal transformer this is the only
+              position that has attended over the whole span (most
+              context-complete), and it is the residual the model decodes from.
+      first — first position (onset; mostly the lexical marker).
+      max   — element-wise max (robustness check).
     """
-    Find the character offset of *sentence_text* inside *chain_text*.
-    Falls back to matching the first 40 characters (handles minor GPT truncation).
-    """
-    idx = chain_text.find(sentence_text)
-    if idx >= 0:
-        return idx
-    prefix = sentence_text[:40].strip()
-    if len(prefix) >= 10:
-        idx = chain_text.find(prefix)
-        if idx >= 0:
-            return idx
-    return None
+    if mode == "mean":
+        return acts.mean(dim=0)
+    if mode == "last":
+        return acts[-1]
+    if mode == "first":
+        return acts[0]
+    if mode == "max":
+        return acts.max(dim=0).values
+    raise ValueError(f"unknown pooling mode {mode!r}; expected one of {POOLING_MODES}")
 
 
 # ── Main extraction ───────────────────────────────────────────────────────────
@@ -98,6 +122,8 @@ def extract_activations(
     n_preceding: int = 1,
     n_execution: int = 10,
     max_chains: Optional[int] = None,
+    pooling: Optional[str] = None,
+    sweep_modes: Optional[list[str]] = None,
     flush_every: int = 100,
     keep_in_memory: bool = True,
 ) -> dict[str, dict[int, np.ndarray]]:
@@ -117,8 +143,7 @@ def extract_activations(
                             bound peak memory (prevents the OOM-during-write that
                             previously truncated a behaviour to 1/28 layers)
         keep_in_memory:     if False, free each final array after saving and
-                            return only structure/counts (callers that only need
-                            the .npy files on disk should pass False)
+                            return only structure/counts
 
     Returns:
         {behaviour: {layer_idx: ndarray(N_instances, hidden_dim)}}
@@ -130,16 +155,59 @@ def extract_activations(
         behaviours = TARGET_BEHAVIOURS
     if layers is None:
         layers = list(range(len(model.model.layers)))
+    # Pooling strategy: explicit arg > config.yaml (extraction.pooling) > "mean".
+    # Default "mean" keeps existing extractions (incl. the in-flight multi-
+    # annotator arms) unchanged; set extraction.pooling: "last" in config to
+    # switch without touching the runners. See _pool() and pooling_sweep.py.
+    if pooling is None:
+        try:
+            from src.config import load_config
+            pooling = load_config().get("extraction", {}).get("pooling", "mean")
+        except Exception:
+            pooling = "mean"
+    if pooling not in POOLING_MODES:
+        raise ValueError(f"unknown pooling {pooling!r}; expected one of {POOLING_MODES}")
+    logger.info(f"Pooling mode: {pooling}")
+
+    # Optional pooling SWEEP — pool several modes from the SAME forward pass and
+    # auto-emit a mean-vs-last sensitivity comparison. Triggered by an explicit
+    # sweep_modes arg, else config extraction.pooling_sweep. Because the forward
+    # pass is shared, the only extra cost is the (cheap) repeated pooling + a few
+    # more .npy files — so it runs "automatically on every re-extraction" once
+    # extraction.pooling_sweep is set in config, with no extra GPU passes.
+    if sweep_modes is None:
+        try:
+            from src.config import load_config
+            sweep_modes = load_config().get("extraction", {}).get("pooling_sweep") or None
+        except Exception:
+            sweep_modes = None
+    if sweep_modes:
+        bad = [m for m in sweep_modes if m not in POOLING_MODES]
+        if bad:
+            raise ValueError(f"unknown pooling_sweep modes {bad}; expected {POOLING_MODES}")
+    extra_modes = [m for m in (sweep_modes or []) if m != pooling]
+    if extra_modes:
+        logger.info(f"Pooling sweep: also extracting {extra_modes} (one shared forward pass)")
 
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # Accumulators: behaviour → layer → list of float32 vectors. To bound peak
-    # memory (an all-at-once dump previously OOM-killed extraction mid-write,
-    # truncating a behaviour to 1/28 layers), accumulators are flushed to
-    # per-(behaviour, layer) shard files every `flush_every` chains, then
-    # concatenated at the end.
-    acc: dict[str, dict[int, list]] = {b: {l: [] for l in layers} for b in behaviours}
+    # Pooling modes to materialise: the primary (→ save_dir) plus any sweep
+    # extras (→ save_dir/pool_<mode>/). All share the SAME forward pass.
+    streams = [pooling] + extra_modes
+
+    def _stream_dir(mode):
+        return save_dir if mode == pooling else save_dir / f"pool_{mode}"
+
+    # Accumulators: stream → behaviour → layer → list of float32 vectors. To
+    # bound peak memory (an all-at-once dump previously OOM-killed extraction
+    # mid-write, truncating a behaviour to 1/28 layers), accumulators are flushed
+    # to per-(stream, behaviour, layer) shard files every `flush_every` chains
+    # and concatenated at the end. The sweep extras are sharded too, so the
+    # sweep never reintroduces the OOM this branch fixed.
+    acc: dict[str, dict] = {
+        m: {b: {l: [] for l in layers} for b in behaviours} for m in streams
+    }
     n_extracted = {b: 0 for b in behaviours}
     n_skipped = {b: 0 for b in behaviours}
 
@@ -148,18 +216,25 @@ def extract_activations(
         import shutil
         shutil.rmtree(shard_dir)          # avoid contaminating with a prior run's shards
     shard_dir.mkdir(parents=True, exist_ok=True)
-    shard_idx = {b: {l: 0 for l in layers} for b in behaviours}
+
+    def _shard_sub(mode):
+        return shard_dir if mode == pooling else shard_dir / f"pool_{mode}"
+
+    shard_idx = {m: {b: {l: 0 for l in layers} for b in behaviours} for m in streams}
 
     def _flush() -> None:
         """Write current in-RAM vectors to shard files and free the RAM."""
-        for b in behaviours:
-            for l in layers:
-                vecs = acc[b][l]
-                if not vecs:
-                    continue
-                np.save(shard_dir / f"{b}_layer{l}.part{shard_idx[b][l]:05d}.npy", np.stack(vecs))
-                shard_idx[b][l] += 1
-                acc[b][l] = []
+        for m in streams:
+            sd = _shard_sub(m)
+            sd.mkdir(parents=True, exist_ok=True)
+            for b in behaviours:
+                for l in layers:
+                    vecs = acc[m][b][l]
+                    if not vecs:
+                        continue
+                    np.save(sd / f"{b}_layer{l}.part{shard_idx[m][b][l]:05d}.npy", np.stack(vecs))
+                    shard_idx[m][b][l] += 1
+                    acc[m][b][l] = []
 
     chains = annotated_chains[:max_chains] if max_chains else annotated_chains
 
@@ -211,8 +286,9 @@ def extract_activations(
                     continue
 
                 for layer_idx in layers:
-                    vec = cache.mean_at_positions(layer_idx, positions, batch_idx=0)
-                    acc[cat][layer_idx].append(vec.numpy().astype(np.float32))
+                    sl = cache[layer_idx][0, positions, :]   # (n_positions, hidden)
+                    for m in streams:   # primary + sweep extras, same forward pass
+                        acc[m][cat][layer_idx].append(_pool(sl, m).numpy().astype(np.float32))
 
                 n_extracted[cat] += 1
 
@@ -221,58 +297,64 @@ def extract_activations(
 
     _flush()  # final partial batch
 
-    # ── Save: concatenate shards per (behaviour, layer) ──────────────────
+    # ── Save: concatenate shards per (stream, behaviour, layer) ───────────
     # Peak memory here is bounded to ONE (behaviour, layer) array at a time, not
     # the whole corpus, so the final write cannot OOM the way it did before.
-    results: dict[str, dict[int, np.ndarray]] = {}
-    saved_layers: dict[str, list[int]] = {b: [] for b in behaviours}
+    results: dict[str, dict[int, np.ndarray]] = {b: {} for b in behaviours}
     logger.info("Extraction summary:")
-
     for beh in behaviours:
-        results[beh] = {}
         logger.info(f"  {beh}: {n_extracted[beh]} extracted, {n_skipped[beh]} skipped")
-        for layer_idx in layers:
-            shards = sorted(shard_dir.glob(f"{beh}_layer{layer_idx}.part*.npy"))
-            if shards:
+
+    for m in streams:
+        tdir = _stream_dir(m)
+        tdir.mkdir(parents=True, exist_ok=True)
+        sd = _shard_sub(m)
+        saved_layers: dict[str, list[int]] = {b: [] for b in behaviours}
+        for beh in behaviours:
+            for layer_idx in layers:
+                shards = sorted(sd.glob(f"{beh}_layer{layer_idx}.part*.npy"))
+                if not shards:
+                    if m == pooling:
+                        logger.warning(f"    {beh} layer {layer_idx}: no vectors!")
+                    continue
                 mat = np.concatenate([np.load(s) for s in shards], axis=0)
-                np.save(save_dir / f"{beh}_layer{layer_idx}.npy", mat)
-                if keep_in_memory:
+                np.save(tdir / f"{beh}_layer{layer_idx}.npy", mat)
+                if m == pooling and keep_in_memory:
                     results[beh][layer_idx] = mat
                 saved_layers[beh].append(layer_idx)
                 for s in shards:
                     s.unlink()
                 del mat
-            else:
-                logger.warning(f"    Layer {layer_idx}: no vectors!")
+        # Integrity marker: True only when every behaviour with instances has all
+        # its layers on disk. Written LAST so downstream (verify_extraction_complete)
+        # can refuse a partial set instead of silently using it — the OOM-mid-write
+        # failure that once truncated a behaviour to 1/28 layers.
+        complete = all(len(saved_layers[b]) == len(layers)
+                       for b in behaviours if n_extracted[b] > 0)
+        with open(tdir / "metadata.json", "w") as f:
+            json.dump({
+                "behaviours": behaviours, "layers": layers,
+                "n_preceding": n_preceding, "n_execution": n_execution,
+                "pooling": m,
+                "pooling_sweep": sweep_modes if m == pooling else None,
+                "n_extracted": n_extracted, "n_skipped": n_skipped,
+                "saved_layers": saved_layers, "complete": complete,
+            }, f, indent=2)
+        if m == pooling and not complete:
+            missing = {b: len(saved_layers[b]) for b in behaviours
+                       if n_extracted[b] > 0 and len(saved_layers[b]) != len(layers)}
+            logger.error(f"Extraction INCOMPLETE — behaviours missing layers "
+                         f"(have/expected {len(layers)}): {missing}. metadata.complete=False.")
 
-    try:
-        shard_dir.rmdir()
-    except OSError:
-        pass
+    import shutil
+    shutil.rmtree(shard_dir, ignore_errors=True)   # remove the now-empty shard tree
 
-    # Integrity marker: written LAST, only after every expected (behaviour, layer)
-    # file is on disk. `complete` lets downstream refuse to run on a partial set
-    # instead of silently using it (the failure that truncated a behaviour).
-    complete = all(
-        len(saved_layers[b]) == len(layers) for b in behaviours if n_extracted[b] > 0
-    )
-    with open(save_dir / "metadata.json", "w") as f:
-        json.dump({
-            "behaviours": behaviours,
-            "layers": layers,
-            "n_preceding": n_preceding,
-            "n_execution": n_execution,
-            "n_extracted": n_extracted,
-            "n_skipped": n_skipped,
-            "saved_layers": saved_layers,
-            "complete": complete,
-        }, f, indent=2)
-
-    if not complete:
-        missing = {b: len(saved_layers[b]) for b in behaviours
-                   if n_extracted[b] > 0 and len(saved_layers[b]) != len(layers)}
-        logger.error(f"Extraction INCOMPLETE — behaviours missing layers "
-                     f"(have/expected {len(layers)}): {missing}. metadata.complete=False.")
+    if extra_modes:
+        try:
+            _write_pooling_sweep_report(save_dir, primary=pooling, modes=streams,
+                                        layers=layers, behaviours=behaviours)
+        except Exception as e:  # report is a convenience; never fail extraction over it
+            logger.warning(f"pooling-sweep report skipped: {type(e).__name__}: {e}")
 
     return results
 
@@ -312,6 +394,51 @@ def verify_extraction_complete(
     if not meta.get("complete", False):
         problems.append("metadata.complete is not True")
     return (len(problems) == 0), problems
+
+
+def _write_pooling_sweep_report(save_dir: Path, primary: str, modes: list,
+                                layers: list, behaviours: list) -> dict:
+    """After a sweep extraction, compare pooling modes at the steering layer:
+    cos(primary_single_direction, mode_single_direction) per behaviour (does the
+    steering direction survive the pooling choice?) and d_eff_70 per mode (does
+    the dimensionality?). Writes save_dir/pooling_sweep.json. The primary mode's
+    activations live in save_dir; each extra mode in save_dir/pool_<mode>/."""
+    from src.steering import build_steering_vectors
+    from src.pca import analyse_behaviour
+
+    steer_layer = 27 if 27 in layers else max(layers)
+
+    def _dir(mode):
+        return save_dir if mode == primary else save_dir / f"pool_{mode}"
+
+    singles, dims = {}, {}
+    for mode in modes:
+        vecs = build_steering_vectors(_dir(mode), layer=steer_layer,
+                                      k_values=["auto"], variance_threshold=0.70)
+        singles[mode] = {b: vecs[b]["single_direction"] for b in vecs}
+        dims[mode] = {}
+        for beh in behaviours:
+            p = _dir(mode) / f"{beh}_layer{steer_layer}.npy"
+            if p.exists():
+                r = analyse_behaviour(np.load(p))
+                dims[mode][beh] = {"n": int(r["n_samples"]), "d_eff_70": r["d_eff_70"]}
+
+    report = {"steer_layer": steer_layer, "primary": primary, "modes": modes,
+              "behaviours": {}}
+    for beh in behaviours:
+        vp = singles.get(primary, {}).get(beh)
+        rec = {"cos_vs_primary": {}, "d_eff_70": {}}
+        for mode in modes:
+            vm = singles.get(mode, {}).get(beh)
+            rec["cos_vs_primary"][mode] = (float(vp @ vm)
+                                           if vp is not None and vm is not None else None)
+            rec["d_eff_70"][mode] = dims.get(mode, {}).get(beh, {}).get("d_eff_70")
+        report["behaviours"][beh] = rec
+
+    (save_dir / "pooling_sweep.json").write_text(json.dumps(report, indent=2))
+    logger.info(f"Pooling-sweep report -> {save_dir/'pooling_sweep.json'} "
+                f"(compared {modes} at layer {steer_layer})")
+    return report
 
 
 def load_activations(

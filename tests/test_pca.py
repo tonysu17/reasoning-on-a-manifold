@@ -50,3 +50,12 @@ def test_d_eff_monotone_in_threshold():
     res = analyse_behaviour(X)
     assert (res["d_eff_50"] <= res["d_eff_70"] <= res["d_eff_80"]
             <= res["d_eff_90"] <= res["d_eff_95"])
+
+
+def test_save_writes_provenance_file(tmp_path):
+    import json
+    from src.pca import save_pca_results
+    res = {"backtracking": analyse_behaviour(flat_subspace(60, 5, seed=0))}
+    save_pca_results(res, tmp_path, layer=27, provenance={"seed": 42, "git_commit": "x"})
+    p = json.load(open(tmp_path / "provenance_layer27.json"))
+    assert p["seed"] == 42

@@ -25,6 +25,7 @@ from pathlib import Path
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.ablation import (
     FAILSTOP_COS_MAX,
     FAILSTOP_PROBE_ACC_MIN,
@@ -58,6 +59,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--conditions",
                    default="baseline,v_cbs,v_random,v_adding_knowledge")
     p.add_argument("--seeds-per-task", type=int, default=5)
+    p.add_argument("--seed", type=int, default=SEED,
+                   help="RNG seed for the v_cbs validation CV probe (config.SEED).")
     p.add_argument("--model-suffix", default="R1-1.5B")
     p.add_argument("--out-dir", type=Path, default=None)
     p.add_argument("--dry-run-validate-only", action="store_true",
@@ -228,7 +231,7 @@ def main() -> int:
         return 2
 
     # ── Step 3: validate (HARD FAIL-STOP) ──────────────────────────────
-    report = validate_v_cbs(v_cbs, centroid, t3, t1, cv_folds=5, seed=0,
+    report = validate_v_cbs(v_cbs, centroid, t3, t1, cv_folds=5, seed=args.seed,
                             tier3_groups=t3_groups, tier1_groups=t1_groups)
     val_path.write_text(json.dumps(report, indent=2,
                                     default=lambda o: o.tolist()

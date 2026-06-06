@@ -29,6 +29,7 @@ from pathlib import Path
 
 import numpy as np
 
+from src.config import SEED
 from src.cbs.trajectory import compare_groups, PHASE_4_BEHAVIOURS
 
 logger = logging.getLogger("11_trajectory_analysis")
@@ -51,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--jaccard-threshold", type=float, default=0.6)
     p.add_argument("--skip-matched-pair", action="store_true")
     p.add_argument("--skip-verification-gradient", action="store_true")
-    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--seed", type=int, default=SEED)  # config.SEED (was 0)
     p.add_argument("--log-level", default="INFO")
     return p.parse_args()
 

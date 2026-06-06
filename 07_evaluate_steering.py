@@ -43,11 +43,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-MODELS = {
-    "1.5b": ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", "R1-1.5B", "float16"),
-    "7b":   ("deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",   "R1-7B",   "float16"),
-    "8b":   ("deepseek-ai/DeepSeek-R1-Distill-Llama-8B",  "R1-8B",   "float16"),
-}
+# Single source of truth: configs/config.yaml (keyed by each model's cli_alias).
+from src.config import MODELS_BY_CLI, model_tuple
+MODELS = {alias: model_tuple(alias) for alias in MODELS_BY_CLI}
 
 
 def main():

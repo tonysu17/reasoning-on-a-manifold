@@ -198,12 +198,30 @@ def merge_chunk_annotations(
 
 # ── Proxy call (identical pattern to Phase 1 task_gen.py) ────────────────────
 
+def _extract_text(payload: dict) -> str:
+    """Universal text extractor across proxy model families.
+
+    The AWS proxy returns different response shapes per provider:
+      - Anthropic models  -> content is a LIST of blocks: [{"type":"text","text":...}]
+      - Qwen/GLM/Nova/...  -> content is a plain STRING
+      - empty/failed gen   -> content is None  (e.g. gpt-oss returned 0 output tokens)
+    Returns "" when no usable text is present so the retry loop can react.
+    """
+    content = payload.get("content")
+    if isinstance(content, list) and content and isinstance(content[0], dict):
+        return content[0].get("text", "") or ""
+    if isinstance(content, str):
+        return content
+    return ""
+
+
 def _proxy_call(
     prompt: str,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
     max_tokens: int = 8192,
     temperature: float = 0.0,
+    model: str = ANNOTATION_MODEL,
 ) -> str:
     url = proxy_url or os.environ["CLAUDE_PROXY_URL"]
     key = proxy_key or os.environ["CLAUDE_PROXY_KEY"]
@@ -211,7 +229,7 @@ def _proxy_call(
     resp = requests.post(
         url,
         json={
-            "model": ANNOTATION_MODEL,
+            "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "max_tokens": max_tokens,
             "temperature": temperature,
@@ -220,7 +238,10 @@ def _proxy_call(
         timeout=120,
     )
     resp.raise_for_status()
-    return resp.json()["content"][0]["text"]
+    text = _extract_text(resp.json())
+    if not text:
+        raise RuntimeError(f"empty response from model {model}")
+    return text
 
 
 # ── Parsing ───────────────────────────────────────────────────────────────────
@@ -295,6 +316,7 @@ def annotate_chain(
     max_retries: int = 3,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
+    model: str = ANNOTATION_MODEL,
 ) -> tuple[list[dict], bool]:
     """
     Annotate a single chain.
@@ -317,7 +339,7 @@ def annotate_chain(
 
     if estimated_tokens <= CHUNK_THRESHOLD_TOKENS:
         # Short chain — single request
-        spans = _annotate_single(chain_text, max_retries, proxy_url, proxy_key)
+        spans = _annotate_single(chain_text, max_retries, proxy_url, proxy_key, model=model)
         return spans, bool(spans)
 
     # Long chain — split into chunks and annotate each
@@ -330,7 +352,7 @@ def annotate_chain(
     for i, chunk in enumerate(chunks):
         prefix = _CONTINUATION_PREFIX if i > 0 else ""
         anns = _annotate_single(
-            chunk, max_retries, proxy_url, proxy_key, prefix=prefix
+            chunk, max_retries, proxy_url, proxy_key, prefix=prefix, model=model
         )
         if not anns:
             logger.warning(f"  Chunk {i+1}/{len(chunks)} failed — returning partial")
@@ -347,13 +369,14 @@ def _annotate_single(
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
     prefix: str = "",
+    model: str = ANNOTATION_MODEL,
 ) -> list[dict]:
     """Annotate a single chunk with retries. Returns [] on failure."""
     prompt = _PROMPT_TEMPLATE.format(thinking_process=prefix + chain_text)
 
     for attempt in range(max_retries):
         try:
-            text = _proxy_call(prompt, proxy_url=proxy_url, proxy_key=proxy_key)
+            text = _proxy_call(prompt, proxy_url=proxy_url, proxy_key=proxy_key, model=model)
             spans = parse_annotation_response(text)
             if spans:
                 return spans
@@ -376,6 +399,7 @@ def annotate_chains(
     proxy_key: Optional[str] = None,
     kill_after: Optional[int] = None,
     dedup_keys: tuple = ("task_id",),
+    model: str = ANNOTATION_MODEL,
 ) -> list[dict]:
     """
     Annotate all chains sequentially with checkpointing.
@@ -402,6 +426,8 @@ def annotate_chains(
     save_path = Path(save_path) if save_path else None
 
     if save_path and save_path.exists():
+        from src.config import backup_existing
+        backup_existing(save_path)  # snapshot prior annotations before this run touches them
         with open(save_path) as f:
             annotated = json.load(f)
         n_complete = sum(1 for a in annotated if a.get("annotation_complete", False))
@@ -438,6 +464,7 @@ def annotate_chains(
             chain["chain"],
             proxy_url=proxy_url,
             proxy_key=proxy_key,
+            model=model,
         )
         annotated.append({**chain, "annotations": anns, "annotation_complete": complete})
         new_count += 1

@@ -67,6 +67,45 @@ def _knn_graph(X: np.ndarray, k: int):
     return rows, cols, dists.flatten(), idxs
 
 
+def _subsample_bootstrap(X, core_fn, rng, n_bootstrap, frac=0.8, min_points=2):
+    """Uncertainty band by SUBSAMPLING points (m = frac*N, without replacement)
+    and recomputing `core_fn(X_subsample)` end-to-end.
+
+    Why subsampling, not the textbook n-out-of-n resample: resampling rows with
+    replacement creates duplicate points, whose zero-distance kNN neighbours
+    corrupt every distance/graph-based estimator here. Subsampling avoids that.
+
+    Why point-level at all: the previous CIs resampled *derived* per-pair /
+    per-anchor quantities (geodesic ratios, local dims), which are mutually
+    dependent (pairs share points; the kNN graph is fixed), so the CIs were far
+    too narrow (e.g. [0.575, 0.587]). Recomputing the whole statistic on
+    resampled points captures the neighbourhood/graph re-estimation uncertainty.
+    See AUDIT.md §5 (#16) and tests/test_bootstrap_ci.py.
+
+    Returns the finite bootstrap draws (may be shorter than n_bootstrap if some
+    subsamples are degenerate).
+    """
+    N = X.shape[0]
+    m = int(round(frac * N))
+    m = max(min_points, min(m, N - 1))
+    out = []
+    for _ in range(n_bootstrap):
+        idx = rng.choice(N, m, replace=False)
+        try:
+            v = core_fn(X[idx])
+        except (np.linalg.LinAlgError, ValueError):
+            continue
+        if np.isfinite(v):
+            out.append(float(v))
+    return np.asarray(out)
+
+
+def _percentile_ci(boots):
+    if boots.size == 0:
+        return float("nan"), float("nan")
+    return float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))
+
+
 # 1. Local vs global PCA dimension ratio
 
 def local_pca_dim(local_pts: np.ndarray, variance_threshold: float = 0.90) -> int:
@@ -110,45 +149,49 @@ def local_vs_global_dim_ratio(
     << 1 (empirically 0.29-0.85 on flat Gaussian data). Matching the sample
     size removes that confound. See tests/test_curvature.py::test_flat_*.
 
-    n_bootstrap resamples the set of anchor points to estimate CI.
+    CI is a point-subsample bootstrap (recomputes the whole ratio on resampled
+    points), not a resample of the per-anchor ratios — see _subsample_bootstrap.
     """
     rng = np.random.default_rng(random_state)
     N, _ = X.shape
     if N < k + 1:
         raise ValueError(f"Need at least k+1 points ({k+1}), got {N}.")
 
-    _, _, _, neighbors = _knn_graph(X, k)
-    n_anchors = min(n_anchors, N)
-    anchor_idx = rng.choice(N, n_anchors, replace=False)
+    def _mean_ratio(Y, want_raw=False):
+        n = Y.shape[0]
+        if n < k + 1:
+            raise ValueError("subsample smaller than k+1")
+        _, _, _, neighbors = _knn_graph(Y, k)
+        na = min(n_anchors, n)
+        anchor_idx = rng.choice(n, na, replace=False)
+        # Matched-size baseline: PCA dim of random k-point subsets, averaged.
+        base = np.array([
+            local_pca_dim(Y[rng.choice(n, k, replace=False)], variance_threshold)
+            for _ in range(na)
+        ])
+        base = base[base > 0]
+        if base.size == 0:
+            raise ValueError("degenerate baseline")
+        local_dims = np.array([
+            local_pca_dim(Y[neighbors[i]], variance_threshold) for i in anchor_idx
+        ])
+        ratios = local_dims / float(base.mean())
+        return (float(ratios.mean()), ratios) if want_raw else float(ratios.mean())
 
-    # Matched-size baseline: PCA dim of random k-point subsets, averaged.
-    n_baseline = min(n_anchors, N)
-    baseline_dims = np.array([
-        local_pca_dim(X[rng.choice(N, k, replace=False)], variance_threshold)
-        for _ in range(n_baseline)
-    ])
-    baseline_dims = baseline_dims[baseline_dims > 0]
-    if baseline_dims.size == 0:
+    try:
+        mean_ratio, ratios = _mean_ratio(X, want_raw=True)
+    except ValueError:
         return CurvatureResult("local_vs_global_dim_ratio", k, float("nan"),
                                 float("nan"), float("nan"), N)
-    dim_baseline = float(baseline_dims.mean())
 
-    local_dims = np.array([
-        local_pca_dim(X[neighbors[i]], variance_threshold) for i in anchor_idx
-    ])
-    ratios = local_dims / dim_baseline
-
-    # Bootstrap
-    boots = np.empty(n_bootstrap)
-    for b in range(n_bootstrap):
-        sample = rng.choice(ratios, ratios.size, replace=True)
-        boots[b] = sample.mean()
+    boots = _subsample_bootstrap(X, _mean_ratio, rng, n_bootstrap, min_points=k + 1)
+    ci_low, ci_high = _percentile_ci(boots)
     return CurvatureResult(
         diagnostic="local_vs_global_dim_ratio",
         k=k,
-        mean=float(ratios.mean()),
-        ci_low=float(np.percentile(boots, 2.5)),
-        ci_high=float(np.percentile(boots, 97.5)),
+        mean=mean_ratio,
+        ci_low=ci_low,
+        ci_high=ci_high,
         n_samples=N,
         raw=ratios,
     )
@@ -176,45 +219,48 @@ def geodesic_euclidean_ratio(
     if N < k + 1:
         raise ValueError(f"Need at least k+1 points ({k+1}), got {N}.")
 
-    rows, cols, dists, _ = _knn_graph(X, k)
-    W = csr_matrix((dists, (rows, cols)), shape=(N, N))
-    # Symmetrise by taking the LARGER of the two directed edges. d(i,j)=d(j,i),
-    # so for a one-directional kNN edge (reverse entry is an implicit 0),
-    # max() keeps the true distance. (W + W.T)/2 instead HALVES such edges,
-    # shortening graph geodesics below the straight-line distance and pushing
-    # the flat-manifold ratio to ~0.73 when it must be >= 1. See tests/.
-    W = W.maximum(W.T)
+    def _mean_ratio(Y, want_raw=False):
+        n = Y.shape[0]
+        if n < k + 1:
+            raise ValueError("subsample smaller than k+1")
+        rows, cols, dists, _ = _knn_graph(Y, k)
+        W = csr_matrix((dists, (rows, cols)), shape=(n, n))
+        # Symmetrise by taking the LARGER of the two directed edges. d(i,j)=d(j,i),
+        # so for a one-directional kNN edge (reverse entry is an implicit 0),
+        # max() keeps the true distance. (W + W.T)/2 instead HALVES such edges,
+        # shortening graph geodesics below the straight-line distance and pushing
+        # the flat-manifold ratio to ~0.73 when it must be >= 1. See tests/.
+        W = W.maximum(W.T)
+        npairs = min(n_pairs, n * (n - 1) // 2)
+        pi = rng.choice(n, npairs, replace=True)
+        pj = rng.choice(n, npairs, replace=True)
+        ok = pi != pj
+        pi, pj = pi[ok], pj[ok]
+        srcs = np.unique(pi)
+        dm = shortest_path(W, method="D", directed=False, indices=srcs)
+        s2r = {s: i for i, s in enumerate(srcs)}
+        geo = dm[[s2r[s] for s in pi], pj]
+        euc = np.linalg.norm(Y[pi] - Y[pj], axis=1)
+        fin = np.isfinite(geo) & (euc > 0)
+        if not fin.any():
+            raise ValueError("no finite geodesic pairs")
+        ratios = geo[fin] / euc[fin]
+        return (float(ratios.mean()), ratios) if want_raw else float(ratios.mean())
 
-    n_pairs = min(n_pairs, N * (N - 1) // 2)
-    pairs_i = rng.choice(N, n_pairs, replace=True)
-    pairs_j = rng.choice(N, n_pairs, replace=True)
-    valid = pairs_i != pairs_j
-    pairs_i = pairs_i[valid]
-    pairs_j = pairs_j[valid]
-
-    unique_sources = np.unique(pairs_i)
-    dist_matrix = shortest_path(W, method="D", directed=False, indices=unique_sources)
-    source_to_row = {src: idx for idx, src in enumerate(unique_sources)}
-
-    geodesic = dist_matrix[[source_to_row[s] for s in pairs_i], pairs_j]
-    euclid   = np.linalg.norm(X[pairs_i] - X[pairs_j], axis=1)
-
-    finite = np.isfinite(geodesic) & (euclid > 0)
-    if not finite.any():
+    try:
+        mean_ratio, ratios = _mean_ratio(X, want_raw=True)
+    except ValueError:
         return CurvatureResult("geodesic_euclidean_ratio", k, float("nan"),
                                 float("nan"), float("nan"), N)
-    ratios = geodesic[finite] / euclid[finite]
 
-    boots = np.empty(n_bootstrap)
-    for b in range(n_bootstrap):
-        sample = rng.choice(ratios, ratios.size, replace=True)
-        boots[b] = sample.mean()
+    boots = _subsample_bootstrap(X, _mean_ratio, rng, n_bootstrap, min_points=k + 1)
+    ci_low, ci_high = _percentile_ci(boots)
     return CurvatureResult(
         diagnostic="geodesic_euclidean_ratio",
         k=k,
-        mean=float(ratios.mean()),
-        ci_low=float(np.percentile(boots, 2.5)),
-        ci_high=float(np.percentile(boots, 97.5)),
+        mean=mean_ratio,
+        ci_low=ci_low,
+        ci_high=ci_high,
         n_samples=N,
         raw=ratios,
     )
@@ -242,45 +288,47 @@ def tangent_space_variation(
     if N < k + 1:
         raise ValueError(f"Need at least k+1 points ({k+1}), got {N}.")
 
-    _, _, _, neighbors = _knn_graph(X, k)
+    def _mean_angle(Y, want_raw=False):
+        n = Y.shape[0]
+        if n < k + 1:
+            raise ValueError("subsample smaller than k+1")
+        _, _, _, neighbors = _knn_graph(Y, k)
+        na = min(2 * int(np.sqrt(n_anchor_pairs)) + 10, n)
+        anchor_idx = rng.choice(n, na, replace=False)
+        bases = []
+        for i in anchor_idx:
+            local = Y[neighbors[i]]
+            centered = local - local.mean(axis=0, keepdims=True)
+            _, _, vt = np.linalg.svd(centered, full_matrices=False)
+            d = min(intrinsic_dim, vt.shape[0])
+            bases.append(vt[:d].T)
+        pa = rng.choice(len(bases), n_anchor_pairs, replace=True)
+        pb = rng.choice(len(bases), n_anchor_pairs, replace=True)
+        ok = pa != pb
+        pa, pb = pa[ok], pb[ok]
+        if pa.size == 0:
+            raise ValueError("no distinct anchor pairs")
+        ang = np.empty(len(pa))
+        for idx, (a, b) in enumerate(zip(pa, pb)):
+            M = bases[a].T @ bases[b]
+            s = np.clip(np.linalg.svd(M, compute_uv=False), -1.0, 1.0)
+            ang[idx] = np.degrees(np.arccos(s).mean())
+        return (float(ang.mean()), ang) if want_raw else float(ang.mean())
 
-    # Compute local PCA bases at all anchors
-    n_anchors = min(2 * int(np.sqrt(n_anchor_pairs)) + 10, N)
-    anchor_idx = rng.choice(N, n_anchors, replace=False)
-    bases = []
-    for i in anchor_idx:
-        local = X[neighbors[i]]
-        centered = local - local.mean(axis=0, keepdims=True)
-        _, _, vt = np.linalg.svd(centered, full_matrices=False)
-        d = min(intrinsic_dim, vt.shape[0])
-        bases.append(vt[:d].T)  # columns are basis vectors
+    try:
+        mean_angle, angles_deg = _mean_angle(X, want_raw=True)
+    except ValueError:
+        return CurvatureResult("tangent_space_variation_deg", k, float("nan"),
+                                float("nan"), float("nan"), N)
 
-    # Sample pairs
-    pair_a = rng.choice(len(bases), n_anchor_pairs, replace=True)
-    pair_b = rng.choice(len(bases), n_anchor_pairs, replace=True)
-    valid = pair_a != pair_b
-    pair_a = pair_a[valid]
-    pair_b = pair_b[valid]
-
-    angles_deg = np.empty(len(pair_a))
-    for idx, (a, b) in enumerate(zip(pair_a, pair_b)):
-        Ba, Bb = bases[a], bases[b]
-        M = Ba.T @ Bb
-        s = np.linalg.svd(M, compute_uv=False)
-        s = np.clip(s, -1.0, 1.0)
-        principal_angles = np.arccos(s)
-        angles_deg[idx] = np.degrees(principal_angles.mean())
-
-    boots = np.empty(n_bootstrap)
-    for b in range(n_bootstrap):
-        sample = rng.choice(angles_deg, angles_deg.size, replace=True)
-        boots[b] = sample.mean()
+    boots = _subsample_bootstrap(X, _mean_angle, rng, n_bootstrap, min_points=k + 1)
+    ci_low, ci_high = _percentile_ci(boots)
     return CurvatureResult(
         diagnostic="tangent_space_variation_deg",
         k=k,
-        mean=float(angles_deg.mean()),
-        ci_low=float(np.percentile(boots, 2.5)),
-        ci_high=float(np.percentile(boots, 97.5)),
+        mean=mean_angle,
+        ci_low=ci_low,
+        ci_high=ci_high,
         n_samples=N,
         raw=angles_deg,
     )

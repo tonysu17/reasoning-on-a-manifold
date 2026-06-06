@@ -17,6 +17,11 @@ from typing import Optional
 
 from tqdm import tqdm
 
+from src.model_adapters import (
+    DEEPSEEK, GPT_OSS, family_of,
+    format_prompt as _adapter_format_prompt, split_reasoning_final,
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -36,31 +41,25 @@ def _seed_torch(seed: int) -> None:
 
 
 # ── Prompt template ───────────────────────────────────────────────────────────
-# DeepSeek-R1-Distill models need <think>\n appended to the assistant turn to
-# force the model into chain-of-thought mode.  We prefer apply_chat_template
-# when the tokenizer supports it; otherwise fall back to the manual format.
-
-_MANUAL_TEMPLATE = (
-    "<|begin▁of▁sentence|>"
-    "<|User|>{instruction}"
-    "<|Assistant|><think>\n"
-)
+# Prompt formatting is delegated to src/model_adapters so the same pipeline can
+# drive DeepSeek-R1-Distill (<think> CoT), gpt-oss-20b (harmony analysis channel)
+# and non-thinking base models. The default (family="deepseek") reproduces the
+# original behaviour exactly, including the manual <think> fallback.
 
 
-def format_prompt(tokenizer, instruction: str) -> str:
+def format_prompt(
+    tokenizer,
+    instruction: str,
+    *,
+    family: str = DEEPSEEK,
+    model_id: "Optional[str]" = None,
+    reasoning_effort: str = "high",
+) -> str:
     """Return the full prompt string (ready to tokenise and feed to the model)."""
-    try:
-        text = tokenizer.apply_chat_template(
-            [{"role": "user", "content": instruction}],
-            tokenize=False,
-            add_generation_prompt=True,
-        )
-        # Append <think>\n to enter reasoning mode
-        if not text.rstrip().endswith("<think>"):
-            text = text.rstrip() + "<think>\n"
-        return text
-    except Exception:
-        return _MANUAL_TEMPLATE.format(instruction=instruction)
+    fam = family_of(model_id) if model_id else family
+    return _adapter_format_prompt(
+        tokenizer, instruction, family=fam, reasoning_effort=reasoning_effort
+    )
 
 
 # ── Model loading ─────────────────────────────────────────────────────────────
@@ -71,8 +70,16 @@ def load_model(
     use_4bit: bool = False,
     device_map: str = "auto",
     cache_dir: Optional[str] = None,
+    attn_implementation: Optional[str] = None,
+    model_kwargs: Optional[dict] = None,
 ):
-    """Load a DeepSeek-R1-Distill model and tokenizer."""
+    """Load a causal-LM and tokenizer.
+
+    Works for DeepSeek-R1-Distill, Qwen base/instruct, and gpt-oss-20b. For
+    gpt-oss on a non-Hopper GPU (e.g. the DGX Spark) pass dtype="bfloat16" and,
+    if the learned attention sinks need it, attn_implementation="eager" and/or
+    model_kwargs={"use_kernels": True}; these are no-ops for the DeepSeek path.
+    """
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -108,6 +115,10 @@ def load_model(
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
+    extra = dict(model_kwargs or {})
+    if attn_implementation:
+        extra["attn_implementation"] = attn_implementation
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         dtype=torch_dtype,
@@ -115,6 +126,7 @@ def load_model(
         trust_remote_code=True,
         quantization_config=quant_cfg,
         cache_dir=cache_dir,
+        **extra,
     )
     model.eval()
 
@@ -133,9 +145,18 @@ def generate_chain(
     max_new_tokens: int = 2048,
     temperature: float = 0.0,
     seed: int = 0,
+    *,
+    family: str = DEEPSEEK,
+    model_id: "Optional[str]" = None,
+    reasoning_effort: str = "high",
 ) -> dict:
     """
     Generate one reasoning chain for an instruction.
+
+    `family` / `model_id` select the prompt format and how the completion is
+    split into reasoning vs answer. The default (deepseek) is unchanged; for
+    gpt-oss the harmony `analysis` channel becomes `chain` and the `final`
+    channel is stored as `final_answer`.
 
     `seed` controls torch RNG state and is only meaningful when
     `temperature > 0` (do_sample=True). Greedy decoding (T=0) is
@@ -143,12 +164,16 @@ def generate_chain(
 
     Returns a dict with:
         instruction, prompt, chain, full_text, n_tokens, seed, temperature
+        (+ final_answer, reasoning_effort, family for gpt-oss)
     """
     import torch
 
     _seed_torch(seed)
 
-    prompt = format_prompt(tokenizer, instruction)
+    fam = family_of(model_id) if model_id else family
+    prompt = format_prompt(
+        tokenizer, instruction, family=fam, reasoning_effort=reasoning_effort
+    )
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     prompt_len = inputs.input_ids.shape[1]
 
@@ -162,9 +187,17 @@ def generate_chain(
         )
 
     new_ids = outputs[0][prompt_len:]
-    chain = tokenizer.decode(new_ids, skip_special_tokens=True)
 
-    return {
+    if fam == GPT_OSS:
+        # Keep special tokens so the harmony channel markers survive the decode,
+        # then split analysis (reasoning we annotate) from final (the answer).
+        decoded = tokenizer.decode(new_ids, skip_special_tokens=False)
+        chain, final_answer = split_reasoning_final(decoded, family=GPT_OSS)
+    else:
+        chain = tokenizer.decode(new_ids, skip_special_tokens=True)
+        final_answer = ""
+
+    record = {
         "instruction": instruction,
         "prompt": prompt,
         "chain": chain,
@@ -173,6 +206,11 @@ def generate_chain(
         "seed": int(seed),
         "temperature": float(temperature),
     }
+    if fam == GPT_OSS:
+        record["final_answer"] = final_answer
+        record["reasoning_effort"] = reasoning_effort
+        record["family"] = fam
+    return record
 
 
 # ── Batch generation ──────────────────────────────────────────────────────────
@@ -187,6 +225,10 @@ def generate_chains(
     checkpoint_every: int = 10,
     seed: int = 0,
     dedup_keys: tuple = ("task_id",),
+    *,
+    family: str = DEEPSEEK,
+    model_id: Optional[str] = None,
+    reasoning_effort: str = "high",
 ) -> list[dict]:
     """
     Generate reasoning chains for a list of tasks.
@@ -216,6 +258,8 @@ def generate_chains(
     save_path = Path(save_path) if save_path else None
 
     if save_path and save_path.exists():
+        from src.config import backup_existing
+        backup_existing(save_path)  # snapshot prior chains before this run touches them
         with open(save_path) as f:
             chains = json.load(f)
         logger.info(f"Resuming from checkpoint: {len(chains)}/{len(tasks)} done")
@@ -236,6 +280,8 @@ def generate_chains(
                 model, tokenizer, task["prompt"],
                 max_new_tokens=max_new_tokens,
                 temperature=temperature, seed=seed,
+                family=family, model_id=model_id,
+                reasoning_effort=reasoning_effort,
             )
             record = {
                 "task_id": tid,
@@ -248,6 +294,11 @@ def generate_chains(
                 "seed": int(seed),
                 "temperature": float(temperature),
             }
+            # gpt-oss carries the harmony final answer + effort alongside the CoT.
+            if "final_answer" in result:
+                record["final_answer"] = result["final_answer"]
+                record["reasoning_effort"] = result.get("reasoning_effort")
+                record["family"] = result.get("family")
         except Exception as exc:
             logger.warning(f"Task {tid} failed: {exc}")
             record = {

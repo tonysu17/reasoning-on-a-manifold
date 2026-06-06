@@ -71,3 +71,17 @@ def test_full_rank_projection_recovers_single_direction():
 def test_auto_k_higher_threshold_needs_more_components():
     on = flat_subspace(200, 25, noise=0.3, seed=9)
     assert auto_k(on, variance_threshold=0.5) <= auto_k(on, variance_threshold=0.95)
+
+
+def test_save_provenance_written_and_load_skips_it(tmp_path):
+    """Provenance is recorded in metadata.json but must not be loaded as a behaviour."""
+    import json
+    from src.steering import save_steering_vectors, load_steering_vectors
+    vecs = {"backtracking": {"layer": 27, "single_direction": np.ones(4),
+                             "manifold_projected": {1: np.ones(4)},
+                             "n_on": 10, "n_off": 20, "auto_k": 1}}
+    save_steering_vectors(vecs, tmp_path, provenance={"git_commit": "abc123", "seed": 42})
+    meta = json.load(open(tmp_path / "metadata.json"))
+    assert meta["_provenance"]["git_commit"] == "abc123"
+    loaded = load_steering_vectors(tmp_path)
+    assert set(loaded) == {"backtracking"}  # _provenance skipped, not a behaviour

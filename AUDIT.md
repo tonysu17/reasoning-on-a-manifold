@@ -92,47 +92,74 @@ The `tdd-guard` PreToolUse hook in `.claude/settings.json` was found to be malfu
 
 ---
 
-## 5. Full backlog from the sub-audits (not yet actioned)
+## 5. Full backlog from the sub-audits
 
-Lower-severity findings surfaced by the parallel runner/CBS audits. Not triaged into the table in §1; logged here so they aren't lost.
+**Status (2026-06-05, second pass):** the **entire §5 backlog is now IMPLEMENTED**
+(commits `4181201` A, `d7d147e` #16, `e453c1e` C, `8150bbf` D, `d7cba5f` F,
+`43f6b2e`+`ba52881` #18, `33d34fa` overwrite-safety, `fbf7093` #15 bootstrap,
+`ea3070d` input-validation). Test suite is **220 passing**. Every item below is
+**[DONE]**. The estimator changes assume the multi-annotator geometry is
+regenerated on the fixed code (the one action that remains, owned by the
+parallel session — see §6).
+
+Lower-severity findings surfaced by the parallel runner/CBS audits.
 
 ### Statistical correctness (MEDIUM)
-- **`src/cbs/geometry.py::build_union_basis`** — the variance-threshold cut is applied to singular values of stacked **unit-norm** per-behaviour PC columns, which are stripped of eigenvalue scale. So `variance_threshold=0.95` does *not* mean 95% of activation variance; it's 95% of the spectral energy of the stacked directions. Re-derive what the union-basis dimensionality should mean, or weight columns by their eigenvalues.
-- **`src/cbs/matching.py::paired_geometric_tests`** — Cliff's-delta bootstrap CI uses `paired=False` on a *matched* pair (inflates the CI ~5×), while the Wilcoxon reported alongside is paired. Make the CI paired for internal consistency.
-- **`src/cbs/geometry.py::jonckheere_terpstra`** — no tie correction in the variance, though the docstring advertises tie handling. Harmless on continuous CBS inputs (conservative); fix the variance or the docstring before any discretized input reaches it.
+- **[DONE]** `build_union_basis` — added optional `per_behaviour_weights` (eigenvalue scaling) so the threshold means activation variance; documented the unweighted caveat.
+- **[DONE]** `paired_geometric_tests` — Cliff's-delta bootstrap CI now `paired=True` (matches the paired Wilcoxon).
+- **[DONE]** `jonckheere_terpstra` — documented the no-ties (continuous-exact, conservative-under-ties) variance + warn on >5% tied values.
 
 ### Silent-failure / robustness (MEDIUM)
-- **`09_cbs_geometry.py` real-annotation loader is a `pass` stub** — when a real CBS annotations file exists it still falls through to synthetic tiers, yet stamps `labels_source:"real"`. **Wire the real loader before trusting any "real" geometry output.** (Higher impact than its severity suggests — it silently mislabels provenance.)
-- **`09_cbs_geometry.py` mannwhitneyu** wrapped in `try/except ImportError` → silent NaN if scipy missing.
-- **`src/cbs/annotation.py:~278`** — `except (ValueError, Exception)` is an over-broad catch that masks `KeyError`/`AttributeError` and silently defaults the task domain to `"other"`. Narrow it.
-- **Overwrite safety** — several runners (`02`, `02b`, `03`, `12`) write outputs in place; a partial/failed run with fewer records can overwrite a good full artifact with no backup. Add a record-count guard or write-then-backup.
+- **[DONE]** `09_cbs_geometry.py` real loader — implemented `_load_real_labels` (real tiers aligned to `build_row_index`); uses real labels when present and **never stamps `labels_source:"real"` on synthetic data** again.
+- **[DONE]** `09` mannwhitneyu — now catches `ValueError` (all-identical inputs) too.
+- **[DONE]** `cbs/annotation.py` — narrowed the over-broad catch + added a non-dict-JSON guard (was an uncaught-crash path).
+- **[DONE]** Overwrite safety — `src.config.backup_existing()` (copy to `.bak`) wired into `generate_chains`/`annotate_chains` at the resume check (they already wrote atomically via `tmp.rename`; this adds a last-good snapshot), and the non-atomic savers `save_pca_results`/`save_steering_vectors` now back up + write via `tmp.replace`.
 
 ### Reproducibility / provenance (MEDIUM)
-- **CBS phases (08–13) default `seed=0`**, ignoring config `SEED=42`. Thread `src.config.SEED` (and add a `--seed` arg where missing, e.g. `12_cbs_ablation.py`).
-- **No provenance stamps** — most result writers (`05`, `05c`, `06`, `build_phase6`, `compute_layer_triangulation`, `robustness_geometry`, figure scripts) record no git hash / input-file hash / seed. Add a shared `_stamp(out_dir, args)` helper so every figure is traceable to code+inputs.
-- **`build_phase6.py` / `robustness_geometry.py` hardcode per-behaviour peak layers** (`{backtracking:14, uncertainty:14, adding-knowledge:17, example-testing:27}`) diverging from config's single `steering_layer:27`. Source from a `candidate_layers.json` (triangulation output) or config.
+- **[DONE]** CBS `seed` — `08/09/11/12/13` `--seed` default → `config.SEED` (42); `12` gained a `--seed` arg; `08` threads it into `annotate_chains_cbs`.
+- **[DONE]** Provenance stamps — `src.config.provenance()` (git commit/dirty + seed + args + input SHA-256) wired into `save_pca_results` (provenance.json), `save_steering_vectors` (metadata._provenance), `05`, `06`, `build_phase6`, `robustness_geometry`. *(`05c`, `compute_layer_triangulation`, figure scripts still un-stamped — low priority.)*
+- **[DONE]** Peak layers — `config.yaml analysis.peak_layers` + `src.config.PEAK_LAYERS`; `build_phase6` + `robustness_geometry` source them (and the seed) from config.
 
 ### Duplication (MEDIUM/LOW)
-- **`_find_sentence_offset` reimplemented in 4 files** (`05`, `05b`, `compare_annotators`, `robustness_geometry`), each claiming to "replicate `src/activation_extraction.py` exactly". Extract one shared helper — drift here silently misaligns chain-id arrays with activation rows.
-- **`MODELS` dicts in `02`/`04`/`07` still divergent** (#18) — `STEERING_LAYERS` was migrated to `src.config` for `05`/`05b`/`06` only. `07` uses tuple values keyed `"1.5b"` and lacks the baseline → `--model qwen-math-1.5b` crashes.
+- **[DONE]** `_find_sentence_offset` — canonical `src/text_offsets.py`; all 5 sites import it (verified same object in a test).
+- **[DONE] `MODELS` dicts** (#18) — added per-model `cli_alias` to `config.yaml` + `MODELS_BY_CLI`/`model_tuple`/`model_dict` in `src.config`. `02`/`04`/`07` now build their `--model` registries from config (04/07 all 5 models; 02 keeps its thinking-only `{1.5b,7b,8b}` subset). Eliminated the divergence that left 07 missing the baseline.
 
 ### Schema / data (LOW)
-- **`src/cbs/cohort.py::is_truncated`** hardcodes the `</think>` sentinel and `n_tokens >= 8192`; if `chains.max_new_tokens` changes it mislabels every chain as non-truncated (corrupts the P0.4 stratification). Source the cap from config.
-- **`schemas.py`** strict types (`tier` ∈ {1,2,3} int, `cross_domain` bool) — real data emitting `"3"`/`3.0`/`"yes"` bypasses the dataclass unless it flows through the coercing annotator.
-- **Sentence-ID convention mismatch** — `matching._tier_spans` indexes by position in the *filtered* annotation list; `trajectory.build_trajectory` uses `f"{chain_id}:{i}"` from the *full* span list. If a lookup keyed one way meets ids built the other way, pairs silently drop. Add an integration test crossing the two modules.
-- **`data/MANIFEST.md` is gitignored** (because `data/` is) → local-only. Force-track it (`git add -f`) or fold its content into README/AUDIT so collaborators see which data files are canonical.
+- **[DONE]** `cohort.is_truncated` cap sourced from `config.chains.max_new_tokens`.
+- **[DONE]** `schemas.CBSResult` coerces `"3"`/`3.0` tier and `"yes"`/`"true"` cross_domain.
+- **[DONE — false alarm, pinned]** Sentence-ID convention: both `matching` and `trajectory` use `f"{chain_id}:{full_array_index}"` (the "filtered vs full" claim was wrong). Integration test added so it can't drift.
+- **[DONE]** `data/MANIFEST.md` force-tracked.
 
 ### Docs (LOW)
-- Stale docstrings in `predict_saturation.py` / `06b_steering_composition.py` reference steering-vector filenames that don't match the actual `{beh}_single.npy` / `{beh}_manifold_k{k}.npy` convention.
-- Ad-hoc scripts (`build_phase6`, `make_fresh_figures`, `render_html`, `compare_annotators`, `validate_pilot_lengths`) lack input validation — they crash with raw tracebacks on missing files.
+- **[DONE]** `predict_saturation.py` docstring corrected to the real filename convention. (`06b` had no stale ref.)
+- **[DONE]** `src.config.require_file(path, hint)` exits with a one-line message instead of a raw traceback; wired into `build_phase6` (ACT) and `robustness_geometry` (ACT + ANNOT). (Other figure scripts still unguarded — trivial to extend with the same helper.)
+
+### True cross-model bootstrap (the residual of #15)
+- **[DONE]** `bootstrap_ci` gained `return_dist`; `09_cbs_geometry` persists `effect_size_boots`; `cross_model_compare` now does a genuine two-sample bootstrap of the effect-size difference when both distributions are present (key `p_value` + `p_method ∈ {two_sample_bootstrap, normal_approx_from_ci, none}`), falling back to the normal approximation otherwise.
 
 ---
 
 ## 6. Next-session checklist (ordered)
 
-1. **Merge** `audit/se-robustness-fixes` → `main` (5 commits; note pre-existing WIP was bundled into the first — see commit message). Re-run `pytest` (expect 164).
-2. **Regenerate** the TwoNN dimensions in `PROGRESS.md` (the 9.4–27.9 values are from the biased estimator).
-3. **#16** point-resampled bootstrap CIs in `curvature.py` / `intrinsic_dim.py` (touches the just-fixed estimators — re-verify against `tests/`).
-4. **CBS `seed`** → thread `src.config.SEED` through 08–13.
-5. **`09_cbs_geometry` real loader** + **`07` MODELS** baseline/migration.
-6. The remaining §5 items as capacity allows; re-enable `tdd-guard` only after its validator is fixed (§4).
+The §5 backlog is fully implemented. What remains is **not code** — it's the
+consistency action and the merge:
+
+1. **Regenerate** all geometry/robustness results on the fixed estimators (the
+   May 28–30 `results/geometric` + `results/robustness` are from the biased
+   code) so the 3-annotator comparison is uniform — `robustness_geometry.py`
+   imports the three estimators that changed. Then refresh the TwoNN dims in
+   `PROGRESS.md`. **This is owned by the parallel session.**
+2. **Merge** `audit/se-robustness-fixes` → `main` (~19 commits; the first bundles
+   pre-existing WIP, several bundle the parallel session's `config.yaml`
+   safety-model edits + the untracked ad-hoc scripts — see commit messages).
+   Re-run `pytest` (expect **220**).
+3. **Methodological cautions** (research-design, unchanged): small N for
+   intrinsic-dim/curvature; "manifold-projected steering" is a *linear*
+   projection (tests subspace, not curvature); single-annotator labels (the
+   3-annotator agreement work mitigates this); ~50% chain truncation;
+   first-10-token mean-pooling collapses the trajectory.
+4. **[DONE]** provenance stamps now on `05c`/`compute_layer_triangulation`/
+   `make_explainer_figs`/`make_fresh_figures`/`render_html`; `require_file`
+   wired through the input-reading scripts. The only standing item is to
+   re-enable `tdd-guard` once its validator is fixed (§4) — it is currently
+   disabled because it blocks all `.py` edits.

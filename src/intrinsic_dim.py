@@ -43,6 +43,33 @@ class IDResult:
     extras:     dict
 
 
+def _subsample_bootstrap(X, fit_fn, rng, n_bootstrap, frac=0.8, min_points=4):
+    """CI by SUBSAMPLING points (m = frac*N, without replacement) and recomputing
+    fit_fn end-to-end. Subsampling (not n-out-of-n resampling) avoids duplicate
+    points whose zero-distance NN neighbours would corrupt these estimators;
+    recomputing on points — rather than resampling derived mu / pairwise
+    distances, which are dependent — gives an honest, not-too-narrow CI.
+    See AUDIT.md §5 (#16). Returns the finite bootstrap draws."""
+    N = X.shape[0]
+    m = max(min_points, min(int(round(frac * N)), N - 1))
+    out = []
+    for _ in range(n_bootstrap):
+        idx = rng.choice(N, m, replace=False)
+        try:
+            v = fit_fn(X[idx])
+        except (np.linalg.LinAlgError, ValueError, ZeroDivisionError):
+            continue
+        if np.isfinite(v):
+            out.append(float(v))
+    return np.asarray(out)
+
+
+def _ci(boots):
+    if boots.size == 0:
+        return float("nan"), float("nan")
+    return float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))
+
+
 # TwoNN
 
 def twoNN_estimate(X: np.ndarray, fraction: float = 0.9,
@@ -56,49 +83,51 @@ def twoNN_estimate(X: np.ndarray, fraction: float = 0.9,
     from sklearn.neighbors import NearestNeighbors
 
     rng = np.random.default_rng(random_state)
-    nn = NearestNeighbors(n_neighbors=3, algorithm="auto").fit(X)
-    dists, _ = nn.kneighbors(X)
-    r1, r2 = dists[:, 1], dists[:, 2]
-    mask = r1 > 0
-    mu = r2[mask] / r1[mask]
-    mu = mu[mu > 1.0]  # mu == 1 means coincident; drop
-    if mu.size == 0:
+
+    def _fit(Y):
+        """TwoNN point estimate on point cloud Y (raises ValueError if degenerate)."""
+        nn = NearestNeighbors(n_neighbors=3, algorithm="auto").fit(Y)
+        dists, _ = nn.kneighbors(Y)
+        r1, r2 = dists[:, 1], dists[:, 2]
+        m = r1 > 0
+        mu = r2[m] / r1[m]
+        mu = mu[mu > 1.0]  # mu == 1 means coincident; drop
+        if mu.size < 2:
+            raise ValueError("insufficient non-degenerate mu")
+        mu_sorted = np.sort(mu)
+        n_mu = mu_sorted.size
+        # Empirical CDF over the FULL sample as i/(n+1) (so F < 1 everywhere),
+        # THEN keep the lower `fraction` (the linear regime). Computing
+        # F = arange(1,cutoff+1)/cutoff on the *truncated* set instead forces
+        # F=1.0 at the cutoff; -log(1-F) then explodes and that single
+        # high-leverage point dominates the through-origin slope, inflating the
+        # estimate ~35-50% (dim 5 -> ~6.7, dim 8 -> ~10.2). See tests/.
+        F_full = np.arange(1, n_mu + 1) / (n_mu + 1)
+        cutoff = max(2, int(np.ceil(fraction * n_mu)))
+        x = np.log(mu_sorted[:cutoff])
+        yv = -np.log(1 - F_full[:cutoff])
+        denom = float((x * x).sum())
+        if denom <= 0:
+            raise ValueError("degenerate fit")
+        return float((x * yv).sum() / denom)
+
+    try:
+        d_hat = _fit(X)
+    except ValueError:
         return IDResult("twoNN", float("nan"), float("nan"), float("nan"), X.shape[0], {})
 
-    mu_sorted = np.sort(mu)
-    n_mu = mu_sorted.size
-    # Empirical CDF over the FULL sample as i/(n+1) (so F < 1 everywhere), THEN
-    # keep the lower `fraction` (the linear regime). The previous code computed
-    # F = arange(1, cutoff+1)/cutoff on the *truncated* set, which forces F=1.0
-    # at the cutoff; then -log(1 - F) -> huge and that single high-leverage
-    # point dominates the through-origin least-squares slope, inflating the
-    # estimate by ~35-50% (dim 5 -> ~6.7, dim 8 -> ~10.2). See tests/.
-    F_full = np.arange(1, n_mu + 1) / (n_mu + 1)
-    cutoff = max(2, int(np.ceil(fraction * n_mu)))
-    mu_fit = mu_sorted[:cutoff]
-    F = F_full[:cutoff]
-    x = np.log(mu_fit)
-    y = -np.log(1 - F)
-    # Linear regression through origin
-    d_hat = float((x * y).sum() / (x * x).sum())
-
-    # Bootstrap CI on mu sample
-    boots = np.empty(n_bootstrap)
-    for b in range(n_bootstrap):
-        sample = np.sort(rng.choice(mu, mu.size, replace=True))
-        Fb = np.arange(1, sample.size + 1) / (sample.size + 1)
-        s = sample[:cutoff]
-        Fbc = Fb[:cutoff]
-        xb = np.log(s); yb = -np.log(1 - Fbc)
-        boots[b] = (xb * yb).sum() / (xb * xb).sum()
-
+    # CI by point-subsample bootstrap (recompute the fit on resampled points),
+    # not by resampling the per-point mu values (which fixes the kNN graph and
+    # gives too-narrow CIs). See AUDIT.md §5 (#16).
+    boots = _subsample_bootstrap(X, _fit, rng, n_bootstrap)
+    ci_low, ci_high = _ci(boots)
     return IDResult(
         estimator="twoNN",
         estimate=d_hat,
-        ci_low=float(np.percentile(boots, 2.5)),
-        ci_high=float(np.percentile(boots, 97.5)),
+        ci_low=ci_low,
+        ci_high=ci_high,
         n_samples=int(X.shape[0]),
-        extras={"fraction": fraction, "n_mu": int(mu.size)},
+        extras={"fraction": fraction},
     )
 
 
@@ -179,57 +208,44 @@ def correlation_dimension_estimate(X: np.ndarray,
 
     We fit the slope in a robust middle-decade of r values.
     """
+    from scipy.spatial.distance import pdist
     rng = np.random.default_rng(random_state)
     N = X.shape[0]
     if N > subsample:
-        idx = rng.choice(N, subsample, replace=False)
-        X = X[idx]
+        X = X[rng.choice(N, subsample, replace=False)]
         N = subsample
 
-    # Pairwise distances (upper triangle)
-    from scipy.spatial.distance import pdist
-    d = pdist(X)
-    if d.size == 0 or d.max() == 0:
-        return IDResult("correlation_dim", float("nan"), float("nan"), float("nan"), N, {})
-
-    # Use log-spaced radii between robust quantiles
-    rmin = float(np.percentile(d, 2))
-    rmax = float(np.percentile(d, 98))
-    if rmin <= 0 or rmax <= rmin:
-        return IDResult("correlation_dim", float("nan"), float("nan"), float("nan"), N, {})
-    radii = np.logspace(np.log10(rmin), np.log10(rmax), n_radii)
-    Cr = np.array([float((d < r).sum()) / d.size for r in radii])
-    valid = Cr > 0
-    if valid.sum() < 3:
-        return IDResult("correlation_dim", float("nan"), float("nan"), float("nan"), N, {})
-    x = np.log(radii[valid]); y = np.log(Cr[valid])
-    # Fit in the middle 60% (drop the saturation tails)
-    lo, hi = int(0.2 * x.size), int(0.8 * x.size)
-    if hi - lo < 3:
-        lo, hi = 0, x.size
-    slope, intercept = np.polyfit(x[lo:hi], y[lo:hi], 1)
-
-    # Bootstrap on the pairwise-distance set
-    boots = np.empty(n_bootstrap)
-    boots[:] = np.nan
-    for b in range(n_bootstrap):
-        s = rng.choice(d, d.size, replace=True)
-        Cb = np.array([float((s < r).sum()) / s.size for r in radii])
-        vb = Cb > 0
-        if vb.sum() < 3:
-            continue
-        xb = np.log(radii[vb]); yb = np.log(Cb[vb])
-        lo, hi = int(0.2 * xb.size), int(0.8 * xb.size)
+    def _fit(Y):
+        """Correlation-dimension slope on point cloud Y (raises if degenerate)."""
+        dd = pdist(Y)
+        if dd.size == 0 or dd.max() == 0:
+            raise ValueError("degenerate distances")
+        rmin = float(np.percentile(dd, 2))
+        rmax = float(np.percentile(dd, 98))
+        if rmin <= 0 or rmax <= rmin:
+            raise ValueError("degenerate radii")
+        radii = np.logspace(np.log10(rmin), np.log10(rmax), n_radii)
+        Cr = np.array([float((dd < r).sum()) / dd.size for r in radii])
+        v = Cr > 0
+        if v.sum() < 3:
+            raise ValueError("too few valid radii")
+        xx = np.log(radii[v]); yy = np.log(Cr[v])
+        lo, hi = int(0.2 * xx.size), int(0.8 * xx.size)
         if hi - lo < 3:
-            lo, hi = 0, xb.size
-        boots[b] = np.polyfit(xb[lo:hi], yb[lo:hi], 1)[0]
-    boots = boots[np.isfinite(boots)]
-    if boots.size == 0:
-        ci_low, ci_high = float("nan"), float("nan")
-    else:
-        ci_low  = float(np.percentile(boots, 2.5))
-        ci_high = float(np.percentile(boots, 97.5))
+            lo, hi = 0, xx.size
+        return float(np.polyfit(xx[lo:hi], yy[lo:hi], 1)[0])
 
+    try:
+        slope = _fit(X)
+    except ValueError:
+        return IDResult("correlation_dim", float("nan"), float("nan"), float("nan"), N, {})
+
+    # CI by point-subsample bootstrap (recompute the slope on resampled points),
+    # NOT by resampling the pairwise distances — those are mutually dependent
+    # (each point appears in N-1 pairs), so that bootstrap badly understates the
+    # CI. See AUDIT.md §5 (#16).
+    boots = _subsample_bootstrap(X, _fit, rng, n_bootstrap)
+    ci_low, ci_high = _ci(boots)
     return IDResult(
         estimator="correlation_dim",
         estimate=float(slope),
