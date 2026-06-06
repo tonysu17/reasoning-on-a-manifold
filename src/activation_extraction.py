@@ -117,6 +117,7 @@ def extract_activations(
     n_execution: int = 10,
     max_chains: Optional[int] = None,
     pooling: Optional[str] = None,
+    sweep_modes: Optional[list[str]] = None,
 ) -> dict[str, dict[int, np.ndarray]]:
     """
     Extract per-behaviour activation matrices across all annotated chains.
@@ -155,11 +156,35 @@ def extract_activations(
         raise ValueError(f"unknown pooling {pooling!r}; expected one of {POOLING_MODES}")
     logger.info(f"Pooling mode: {pooling}")
 
+    # Optional pooling SWEEP — pool several modes from the SAME forward pass and
+    # auto-emit a mean-vs-last sensitivity comparison. Triggered by an explicit
+    # sweep_modes arg, else config extraction.pooling_sweep. Because the forward
+    # pass is shared, the only extra cost is the (cheap) repeated pooling + a few
+    # more .npy files — so it runs "automatically on every re-extraction" once
+    # extraction.pooling_sweep is set in config, with no extra GPU passes.
+    if sweep_modes is None:
+        try:
+            from src.config import load_config
+            sweep_modes = load_config().get("extraction", {}).get("pooling_sweep") or None
+        except Exception:
+            sweep_modes = None
+    if sweep_modes:
+        bad = [m for m in sweep_modes if m not in POOLING_MODES]
+        if bad:
+            raise ValueError(f"unknown pooling_sweep modes {bad}; expected {POOLING_MODES}")
+    extra_modes = [m for m in (sweep_modes or []) if m != pooling]
+    if extra_modes:
+        logger.info(f"Pooling sweep: also extracting {extra_modes} (one shared forward pass)")
+
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
     # Accumulators: behaviour → layer → list of float32 vectors
     acc: dict[str, dict[int, list]] = {b: {l: [] for l in layers} for b in behaviours}
+    # Side accumulators for the extra sweep modes (same structure, per mode).
+    acc_sweep: dict[str, dict] = {
+        m: {b: {l: [] for l in layers} for b in behaviours} for m in extra_modes
+    }
     n_extracted = {b: 0 for b in behaviours}
     n_skipped = {b: 0 for b in behaviours}
 
@@ -214,8 +239,10 @@ def extract_activations(
 
                 for layer_idx in layers:
                     sl = cache[layer_idx][0, positions, :]   # (n_positions, hidden)
-                    vec = _pool(sl, pooling)
-                    acc[cat][layer_idx].append(vec.numpy().astype(np.float32))
+                    acc[cat][layer_idx].append(_pool(sl, pooling).numpy().astype(np.float32))
+                    for m in extra_modes:   # same span, other pooling modes (sweep)
+                        acc_sweep[m][cat][layer_idx].append(
+                            _pool(sl, m).numpy().astype(np.float32))
 
                 n_extracted[cat] += 1
 
@@ -242,11 +269,79 @@ def extract_activations(
             "n_preceding": n_preceding,
             "n_execution": n_execution,
             "pooling": pooling,
+            "pooling_sweep": sweep_modes,
             "n_extracted": n_extracted,
             "n_skipped": n_skipped,
         }, f, indent=2)
 
+    # ── Sweep: save extra-mode activations to pool_<mode>/ + comparison report ──
+    for m in extra_modes:
+        mdir = save_dir / f"pool_{m}"
+        mdir.mkdir(parents=True, exist_ok=True)
+        for beh in behaviours:
+            for layer_idx in layers:
+                vs = acc_sweep[m][beh][layer_idx]
+                if vs:
+                    np.save(mdir / f"{beh}_layer{layer_idx}.npy", np.stack(vs))
+        with open(mdir / "metadata.json", "w") as f:
+            json.dump({"behaviours": behaviours, "layers": layers,
+                       "n_preceding": n_preceding, "n_execution": n_execution,
+                       "pooling": m, "n_extracted": n_extracted,
+                       "n_skipped": n_skipped}, f, indent=2)
+    if extra_modes:
+        try:
+            _write_pooling_sweep_report(save_dir, primary=pooling,
+                                        modes=[pooling] + extra_modes, layers=layers,
+                                        behaviours=behaviours)
+        except Exception as e:  # report is a convenience; never fail extraction over it
+            logger.warning(f"pooling-sweep report skipped: {type(e).__name__}: {e}")
+
     return results
+
+
+def _write_pooling_sweep_report(save_dir: Path, primary: str, modes: list,
+                                layers: list, behaviours: list) -> dict:
+    """After a sweep extraction, compare pooling modes at the steering layer:
+    cos(primary_single_direction, mode_single_direction) per behaviour (does the
+    steering direction survive the pooling choice?) and d_eff_70 per mode (does
+    the dimensionality?). Writes save_dir/pooling_sweep.json. The primary mode's
+    activations live in save_dir; each extra mode in save_dir/pool_<mode>/."""
+    from src.steering import build_steering_vectors
+    from src.pca import analyse_behaviour
+
+    steer_layer = 27 if 27 in layers else max(layers)
+
+    def _dir(mode):
+        return save_dir if mode == primary else save_dir / f"pool_{mode}"
+
+    singles, dims = {}, {}
+    for mode in modes:
+        vecs = build_steering_vectors(_dir(mode), layer=steer_layer,
+                                      k_values=["auto"], variance_threshold=0.70)
+        singles[mode] = {b: vecs[b]["single_direction"] for b in vecs}
+        dims[mode] = {}
+        for beh in behaviours:
+            p = _dir(mode) / f"{beh}_layer{steer_layer}.npy"
+            if p.exists():
+                r = analyse_behaviour(np.load(p))
+                dims[mode][beh] = {"n": int(r["n_samples"]), "d_eff_70": r["d_eff_70"]}
+
+    report = {"steer_layer": steer_layer, "primary": primary, "modes": modes,
+              "behaviours": {}}
+    for beh in behaviours:
+        vp = singles.get(primary, {}).get(beh)
+        rec = {"cos_vs_primary": {}, "d_eff_70": {}}
+        for mode in modes:
+            vm = singles.get(mode, {}).get(beh)
+            rec["cos_vs_primary"][mode] = (float(vp @ vm)
+                                           if vp is not None and vm is not None else None)
+            rec["d_eff_70"][mode] = dims.get(mode, {}).get(beh, {}).get("d_eff_70")
+        report["behaviours"][beh] = rec
+
+    (save_dir / "pooling_sweep.json").write_text(json.dumps(report, indent=2))
+    logger.info(f"Pooling-sweep report -> {save_dir/'pooling_sweep.json'} "
+                f"(compared {modes} at layer {steer_layer})")
+    return report
 
 
 def load_activations(

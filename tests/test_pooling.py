@@ -58,3 +58,26 @@ def test_unknown_mode_raises():
 def test_all_modes_listed_are_supported():
     for m in POOLING_MODES:
         assert _pool(_slice(), m).shape == (3,)
+
+
+def test_pooling_sweep_report(tmp_path):
+    """The auto-sweep report: cos(primary, mode) per behaviour + d_eff per mode.
+    Built from synthetic activation dirs — no model needed."""
+    from src.activation_extraction import _write_pooling_sweep_report
+    rng = np.random.default_rng(0)
+    behs = ["backtracking", "uncertainty-estimation"]
+    L = 27
+    (tmp_path / "pool_last").mkdir()
+    for b in behs:
+        base = rng.standard_normal((40, 64))
+        np.save(tmp_path / f"{b}_layer{L}.npy", base)                                  # primary (mean)
+        np.save(tmp_path / "pool_last" / f"{b}_layer{L}.npy",
+                base + 0.01 * rng.standard_normal((40, 64)))                            # 'last' ≈ primary
+    rep = _write_pooling_sweep_report(tmp_path, primary="mean",
+                                      modes=["mean", "last"], layers=[L], behaviours=behs)
+    assert (tmp_path / "pooling_sweep.json").exists()
+    for b in behs:
+        # mean vs itself is exactly 1; near-identical 'last' is high.
+        assert rep["behaviours"][b]["cos_vs_primary"]["mean"] == pytest.approx(1.0, abs=1e-6)
+        assert rep["behaviours"][b]["cos_vs_primary"]["last"] > 0.9
+        assert rep["behaviours"][b]["d_eff_70"]["mean"] is not None

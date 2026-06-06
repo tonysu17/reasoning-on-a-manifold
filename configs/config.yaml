@@ -131,7 +131,12 @@ annotation:
 extraction:
   n_preceding_tokens: 1        # Token just before behaviour onset
   n_execution_tokens: 10       # First N tokens of the behaviour
-  pooling: "mean"              # Mean-pool across token positions
+  pooling: "mean"              # Span pooling: mean | last | first | max (see src/activation_extraction._pool)
+  # Auto pooling-sweep: if set (e.g. [mean, last, first]), EVERY extraction pools
+  # all listed modes from the same forward pass (≈zero extra GPU) and writes a
+  # pooling_sweep.json comparison (cos of steering direction + d_eff per mode).
+  # Leave null to disable. This is the "automatic sweep on re-extract" switch.
+  pooling_sweep: null
   layers: null                 # null = all layers; or list e.g. [20,21,...,27]
 
 # ── Phase 5: PCA analysis ─────────────────────────────────
