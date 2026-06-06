@@ -136,7 +136,9 @@ extraction:
   # all listed modes from the same forward pass (≈zero extra GPU) and writes a
   # pooling_sweep.json comparison (cos of steering direction + d_eff per mode).
   # Leave null to disable. This is the "automatic sweep on re-extract" switch.
-  pooling_sweep: null
+  pooling_sweep: [mean, last]  # ARMED: every (re)extraction also pools 'last' and
+                               # writes pooling_sweep.json (mean-vs-last). ~2x activation
+                               # disk (mean + last). Set null to disable; add first/max to extend.
   layers: null                 # null = all layers; or list e.g. [20,21,...,27]
 
 # ── Phase 5: PCA analysis ─────────────────────────────────
