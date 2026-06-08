@@ -1,0 +1,59 @@
+{
+  "steer_layer": 27,
+  "primary": "mean",
+  "modes": [
+    "mean",
+    "last",
+    "first"
+  ],
+  "behaviours": {
+    "backtracking": {
+      "cos_vs_primary": {
+        "mean": 0.9999999403953552,
+        "last": 0.5655626058578491,
+        "first": 0.40263795852661133
+      },
+      "d_eff_70": {
+        "mean": 57,
+        "last": 100,
+        "first": 18
+      }
+    },
+    "uncertainty-estimation": {
+      "cos_vs_primary": {
+        "mean": 1.0000001192092896,
+        "last": 0.8325400352478027,
+        "first": 0.48089855909347534
+      },
+      "d_eff_70": {
+        "mean": 71,
+        "last": 100,
+        "first": 18
+      }
+    },
+    "example-testing": {
+      "cos_vs_primary": {
+        "mean": 0.9999998211860657,
+        "last": 0.8685716390609741,
+        "first": 0.41553327441215515
+      },
+      "d_eff_70": {
+        "mean": 52,
+        "last": 100,
+        "first": 27
+      }
+    },
+    "adding-knowledge": {
+      "cos_vs_primary": {
+        "mean": 1.0,
+        "last": 0.8136454820632935,
+        "first": 0.4937060475349426
+      },
+      "d_eff_70": {
+        "mean": 76,
+        "last": 100,
+        "first": 38
+      }
+    }
+  }
+}

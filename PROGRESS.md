@@ -9,6 +9,19 @@
 > action list, `AUDIT.md` (2026-06-05) supersedes this file; for the file/output
 > inventory see `INVENTORY.md`. Base-model verification and chain-quality
 > findings below are unaffected (they use no geometry estimator).
+>
+> 🔄 **STATUS UPDATE 2026-06-06.** Two further things are now stale: **(1) Phase 4
+> full extraction is DONE** — `data/activations/R1-1.5B/` holds the full
+> per-behaviour activations (N = 5 027 / 5 829 / 10 267 / 16 728, *not* the 51–145
+> smoke cohort), so every "[PENDING on full corpus]" / "awaits Phase 4 full" marker
+> below is superseded. The full Phase 5/5b/5c geometry **did run** (28-May) but is
+> **quarantined** in `results/_STALE_pre_fix_20260605/` pending regeneration on the
+> fixed estimators (Gate 0); the steering vectors were **rebuilt fresh** on the
+> fixed PCA. **(2)** The smoke-table caveat below that "`adding-knowledge` (51) is
+> too small" is **smoke-specific** — full adding-knowledge N is 5 027. For the
+> authoritative current status + the confound/remediation plan,
+> **`CONFOUNDS_AND_REMEDIATION.md` (2026-06-06) now supersedes both this file and
+> `AUDIT.md`.**
 
 Last updated 2026-05-27. Supersedes the 2026-05-24 version; covers the full
 chain-corpus generation, smoke-test pass through every new phase, and the
@@ -22,7 +35,7 @@ Phase 2 (chain_gen, R1-1.5B) [DONE]  data/chains_R1-1.5B.json — 1000 chains
    |                                 quality concern: 50.2% hit max_tokens
 Phase 2b (chain_gen, base)   [READY] 02b_generate_baseline_chains.py wired; awaits cluster run
 Phase 3 (annotation)         [DONE]  data/annotated_R1-1.5B.json
-Phase 4 (extraction)         [PENDING on full corpus]   smoke pass done
+Phase 4 (extraction)         [DONE on full corpus]  data/activations/R1-1.5B/ N=5k–16k/beh (smoke also done)
    |
    +--> Phase 5  (PCA)              [smoke DONE; awaits Phase 4 full]
    +--> Phase 5b (geometric + null) [smoke DONE]
@@ -117,7 +130,9 @@ issues" below.
 
 Low local/global ratios (0.13-0.24) and geodesic/Euclidean > 1 for three of the
 four behaviours are consistent with the curved-manifold picture, though N for
-`adding-knowledge` (51) is too small to lean on.
+`adding-knowledge` (51) is too small to lean on **— NB: this N=51 is the SMOKE
+cohort; the full run has adding-knowledge N=5 027 (see the 2026-06-06 status note
+at the top of this file). The "too small" caveat does NOT apply to the full run.**
 
 **Phase 5c — cross-layer probing** (`results/cross_layer/R1-1.5B-smoke/`):
 

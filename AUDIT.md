@@ -53,7 +53,7 @@ Verified (uniform data): dim 5 → 6.7→**4.4**, dim 8 → 10.2→**6.7**; (Gau
 Replaced per-row TwoNN on 21-point clouds (returned ~12 for true dim 3) with the Levina-Bickel per-point MLE. Verified: true dim 3 → **3.0**. Legacy estimator kept as `estimator="twoNN"` and documented as biased.
 
 **#4 PCA reproducibility — `src/pca.py`, `src/nulls.py`, `src/steering.py`.**
-All 5 `PCA()` calls now use `svd_solver="full"` (exact + deterministic). The default `"auto"` picked the randomized solver for the (N≈50–145, d=1536) shapes here, with no `random_state`. Verified: steering vectors now identical across calls.
+All 5 `PCA()` calls now use `svd_solver="full"` (exact + deterministic). The default `"auto"` picked the randomized solver for the (N≈50–145, d=1536) **smoke** shapes (the full run is N≈5k–16k/behaviour), with no `random_state`. Verified: steering vectors now identical across calls.
 
 **#5 CV leakage — `src/cbs/matching.py`, `src/cbs/ablation.py`.**
 Added a shared `cv_probe(X, y, groups=...)` using `StratifiedGroupKFold` when chain ids are supplied (warns + falls back otherwise). `verification_gradient` and `validate_v_cbs` take optional `*_groups`. Verified with a no-signal, chain-clustered dataset: ungrouped CV **0.99** (leaks), grouped **0.50** (correct). (`tests/test_cv_leakage.py`) **Action required:** callers (11/12 runners) must pass `chain_id` groups for the fail-stop to be leak-free.
@@ -78,7 +78,7 @@ Added a shared `cv_probe(X, y, groups=...)` using `StratifiedGroupKFold` when ch
 - **#19 statsmodels** — declared in `[cbs]` extras, imported nowhere. Remove or implement the promised M4 mixed-effects model.
 
 ### Methodological (research-design) cautions
-- **N is small** (51–145/behaviour) for intrinsic-dim/curvature in d=1536; report a *working* power analysis (now unblocked) before claiming dimensions.
+- ~~**N is small** (51–145/behaviour) for intrinsic-dim/curvature in d=1536~~ **[CORRECTED 2026-06-06: 51–145 was the SMOKE cohort (`data/activations/R1-1.5B-smoke/` = 51/97/145/145). The full run uses N = 5 027 (adding-knowledge) / 5 829 (example-testing) / 10 267 (backtracking) / 16 728 (uncertainty), verified from `data/activations/R1-1.5B/` shapes. Raw N is fine — the real threat is *effective* N (~1000 chains; CF-2 in `CONFOUNDS_AND_REMEDIATION.md` §1).]** Still report a *working* power analysis (now unblocked) before claiming dimensions.
 - **"Manifold-projected steering" is linear** (top-k PCA projection) — it tests *subspace*, not *curvature*; keep the Paper-2 (subspace) and Paper-3 (curvature) claims distinct.
 - **Annotation validity**: behaviour labels come from one LLM annotator; report inter-annotator agreement (the 3-annotator pipeline) *before* the geometry, since labels are the dependent variable.
 - **Truncation**: ~50% of chains hit `max_tokens` mid-thinking — stratify or regenerate before position/behaviour analysis.
@@ -153,8 +153,10 @@ consistency action and the merge:
    pre-existing WIP, several bundle the parallel session's `config.yaml`
    safety-model edits + the untracked ad-hoc scripts — see commit messages).
    Re-run `pytest` (expect **220**).
-3. **Methodological cautions** (research-design, unchanged): small N for
-   intrinsic-dim/curvature; "manifold-projected steering" is a *linear*
+3. **Methodological cautions** (research-design, unchanged): ~~small N for
+   intrinsic-dim/curvature~~ **[CORRECTED 2026-06-06: smoke-run artifact — full-run
+   N is 5k–16k/behaviour; the real issue is effective-N/CF-2, see
+   `CONFOUNDS_AND_REMEDIATION.md` §1]**; "manifold-projected steering" is a *linear*
    projection (tests subspace, not curvature); single-annotator labels (the
    3-annotator agreement work mitigates this); ~50% chain truncation;
    first-10-token mean-pooling collapses the trajectory.

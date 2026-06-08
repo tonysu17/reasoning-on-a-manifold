@@ -126,8 +126,19 @@ def main():
                         help="Donor pairs per behaviour. Default 20.")
     parser.add_argument("--layers", nargs="+", type=int, default=[3, 7, 10, 14, 17, 21, 24, 27])
     parser.add_argument("--out-dir", type=Path, default=None)
+    parser.add_argument("--pilot", action="store_true",
+                        help="Pilot mode: layers=all 28, n_pairs=5 per behaviour. "
+                             "Used in the multi-criteria triangulation workflow to "
+                             "find the patching peak before full Phase 7b.")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
+
+    # Apply pilot defaults
+    if args.pilot:
+        args.layers = list(range(28))
+        args.n_pairs = 5
+        if args.behaviours == ["backtracking"]:  # default
+            args.behaviours = ["all"]
 
     if args.behaviours == ["all"]:
         args.behaviours = list(TARGET_BEHAVIOURS)
@@ -212,7 +223,8 @@ def main():
 
         # Aggregate
         agg = aggregate_layer_effect(results_by_pair)
-        per_beh_out = args.out_dir / f"effect_curves_{beh}.json"
+        suffix = "_pilot" if args.pilot else ""
+        per_beh_out = args.out_dir / f"effect_curves_{beh}{suffix}.json"
         per_beh_out.write_text(json.dumps({
             "behaviour": beh,
             "n_pairs": len(results_by_pair),
@@ -248,6 +260,21 @@ def main():
         logger.info(f"Plot saved: {args.out_dir / 'effect_curves.png'}")
     except ImportError:
         logger.warning("matplotlib unavailable; skipping plot")
+
+    # Aggregate pilot results for triangulation consumer
+    if args.pilot:
+        agg = {}
+        for beh in args.behaviours:
+            per_beh_path = args.out_dir / f"effect_curves_{beh}_pilot.json"
+            if per_beh_path.exists():
+                d = json.loads(per_beh_path.read_text())
+                agg[beh] = {
+                    "behaviour": beh,
+                    "n_pairs":   d.get("n_pairs", 0),
+                    "layer_effect": d.get("layer_effect", {}),
+                }
+        (args.out_dir / "pilot_effect_curves.json").write_text(json.dumps(agg, indent=2))
+        logger.info(f"Pilot aggregate → {args.out_dir / 'pilot_effect_curves.json'}")
 
     print(f"\nResults: {args.out_dir}")
 

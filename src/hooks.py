@@ -31,8 +31,15 @@ class ActivationCache:
 
     def __init__(self, model: nn.Module, layers: Optional[list[int]] = None):
         self._model = model
-        # Both Qwen and Llama DeepSeek-R1-Distill models expose model.model.layers
-        self._all_layers: nn.ModuleList = model.model.layers
+        # Fast path: Qwen / Llama DeepSeek-R1-Distill and gpt-oss all expose
+        # model.model.layers. Fall back to a robust locator (which raises loudly
+        # on an unknown architecture) only if that attribute is missing — the
+        # DeepSeek hot path is therefore unchanged.
+        try:
+            self._all_layers: nn.ModuleList = model.model.layers
+        except AttributeError:
+            from src.model_adapters import locate_decoder_layers
+            self._all_layers = locate_decoder_layers(model)
         n = len(self._all_layers)
         self.layers: list[int] = layers if layers is not None else list(range(n))
         self._cache: dict[int, torch.Tensor] = {}

@@ -1,0 +1,26 @@
+{
+  "behaviours": [
+    "backtracking",
+    "uncertainty-estimation",
+    "example-testing",
+    "adding-knowledge"
+  ],
+  "layers": [
+    27
+  ],
+  "n_preceding": 1,
+  "n_execution": 10,
+  "pooling": "last",
+  "n_extracted": {
+    "backtracking": 10267,
+    "uncertainty-estimation": 16728,
+    "example-testing": 5829,
+    "adding-knowledge": 5027
+  },
+  "n_skipped": {
+    "backtracking": 0,
+    "uncertainty-estimation": 6,
+    "example-testing": 2,
+    "adding-knowledge": 0
+  }
+}

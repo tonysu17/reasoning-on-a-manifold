@@ -1,0 +1,194 @@
+{
+  "n_chains": 1000,
+  "max_tokens": 8192,
+  "integrity": {
+    "missing_fields": 0,
+    "empty_chain": 0,
+    "empty_prompt": 0,
+    "has_error_field": 0,
+    "zero_tokens": 0,
+    "dup_task_ids": 0,
+    "full_text_mismatch": 0
+  },
+  "category_distribution": {
+    "mathematical_logic": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "spatial_reasoning": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "verbal_logic": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "pattern_recognition": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "causal_reasoning": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "probabilistic_thinking": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "systems_thinking": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "creative_problem_solving": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "scientific_reasoning": {
+      "count": 100,
+      "delta_vs_expected": 0
+    },
+    "lateral_thinking": {
+      "count": 100,
+      "delta_vs_expected": 0
+    }
+  },
+  "token_lengths": {
+    "causal_reasoning": {
+      "mean": 2837,
+      "median": 1428,
+      "min": 730,
+      "max": 8192,
+      "pct_at_max": 22.0
+    },
+    "creative_problem_solving": {
+      "mean": 4397,
+      "median": 1696,
+      "min": 890,
+      "max": 8192,
+      "pct_at_max": 44.0
+    },
+    "lateral_thinking": {
+      "mean": 7856,
+      "median": 8192,
+      "min": 603,
+      "max": 8192,
+      "pct_at_max": 95.0
+    },
+    "mathematical_logic": {
+      "mean": 5685,
+      "median": 8192,
+      "min": 1043,
+      "max": 8192,
+      "pct_at_max": 55.0
+    },
+    "pattern_recognition": {
+      "mean": 6252,
+      "median": 8192,
+      "min": 574,
+      "max": 8192,
+      "pct_at_max": 66.0
+    },
+    "probabilistic_thinking": {
+      "mean": 6320,
+      "median": 8192,
+      "min": 818,
+      "max": 8192,
+      "pct_at_max": 59.0
+    },
+    "scientific_reasoning": {
+      "mean": 3008,
+      "median": 1432,
+      "min": 766,
+      "max": 8192,
+      "pct_at_max": 24.0
+    },
+    "spatial_reasoning": {
+      "mean": 6906,
+      "median": 8192,
+      "min": 535,
+      "max": 8192,
+      "pct_at_max": 71.0
+    },
+    "systems_thinking": {
+      "mean": 1630,
+      "median": 1309,
+      "min": 824,
+      "max": 8192,
+      "pct_at_max": 4.0
+    },
+    "verbal_logic": {
+      "mean": 5630,
+      "median": 8192,
+      "min": 654,
+      "max": 8192,
+      "pct_at_max": 62.0
+    }
+  },
+  "token_lengths_overall": {
+    "mean": 5052,
+    "median": 8192,
+    "min": 535,
+    "max": 8192,
+    "pct_at_max": 50.2
+  },
+  "truncation": {
+    "n_at_max": 502,
+    "pct_at_max": 50.2,
+    "n_with_closing_think": 501,
+    "pct_with_closing_think": 50.1,
+    "n_without_closing_think": 499,
+    "max_AND_no_think_close": 499,
+    "max_AND_think_close": 3,
+    "short_AND_no_think_close": 0,
+    "short_AND_think_close": 498
+  },
+  "prompts": {
+    "length_mean": 596,
+    "length_median": 582,
+    "length_min": 241,
+    "length_max": 1257,
+    "n_distinct_template_headers": 496,
+    "n_with_think_tag": 1000
+  },
+  "anomalies": {
+    "non_ascii_in_first_1000": 222,
+    "contains_cjk": 5,
+    "contains_kana": 0,
+    "repetition_loops": 3
+  },
+  "samples": [
+    {
+      "task_id": "SYST_054",
+      "category": "systems_thinking",
+      "n_tokens": 1310,
+      "instruction": "A social media platform changes its algorithm to prioritize 'meaningful interactions' over 'passive consumption.' Six months later: average session time decreases by 25%, user-reported well-being incr...",
+      "chain_start": "Okay, so I'm trying to understand this situation where a social media platform is changing its algorithm to prioritize 'meaningful interactions' over 'passive consumption.' There are several negative effects observed after six months: session time decreases by 25%, well-being increases by 10%, adver"
+    },
+    {
+      "task_id": "SPAT_016",
+      "category": "spatial_reasoning",
+      "n_tokens": 8192,
+      "instruction": "Imagine a rectangular room that is 12 meters long, 9 meters wide, and 6 meters high. A spider is located at the center of one of the 12m \u00d7 9m walls, 1 meter below the ceiling. A fly is located at the ...",
+      "chain_start": "Okay, so I have this problem where there's a spider and a fly in a rectangular room. The room is 12 meters long, 9 meters wide, and 6 meters high. The spider is on one of the 12m by 9m walls, right in the center, but 1 meter below the ceiling. The fly is on the opposite wall, also in the center, but"
+    },
+    {
+      "task_id": "MATH_026",
+      "category": "mathematical_logic",
+      "n_tokens": 8192,
+      "instruction": "Let P(x) be a predicate on the natural numbers. Consider these two statements:\nA: \u2200n \u2208 \u2115, P(n) \u2192 P(n+1)\nB: \u2203m \u2208 \u2115 such that P(m) and \u2200k \u2208 \u2115, (k < m \u2192 \u00acP(k))\n\nIf both A and B are true, what can you con...",
+      "chain_start": "Okay, so I have this problem where I need to figure out what we can conclude about the set of natural numbers for which a predicate P(n) holds true, given that two statements A and B are both true. Let me try to break this down step by step. /  / First, let me restate the problem to make sure I understa"
+    }
+  ],
+  "histogram": {
+    "<1k": 64,
+    "1-2k": 304,
+    "2-3k": 67,
+    "3-4k": 23,
+    "4-5k": 19,
+    "5-6k": 10,
+    "6-7k": 7,
+    "7-8k": 3,
+    "8-8.2k": 1,
+    "8192": 502
+  }
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>METHODS_WALKTHROUGH</title><style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 960px; margin: 40px auto; padding: 0 30px; line-height: 1.55; color: #222; }
+  h1 { border-bottom: 2px solid #2c3e50; padding-bottom: 6px; color: #2c3e50; }
+  h2 { border-bottom: 1px solid #bdc3c7; padding-bottom: 4px; color: #2c3e50; margin-top: 34px; }
+  h3 { color: #34495e; margin-top: 24px; }
+  table { border-collapse: collapse; margin: 14px 0; font-size: 14px; width: 100%; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+  th { background: #ecf0f1; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  code { background: #f4f4f4; padding: 1px 5px; border-radius: 3px; font-size: 90%; }
+  pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  pre code { background: none; }
+  img { max-width: 100%; height: auto; display: block; margin: 16px auto;
+        border: 1px solid #eee; border-radius: 4px; }
+  blockquote { border-left: 4px solid #3498db; margin: 14px 0; padding: 4px 16px;
+               background: #f0f7fb; color: #333; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 28px 0; }
+</style></head><body><h1>Reasoning on a Manifold — Methods Walkthrough</h1>
+<p><em>A complete step-by-step explanation of the project: the research question, every pipeline phase in detail, the geometric measures, the robustness program, the extensions, and how it all confirms the hypothesis. Written as a reference / thesis methods-chapter skeleton.</em></p>
+<p><strong>Model under study:</strong> DeepSeek-R1-Distill-Qwen-1.5B (28 layers, hidden dim 1536, ≤8192 reasoning tokens, greedy decoding).
+<strong>Last updated:</strong> 5 June 2026.</p>
+<hr />
+<h1>PART I — The research question</h1>
+<h2>The idea in one sentence</h2>
+<p>We test whether each <em>individual reasoning behaviour</em> a reasoning model performs — backtracking, expressing uncertainty, testing examples, recalling knowledge — lives on its own <strong>curved, low-dimensional manifold</strong> in the model's internal activations.</p>
+<h2>Why this is a real question (the "wedge")</h2>
+<p>Two recent papers stake out opposite positions and neither tested the middle ground:</p>
+<ul>
+<li><strong>Venhoff et al. (2025)</strong> showed each reasoning behaviour can be captured by a <strong>single linear direction</strong> in the residual stream — effective dimension = 1 per behaviour. Add a vector, the behaviour increases. Clean, but it assumes the behaviour is one-dimensional.</li>
+<li><strong>Huang et al.</strong> showed the <em>aggregate</em> "overthinking" phenomenon lives on a <strong>manifold</strong> (a curved, multi-dimensional surface), but never separated it into individual behaviours.</li>
+</ul>
+<p>Our project is the <strong>wedge</strong> between them: <em>do individual behaviours each have their own multi-dimensional curved manifold?</em> If yes, Venhoff's single-direction picture is an oversimplification and Huang's geometric framing applies at a finer grain. This is falsifiable: if a behaviour's effective dimension is ≫ 1, its intrinsic dimension is far below its ambient dimension (the signature of curvature), and the structure survives a statistical control, then the manifold view wins.</p>
+<h2>The model under study</h2>
+<p>DeepSeek-R1-Distill-Qwen-1.5B is a 1.5B-parameter <em>distilled</em> reasoning model: it learned chain-of-thought by imitating the larger DeepSeek-R1. We decode greedily (deterministic) for reproducibility.</p>
+<h2>The three pre-registered outcomes ("stories")</h2>
+<ul>
+<li><strong>Story A — curved low-dimensional manifold</strong> (the win): low intrinsic dimension, strong curvature, survives the null. Supports the wedge.</li>
+<li><strong>Story B — flat high-dimensional subspace</strong> (partial): high dimension but <em>flat</em> — interesting but not a "manifold" geometrically.</li>
+<li><strong>Story C — chain confound</strong> (negative/fatal): the apparent structure is just sentences clustering by which chain they came from, not the behaviour. Kills the project.</li>
+</ul>
+<p>The entire methodology is designed to distinguish A from B from C.</p>
+<hr />
+<h1>PART II — The pipeline, phase by phase</h1>
+<h2>The taxonomy (the labels)</h2>
+<p>Venhoff's 6-label scheme for reasoning sentences: <code>initializing</code>, <code>deduction</code>, <code>adding-knowledge</code>, <code>example-testing</code>, <code>uncertainty-estimation</code>, <code>backtracking</code>. We analyse the <strong>4 "target" behaviours</strong> distinctive to <em>reasoning</em> models: <strong>backtracking, uncertainty-estimation, example-testing, adding-knowledge</strong>. (<code>deduction</code> and <code>initializing</code> are the "ordinary" modes.)</p>
+<h2>Phase 1 — Task generation</h2>
+<p><strong>Purpose:</strong> a diverse set of reasoning problems that provoke rich chains-of-thought.
+<strong>How:</strong> generated <strong>1,000 tasks across 10 reasoning categories</strong> (causal reasoning, creative problem-solving, lateral thinking, mathematical logic, pattern recognition, probabilistic thinking, scientific reasoning, spatial reasoning, systems thinking, verbal logic) — 100 each. Deliberately broader/harder than Venhoff's mostly-math benchmarks.
+<strong>Output:</strong> <code>data/tasks.json</code>.</p>
+<h2>Phase 2 — Chain generation</h2>
+<p><strong>Purpose:</strong> make the model reason and record its full thinking trace.
+<strong>How:</strong> each task through R1-Distill-1.5B, greedy decoding, ≤8192 tokens, capturing the <code>&lt;think&gt;…&lt;/think&gt;</code> chain.
+<strong>Result:</strong> <strong>1,000 chains, mean ~5,052 tokens.</strong> Caveat tracked: ~50% hit the token cap (truncated mid-thought), heavily category-dependent (lateral_thinking 95% truncated, systems_thinking 4%). Doesn't hurt per-sentence geometry; matters for whole-chain analysis.
+<strong>Output:</strong> <code>data/chains_R1-1.5B.json</code>.</p>
+<h2>Phase 3 — Annotation (sentence-level behaviour labels)</h2>
+<p><strong>Purpose:</strong> label every sentence with its behaviour — this is what lets us group activations by behaviour.
+<strong>How:</strong> Venhoff's <em>verbatim</em> prompt (the model splits a chain into <code>["label"]text["end-section"]</code> segments). Originally <strong>Claude Sonnet 4.5</strong> via the AWS Bedrock proxy. Engineering detail: the API-Gateway has a <strong>29-second hard timeout</strong>, so long chains are <strong>chunked</strong> (~1000-token chunks on paragraph boundaries, with overlap de-duplicated at merge, plus a "continuation" prefix so the model doesn't mislabel each chunk's first sentence as <code>initializing</code>).
+<strong>Result:</strong> <strong>993/1000 chains fully annotated, 77,183 labelled spans.</strong> First finding: ~3× more backtracking and ~2.4× more uncertainty than Venhoff — because our tasks are harder/more varied.
+<strong>Output:</strong> <code>data/annotated_R1-1.5B.json</code>.</p>
+<blockquote>
+<p><strong>Session extension (multi-annotator).</strong> To answer the supervisor's robustness demand, the annotator was generalised. The proxy returns Anthropic responses as a <em>list</em> of content blocks but other models (Qwen, Nova) as a plain <em>string</em>, so a universal text-extractor was added and a model parameter threaded through. After probing the proxy's 54-model whitelist and testing format-following, two more full annotation passes were run: <strong>Qwen3-235B (Alibaba)</strong> and <strong>Nova-Pro (Amazon)</strong> — independent model families — giving three independent labelings of the same 1,000 chains.</p>
+</blockquote>
+<h2>Phase 4 — Activation extraction (turning text into geometry)</h2>
+<p><strong>Purpose:</strong> for each labelled sentence, capture the model's internal state when it produced that sentence.
+<strong>How — in detail (the token choice matters):</strong>
+1. Reconstruct the exact <code>prompt + chain</code> text; run <strong>one forward pass</strong> with hooks on the residual stream at every layer.
+2. For each sentence, locate it and find its <strong>onset token</strong> (first token of the sentence).
+3. Take a fixed window: <strong>1 token <em>before</em> onset + the first 10 tokens <em>of</em> the sentence</strong> (~11 tokens), following Venhoff's "preceding + execution tokens".
+4. <strong>Mean-pool</strong> the residual-stream activations over those positions → one 1536-d vector per (sentence, layer).
+5. Accumulate into per-behaviour, per-layer matrices.</p>
+<p><strong>Result:</strong> <strong>37,851 vectors × 28 layers</strong> (~6.5 GB). Per behaviour: backtracking 10,267, uncertainty 16,728, example-testing 5,829, adding-knowledge 5,027.
+<strong>Output:</strong> <code>data/activations/R1-1.5B/{behaviour}_layer{N}.npy</code>.</p>
+<blockquote>
+<p><strong>Why subtle (source of a bug found this session):</strong> the window is fixed-length, anchored at onset — it ignores the sentence's true end. Short repeated markers ("Wait.", "Hmm.") produce <strong>near-identical pooled vectors</strong>, creating many duplicate rows that later distorted an estimator (Part IV).
+<strong>Session fix:</strong> earlier extraction read the wrong JSON fields and used wrong (uppercase) labels, silently breaking downstream phases; corrected to <code>ann["label"]</code>/<code>ann["text"]</code> with hyphen-lowercase labels, and fixed the residual hook to handle both tuple and tensor layer outputs.</p>
+</blockquote>
+<h2>Phase 5 — PCA dimensionality (first geometric measurement)</h2>
+<p><strong>Purpose:</strong> "how many dimensions does this behaviour's activation cloud occupy?"
+<strong>How:</strong> fit PCA per behaviour per layer; compute <strong>d_eff(70%)</strong> (components to reach 70% variance) and the <strong>participation ratio</strong> (how many directions dominate).
+<strong>Result:</strong> d_eff(70%) ranges <strong>45–98</strong> — decisively <strong>≫ 1</strong>, falsifying Venhoff's single-direction prediction at every layer. Participation ratio troughs at <strong>middle layers L14–L17</strong> — each behaviour's "manifold-peak" layer.
+<strong>Output:</strong> <code>results/pca/R1-1.5B/</code> (+ <code>layer_profiles.json</code>).</p>
+<blockquote>
+<p><strong>Session fixes:</strong> (1) PCA was capped at 50 components, so d_eff <strong>saturated at exactly 50</strong> for 3/4 behaviours — raised cap to 100, revealing true values (50→57/54/61). (2) Added a missing <code>numpy</code> import crashing the null path. (3) Added the chain-stratified null at <em>every</em> layer (was 3 layers).</p>
+</blockquote>
+<h2>Phase 5b — Geometric diagnostics (the heart of the project)</h2>
+<p><strong>Purpose:</strong> PCA gives the <em>ambient</em> dimension; Phase 5b answers the three questions distinguishing A/B/C — <strong>is it low-dimensional, curved, real?</strong> — via three "batteries":
+- <strong>Battery A — intrinsic dimension</strong> (TwoNN, Levina-Bickel, correlation dimension): true free parameters, independent of the embedding.
+- <strong>Battery B — curvature</strong> (local-vs-global PCA ratio, geodesic/Euclidean ratio, tangent-space variation): is the manifold bent?
+- <strong>Battery C — null hierarchy</strong> (chain-stratified permutation, cross-chain, Marchenko-Pastur): is the structure behaviour-specific?</p>
+<p><strong>Result (original):</strong> intrinsic dim ~10–13 vs PCA ~47–61 (~5× compression — the curvature signature); all three curvature diagnostics agree it's strongly curved; chain-stratified null rejects for the strong behaviours. <strong>Story A.</strong>
+<strong>Output:</strong> <code>results/geometric/R1-1.5B/</code>. <em>(Deepened substantially this session — Part IV.)</em></p>
+<h2>Phase 5c — Cross-layer probing</h2>
+<p><strong>Purpose:</strong> <em>where in the network is each behaviour linearly readable?</em>
+<strong>How:</strong> train a linear probe ("behaviour X vs not") from activations, at each of the 28 layers.
+<strong>Result:</strong> every behaviour is decodable <strong>85–92% at ALL layers</strong>, and the curve is <em>flat</em>. Clean, citable distinction: <strong>linear decodability ≠ manifold geometry</strong> — a behaviour can be read off a single hyperplane everywhere, yet its <em>geometric</em> organisation only crystallises at the middle layers.
+<strong>Output:</strong> <code>results/cross_layer/R1-1.5B/</code>.</p>
+<h2>Phase 5d — Sub-type clustering</h2>
+<p><strong>Purpose:</strong> is each behaviour one thing or a mixture of sub-types (e.g. backtracking = arithmetic-recheck vs strategy-pivot)?
+<strong>How:</strong> k-means in the top-PCA subspace at the manifold-peak layer; k chosen by silhouette.
+<strong>Result:</strong> all four select <strong>k=2 with weak silhouettes (0.11–0.18)</strong> → <em>no clean discrete sub-types</em>. Behaviours are <strong>continuous curved manifolds</strong>, not unions of blobs. (Refuted the earlier hypothesis that adding-knowledge splits into 4–6 sub-types.)
+<strong>Output:</strong> <code>results/clustering/R1-1.5B/</code>.</p>
+<blockquote>
+<p><strong>Session fix:</strong> focus-layer selector used <code>argmax(d_eff)</code>, returning layer 0 when d_eff saturated — changed to <code>argmin(participation_ratio)</code> (the true manifold-peak).</p>
+</blockquote>
+<h2>Layer triangulation</h2>
+<p><strong>Purpose:</strong> choose, per behaviour, the layer to build steering vectors at, by combining signals.
+<strong>How:</strong> peak of three curves — geometry (PR trough), probe accuracy, attribution-patching effect — forms a candidate layer set.
+<strong>Result:</strong> bt <strong>L13–14</strong>, unc <strong>L13–14</strong>, adding-knowledge <strong>L17–18</strong>, example-testing <strong>L27</strong>.</p>
+<blockquote>
+<p><strong>Session fixes:</strong> switched geometry signal from <code>d_eff argmax</code> (unreliable once saturated → kept defaulting) to <strong>participation-ratio argmin</strong>; relaxed an over-strict flatness gate; fixed boundary smoothing so example-testing's L27 edge-trough survives.</p>
+</blockquote>
+<h2>Phase 6 — Steering vector construction</h2>
+<p><strong>Purpose:</strong> build the two competing intervention vectors per behaviour.
+<strong>How:</strong>
+- <strong>Single-direction (Venhoff):</strong> <code>r = mean(on) − mean(off)</code>, unit-normalised — difference-of-means between the behaviour and everything else.
+- <strong>Manifold-projected (ours, adapting Huang):</strong> project that direction onto the top-k PCA subspace of the behaviour's manifold: <code>r_proj = Σᵢ(r·vᵢ)vᵢ</code>.</p>
+<p><strong>Result (done this session):</strong> built both at each behaviour's manifold-peak layer. Free interim finding: the difference-of-means direction lies <strong>88–94% inside</strong> each behaviour's own manifold subspace, but is <strong>nearly orthogonal to the top principal component</strong> for example-testing (cos 0.005) and adding-knowledge (0.098). So the behaviour-defining direction is a <em>distributed, mid-spectrum</em> manifold feature, not the dominant variance axis — independent corroboration of the manifold picture.
+<strong>Output:</strong> <code>results/steering_vectors/R1-1.5B/</code>.</p>
+<h2>Phase 7 / 7b — Steering evaluation &amp; activation patching (the causal half)</h2>
+<p><strong>Purpose:</strong> move from <em>correlational</em> geometry to <em>causal</em> evidence.
+- <strong>Phase 7 (steering eval):</strong> apply each vector during generation across strengths α, re-annotate outputs, measure the behaviour-fraction shift. <em>Sufficiency:</em> add the vector → behaviour rises. <em>Necessity:</em> ablate the manifold subspace → behaviour drops. Compare single-direction vs manifold-projected.
+- <strong>Phase 7b (attribution patching):</strong> patch a behaviour's activations donor→recipient and measure the causal change, localising the behaviour to layers.</p>
+<p><strong>Status:</strong> <strong>pending</strong> — Phase 7 needs API credits (to re-annotate steered outputs) and a free GPU. Vectors built and staged.</p>
+<hr />
+<h1>PART III — The geometric measures, in detail</h1>
+<p>All share one foundation: <strong>on a d-dimensional manifold, a small ball of radius r contains a number of points growing like rᵈ.</strong> Measure that scaling → recover d, regardless of curvature.</p>
+<h2>Dimensionality measures (Phase 5)</h2>
+<ul>
+<li><strong>PCA d_eff(70%):</strong> components for 70% of variance. <em>Tail-sensitive</em>. The <strong>ambient</strong> linear dimension.</li>
+<li><strong>Participation ratio</strong> PR = (Σλ)²/Σ(λ²), λ = eigenvalues. Number of <em>dominant</em> directions; <em>head-dominated</em>, sample-size robust. We use <strong>argmin(PR) across layers</strong> for the manifold-peak layer.</li>
+</ul>
+<p>High d_eff + low PR = "a few dominant directions plus a long tail" — exactly what a <em>curved</em> low-dim manifold looks like under linear PCA (many short segments to trace a circle).</p>
+<h2>Intrinsic-dimension estimators (Phase 5b, Battery A)</h2>
+<ul>
+<li><strong>TwoNN:</strong> μ = r₂/r₁ (2nd-nearest ÷ 1st-nearest distance) follows a Pareto law whose shape parameter <em>is</em> the dimension. Most local, normally most robust — <strong>but</strong> destroyed by duplicate points (Part IV).</li>
+<li><strong>Levina-Bickel:</strong> maximum-likelihood over the first k neighbours. Lower variance, reads slightly high.</li>
+<li><strong>Correlation dimension:</strong> log-log slope of "fraction of point-pairs within radius r" vs r. Global, very stable, biased slightly low for curved manifolds. <strong>The reliable one here.</strong></li>
+</ul>
+<p>Agreement of the three (within ~2×) → dimension well-defined. Their <em>ordering</em> (corr-dim &lt; TwoNN &lt; Levina-Bickel) is itself the fingerprint of mild curvature.</p>
+<h2>Curvature diagnostics (Phase 5b, Battery B)</h2>
+<ul>
+<li><strong>Local-vs-global PCA dim ratio:</strong> PCA on a small neighbourhood vs the whole cloud. Flat → 1; curved → ≪ 1 (locally you see only the tangent plane). Ours ≈ <strong>0.02–0.09</strong>.</li>
+<li><strong>Geodesic/Euclidean ratio:</strong> distance <em>along</em> the manifold (graph shortest-path) ÷ straight line. Flat → 1; curved → &gt;1. Ours ≈ <strong>1.6–1.8</strong>.</li>
+<li><strong>Tangent-space variation:</strong> angle between locally-fit tangent planes at nearby points. Flat → 0°; curved → large. Ours ≈ <strong>57–68°</strong>.</li>
+</ul>
+<p>Three independent formalisms, all agreeing → curvature is real.</p>
+<h2>The null hierarchy (Phase 5b, Battery C) — the rigour test</h2>
+<p>The danger (Story C): two backtracking sentences from the <em>same</em> chain look alike <em>because of the chain</em>, not the behaviour.
+- <strong>Chain-stratified permutation (primary):</strong> shuffle behaviour labels <em>within each chain</em> and recompute. Beating this null = structure is behaviour-specific, beyond chain identity. The strongest control, rare in this literature.
+- <strong>Cross-chain permutation (secondary):</strong> shuffle labels globally — weaker.
+- <strong>Marchenko-Pastur (tertiary):</strong> compare the eigenvalue spectrum to random-matrix noise — checks high dimension isn't finite-sample noise.</p>
+<p><strong>Result:</strong> chain-stratified null rejects at p&lt;0.01 at all 28 layers for backtracking &amp; uncertainty, 19/28 for example-testing, L17–19 for adding-knowledge.</p>
+<hr />
+<h1>PART IV — The robustness program (this session's methodological deepening)</h1>
+<p>The supervisor's "make it more rigorous and causal" demand, turned onto the geometry itself. We treated our own results adversarially.</p>
+<h2>The discovery: duplicate activations</h2>
+<p><strong>35–56% of the pooled activation vectors are <em>exact</em> duplicates.</strong> Cause: the fixed 1+10-token mean-pool window on short repeated markers collapses many sentences to identical vectors. A genuine methodology issue nobody would catch without stress-testing.</p>
+<h2>The consequence: twoNN is unreliable here</h2>
+<p>TwoNN was stable at full N (7.2) but <strong>collapsed to &lt;1 under subsampling</strong> — degenerate, because duplicates wreck the nearest-neighbour ratio distribution. <strong>Fix:</strong> lead with <strong>correlation dimension</strong>, rock-stable (6.6–6.7 across every sample size) and barely changed by deduplication.</p>
+<h2>The keystone test (the single most important robustness result)</h2>
+<p><em>Is the low intrinsic dimension a property of the behaviour, or of which chain the sentence came from (Story C)?</em> Compute intrinsic dimension three ways on deduplicated data:
+1. <strong>full</strong> sample;
+2. <strong>random subsample</strong> (same size as #3 — controls for sample size);
+3. <strong>chain-stratified</strong> — <em>one sentence per chain</em>, removing all within-chain correlation.</p>
+<table>
+<thead>
+<tr>
+<th>Behaviour</th>
+<th>full</th>
+<th>random-sub</th>
+<th>chain-stratified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backtracking</td>
+<td>6.85</td>
+<td>6.87</td>
+<td>6.86</td>
+</tr>
+<tr>
+<td>uncertainty-estimation</td>
+<td>6.91</td>
+<td>7.13</td>
+<td>7.22</td>
+</tr>
+<tr>
+<td>adding-knowledge</td>
+<td>8.83</td>
+<td>8.66</td>
+<td>8.76</td>
+</tr>
+<tr>
+<td>example-testing</td>
+<td>6.28</td>
+<td>6.30</td>
+<td>6.79</td>
+</tr>
+</tbody>
+</table>
+<p>One sentence per chain leaves the intrinsic dimension unchanged → <strong>the low-dimensional manifold is behaviour-intrinsic, NOT a chain confound. Story C refuted on the geometry itself.</strong></p>
+<h2>The curvature density control (the loose end, now closed)</h2>
+<p>The geodesic ratio <em>dropped</em> under chain-stratification (1.65→1.30), which could mean curvature was chain-driven. But the same-N <strong>random subsample</strong> also dropped to ~1.30 → the drop is a <strong>sparse-sampling effect, not a chain effect</strong> (fewer points → sparser graph → geodesics can't hug the manifold as tightly). Curvature stays &gt;1 throughout → also behaviour-intrinsic.</p>
+<h2>Scale-robustness</h2>
+<p>PCA d_eff roughly <em>doubles</em> under z-scoring (a few "massive-activation" feature dimensions dominate the raw covariance), so the specific number "~50" is preprocessing-dependent — we now lead with the participation ratio. But the <em>qualitative</em> conclusion (d_eff ≫ 1, intrinsic ≪ ambient) holds under every preprocessing choice, and Marchenko-Pastur confirms 100+ eigenvalues above the noise floor (real signal, not finite-sample noise).</p>
+<p><strong>Net effect:</strong> two real methodology flaws found (duplicates, twoNN), fixed, and the central claim came out <em>stronger</em>. Rigour that converts "suggestive" into "defensible."</p>
+<hr />
+<h1>PART V — The extensions</h1>
+<h2>Multi-annotator (running now)</h2>
+<p><strong>Why:</strong> the geometry depends on <em>labels</em>; one annotator (Sonnet) is a single point of failure. <strong>Tests:</strong> does the manifold replicate when a <em>different, independent</em> model labels the same chains? <strong>How:</strong> full re-annotation by Qwen3-235B and Nova-Pro, then the entire geometry pipeline per annotator, then a 3-way comparison. The annotators genuinely disagree on label <em>frequencies</em> (uncertainty: Sonnet 22% vs Qwen3 7% vs Nova 12%) — so the real test is whether each annotator's labels still yield the same low-dim curved manifold. That comparison (<code>cross_annotator_comparison.md</code>) is the headline deliverable being computed now.</p>
+<h2>Baseline control (Qwen-Math-1.5B)</h2>
+<p><strong>Why:</strong> to claim the <em>reasoning distillation</em> introduced these behaviours, we need a non-reasoning control. <strong>What:</strong> 1,000 chains from <code>Qwen2.5-Math-1.5B</code> — generated, <strong>annotation pending credits.</strong></p>
+<h2>Scale extension (7B)</h2>
+<p><strong>Why:</strong> does the finding hold at larger scale (Venhoff scaled too)? <strong>What:</strong> 500 balanced chains (50 × 10 categories) from R1-Distill-Qwen-7B, generating now. Phase 4/5/5b on 7B need no API.</p>
+<hr />
+<h1>PART VI — How it all confirms the hypothesis</h1>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Result</th>
+<th>Rules out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d_eff ≫ 1</td>
+<td>45–98 at every layer</td>
+<td>Venhoff's single-direction</td>
+</tr>
+<tr>
+<td>intrinsic ≪ ambient</td>
+<td>~7 (corr-dim) vs 47–98 (PCA), ~5–7×</td>
+<td>Story B (flat subspace)</td>
+</tr>
+<tr>
+<td>3 curvature diagnostics</td>
+<td>all agree: strongly curved</td>
+<td>Story B</td>
+</tr>
+<tr>
+<td>chain-stratified null</td>
+<td>rejects; <strong>keystone passes</strong></td>
+<td><strong>Story C (chain confound)</strong></td>
+</tr>
+<tr>
+<td>robust to dedup / subsampling / scaling</td>
+<td>yes</td>
+<td>artifacts</td>
+</tr>
+</tbody>
+</table>
+<p>We land squarely in <strong>Story A — a curved, low-dimensional, behaviour-intrinsic manifold.</strong> Backtracking and uncertainty are the flagship cases (significant at all 28 layers); example-testing is clear but layer-localised; adding-knowledge is the honest outlier (highest dimension, narrowest layer window). The wedge between Venhoff and Huang is empirically supported for <em>individual</em> reasoning behaviours.</p>
+<hr />
+<h1>PART VII — Current state</h1>
+<ul>
+<li><strong>Done &amp; verified:</strong> Phases 1–6 + all geometry diagnostics + the full Tier-0 robustness program + multi-annotator annotation (3 families).</li>
+<li><strong>Running autonomously on the cluster:</strong> per-annotator extraction → Phase 5/5b/5c/5d → 3-way manifold-replication comparison (~14h), plus 7B generation.</li>
+<li><strong>Pending (needs credits/GPU):</strong> Phase 7 steering evaluation (the causal half), baseline annotation, 7B downstream.</li>
+</ul>
+<p><strong>The one genuine open question</strong> is the causal half: the geometry is now airtight, but "intervening on the manifold changes behaviour" (Phase 7) is the claim still to establish — where the remaining credits and GPU time go.</p>
+<hr />
+<h2>Companion documents (<code>results/supervisor_meeting/</code>)</h2>
+<ul>
+<li><code>PROJECT_LOG.md</code> — consolidated project journal with figures.</li>
+<li><code>ROBUSTNESS_PLAN.md</code> — the claim → threat → test robustness agenda.</li>
+<li><code>PHASE_5B_DEEP_DIVE.md</code> — full methodology + Goodfire comparison.</li>
+<li><code>SUMMARY.md</code> / <code>CHECKPOINT.md</code> — status snapshots.</li>
+<li><strong><code>METHODS_WALKTHROUGH.md</code> (this file)</strong> — the step-by-step explanation.</li>
+</ul></body></html>

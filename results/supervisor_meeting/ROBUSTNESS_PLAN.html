@@ -1,0 +1,190 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>ROBUSTNESS_PLAN</title><style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 960px; margin: 40px auto; padding: 0 30px; line-height: 1.55; color: #222; }
+  h1 { border-bottom: 2px solid #2c3e50; padding-bottom: 6px; color: #2c3e50; }
+  h2 { border-bottom: 1px solid #bdc3c7; padding-bottom: 4px; color: #2c3e50; margin-top: 34px; }
+  h3 { color: #34495e; margin-top: 24px; }
+  table { border-collapse: collapse; margin: 14px 0; font-size: 14px; width: 100%; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+  th { background: #ecf0f1; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  code { background: #f4f4f4; padding: 1px 5px; border-radius: 3px; font-size: 90%; }
+  pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  pre code { background: none; }
+  img { max-width: 100%; height: auto; display: block; margin: 16px auto;
+        border: 1px solid #eee; border-radius: 4px; }
+  blockquote { border-left: 4px solid #3498db; margin: 14px 0; padding: 4px 16px;
+               background: #f0f7fb; color: #333; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 28px 0; }
+</style></head><body><h1>Robustness &amp; Causality Plan</h1>
+<p><em>Consolidates the two robustness threads — (a) steering / labels / datasets / contrasts and (b) PCA / intrinsic-dimension geometry — into one sequenced agenda. Written in response to the supervisor's mandate: "consistent behaviour across different settings" and "more causal." Nothing here is executed yet.</em></p>
+<p><strong>Last updated:</strong> 28 May 2026.</p>
+<hr />
+<h2>0. Organising principle (the iteration)</h2>
+<p>Three reframings over the earlier ad-hoc lists:</p>
+<ol>
+<li><strong>Every check defends a specific claim.</strong> A robustness task that isn't tied to a load-bearing claim is over-engineering — we drop it.</li>
+<li><strong>Cheapest-to-falsify first.</strong> Order the agenda by information-value ÷ cost. The tests most likely to <em>break</em> our own result, using the <em>cheapest</em> resources, come first. (Counter-intuitively, that means the single most important task is also free.)</li>
+<li><strong>A decision gate.</strong> Internal robustness (same data, perturb the method) is cheap and comes first. Only after the result survives it do we spend GPU/credits on external replication and causal tests. If an internal check reveals a confound, we <strong>reframe before spending</strong>, not after.</li>
+</ol>
+<p>Internal robustness = "is our existing result an artifact of our choices?" · External replication = "does it reproduce under a new annotator / dataset / model?" · Causal = "does intervening on the manifold change behaviour?"</p>
+<hr />
+<h2>1. The claims, their biggest threat, and the test that defends each</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Claim</th>
+<th>Current status</th>
+<th>Biggest threat</th>
+<th>Defending test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>d_eff ≫ 1 (single-direction falsified)</td>
+<td><strong>robust</strong> (47–160 under any preprocessing)</td>
+<td>none material</td>
+<td>—</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>intrinsic dim ≈ 7–13 (low)</td>
+<td>suggestive</td>
+<td>chain confound (i.i.d. violation); distance concentration in 1536-D</td>
+<td>chain-stratified 5b; intrinsic dim on PCA-reduced inputs</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>the manifold is <em>curved</em> (not a flat subspace)</td>
+<td>suggestive</td>
+<td>noise/density mimics curvature; low-rank + structured noise</td>
+<td>synthetic null model; chain-stratified curvature</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>the structure is <strong>behaviour-specific</strong> (not chain/content)</td>
+<td><strong>untested for 5b</strong></td>
+<td>chain confound</td>
+<td>chain-stratified 5b (keystone)</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>geometry peaks at middle layers (L14–17)</td>
+<td>suggestive</td>
+<td>d_eff is scale-dependent (2× under z-scoring); PR is more stable</td>
+<td>standardization + pooling sweep; lead with PR</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>the steering direction is a manifold property</td>
+<td>partial</td>
+<td>contrast set is narrow (no neutral/deduction baseline)</td>
+<td>multi-contrast + orthogonalised vectors</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>intervening on the manifold changes behaviour</td>
+<td><strong>not yet made</strong></td>
+<td>—</td>
+<td>steering (sufficiency) + ablation/patching (necessity)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read this table as the spine of the plan.</strong> C4 is the keystone: if the low-dimensional curvature is a property of <em>which chain a sentence came from</em> rather than <em>the behaviour</em>, the headline weakens — and we have not yet tested it, because the chain-stratified null was only ever applied to the top-10 variance ratio, never to intrinsic dim or curvature.</p>
+<hr />
+<h2>2. Tier 0 — Internal robustness (free / CPU, existing data, do FIRST)</h2>
+<p>These need no new data, no API, no GPU (except where noted). They are the cheapest and the most likely to falsify or reframe the central claim.</p>
+<ul>
+<li><strong>0.1 Chain-stratified 5b — the keystone.</strong> Recompute TwoNN / Levina-Bickel / correlation-dim and all three curvature diagnostics on <strong>one sentence per chain</strong> (and via a chain-block bootstrap). <em>Defends C2, C3, C4.</em> If intrinsic dim stays ~10 and curvature stays high → the manifold is behaviour-specific. If intrinsic dim jumps → much of it was the chain confound, and we reframe. <em>Cost: CPU, hours.</em></li>
+<li><strong>0.2 Lead with the participation ratio; report d_eff with a noise floor.</strong> PR is scale-robust; raw d_eff doubles under z-scoring. Report PR as the primary scalar, and d_eff <em>after</em> the Marchenko-Pastur edge (count only above-noise eigenvalues), raw <strong>and</strong> standardised. <em>Defends C1, C5.</em> <em>Cost: CPU.</em></li>
+<li><strong>0.3 Preprocessing sweep.</strong> Intrinsic dim + curvature under {raw, z-scored, massive-activation dims removed} and on {raw 1536-D, PCA-50 inputs}. Confirms the result isn't an artifact of scaling or high-D distance concentration. <em>Defends C2, C3, C5.</em> <em>Cost: CPU.</em></li>
+<li><strong>0.4 Synthetic null model.</strong> Simulate (i) low-rank + matched structured noise and (ii) a curved-manifold ground truth at our N, d, variance; run the <em>same</em> d_eff / TwoNN / curvature pipeline. Real data must show <strong>more</strong> curvature than the flat-subspace simulation. <em>Defends C3.</em> <em>Cost: CPU.</em></li>
+<li><strong>0.5 Common-N subsampling + bootstrap CIs.</strong> Re-estimate all behaviours at a shared N (≈5,000) with CIs, so cross-behaviour comparisons aren't N-confounded. <em>Defends cross-behaviour claims.</em> <em>Cost: CPU.</em></li>
+<li><strong>0.6 Estimator hyperparameter sweep.</strong> TwoNN discard fraction, LB k-range, corr-dim fit window, kNN k for curvature/geodesic. Report stability. <em>Defends C2, C3.</em> <em>Cost: CPU.</em></li>
+</ul>
+<blockquote>
+<p><strong>Decision gate.</strong> Run 0.1 first. If C2/C3/C4 survive Tier 0, invest in Tiers 1–3. If not, reframe the central claim <em>before</em> spending on external replication.</p>
+</blockquote>
+<hr />
+<h2>3. Tier 1 — Contrast / ablation &amp; layer causality (GPU, no API)</h2>
+<ul>
+<li><strong>1.1 Neutral baseline + multi-contrast vectors.</strong> Re-extract activations for <strong>all 6 labels</strong> (adds <code>deduction</code>, <code>initializing</code>). Rebuild every steering vector under several contrasts — vs deduction (Venhoff-style D⁻), vs all-other-labels, pairwise / leave-one-out — plus a <strong>Gram-Schmidt orthogonalised</strong> vector (the behaviour component not explained by the others). A robust direction is stable across contrasts. <em>Defends C6.</em> <em>Cost: GPU re-extraction, no API.</em></li>
+<li><strong>1.2 Activation patching (necessity).</strong> Patch a behaviour's activations from donor → recipient at the candidate layer; measure the causal change. <em>Toward C7.</em> <em>Cost: GPU.</em></li>
+<li><strong>1.3 Token-window re-extraction.</strong> Re-extract under {onset-only, first-10, full-segment} pooling and confirm geometry holds (addresses the fixed-window caveat). <em>Defends C2, C5.</em> <em>Cost: GPU.</em></li>
+</ul>
+<hr />
+<h2>4. Tier 2 — Annotator robustness (modest API)</h2>
+<ul>
+<li><strong>2.1 Second annotator + agreement.</strong> Re-annotate a stratified subset (~100–150 chains) with a <em>different</em> model (GPT-4o / Gemini / Claude-Opus); compute span-F1 and Cohen's κ; anchor both to a small human-labelled gold set. <em>Defends label validity.</em></li>
+<li><strong>2.2 Re-derive the manifold under the second annotator's labels.</strong> The headline external-robustness test: does the geometry replicate when the labels come from a different annotator? <em>Defends every geometry claim, externally.</em> <em>Cost: API (subset) + CPU.</em></li>
+</ul>
+<hr />
+<h2>5. Tier 3 — Dataset diversity &amp; full causal (GPU + API)</h2>
+<ul>
+<li><strong>3.1 Second dataset, end-to-end.</strong> Run generation → annotation → Phase 4/5/5b on a different distribution — one math-heavy (MATH / GSM8K, à la Venhoff) and/or one deliberately distinct. ~300 chains is enough for a replication check (no need for a full 1,000). The <strong>7B run already supplies scale diversity</strong>; this adds <em>input-distribution</em> diversity. <em>Defends all claims, externally.</em></li>
+<li><strong>3.2 Steering: sufficiency + necessity.</strong> Add the vector (behaviour ↑ = sufficiency) and ablate the manifold subspace (behaviour ↓ = necessity); compare single-direction vs manifold-projected vs subspace-ablation. This is where §8's finding bites (the difference-of-means is nearly orthogonal to PC1 for example-testing / adding-knowledge, so projection should matter most at intermediate k). <em>Establishes C7.</em> <em>Cost: GPU + API.</em></li>
+<li><strong>3.3 Vector transfer.</strong> Build the vector on dataset/annotator A, test it steers on B — causal generalisation. <em>Cost: GPU + API.</em></li>
+</ul>
+<hr />
+<h2>6. Minimal viable robustness (if resources are tight)</h2>
+<p>The smallest set that makes the geometry half defensible to a skeptical reviewer:</p>
+<ul>
+<li><strong>0.1</strong> chain-stratified 5b (keystone),</li>
+<li><strong>0.2</strong> PR-primary + MP noise floor,</li>
+<li><strong>0.4</strong> synthetic null model,</li>
+<li><strong>1.1</strong> neutral-baseline / orthogonalised contrast,</li>
+<li><strong>2.1</strong> annotator agreement on a subset.</li>
+</ul>
+<p>Everything else strengthens the paper but is not load-bearing. Doing only these five answers "is it an artifact?" (0.1, 0.2, 0.4), "is the vector well-defined?" (1.1), and "are the labels reliable?" (2.1).</p>
+<hr />
+<h2>7. Effort / cost / dependency summary</h2>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Items</th>
+<th>Resource</th>
+<th>New data?</th>
+<th>Rough effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 — internal</td>
+<td>0.1–0.6</td>
+<td>CPU (laptop)</td>
+<td>no</td>
+<td>~1 day</td>
+</tr>
+<tr>
+<td>1 — contrast/causal-layer</td>
+<td>1.1–1.3</td>
+<td>GPU</td>
+<td>re-extraction only</td>
+<td>~1 day GPU</td>
+</tr>
+<tr>
+<td>2 — annotator</td>
+<td>2.1–2.2</td>
+<td>API (subset) + CPU</td>
+<td>re-annotate subset</td>
+<td>modest credits</td>
+</tr>
+<tr>
+<td>3 — dataset/causal</td>
+<td>3.1–3.3</td>
+<td>GPU + API</td>
+<td>new corpus</td>
+<td>largest spend</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dependencies:</strong> 1.1 unlocks the neutral-baseline contrast; 2.1 must precede 2.2; 3.2 needs Phase-6 vectors (✅ already built) + a free GPU + credits.</p>
+<hr />
+<h2>8. Recommended first move</h2>
+<p>Run <strong>Tier 0 in full</strong> — one day of laptop CPU, no credits, no new data — starting with <strong>0.1 (chain-stratified 5b)</strong>. It is the cheapest task on the board and the one most able to either bulletproof or reframe the central manifold claim. Reporting "intrinsic dimension and curvature survive chain-stratification, hold under standardization and PCA-reduction, and exceed a low-rank-plus-noise simulation" would convert the geometry from <em>suggestive</em> to <em>defensible</em> before a single credit is spent — and it directly answers the supervisor on both robustness and the chain confound.</p>
+<hr />
+<h2>9. What this buys with the supervisor</h2>
+<p>A single, defensible sentence: <em>every headline claim survives perturbation of the annotator, dataset, contrast set, preprocessing, and the i.i.d. assumption, and is backed by a causal (steering + ablation) test.</em> That is exactly "consistent behaviour across different settings" plus "more causal," made concrete and sequenced by cost.</p></body></html>

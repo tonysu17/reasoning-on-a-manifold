@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.annotation import (
+    ANNOTATION_MODEL,
     VENHOFF_FRACTIONS,
     annotate_chains,
     behaviour_counts,
@@ -50,6 +51,14 @@ def main():
     parser = argparse.ArgumentParser(description="Phase 3: Behavioural annotation")
     parser.add_argument("--model-short", default="R1-1.5B",
                         help="Model short name matching chains file (default: R1-1.5B)")
+    parser.add_argument("--chains", default=None,
+                        help="Explicit path to chains JSON (overrides --model-short path)")
+    parser.add_argument("--out", default=None,
+                        help="Explicit path for annotated output JSON (overrides default)")
+    parser.add_argument("--annotator-model", default=ANNOTATION_MODEL,
+                        help="Proxy model id for the annotator (default: Sonnet 4.5). "
+                             "When non-default, pass an --out path so each annotator "
+                             "writes to its own file.")
     parser.add_argument("--pilot", action="store_true",
                         help="Annotate pilot chains (data/chains_pilot.json)")
     parser.add_argument("--smoke", action="store_true",
@@ -72,8 +81,8 @@ def main():
         chains_path = Path("data/chains_pilot.json")
         out_path    = Path("data/annotated_pilot.json")
     else:
-        chains_path = Path(f"data/chains_{args.model_short}.json")
-        out_path    = Path(f"data/annotated_{args.model_short}.json")
+        chains_path = Path(args.chains) if args.chains else Path(f"data/chains_{args.model_short}.json")
+        out_path    = Path(args.out)    if args.out    else Path(f"data/annotated_{args.model_short}.json")
 
     if not chains_path.exists():
         logger.error(f"Chains not found at {chains_path}. Run Phase 2 first.")
@@ -89,7 +98,7 @@ def main():
     elif args.pilot:
         logger.info(f"PILOT: annotating {len(chains)} chains → {out_path}")
     else:
-        logger.info(f"Annotating {len(chains)} chains → {out_path}")
+        logger.info(f"Annotating {len(chains)} chains with {args.annotator_model} → {out_path}")
 
     # Early-exit check — all chains fully complete?
     if out_path.exists():
@@ -107,6 +116,7 @@ def main():
         proxy_url=proxy_url,
         proxy_key=proxy_key,
         kill_after=args.kill_after,
+        model=args.annotator_model,
     )
 
     _print_report(annotated, out_path, pilot=args.pilot)

@@ -113,7 +113,8 @@ re-bake stale numbers.
 
 | Doc | Role | Freshness |
 |-----|------|-----------|
-| `AUDIT.md` | **Current authority** for status + open actions | ✅ 2026-06-05 |
+| `AUDIT.md` | **Current authority** for software/numerical bug status + open actions | ✅ 2026-06-05 |
+| `CONFOUNDS_AND_REMEDIATION.md` | **Current authority** for *scientific* confounds + negative results + the sequenced fix plan (gate → tiers) | ✅ 2026-06-06 |
 | `README.md` | Entry point (rewritten in the audit) | ✅ 2026-06-05 |
 | `INVENTORY.md` (this file) | File/output classification | ✅ 2026-06-06 |
 | `data/MANIFEST.md` | `data/` classification | ✅ current |

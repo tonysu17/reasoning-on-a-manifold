@@ -1,0 +1,748 @@
+% =====================================================================
+%  Reasoning on a Manifold — research summary + safety extension
+%  NeurIPS format.
+%
+%  STYLE: This file is SELF-CONTAINED (Option A, active below): it emulates
+%  the NeurIPS look (Times, 10pt, 5.5in x 9in text block) using only standard
+%  packages, so it compiles on any full TeX Live install with no extra files.
+%
+%  To produce an *official* NeurIPS-styled PDF (Option B), drop the official
+%  neurips_2024.sty next to this file, then: (1) comment out the Option A
+%  block, (2) uncomment the two Option B lines, (3) delete the \usepackage
+%  {natbib} line (neurips_2024.sty already loads natbib).
+% =====================================================================
+
+\documentclass[10pt]{article}
+
+% ---------- Option B: official NeurIPS style (commented) ----------
+% \documentclass{article}
+% \usepackage[preprint]{neurips_2024}
+% ------------------------------------------------------------------
+
+% ---------- Option A: self-contained NeurIPS-like styling ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}              % Times for text and math (NeurIPS look)
+\usepackage[letterpaper,top=1in,bottom=1in,left=1.5in,right=1.5in]{geometry}
+\usepackage{microtype}
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4ex plus 1ex minus .2ex}{0.9ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.1ex plus 1ex minus .2ex}{0.7ex plus .2ex}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+% -------------------------------------------------------------------
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[numbers]{natbib}   % DELETE this line under Option B (neurips_2024.sty loads natbib)
+\usepackage{url}
+\usepackage[colorlinks=true,allcolors=blue!55!black,breaklinks=true]{hyperref}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{\bfseries The Geometry of Reasoning: Per-Behaviour Structure and the
+Post-Training Origin of Safety Reasoning}
+
+\author{Tony Su \\ Department of Computer Science \\ University College London \\
+\texttt{zctpzs0@ucl.ac.uk}}
+\date{}
+
+\begin{document}
+
+% ---- title block (Option-A friendly; \maketitle also works under Option B) ----
+\begin{center}
+{\LARGE\bfseries The Geometry of Reasoning: Per-Behaviour Structure\\[2pt]
+and the Post-Training Origin of Safety Reasoning\par}
+\vspace{1.1em}
+{\large Tony Su\par}
+\vspace{0.3em}
+Department of Computer Science, University College London\\
+\texttt{zctpzs0@ucl.ac.uk}
+\end{center}
+\let\thefootnote\relax\footnotetext{Research summary. Prepared in the NeurIPS
+format; not length-limited to a conference submission. Figures are deferred to
+the empirical write-ups.}
+\vspace{0.8em}
+
+\begin{quote}
+\begin{center}\textbf{\large Abstract}\end{center}
+\small
+Thinking language models expose their reasoning as text, and that text can be
+read, labelled, steered, and---this work's organizing commitment---located as
+geometry in the residual stream. We treat a reasoning behaviour not as a label on
+text but as a structured object in activation space, and study one object in two
+movements. \emph{Structure.} \citet{venhoff2025reasoning} show individual
+behaviours---backtracking, uncertainty estimation, example testing, knowledge
+augmentation---are each controllable through a single linear direction, while
+\citet{huang2025manifold} show the aggregate tendency to overthink occupies a
+low-dimensional subspace whose projection outlasts single-direction steering. If
+each behaviour is one direction, where does the aggregate structure come from? We
+measure per-behaviour geometry with machinery the field has not applied to
+reasoning models---Marchenko--Pastur nulls that separate real structure from
+finite-sample noise, three intrinsic-dimension estimators, and direct curvature
+diagnostics---and find behaviours occupy distinct, ordered positions within the
+chain; whether that structure is genuinely \emph{curved} or a flat low-dimensional
+subspace is the measurement we make, not the assumption we start from.
+\emph{Origin.} A behaviour's shape is installed by post-training, so the
+non-thinking baseline becomes a controlled contrast of alignment recipes.
+Deliberative alignment \citep{guan2024deliberative} trains a model to reason over
+its safety specification before answering, and \mbox{gpt-oss-20b} ships this as
+open weights \citep{openai2025gptoss}; we ask whether the safety object's geometry
+fingerprints the recipe---cleanly within one model family, and within gpt-oss
+through its reasoning-effort control---and whether jailbreaks succeed by pushing
+the trajectory off it---including the forged-policy jailbreak that the model cannot
+tell from its own deliberation \citep{ye2025luckycoin}, which we replicate with the
+same probe-and-patch machinery to locate where the forgery becomes load-bearing. We
+are explicit about
+what is result (a within-chain behaviour ordering) and what is proposed apparatus,
+and about the confound that safety may not be linearly separable from capability
+\citep{ponkshe2025safety}.
+\end{quote}
+\vspace{0.4em}
+
+% =====================================================================
+\section{Introduction}
+% =====================================================================
+
+Reasoning models such as the DeepSeek-R1-Distill family write out a
+chain of thought before they answer, and that chain contains recognisable moves:
+the model frames a problem, recalls a fact, tries a small case, doubts its
+progress, abandons an approach. \citet{venhoff2025reasoning} annotate six such
+behaviours and show each can be amplified or suppressed by adding a single
+difference-of-means direction to the residual stream. The picture is linear and
+local: one behaviour, one direction, one layer.
+
+A second result complicates that picture. \citet{huang2025manifold} study the
+aggregate habit of \emph{overthinking}---chains that pad themselves with
+redundant deliberation---and find that steering along a single direction helps
+only up to a point, after which it degrades the model. Projecting the steering
+vector onto a low-dimensional subspace recovered by PCA sustains the effect at
+strengths where the single direction collapses; they call this projection
+\emph{manifold steering}. The two results are hard to reconcile. If each
+behaviour is one direction, the aggregate should be close to the linear hull of
+those directions, and ``manifold'' adds nothing. If the aggregate genuinely
+carries low-rank structure with consequences for steering, that structure must
+come from per-behaviour geometry that a single-direction method cannot see, or
+from how behaviours compose. Neither paper measures it. Huang uses ``manifold''
+to mean ``linear subspace,'' yet the word implies curvature, an intrinsic
+dimension below the embedding dimension, and a tangent-space approximation that a
+70\% top-ten variance ratio does not establish.
+
+This project resolves the tension by asking, for each behaviour separately,
+whether its activations form a flat subspace, a curved manifold, or unstructured
+high-dimensional scatter---and by bringing null baselines and curvature estimators
+that distinguish these cases at the finite sample sizes mechanistic
+interpretability actually works with. That question is the seed of a more general
+claim: a reasoning behaviour is a structured object in activation space, and the
+thesis studies one object in two movements---its \emph{structure} (what shape it
+is) and its \emph{origin} (where the shape comes from, and why, for safety, the
+shape is the property that matters). The present summary develops the structural
+apparatus and its preliminary results, then the safety payoff that makes them
+matter. A third question---whether the same instrument that detects a forged safety
+policy could certify genuine knowledge-creation against mere retrieval---is a
+natural but more philosophical extension we leave to future work.
+
+\emph{Origin: the shape is installed by post-training.} \citet{guan2024deliberative}
+introduced \emph{deliberative alignment}, which teaches a model the text of its
+safety specification and trains it to recall and reason over that specification in
+its chain of thought before deciding whether to comply. Safety is no longer a
+reflex applied at the first token; it is manufactured as a \emph{reasoning
+behaviour} with an annotatable signature, and OpenAI shipped a model built this
+way, \mbox{gpt-oss-20b}, as open weights with its reasoning trace left readable
+\citep{openai2025gptoss}. Because a behaviour's shape is installed by a specific
+recipe rather than intrinsic to ``an LLM,'' the non-thinking baseline becomes a
+controlled contrast of recipes---but only where the lineage is held fixed. We make
+the contrast where it is clean and say so where it is not: \emph{within} the
+Qwen-1.5B family, base pretraining, RLHF instruction-tuning, and reasoning
+distillation differ only in post-training, whereas \mbox{gpt-oss-20b} adds
+deliberative alignment but also differs in scale and architecture, so its
+comparison to the small models is suggestive, not controlled. The one clean handle
+on deliberative alignment itself is gpt-oss's reasoning-effort control, which varies
+how much safety deliberation is engaged with the weights held fixed. Our hypothesis
+is that the safety object's geometry tracks the recipe---a shallow early-token
+direction under classical RLHF \citep{qi2025shallow,arditi2024refusal}, little
+separable safety structure under distillation alone, a chain-engaged object that
+scales with reasoning effort under deliberative alignment---and that jailbreaks work
+by pushing the trajectory off it. Whether that object is curved, and whether it is
+even linearly separable from capability \citep{ponkshe2025safety}, are the first
+questions rather than assumptions: if safety reasoning has no separable object, that
+absence is itself a mechanistic account of why deliberative alignment is fragile.
+The sharpest test of that fragility is the chain-of-thought \emph{forgery}
+jailbreak: an attacker appends fabricated policy deliberation in the model's own
+style, and the model adopts the forged premise and complies, the reported failure
+being that its activations represent the injected deliberation much like its own
+\citep{ye2025luckycoin}. We replicate it rigorously---training a probe on residual
+activations to ask whether genuine and forged deliberation separate at all, then
+using activation patching to locate the layer at which the forged premise becomes
+causally load-bearing---which turns the jailbreak from an anecdote into a
+measurement of where malice enters the reasoning.
+
+\paragraph{Contributions.} This summary integrates a validated methodological
+program (\emph{structure}) with the safety payoff that reuses it (\emph{origin}).
+\begin{enumerate}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item \textbf{A per-behaviour geometric account of reasoning} (\emph{structure})
+that adapts Marchenko--Pastur random-matrix nulls, multi-estimator intrinsic
+dimension, and direct curvature diagnostics to reasoning-model activations, with a
+measured within-chain ordering of behaviours as the first empirical result and
+curvature treated as a measurement rather than a premise
+(Section~\ref{sec:original}).
+\item \textbf{The hypothesis that safety geometry is a post-training fingerprint}
+(\emph{origin}), turning the non-thinking baseline into a recipe contrast that is
+controlled within one model family and isolated, within gpt-oss, by its
+reasoning-effort control, with five falsifiable hypotheses in which separability
+gates the fingerprint claim (Section~\ref{sec:safety}).
+\item \textbf{A ``deliberative safety reasoning'' annotation schema and an
+experimental plan} that reuses roughly ninety percent of the existing pipeline,
+including a rigorous replication of the chain-of-thought ``forgery'' jailbreak that
+defeats deliberative alignment---a genuine-versus-forged probe and activation
+patching that locate where the forged premise becomes load-bearing
+(Sections~\ref{sec:safety}--\ref{sec:methods}).
+\item \textbf{An explicit accounting of what is not yet trustworthy}---confounded
+curvature estimators since corrected (so no curvature number is yet a result),
+small samples, the gap between linear projection and curvature, the possibility
+that safety is not linearly separable from capability, and the unfaithfulness of
+chains of thought---so the geometric claims are made with the right amount of
+confidence (Section~\ref{sec:risks}).
+\end{enumerate}
+
+% =====================================================================
+\section{Background and related work}
+\label{sec:related}
+% =====================================================================
+
+The project sits at the meeting point of two literatures that have not yet been
+introduced to each other: the interpretability of reasoning behaviours, and the
+geometry of safety. This section walks the path from one to the other.
+
+\subsection{Reasoning behaviours and how to steer them}
+
+Chain-of-thought reasoning became a trainable target with DeepSeek-R1, which
+incentivises long deliberation through reinforcement learning and then distils the
+resulting traces into smaller dense models \citep{deepseek2025r1}. The 1.5B model
+this project studies, R1-Distill-Qwen-1.5B, is the base Qwen2.5-Math-1.5B
+\citep{yang2024qwenmath} fine-tuned on roughly 800k reasoning samples generated by
+R1; the distilled model receives the reasoning supervision but neither the
+reinforcement-learning stage nor a dedicated safety stage. That lineage is what
+makes it a clean object of study, and---as Section~\ref{sec:related-posttrain}
+explains---a clean negative control for safety.
+
+\citet{venhoff2025reasoning} give the behavioural vocabulary. They prompt an
+annotator to label reasoning sentences as initialization, deduction, knowledge
+augmentation, example testing, uncertainty estimation, or backtracking, extract a
+difference-of-means direction for each, and show that adding or subtracting it
+steers the behaviour. Their layer choice is causal rather than convenient: they
+score candidate directions by attribution patching and select, per behaviour, the
+layer that contributes most to the next-token distribution. The selected layers
+differ across behaviours---backtracking peaks around layer 17 of the 28-layer
+1.5B model, knowledge augmentation and uncertainty around layer 18, example
+testing around 15---so ``layer 17'' is one behaviour's answer, not a global
+constant. Their reported behaviour fractions come from chains capped at 1{,}000
+tokens, a detail that turns out to matter.
+
+\subsection{Subspace or manifold: what counts as structure}
+\label{sec:related-geometry}
+
+\citet{huang2025manifold} bring the geometry. They show that overthinking
+activations concentrate in a subspace whose top ten principal components capture
+more than seventy percent of the variance, and that projecting a steering vector
+onto that subspace---``manifold steering''---reduces token count by up to seventy
+percent on GSM8K while preserving accuracy, at strengths where a raw direction
+plateaus and then collapses. The word ``manifold'' is doing more work than the
+evidence supports. A high variance ratio in the top components is consistent with
+a flat subspace, and says nothing about curvature, about the intrinsic dimension
+relative to the ambient $d=1536$, or about whether a tangent-space approximation
+holds. The distinction is not pedantic: a flat subspace and a curved manifold are
+both ``low-dimensional structure,'' but only the second predicts that linear
+steering saturates at a characteristic radius.
+
+Separating signal from sampling artefact is the harder half. At per-behaviour
+sample sizes between fifty and a few hundred in $d=1536$, the empirical covariance
+spectrum is non-trivially spread even for isotropic Gaussian data; a chunk of any
+reported variance ratio is finite-sample noise. The Marchenko--Pastur law
+\citep{marchenko1967distribution} gives the limiting spectrum of such noise and
+hence a null against which real low-dimensionality must be shown to exceed---a
+control, to our knowledge, absent from prior geometric claims on reasoning models.
+Intrinsic dimension is itself estimator-dependent, which is why we read it through
+three lenses at once: the TwoNN ratio estimator \citep{facco2017twonn}, the
+Levina--Bickel maximum-likelihood estimator \citep{levina2004mle}, and correlation
+dimension. The depth axis is the natural complement to the within-chain axis:
+behaviours are built up across layers, and tracing that build-up is where
+transcoders \citep{dunefsky2024transcoders} and crosscoders
+\citep{lindsey2024crosscoders,templeton2024scaling} point, though we keep the
+heaviest of that machinery as future work.
+
+\subsection{The geometry of refusal as an output}
+
+Safety interpretability has, so far, geometrised refusal as an \emph{output}---the
+``I can't help with that'' act---rather than as reasoning. \citet{arditi2024refusal}
+showed that across thirteen chat models a single residual-stream direction mediates
+refusal: ablate it and the model complies with harmful requests, add it and it
+refuses harmless ones. The single-direction picture did not survive contact with
+sharper tools. \citet{wollschlager2025geometry} find refusal is carried by several
+functionally independent directions spanning a multi-dimensional ``concept cone,''
+and warn that orthogonality does not imply independence under intervention.
+\citet{joad2026more} push further, isolating geometrically distinct refusal
+directions across eleven categories of refusal, yet observe that steering along
+any of them produces the same refuse-versus-over-refuse trade-off, as if the many
+directions feed one shared control knob. Sparse autoencoders decompose refusal into
+latent features whose ablation changes behaviour and whose study clarifies how
+jailbreaks bypass it \citep{yeo2025refusalsae}. The trajectory of this literature
+is instructive---single direction, to cone, to many-directions-one-knob---and it
+is settled enough that the obvious next question is no longer about the output. It
+is about the reasoning that precedes the output, which nobody has geometrised.
+
+\subsection{Deliberative alignment: safety trained as a reasoning behaviour}
+
+Deliberative alignment is the development that makes that question answerable
+\citep{guan2024deliberative}. Rather than train refusal as a stimulus--response
+mapping, it teaches the model the literal text of the safety policy and trains it,
+with a specification-grounded judge and no human-written reasoning traces, to cite
+and apply the relevant policy in its chain of thought before answering. The
+mechanism leaves a measurable trace: in the reported evaluation, the fraction of
+chains that reference the correct policy is 0.75 for hard refusals and 0.91 for
+safe completions in the safety-trained model, against 0.27 and 0.21 in a no-safety
+baseline. Safety, in other words, has been manufactured as an annotatable reasoning
+behaviour. \mbox{gpt-oss-20b} ships this recipe as open weights
+\citep{openai2025gptoss}: a 20.9B-parameter mixture of experts (3.6B active per
+token, 24 layers, residual width 2880, top-4 of 32 experts) that emits its
+reasoning in a separate \texttt{analysis} channel of the harmony response format,
+left deliberately unfiltered so it stays monitorable. Worst-case fine-tuning
+studies \citep{wallace2025worstcase} informed the decision to release. The
+combination---a model whose safety \emph{is} a reasoning behaviour, with its
+reasoning legible and its weights open---is the substrate this project needs.
+
+\subsection{Post-training and the locus of safety}
+\label{sec:related-posttrain}
+
+Where safety lives, and how deeply, depends on how it was installed. Classical
+RLHF safety is shallow: \citet{qi2025shallow} show that alignment mostly reshapes
+the first few output tokens, which is why prefilling, suffix, and fine-tuning
+attacks all work. In weight space the aligned region is a narrow ``safety basin''
+whose edge is a cliff, not a slope \citep{peng2024safetybasin}. Reasoning training
+actively erodes inherited safety: aligning a reasoning model tends to cost
+reasoning accuracy---a ``safety tax'' \citep{huang2025safetytax}---and the R1
+distillation recipe, which carries no safety stage, leaves models that refuse
+little until safety is retrofitted \citep{zhang2025realsafe}. The cleanest way to
+read these results is differential: hold the base model fixed and vary the
+post-training, and the safety you get varies with it. That is precisely the
+contrast the project's non-thinking baseline already sets up, now with safety as
+the readout.
+
+Two cautions from this literature shape the design. First, safety may not be
+linearly separable from capability at all: \citet{ponkshe2025safety} find that the
+subspaces amplifying safe behaviour also amplify useful behaviour, so a clean
+``safety manifold'' could be an artefact of a capability correlation, and any
+geometric claim needs a difficulty-matched capability control. Second, even refusal
+\emph{output} is multi-dimensional once you look past the dominant direction, with
+orthogonal secondary directions that gate it \citep{pan2025hidden}. The companion
+phenomenon is emergent misalignment: narrow fine-tuning on insecure code makes a
+model broadly misaligned \citep{betley2025emergent}, and the weight updates for
+different harmful fine-tunes share a low-dimensional subspace
+\citep{arturi2025shared}---evidence that post-training moves safety along a small
+number of reusable axes. If misalignment is low-rank and reusable, the shape of the
+safety object is worth measuring directly.
+
+\subsection{Faithfulness, monitorability, and how deliberative safety fails}
+
+A safety story told in the chain of thought is only as good as the chain's
+faithfulness. The optimistic case is that reasoning in legible language is a
+monitorable safety affordance, and a recent cross-organisation position paper
+argues exactly that, while stressing the affordance is fragile and easily trained
+away \citep{korbak2025monitorability}. The pessimistic evidence is strong.
+\citet{chen2025dontsay} show reasoning models often fail to verbalise the hints
+they use, with reveal rates frequently below twenty percent.
+\citet{chan2025predict} make the constructive version of the point: a linear probe
+on chain-of-thought \emph{activations} predicts an unsafe final answer better than
+any text-based monitor, and does so before the chain finishes---latents are a more
+faithful signal than the words. Open-weight evaluations corroborate the text--latent
+gap \citep{young2026lieto}. For reasoning models specifically, refusal can collapse
+at the last moment: the ``refusal cliff'' is a sharp drop in refusal intent at the
+final tokens before output, traceable to a sparse set of attention heads, even
+though the model held a strong refusal intent throughout its thinking
+\citep{yin2025cliff}; safe behaviour can sometimes be restored by intervening in
+the first few reasoning steps, at least in the multimodal setting where this was
+shown \citep{ghosal2026safethink}.
+
+The most direct evidence that deliberative safety is a \emph{geometric} object,
+and an exploitable one, comes from red-teaming \mbox{gpt-oss-20b}. A prize-winning
+competition entry, the ``Lucky Coin'' jailbreak, appends forged policy
+deliberation---an invented exception written in the model's own analysis-channel
+style---and the model adopts the fabricated premise and complies; the authors report
+that a classifier over harmony-role activations represents the injected text like
+the model's own policy reasoning \citep{ye2025luckycoin}. Systematic probes of
+\mbox{gpt-oss-20b} catalogue related failure modes, including policy-paradox prompts
+that lift jailbreak success from a few percent to over forty
+\citep{gptoss2025probing}, and agentic red-teaming surfaces vulnerabilities that
+appear only inside tool-use contexts \citep{mindthegap2025agentic}. These results
+are striking and, in the competition's case, not peer-reviewed; their interpretation
+is exactly what a rigorous, null-controlled geometric study can supply. Cross-model
+diffing now reaches across architectures---dedicated-feature crosscoders surface a
+copyright-refusal mechanism in \mbox{gpt-oss-20b} absent from Qwen3-derived models
+\citep{jiralerspong2026crossarch}---building on diffing methods whose sparsity
+artefacts are themselves now understood \citep{minder2025crosscoder}.
+
+\subsection{The gap this work occupies}
+
+Put the two halves together. The geometry of refusal as an output is settled; the
+geometry of safety \emph{reasoning as a behaviour in the chain of thought} is
+unoccupied. Deliberative alignment manufactured that behaviour and made it legible;
+gpt-oss-20b shipped it open; the Lucky Coin jailbreak hints that its geometry is
+load-bearing and forgeable. The apparatus that the reasoning-geometry program built
+to ask ``manifold or subspace?'' for generic behaviours is the apparatus needed to
+ask it for safety, with post-training as the variable that the field's own results
+say should change the answer. That is the niche.
+
+% =====================================================================
+\section{The original project: per-behaviour geometry of reasoning}
+\label{sec:original}
+% =====================================================================
+
+\subsection{Research questions}
+
+The program decomposes the manifold-versus-subspace tension into three questions,
+each one publishable contribution.
+\begin{description}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item[Q1 (Temporal).] How do behaviours distribute within a chain, and how much of
+a reported behaviour fraction is an artefact of the generation cap?
+\item[Q2 (Geometric).] For each behaviour, is the activation distribution a flat
+subspace, a curved manifold, or high-dimensional scatter, and what null baselines
+separate real low-dimensionality from finite-sample artefacts?
+\item[Q3 (Causal).] If a behaviour's activations are curved with characteristic
+scale $\kappa$, linear steering should saturate near a radius $\alpha^\star \propto
+1/\kappa$. Does it?
+\end{description}
+
+\subsection{Pipeline}
+
+A five-phase pipeline produces the data once and serves all three questions.
+\textbf{(1)~Task generation:} Claude Sonnet 4.5 writes 1{,}000 reasoning tasks
+across ten categories. A deduplication audit removes near-duplicate prompts, which
+matter because correlated tasks deflate estimated intrinsic dimension and
+manufacture spurious low-rank structure---a corpus-hygiene step the field rarely
+reports. \textbf{(2)~Chain generation:} R1-Distill-Qwen-1.5B answers each task with
+greedy decoding under an 8{,}192-token cap, chosen to sit above Venhoff's
+1{,}000-token cap and below Huang's overthinking regime; pilot chains terminate
+naturally about 95\% of the time at a mean length near 2{,}500 tokens.
+\textbf{(3)~Annotation:} chains are sentence-segmented and labelled with Venhoff's
+six-way scheme using the original prompt verbatim, with overlapping chunking for
+chains that exceed annotator context. \textbf{(4)~Extraction:} residual-stream
+activations are taken at the last token of each annotated sentence at layers
+$\{3,7,10,14,17,21,24,27\}$, preserving both Venhoff-style fixed-layer analysis and
+the cross-layer axis. \textbf{(5)~Geometry and steering:} described next.
+
+\subsection{The statistical apparatus}
+
+Phase~5 is the methodological core, and the reason the project can say something
+the prior work cannot. For each behaviour it computes a PCA spectrum with bootstrap
+confidence intervals; a \textbf{Marchenko--Pastur null} built by Monte Carlo over
+matched-$(N,d)$ Gaussian draws, so that a variance ratio counts as evidence only
+where it exceeds the noise floor; a \textbf{permutation null} that shuffles
+behaviour labels to separate ``activation of this behaviour'' from ``activation of
+this model''; \textbf{three intrinsic-dimension estimators} read together so that
+agreement supports a dimension claim and disagreement flags it; and \textbf{three
+curvature diagnostics}---a local-versus-global PCA dimension ratio, a
+geodesic-to-Euclidean distance ratio on a $k$-nearest-neighbour graph, and
+tangent-space variation across the data---each near zero for a flat subspace and
+growing with curvature. The combination of random-matrix nulls and direct curvature
+measurement is what distinguishes a genuine manifold claim from a restated variance
+ratio.
+
+\subsection{The result already in hand}
+
+One empirical finding is established, on a 20-chain stratified pilot, and it is the
+temporal one. Behaviours occupy distinct mean positions along the chain:
+initialization at 0.31, knowledge augmentation at 0.39, uncertainty estimation at
+0.52, backtracking at 0.60, on a scale from chain start to chain end. The ordering
+is the one a person would predict---frame, recall, evaluate, abandon---and it
+explains a discrepancy. Behaviour fractions in 8{,}192-token chains diverge from
+Venhoff's; stratifying by length resolves it, with short chains matching his
+fractions within tolerance on five of six labels and long chains over-sampling the
+late behaviours. Venhoff's ``backtracking is 4\% of sentences'' is therefore a
+statement about the first thousand tokens, not about reasoning in general. The
+geometric and causal questions (Q2, Q3) are posed and instrumented but not yet
+answered; their results belong to the empirical write-ups, and Section~\ref{sec:risks}
+is candid about which preliminary numbers are not yet trustworthy.
+
+\subsection{Extensions that sharpen the core}
+
+Two extensions deepen the program without adding papers. The \textbf{non-thinking
+baseline} runs the same pipeline on the base Qwen2.5-Math-1.5B and asks whether the
+geometry is latent in pretraining, constructed by distillation, or mixed; it is, in
+effect, a differential post-training experiment, which is exactly the hinge the
+safety extension swings on. The \textbf{cross-layer} extension reads behaviour
+representations across depth by linear probing and layer-wise PCA, with transcoder
+feature-circuit analysis deferred. Three workshop-paper contributions follow: a
+temporal-structure paper (Q1), a manifold-or-subspace paper (Q2, the methodological
+centre), and a curvature-predicts-saturation paper (Q3).
+
+% =====================================================================
+\section{The safety extension: the shape of safety after post-training}
+\label{sec:safety}
+% =====================================================================
+
+\subsection{Thesis}
+
+The host question---does a behaviour occupy its own manifold or just a
+subspace?---acquires stakes and a mechanism when the behaviour is safety. The claim
+is this: \emph{the shape of the safety-reasoning object in activation space is a
+fingerprint of the post-training recipe that installed it.} Deliberative alignment,
+which trains safety as multi-step deliberation, should carve a curved, chain-engaged
+manifold with a sharp turn at the decision point. Classical RLHF, which reshapes the
+first few tokens \citep{qi2025shallow}, should leave a near-straight shot to one
+early refusal direction. Reasoning distillation, which installs no safety stage,
+should leave almost nothing separable. And a successful jailbreak should show up as
+a trajectory pushed \emph{off} the safe manifold. If safety reasoning is instead
+flat, or inseparable from capability \citep{ponkshe2025safety}, that is not a failed
+experiment---it is a mechanistic explanation for why deliberative alignment is
+jailbreakable, in the same spirit as the project's informative-null posture for Q2.
+
+\subsection{Three reuses of the existing apparatus}
+
+The extension is mostly new stimuli and a new label set, not new infrastructure.
+\textbf{Curvature becomes a mechanism discriminator}: the predicted
+flag~$\to$~recall-policy~$\to$~adjudicate~$\to$~decide structure of deliberative
+safety is a multi-segment, curved trajectory, where a shallow RLHF refusal is not,
+so the project's curvature diagnostics tell the two mechanisms apart.
+\textbf{The baseline comparison becomes a recipe ladder}: instead of only
+thinking-versus-base, the contrast runs across deliberative alignment, RLHF, reasoning
+distillation, and the shared base (Table~\ref{tab:ladder}). \textbf{Per-behaviour
+subspaces ask whether safety reasoning is a new primitive or a composition}:
+spec-recall resembles knowledge augmentation, adjudication resembles uncertainty
+estimation, reconsideration resembles backtracking, so the natural test is whether
+the safety-reasoning subspace lies inside the span of the existing behaviour
+subspaces or has an orthogonal component---a principal-angle test the project already
+implemented for a separate extension. Spec-recall is itself \emph{knowledge
+invocation} inside reasoning---the safety analogue of the knowledge-augmentation
+behaviour from the first half---so this test doubles as a question about whether
+deliberative safety is a new primitive or a composition of behaviours already in the
+inventory. (Whether the same probe-an-invocation method could one day distinguish
+genuine knowledge-creation from retrieval is a more philosophical question we leave
+to future work.)
+
+\begin{table}[t]
+\centering
+\small
+\caption{Five falsifiable hypotheses. Each is independently publishable, and a null
+result on H1 or H2 is itself a mechanistic explanation for the fragility of
+deliberative safety.}
+\label{tab:hyps}
+\begin{tabularx}{\textwidth}{@{}p{0.045\textwidth} Y p{0.30\textwidth}@{}}
+\toprule
+\textbf{\#} & \textbf{Hypothesis} & \textbf{Falsified if} \\
+\midrule
+H1 & Deliberative safety reasoning occupies its own low-dimensional but
+\emph{curved} object, with curvature above the flat-Gaussian null and above the
+four generic behaviours. & It is flat, high-dimensional, or indistinguishable from
+generic reasoning. \\[2pt]
+H2 & The \emph{shape} tracks the recipe: deliberative alignment $\to$ curved,
+chain-engaged, scaling with reasoning effort; RLHF $\to$ shallow early-token
+direction; distillation $\to$ weak or absent. & The object has the same shape
+across recipes, or gpt-oss curvature is flat. \\[2pt]
+H3 & Malice moves activations off the safe manifold; successful jailbreaks suppress
+the policy-citation direction and ride off-manifold at a locatable chain position.
+& Successful and failed attacks have identical geometry. \\[2pt]
+H4 & Output convergence, process divergence: refusal \emph{outputs} align across
+models (small principal angles) while safety-\emph{reasoning} subspaces diverge
+(large angles). & Reasoning subspaces align as tightly as output directions. \\[2pt]
+H5 & Forged $\approx$ genuine in representation: a probe trained on genuine
+deliberation classifies forged deliberation as genuine, and the forged premise
+becomes load-bearing at an identifiable layer. & The model linearly separates
+forged from genuine deliberation. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Hypotheses}
+
+Table~\ref{tab:hyps} states the five hypotheses and their falsifiers. H1 asks
+whether deliberative safety reasoning is a separable, curved object at all, and it
+\emph{gates} H2: if there is no separable safety object, the question of whether its
+shape tracks the recipe does not arise, and a difficulty-matched capability control
+\citep{ponkshe2025safety} is needed before any shape is credited to the recipe
+rather than to task difficulty. H2 is the post-training core: does the shape track
+the recipe? H3 tests whether jailbreaks are off-manifold events. H4 predicts that refusal \emph{outputs} converge across models
+while safety \emph{reasoning} diverges, because the recipes differ. H5 is the
+rigorous Lucky Coin: whether the model's activations fail to separate forged from
+genuine policy deliberation.
+
+\subsection{The annotation schema}
+
+The one genuinely new artefact is a schema for \emph{deliberative safety reasoning},
+parallel to Venhoff's behaviour scheme and built on deliberative alignment's own
+notion of policy retrieval. Analysis-channel sentences are labelled as
+\texttt{spec\_citation} (recalling or paraphrasing a policy clause---the retrieval
+signal made into a label, and a sibling of knowledge augmentation),
+\texttt{adjudication} (weighing whether and how to comply, a sibling of uncertainty
+estimation), \texttt{decision} (the three-way refuse / safe-complete / comply
+commitment), and \texttt{harm\_recognition} (the chain explicitly noting the request
+is harmful, which exposes the knows-but-complies gap when recognition co-occurs with
+compliance). The same multi-annotator robustness pipeline the project uses
+elsewhere---three independent judges scored by Cohen's $\kappa$---guards the labels,
+and the empirical anchor that this is detectable is that refusal chains cite policy
+far more often than jailbroken ones.
+
+\begin{table}[t]
+\centering
+\small
+\caption{The post-training recipe ladder. Within the Qwen-1.5B family (rows
+2--4) the base is held fixed and post-training is the only variable; gpt-oss-20b
+(row 1) adds deliberative alignment but also differs in scale, architecture, and
+data, so its row is a confounded contrast, and the clean handle on deliberative
+alignment is gpt-oss's own reasoning-effort control. Two of the three 1.5B arms
+already run in the project.}
+\label{tab:ladder}
+\begin{tabularx}{\textwidth}{@{}l l Y@{}}
+\toprule
+\textbf{Arm} & \textbf{Model} & \textbf{Predicted safety geometry} \\
+\midrule
+Deliberative alignment & gpt-oss-20b & curved, chain-engaged manifold; scales with reasoning effort \\
+RLHF safety & Qwen2.5-1.5B-Instruct & shallow early-token single direction \\
+Reasoning, no safety & R1-Distill-Qwen-1.5B & weak or no separable safety object \\
+Base (origin control) & Qwen2.5-Math-1.5B & none \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Experiments}
+
+Five experiments map onto existing runners; each names its falsifier.
+\textbf{S1 (DSR geometry)} extracts deliberative-safety activations on harmful,
+benign, over-refusal, and safe-completion prompts and asks whether they form a
+single direction, a flat cone, or a curved manifold, with a principal-angle
+composition test against the generic behaviours (H1).
+\textbf{S2 (malice off-manifold)} builds chain-as-curve trajectories on matched
+harmful/benign pairs and successful-versus-failed jailbreaks and measures an
+off-manifold score and the chain position of any refusal collapse, the geometric
+read of the refusal cliff \citep{yin2025cliff} (H3).
+\textbf{S3 (rigorous Lucky Coin)} trains a genuine-versus-forged probe across
+layers, with chain-grouped cross-validation, and uses activation patching to find
+where a forged premise becomes causally load-bearing---the headline safety result,
+and the one that tests load-bearingness rather than assuming it (H5).
+\textbf{S4 (recipe differential)} runs the ladder of Table~\ref{tab:ladder} plus a
+within-gpt-oss reasoning-effort sweep, the one knob OpenAI exposed, partialling out
+a capability subspace as \citet{ponkshe2025safety} demand (H2, H4).
+\textbf{S5 (steering, stretch)} steers the safety direction to toggle refuse against
+comply and couples saturation to curvature, the direct safety instance of Q3.
+
+\subsection{Models and the discipline of cross-dimensional comparison}
+
+gpt-oss-20b is the new compute load; the three contrast models are 1.5B and cheap.
+Its residual stream is extractable exactly as the DeepSeek pipeline does it---hidden
+states of shape $[\text{batch},\text{seq},2880]$ across 25 tensors, with MXFP4
+quantising weights only---and it fits in roughly 16\,GB on Hopper hardware or about
+48\,GB in bfloat16 on the lab's unified-memory machine. Comparing a $d=1536$ model
+with a $d=2880$ one demands discipline: compare \emph{summary statistics}---intrinsic
+dimension, curvature, eigenvalue spectra, geodesic ratios---not raw vectors; normalise
+depth by fraction, since ``layer 14'' does not correspond across models; use CKA,
+principal angles, or Procrustes on per-model subspaces for any overlap claim; and
+analyse the \emph{residual stream only}, because the mixture-of-experts routing makes
+MLP outputs carry top-4-of-32 variance that is not geometry. gpt-oss's alternation of
+sliding-window and full attention can imprint an even/odd per-layer artefact, which
+the analysis should expect rather than over-read.
+
+\subsection{Positioning}
+
+The recommended framing elevates safety to the flagship while protecting the
+validated core. Papers~1 and~2---temporal structure and manifold-or-subspace on the
+four generic behaviours---stand as the apparatus that earns the right to make safety
+claims; the safety paper becomes the new flagship, absorbing the
+curvature-and-steering machinery of the old Paper~3, with generic steering demoted to
+a method-validation section. The work targets socially-responsible-LM and AI-safety
+venues and the mechanistic-interpretability workshops, where the combination of
+deliberative alignment, open weights, and a striking failure mode is the kind of
+story that travels.
+
+% =====================================================================
+\section{Shared methodology and reuse}
+\label{sec:methods}
+% =====================================================================
+
+The safety arm is roughly ninety percent existing code. Reused wholesale: chain
+generation, the multi-annotator robustness pipeline, activation extraction, PCA, the
+Marchenko--Pastur nulls, the intrinsic-dimension estimators, the curvature
+diagnostics, cross-layer probing, the trajectory module, activation patching, steering
+with a causal fail-stop, and the principal-angle test. Genuinely new and small: a
+gpt-oss loader path (harmony template with a reasoning-effort control and the
+2880-wide, 25-tensor shape), the deliberative-safety annotation schema and its judge
+prompt, a forged-deliberation stimulus generator with its genuine-versus-forged probe,
+and an early-token KL localisation for the RLHF arm. The loader path has been built
+and unit-tested on a smoke harness, with the DeepSeek path left byte-for-byte
+unchanged behind a default family flag; the remaining engineering is verification on
+the real model. Annotation re-engages the API budget that has otherwise gone idle.
+
+% =====================================================================
+\section{Risks, confounds, and honest limitations}
+\label{sec:risks}
+% =====================================================================
+
+The geometric claims are only as good as the estimators behind them, and an internal
+audit found several that were not yet trustworthy. The headline one: the
+local-versus-global dimension ratio used as a curvature diagnostic was confounded by
+neighbourhood size against subspace dimension, returning ``curved'' values on
+perfectly flat Gaussian data. It has since been corrected and calibrated against flat
+and spherical references, but the consequence is firm---any curvature or
+intrinsic-dimension number produced before the fix, including those in earlier
+progress notes, must be regenerated before it is cited, and none of them appear as
+results in this summary. The same audit flagged non-reproducible PCA from an
+unseeded randomized solver and a cross-model comparison whose ``bootstrap'' was a
+Gaussian reconstruction rather than a resample; both must be fixed before the
+cross-model hypothesis H4 is load-bearing.
+
+The methodological cautions are real and carried openly. Per-behaviour samples of
+fifty to a few hundred in $d=1536$ or $d=2880$ are small for intrinsic-dimension and
+curvature estimation, so bootstrap confidence intervals and the
+Marchenko--Pastur null are primary, not decorative. ``Manifold steering'' is a linear
+projection, so it tests a subspace rather than curvature, a mismatch the Q3 paper must
+state rather than paper over. Behaviour labels come from an LLM annotator, which is why
+the three-judge agreement pipeline exists. Half the chains hit the token cap, an
+unresolved truncation confound, and mean-pooling destroys the very trajectory the
+manifold claim is about, so the trajectory experiments must not pool.
+
+The safety arm inherits sharper versions of the same risks. Safety may not be linearly
+separable from capability \citep{ponkshe2025safety}, so the deliberative-safety
+geometry must be reported relative to a difficulty-matched capability baseline, not in
+isolation. Chains of thought are often unfaithful \citep{chen2025dontsay}, so a
+``safety reasoning manifold'' cannot be assumed to be causal---it is exactly why S3
+patches and steers rather than reads, and why the latents-beat-text result
+\citep{chan2025predict} is encouraging rather than sufficient. The Lucky Coin jailbreak
+is a non-peer-reviewed competition writeup \citep{ye2025luckycoin}; it motivates the
+work but does not substantiate it, which is the point of replicating it with nulls and
+grouped cross-validation. Stated plainly: the strongest version of this thesis is a set
+of falsifiable predictions with the instruments to test them, several of which may come
+back null, and a null on the central hypothesis would itself be a finding about why
+deliberative alignment can be talked out of its own policy.
+
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% =====================================================================
+
+The project began with a narrow geometric puzzle---if each reasoning behaviour is one
+direction, where does the aggregate structure come from?---and built the apparatus to
+answer it honestly: null baselines that resist finite-sample illusions, multiple
+intrinsic-dimension estimators, and direct curvature measurement, validated by a
+clean temporal finding about how behaviours order themselves within a chain. That
+apparatus turns out to be a safety instrument. Because a behaviour's shape is
+installed by post-training, the geometry of the safety object becomes a window on the
+alignment recipe that made it---read cleanly within one model family, and within
+gpt-oss through its reasoning-effort control---and on how a jailbreak escapes it, most
+sharply the forged-policy jailbreak, which we turn from an anecdote into a measurement
+of where in the reasoning a fabricated premise becomes load-bearing. The unifying
+object is the reasoning behaviour as geometry; the unifying discipline is that one
+measures its shape rather than asserting it, and reports which claims are results and
+which are still predictions. Whether the same instrument can one day certify genuine
+knowledge-creation against retrieval---the project's original, more philosophical
+motivation---is left as future work.
+
+\small
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
