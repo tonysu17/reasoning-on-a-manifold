@@ -23,7 +23,7 @@ Record keys: `id`, `category`, `difficulty`, `prompt`. 10 categories.
 | File | Status | Notes |
 |------|--------|-------|
 | `tasks_final.json` | **CANONICAL** | The task corpus: 1000 tasks, 100/category, after lateral-thinking regeneration + final dedup (Phase 1.5, `04_cleanup_tasks.py`). 2026-05-23. |
-| `tasks.json` | **DEPRECATED (stale)** | Older 1000-task corpus (2026-05-21), pre-cleanup. **Do not use.** Bug: `07_evaluate_steering.py` reads this file instead of `tasks_final.json` (line ~78). `configs/config.yaml` also points `paths.tasks` here. |
+| `tasks.json` | **DEPRECATED (stale)** | Older 1000-task corpus (2026-05-21), pre-cleanup. **Do not use.** (The old bug where `07_evaluate_steering.py` read this file was fixed in the 2026-06-05 audit — 07 now reads `tasks_final.json`; `00_pilot_gate.py` is the only remaining reader and is guarded as HISTORICAL.) |
 | `tasks_deduped.json` | Intermediate | 901 tasks after the first dedup pass, before lateral-thinking regeneration/top-up. Input to `04_cleanup_tasks.py`. |
 | `tasks_500balanced.json` | Intermediate | 500-task balanced subset (50/category), 2026-05-28. |
 | `tasks_pilot.json` | Intermediate | 20-task stratified pilot (2/category) for the pilot gate (`00_pilot_gate.py`). |

@@ -1,18 +1,24 @@
 # Reasoning on a Manifold
 
-**Do individual reasoning behaviours in thinking LLMs have manifold structure?**
+**What is the per-behaviour geometry of reasoning in thinking LLMs — and does it matter for control?**
 
 This project synthesises two lines of work:
 
-- **Huang et al. (NeurIPS 2025)** — *Mitigating Overthinking in Large Reasoning Models via Manifold Steering*: showed that the composite phenomenon of overthinking lives on a low-dimensional manifold in activation space, and that projecting steering vectors onto this manifold dramatically improves intervention effectiveness.
+- **Huang et al. (NeurIPS 2025)** — *Mitigating Overthinking in Large Reasoning Models via Manifold Steering*: showed that the composite phenomenon of overthinking lives on a low-dimensional manifold (operationalised as a top-k PCA subspace) in activation space, and that projecting steering vectors onto it dramatically improves intervention effectiveness.
 
-- **Venhoff et al. (ICLR 2025 Workshop)** — *Understanding Reasoning in Thinking Language Models via Steering Vectors*: identified several distinct reasoning behaviours in thinking LLMs (backtracking, uncertainty estimation, example testing, knowledge augmentation) and showed each can be controlled via a single linear steering vector.
+- **Venhoff et al. (ICLR 2025 Workshop)** — *Understanding Reasoning in Thinking Language Models via Steering Vectors*: identified distinct reasoning behaviours in thinking LLMs (backtracking, uncertainty estimation, example testing, knowledge augmentation) and showed each can be **controlled by a single linear steering vector**.
 
-**The gap:** Venhoff assumes each behaviour is captured by a single direction. Huang only studies the composite overthinking phenomenon. Nobody has checked whether *individual* reasoning behaviours have richer geometric structure (multi-dimensional manifolds rather than single directions).
+**The gap, as a three-rung ladder.** For *individual* reasoning behaviours:
 
-**The hypothesis:** Behaviours like backtracking come in multiple flavours (e.g., "arithmetic re-checking" vs "strategy-level pivoting"). If so, they should occupy a multi-dimensional subspace, and manifold-projected steering per behaviour should enable finer-grained control than a single vector.
+1. **Rung 1 — a single direction suffices for control.** Established by Venhoff et al. (They showed sufficiency; they did not claim a single direction exhausts the behaviour's structure.)
+2. **Rung 2 — the behaviour occupies a multi-dimensional subspace.** Huang et al. established this for the *composite* overthinking signal; whether each individual behaviour has its own low-dimensional, behaviour-specific subspace — and whether subspace-projected steering beats the single direction per behaviour — is open. **This is our primary claim, and it is testable with linear instruments.**
+3. **Rung 3 — the structure is curved beyond any linear subspace.** Concept-dependent curvature and nonlinear-beats-linear steering have been shown for non-reasoning concepts (persona/safety traits, cyclic features — see Related work); for reasoning behaviours this is open. Curvature claims require the estimator-validated diagnostics in `src/curvature.py` *plus* a nonlinear steering operator; our current steering apparatus is linear, so rung-3 results here are descriptive, not causal (see `CONFOUNDS_AND_REMEDIATION.md` CF-5).
 
-The primary model is `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` (28 layers, hidden dim 1536, steering layer 27). A knowledge-creation extension (the "CBS" / Content-Beyond-Source pipeline, phases 8–13) additionally contrasts the distilled model against its empirically-verified base, `Qwen/Qwen2.5-Math-1.5B`, to test whether the geometry is *created* by distillation or merely *revealed* by it.
+The original motivating hypothesis — that behaviours come in discrete flavours (e.g. "arithmetic re-checking" vs "strategy-level pivoting") — was **not supported** by sub-type clustering (Phase 5d: k=2, silhouettes 0.11–0.18, pre-dedup data); the working picture is continuous low-dimensional structure per behaviour.
+
+**The experiment nobody else can run:** Huang's composite overthinking direction is exactly reconstructable (same model, same layer 27, published recipe). Decomposing it into our per-behaviour subspaces — *which behaviours mediate overthinking mitigation?* — directly synthesises the two anchor papers and requires this project's per-behaviour annotation corpus.
+
+The primary model is `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` (28 layers, hidden dim 1536, steering layer 27). A knowledge-creation extension (the "CBS" / Content-Beyond-Source pipeline, phases 8–13) contrasts the distilled model against its empirically-verified base, `Qwen/Qwen2.5-Math-1.5B`. **Status: deferred.** The binary "does distillation create or reveal the mechanisms?" is substantially answered in the literature (base models already contain them — arXiv:2510.07364, arXiv:2507.12638); what survives as novel is the *geometric refinement* — does distillation sharpen, rotate, or expand the pre-existing per-behaviour subspaces? — which is future work until the core per-behaviour results ship.
 
 ## Repository layout
 
@@ -38,8 +44,8 @@ reasoning-on-manifold/
 │   └── cbs/                   # knowledge-creation extension (phases 8–13)
 │       ├── schemas.py  cohort.py  annotation.py  geometry.py
 │       ├── matching.py  trajectory.py  ablation.py  comparison.py
-│       └── tests/             # pytest suite (98 tests)
-├── configs/config.yaml        # documentary config — NOT loaded by code (see Known limitations)
+│       └── tests/             # CBS pytest suite (full repo suite: `python -m pytest`)
+├── configs/config.yaml        # single config source — loaded by src/config.py
 ├── data/                      # generated data (gitignored); see data/MANIFEST.md
 ├── results/                   # outputs (mostly gitignored)
 ├── PROGRESS.md                # detailed build/run status and empirical findings
@@ -91,7 +97,7 @@ Status and quantitative findings live in `PROGRESS.md`.
 
 | Phase | Runner | What it does | Where |
 |------|--------|--------------|-------|
-| Pilot gate | `00_pilot_gate.py` | Mandatory 20-chain stratified pilot through Phases 2–3 + 5 validation checks before scale-up | GPU (chains) + local |
+| Pilot gate | `00_pilot_gate.py` | HISTORICAL — checks 1–5 import a batch-annotation API that was never implemented; the pilot actually ran through `03 --pilot`. Kept as a record, guarded against accidental runs | — |
 | 1 | `01_generate_tasks.py` | Generate 1000 reasoning tasks (100 × 10 categories) via the proxy | Local |
 | 1.5 | `04_cleanup_tasks.py` | Regenerate `lateral_thinking` with a classic-puzzle blocklist, top every category to 100, final dedup → `tasks_final.json` | Local |
 | 2 | `02_generate_chains.py` | Run R1-Distill on the task corpus to produce reasoning chains (greedy, max 8192 tokens) | GPU |
@@ -105,7 +111,7 @@ Status and quantitative findings live in `PROGRESS.md`.
 | 5d | `05d_subtype_clustering.py` | K-means sub-type discovery per behaviour in PCA space (sub-type steering vectors) | Local |
 | 6 | `06_build_steering.py` | Build single-direction (Venhoff) and manifold-projected steering vectors | Local |
 | 6b | `06b_steering_composition.py` | Pairwise composition diagnostics — cos(v_sum, v_proj), off-manifold ratio | Local |
-| 7 | `07_evaluate_steering.py` | Apply steering vectors to held-out tasks; behavioural shift, saturation, generalisation | GPU |
+| 7 | `07_evaluate_steering.py` | Apply steering vectors to a category-stratified eval split (shared vanilla baseline + single-direction + manifold-projected + norm-matched random-direction control); behavioural shift, saturation | GPU |
 | 7b | `07b_activation_patching.py` | Donor-pair activation patching → per-layer causal effect curves | GPU |
 | 8 (M1) | `08_annotate_cbs.py` | CBS-tier + cross-domain second-pass annotation of `adding-knowledge`/`deduction` sentences | Local |
 | 9 (M2) | `09_cbs_geometry.py` | Per-sentence geometric tests by CBS tier and cross-domain flag (Holm-corrected) | Local |
@@ -127,21 +133,23 @@ runner's `--help`.
 
 ## Tests
 
-The CBS extension has a pytest suite (98 tests):
+Full suite (core + CBS; 255 tests as of 2026-06-12):
 
 ```bash
 pip install -e ".[cbs]"
-pytest src/cbs/tests/
+python -m pytest
 ```
 
 ## Known limitations
 
-- **`configs/config.yaml` is documentary only — no code currently loads it.**
-  All parameters (model IDs, layers, token caps, alpha grids, paths) are
-  hardcoded in the individual runners and `src/` modules. The YAML is a useful
-  reference for intended settings but editing it changes nothing at runtime.
-  Note in particular that its `paths.tasks` points at the stale `data/tasks.json`
-  (see next point and `data/MANIFEST.md`).
+- **No geometry number is currently citable.** The 2026-06-05 audit fixed
+  biased estimators (TwoNN, curvature ratio) and 2026-06-12 fixed the
+  duplicate-row/alignment bug (35–56% exact-duplicate activation rows from
+  first-occurrence sentence matching); every pre-fix geometry output is
+  quarantined in `results/_STALE_pre_fix_20260605/` pending regeneration on the
+  fixed code (re-extraction first — the activation matrices themselves predate
+  the occurrence-aware matcher). See `CONFOUNDS_AND_REMEDIATION.md` (the
+  authoritative confound register) and `INVENTORY.md`.
 
 - **~50% chain truncation.** Per `PROGRESS.md`, 50.2% of the R1-1.5B chains hit
   the 8192-token cap and 49.9% lack a closing `</think>` (truncated mid-thinking),
@@ -150,14 +158,45 @@ pytest src/cbs/tests/
   account for this (the chosen policy is to stratify by a `truncated` flag; see
   `src/cbs/cohort.py`). Re-generating chains forces re-annotation.
 
-- **Phase 7 reads the wrong task file.** `07_evaluate_steering.py` loads
-  `data/tasks.json` (the older, stale corpus) rather than the canonical
-  `data/tasks_final.json`. This is a known bug, documented in `data/MANIFEST.md`.
+- **The Phase-7 eval split is stratified but not a true hold-out.** Activation
+  extraction (and therefore steering-vector construction) runs over the whole
+  corpus, including the eval tasks. Phase-7 numbers are on-corpus causal
+  effects, not out-of-sample generalisation, until extraction excludes the
+  eval split.
 
-- **`pyproject.toml` build backend.** The `build-backend` line is currently
-  being fixed separately; `pip install -e .` is the intended installation path.
+- **Single LLM annotator.** All behaviour labels come from one annotator
+  (Claude Sonnet 4.5 via the lab proxy — not GPT-4o, despite Venhoff's
+  original setup); the 3-annotator robustness arm (Qwen3-235B, Nova-Pro) is in
+  flight. Labels are the dependent variable for everything downstream.
+
+(Resolved former entries: `configs/config.yaml` is now loaded by `src/config.py`
+as the single config source; Phase 7 reads the canonical `data/tasks_final.json`;
+the `pyproject.toml` build backend is fixed — `pip install -e .` works.)
+
+## Related work
+
+- **Huang et al., NeurIPS 2025** (arXiv:2505.22411) — composite overthinking on a
+  low-dim manifold (top-k PCA subspace), manifold-projected steering. *We ask the
+  per-behaviour version, with the same model and steering layer.*
+- **Venhoff et al., ICLR 2025 Workshop** (arXiv:2506.18167) — one linear direction
+  per behaviour suffices for control. *We measure the structure a single
+  direction may not exhaust; rung 1 is theirs, not contested.*
+- **Curveball Steering** (arXiv:2603.09313, Mar 2026) — concept-dependent
+  curvature; nonlinear steering beats linear on persona/safety traits. *Different
+  concept class; reasoning behaviours remain open.*
+- **Goodfire Manifold Steering** (arXiv:2605.05115, May 2026) — linear steering
+  drifts off-manifold on cyclic concepts. *Same moral, different concepts.*
+- **REMA** (arXiv:2509.22518) — occupies the term "reasoning manifold" (also
+  TwoNN-based). *We therefore headline "per-behaviour activation geometry"
+  rather than "reasoning manifold".*
+- **arXiv:2510.07364** — the base model (Qwen2.5-Math-1.5B) already contains
+  reasoning mechanisms; steering recovers up to 91% of the distillation gap.
+  *Pre-answers CBS's binary question; motivates the geometric-refinement
+  reframing and the CBS deferral.*
+- **arXiv:2507.12638** — the backtracking direction pre-exists in base models.
+  *Same implication.*
 
 ## References
 
-- Huang et al., "Mitigating Overthinking in Large Reasoning Models via Manifold Steering," NeurIPS 2025.
-- Venhoff et al., "Understanding Reasoning in Thinking Language Models via Steering Vectors," ICLR 2025 Workshop.
+- Huang et al., "Mitigating Overthinking in Large Reasoning Models via Manifold Steering," NeurIPS 2025 (arXiv:2505.22411).
+- Venhoff et al., "Understanding Reasoning in Thinking Language Models via Steering Vectors," ICLR 2025 Workshop (arXiv:2506.18167).

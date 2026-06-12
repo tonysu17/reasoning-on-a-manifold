@@ -8,7 +8,7 @@ Reproduce the test suite:
 
 ```bash
 pip install -e .            # build backend was broken; now fixed
-python -m pytest            # 164 tests: 98 CBS + 66 core/config/leakage
+python -m pytest            # full suite (255 tests as of 2026-06-12; §5 quotes 220 from its second pass — counts grow with fixes)
 ```
 
 ---
@@ -72,10 +72,12 @@ Added a shared `cv_probe(X, y, groups=...)` using `StratifiedGroupKFold` when ch
 ## 3. Open issues & recommendations
 
 - **#15 (residual) true paired bootstrap** — the cross-model p is now honestly labelled `p_normal_approx` (Gaussian-from-CI), but a genuine paired bootstrap still requires the producers (`05`/`05b`) to persist per-resample arrays so `cross_model_compare` can resample them. Deferred.
-- **#16 Bootstrap CIs** — `intrinsic_dim`/`curvature` bootstrap *derived* quantities (μ ratios, pairwise distances), which are dependent → CIs too narrow (e.g. `[0.575, 0.587]`). Resample points and recompute end-to-end.
-- **#17 Activation patching proxy** — `behaviour_marker_logprob` scores behaviours by tokens like `"wait"`/`"actually"`; this conflates behaviour with surface lexis and patches position *i* across non-aligned chains. Needs a validated behaviour metric and positional alignment before it can support a "Paper 2 main" causal claim.
-- **#18 MODELS dicts** — 02/04/07 still carry divergent `MODELS` (07 uses tuple values keyed `"1.5b"` and lacks the baseline). Migrate to `src.config.MODELS`.
+- ~~**#16 Bootstrap CIs**~~ **[DONE 2026-06-05, commit `d7d147e`]** — point-subsample bootstrap (m=0.8N without replacement, statistic recomputed end-to-end) replaced the derived-quantity resampling across curvature + intrinsic_dim. (This §3 entry was stale; §5 was correct. Re-run on real data still owed — CF-9.)
+- **#17 Activation patching proxy** — `behaviour_marker_logprob` scores behaviours by tokens like `"wait"`/`"actually"`; this conflates behaviour with surface lexis and patches position *i* across non-aligned chains. Needs a validated behaviour metric and positional alignment before it can support a "Paper 2 main" causal claim. **STILL OPEN.**
+- ~~**#18 MODELS dicts**~~ **[DONE 2026-06-05, commits `43f6b2e`+`ba52881`]** — 02/04/07 build their registries from `src.config.MODELS_BY_CLI` (verified in-tree 2026-06-12; this §3 entry was stale, §5/“[DONE]” was correct).
 - **#19 statsmodels** — declared in `[cbs]` extras, imported nowhere. Remove or implement the promised M4 mixed-effects model.
+
+> **2026-06-12 addendum.** A second wave of fixes landed for findings outside this audit's scope: occurrence-aware sentence matching + row-provenance sidecar (CF-13/CF-14 — the 35–56% duplicate-row bug), chain-grouped CV in 05c (CF-15), Phipson–Smyth-smoothed permutation p's + a real Holm–Bonferroni in the triangulation (CF-16), and the Phase-7 pre-spend patches (CF-17). See `CONFOUNDS_AND_REMEDIATION.md` — that file, not this one, tracks their re-run debt.
 
 ### Methodological (research-design) cautions
 - ~~**N is small** (51–145/behaviour) for intrinsic-dim/curvature in d=1536~~ **[CORRECTED 2026-06-06: 51–145 was the SMOKE cohort (`data/activations/R1-1.5B-smoke/` = 51/97/145/145). The full run uses N = 5 027 (adding-knowledge) / 5 829 (example-testing) / 10 267 (backtracking) / 16 728 (uncertainty), verified from `data/activations/R1-1.5B/` shapes. Raw N is fine — the real threat is *effective* N (~1000 chains; CF-2 in `CONFOUNDS_AND_REMEDIATION.md` §1).]** Still report a *working* power analysis (now unblocked) before claiming dimensions.

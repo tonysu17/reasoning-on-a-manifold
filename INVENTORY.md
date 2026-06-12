@@ -30,6 +30,7 @@ verification, chain-quality, annotation distribution) are unaffected.
 | `plots/`, `pilot_diagnostics.json`, `pilot_per_sentence.csv` | **PILOT** (May 22) — valid for the 20-chain pilot, superseded by full corpus | ⚠️ pilot only |
 | `supervisor_meeting/` | **MIXED, kept intact** — May-28 deliverable; see per-figure table below | ⚠️ partial |
 | `_STALE_pre_fix_20260605/` | **STALE / INVALID** — 12 dirs moved here 2026-06-06; pre-fix estimators. See its `README.md` | ❌ regenerate |
+| `tier1_robustness/R1-1.5B/geometry_nulls_layer27.*` | **SUPERSEDED (2026-06-12)** — the 06-08 keystone-null run predates the CF-13 duplicate-row fix; its twoNN "dims" (0.168!) are zero-distance artifacts and its p=0.0000 cells are unsmoothed. Re-run `tier1_geometry_nulls.py` after re-extraction | ❌ re-run |
 | `_archive_run1_20260528_094332/` | **ARCHIVED run1** — even older (pre May-28 cap fix); your prior archive | ❌ historical |
 | `_archive_run1_20260528_094733/` | Empty archive dir (cruft from an aborted archive) | — |
 

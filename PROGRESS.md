@@ -10,6 +10,22 @@
 > inventory see `INVENTORY.md`. Base-model verification and chain-quality
 > findings below are unaffected (they use no geometry estimator).
 >
+> 🔄 **STATUS UPDATE 2026-06-12.** Deep-dive review (multi-agent) + fix wave 2.
+> **(1) CF-13/14 (NEW, S0):** 35–56% of activation rows were exact duplicates
+> (first-occurrence sentence matching) — which also biased the chain-stratified
+> nulls anti-conservatively, so the 06-08 tier1 layer-27 null run is
+> **SUPERSEDED**. Fixed: occurrence-aware matcher (`src/text_offsets.py`),
+> row-provenance sidecar at extraction (`src/row_provenance.py`), dedup in the
+> headline path, fail-loud proxy guards, smoothed permutation p's + a real
+> Holm–Bonferroni, chain-grouped CV in 05c, and the Phase-7 pre-spend patches
+> (8192 cap, shared vanilla, random-direction control arm, category-stratified
+> eval split, n_missing accounting, builder separation). **Re-extraction
+> (Gate 0.0) now precedes all geometry regeneration** — the saved `.npy`
+> matrices predate the matcher fix. **(2)** CBS is **deferred** (the
+> literature pre-answers its binary question; the geometric refinement
+> survives as future work). `CONFOUNDS_AND_REMEDIATION.md` (2026-06-12)
+> remains the authoritative file.
+>
 > 🔄 **STATUS UPDATE 2026-06-06.** Two further things are now stale: **(1) Phase 4
 > full extraction is DONE** — `data/activations/R1-1.5B/` holds the full
 > per-behaviour activations (N = 5 027 / 5 829 / 10 267 / 16 728, *not* the 51–145

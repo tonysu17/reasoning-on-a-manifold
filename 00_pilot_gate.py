@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """
-Pilot gate — MANDATORY before full Phase 2.
+Pilot gate — HISTORICAL, DO NOT RUN (kept as a record of the pilot design).
+
+The annotation subcommands (--annotate-submit/--annotate-status/--validate)
+import batch-API helpers (prepare_batch_file, submit_batch, check_batch_status,
+…) that were never implemented in src/annotation.py — so the scripted 5-check
+gate could never have run as written. The pilot actually went through
+`03_annotate_chains.py --pilot`, which means checks 1–5 below were never
+executed programmatically; the corpus-level equivalents now live in
+check_chain_quality.py and verify_annotation_completeness.py. It also reads the
+STALE data/tasks.json. A guard at the top of main() refuses to run.
+
+Original description:
 
 Runs a stratified 20-chain pilot (2 tasks per category) through Phases 2 and 3,
 then validates 5 checks before allowing scale-up.
@@ -314,6 +325,14 @@ def validate():
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
+    sys.exit(
+        "00_pilot_gate.py is HISTORICAL and cannot run: its annotation "
+        "subcommands import batch-API functions that never existed in "
+        "src/annotation.py, and it reads the stale data/tasks.json. The pilot "
+        "ran via `03_annotate_chains.py --pilot`; use check_chain_quality.py "
+        "and verify_annotation_completeness.py for the corpus-level checks. "
+        "(Delete this guard only if you implement the batch API.)"
+    )
     parser = argparse.ArgumentParser(description="Pilot gate for Reasoning on a Manifold")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--extract-tasks",    action="store_true",
