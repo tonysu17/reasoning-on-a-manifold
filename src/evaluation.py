@@ -33,6 +33,21 @@ def behaviour_fraction(annotated_chain: list[dict], target: str) -> float:
     return n_target / len(annotated_chain)
 
 
+#: Generated chains shorter than this many tokens count as degenerate output.
+DEGENERATE_TOKEN_FLOOR = 32
+
+
+def repetition_rate(text: str, n: int = 4) -> float:
+    """1 − distinct/total whitespace n-grams. High values flag the repetition
+    loops that destructive steering produces; too-short text scores 1.0."""
+    toks = text.split()
+    total = len(toks) - n + 1
+    if total <= 0:
+        return 1.0
+    distinct = len({tuple(toks[i:i + n]) for i in range(total)})
+    return 1.0 - distinct / total
+
+
 def aggregate_results(
     steered_results: list[dict],
     annotated_steered: list[dict],
@@ -74,19 +89,32 @@ def aggregate_results(
         key = (r["task_id"], r["behaviour"], r["method"], r["alpha"])
         ann_index[key] = r.get("annotations", [])
 
-    # Compute fractions
+    # Compute fractions + annotation-free generation metrics
     fractions: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     n_missing: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
     n_empty: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+    # Off-target damage metrics computed straight from the generated text (no
+    # annotation spend): mean length, repetition, degenerate-output rate. A
+    # steering arm can "reduce the behaviour" by simply wrecking generation;
+    # these are the cheap controls that distinguish suppression from damage.
+    gen_tokens: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    gen_rep: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    gen_degen: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
 
     for r in steered_results:
         method = r["method"]
         alpha = r["alpha"]
         key = (r["task_id"], r["behaviour"], method, alpha)
         anns = ann_index.get(key)
+        n_tok = r.get("n_tokens")
+        rep = repetition_rate(r.get("chain", ""))
         # Shared vanilla counts toward every behaviour's baseline series.
         targets = list(target_behaviours) if r["behaviour"] == SHARED else [r["behaviour"]]
         for beh in targets:
+            if n_tok is not None:
+                gen_tokens[beh][method][alpha].append(n_tok)
+                gen_degen[beh][method][alpha].append(n_tok < DEGENERATE_TOKEN_FLOOR)
+            gen_rep[beh][method][alpha].append(rep)
             if anns is None:
                 n_missing[beh][method][alpha] += 1
             elif len(anns) == 0:
@@ -101,21 +129,37 @@ def aggregate_results(
                        f"{total_empty} empty re-annotations (reported per cell as "
                        f"n_missing/n_empty — NOT scored as 0.0)")
 
-    # Summarise
+    # Summarise over the UNION of cell keys. Iterating `fractions` alone made a
+    # cell whose re-annotations ALL failed vanish from the summary entirely —
+    # and total annotation failure concentrates in exactly the most destructive
+    # arm the accounting exists to expose.
+    def _cells(store):
+        return {(b, m, a) for b, ms in store.items()
+                for m, als in ms.items() for a in als}
+
+    all_cells = (_cells(fractions) | _cells(n_missing) | _cells(n_empty)
+                 | _cells(gen_tokens) | _cells(gen_rep))
     summary: dict = {}
-    for beh in fractions:
-        summary[beh] = {}
-        for method in fractions[beh]:
-            summary[beh][method] = {}
-            for alpha, vals in sorted(fractions[beh][method].items()):
-                arr = np.array(vals)
-                summary[beh][method][alpha] = {
-                    "mean": float(arr.mean()),
-                    "std": float(arr.std()),
-                    "n": len(vals),
-                    "n_missing": int(n_missing[beh][method][alpha]),
-                    "n_empty": int(n_empty[beh][method][alpha]),
-                }
+    for beh, method, alpha in sorted(all_cells,
+                                     key=lambda c: (c[0], c[1], float(c[2]))):
+        vals = fractions.get(beh, {}).get(method, {}).get(alpha, [])
+        cell = {
+            "mean": float(np.mean(vals)) if vals else None,
+            "std": float(np.std(vals)) if vals else None,
+            "n": len(vals),
+            "n_missing": int(n_missing.get(beh, {}).get(method, {}).get(alpha, 0)),
+            "n_empty": int(n_empty.get(beh, {}).get(method, {}).get(alpha, 0)),
+        }
+        toks = gen_tokens.get(beh, {}).get(method, {}).get(alpha, [])
+        if toks:
+            cell["mean_n_tokens"] = float(np.mean(toks))
+        degs = gen_degen.get(beh, {}).get(method, {}).get(alpha, [])
+        if degs:
+            cell["degenerate_rate"] = float(np.mean(degs))
+        reps = gen_rep.get(beh, {}).get(method, {}).get(alpha, [])
+        if reps:
+            cell["repetition_rate"] = float(np.mean(reps))
+        summary.setdefault(beh, {}).setdefault(method, {})[alpha] = cell
     return summary
 
 
@@ -131,10 +175,14 @@ def print_summary_table(summary: dict) -> None:
             for method in ("vanilla", "single_direction", "manifold_projected",
                            "random_direction"):
                 cell = methods.get(method, {}).get(alpha)
-                if cell:
-                    row += f"  {cell['mean']:>8.3f}±{cell['std']:.3f}"
-                else:
+                if cell is None:
                     row += f"  {'n/a':>12s}"
+                elif cell.get("mean") is None:
+                    # generated but every re-annotation failed — surface it
+                    n_fail = cell.get("n_missing", 0) + cell.get("n_empty", 0)
+                    row += f"  {f'FAIL×{n_fail}':>12s}"
+                else:
+                    row += f"  {cell['mean']:>8.3f}±{cell['std']:.3f}"
             print(row)
 
 

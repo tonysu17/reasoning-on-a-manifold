@@ -55,7 +55,7 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger("tier1_nulls")
 
 from src.annotation import TARGET_BEHAVIOURS              # noqa: E402
-from src.config import STEERING_LAYERS                    # noqa: E402
+from src.config import STEERING_LAYERS, provenance        # noqa: E402
 from nulls import (chain_stratified_permutation_null,     # noqa: E402
                    cross_chain_permutation_null)
 from intrinsic_dim import twoNN_estimate, levina_bickel_estimate   # noqa: E402
@@ -99,6 +99,11 @@ def make_statistic(name: str, max_points: int, curv_k: int, n_anchors: int, pca_
     if name == "curvature":
         from sklearn.decomposition import PCA
 
+        # tail='lower' is correct ONLY for local_vs_global_dim_ratio
+        # (flat ≈ 1, curved < 1). The other diagnostics in src/curvature.py
+        # INCREASE with curvature (geodesic_euclidean_ratio: flat=1, curved>1;
+        # tangent_space_variation: flat=0, curved>0) — wire them with
+        # tail='upper' or the test silently inverts.
         def f(X):
             X = cap(X)
             if X.shape[0] < curv_k + 2:
@@ -216,6 +221,7 @@ def main():
         payload = {
             "model_short": args.model_short,
             "layer": int(layer),
+            "provenance": provenance(args),
             "n_resamples": args.n_resamples,
             "max_points": args.max_points,
             "statistics": args.statistics,

@@ -50,10 +50,17 @@ SHARED_BASELINE = "shared"
 
 
 def default_max_new_tokens() -> int:
-    """generation.max_new_tokens from config.yaml (8192), with a safe fallback."""
+    """chains.max_new_tokens from config.yaml (8192), with a safe fallback.
+
+    (The config section is ``chains:`` — an earlier version read a nonexistent
+    ``generation:`` key and always silently used the fallback.)"""
     try:
         from src.config import load_config
-        return int(load_config().get("generation", {}).get("max_new_tokens", 8192))
+        cfg = load_config()
+        v = (cfg.get("chains", {}) or {}).get("max_new_tokens")
+        if v is None:
+            v = (cfg.get("generation", {}) or {}).get("max_new_tokens", 8192)
+        return int(v)
     except Exception:
         return 8192
 
@@ -62,8 +69,11 @@ def random_direction_like(reference: np.ndarray, seed_key: str) -> np.ndarray:
     """Norm-matched random control vector, reproducible across runs.
 
     Seeded from a stable digest of *seed_key* (NOT the salted builtin hash),
-    drawn isotropically and rescaled to ||reference|| so the perturbation
-    magnitude matches the steering arms exactly.
+    drawn isotropically and rescaled to ||reference||. Note this matches the
+    VECTOR norm, not the delivered energy: the hook applies α·(r·h)·r, and a
+    random r has smaller |r·h| than a behaviour-aligned direction — so this
+    arm is a generic-perturbation floor, not an energy-matched twin. Describe
+    it as such in any writeup.
     """
     seed = int.from_bytes(hashlib.sha256(seed_key.encode()).digest()[:8], "little")
     rng = np.random.default_rng(seed)
@@ -105,7 +115,12 @@ class SteeredModel:
 
     def _hook_fn(self, module, input, output):
         import torch
-        h = output[0].float()          # (batch, seq, hidden)
+        # transformers <5 decoder layers return a tuple (hidden, ...); 5.x can
+        # return the bare hidden-state tensor. On a bare tensor, output[0]
+        # would silently index the first BATCH element — handle both shapes.
+        is_tuple = isinstance(output, tuple)
+        hidden = output[0] if is_tuple else output
+        h = hidden.float()             # (batch, seq, hidden)
         r = self._r                    # (hidden,)
         proj = torch.einsum("bsd,d->bs", h, r).unsqueeze(-1)   # (batch, seq, 1)
         delta = self.alpha * proj * r.view(1, 1, -1)
@@ -113,7 +128,8 @@ class SteeredModel:
             h = h - delta
         else:
             h = h + delta
-        return (h.to(output[0].dtype),) + output[1:]
+        h = h.to(hidden.dtype)
+        return ((h,) + output[1:]) if is_tuple else h
 
     def generate(
         self,
@@ -209,6 +225,17 @@ def run_steering_experiment(
         with open(save_path) as f:
             results = json.load(f)
         logger.info(f"Resuming: {len(results)} results already saved")
+        # Pre-hoist checkpoints carry per-(behaviour, α) vanilla records that no
+        # loop regenerates but that WOULD be re-annotated and would fake a
+        # vanilla-vs-α curve in aggregation. Drop them on load.
+        n_legacy = sum(1 for r in results
+                       if r["method"] == "vanilla" and r["behaviour"] != SHARED_BASELINE)
+        if n_legacy:
+            results = [r for r in results
+                       if not (r["method"] == "vanilla"
+                               and r["behaviour"] != SHARED_BASELINE)]
+            logger.warning(f"Dropped {n_legacy} legacy per-behaviour vanilla "
+                           f"records (pre-hoist schema) from the resume file")
 
     done = {
         (r["behaviour"], r["method"], r["alpha"], r["task_id"])

@@ -142,3 +142,15 @@ def test_null_result_reports_chain_mixing():
                                             "backtracking", n_resamples=20)
     assert res.n_chains == len(np.unique(chains))
     assert 0 < res.n_mixed_label_chains <= res.n_chains
+
+
+def test_smoothed_p_refuses_nonfinite_real():
+    """A NaN real value compares False against every null draw -> count=0 ->
+    the FLOOR p (maximally significant) for a degenerate statistic. Must be
+    NaN instead."""
+    from src.nulls import _smoothed_p
+    nulls = np.array([1.0, 2.0, 3.0])
+    assert np.isnan(_smoothed_p(nulls, float("nan"), "lower"))
+    assert np.isnan(_smoothed_p(nulls, float("inf"), "upper"))
+    # finite real still works
+    assert _smoothed_p(nulls, 0.5, "lower") == 1.0 / 4.0

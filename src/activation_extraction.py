@@ -42,12 +42,20 @@ def _sentence_to_token_positions(
     offsets: list[tuple[int, int]],
     n_preceding: int,
     n_execution: int,
+    sentence_end_char: "int | None" = None,
 ) -> list[int]:
     """
     Map a sentence's char offset to token positions in the full sequence.
 
     Returns a list of token indices: [preceding …] + [execution …]
     Returns [] if the sentence cannot be located.
+
+    If *sentence_end_char* is given, execution tokens that START at or beyond
+    it are excluded: 15.8% of target sentences are shorter than the 1+10
+    window, so the unclipped window pools tokens from the NEXT sentence —
+    a measured onset/surface-lexis bias (see config
+    extraction.clip_window_to_sentence_end; default off to preserve
+    comparability with existing extractions).
     """
     # Find first token whose end exceeds the sentence start
     onset = None
@@ -65,7 +73,11 @@ def _sentence_to_token_positions(
         if p >= 0:
             positions.append(p)
     for offset in range(min(n_execution, seq_len - onset)):
-        positions.append(onset + offset)
+        p = onset + offset
+        if (sentence_end_char is not None and offset > 0
+                and offsets[p][0] >= sentence_end_char):
+            break  # token starts past the sentence end — next sentence's text
+        positions.append(p)
     return positions
 
 
@@ -126,6 +138,7 @@ def extract_activations(
     max_chains: Optional[int] = None,
     pooling: Optional[str] = None,
     sweep_modes: Optional[list[str]] = None,
+    clip_to_sentence_end: Optional[bool] = None,
 ) -> dict[str, dict[int, np.ndarray]]:
     """
     Extract per-behaviour activation matrices across all annotated chains.
@@ -183,6 +196,17 @@ def extract_activations(
     extra_modes = [m for m in (sweep_modes or []) if m != pooling]
     if extra_modes:
         logger.info(f"Pooling sweep: also extracting {extra_modes} (one shared forward pass)")
+
+    # Window clipping: explicit arg > config extraction.clip_window_to_sentence_end > False.
+    if clip_to_sentence_end is None:
+        try:
+            from src.config import load_config
+            clip_to_sentence_end = bool(load_config().get("extraction", {})
+                                        .get("clip_window_to_sentence_end", False))
+        except Exception:
+            clip_to_sentence_end = False
+    if clip_to_sentence_end:
+        logger.info("Window clipping ON: execution tokens stop at sentence end")
 
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
@@ -248,9 +272,12 @@ def extract_activations(
 
                 # Convert chain-relative char offset → full-text char offset
                 abs_offset = chain_offset + sent_offset
+                abs_end = (abs_offset + len(ann.get("text", ""))
+                           if clip_to_sentence_end else None)
 
                 positions = _sentence_to_token_positions(
-                    full_text, abs_offset, offsets, n_preceding, n_execution
+                    full_text, abs_offset, offsets, n_preceding, n_execution,
+                    sentence_end_char=abs_end,
                 )
                 # Filter to valid range
                 positions = [p for p in positions if 0 <= p < seq_len]
@@ -301,6 +328,7 @@ def extract_activations(
             "n_extracted": n_extracted,
             "n_skipped": n_skipped,
             "sentence_matching": SENTENCE_MATCHING_VERSION,
+            "clip_window_to_sentence_end": clip_to_sentence_end,
         }, f, indent=2)
 
     # Row-provenance sidecar (one record per row, exact row order — see
@@ -309,6 +337,7 @@ def extract_activations(
         "version": 1,
         "sentence_matching": SENTENCE_MATCHING_VERSION,
         "pooling": pooling,
+        "clip_window_to_sentence_end": clip_to_sentence_end,
         "rows": row_index,
     }
     with open(save_dir / "row_index.json", "w") as f:

@@ -59,6 +59,10 @@ def _smoothed_p(null_stats: np.ndarray, real_value: float, tail: str) -> float:
     read against a Bonferroni threshold of 4.5e-4 it could never legitimately
     pass. Minimum attainable smoothed p is 1/(B+1).
     """
+    # A non-finite real value compares False against everything → count = 0 →
+    # the FLOOR p (maximally significant) for a degenerate statistic. Refuse.
+    if not np.isfinite(real_value):
+        return float("nan")
     if tail == "upper":
         count = int((null_stats >= real_value).sum())
     else:

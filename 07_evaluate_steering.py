@@ -45,7 +45,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Single source of truth: configs/config.yaml (keyed by each model's cli_alias).
-from src.config import MODELS_BY_CLI, model_tuple
+from src.config import MODELS_BY_CLI, model_tuple, provenance
 MODELS = {alias: model_tuple(alias) for alias in MODELS_BY_CLI}
 
 
@@ -104,15 +104,22 @@ def main():
     cat_counts = {cat: sum(1 for t in test_tasks if t.get("category") == cat)
                   for cat in sorted(by_cat)}
     logger.info(f"Eval split: {len(test_tasks)} tasks, stratified by category: {cat_counts}")
+    rule = f"last {per_cat} per category"
     if args.smoke:
         test_tasks = test_tasks[:3]
         args.alpha_values = [0.0, 1.0]
+        rule += " (smoke: truncated to first 3)"
         logger.info(f"SMOKE TEST: {len(test_tasks)} tasks, alphas={args.alpha_values}")
     # Persist the exact eval-task ids for provenance/reproducibility.
+    # Counts recomputed from the FINAL set so smoke provenance is truthful.
+    final_counts = {}
+    for t in test_tasks:
+        final_counts[t.get("category", "unknown")] = \
+            final_counts.get(t.get("category", "unknown"), 0) + 1
     (eval_dir / "eval_task_ids.json").write_text(
         json.dumps({"task_ids": [t["id"] for t in test_tasks],
-                    "category_counts": cat_counts,
-                    "rule": f"last {per_cat} per category"}, indent=2))
+                    "category_counts": final_counts,
+                    "rule": rule}, indent=2))
 
     logger.info(f"Loading steering vectors from {vectors_dir}")
     vectors = load_steering_vectors(vectors_dir)
@@ -133,6 +140,7 @@ def main():
     )
 
     logger.info(f"Generation complete: {len(results)} outputs → {results_path}")
+    (eval_dir / "provenance.json").write_text(json.dumps(provenance(args), indent=2))
 
     if not args.skip_annotation:
         if not os.environ.get("CLAUDE_PROXY_URL") or not os.environ.get("CLAUDE_PROXY_KEY"):

@@ -141,6 +141,20 @@ def levina_bickel_estimate(X: np.ndarray, k_values=(5, 10, 20, 30),
       m_k(i) = ( (1/(k-1)) sum_{j=1..k-1} log(r_k(i) / r_j(i)) )^{-1}
     Returns the median across i and the mean across k_values, plus a
     bootstrap CI on the per-point estimates.
+
+    Documented caveats (2026-06-12 stats review — do not silently "fix",
+    changing them changes the estimator):
+    (1) ROBUSTIFIED variant: median-over-points then mean-over-k, not the
+        canonical Levina–Bickel inverse-average — absolute values are not
+        directly comparable to the original paper's.
+    (2) The bootstrap CI here resamples the POOLED per-point m_k values
+        (all k together) and bootstraps their MEDIAN — a different functional
+        from the point estimate, so the CI need not be centred on it. Treat
+        as a stability band; the honest interval is the point-subsample
+        bootstrap (AUDIT #16, d7d147e).
+    (3) Exact-zero kNN distances are masked, but TIED positive distances give
+        m_k = inf and are dropped non-randomly (dense regions lost) — one
+        more reason exact-duplicate rows must be removed upstream (CF-13).
     """
     from sklearn.neighbors import NearestNeighbors
     rng = np.random.default_rng(random_state)

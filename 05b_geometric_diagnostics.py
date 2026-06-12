@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 # Constants matching 05_pca_analysis.py for consistency
 
 from src.annotation import TARGET_BEHAVIOURS
-from src.config import STEERING_LAYERS  # single source: configs/config.yaml
+from src.config import STEERING_LAYERS, provenance  # single source: configs/config.yaml
                                         # (previously omitted QwenMath-1.5B here)
 
 
@@ -85,11 +85,12 @@ def load_chain_id_map(annotated_path: Path, target_behaviours,
 
     Prefers the extraction-time row_index.json sidecar in *act_dir* (exact by
     construction); falls back to an occurrence-aware replay of the annotation
-    file for legacy extractions. Returns dict {behaviour: ndarray | None} —
-    validate with src.row_provenance.require_aligned before use.
+    file for legacy extractions (or when act_dir is None — never a cwd
+    default, which could bind rows to a stray foreign sidecar). Returns dict
+    {behaviour: ndarray | None} — validate with
+    src.row_provenance.require_aligned before use.
     """
-    return chain_ids_for(act_dir if act_dir is not None else Path("."),
-                         annotated_path, list(target_behaviours))
+    return chain_ids_for(act_dir, annotated_path, list(target_behaviours))
 
 
 # Diagnostics per behaviour at one layer
@@ -375,6 +376,7 @@ def main():
             "model_short": args.model_short,
             "layer": args.layer,
             "args": vars(args),
+            "provenance": provenance(args),
             "per_behaviour": per_behaviour,
             "null_hierarchy": null_results,
         }

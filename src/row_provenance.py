@@ -87,7 +87,7 @@ def _replay_chain_ids(annotated_path: Path, behaviours) -> dict[str, list]:
 
 
 def chain_ids_for(
-    act_dir: Path,
+    act_dir: Optional[Path],
     annotated_path: Path,
     behaviours,
 ) -> dict[str, Optional[np.ndarray]]:
@@ -95,10 +95,12 @@ def chain_ids_for(
 
     Prefers the extraction-time ``row_index.json`` sidecar (exact, by
     construction); falls back to occurrence-aware replay of the annotation
-    file for legacy extractions. Returns ``{behaviour: ndarray | None}`` —
+    file for legacy extractions. Pass ``act_dir=None`` to force the replay
+    branch — safer than a cwd default, which could silently bind rows to a
+    stray foreign sidecar. Returns ``{behaviour: ndarray | None}`` —
     pass results through `require_aligned` before use.
     """
-    sidecar = load_row_index(act_dir)
+    sidecar = load_row_index(act_dir) if act_dir is not None else None
     if sidecar is not None:
         rows = sidecar.get("rows", {})
         out: dict[str, Optional[np.ndarray]] = {}

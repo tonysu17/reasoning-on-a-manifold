@@ -140,6 +140,11 @@ extraction:
                                # writes pooling_sweep.json (mean-vs-last). ~2x activation
                                # disk (mean + last). Set null to disable; add first/max to extend.
   layers: null                 # null = all layers; or list e.g. [20,21,...,27]
+  clip_window_to_sentence_end: false  # true = execution tokens stop at the sentence
+                               # end (15.8% of target sentences are shorter than the
+                               # 1+10 window, so the unclipped window pools the NEXT
+                               # sentence's onset — robustness arm; default false to
+                               # stay comparable with existing extractions)
 
 # ── Phase 5: PCA analysis ─────────────────────────────────
 pca:

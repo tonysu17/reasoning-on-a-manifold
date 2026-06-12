@@ -11,12 +11,12 @@ This project synthesises two lines of work:
 **The gap, as a three-rung ladder.** For *individual* reasoning behaviours:
 
 1. **Rung 1 — a single direction suffices for control.** Established by Venhoff et al. (They showed sufficiency; they did not claim a single direction exhausts the behaviour's structure.)
-2. **Rung 2 — the behaviour occupies a multi-dimensional subspace.** Huang et al. established this for the *composite* overthinking signal; whether each individual behaviour has its own low-dimensional, behaviour-specific subspace — and whether subspace-projected steering beats the single direction per behaviour — is open. **This is our primary claim, and it is testable with linear instruments.**
+2. **Rung 2 — the behaviour occupies a multi-dimensional subspace.** Huang et al. established this for the *composite* overthinking signal; whether each individual behaviour has its own low-dimensional, behaviour-specific subspace — and whether subspace-projected steering beats the single direction per behaviour — is open. **This is our primary claim, and it is testable with linear instruments.** (The instrument itself is borrowed — top-k-PCA projection is Huang's method and the baseline in Curveball; the novelty is the per-behaviour question, not the operator.)
 3. **Rung 3 — the structure is curved beyond any linear subspace.** Concept-dependent curvature and nonlinear-beats-linear steering have been shown for non-reasoning concepts (persona/safety traits, cyclic features — see Related work); for reasoning behaviours this is open. Curvature claims require the estimator-validated diagnostics in `src/curvature.py` *plus* a nonlinear steering operator; our current steering apparatus is linear, so rung-3 results here are descriptive, not causal (see `CONFOUNDS_AND_REMEDIATION.md` CF-5).
 
 The original motivating hypothesis — that behaviours come in discrete flavours (e.g. "arithmetic re-checking" vs "strategy-level pivoting") — was **not supported** by sub-type clustering (Phase 5d: k=2, silhouettes 0.11–0.18, pre-dedup data); the working picture is continuous low-dimensional structure per behaviour.
 
-**The experiment nobody else can run:** Huang's composite overthinking direction is exactly reconstructable (same model, same layer 27, published recipe). Decomposing it into our per-behaviour subspaces — *which behaviours mediate overthinking mitigation?* — directly synthesises the two anchor papers and requires this project's per-behaviour annotation corpus.
+**The experiment nobody else is positioned to run:** Huang's composite overthinking direction is exactly reconstructable (same model, same layer 27, published top-k-PCA k=10 recipe — stable across v1→v2). Decomposing it into our per-behaviour subspaces — *which behaviours mediate overthinking mitigation?* — directly synthesises the two anchor papers and requires a per-behaviour annotation corpus like this project's. (Verified unclaimed as of 2026-06-12.)
 
 The primary model is `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` (28 layers, hidden dim 1536, steering layer 27). A knowledge-creation extension (the "CBS" / Content-Beyond-Source pipeline, phases 8–13) contrasts the distilled model against its empirically-verified base, `Qwen/Qwen2.5-Math-1.5B`. **Status: deferred.** The binary "does distillation create or reveal the mechanisms?" is substantially answered in the literature (base models already contain them — arXiv:2510.07364, arXiv:2507.12638); what survives as novel is the *geometric refinement* — does distillation sharpen, rotate, or expand the pre-existing per-behaviour subspaces? — which is future work until the core per-behaviour results ship.
 
@@ -189,12 +189,24 @@ the `pyproject.toml` build backend is fixed — `pip install -e .` works.)
 - **REMA** (arXiv:2509.22518) — occupies the term "reasoning manifold" (also
   TwoNN-based). *We therefore headline "per-behaviour activation geometry"
   rather than "reasoning manifold".*
-- **arXiv:2510.07364** — the base model (Qwen2.5-Math-1.5B) already contains
-  reasoning mechanisms; steering recovers up to 91% of the distillation gap.
-  *Pre-answers CBS's binary question; motivates the geometric-refinement
-  reframing and the CBS deferral.*
-- **arXiv:2507.12638** — the backtracking direction pre-exists in base models.
-  *Same implication.*
+- **arXiv:2510.07364** (Venhoff et al., *Base Models Know How to Reason,
+  Thinking Models Learn When*) — base models already contain reasoning
+  mechanisms; a hybrid model recovers up to 91% of the base→thinking gap while
+  steering only ~12% of tokens. *Their base suite includes our base,
+  Qwen2.5-Math-1.5B; the 91% headline is the Qwen2.5-32B/QwQ-32B pair on
+  MATH500, not the 1.5B. Pre-answers CBS's binary question; motivates the
+  geometric-refinement reframing and the CBS deferral.*
+- **arXiv:2507.12638** (Ward et al.) — a *latent* backtracking direction
+  pre-exists in base-model activations (repurposed by fine-tuning; it does not
+  itself induce backtracking in the base) — shown on Llama-8B. *Same
+  implication for CBS.*
+- **CREST** (arXiv:2512.24574, Dec 2025) — calibrates attention heads
+  correlated with distinct cognitive behaviours (verification, backtracking)
+  and steers them at test-time by rotating hidden states. *Nearest neighbour
+  to rungs 1–2, but head-localization + rotation, not per-behaviour subspace
+  geometry: no per-behaviour intrinsic dimension, curvature, chain-stratified
+  nulls, or subspace-vs-single-direction test, and it does not decompose
+  Huang's overthinking direction.*
 
 ## References
 

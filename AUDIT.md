@@ -8,7 +8,7 @@ Reproduce the test suite:
 
 ```bash
 pip install -e .            # build backend was broken; now fixed
-python -m pytest            # full suite (255 tests as of 2026-06-12; §5 quotes 220 from its second pass — counts grow with fixes)
+python -m pytest            # full suite (258 tests as of 2026-06-12 evening; §5 quotes 220 from its second pass — counts grow with fixes)
 ```
 
 ---
