@@ -25,15 +25,25 @@ by_layer = defaultdict(list)
 for b, L in PEAK.items():
     by_layer[L].append(b)
 
+# True hold-out (same rule as 06/07 via the shared split): the Phase-7 eval
+# tasks' activation rows never touch the vectors.
+from src.task_gen import load_tasks, stratified_eval_split
+_test_tasks, _rule = stratified_eval_split(load_tasks(Path("data/tasks_final.json")), 50)
+EXCLUDE = {t["id"] for t in _test_tasks}
+print(f"Hold-out: excluding {len(EXCLUDE)} eval tasks ({_rule}) from vector construction")
+
 assembled = {}
 for L in sorted(by_layer):
-    res = build_steering_vectors(ACT, layer=L)        # all behaviours at L; off-set = others at L
+    res = build_steering_vectors(ACT, layer=L,        # all behaviours at L; off-set = others at L
+                                 exclude_chain_ids=EXCLUDE,
+                                 annotated_path=Path("data/annotated_R1-1.5B.json"))
     for b in by_layer[L]:
         if b in res:
             assembled[b] = res[b]
 
 prov = provenance()
 prov["builder"] = "build_phase6.py (per-behaviour peak layers)"
+prov["holdout"] = {"n_tasks": len(EXCLUDE), "rule": "src.task_gen.stratified_eval_split"}
 save_steering_vectors(assembled, OUT, provenance=prov)
 
 print("\n" + "="*92)

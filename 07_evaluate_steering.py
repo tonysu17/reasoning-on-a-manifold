@@ -87,24 +87,22 @@ def main():
     # snapshot — see data/MANIFEST.md). Reading the stale file desynchronised
     # the eval prompts from the corpus the chains/activations were built on.
     tasks = load_tasks(Path("data/tasks_final.json"))
-    # Category-stratified eval set. tasks_final.json is perfectly category-
-    # blocked (10 contiguous runs of 100), so the old `tasks[-n_test:]` rule
-    # selected 50 tasks of a SINGLE category (lateral_thinking) — under which
-    # the docstring's "generalisation across task categories" was unmeasurable.
-    # Take the last n_test/n_categories tasks of EACH category instead.
-    # NOTE: this is still only a true hold-out if activation extraction
-    # excluded these tasks. The current pipeline extracts over the whole
-    # corpus, so treat Phase-7 numbers as on-corpus causal effects, not
-    # out-of-sample generalisation, until extraction excludes the eval split.
-    by_cat: dict = {}
-    for t in tasks:
-        by_cat.setdefault(t.get("category", "unknown"), []).append(t)
-    per_cat = max(1, args.n_test // len(by_cat))
-    test_tasks = [t for cat in sorted(by_cat) for t in by_cat[cat][-per_cat:]]
-    cat_counts = {cat: sum(1 for t in test_tasks if t.get("category") == cat)
-                  for cat in sorted(by_cat)}
-    logger.info(f"Eval split: {len(test_tasks)} tasks, stratified by category: {cat_counts}")
-    rule = f"last {per_cat} per category"
+    # Category-stratified eval set — SHARED with the vector builders (06 /
+    # build_phase6), which exclude exactly these tasks' activation rows from
+    # vector construction. With default-holdout vectors, Phase 7 is a true
+    # out-of-sample test; with --no-holdout vectors it is an on-corpus causal
+    # effect (check the vectors' metadata provenance "holdout" field).
+    # Residual caveat either way: the steering LAYER choice was informed by
+    # full-corpus analyses (and Huang's published layer 27).
+    from src.task_gen import stratified_eval_split
+    test_tasks, split_rule = stratified_eval_split(tasks, args.n_test)
+    cat_counts = {}
+    for t in test_tasks:
+        cat_counts[t.get("category", "unknown")] = \
+            cat_counts.get(t.get("category", "unknown"), 0) + 1
+    logger.info(f"Eval split: {len(test_tasks)} tasks ({split_rule}), "
+                f"stratified by category: {cat_counts}")
+    rule = split_rule
     if args.smoke:
         test_tasks = test_tasks[:3]
         args.alpha_values = [0.0, 1.0]

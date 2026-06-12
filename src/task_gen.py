@@ -233,6 +233,29 @@ def load_tasks(path: Path) -> list[dict]:
         return json.load(f)
 
 
+def stratified_eval_split(tasks: list[dict], n_test: int = 50) -> tuple[list[dict], str]:
+    """Category-stratified evaluation split: the last n_test/n_categories
+    tasks of EACH category.
+
+    SINGLE SOURCE OF TRUTH for the Phase-7 eval set. Both the steering-vector
+    builders (which must EXCLUDE these tasks' activation rows for the vectors
+    to be a true hold-out) and 07_evaluate_steering (which evaluates on them)
+    call this function — any drift between the two silently breaks the
+    hold-out. tasks_final.json is perfectly category-blocked, so the naive
+    `tasks[-n_test:]` rule selected 50 tasks of a single category.
+
+    Returns (test_tasks, rule_string). Note the realized size is
+    per_cat × n_categories, which equals n_test only when n_test is a
+    multiple of the category count.
+    """
+    by_cat: dict = {}
+    for t in tasks:
+        by_cat.setdefault(t.get("category", "unknown"), []).append(t)
+    per_cat = max(1, n_test // len(by_cat))
+    test_tasks = [t for cat in sorted(by_cat) for t in by_cat[cat][-per_cat:]]
+    return test_tasks, f"last {per_cat} per category"
+
+
 def task_summary(tasks: list[dict]) -> None:
     from collections import Counter
     cats = Counter(t["category"] for t in tasks)

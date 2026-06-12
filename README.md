@@ -158,11 +158,13 @@ python -m pytest
   account for this (the chosen policy is to stratify by a `truncated` flag; see
   `src/cbs/cohort.py`). Re-generating chains forces re-annotation.
 
-- **The Phase-7 eval split is stratified but not a true hold-out.** Activation
-  extraction (and therefore steering-vector construction) runs over the whole
-  corpus, including the eval tasks. Phase-7 numbers are on-corpus causal
-  effects, not out-of-sample generalisation, until extraction excludes the
-  eval split.
+- **The Phase-7 eval split is a true hold-out for the vectors (by default),
+  with one residual caveat.** The vector builders exclude the eval tasks'
+  activation rows (row-provenance hold-out, `--no-holdout` to disable;
+  06/07 share `src.task_gen.stratified_eval_split` so the sets cannot drift).
+  The remaining caveat: the steering *layer* choice was informed by
+  full-corpus analyses (and Huang's published layer 27), so layer selection
+  is not held out.
 
 - **Single LLM annotator.** All behaviour labels come from one annotator
   (Claude Sonnet 4.5 via the lab proxy — not GPT-4o, despite Venhoff's

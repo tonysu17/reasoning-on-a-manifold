@@ -118,6 +118,8 @@ def build_steering_vectors(
     behaviours: Optional[list[str]] = None,
     k_values: Optional[list] = None,
     variance_threshold: float = 0.70,
+    exclude_chain_ids: Optional[set] = None,
+    annotated_path: Optional[Path] = None,
 ) -> dict:
     """
     Build single-direction and manifold-projected steering vectors for all
@@ -129,6 +131,14 @@ def build_steering_vectors(
         behaviours:       which behaviours to process; defaults to all 4 targets
         k_values:         list of ints (or "auto") for manifold projection
         variance_threshold: threshold for "auto" k selection
+        exclude_chain_ids: chain/task ids whose rows are dropped before the
+            vectors are computed. Pass the Phase-7 eval split here (via
+            src.task_gen.stratified_eval_split) so the vectors NEVER see the
+            evaluation tasks' activations — that is what turns Phase 7 from
+            an on-corpus effect into a true out-of-sample test. Requires row
+            provenance (the row_index.json sidecar, or annotated_path for
+            legacy replay); fails loud if rows can't be identified.
+        annotated_path:   annotation file for legacy provenance replay.
 
     Returns:
         {behaviour: {
@@ -138,6 +148,7 @@ def build_steering_vectors(
             "n_on":               int,
             "n_off":              int,
             "auto_k":             int,
+            "n_excluded":         int,   # rows dropped by the hold-out
         }}
     """
     if behaviours is None:
@@ -148,15 +159,34 @@ def build_steering_vectors(
     activations_dir = Path(activations_dir)
     results = {}
 
+    chain_id_map = None
+    if exclude_chain_ids:
+        from src.row_provenance import chain_ids_for
+        exclude_chain_ids = set(exclude_chain_ids)
+        chain_id_map = chain_ids_for(activations_dir, annotated_path,
+                                     list(behaviours))
+
     # Load all activation matrices for this layer upfront
     all_acts: dict[str, np.ndarray] = {}
+    n_excluded: dict[str, int] = {}
     for beh in behaviours:
         path = activations_dir / f"{beh}_layer{layer}.npy"
         if not path.exists():
             logger.warning(f"Missing: {path}")
             continue
-        all_acts[beh] = np.load(path).astype(np.float32)
-        logger.info(f"  {beh}: {all_acts[beh].shape[0]} instances loaded")
+        X = np.load(path).astype(np.float32)
+        n_excluded[beh] = 0
+        if exclude_chain_ids:
+            from src.row_provenance import require_aligned
+            cids = require_aligned(beh, X.shape[0], chain_id_map.get(beh),
+                                   context="steering hold-out")
+            keep = ~np.isin(cids, list(exclude_chain_ids))
+            n_excluded[beh] = int((~keep).sum())
+            X = X[keep]
+        all_acts[beh] = X
+        logger.info(f"  {beh}: {X.shape[0]} instances loaded"
+                    + (f" ({n_excluded[beh]} eval-task rows held out)"
+                       if exclude_chain_ids else ""))
 
     for beh in behaviours:
         if beh not in all_acts:
@@ -184,6 +214,7 @@ def build_steering_vectors(
             "n_on": len(on_acts),
             "n_off": len(off_acts),
             "auto_k": k_auto,
+            "n_excluded": n_excluded.get(beh, 0),
         }
         logger.info(
             f"  {beh}: auto_k={k_auto}, n_on={len(on_acts)}, n_off={len(off_acts)}"
@@ -211,6 +242,7 @@ def save_steering_vectors(vectors: dict, save_dir: Path,
             "n_on": data["n_on"],
             "n_off": data["n_off"],
             "auto_k": data["auto_k"],
+            "n_excluded": data.get("n_excluded", 0),
             "k_values": list(data["manifold_projected"].keys()),
         }
 
@@ -245,5 +277,6 @@ def load_steering_vectors(save_dir: Path) -> dict:
             "n_on": meta["n_on"],
             "n_off": meta["n_off"],
             "auto_k": meta["auto_k"],
+            "n_excluded": meta.get("n_excluded", 0),
         }
     return vectors
