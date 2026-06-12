@@ -32,20 +32,14 @@ B_DIM = 10          # resamples for the corr-dim keystone
 B_CURV = 8          # resamples for the curvature control (slower)
 
 
-from src.text_offsets import find_sentence_offset as _off  # single source of truth
+# Sidecar-first row provenance + shared dedup (single source of truth).
+from src.row_provenance import chain_ids_for, dedup_rows, require_aligned
 
 def load_chain_ids(path, behs):
-    chains = json.load(open(path)); per = {b: [] for b in behs}
-    for ch in chains:
-        ct = ch.get("chain", ""); cid = ch.get("chain_id") or ch["task_id"]
-        for a in ch.get("annotations", []):
-            if a.get("label") in per and _off(ct, a.get("text", "")) is not None:
-                per[a["label"]].append(cid)
-    return {b: np.array(v) for b, v in per.items()}
+    return chain_ids_for(ACT, path, behs)
 
 def dedup(X, cids):
-    _, keep = np.unique(X, axis=0, return_index=True); keep = np.sort(keep)
-    return X[keep], cids[keep]
+    return dedup_rows(X, cids)
 
 def pr_mp(X):
     N, d = X.shape
@@ -98,8 +92,9 @@ def main():
     cidmap = load_chain_ids(ANNOT, TARGETS); res = {}
     for b, L in PEAK.items():
         Xr = np.load(ACT / f"{b}_layer{L}.npy").astype(np.float32)
-        cids = cidmap[b]
-        if len(cids) != Xr.shape[0]: cids = np.arange(Xr.shape[0])
+        # Hard error replaces the old arange fallback (which silently turned
+        # the chain-stratified resample into a full-data resample).
+        cids = require_aligned(b, Xr.shape[0], cidmap.get(b), context="robustness_geometry")
         dup_pct = 100.0 * (1 - len(np.unique(Xr, axis=0)) / Xr.shape[0])
         X, cu = dedup(Xr, cids); Nu = X.shape[0]
         obc = {}

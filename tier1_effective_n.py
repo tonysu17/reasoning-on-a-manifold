@@ -227,8 +227,9 @@ def main():
         sys.exit(1)
 
     p5b = _load_05b()
-    logger.info(f"Reconstructing chain_ids from {annotated_p.name} ...")
-    chain_ids = p5b.load_chain_id_map(annotated_p, list(TARGET_BEHAVIOURS))
+    logger.info(f"Loading chain_ids (sidecar-first) for {annotated_p.name} ...")
+    chain_ids = p5b.load_chain_id_map(annotated_p, list(TARGET_BEHAVIOURS),
+                                      act_dir=act_dir)
 
     per_behaviour = {}
     for b in TARGET_BEHAVIOURS:

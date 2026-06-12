@@ -49,58 +49,45 @@ from src.config import STEERING_LAYERS, provenance
 
 # ── Per-layer null hierarchy (added) ──────────────────────────────────────────
 
-# Single source of truth (was a verbatim copy; drift here misaligns rows).
-from src.text_offsets import find_sentence_offset as _find_sentence_offset
-
-
-def _load_chain_id_map(annotated_path, target_behaviours):
-    """Return {behaviour: ndarray of chain_ids per row in extraction order}.
-
-    The order MUST match how activation_extraction.py iterated through chains
-    and annotations. To keep counts aligned with the activation matrices, we
-    apply Phase 4's same find_sentence_offset filter — annotations whose text
-    couldn't be located in the chain were skipped during extraction, so we skip
-    them here too.
-    """
-    with open(annotated_path) as f:
-        chains = json.load(f)
-    per_beh = {b: [] for b in target_behaviours}
-    n_filtered = {b: 0 for b in target_behaviours}
-    for chain in chains:
-        chain_text = chain.get("chain", "")
-        cid = chain.get("chain_id") or chain["task_id"]
-        for ann in chain.get("annotations", []):
-            label = ann.get("label", "")
-            if label not in per_beh:
-                continue
-            # Apply the same filter Phase 4 applied
-            if _find_sentence_offset(chain_text, ann.get("text", "")) is None:
-                n_filtered[label] += 1
-                continue
-            per_beh[label].append(cid)
-    for b, n in n_filtered.items():
-        if n > 0:
-            logger.info(f"  chain_id loader filtered {n} unlocatable {b} annotations (Phase 4 skipped these too)")
-    return {b: (np.array(v) if v else None) for b, v in per_beh.items()}
+# Sidecar-first row provenance + exact-duplicate hygiene (single source of
+# truth; replaces the replay loader and the silent proxy-chain fallback).
+from src.row_provenance import (
+    chain_ids_for,
+    dedup_rows,
+    duplicate_fraction,
+    require_aligned,
+)
 
 
 def _build_pooled(act_dir, layer, target_behaviours, chain_id_map):
-    """Return X_pooled, chain_ids_pooled, labels_pooled at one layer."""
+    """Return X_pooled, chain_ids_pooled, labels_pooled at one layer.
+
+    Hard-fails on chain-id misalignment (a proxy fallback here makes the
+    within-chain permutation a no-op) and removes exact-duplicate rows before
+    the null (duplicates concentrate within behaviour labels, biasing the
+    real-vs-null comparison anti-conservatively — CF-13).
+    """
     X_parts, chain_parts, label_parts = [], [], []
     for b in target_behaviours:
         path = act_dir / f"{b}_layer{layer}.npy"
         if not path.exists():
             continue
         X_b = np.load(path)
-        cids_b = chain_id_map.get(b)
-        if cids_b is None or len(cids_b) != X_b.shape[0]:
-            logger.warning(f"  chain_ids length mismatch for {b} layer {layer}: "
-                           f"{None if cids_b is None else len(cids_b)} vs N={X_b.shape[0]}; using proxy")
-            cids_b = np.array([f"{b}_proxy"] * X_b.shape[0])
+        cids_b = require_aligned(b, X_b.shape[0], chain_id_map.get(b),
+                                 context=f"05 nulls layer {layer}")
         X_parts.append(X_b)
         chain_parts.append(cids_b)
         label_parts.append(np.array([b] * X_b.shape[0]))
-    return np.vstack(X_parts), np.concatenate(chain_parts), np.concatenate(label_parts)
+    X_all = np.vstack(X_parts)
+    chain_all = np.concatenate(chain_parts)
+    label_all = np.concatenate(label_parts)
+    dup = duplicate_fraction(X_all)
+    if dup > 0:
+        logger.info(f"  layer {layer}: removing {dup:.1%} exact-duplicate rows "
+                    f"before the null ({X_all.shape[0]} → "
+                    f"{X_all.shape[0] - int(round(dup * X_all.shape[0]))})")
+        X_all, chain_all, label_all = dedup_rows(X_all, chain_all, label_all)
+    return X_all, chain_all, label_all
 
 
 def compute_per_layer_nulls(act_dir, annotated_path, layers, target_behaviours,
@@ -109,11 +96,18 @@ def compute_per_layer_nulls(act_dir, annotated_path, layers, target_behaviours,
     behaviour. Returns a nested dict {behaviour: {layer: {real, null_mean, p_value}}}.
     """
     from src.nulls import chain_stratified_permutation_null, top_k_variance_ratio
-    chain_id_map = _load_chain_id_map(annotated_path, target_behaviours)
+    chain_id_map = chain_ids_for(act_dir, annotated_path, target_behaviours)
     results = {b: {} for b in target_behaviours}
+    logger.info(f"  permutation resolution: minimum attainable p = "
+                f"{1.0 / (n_resamples + 1):.4g} at B={n_resamples} "
+                f"(Bonferroni 0.05/112 across 4 behaviours × 28 layers needs "
+                f"B ≥ 2239 — use --null-resamples accordingly on the layers "
+                f"you intend to report)")
     for L in layers:
         try:
             X, chains, labels = _build_pooled(act_dir, L, target_behaviours, chain_id_map)
+        except RuntimeError:
+            raise  # row misalignment — refuse to continue on a neutered null
         except Exception as e:
             logger.warning(f"  layer {L}: build_pooled failed ({e}); skipping")
             continue
@@ -133,7 +127,10 @@ def compute_per_layer_nulls(act_dir, annotated_path, layers, target_behaviours,
                     "null_mean":  r.null_mean,
                     "null_p2_5":  r.null_p2_5,
                     "null_p97_5": r.null_p97_5,
-                    "p_value":    r.p_value,
+                    "p_value":    r.p_value,        # Phipson–Smyth smoothed
+                    "n_resamples": r.n_resamples,   # min attainable p = 1/(B+1)
+                    "n_chains": r.n_chains,
+                    "n_mixed_label_chains": r.n_mixed_label_chains,
                 }
             except Exception as e:
                 logger.warning(f"  null at {b}@L{L} failed: {e}")

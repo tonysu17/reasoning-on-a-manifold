@@ -25,15 +25,19 @@ L2I = {l: i for i, l in enumerate(LABELS)}
 OUT = Path("results/robustness"); OUT.mkdir(parents=True, exist_ok=True)
 
 from src.text_offsets import find_sentence_offset as _off  # single source of truth
+from src.text_offsets import locate_annotation_offsets as _locate
 
 def char_labels(chain):
-    """Per-character label-code array for one chain (0=O)."""
+    """Per-character label-code array for one chain (0=O).
+
+    Occurrence-aware: repeats of a sentence label successive occurrences
+    instead of all overwriting the first span (same rule as Phase 4)."""
     ct = chain.get("chain", ""); arr = np.zeros(len(ct), dtype=np.int8)
-    for a in chain.get("annotations", []):
+    anns = chain.get("annotations", [])
+    offs = _locate(ct, [a.get("text", "") for a in anns])
+    for a, o in zip(anns, offs):
         lb = a.get("label", ""); txt = a.get("text", "")
-        if lb not in L2I: continue
-        o = _off(ct, txt)
-        if o is None: continue
+        if lb not in L2I or o is None: continue
         arr[o:o + len(txt)] = L2I[lb]
     return arr
 

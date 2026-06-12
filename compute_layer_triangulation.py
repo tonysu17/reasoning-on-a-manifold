@@ -205,12 +205,69 @@ def load_phase5_curves(pca_dir):
 
 
 def load_phase5_nulls(pca_dir):
-    """Return {behaviour: {layer: p_value}}."""
+    """Return {behaviour: {layer: {"p_value": float, "n_resamples": int}}}."""
     p = pca_dir / "null_pvalues_per_layer.json"
     if not p.exists():
         return None
     raw = json.load(open(p))
-    return {b: {int(L): raw[b][L]["p_value"] for L in raw[b]} for b in raw}
+    out = {}
+    for b in raw:
+        out[b] = {}
+        for L in raw[b]:
+            cell = raw[b][L]
+            out[b][int(L)] = {
+                "p_value": cell.get("p_value"),
+                "n_resamples": cell.get("n_resamples", 0),
+            }
+    return out
+
+
+def holm_bonferroni(null_p, alpha=0.05):
+    """Step-down Holm–Bonferroni over EVERY (behaviour, layer) null cell.
+
+    Pre-registered commitment #5 promised a Bonferroni correction; until now
+    the only implementation was a figure annotation at p < alpha/112 while the
+    p-values themselves were unsmoothed count/B at B=100 — so any "passing"
+    cell was a Monte-Carlo zero, not a real sub-4.5e-4 p. This computes the
+    correction for real, flags cells whose permutation resolution (1/(B+1))
+    cannot reach their Holm threshold, and returns a JSON-ready dict.
+    """
+    cells = []
+    for b, layers in (null_p or {}).items():
+        for L, cell in layers.items():
+            p = cell.get("p_value")
+            if isinstance(p, (int, float)) and p == p:  # finite, not NaN
+                cells.append({"behaviour": b, "layer": int(L), "p": float(p),
+                              "n_resamples": int(cell.get("n_resamples", 0))})
+    m = len(cells)
+    if m == 0:
+        return None
+    cells.sort(key=lambda c: c["p"])
+    still_rejecting = True
+    for rank, c in enumerate(cells, start=1):
+        threshold = alpha / (m - rank + 1)
+        c["rank"] = rank
+        c["holm_threshold"] = threshold
+        # Holm is step-down: once one hypothesis fails, all later ones fail.
+        c["holm_significant"] = bool(still_rejecting and c["p"] <= threshold)
+        if not c["holm_significant"]:
+            still_rejecting = False
+        B = c["n_resamples"]
+        c["resolution_limited"] = bool(B > 0 and (1.0 / (B + 1)) > threshold)
+    n_sig = sum(c["holm_significant"] for c in cells)
+    n_res = sum(c["resolution_limited"] for c in cells)
+    return {
+        "method": "holm-bonferroni",
+        "alpha": alpha,
+        "n_tests": m,
+        "n_significant": n_sig,
+        "n_resolution_limited": n_res,
+        "note": ("p-values are Phipson-Smyth smoothed permutation p's; "
+                 "resolution_limited cells CANNOT reach their Holm threshold "
+                 "at the B used — increase --null-resamples before reading "
+                 "non-significance as evidence of absence."),
+        "cells": cells,
+    }
 
 
 def load_phase5c_curves(probe_dir):
@@ -241,7 +298,7 @@ def load_phase7b_curves(patching_dir):
     return out
 
 
-def render_summary_md(triangulation, paths_used):
+def render_summary_md(triangulation, paths_used, multiple_comparisons=None):
     lines = [
         "# Layer triangulation summary",
         "",
@@ -262,6 +319,34 @@ def render_summary_md(triangulation, paths_used):
         pa = t.get("patching_peak") if t.get("patching_status") == "peaked" else f"({t['patching_status']})"
         cs = ", ".join(str(x) for x in t["candidate_set"])
         lines.append(f"| {b} | {pr} | {pb} | {pa} | {cs} | {t['agreement_level']} |")
+    if multiple_comparisons:
+        mc = multiple_comparisons
+        lines += [
+            "",
+            f"## Null-test significance (Holm–Bonferroni, family α={mc['alpha']}, "
+            f"m={mc['n_tests']} behaviour×layer cells)",
+            "",
+            f"{mc['n_significant']}/{mc['n_tests']} cells significant; "
+            f"{mc['n_resolution_limited']} cells resolution-limited "
+            f"(min attainable p = 1/(B+1) exceeds their Holm threshold — "
+            f"non-significance there is a resolution statement, not evidence of absence).",
+            "",
+            "| Behaviour | Layer | p (smoothed) | Holm threshold | Significant | Resolution-limited |",
+            "|---|---|---|---|---|---|",
+        ]
+        for c in mc["cells"]:
+            lines.append(f"| {c['behaviour']} | {c['layer']} | {c['p']:.4g} | "
+                         f"{c['holm_threshold']:.3g} | "
+                         f"{'**yes**' if c['holm_significant'] else 'no'} | "
+                         f"{'yes' if c['resolution_limited'] else 'no'} |")
+    else:
+        lines += [
+            "",
+            "## Null-test significance",
+            "",
+            "_No Phase-5 null p-values found — run `05_pca_analysis.py --with-nulls` "
+            "(with adequate `--null-resamples`) before citing any significance._",
+        ]
     lines += [
         "",
         "## Methodological commitments (pre-registered)",
@@ -271,7 +356,8 @@ def render_summary_md(triangulation, paths_used):
         "   Probe/patching peak = argmax of their smoothed curves. Plateau = within 1 SD.",
         "3. Fallback to {L18, L27} if all curves are flat (CV < 0.03).",
         "4. Candidate set capped at 4 layers per behaviour.",
-        "5. Bonferroni correction across 4 behaviours for null-test significance.",
+        "5. Holm–Bonferroni across all behaviour×layer null cells (implemented above; "
+        "p-values are Phipson–Smyth smoothed).",
     ]
     return "\n".join(lines)
 
@@ -356,6 +442,7 @@ def main():
     pr_curves       = load_phase5_curves(pca_dir)
     probe_curves    = load_phase5c_curves(probe_dir)
     patching_curves = load_phase7b_curves(patching_dir)
+    null_p          = load_phase5_nulls(pca_dir)
 
     if not any([pr_curves, probe_curves, patching_curves]):
         logger.error("No input curves found. Run Phase 5 (--with-nulls), 5c, or 7b-pilot first.")
@@ -368,9 +455,22 @@ def main():
         pa = patching_curves.get(beh) if patching_curves else None
         triangulation[beh] = triangulate_behaviour(beh, pr, pb, pa)
 
+    # Pre-registered commitment #5, computed for real (was dead code).
+    multiple_comparisons = holm_bonferroni(null_p, alpha=0.05)
+    if multiple_comparisons is None:
+        logger.warning("No Phase-5 null p-values found — Holm–Bonferroni skipped. "
+                       "Run 05_pca_analysis.py --with-nulls before citing significance.")
+    else:
+        logger.info(f"Holm–Bonferroni: {multiple_comparisons['n_significant']}/"
+                    f"{multiple_comparisons['n_tests']} cells significant at "
+                    f"family alpha=0.05; {multiple_comparisons['n_resolution_limited']} "
+                    f"cells resolution-limited at their B")
+
     with open(args.out_dir / "candidate_layers.json", "w") as f:
-        json.dump(triangulation, f, indent=2)
-    md = render_summary_md(triangulation, paths_used)
+        json.dump({"triangulation": triangulation,
+                   "multiple_comparisons": multiple_comparisons}, f, indent=2)
+    md = render_summary_md(triangulation, paths_used,
+                           multiple_comparisons=multiple_comparisons)
     (args.out_dir / "summary.md").write_text(md)
     plot_curves(triangulation, pr_curves, probe_curves, patching_curves,
                 args.out_dir / "layer_sweep_curves.png")

@@ -179,16 +179,23 @@ def levina_bickel_estimate(X: np.ndarray, k_values=(5, 10, 20, 30),
         return IDResult("levina_bickel", float("nan"), float("nan"), float("nan"), X.shape[0], {})
 
     point_pool = np.concatenate(per_point_estimates)
-    boots = np.empty(n_bootstrap)
-    for b in range(n_bootstrap):
-        sample = rng.choice(point_pool, point_pool.size, replace=True)
-        boots[b] = np.median(sample)
+    if n_bootstrap > 0 and point_pool.size > 0:
+        boots = np.empty(n_bootstrap)
+        for b in range(n_bootstrap):
+            sample = rng.choice(point_pool, point_pool.size, replace=True)
+            boots[b] = np.median(sample)
+    else:
+        # n_bootstrap=0 (e.g. point estimate inside a permutation null) or an
+        # empty pool: skip the CI rather than crash on np.percentile([]). Matches
+        # twoNN_estimate, which routes through the empty-guarded _ci helper.
+        boots = np.empty(0)
+    ci_low, ci_high = _ci(boots)
 
     return IDResult(
         estimator="levina_bickel",
         estimate=float(np.mean(estimates_per_k)),
-        ci_low=float(np.percentile(boots, 2.5)),
-        ci_high=float(np.percentile(boots, 97.5)),
+        ci_low=ci_low,
+        ci_high=ci_high,
         n_samples=int(X.shape[0]),
         extras={"per_k_estimates": estimates_per_k, "k_values": list(k_values)},
     )

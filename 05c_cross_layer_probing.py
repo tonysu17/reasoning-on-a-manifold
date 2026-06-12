@@ -55,8 +55,10 @@ ALL_LABELS = TARGET_BEHAVIOURS + ["initializing", "deduction"]
 # Layer-wise linear probing
 
 def probe_accuracy_at_layer(
-    behaviour_X:  np.ndarray,
-    other_X:      np.ndarray,
+    behaviour_X:      np.ndarray,
+    other_X:          np.ndarray,
+    behaviour_groups: np.ndarray,
+    other_groups:     np.ndarray,
     random_state: int = 42,
     test_size:    float = 0.3,
     C:            float = 1.0,
@@ -64,11 +66,20 @@ def probe_accuracy_at_layer(
     """Train a binary logistic regression (behaviour vs other) on activations
     at one layer; return train/test accuracy, ROC AUC, and class balance.
 
-    Subsamples the larger class to balance, then splits train/test.
+    Chain-grouped split: sentences from the same chain NEVER straddle
+    train/test. The previous plain train_test_split leaked chain context — the
+    exact failure mode tests/test_cv_leakage.py demonstrates inflates a null
+    probe from 0.50 to 0.99 — so the historical 83–93% accuracies are upper
+    bounds. Exact-duplicate rows are removed per class first (CF-13).
     """
     from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import train_test_split
+    from sklearn.model_selection import GroupShuffleSplit
     from sklearn.metrics import accuracy_score, roc_auc_score
+
+    from src.row_provenance import dedup_rows
+
+    behaviour_X, behaviour_groups = dedup_rows(behaviour_X, behaviour_groups)
+    other_X, other_groups = dedup_rows(other_X, other_groups)
 
     rng = np.random.default_rng(random_state)
     n_b = behaviour_X.shape[0]
@@ -81,15 +92,28 @@ def probe_accuracy_at_layer(
     o_idx = rng.choice(n_o, n_min, replace=False)
     X = np.vstack([behaviour_X[b_idx], other_X[o_idx]])
     y = np.concatenate([np.ones(n_min), np.zeros(n_min)])
+    groups = np.concatenate([np.asarray(behaviour_groups)[b_idx],
+                             np.asarray(other_groups)[o_idx]])
 
-    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=test_size, random_state=random_state, stratify=y)
+    n_groups = np.unique(groups).size
+    if n_groups < 2:
+        return {"error": f"need >=2 chains for a grouped split, got {n_groups}"}
+    splitter = GroupShuffleSplit(n_splits=1, test_size=test_size,
+                                 random_state=random_state)
+    tr, te = next(splitter.split(X, y, groups=groups))
+    if np.unique(y[te]).size < 2 or np.unique(y[tr]).size < 2:
+        return {"error": "grouped split left a single-class side; more chains needed"}
     clf = LogisticRegression(C=C, max_iter=2000, random_state=random_state)
-    clf.fit(Xtr, ytr)
+    clf.fit(X[tr], y[tr])
     return {
-        "train_acc": float(accuracy_score(ytr, clf.predict(Xtr))),
-        "test_acc":  float(accuracy_score(yte, clf.predict(Xte))),
-        "auc":       float(roc_auc_score(yte, clf.decision_function(Xte))),
+        "train_acc": float(accuracy_score(y[tr], clf.predict(X[tr]))),
+        "test_acc":  float(accuracy_score(y[te], clf.predict(X[te]))),
+        "auc":       float(roc_auc_score(y[te], clf.decision_function(X[te]))),
         "n_per_class": int(n_min),
+        "n_chains": int(n_groups),
+        "n_train_chains": int(np.unique(groups[tr]).size),
+        "n_test_chains": int(np.unique(groups[te]).size),
+        "split": "chain-grouped (GroupShuffleSplit), exact-dup rows removed",
     }
 
 
@@ -97,35 +121,45 @@ def probe_all_layers_all_behaviours(
     act_dir: Path,
     layers:  list,
     behaviours: list,
+    annotated_path: Path,
     random_state: int = 42,
 ) -> dict:
-    """Run probing for each (behaviour, layer) cell."""
+    """Run probing for each (behaviour, layer) cell with chain-grouped CV."""
+    from src.row_provenance import chain_ids_for, require_aligned
+
+    chain_map = chain_ids_for(act_dir, annotated_path, ALL_LABELS)
     out = {}
     for beh in behaviours:
         out[beh] = {}
-        # Build the "other" activations by concatenating all non-target labels
-        other_files = [act_dir / f"{lbl}_layer{layers[0]}.npy"
-                       for lbl in ALL_LABELS if lbl != beh]
         for L in layers:
             target_p = act_dir / f"{beh}_layer{L}.npy"
             if not target_p.exists():
                 logger.warning(f"  missing {target_p}; skipping {beh}@L{L}")
                 continue
             X_b = np.load(target_p)
+            g_b = require_aligned(beh, X_b.shape[0], chain_map.get(beh),
+                                  context="05c probe")
             # Other = pool of non-target activations at this layer
-            others = []
+            others, other_groups = [], []
             for lbl in ALL_LABELS:
                 if lbl == beh:
                     continue
                 op = act_dir / f"{lbl}_layer{L}.npy"
                 if op.exists():
-                    others.append(np.load(op))
+                    X_l = np.load(op)
+                    others.append(X_l)
+                    other_groups.append(require_aligned(
+                        lbl, X_l.shape[0], chain_map.get(lbl), context="05c probe"))
             if not others:
                 continue
             X_o = np.vstack(others)
+            g_o = np.concatenate(other_groups)
             logger.info(f"  {beh}@L{L}: n_target={X_b.shape[0]}, n_other={X_o.shape[0]}")
             try:
-                r = probe_accuracy_at_layer(X_b, X_o, random_state=random_state)
+                r = probe_accuracy_at_layer(X_b, X_o, g_b, g_o,
+                                            random_state=random_state)
+            except RuntimeError:
+                raise  # row misalignment — do not probe misaligned rows
             except Exception as e:
                 logger.error(f"  probe failed: {type(e).__name__}: {e}")
                 r = {"error": str(e)}
@@ -197,6 +231,10 @@ def main():
     parser.add_argument("--top-k", type=int, default=10, help="PCA dim for subspace angle. Default 10.")
     parser.add_argument("--out-dir", type=Path, default=None)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--annotated", type=Path, default=None,
+                        help="Annotated chains JSON (chain ids for the grouped "
+                             "split; default data/annotated_<model>.json — "
+                             "unused when the extraction sidecar exists).")
     args = parser.parse_args()
 
     if args.out_dir is None:
@@ -208,8 +246,11 @@ def main():
         logger.error(f"Activations not found at {act_dir}")
         sys.exit(1)
 
-    logger.info("=== Layer-wise linear probing ===")
+    annotated_path = args.annotated or Path(f"data/annotated_{args.model_short}.json")
+
+    logger.info("=== Layer-wise linear probing (chain-grouped CV) ===")
     probe_results = probe_all_layers_all_behaviours(act_dir, args.layers, args.behaviours,
+                                                      annotated_path=annotated_path,
                                                       random_state=args.seed)
     (args.out_dir / "probe_accuracy.json").write_text(json.dumps(probe_results, indent=2))
 

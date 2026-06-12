@@ -1,0 +1,246 @@
+{
+  "model_short": "R1-1.5B",
+  "layer": 27,
+  "n_resamples": 200,
+  "max_points": 0,
+  "statistics": [
+    "twonn",
+    "levina"
+  ],
+  "confound": "CF-3 (null tested the wrong statistic) + CF-2 (chain)",
+  "note": "tail='lower': claim is dim/curvature-ratio LOW, so real must sit BELOW the null.",
+  "results": {
+    "backtracking": {
+      "twoNN_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 0.16819914021223348,
+          "null_mean": 0.15146208497880007,
+          "null_std": 0.0048940907921922495,
+          "null_p2_5": 0.14272432054146605,
+          "null_p97_5": 0.16134542987926212,
+          "p_value": 0.995,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 0.16819914021223348,
+          "null_mean": 0.15876694795933521,
+          "null_std": 0.006797458240748657,
+          "null_p2_5": 0.148792240400542,
+          "null_p97_5": 0.172593919715504,
+          "p_value": 0.905,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 396.7291741371155
+      },
+      "levina_bickel_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 3.3479508267068474,
+          "null_mean": 4.600432405629664,
+          "null_std": 0.18049144694872649,
+          "null_p2_5": 4.250816785343545,
+          "null_p97_5": 4.9605608053437615,
+          "p_value": 0.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 3.3479508267068474,
+          "null_mean": 6.157247876176248,
+          "null_std": 0.19232071104094234,
+          "null_p2_5": 5.789359262901017,
+          "null_p97_5": 6.517135877546085,
+          "p_value": 0.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 402.3027400970459
+      }
+    },
+    "uncertainty-estimation": {
+      "twoNN_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 3.460198105942223,
+          "null_mean": 0.23496543210075974,
+          "null_std": 0.22512656690117755,
+          "null_p2_5": 0.18242415833962705,
+          "null_p97_5": 0.33508173394183166,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 3.460198105942223,
+          "null_mean": 0.42660155400843763,
+          "null_std": 0.6632447038771846,
+          "null_p2_5": 0.19185530140340204,
+          "null_p97_5": 3.445667210265562,
+          "p_value": 0.975,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 1472.8806700706482
+      },
+      "levina_bickel_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 5.06890523230938,
+          "null_mean": 5.617914560423942,
+          "null_std": 0.1372900025892572,
+          "null_p2_5": 5.358257479601612,
+          "null_p97_5": 5.856897923841317,
+          "p_value": 0.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 5.06890523230938,
+          "null_mean": 5.520052304854361,
+          "null_std": 0.16886748516159472,
+          "null_p2_5": 5.219150570302178,
+          "null_p97_5": 5.86074749283636,
+          "p_value": 0.01,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 3155.7996401786804
+      }
+    },
+    "example-testing": {
+      "twoNN_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 4.817080761848872,
+          "null_mean": 0.41549023536123175,
+          "null_std": 0.7741915855421708,
+          "null_p2_5": 0.16809692709404395,
+          "null_p97_5": 3.513681728957992,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 4.817080761848872,
+          "null_mean": 0.13714288961534585,
+          "null_std": 0.0034821223571368343,
+          "null_p2_5": 0.13129765224158474,
+          "null_p97_5": 0.14441965806406173,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 176.03398776054382
+      },
+      "levina_bickel_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 7.417608758654585,
+          "null_mean": 8.101069763624597,
+          "null_std": 0.15498250977796013,
+          "null_p2_5": 7.808885726247199,
+          "null_p97_5": 8.38671020410121,
+          "p_value": 0.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 7.417608758654585,
+          "null_mean": 7.5742126320546745,
+          "null_std": 0.23442886633284538,
+          "null_p2_5": 7.1095052693495875,
+          "null_p97_5": 8.030225533109673,
+          "p_value": 0.255,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 206.2036111354828
+      }
+    },
+    "adding-knowledge": {
+      "twoNN_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 6.625940882515117,
+          "null_mean": 4.771379575462163,
+          "null_std": 0.6937429744597644,
+          "null_p2_5": 3.765197861403561,
+          "null_p97_5": 5.698277367615779,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "twoNN_intrinsic_dim",
+          "real_value": 6.625940882515117,
+          "null_mean": 0.13524257041540597,
+          "null_std": 0.003420262186752544,
+          "null_p2_5": 0.12955122819156314,
+          "null_p97_5": 0.1426447849938285,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 145.82249212265015
+      },
+      "levina_bickel_intrinsic_dim": {
+        "chain_strat": {
+          "null_name": "chain_strat_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 10.267508475512743,
+          "null_mean": 11.5484130090292,
+          "null_std": 0.15117853065433773,
+          "null_p2_5": 11.234725137197472,
+          "null_p97_5": 11.833320452338402,
+          "p_value": 0.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "cross_chain": {
+          "null_name": "cross_chain_perm",
+          "statistic_name": "levina_bickel_intrinsic_dim",
+          "real_value": 10.267508475512743,
+          "null_mean": 8.025807470090209,
+          "null_std": 0.22955670266462044,
+          "null_p2_5": 7.5566365280241214,
+          "null_p97_5": 8.475581145709524,
+          "p_value": 1.0,
+          "n_resamples": 200,
+          "tail": "lower"
+        },
+        "tail": "lower",
+        "runtime_s": 155.1394157409668
+      }
+    }
+  }
+}

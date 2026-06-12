@@ -43,9 +43,27 @@ class NullResult:
     null_std: float
     null_p2_5: float             # 2.5th percentile of null
     null_p97_5: float            # 97.5th percentile of null
-    p_value: float               # one-sided P(null >= real) for upper-tail tests
+    p_value: float               # one-sided, Phipson–Smyth smoothed: (1+count)/(1+B)
     n_resamples: int
     tail: str                    # 'upper' (real > null) or 'lower' (real < null)
+    n_chains: int = 0            # chains seen by the permutation (0 = n/a)
+    n_mixed_label_chains: int = 0  # chains where permutation can actually move labels
+
+
+def _smoothed_p(null_stats: np.ndarray, real_value: float, tail: str) -> float:
+    """Phipson & Smyth (2010) permutation p-value: (1 + #extreme) / (1 + B).
+
+    The unsmoothed count/B version can return p = 0, which (a) is impossible
+    for a permutation test (the observed labelling is itself a permutation)
+    and (b) fakes infinite resolution — at B=100 an unsmoothed 0 was being
+    read against a Bonferroni threshold of 4.5e-4 it could never legitimately
+    pass. Minimum attainable smoothed p is 1/(B+1).
+    """
+    if tail == "upper":
+        count = int((null_stats >= real_value).sum())
+    else:
+        count = int((null_stats <= real_value).sum())
+    return float((1 + count) / (1 + null_stats.size))
 
 
 # Statistic computers
@@ -108,6 +126,28 @@ def chain_stratified_permutation_null(
     unique_chains = np.unique(chain_ids)
     chain_to_idx = {c: np.where(chain_ids == c)[0] for c in unique_chains}
 
+    # Guard against the silent no-op: if NO chain contains more than one
+    # distinct label, within-chain permutation cannot move any label, the
+    # null distribution collapses onto the real value, and p≈1.0 comes out
+    # looking like an honest result. This is exactly what the old
+    # proxy-chain fallback produced. Fail loudly instead.
+    n_mixed = sum(1 for idxs in chain_to_idx.values()
+                  if np.unique(labels[idxs]).size > 1)
+    if n_mixed == 0:
+        raise ValueError(
+            "chain_strat_perm: within-chain permutation is a NO-OP — no chain "
+            "contains more than one distinct label. This usually means proxy "
+            "chain ids (one pseudo-chain per behaviour). Fix the chain-id "
+            "provenance (see src/row_provenance.py) instead of running a "
+            "vacuous null."
+        )
+    if n_mixed < 0.5 * unique_chains.size:
+        logger.warning(
+            f"chain_strat_perm: only {n_mixed}/{unique_chains.size} chains have "
+            f"mixed labels; the permutation null has little room to move and "
+            f"will be weak (not invalid)."
+        )
+
     null_stats = np.empty(n_resamples)
     null_stats[:] = np.nan
     for r in range(n_resamples):
@@ -130,12 +170,10 @@ def chain_stratified_permutation_null(
                           real_value=real_value, null_mean=float("nan"),
                           null_std=float("nan"), null_p2_5=float("nan"),
                           null_p97_5=float("nan"), p_value=float("nan"),
-                          n_resamples=0, tail=tail)
+                          n_resamples=0, tail=tail,
+                          n_chains=int(unique_chains.size),
+                          n_mixed_label_chains=int(n_mixed))
     null_stats = null_stats[valid]
-    if tail == "upper":
-        p_val = float((null_stats >= real_value).sum() / null_stats.size)
-    else:
-        p_val = float((null_stats <= real_value).sum() / null_stats.size)
     return NullResult(
         null_name="chain_strat_perm",
         statistic_name=statistic_name,
@@ -144,9 +182,11 @@ def chain_stratified_permutation_null(
         null_std=float(null_stats.std()),
         null_p2_5=float(np.percentile(null_stats, 2.5)),
         null_p97_5=float(np.percentile(null_stats, 97.5)),
-        p_value=p_val,
+        p_value=_smoothed_p(null_stats, real_value, tail),
         n_resamples=int(null_stats.size),
         tail=tail,
+        n_chains=int(unique_chains.size),
+        n_mixed_label_chains=int(n_mixed),
     )
 
 
@@ -195,10 +235,6 @@ def cross_chain_permutation_null(
                           null_p97_5=float("nan"), p_value=float("nan"),
                           n_resamples=0, tail=tail)
     null_stats = null_stats[valid]
-    if tail == "upper":
-        p_val = float((null_stats >= real_value).sum() / null_stats.size)
-    else:
-        p_val = float((null_stats <= real_value).sum() / null_stats.size)
     return NullResult(
         null_name="cross_chain_perm",
         statistic_name=statistic_name,
@@ -207,7 +243,7 @@ def cross_chain_permutation_null(
         null_std=float(null_stats.std()),
         null_p2_5=float(np.percentile(null_stats, 2.5)),
         null_p97_5=float(np.percentile(null_stats, 97.5)),
-        p_value=p_val,
+        p_value=_smoothed_p(null_stats, real_value, tail),
         n_resamples=int(null_stats.size),
         tail=tail,
     )

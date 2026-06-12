@@ -110,3 +110,35 @@ def test_full_hierarchy_keys():
     acts, chains, labels = chained_labelled(structure=True, seed=11)
     out = full_null_hierarchy(acts, chains, labels, "backtracking", n_resamples=50)
     assert set(out) == {"chain_strat", "cross_chain", "mp"}
+
+
+# ── fail-loud guard + smoothed p-values (2026-06-12 hardening) ───────────────
+
+def test_proxy_chain_ids_raise_instead_of_noop():
+    """One pseudo-chain per behaviour (the old fallback) makes within-chain
+    permutation a no-op; the null must refuse to run, not return p≈1.0."""
+    import pytest
+    acts, chains, labels = chained_labelled(structure=True, seed=12)
+    proxy_chains = labels.copy()  # chain id == label -> every chain single-label
+    with pytest.raises(ValueError, match="NO-OP"):
+        chain_stratified_permutation_null(acts, proxy_chains, labels,
+                                          "backtracking", n_resamples=20)
+
+
+def test_p_value_is_smoothed_never_zero():
+    """Permutation p must be (1+count)/(1+B): minimum 1/(B+1), never 0 —
+    unsmoothed zeros faked infinite resolution against Bonferroni thresholds."""
+    acts, chains, labels = chained_labelled(structure=True, seed=13)
+    B = 100
+    res = chain_stratified_permutation_null(acts, chains, labels,
+                                            "backtracking", n_resamples=B)
+    assert res.p_value >= 1.0 / (B + 1)
+    assert res.p_value > 0.0
+
+
+def test_null_result_reports_chain_mixing():
+    acts, chains, labels = chained_labelled(structure=True, seed=14)
+    res = chain_stratified_permutation_null(acts, chains, labels,
+                                            "backtracking", n_resamples=20)
+    assert res.n_chains == len(np.unique(chains))
+    assert 0 < res.n_mixed_label_chains <= res.n_chains

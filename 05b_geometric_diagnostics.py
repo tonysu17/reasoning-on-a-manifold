@@ -69,43 +69,27 @@ def load_activations(act_dir: Path, behaviour: str, layer: int) -> np.ndarray:
     return np.load(fname)
 
 
-# Single source of truth (was a verbatim copy; drift here misaligns rows).
-from src.text_offsets import find_sentence_offset as _find_sentence_offset
+# Sidecar-first row provenance + duplicate hygiene (single source of truth;
+# replaces the replay loader and the silent proxy-chain fallback — CF-13).
+from src.row_provenance import (
+    chain_ids_for,
+    dedup_rows,
+    duplicate_fraction,
+    require_aligned,
+)
 
 
-def load_chain_id_map(annotated_path: Path, target_behaviours) -> dict:
-    """Load chain_id per sentence per behaviour from the annotation file.
+def load_chain_id_map(annotated_path: Path, target_behaviours,
+                      act_dir: "Path | None" = None) -> dict:
+    """Chain_id per activation row per behaviour.
 
-    Apply Phase 4's find_sentence_offset filter so the chain_id array length
-    matches the activation-matrix row count exactly.
-
-    Returns dict {behaviour: ndarray of chain_ids per sentence}.
+    Prefers the extraction-time row_index.json sidecar in *act_dir* (exact by
+    construction); falls back to an occurrence-aware replay of the annotation
+    file for legacy extractions. Returns dict {behaviour: ndarray | None} —
+    validate with src.row_provenance.require_aligned before use.
     """
-    if not annotated_path.exists():
-        logger.warning(f"Annotation file {annotated_path} not found; chain IDs unavailable.")
-        return {b: None for b in target_behaviours}
-
-    with open(annotated_path) as f:
-        chains = json.load(f)
-
-    per_beh = {b: [] for b in target_behaviours}
-    n_filtered = {b: 0 for b in target_behaviours}
-    for chain in chains:
-        chain_text = chain.get("chain", "")
-        cid = chain.get("chain_id") or chain.get("task_id")
-        for ann in chain.get("annotations", []):
-            label = ann.get("label", "")
-            if label not in per_beh:
-                continue
-            # Apply the same filter Phase 4 applied
-            if _find_sentence_offset(chain_text, ann.get("text", "")) is None:
-                n_filtered[label] += 1
-                continue
-            per_beh[label].append(cid)
-    for b, n in n_filtered.items():
-        if n > 0:
-            logger.info(f"  filtered {n} unlocatable {b} annotations (matches Phase 4 skip)")
-    return {b: np.array(v) if v else None for b, v in per_beh.items()}
+    return chain_ids_for(act_dir if act_dir is not None else Path("."),
+                         annotated_path, list(target_behaviours))
 
 
 # Diagnostics per behaviour at one layer
@@ -121,9 +105,18 @@ def diagnose_behaviour(
     variance_threshold:        float = 0.90,
 ) -> dict:
     """Run the full diagnostic battery on one behaviour's activation matrix."""
-    out: dict = {"N": int(X.shape[0]), "d": int(X.shape[1])}
+    out: dict = {"N_raw": int(X.shape[0]), "d": int(X.shape[1])}
 
-    # ID estimators on raw data
+    # Exact-duplicate hygiene BEFORE any kNN-based estimator: duplicate rows
+    # put zero-distance neighbours into TwoNN/LB/geodesic graphs (CF-13).
+    out["duplicate_fraction"] = duplicate_fraction(X)
+    if out["duplicate_fraction"] > 0:
+        (X,) = dedup_rows(X)
+        logger.info(f"  [{behaviour}] removed {out['duplicate_fraction']:.1%} "
+                    f"exact-duplicate rows → N={X.shape[0]}")
+    out["N"] = int(X.shape[0])
+
+    # ID estimators on deduplicated data
     logger.info(f"  [{behaviour}] intrinsic dimension estimators (N={X.shape[0]})...")
     t = time.time()
     id_results = all_id_estimators(X, n_bootstrap=100)
@@ -170,18 +163,24 @@ def run_null_hierarchy_at_layer(
     parts_X, parts_chain, parts_label = [], [], []
     for b in behaviours:
         X = activations_by_behaviour[b]
-        cids = chain_ids_by_behaviour.get(b)
+        # Hard error on missing/mismatched chain ids: the old proxy fallback
+        # (one chain per behaviour) made the within-chain permutation a NO-OP,
+        # silently returning p≈1.0.
+        cids = require_aligned(b, X.shape[0], chain_ids_by_behaviour.get(b),
+                               context="05b null hierarchy")
         parts_X.append(X)
-        # If chain_ids missing or length-mismatched, fall back to one chain per behaviour
-        if cids is None or len(cids) != X.shape[0]:
-            logger.warning(f"chain_ids for {b} unavailable/mismatched (got {None if cids is None else len(cids)} for N={X.shape[0]}); using behaviour as chain proxy")
-            cids = np.array([f"{b}_proxy"] * X.shape[0])
         parts_chain.append(cids)
         parts_label.append(np.array([b] * X.shape[0]))
 
     X_all     = np.vstack(parts_X)
     chain_all = np.concatenate(parts_chain)
     label_all = np.concatenate(parts_label)
+
+    dup = duplicate_fraction(X_all)
+    if dup > 0:
+        logger.info(f"  removing {dup:.1%} exact-duplicate rows before the "
+                    f"null hierarchy (CF-13)")
+        X_all, chain_all, label_all = dedup_rows(X_all, chain_all, label_all)
 
     results = {}
     for b in behaviours:
@@ -348,7 +347,8 @@ def main():
             logger.error("No activation files found for any target behaviour.")
             sys.exit(1)
 
-        chain_ids_by_beh = load_chain_id_map(annotated_p, list(activations_by_beh.keys()))
+        chain_ids_by_beh = load_chain_id_map(annotated_p, list(activations_by_beh.keys()),
+                                             act_dir=act_dir)
 
         # Per-behaviour diagnostics
         per_behaviour = {}

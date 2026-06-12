@@ -71,7 +71,15 @@ def _sentence_to_token_positions(
 
 # Canonical implementation lives in src/text_offsets.py (single source of truth);
 # re-exported here under the historical private name for backward compatibility.
+# Extraction itself uses the occurrence-aware whole-chain locator so verbatim
+# repeats bind to successive occurrences (the first-occurrence rule produced
+# 35–56% exact-duplicate rows; see CONFOUNDS_AND_REMEDIATION.md CF-13).
 from src.text_offsets import find_sentence_offset as _find_sentence_offset
+from src.text_offsets import locate_annotation_offsets
+
+#: Bump when the sentence→span matching rule changes; recorded in metadata and
+#: the row-provenance sidecar so analyses can refuse mixed-rule data.
+SENTENCE_MATCHING_VERSION = "occurrence_aware_v1"
 
 
 # ── Pooling over a behaviour span's token positions ──────────────────────────
@@ -187,6 +195,11 @@ def extract_activations(
     }
     n_extracted = {b: 0 for b in behaviours}
     n_skipped = {b: 0 for b in behaviours}
+    # Row-provenance sidecar: one record per accepted row, in exact row order.
+    # Downstream analyses load this instead of replaying the extraction
+    # iteration (the replay was fragile: any skip-condition drift silently
+    # shifted every later row and triggered proxy-chain fallbacks in the null).
+    row_index: dict[str, list[dict]] = {b: [] for b in behaviours}
 
     chains = annotated_chains[:max_chains] if max_chains else annotated_chains
 
@@ -199,6 +212,14 @@ def extract_activations(
         prompt_text: str = chain["prompt"]
         full_text: str = prompt_text + chain_text
         chain_offset: int = len(prompt_text)
+        chain_id = chain.get("chain_id") or chain.get("task_id")
+
+        # Locate ALL annotations up front (occurrence-aware): the cursor must
+        # advance over every annotation — including non-target labels — so
+        # repeats bind to successive occurrences deterministically.
+        sent_offsets = locate_annotation_offsets(
+            chain_text, [a.get("text", "") for a in annotations]
+        )
 
         # Tokenise once per chain (with offset mapping for char→token alignment)
         enc = tokenizer(
@@ -214,13 +235,13 @@ def extract_activations(
             with torch.no_grad():
                 model(**inputs)
 
-            for ann in annotations:
+            for ann_idx, ann in enumerate(annotations):
                 cat = ann["label"]
                 if cat not in behaviours:
                     continue
 
-                # Find sentence position in chain_text
-                sent_offset = _find_sentence_offset(chain_text, ann["text"])
+                # Occurrence-aware sentence position in chain_text
+                sent_offset = sent_offsets[ann_idx]
                 if sent_offset is None:
                     n_skipped[cat] += 1
                     continue
@@ -244,6 +265,13 @@ def extract_activations(
                         acc_sweep[m][cat][layer_idx].append(
                             _pool(sl, m).numpy().astype(np.float32))
 
+                row_index[cat].append({
+                    "chain_id": chain_id,
+                    "annotation_index": ann_idx,
+                    "char_offset": sent_offset,
+                    "token_start": positions[0],
+                    "n_positions": len(positions),
+                })
                 n_extracted[cat] += 1
 
     # ── Save ────────────────────────────────────────────────────────────
@@ -272,7 +300,19 @@ def extract_activations(
             "pooling_sweep": sweep_modes,
             "n_extracted": n_extracted,
             "n_skipped": n_skipped,
+            "sentence_matching": SENTENCE_MATCHING_VERSION,
         }, f, indent=2)
+
+    # Row-provenance sidecar (one record per row, exact row order — see
+    # src/row_provenance.py for the loader downstream analyses must use).
+    sidecar = {
+        "version": 1,
+        "sentence_matching": SENTENCE_MATCHING_VERSION,
+        "pooling": pooling,
+        "rows": row_index,
+    }
+    with open(save_dir / "row_index.json", "w") as f:
+        json.dump(sidecar, f, indent=2)
 
     # ── Sweep: save extra-mode activations to pool_<mode>/ + comparison report ──
     for m in extra_modes:
@@ -287,7 +327,12 @@ def extract_activations(
             json.dump({"behaviours": behaviours, "layers": layers,
                        "n_preceding": n_preceding, "n_execution": n_execution,
                        "pooling": m, "n_extracted": n_extracted,
-                       "n_skipped": n_skipped}, f, indent=2)
+                       "n_skipped": n_skipped,
+                       "sentence_matching": SENTENCE_MATCHING_VERSION}, f, indent=2)
+        # Same rows, same order — the sweep modes share the forward pass, so the
+        # sidecar applies verbatim (only "pooling" differs).
+        with open(mdir / "row_index.json", "w") as f:
+            json.dump({**sidecar, "pooling": m}, f, indent=2)
     if extra_modes:
         try:
             _write_pooling_sweep_report(save_dir, primary=pooling,
