@@ -52,6 +52,9 @@ Record keys: `task_id`, `category`, `instruction`, `prompt`, `chain`,
 
 | File | Status | Notes |
 |------|--------|-------|
+| `chains_R1-7B.json` | **CLUSTER-ONLY, PARTIAL (~38%)** | 7B chain generation stopped mid-run (~380/1000 chains, June 6–8). Resume or formally drop the 7B arm — do not treat as a corpus. |
+| `chains_QwenMath-1.5B.json` | **CLUSTER (full-size), local copy pending** | CBS baseline corpus — generated at the OLD 2048 cap, unannotated. CBS deferred; if revived, regenerate at 8192 (02b default now fixed). |
+| `annotated_R1-1.5B__nova-pro.json`, `annotated_R1-1.5B__qwen3-235b.json` | **CANONICAL (annotator arms)** | 3-annotator robustness inputs (1000 chains each; Nova-Pro had ~290 partial parses). Pulled local 2026-06-12; κ report at `results/robustness/cross_annotator_comparison.md`. Their June-6 activation extractions predate the occurrence-aware matcher (CF-13) — re-extract before R2.2 geometry replication. |
 | `chains_QwenMath-1.5B_smoke.json` | Smoke / intermediate | 20 baseline Q/A-scaffold responses (mathematical_logic), smoke test of `02b_generate_baseline_chains.py`. No full baseline chain corpus exists in `data/` yet (awaits cluster run — see PROGRESS.md). |
 
 ---

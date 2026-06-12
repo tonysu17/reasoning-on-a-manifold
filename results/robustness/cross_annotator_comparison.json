@@ -1,0 +1,54 @@
+{
+  "n_common_chains": 1000,
+  "agreement": {
+    "Sonnet-4.5 vs Qwen3-235B": {
+      "kappa_6label": 0.436,
+      "kappa_target_vs_other": 0.352,
+      "char_agreement_overall": 0.579,
+      "char_agreement_labeled": 0.408
+    },
+    "Sonnet-4.5 vs Nova-Pro": {
+      "kappa_6label": 0.35,
+      "kappa_target_vs_other": 0.305,
+      "char_agreement_overall": 0.519,
+      "char_agreement_labeled": 0.354
+    },
+    "Qwen3-235B vs Nova-Pro": {
+      "kappa_6label": 0.345,
+      "kappa_target_vs_other": 0.263,
+      "char_agreement_overall": 0.52,
+      "char_agreement_labeled": 0.322
+    }
+  },
+  "label_distributions": {
+    "Sonnet-4.5": {
+      "deduction": 44.9,
+      "uncertainty-estimation": 21.6,
+      "backtracking": 13.2,
+      "example-testing": 7.5,
+      "adding-knowledge": 6.5,
+      "initializing": 6.3
+    },
+    "Qwen3-235B": {
+      "deduction": 46.0,
+      "initializing": 14.6,
+      "example-testing": 12.5,
+      "backtracking": 10.8,
+      "adding-knowledge": 9.1,
+      "uncertainty-estimation": 7.0
+    },
+    "Nova-Pro": {
+      "deduction": 54.1,
+      "backtracking": 14.8,
+      "uncertainty-estimation": 11.5,
+      "adding-knowledge": 8.8,
+      "initializing": 7.0,
+      "example-testing": 3.9
+    }
+  },
+  "manifold_replication": {
+    "Sonnet-4.5": {},
+    "Qwen3-235B": {},
+    "Nova-Pro": {}
+  }
+}
