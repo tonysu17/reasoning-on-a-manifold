@@ -119,6 +119,10 @@ def generate_baseline_chains(
     save_path = Path(save_path) if save_path else None
 
     if save_path and save_path.exists():
+        # Snapshot before touching it (02 does this; 02b previously didn't —
+        # a short/failed re-run could overwrite a longer good baseline file).
+        from src.config import backup_existing
+        backup_existing(save_path)
         with open(save_path) as f:
             chains = json.load(f)
         logger.info(f"Resuming from checkpoint: {len(chains)}/{len(tasks)} done")
@@ -198,8 +202,14 @@ def main():
     parser = argparse.ArgumentParser(description="Phase 2b: Baseline (non-reasoning) chain generation")
     parser.add_argument("--model", choices=list(MODELS), default="qwen-math-1.5b")
     parser.add_argument("--tasks", type=Path, default=Path("data/tasks_final.json"))
-    parser.add_argument("--max-new-tokens", type=int, default=2048,
-                        help="Generation budget (default: 2048; baseline is much shorter than R1's 8192)")
+    parser.add_argument("--max-new-tokens", type=int, default=8192,
+                        help="Generation budget (default: 8192 — MUST match "
+                             "02_generate_chains.py's cap: base Qwen-Math "
+                             "models repetition-loop, and truncating the "
+                             "baseline 4x sooner than R1 biases every "
+                             "length/completeness-sensitive base-vs-distilled "
+                             "comparison. Baselines are typically short, so "
+                             "the higher cap rarely costs anything.)")
     parser.add_argument("--temperature", type=float, default=0.0,
                         help="Greedy if 0.0 (default), else sample")
     parser.add_argument("--cache-dir", default=None)

@@ -7,16 +7,34 @@ autoregressive generation, implementing Huang et al. Equation 3:
     h' = h − α · (r^T h) · r      [subtract mode — reduce the behaviour]
     h' = h + α · (r^T h) · r      [add mode     — amplify the behaviour]
 
-Three conditions are compared for each (behaviour, α):
-  - vanilla:             no steering (α = 0 baseline)
-  - single_direction:   Venhoff-style difference-of-means vector
-  - manifold_projected: our manifold-projected vector (at auto_k)
+(The hook applies to every position, prompt prefill included, matching Huang;
+vectors from src/steering.py are unit-norm, so α is the full scale knob.)
+
+Conditions compared per behaviour:
+  - vanilla:            unsteered baseline — generated ONCE per task and
+                        shared across behaviours/α (greedy decoding makes
+                        per-α regeneration byte-identical; the old per-α
+                        vanilla arm multiplied generation AND re-annotation
+                        cost ~8× for zero information)
+  - single_direction:   Venhoff-style difference-of-means vector (α > 0)
+  - manifold_projected: our PCA-subspace-projected vector at auto_k (α > 0)
+  - random_direction:   norm-matched random unit vector, fixed seed per
+                        behaviour (α > 0) — the control that licenses causal
+                        language: without it, "manifold beats single
+                        direction" can't be separated from "any perturbation
+                        of this magnitude changes behaviour fractions"
+
+Default max_new_tokens follows configs/config.yaml generation.max_new_tokens
+(8192). The previous 2048 default silently truncated steered chains — the
+exact mistake memorialised by data/chains_R1-1.5B_BAD_2048cap.json — which
+confounds α effects with truncation effects.
 
 Requires: torch, transformers  (pip install .[gpu])
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 from pathlib import Path
@@ -26,6 +44,35 @@ import numpy as np
 from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
+
+#: Pseudo-behaviour key for the shared unsteered baseline records.
+SHARED_BASELINE = "shared"
+
+
+def default_max_new_tokens() -> int:
+    """generation.max_new_tokens from config.yaml (8192), with a safe fallback."""
+    try:
+        from src.config import load_config
+        return int(load_config().get("generation", {}).get("max_new_tokens", 8192))
+    except Exception:
+        return 8192
+
+
+def random_direction_like(reference: np.ndarray, seed_key: str) -> np.ndarray:
+    """Norm-matched random control vector, reproducible across runs.
+
+    Seeded from a stable digest of *seed_key* (NOT the salted builtin hash),
+    drawn isotropically and rescaled to ||reference|| so the perturbation
+    magnitude matches the steering arms exactly.
+    """
+    seed = int.from_bytes(hashlib.sha256(seed_key.encode()).digest()[:8], "little")
+    rng = np.random.default_rng(seed)
+    v = rng.standard_normal(reference.shape[0]).astype(np.float64)
+    v /= np.linalg.norm(v)
+    ref_norm = float(np.linalg.norm(reference))
+    if ref_norm <= 0:
+        ref_norm = 1.0
+    return (v * ref_norm).astype(np.asarray(reference).dtype, copy=False)
 
 
 class SteeredModel:
@@ -71,7 +118,7 @@ class SteeredModel:
     def generate(
         self,
         instruction: str,
-        max_new_tokens: int = 2048,
+        max_new_tokens: Optional[int] = None,
         temperature: float = 0.0,
     ) -> dict:
         """
@@ -83,6 +130,8 @@ class SteeredModel:
         import torch
         from src.chain_gen import format_prompt
 
+        if max_new_tokens is None:
+            max_new_tokens = default_max_new_tokens()
         prompt = format_prompt(self.tokenizer, instruction)
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         prompt_len = inputs.input_ids.shape[1]
@@ -118,19 +167,25 @@ def run_steering_experiment(
     tasks: list[dict],
     steering_vectors: dict,
     alpha_values: list[float],
-    max_new_tokens: int = 2048,
+    max_new_tokens: Optional[int] = None,
     save_path: Optional[Path] = None,
+    include_random_control: bool = True,
 ) -> list[dict]:
     """
     Run the main comparison experiment.
 
-    For every (behaviour, α, method, task) combination:
-      - vanilla:             unsteered generation (only at α=0)
-      - single_direction:    Venhoff vector
-      - manifold_projected:  our vector (auto_k)
+    Arms (see module docstring):
+      - vanilla: ONE unsteered generation per task, recorded once under
+        behaviour=SHARED_BASELINE / alpha=0.0. Greedy decoding makes per-α
+        copies byte-identical, so the old per-(behaviour, α) vanilla sweep
+        only multiplied generation + re-annotation cost.
+      - single_direction / manifold_projected (auto_k) / random_direction
+        (norm-matched control, fixed per-behaviour seed) at every α > 0.
 
     Checkpoints to *save_path* after every (behaviour, α, method) sweep so
-    the experiment can be resumed after interruption.
+    the experiment can be resumed after interruption. Vanilla records from
+    pre-hoist checkpoints (behaviour-specific, per-α) are left untouched but
+    not regenerated.
 
     Returns:
         List of result dicts: {behaviour, method, alpha, task_id, chain,
@@ -138,6 +193,14 @@ def run_steering_experiment(
     """
     import torch
     from src.chain_gen import generate_chain
+
+    if max_new_tokens is None:
+        max_new_tokens = default_max_new_tokens()
+    if max_new_tokens < 8192:
+        logger.warning(f"max_new_tokens={max_new_tokens} < corpus cap 8192 — "
+                       f"steered chains will truncate harder than the corpus "
+                       f"did, confounding α effects with truncation "
+                       f"(cf. chains_R1-1.5B_BAD_2048cap.json)")
 
     results: list[dict] = []
     save_path = Path(save_path) if save_path else None
@@ -152,22 +215,47 @@ def run_steering_experiment(
         for r in results
     }
 
+    # ── Shared unsteered baseline: one generation per task ────────────────
+    for task in tqdm(tasks, desc="vanilla (shared baseline)", leave=False):
+        key = (SHARED_BASELINE, "vanilla", 0.0, task["id"])
+        if key in done:
+            continue
+        r = generate_chain(model, tokenizer, task["prompt"], max_new_tokens)
+        results.append({
+            "behaviour": SHARED_BASELINE,
+            "method": "vanilla",
+            "alpha": 0.0,
+            "task_id": task["id"],
+            "chain": r["chain"],
+            "n_tokens": r["n_tokens"],
+            "layer": None,
+        })
+        done.add(key)
+    if save_path:
+        _save_json(results, save_path)
+
+    # ── Steered arms ───────────────────────────────────────────────────────
+    steered_alphas = [a for a in alpha_values if a > 0]
+    if len(steered_alphas) < len(alpha_values):
+        logger.info("α=0 entries are covered by the shared vanilla baseline "
+                    "(subtract-mode steering at α=0 is the identity)")
+
     for beh, vecs in steering_vectors.items():
         layer = vecs["layer"]
-        auto_k = vecs["auto_k"]
 
-        for alpha in alpha_values:
-            methods = [("vanilla", None)]
-            if alpha > 0:
-                # vecs["manifold_projected"] is keyed by k values 1, 3, 5, 10
-                # and the literal string "auto" (= projection at auto_k).
-                # We use the "auto" variant as our canonical manifold method.
-                methods += [
-                    ("single_direction", vecs["single_direction"]),
-                    ("manifold_projected", vecs["manifold_projected"]["auto"]),
-                ]
+        # vecs["manifold_projected"] is keyed by k values 1, 3, 5, 10 and the
+        # literal string "auto" (= projection at auto_k); "auto" is canonical.
+        arms = [
+            ("single_direction", vecs["single_direction"]),
+            ("manifold_projected", vecs["manifold_projected"]["auto"]),
+        ]
+        if include_random_control:
+            arms.append(("random_direction",
+                         random_direction_like(vecs["single_direction"],
+                                               f"random_direction|{beh}|L{layer}")))
 
-            for method_name, vec in methods:
+        for alpha in steered_alphas:
+            for method_name, vec in arms:
                 for task in tqdm(
                     tasks,
                     desc=f"{beh[:4]} α={alpha:.1f} {method_name}",
@@ -177,13 +265,9 @@ def run_steering_experiment(
                     if key in done:
                         continue
 
-                    if vec is None:
-                        r = generate_chain(model, tokenizer, task["prompt"],
-                                           max_new_tokens)
-                    else:
-                        steered = SteeredModel(model, tokenizer, vec, layer,
-                                               alpha=alpha, mode="subtract")
-                        r = steered.generate(task["prompt"], max_new_tokens)
+                    steered = SteeredModel(model, tokenizer, vec, layer,
+                                           alpha=alpha, mode="subtract")
+                    r = steered.generate(task["prompt"], max_new_tokens)
 
                     results.append({
                         "behaviour": beh,

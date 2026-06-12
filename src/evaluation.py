@@ -1,13 +1,15 @@
 """
 Phase 7 evaluation metrics.
 
-After steering, we re-annotate steered outputs with GPT-4o and compare:
+After steering, we re-annotate steered outputs with the annotator LLM
+(Claude Sonnet via the lab proxy — src/annotation.py) and compare:
   (a) Behavioural shift     — fraction of target behaviour in output
   (b) Accuracy preservation — task-solving ability on math benchmarks
   (c) Saturation curves     — behaviour fraction vs. α
   (d) Generalisation        — held-out task categories
 
-All comparisons are: vanilla vs. single_direction vs. manifold_projected.
+Comparisons: vanilla (shared baseline) vs. single_direction vs.
+manifold_projected vs. random_direction (norm-matched control).
 """
 
 from __future__ import annotations
@@ -41,16 +43,30 @@ def aggregate_results(
 
     Args:
         steered_results:   output of run_steering_experiment()
-        annotated_steered: steered results re-annotated with GPT-4o
+        annotated_steered: steered results re-annotated by the annotator LLM
                            (same structure; each record has "annotations" list)
+
+    Degenerate-record handling (changed 2026-06-12):
+      * A MISSING re-annotation (no record for the key) is SKIPPED and counted
+        in "n_missing" — previously it silently scored 0.0, deflating whichever
+        arm produced more annotation failures (which correlates with how
+        destructive that arm's steering is — exactly the comparison under study).
+      * A present-but-EMPTY annotation list is skipped into "n_empty" (an empty
+        list on a non-empty chain is an annotator failure, not a measured
+        absence of the behaviour).
+      * Records with behaviour == "shared" (the hoisted vanilla baseline, one
+        generation per task) expand into a vanilla data point for EVERY target
+        behaviour.
 
     Returns:
         Nested dict:
-          {behaviour: {method: {alpha: {"mean": float, "std": float, "n": int}}}}
+          {behaviour: {method: {alpha: {"mean", "std", "n", "n_missing", "n_empty"}}}}
     """
     if target_behaviours is None:
         from src.annotation import TARGET_BEHAVIOURS
         target_behaviours = TARGET_BEHAVIOURS
+
+    SHARED = "shared"  # = src.steered_inference.SHARED_BASELINE
 
     # Index annotations by (task_id, behaviour, method, alpha)
     ann_index: dict[tuple, list] = {}
@@ -60,16 +76,30 @@ def aggregate_results(
 
     # Compute fractions
     fractions: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    n_missing: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+    n_empty: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
 
     for r in steered_results:
-        beh = r["behaviour"]
         method = r["method"]
         alpha = r["alpha"]
-        tid = r["task_id"]
-        key = (tid, beh, method, alpha)
-        anns = ann_index.get(key, [])
-        frac = behaviour_fraction(anns, beh)
-        fractions[beh][method][alpha].append(frac)
+        key = (r["task_id"], r["behaviour"], method, alpha)
+        anns = ann_index.get(key)
+        # Shared vanilla counts toward every behaviour's baseline series.
+        targets = list(target_behaviours) if r["behaviour"] == SHARED else [r["behaviour"]]
+        for beh in targets:
+            if anns is None:
+                n_missing[beh][method][alpha] += 1
+            elif len(anns) == 0:
+                n_empty[beh][method][alpha] += 1
+            else:
+                fractions[beh][method][alpha].append(behaviour_fraction(anns, beh))
+
+    total_missing = sum(v for b in n_missing.values() for m in b.values() for v in m.values())
+    total_empty = sum(v for b in n_empty.values() for m in b.values() for v in m.values())
+    if total_missing or total_empty:
+        logger.warning(f"aggregate_results: skipped {total_missing} missing and "
+                       f"{total_empty} empty re-annotations (reported per cell as "
+                       f"n_missing/n_empty — NOT scored as 0.0)")
 
     # Summarise
     summary: dict = {}
@@ -83,6 +113,8 @@ def aggregate_results(
                     "mean": float(arr.mean()),
                     "std": float(arr.std()),
                     "n": len(vals),
+                    "n_missing": int(n_missing[beh][method][alpha]),
+                    "n_empty": int(n_empty[beh][method][alpha]),
                 }
     return summary
 
@@ -91,12 +123,13 @@ def print_summary_table(summary: dict) -> None:
     for beh, methods in summary.items():
         print(f"\n{'='*60}")
         print(f"Behaviour: {beh}")
-        print(f"{'Alpha':>6s} {'vanilla':>10s} {'single_dir':>12s} {'manifold':>12s}")
-        print("─" * 44)
+        print(f"{'Alpha':>6s} {'vanilla':>10s} {'single_dir':>12s} {'manifold':>12s} {'random':>12s}")
+        print("─" * 58)
         alphas = sorted({a for m in methods.values() for a in m})
         for alpha in alphas:
             row = f"{alpha:>6.1f}"
-            for method in ("vanilla", "single_direction", "manifold_projected"):
+            for method in ("vanilla", "single_direction", "manifold_projected",
+                           "random_direction"):
                 cell = methods.get(method, {}).get(alpha)
                 if cell:
                     row += f"  {cell['mean']:>8.3f}±{cell['std']:.3f}"

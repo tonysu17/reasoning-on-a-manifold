@@ -59,8 +59,13 @@ def main():
         k_values=k_values,
     )
 
+    # Canonical all-behaviours-at-one-layer build. The per-behaviour-peak
+    # builder (build_phase6.py) writes to <model>-peak/ so the two can no
+    # longer clobber each other's identically-named .npy files.
     save_dir = Path(f"results/steering_vectors/{args.model_short}")
-    save_steering_vectors(vectors, save_dir, provenance=provenance(args))
+    prov = provenance(args)
+    prov["builder"] = f"06_build_steering.py (all behaviours at layer {layer})"
+    save_steering_vectors(vectors, save_dir, provenance=prov)
 
     print(f"\n{'='*55}")
     print(f"Steering vectors built at layer {layer}")

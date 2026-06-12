@@ -23,6 +23,7 @@ Runtime: ~4–6 hours on RTX 4090
 """
 
 import argparse
+import json
 import logging
 import os
 import sys
@@ -57,8 +58,17 @@ def main():
                         default=[0.0, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0])
     parser.add_argument("--4bit", action="store_true", dest="use_4bit")
     parser.add_argument("--cache-dir", default=None)
+    parser.add_argument("--max-new-tokens", type=int, default=None,
+                        help="Generation cap for steered chains (default: "
+                             "config generation.max_new_tokens = 8192 — the "
+                             "corpus cap; lower values confound α with "
+                             "truncation).")
+    parser.add_argument("--no-random-control", action="store_true",
+                        help="Drop the norm-matched random-direction control "
+                             "arm (NOT recommended: without it the manifold-"
+                             "vs-single comparison has no causal baseline).")
     parser.add_argument("--skip-annotation", action="store_true",
-                        help="Skip GPT-4o re-annotation (just run generation)")
+                        help="Skip LLM re-annotation (just run generation)")
     parser.add_argument("--smoke", action="store_true",
                         help="Smoke test: 3 tasks, alpha=[0,1] only")
     args = parser.parse_args()
@@ -77,15 +87,32 @@ def main():
     # snapshot — see data/MANIFEST.md). Reading the stale file desynchronised
     # the eval prompts from the corpus the chains/activations were built on.
     tasks = load_tasks(Path("data/tasks_final.json"))
-    # Use last n_test tasks as held-out.
-    # NOTE: this is only a true hold-out if activation extraction excluded these
-    # tasks. The current pipeline extracts over the whole corpus, so verify the
-    # split before treating Phase-7 numbers as out-of-sample generalisation.
-    test_tasks = tasks[-args.n_test:]
+    # Category-stratified eval set. tasks_final.json is perfectly category-
+    # blocked (10 contiguous runs of 100), so the old `tasks[-n_test:]` rule
+    # selected 50 tasks of a SINGLE category (lateral_thinking) — under which
+    # the docstring's "generalisation across task categories" was unmeasurable.
+    # Take the last n_test/n_categories tasks of EACH category instead.
+    # NOTE: this is still only a true hold-out if activation extraction
+    # excluded these tasks. The current pipeline extracts over the whole
+    # corpus, so treat Phase-7 numbers as on-corpus causal effects, not
+    # out-of-sample generalisation, until extraction excludes the eval split.
+    by_cat: dict = {}
+    for t in tasks:
+        by_cat.setdefault(t.get("category", "unknown"), []).append(t)
+    per_cat = max(1, args.n_test // len(by_cat))
+    test_tasks = [t for cat in sorted(by_cat) for t in by_cat[cat][-per_cat:]]
+    cat_counts = {cat: sum(1 for t in test_tasks if t.get("category") == cat)
+                  for cat in sorted(by_cat)}
+    logger.info(f"Eval split: {len(test_tasks)} tasks, stratified by category: {cat_counts}")
     if args.smoke:
         test_tasks = test_tasks[:3]
         args.alpha_values = [0.0, 1.0]
         logger.info(f"SMOKE TEST: {len(test_tasks)} tasks, alphas={args.alpha_values}")
+    # Persist the exact eval-task ids for provenance/reproducibility.
+    (eval_dir / "eval_task_ids.json").write_text(
+        json.dumps({"task_ids": [t["id"] for t in test_tasks],
+                    "category_counts": cat_counts,
+                    "rule": f"last {per_cat} per category"}, indent=2))
 
     logger.info(f"Loading steering vectors from {vectors_dir}")
     vectors = load_steering_vectors(vectors_dir)
@@ -100,7 +127,9 @@ def main():
         tasks=test_tasks,
         steering_vectors=vectors,
         alpha_values=args.alpha_values,
+        max_new_tokens=args.max_new_tokens,   # None → config cap (8192)
         save_path=results_path,
+        include_random_control=not args.no_random_control,
     )
 
     logger.info(f"Generation complete: {len(results)} outputs → {results_path}")

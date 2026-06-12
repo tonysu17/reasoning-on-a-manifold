@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Phase 6 — build steering vectors, each behaviour at its manifold-peak (PR-trough) layer."""
+"""Phase 6 — build steering vectors, each behaviour at its manifold-peak (PR-trough) layer.
+
+Output dir is deliberately DISTINCT from 06_build_steering.py's
+(results/steering_vectors/R1-1.5B = the canonical all-behaviours-at-layer-27
+build): the two builders write identical filenames, so sharing a directory
+meant whichever ran last silently clobbered the other and Phase 7 evaluated
+whichever geometry happened to be on disk. Point 07 at this dir explicitly to
+evaluate the per-behaviour-peak variant."""
 import sys, json
 from collections import defaultdict
 from pathlib import Path
@@ -11,7 +18,7 @@ from src.annotation import TARGET_BEHAVIOURS
 from src.config import PEAK_LAYERS as PEAK, provenance, require_file  # single source
 
 ACT = Path("data/activations/R1-1.5B")
-OUT = Path("results/steering_vectors/R1-1.5B")
+OUT = Path("results/steering_vectors/R1-1.5B-peak")
 require_file(ACT, "run 04_extract_activations.py first to produce activations")
 
 by_layer = defaultdict(list)
@@ -25,7 +32,9 @@ for L in sorted(by_layer):
         if b in res:
             assembled[b] = res[b]
 
-save_steering_vectors(assembled, OUT, provenance=provenance())
+prov = provenance()
+prov["builder"] = "build_phase6.py (per-behaviour peak layers)"
+save_steering_vectors(assembled, OUT, provenance=prov)
 
 print("\n" + "="*92)
 print(f"{'behaviour':24s} {'layer':>5s} {'auto_k':>6s} {'n_on':>6s} {'n_off':>7s} "
