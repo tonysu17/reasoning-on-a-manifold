@@ -91,6 +91,7 @@ def main():
         annotated_chains=annotated,
         layers=args.layers,
         save_dir=save_dir,
+        keep_in_memory=False,   # runner ignores the return; don't hold ~6.5GB at concat
     )
 
     logger.info(f"Done. Activations saved to {save_dir}")

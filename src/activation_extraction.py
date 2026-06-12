@@ -9,12 +9,18 @@ For each annotated chain:
   3. Map each annotated sentence to its token positions (one preceding token +
      first N execution tokens), following Venhoff et al.
   4. Pool activations across those positions (configurable: mean / last /
-     first / max — see _pool() and config.yaml extraction.pooling).
-  5. Accumulate into per-behaviour, per-layer matrices and save as .npy files.
+     first / max — see _pool() and config.yaml extraction.pooling). An optional
+     sweep (config.yaml extraction.pooling_sweep) pools several modes from the
+     SAME forward pass for a mean-vs-last sensitivity comparison.
+  5. Accumulate into per-behaviour, per-layer matrices, flushed to shard files
+     every `flush_every` chains to bound peak memory, then concatenated and
+     saved as .npy with a `complete` integrity flag in metadata.
 
 Output layout (in activations_dir/):
     {behaviour}_layer{n}.npy          float32 array (N_instances, hidden_dim)
-    extraction_metadata.json
+    metadata.json                     includes `complete` + `saved_layers`
+    pool_<mode>/                      extra pooling-sweep modes (if enabled)
+    pooling_sweep.json                mean-vs-last comparison (if sweep enabled)
 
 Requires: torch, transformers  (pip install .[gpu])
 """
@@ -126,6 +132,8 @@ def _pool(acts, mode: str):
 
 # ── Main extraction ───────────────────────────────────────────────────────────
 
+# ── Main extraction ───────────────────────────────────────────────────────────
+
 def extract_activations(
     model,
     tokenizer,
@@ -139,6 +147,8 @@ def extract_activations(
     pooling: Optional[str] = None,
     sweep_modes: Optional[list[str]] = None,
     clip_to_sentence_end: Optional[bool] = None,
+    flush_every: int = 100,
+    keep_in_memory: bool = True,
 ) -> dict[str, dict[int, np.ndarray]]:
     """
     Extract per-behaviour activation matrices across all annotated chains.
@@ -152,6 +162,20 @@ def extract_activations(
         n_preceding:        tokens before behaviour onset to include
         n_execution:        first N tokens of the behaviour to include
         max_chains:         process at most this many chains (debugging)
+        clip_to_sentence_end: stop the execution window at the sentence end
+                            (config extraction.clip_window_to_sentence_end;
+                            default False — 15.8% of target sentences are
+                            shorter than the 1+10 window)
+        flush_every:        flush accumulators to shard files every N chains to
+                            bound peak memory (prevents the OOM-during-write
+                            that killed the 2026-06-12 full-corpus run after
+                            7/230 files and, earlier, truncated a behaviour to
+                            1/28 layers)
+        keep_in_memory:     if False, free each final array after saving and
+                            return only structure/counts (runners that ignore
+                            the return value should pass False — keeping the
+                            full primary-mode matrices in RAM at concat time
+                            re-adds ~6.5 GB of peak memory for nothing)
 
     Returns:
         {behaviour: {layer_idx: ndarray(N_instances, hidden_dim)}}
@@ -164,9 +188,6 @@ def extract_activations(
     if layers is None:
         layers = list(range(len(model.model.layers)))
     # Pooling strategy: explicit arg > config.yaml (extraction.pooling) > "mean".
-    # Default "mean" keeps existing extractions (incl. the in-flight multi-
-    # annotator arms) unchanged; set extraction.pooling: "last" in config to
-    # switch without touching the runners. See _pool() and pooling_sweep.py.
     if pooling is None:
         try:
             from src.config import load_config
@@ -177,12 +198,7 @@ def extract_activations(
         raise ValueError(f"unknown pooling {pooling!r}; expected one of {POOLING_MODES}")
     logger.info(f"Pooling mode: {pooling}")
 
-    # Optional pooling SWEEP — pool several modes from the SAME forward pass and
-    # auto-emit a mean-vs-last sensitivity comparison. Triggered by an explicit
-    # sweep_modes arg, else config extraction.pooling_sweep. Because the forward
-    # pass is shared, the only extra cost is the (cheap) repeated pooling + a few
-    # more .npy files — so it runs "automatically on every re-extraction" once
-    # extraction.pooling_sweep is set in config, with no extra GPU passes.
+    # Optional pooling SWEEP — pool several modes from the SAME forward pass.
     if sweep_modes is None:
         try:
             from src.config import load_config
@@ -211,23 +227,54 @@ def extract_activations(
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # Accumulators: behaviour → layer → list of float32 vectors
-    acc: dict[str, dict[int, list]] = {b: {l: [] for l in layers} for b in behaviours}
-    # Side accumulators for the extra sweep modes (same structure, per mode).
-    acc_sweep: dict[str, dict] = {
-        m: {b: {l: [] for l in layers} for b in behaviours} for m in extra_modes
+    # Pooling modes to materialise: the primary (-> save_dir) plus any sweep
+    # extras (-> save_dir/pool_<mode>/). All share the SAME forward pass.
+    streams = [pooling] + extra_modes
+
+    def _stream_dir(mode):
+        return save_dir if mode == pooling else save_dir / f"pool_{mode}"
+
+    # Accumulators: stream -> behaviour -> layer -> list of float32 vectors. To
+    # bound peak memory, accumulators are flushed to per-(stream, behaviour,
+    # layer) shard files every `flush_every` chains and concatenated at the end.
+    acc: dict[str, dict] = {
+        m: {b: {l: [] for l in layers} for b in behaviours} for m in streams
     }
     n_extracted = {b: 0 for b in behaviours}
     n_skipped = {b: 0 for b in behaviours}
-    # Row-provenance sidecar: one record per accepted row, in exact row order.
-    # Downstream analyses load this instead of replaying the extraction
-    # iteration (the replay was fragile: any skip-condition drift silently
-    # shifted every later row and triggered proxy-chain fallbacks in the null).
+    # Row-provenance sidecar: one record per accepted row, in exact row order
+    # (identical across streams — they share span selection). Tiny (dicts), so
+    # it is NOT sharded; see src/row_provenance.py for the loader.
     row_index: dict[str, list[dict]] = {b: [] for b in behaviours}
+
+    shard_dir = save_dir / "_shards"
+    if shard_dir.exists():
+        import shutil
+        shutil.rmtree(shard_dir)          # avoid contaminating with a prior run's shards
+    shard_dir.mkdir(parents=True, exist_ok=True)
+
+    def _shard_sub(mode):
+        return shard_dir if mode == pooling else shard_dir / f"pool_{mode}"
+
+    shard_idx = {m: {b: {l: 0 for l in layers} for b in behaviours} for m in streams}
+
+    def _flush() -> None:
+        """Write current in-RAM vectors to shard files and free the RAM."""
+        for m in streams:
+            sd = _shard_sub(m)
+            sd.mkdir(parents=True, exist_ok=True)
+            for b in behaviours:
+                for l in layers:
+                    vecs = acc[m][b][l]
+                    if not vecs:
+                        continue
+                    np.save(sd / f"{b}_layer{l}.part{shard_idx[m][b][l]:05d}.npy", np.stack(vecs))
+                    shard_idx[m][b][l] += 1
+                    acc[m][b][l] = []
 
     chains = annotated_chains[:max_chains] if max_chains else annotated_chains
 
-    for chain in tqdm(chains, desc="Extracting activations"):
+    for chain_i, chain in enumerate(tqdm(chains, desc="Extracting activations")):
         annotations = chain.get("annotations", [])
         if not annotations:
             continue
@@ -240,12 +287,12 @@ def extract_activations(
 
         # Locate ALL annotations up front (occurrence-aware): the cursor must
         # advance over every annotation — including non-target labels — so
-        # repeats bind to successive occurrences deterministically.
+        # repeats bind to successive occurrences deterministically (CF-13).
         sent_offsets = locate_annotation_offsets(
             chain_text, [a.get("text", "") for a in annotations]
         )
 
-        # Tokenise once per chain (with offset mapping for char→token alignment)
+        # Tokenise once per chain (with offset mapping for char->token alignment)
         enc = tokenizer(
             full_text,
             return_tensors="pt",
@@ -270,7 +317,7 @@ def extract_activations(
                     n_skipped[cat] += 1
                     continue
 
-                # Convert chain-relative char offset → full-text char offset
+                # Convert chain-relative char offset -> full-text char offset
                 abs_offset = chain_offset + sent_offset
                 abs_end = (abs_offset + len(ann.get("text", ""))
                            if clip_to_sentence_end else None)
@@ -287,10 +334,8 @@ def extract_activations(
 
                 for layer_idx in layers:
                     sl = cache[layer_idx][0, positions, :]   # (n_positions, hidden)
-                    acc[cat][layer_idx].append(_pool(sl, pooling).numpy().astype(np.float32))
-                    for m in extra_modes:   # same span, other pooling modes (sweep)
-                        acc_sweep[m][cat][layer_idx].append(
-                            _pool(sl, m).numpy().astype(np.float32))
+                    for m in streams:   # primary + sweep extras, same forward pass
+                        acc[m][cat][layer_idx].append(_pool(sl, m).numpy().astype(np.float32))
 
                 row_index[cat].append({
                     "chain_id": chain_id,
@@ -301,38 +346,19 @@ def extract_activations(
                 })
                 n_extracted[cat] += 1
 
-    # ── Save ────────────────────────────────────────────────────────────
-    results: dict[str, dict[int, np.ndarray]] = {}
+        if (chain_i + 1) % flush_every == 0:
+            _flush()
+
+    _flush()  # final partial batch
+
+    # ── Save: concatenate shards per (stream, behaviour, layer) ───────────
+    # Peak memory here is bounded to ONE (behaviour, layer) array at a time, not
+    # the whole corpus, so the final write cannot OOM the way it did before.
+    results: dict[str, dict[int, np.ndarray]] = {b: {} for b in behaviours}
     logger.info("Extraction summary:")
-
     for beh in behaviours:
-        results[beh] = {}
         logger.info(f"  {beh}: {n_extracted[beh]} extracted, {n_skipped[beh]} skipped")
-        for layer_idx in layers:
-            vecs = acc[beh][layer_idx]
-            if vecs:
-                mat = np.stack(vecs)  # (N, hidden_dim)
-                np.save(save_dir / f"{beh}_layer{layer_idx}.npy", mat)
-                results[beh][layer_idx] = mat
-            else:
-                logger.warning(f"    Layer {layer_idx}: no vectors!")
 
-    with open(save_dir / "metadata.json", "w") as f:
-        json.dump({
-            "behaviours": behaviours,
-            "layers": layers,
-            "n_preceding": n_preceding,
-            "n_execution": n_execution,
-            "pooling": pooling,
-            "pooling_sweep": sweep_modes,
-            "n_extracted": n_extracted,
-            "n_skipped": n_skipped,
-            "sentence_matching": SENTENCE_MATCHING_VERSION,
-            "clip_window_to_sentence_end": clip_to_sentence_end,
-        }, f, indent=2)
-
-    # Row-provenance sidecar (one record per row, exact row order — see
-    # src/row_provenance.py for the loader downstream analyses must use).
     sidecar = {
         "version": 1,
         "sentence_matching": SENTENCE_MATCHING_VERSION,
@@ -340,37 +366,102 @@ def extract_activations(
         "clip_window_to_sentence_end": clip_to_sentence_end,
         "rows": row_index,
     }
-    with open(save_dir / "row_index.json", "w") as f:
-        json.dump(sidecar, f, indent=2)
 
-    # ── Sweep: save extra-mode activations to pool_<mode>/ + comparison report ──
-    for m in extra_modes:
-        mdir = save_dir / f"pool_{m}"
-        mdir.mkdir(parents=True, exist_ok=True)
+    for m in streams:
+        tdir = _stream_dir(m)
+        tdir.mkdir(parents=True, exist_ok=True)
+        sd = _shard_sub(m)
+        saved_layers: dict[str, list[int]] = {b: [] for b in behaviours}
         for beh in behaviours:
             for layer_idx in layers:
-                vs = acc_sweep[m][beh][layer_idx]
-                if vs:
-                    np.save(mdir / f"{beh}_layer{layer_idx}.npy", np.stack(vs))
-        with open(mdir / "metadata.json", "w") as f:
-            json.dump({"behaviours": behaviours, "layers": layers,
-                       "n_preceding": n_preceding, "n_execution": n_execution,
-                       "pooling": m, "n_extracted": n_extracted,
-                       "n_skipped": n_skipped,
-                       "sentence_matching": SENTENCE_MATCHING_VERSION}, f, indent=2)
-        # Same rows, same order — the sweep modes share the forward pass, so the
-        # sidecar applies verbatim (only "pooling" differs).
-        with open(mdir / "row_index.json", "w") as f:
+                shards = sorted(sd.glob(f"{beh}_layer{layer_idx}.part*.npy"))
+                if not shards:
+                    if m == pooling:
+                        logger.warning(f"    {beh} layer {layer_idx}: no vectors!")
+                    continue
+                mat = np.concatenate([np.load(s) for s in shards], axis=0)
+                np.save(tdir / f"{beh}_layer{layer_idx}.npy", mat)
+                if m == pooling and keep_in_memory:
+                    results[beh][layer_idx] = mat
+                saved_layers[beh].append(layer_idx)
+                for s in shards:
+                    s.unlink()
+                del mat
+        # Integrity marker: True only when every behaviour with instances has all
+        # its layers on disk. Written LAST so downstream (verify_extraction_complete)
+        # can refuse a partial set instead of silently using it.
+        complete = all(len(saved_layers[b]) == len(layers)
+                       for b in behaviours if n_extracted[b] > 0)
+        with open(tdir / "metadata.json", "w") as f:
+            json.dump({
+                "behaviours": behaviours, "layers": layers,
+                "n_preceding": n_preceding, "n_execution": n_execution,
+                "pooling": m,
+                "pooling_sweep": sweep_modes if m == pooling else None,
+                "n_extracted": n_extracted, "n_skipped": n_skipped,
+                "saved_layers": saved_layers, "complete": complete,
+                "sentence_matching": SENTENCE_MATCHING_VERSION,
+                "clip_window_to_sentence_end": clip_to_sentence_end,
+            }, f, indent=2)
+        # Row-provenance sidecar (same rows/order for every stream; only the
+        # pooling tag differs).
+        with open(tdir / "row_index.json", "w") as f:
             json.dump({**sidecar, "pooling": m}, f, indent=2)
+        if m == pooling and not complete:
+            missing = {b: len(saved_layers[b]) for b in behaviours
+                       if n_extracted[b] > 0 and len(saved_layers[b]) != len(layers)}
+            logger.error(f"Extraction INCOMPLETE — behaviours missing layers "
+                         f"(have/expected {len(layers)}): {missing}. metadata.complete=False.")
+
+    import shutil
+    shutil.rmtree(shard_dir, ignore_errors=True)   # remove the now-empty shard tree
+
     if extra_modes:
         try:
-            _write_pooling_sweep_report(save_dir, primary=pooling,
-                                        modes=[pooling] + extra_modes, layers=layers,
-                                        behaviours=behaviours)
+            _write_pooling_sweep_report(save_dir, primary=pooling, modes=streams,
+                                        layers=layers, behaviours=behaviours)
         except Exception as e:  # report is a convenience; never fail extraction over it
             logger.warning(f"pooling-sweep report skipped: {type(e).__name__}: {e}")
 
     return results
+
+
+
+def verify_extraction_complete(
+    save_dir: Path,
+    behaviours: Optional[list[str]] = None,
+    layers: Optional[list[int]] = None,
+) -> tuple[bool, list[str]]:
+    """
+    Validate that an activation extraction finished cleanly.
+
+    Returns (ok, problems). `ok` is True only if metadata.json exists, its
+    `complete` flag is True, and every expected {behaviour}_layer{n}.npy file is
+    present for behaviours that had instances. Callers use this to refuse to build
+    geometry on a partially written set — the failure mode that truncated a
+    behaviour to 1/28 layers after an OOM mid-write and then propagated silently.
+    """
+    save_dir = Path(save_dir)
+    meta_path = save_dir / "metadata.json"
+    if not meta_path.exists():
+        return False, ["metadata.json missing (extraction did not finish saving)"]
+    with open(meta_path) as f:
+        meta = json.load(f)
+    if behaviours is None:
+        behaviours = meta.get("behaviours", [])
+    if layers is None:
+        layers = meta.get("layers", [])
+    problems: list[str] = []
+    n_extracted = meta.get("n_extracted", {})
+    for beh in behaviours:
+        if n_extracted.get(beh, 0) == 0:
+            continue  # legitimately empty behaviour — nothing to check
+        for layer in layers:
+            if not (save_dir / f"{beh}_layer{layer}.npy").exists():
+                problems.append(f"{beh}_layer{layer}.npy missing")
+    if not meta.get("complete", False):
+        problems.append("metadata.complete is not True")
+    return (len(problems) == 0), problems
 
 
 def _write_pooling_sweep_report(save_dir: Path, primary: str, modes: list,
