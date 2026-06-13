@@ -27,6 +27,16 @@ The manifest is chain-grouped: every record carries the host ``chain_id`` and a
 (``05c_cross_layer_probing``) can hold whole chains out and cannot memorise a
 chain it has already seen (the CF-15 leakage discipline).
 
+CAVEAT (probe validity): :func:`build_forgery_dataset` draws genuine/forged
+snippets cyclically from the supplied pools, so a given snippet can appear in both
+a train-fold host and a test-fold host. A probe could then separate variants by
+memorising *snippet identity* rather than provenance. Folds group only the HOST
+chain. For a clean S3 probe the run-time caller should partition the snippet pools
+by fold as well (draw genuine and forged snippets disjointly across folds), or
+pass one snippet per host. This is left to the run-time step because the genuine
+snippets are the models' own spec spans, which do not exist until the chains are
+generated and DSR-annotated.
+
 Fully offline and deterministic given ``seed``.
 """
 
