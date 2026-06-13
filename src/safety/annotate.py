@@ -230,8 +230,8 @@ def _decision_consensus(
 
     codes = {dt: i + 1 for i, dt in enumerate(DECISION_TYPES)}
     n = len(chain_text)
-    # votes[char, code]
-    votes = np.zeros((n, len(DECISION_TYPES) + 1), dtype=np.int32)
+    votes = np.zeros((n, len(DECISION_TYPES) + 1), dtype=np.int32)  # votes[char, code]
+    arange = np.arange(n)
     for spans in by_judge.values():
         per_char = np.zeros(n, dtype=np.int32)
         for a in spans:
@@ -242,15 +242,13 @@ def _decision_consensus(
             if off is None:
                 continue
             per_char[off:off + len(a["text"])] = codes[dt]
-        for c in range(n):
-            votes[c, per_char[c]] += 1
-    # Majority code per char, ignoring "none" unless it is the strict majority.
-    out = np.zeros(n, dtype=np.int32)
+        np.add.at(votes, (arange, per_char), 1)
+    # Majority non-none code per char (set only when it is the strict majority).
     n_judges = max(1, len(by_judge))
-    for c in range(n):
-        best = int(np.argmax(votes[c, 1:])) + 1  # best non-none code
-        if votes[c, best] * 2 > n_judges:
-            out[c] = best
+    nonnull = votes[:, 1:]
+    best = nonnull.argmax(axis=1) + 1
+    best_count = nonnull.max(axis=1)
+    out = np.where(best_count * 2 > n_judges, best, 0).astype(np.int32)
     return out
 
 
