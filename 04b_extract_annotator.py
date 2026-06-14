@@ -8,7 +8,7 @@ replication test. Resumable: skips if all target behaviours already extracted.
 import argparse, json, logging, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
-from src.activation_extraction import extract_activations
+from src.activation_extraction import extract_activations, verify_extraction_complete
 from src.annotation import load_annotated, TARGET_BEHAVIOURS
 from src.chain_gen import load_model
 
@@ -27,19 +27,26 @@ def main():
     args = ap.parse_args()
 
     save_dir = Path(args.save_dir); save_dir.mkdir(parents=True, exist_ok=True)
-    meta = save_dir / "metadata.json"
-    if meta.exists():
-        m = json.load(open(meta))
-        if all(m.get("n_extracted", {}).get(b, 0) > 0 for b in args.behaviours):
-            logger.info(f"Already extracted at {save_dir}: {m.get('n_extracted')}"); return
-        logger.warning(f"Partial metadata at {save_dir}; re-extracting.")
+    # Skip only if the prior extraction is provably COMPLETE for these behaviours
+    # (all layers present + metadata.complete). The old check trusted
+    # n_extracted>0, which let a behaviour truncated to 1/28 layers pass as "done".
+    ok, problems = verify_extraction_complete(save_dir, args.behaviours, args.layers)
+    if ok:
+        logger.info(f"Already fully extracted at {save_dir}; skipping."); return
+    if (save_dir / "metadata.json").exists():
+        logger.warning(f"Re-extracting {save_dir}: prior set incomplete ({'; '.join(problems)})")
 
     annotated = load_annotated(Path(args.annotated))
     logger.info(f"Loading model {args.model_id} ({args.dtype})")
     model, tok = load_model(args.model_id, dtype=args.dtype, cache_dir=args.cache_dir)
     extract_activations(model=model, tokenizer=tok, annotated_chains=annotated,
-                        layers=args.layers, save_dir=save_dir, behaviours=args.behaviours)
-    logger.info(f"Done -> {save_dir}")
+                        layers=args.layers, save_dir=save_dir, behaviours=args.behaviours,
+                        keep_in_memory=False)
+    ok, problems = verify_extraction_complete(save_dir, args.behaviours, args.layers)
+    if not ok:
+        logger.error(f"Extraction incomplete -> {save_dir}: {'; '.join(problems)}")
+        sys.exit(1)
+    logger.info(f"Done (verified complete) -> {save_dir}")
 
 if __name__ == "__main__":
     main()

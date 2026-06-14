@@ -24,13 +24,20 @@ for tag in $TAGS; do
   FG=$(free_gb)
   if [ "$FG" -lt 15 ]; then log "  ABORT: only ${FG}GB free (<15GB) — not extracting ${tag}"; continue; fi
 
-  # Phase 4 — extraction (GPU, shared with 7B)
-  if [ -f "${ACTDIR}/metadata.json" ]; then
-    log "  [4] extraction already present — skip"
+  # Phase 4 — extraction (GPU, shared with 7B). Verify completeness before use;
+  # skip the whole annotator's downstream if extraction failed or is partial.
+  _complete() { $PY -c "import sys; from src.activation_extraction import verify_extraction_complete as v; ok,_=v(sys.argv[1]); sys.exit(0 if ok else 1)" "$1"; }
+  if _complete "$ACTDIR"; then
+    log "  [4] extraction already complete — skip"
   else
     log "  [4] extraction -> ${ACTDIR} (free ${FG}GB)"
     $PY 04b_extract_annotator.py --annotated "$ANNOT" --save-dir "$ACTDIR" > "logs/ma_${tag}_p4.log" 2>&1
-    log "  [4] exit=$?"
+    rc=$?
+    if [ "$rc" -ne 0 ] || ! _complete "$ACTDIR"; then
+      log "  [4] FAILED/INCOMPLETE (exit=${rc}) — SKIPPING ${tag} downstream (won't build geometry on a partial set)"
+      continue
+    fi
+    log "  [4] exit=${rc} (verified complete)"
   fi
 
   # Phase 5 — PCA + per-layer nulls
