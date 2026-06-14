@@ -71,3 +71,6 @@ node_modules/
 # Quarantined / archived large result snapshots (kept locally, not in git)
 results/_STALE_pre_fix_20260605/
 results/_archive_run1_20260528_094332/
+
+# Thesis lives in its OWN PRIVATE repo — must never enter this PUBLIC repo
+thesis/
