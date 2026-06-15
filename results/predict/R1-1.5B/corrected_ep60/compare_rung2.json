@@ -1,0 +1,131 @@
+{
+  "results": [
+    {
+      "layer": 14,
+      "n_labelled_chains": 183,
+      "n_correct": 84,
+      "n_incorrect": 99,
+      "n_train_chains": 986,
+      "persistence_norm": 46.02033996582031,
+      "ridge": {
+        "auc": {
+          "auc_oof": 0.541967291967292,
+          "auc_fold_mean": 0.5694172684676116,
+          "auc_fold_std": 0.05363806408650122,
+          "stable": true,
+          "n": 183,
+          "n_pos": 84,
+          "n_splits": 5
+        },
+        "resid_persist_ratio": 0.8763673301108279,
+        "label_perm": {
+          "real": 0.541967291967292,
+          "null_mean": 0.471463443963444,
+          "p_value": 0.1277445109780439
+        }
+      },
+      "jepa": {
+        "auc": {
+          "auc_oof": 0.5704665704665706,
+          "auc_fold_mean": 0.6011023977929012,
+          "auc_fold_std": 0.05356787612826421,
+          "stable": true,
+          "n": 183,
+          "n_pos": 84,
+          "n_splits": 5
+        },
+        "resid_persist_ratio": 1.5729328697198743,
+        "label_perm": {
+          "real": 0.5704665704665706,
+          "null_mean": 0.475526936026936,
+          "p_value": 0.04590818363273453
+        },
+        "anti_collapse": "barlow",
+        "epochs": 60
+      },
+      "baselines_auc": {
+        "curvature": 0.5291005291005291,
+        "persistence": 0.5494227994227996,
+        "length": 0.4415584415584416
+      },
+      "rung2_beats": true,
+      "rung1_beats": false
+    },
+    {
+      "layer": 27,
+      "n_labelled_chains": 183,
+      "n_correct": 84,
+      "n_incorrect": 99,
+      "n_train_chains": 986,
+      "persistence_norm": 207.60169982910156,
+      "ridge": {
+        "auc": {
+          "auc_oof": 0.5784030784030785,
+          "auc_fold_mean": 0.5977103702933222,
+          "auc_fold_std": 0.04208024122232486,
+          "stable": true,
+          "n": 183,
+          "n_pos": 84,
+          "n_splits": 5
+        },
+        "resid_persist_ratio": 0.9209621018202616,
+        "label_perm": {
+          "real": 0.5784030784030785,
+          "null_mean": 0.46902886002885996,
+          "p_value": 0.033932135728542916
+        }
+      },
+      "jepa": {
+        "auc": {
+          "auc_oof": 0.5796055796055797,
+          "auc_fold_mean": 0.5929887403786145,
+          "auc_fold_std": 0.0597020278627497,
+          "stable": true,
+          "n": 183,
+          "n_pos": 84,
+          "n_splits": 5
+        },
+        "resid_persist_ratio": 0.9657816694284103,
+        "label_perm": {
+          "real": 0.5796055796055797,
+          "null_mean": 0.47121380471380475,
+          "p_value": 0.03792415169660679
+        },
+        "anti_collapse": "barlow",
+        "epochs": 60
+      },
+      "baselines_auc": {
+        "curvature": 0.5434102934102935,
+        "persistence": 0.5262145262145262,
+        "length": 0.4415584415584416
+      },
+      "rung2_beats": true,
+      "rung1_beats": true
+    }
+  ],
+  "smoke": false,
+  "provenance": {
+    "git_commit": "67e0c464b17364f14d80df979e14a6498d73c4b0",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/activations/R1-1.5B",
+      "chains": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/annotated_R1-1.5B.json",
+      "tasks": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/tasks_final.json",
+      "labels": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/correctness_R1-1.5B_pilot.json",
+      "layers": "14,27",
+      "max_gap": null,
+      "min_confidence": null,
+      "label_resamples": 500,
+      "jepa_anti_collapse": "barlow",
+      "jepa_epochs": 60,
+      "jepa_hidden": 512,
+      "out": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/predict/R1-1.5B/corrected_ep60",
+      "smoke": 0
+    },
+    "input_sha256": {
+      "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5",
+      "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/correctness_R1-1.5B_pilot.json": "7613f9a847637bf6"
+    }
+  }
+}

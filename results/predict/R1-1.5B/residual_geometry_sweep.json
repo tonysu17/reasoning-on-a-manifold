@@ -1,0 +1,118 @@
+{
+  "results": [
+    {
+      "layer": 5,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.8841374527271505,
+      "residual_to_persistence_ratio_gap1": 0.9300913244357061,
+      "displacement_variance_explained_r2": 0.30276317177025125,
+      "resid_corr_dim": 6.023851318337648,
+      "delta_corr_dim": 3.925341386713503,
+      "resid_participation_ratio": 54.0817357328876,
+      "delta_participation_ratio": 46.8749286002617,
+      "mean_resid_dir_churn": 0.8967907150838562,
+      "mean_resid_norm_slope": -0.029378247759684617
+    },
+    {
+      "layer": 11,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.880215519997309,
+      "residual_to_persistence_ratio_gap1": 0.9212106552524447,
+      "displacement_variance_explained_r2": 0.3050846649872093,
+      "resid_corr_dim": 5.080923141277748,
+      "delta_corr_dim": 3.7703215590536048,
+      "resid_participation_ratio": 43.17864628485453,
+      "delta_participation_ratio": 38.230953993345544,
+      "mean_resid_dir_churn": 0.8997814643025541,
+      "mean_resid_norm_slope": -0.07397588098922062
+    },
+    {
+      "layer": 14,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.8763672835296185,
+      "residual_to_persistence_ratio_gap1": 0.9150090570306613,
+      "displacement_variance_explained_r2": 0.30996764573131763,
+      "resid_corr_dim": 5.25908894401933,
+      "delta_corr_dim": 3.8788785379551385,
+      "resid_participation_ratio": 41.05221313867822,
+      "delta_participation_ratio": 36.97169586333029,
+      "mean_resid_dir_churn": 0.9091883564503772,
+      "mean_resid_norm_slope": -0.045307816618118744
+    },
+    {
+      "layer": 17,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.87555538849105,
+      "residual_to_persistence_ratio_gap1": 0.9086149824271315,
+      "displacement_variance_explained_r2": 0.30995112835577787,
+      "resid_corr_dim": 4.8540440197122905,
+      "delta_corr_dim": 3.7370790292946166,
+      "resid_participation_ratio": 41.10836363449572,
+      "delta_participation_ratio": 36.28051886027584,
+      "mean_resid_dir_churn": 0.90679448633914,
+      "mean_resid_norm_slope": -0.02463192265591661
+    },
+    {
+      "layer": 20,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.8817917473090292,
+      "residual_to_persistence_ratio_gap1": 0.9175716716850554,
+      "displacement_variance_explained_r2": 0.301919783173628,
+      "resid_corr_dim": 5.066930187265746,
+      "delta_corr_dim": 3.7038487407918717,
+      "resid_participation_ratio": 49.287614255352906,
+      "delta_participation_ratio": 42.53097709656177,
+      "mean_resid_dir_churn": 0.9080730818057346,
+      "mean_resid_norm_slope": -0.20836705507410974
+    },
+    {
+      "layer": 23,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.8886521749026457,
+      "residual_to_persistence_ratio_gap1": 0.9298228323093141,
+      "displacement_variance_explained_r2": 0.29268902932225704,
+      "resid_corr_dim": 5.172773616214364,
+      "delta_corr_dim": 3.716432638622625,
+      "resid_participation_ratio": 57.934538986309995,
+      "delta_participation_ratio": 49.38327053816123,
+      "mean_resid_dir_churn": 0.9065309993863322,
+      "mean_resid_norm_slope": -0.6909556302092594
+    },
+    {
+      "layer": 27,
+      "n_pairs": 36858,
+      "n_chains": 986,
+      "residual_to_persistence_ratio": 0.9209620649939991,
+      "residual_to_persistence_ratio_gap1": 0.9718726643042399,
+      "displacement_variance_explained_r2": 0.2478690181988107,
+      "resid_corr_dim": 5.003600424512319,
+      "delta_corr_dim": 3.6513002248978057,
+      "resid_participation_ratio": 64.72269863221463,
+      "delta_participation_ratio": 52.682803307870216,
+      "mean_resid_dir_churn": 0.8921910846184553,
+      "mean_resid_norm_slope": -0.8460260002102731
+    }
+  ],
+  "provenance": {
+    "git_commit": "67e0c464b17364f14d80df979e14a6498d73c4b0",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/activations/R1-1.5B",
+      "chains": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/annotated_R1-1.5B.json",
+      "layers": "5,11,14,17,20,23,27",
+      "subsample": 2000,
+      "max_chains": null,
+      "out": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/predict/R1-1.5B"
+    },
+    "input_sha256": {
+      "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  }
+}
