@@ -1,0 +1,186 @@
+% !TEX root = ../main.tex
+% ---------------------------------------------------------------------
+% The Predictive Geometry of Reasoning — Movement 1 (Structure) section.
+% DRAFT. Side project of the thesis; canonical content source is
+% ../PREDICTIVE_GEOMETRY.md. Voice + rules per thesis/_planning/STYLE.md.
+%
+% NUMBER EMBARGO (STYLE.md §5): no measured numerals appear here. Pending
+% results use prose ("pending the pilot gate") or the thesis embargo macros.
+% The prompt asked for a \TODO{} macro for unmeasured quantities; the thesis
+% preamble defines \gateZero{...} (results owed to a gate) and \todoT{...}
+% (decisions owed to Tony) instead, so those are used here. If this file is
+% compiled standalone rather than via thesis/main.tex, define them, e.g.:
+%   \providecommand{\gateZero}[1]{\textbf{[GATE]}\emph{#1}}
+%   \providecommand{\todoT}[1]{\textbf{[TODO]}#1}
+%
+% CITATION KEYS (see predictive_geometry_keys.txt for every key + arXiv id):
+%   Reused, already in thesis/references.bib:
+%     sun2026trajectories (2604.05655), zhou2025flowing (2510.09782),
+%     raval2026curveball (curved steering), venhoff2025reasoning (steering).
+%   NEW, NOT yet in the bib — must be added before compile, or downgraded to
+%   \needcite{...} per STYLE.md §6: ssp2026smoothness (2604.18464),
+%   hao2024coconut (2412.06769), llmjepa2025 (2509.14252),
+%   phasespace2024 (2410.04415), assael2025jepa (I-JEPA), bardes2025vjepa2,
+%   balestriero2025lejepa, zbontar2021barlow, asm2026 (ASM, ICLR 2026).
+% ---------------------------------------------------------------------
+\section{The predictive geometry of reasoning}\label{sec:predictive-geometry}
+
+The previous chapter closed one rung of the structural ladder and left a door
+deliberately open. Per-behaviour curvature, measured on the cloud of mean-pooled
+span activations, was tested and not found: the bend the early runs reported
+dissolved under the chain control, exposed as the local clustering of
+neighbouring sentences from the same chain rather than a geometry of the
+behaviour (\Cref{ch:geometry}). The verdict came with a caveat that pointed
+forward as much as it settled anything. Mean-pooling each span to a single point
+discards the very thing a curvature claim might most naturally concern, the path
+a chain traces as a behaviour unfolds, and so \Cref{ch:geometry} relocated
+curvature, as an open question, to the trajectory: if it lives anywhere in this
+data it lives there, left to future work. The conceptual chapter had already
+argued for the same locus from a different direction. Reading the AlphaProof
+Nexus basic-agent finding at its finest grain, \Cref{ch:reasoning} committed to
+locus-in-process, the position that it is the unfolding trajectory and not any
+static activation point that bears the reasoning, and observed that the natural
+future experiments are therefore trajectory-based. This section builds the
+experiment those two commitments name. It is the trajectory-level realisation of
+a question the rest of Movement~1 could pose but not, with a static apparatus,
+answer.
+
+The move is to stop describing geometry and start predicting it. Everything in
+the structural programme so far has read shape off a fixed set of points: the
+intrinsic dimension of a behaviour's cloud, the curvature of that cloud, the
+subspace it spans. A trajectory invites a different question. Given the
+embeddings of the reasoning steps a chain has produced so far, $x_1$ through
+$x_t$, can we predict the next one, $x_{t+1}$? The object of interest is then not
+the static cloud but the residual $r_t = x_{t+1} - f(x_{\le t})$, the part of the
+next step a learned forward model could not anticipate. The wager is that this
+residual is informative where the static geometry is silent: that the predictor
+breaks, with sharp residuals, exactly at the branch points and backtracks where
+reasoning changes direction, and that the structure of those breaks separates
+chains that reach a correct answer from chains that do not. Descriptive geometry
+asks what reasoning representations look like at rest. The predictive reframing
+asks how they move, and treats the predictability of that motion as the signal.
+
+The apparatus this calls for already exists, under the name of the
+joint-embedding predictive architecture. The JEPA programme \citep{assael2025jepa,
+bardes2025vjepa2} is built to predict future states in a learned latent space
+while discarding the unpredictable detail a generative model would waste capacity
+reconstructing; LeJEPA \citep{balestriero2025lejepa} adds an isotropy regulariser
+that prevents the learned space from collapsing to a point. That is precisely the
+machine the trajectory question wants. We do not need to reconstruct the next
+reasoning sentence token by token, only to predict where in latent space it will
+land and to read the error when it lands elsewhere. Naming JEPA as the apparatus
+fixes the register of the whole section: the thesis is not proposing a new
+architecture but borrowing a mature one to answer a question its own static
+geometry left open.
+
+Four hypotheses organise the work, and they are graded so that the cheaper claims
+gate the dearer ones. The keystone is functional. \textbf{H1} holds that the
+predictability of a reasoning trajectory --- the magnitude of its residuals,
+their growth across the chain, the churn in their direction --- predicts whether
+the chain is correct, and predicts it better than token-level log-likelihood, raw
+curvature, or chain length and difficulty alone. \textbf{H2} is representational:
+that a \emph{learned} predictor recovers correctness and behaviour structure that
+neither the raw hidden states nor a random projection of them expose, so that the
+signal is in the learning and not merely in the embeddings. \textbf{H3} is
+geometric and ties the residual back to the static picture: that residual spikes
+localise at points the static geometry would call special --- high local
+curvature, transitions between subspaces --- and that these are where correct and
+incorrect trajectories part company once difficulty is controlled, the
+trajectory-level home \Cref{ch:geometry} reserved for a curvature it would not
+assert of the behaviour cloud. \textbf{H4} is the causal apex, and it is offered
+as confirmation rather than novelty: that steering the model along the
+\emph{predicted} next-step direction shifts its reasoning more than steering along
+a random or mean direction, closing the loop from a passive diagnostic to an
+intervention. The four are nested. If the residual carries no correctness signal
+at all, the geometric and causal questions do not arise; H1 is the gate the rest
+must pass.
+
+The method is an escalation ladder, and each rung is run only if it beats the rung
+below it and survives two null tests. The discipline is inherited wholesale from
+the rest of the thesis. Every split is chain-grouped, so a chain never trains and
+tests at once and the effective sample size is the chain count and not the far
+larger step count (the chain confound the apparatus chapter names CF-2); every
+positive claim must clear both a chain-stratified label permutation, which asks
+whether the signal exceeds chance given the composition of chains, and a
+within-chain step-order shuffle, which asks whether it needs the genuine temporal
+order or is a static-cloud artefact wearing a trajectory's clothes. Rung~0 is
+predictor-free. It runs the existing Frenet-curvature diagnostic on the raw
+trajectories of difficulty-matched correct and incorrect chains, to learn whether
+\emph{any} trajectory geometry separates correctness before we build a predictor
+at all. Rung~1 is linear and, by design, carries no anti-collapse regulariser: a
+ridge model predicts the displacement $x_{t+1}-x_t$ rather than the absolute next
+state, so the residual measures only what the predictor improves on persistence,
+and because nothing regularises the latent, reading geometry off the residual is
+not circular. Rung~2 introduces a small JEPA --- a compact causal predictor over
+step embeddings, with an anti-collapse term of the LeJEPA or Barlow-Twins kind
+\citep{balestriero2025lejepa, zbontar2021barlow} --- and it is pursued only to
+\emph{beat} Rung~1, and only ever for relative, functional claims, never for an
+absolute intrinsic dimension or isotropy of a latent its own regulariser has
+shaped. Rung~3 is the apex: goal-conditioned latent rollout with planning, and
+causal steering along the predicted direction through the steering apparatus of
+\Cref{ch:apparatus}. The ladder is built so that a negative at any rung is
+informative and a positive is hard-won.
+
+Placing this work against its nearest neighbours matters more here than usual,
+because the surrounding literature is dense and the genuinely novel atom is
+narrow. The descriptive geometry of reasoning trajectories has been mapped from
+several directions: a body of work treats reasoning as flowing logics in
+representation space \citep{zhou2025flowing}, and a phase-space reading studies the
+dynamics of the hidden state directly \citep{phasespace2024}. Predicting the next
+reasoning step in a latent space is also not new in itself --- COCONUT
+\citep{hao2024coconut} reasons in a continuous latent rather than in tokens, and
+LLM-JEPA \citep{llmjepa2025} trains a paired-view predictor over text --- but both
+are generative or representational ends in themselves, not error signals read for
+diagnosis. Steering along a predicted or idealised next-state direction has been
+proposed as well \citep{asm2026}, which is exactly why H4 is framed as
+confirmation. Two results sit closest, and the wedge runs between them. A static
+activation-difference probe reaches high accuracy at telling correct from
+incorrect reasoning, but from fixed representations rather than from any model of
+how they evolve \citep{sun2026trajectories}; and a study of trajectory smoothness
+reports that smoothness does \emph{not} encode correctness, returning an
+area-under-curve near chance, and explicitly declines to build a
+latent-prediction feedback loop \citep{ssp2026smoothness}. Our quantity is neither
+of theirs. It is the residual geometry of a \emph{learned forward predictor} ---
+the error of a model trained to anticipate the next step, read as a correctness
+and branch-point signal. No prior work trains such a predictor over reasoning
+steps and treats its failure as the diagnostic, and the quantity aims squarely at
+the open question the smoothness study left negative. That is the whole of the
+novelty claim, and it is deliberately small: a third statistic in a space whose
+two obvious endpoints are already occupied.
+
+What the pilot will report is a single gate, stated now without numbers because no
+number is yet earned. The pilot runs Rung~0 and Rung~1 on the standing R1-1.5B
+corpus and asks one question: does the residual geometry of the linear predictor
+predict chain-level correctness, scored as a chain-grouped area under the curve,
+better than the baselines that ought to be hard to beat --- token-level
+log-likelihood, raw curvature, and a length-and-difficulty model --- and does it
+do so while \emph{both} nulls reject? An early, pre-label read already tempers
+expectation: a cross-chain linear next-step map appears to underperform simple
+persistence, which would make Rung~1 a null and hand the work to Rung~2, sharpening
+rather than weakening the argument against the smoothness result. The honest
+spread of outcomes is therefore wide. A clean positive, with the residual beating
+every baseline on difficulty-matched chains and both nulls rejecting, would move
+the thesis's claim that reasoning is a geometric process from a descriptive
+statement about static representations to a dynamical one about how reasoning
+unfolds. An informative null --- Rung~1 at chance but a nonlinear Rung~2 clearing
+the bar --- would say the signal is real but nonlinear, that capacity is what the
+trajectory question needs. And a hard null, neither rung beating the baselines
+with the nulls intact, would be a clean negative that confirms and extends the
+smoothness result: trajectory smoothness, static probes read dynamically, and now
+the residual geometry of a learned predictor would all have failed to find
+correctness in the shape of the path, a genuine and reportable limit on how much
+of reasoning its geometry carries. The reframe is worth running for the same
+reason \Cref{ch:geometry} was worth waiting for: each of the three outcomes
+teaches, and which one obtains is not yet known.
+
+\gateZero{Pilot gate: chain-grouped correctness AUC for the Rung~0 curvature
+diagnostic and the Rung~1 linear residual, against the token-NLL, raw-curvature,
+and length-plus-difficulty baselines, each reported with its chain-stratified
+label-permutation null and its within-chain step-order-shuffle null. No value is
+quoted until the pilot has run on difficulty-matched chains.}
+
+\todoT{Decide whether the predictive-geometry section ships inside
+\Cref{ch:geometry} as its closing trajectory move or as a standalone Movement~1
+section; resolve the nine new citation keys (predictive\_geometry\_keys.txt)
+into thesis/references.bib, or downgrade any that cannot be verified to
+\needcite. Recommended once the pilot gate has a verdict to anchor the framing.}

@@ -1,0 +1,92 @@
+Citation keys used in writeup/predictive_geometry.tex
+=====================================================
+Source of arXiv ids: ../PREDICTIVE_GEOMETRY.md (canonical content doc).
+STATUS column: "IN BIB" = key already present in thesis/references.bib and is
+reused verbatim so it resolves on integration; "NEW" = key invented for this
+draft and NOT yet in any .bib — it must be added before compile, or downgraded
+to \needcite{...} per STYLE.md §6 (never invent an unverified BibTeX entry).
+
+Reused keys (already in thesis/references.bib — do not redefine)
+---------------------------------------------------------------
+sun2026trajectories   arXiv:2604.05655   IN BIB
+    "LLM Reasoning as Trajectories: Step-Specific Representation Geometry and
+    Correctness Signals" (Sun et al., ACL 2026). The STATIC activation-difference
+    probe that reaches high AUC from fixed representations. One half of the wedge.
+
+zhou2025flowing       arXiv:2510.09782   IN BIB
+    "The Geometry of Reasoning: Flowing Logics in Representation Space"
+    (Zhou et al., ICLR 2026). Descriptive geometry of reasoning trajectories;
+    near-namesake of the thesis title.
+
+raval2026curveball    arXiv:2603.09313   IN BIB
+    "Curveball Steering: The Right Direction to Steer Isn't Always Linear"
+    (Raval et al., 2026). Cited in this project's background as curved/nonlinear
+    steering; available if the H4 discussion wants the nonlinear-steering counterpoint.
+    NOTE: not \cite'd in the current draft body — listed for completeness in case
+    the H4 paragraph is expanded. Remove from this list if it stays uncited.
+
+venhoff2025reasoning  arXiv:2506.18167   IN BIB
+    "Understanding Reasoning in Thinking Language Models via Steering Vectors"
+    (Venhoff et al., 2025). The operational steering-vector basis for behaviours;
+    background for the H4 causal-steering rung. Same NOTE as above re: in-body use.
+
+New keys (NOT yet in thesis/references.bib — add or downgrade to \needcite)
+--------------------------------------------------------------------------
+ssp2026smoothness     arXiv:2604.18464   NEW
+    "SSP" in the source doc: reports trajectory SMOOTHNESS does not encode
+    correctness (AUC ~ 0.5) and declines to build a latent-prediction feedback
+    loop. The negative result this project's atom directly targets. Other half of
+    the wedge. (Full title/authors to confirm from the arXiv page.)
+
+hao2024coconut        arXiv:2412.06769   NEW
+    COCONUT — "Training Large Language Models to Reason in a Continuous Latent
+    Space" (Hao et al., 2024). Generative latent-space reasoning; prior art for
+    "predict next step in latent space," but generative, not an error signal.
+    (Author/key to confirm; "hao2024coconut" is a placeholder.)
+
+llmjepa2025           arXiv:2509.14252   NEW
+    LLM-JEPA — paired-view JEPA-style predictor over text. Prior art for latent
+    next-step prediction; representational end in itself, not a residual diagnostic.
+    (Title/authors to confirm.)
+
+phasespace2024        arXiv:2410.04415   NEW
+    Phase-space reading of reasoning dynamics in the hidden state (per source doc).
+    Descriptive-dynamics neighbour. (Title/authors to confirm.)
+
+assael2025jepa        arXiv:2301.08243   NEW
+    I-JEPA — "Self-Supervised Learning from Images with a Joint-Embedding
+    Predictive Architecture" (Assran et al., 2023). The JEPA apparatus named in
+    the motivation. NOTE: arXiv id 2301.08243 is the canonical I-JEPA id from
+    general knowledge, NOT given in PREDICTIVE_GEOMETRY.md — VERIFY before adding.
+    Key "assael2025jepa" is a placeholder; consider "assran2023ijepa".
+
+bardes2025vjepa2      arXiv:2506.09985   NEW
+    V-JEPA 2 — video JEPA, named with I-JEPA as the JEPA programme. NOTE: arXiv id
+    from general knowledge, NOT in the source doc — VERIFY before adding. Key is a
+    placeholder.
+
+balestriero2025lejepa NEW (arXiv id to confirm)
+    LeJEPA — JEPA with an isotropy/anti-collapse regulariser (SIGReg). Named for
+    the Rung-2 anti-collapse term. No arXiv id appears in the source doc; FIND AND
+    VERIFY the id (recent, 2025). Key "balestriero2025lejepa" is a placeholder.
+
+zbontar2021barlow     arXiv:2103.03230   NEW
+    Barlow Twins — "Self-Supervised Learning via Redundancy Reduction"
+    (Zbontar et al., 2021). The alternative Rung-2 anti-collapse term. NOTE: arXiv
+    id from general knowledge, NOT in the source doc — VERIFY before adding.
+
+asm2026               NEW (ICLR 2026; arXiv id to confirm)
+    "ASM" in the source doc: predicted-direction / ideal-next-state steering
+    (ICLR 2026). The reason H4 is framed as confirmation, not novelty. No arXiv id
+    in the source doc; FIND AND VERIFY (ICLR 2026 entry). Key is a placeholder.
+
+Integration checklist
+---------------------
+1. For every NEW key: locate the arXiv/venue page, confirm authors+title+year,
+   write a verified BibTeX entry into thesis/references.bib, and reconcile the key
+   string with the entry (the keys above are placeholders chosen to read sensibly).
+2. Any NEW key that cannot be verified in time: replace its \citep{key} in
+   predictive_geometry.tex with \needcite{author year, topic} (STYLE.md §6).
+3. Re-confirm the two AUC characterisations (ssp2026smoothness ~0.5;
+   sun2026trajectories high) against the papers before the numeral embargo lifts,
+   since the prose leans on the *direction* of those results, not their values.
