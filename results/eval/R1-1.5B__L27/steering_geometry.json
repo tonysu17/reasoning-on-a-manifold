@@ -1,0 +1,13 @@
+{
+  "backtracking": {
+    "3": {
+      "cos_single_manifold": 0.6542956498056299,
+      "retained_energy": 0.6542956498056298
+    },
+    "5": {
+      "cos_single_manifold": 0.7094006996516068,
+      "retained_energy": 0.7094006996516069
+    },
+    "energy_matched_random_scale": 3.1851278627640744
+  }
+}

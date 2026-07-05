@@ -1,0 +1,126 @@
+{
+  "_provenance": {
+    "git_commit": null,
+    "git_dirty": false,
+    "seed": 42,
+    "args": {
+      "model_short": "R1-1.5B",
+      "layer": 27,
+      "k_values": "['3', '5']",
+      "huang_k": 10,
+      "no_holdout": false,
+      "n_test": 50,
+      "tasks": "data/tasks_final.json",
+      "annotated": null,
+      "out": "results/steering_vectors/R1-1.5B__L27_pooled",
+      "no_battery": true,
+      "n_boot": 200,
+      "battery_subspace": "both"
+    },
+    "builder": "build_huang_manifold.py \u2014 Huang pooled-class PCA (arXiv:2505.22411v2 Eqs.2/5/9)",
+    "construction": "huang_pooled_pca",
+    "layers": {
+      "backtracking": 27,
+      "uncertainty-estimation": 27,
+      "example-testing": 27,
+      "adding-knowledge": 27
+    },
+    "huang_k": 10,
+    "holdout": {
+      "n_tasks": 50,
+      "rule": "src.task_gen.stratified_eval_split"
+    }
+  },
+  "backtracking": {
+    "layer": 27,
+    "auto_k_pooled": 82,
+    "n_on": 9598,
+    "n_off": 25892,
+    "n_excluded": 669,
+    "energy_pooled": {
+      "3": 0.4281024634838104,
+      "5": 0.50324946641922
+    },
+    "cos_pooled": {
+      "3": 0.6542956233024597,
+      "5": 0.7094007134437561
+    },
+    "energy_only": {
+      "3": 0.35757875442504883,
+      "5": 0.4643964171409607
+    },
+    "cos_only": {
+      "3": 0.5979790091514587,
+      "5": 0.6814665794372559
+    }
+  },
+  "uncertainty-estimation": {
+    "layer": 27,
+    "auto_k_pooled": 82,
+    "n_on": 15710,
+    "n_off": 19780,
+    "n_excluded": 1018,
+    "energy_pooled": {
+      "3": 0.54892897605896,
+      "5": 0.6387308239936829
+    },
+    "cos_pooled": {
+      "3": 0.7408966422080994,
+      "5": 0.7992063760757446
+    },
+    "energy_only": {
+      "3": 0.35896748304367065,
+      "5": 0.4710245728492737
+    },
+    "cos_only": {
+      "3": 0.5991389751434326,
+      "5": 0.6863121390342712
+    }
+  },
+  "example-testing": {
+    "layer": 27,
+    "auto_k_pooled": 82,
+    "n_on": 5465,
+    "n_off": 30025,
+    "n_excluded": 364,
+    "energy_pooled": {
+      "3": 0.8157789707183838,
+      "5": 0.8712242841720581
+    },
+    "cos_pooled": {
+      "3": 0.9032045006752014,
+      "5": 0.9333937168121338
+    },
+    "energy_only": {
+      "3": 0.5965116024017334,
+      "5": 0.603600263595581
+    },
+    "cos_only": {
+      "3": 0.772341251373291,
+      "5": 0.7769168615341187
+    }
+  },
+  "adding-knowledge": {
+    "layer": 27,
+    "auto_k_pooled": 82,
+    "n_on": 4717,
+    "n_off": 30773,
+    "n_excluded": 310,
+    "energy_pooled": {
+      "3": 0.7540088891983032,
+      "5": 0.809453547000885
+    },
+    "cos_pooled": {
+      "3": 0.8683369755744934,
+      "5": 0.8996965885162354
+    },
+    "energy_only": {
+      "3": 0.4500749707221985,
+      "5": 0.4757152199745178
+    },
+    "cos_only": {
+      "3": 0.6708766222000122,
+      "5": 0.6897211670875549
+    }
+  }
+}

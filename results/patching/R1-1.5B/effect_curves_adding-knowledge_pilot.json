@@ -1,0 +1,1698 @@
+{
+  "behaviour": "adding-knowledge",
+  "n_pairs": 5,
+  "layer_effect": {
+    "0": {
+      "mean_effect": 5.095467987797581,
+      "sem_effect": 3.9796139537946877,
+      "n": 5
+    },
+    "1": {
+      "mean_effect": 5.788452931745236,
+      "sem_effect": 4.677821442934023,
+      "n": 5
+    },
+    "2": {
+      "mean_effect": 5.6972148997830105,
+      "sem_effect": 4.595711021338064,
+      "n": 5
+    },
+    "3": {
+      "mean_effect": 5.65058810916261,
+      "sem_effect": 4.56605789981436,
+      "n": 5
+    },
+    "4": {
+      "mean_effect": 5.250925743542426,
+      "sem_effect": 4.155787268602131,
+      "n": 5
+    },
+    "5": {
+      "mean_effect": 5.210742982756406,
+      "sem_effect": 4.120041352773094,
+      "n": 5
+    },
+    "6": {
+      "mean_effect": 4.945864108017504,
+      "sem_effect": 3.8409406482123476,
+      "n": 5
+    },
+    "7": {
+      "mean_effect": 5.944914533165674,
+      "sem_effect": 4.895279776231716,
+      "n": 5
+    },
+    "8": {
+      "mean_effect": 6.047276664064894,
+      "sem_effect": 4.960843046728614,
+      "n": 5
+    },
+    "9": {
+      "mean_effect": 6.131832769188986,
+      "sem_effect": 5.019472290254676,
+      "n": 5
+    },
+    "10": {
+      "mean_effect": 6.241366926114379,
+      "sem_effect": 5.089589367226089,
+      "n": 5
+    },
+    "11": {
+      "mean_effect": 5.7641447509281045,
+      "sem_effect": 4.572842178667335,
+      "n": 5
+    },
+    "12": {
+      "mean_effect": 5.617188736985637,
+      "sem_effect": 4.421339389987321,
+      "n": 5
+    },
+    "13": {
+      "mean_effect": 6.457253338360092,
+      "sem_effect": 5.326701197591031,
+      "n": 5
+    },
+    "14": {
+      "mean_effect": 6.366918649317496,
+      "sem_effect": 5.2204173813172146,
+      "n": 5
+    },
+    "15": {
+      "mean_effect": 5.962714937630865,
+      "sem_effect": 4.8158534656017125,
+      "n": 5
+    },
+    "16": {
+      "mean_effect": 5.580770344427792,
+      "sem_effect": 4.47976008088435,
+      "n": 5
+    },
+    "17": {
+      "mean_effect": 5.221822972573132,
+      "sem_effect": 4.107091993790538,
+      "n": 5
+    },
+    "18": {
+      "mean_effect": 5.212876305392794,
+      "sem_effect": 4.341389241816547,
+      "n": 5
+    },
+    "19": {
+      "mean_effect": 3.8816226148760746,
+      "sem_effect": 3.008341128724679,
+      "n": 5
+    },
+    "20": {
+      "mean_effect": 2.588319903446807,
+      "sem_effect": 1.7265719108628022,
+      "n": 5
+    },
+    "21": {
+      "mean_effect": 2.3613672231656797,
+      "sem_effect": 1.4961914746741354,
+      "n": 5
+    },
+    "22": {
+      "mean_effect": 2.1981612131386146,
+      "sem_effect": 1.2785952080975538,
+      "n": 5
+    },
+    "23": {
+      "mean_effect": 1.2836825361534956,
+      "sem_effect": 0.384433007624816,
+      "n": 5
+    },
+    "24": {
+      "mean_effect": 1.1333531172696862,
+      "sem_effect": 0.2008065174221178,
+      "n": 5
+    },
+    "25": {
+      "mean_effect": 0.9208270405128097,
+      "sem_effect": 0.0569835864401345,
+      "n": 5
+    },
+    "26": {
+      "mean_effect": 0.9236044512398905,
+      "sem_effect": 0.06810876950290039,
+      "n": 5
+    },
+    "27": {
+      "mean_effect": 0.9997538840178434,
+      "sem_effect": 0.0002461159821565806,
+      "n": 5
+    }
+  },
+  "trials": [
+    [
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 0,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.3984375,
+        "relative_effect": 2.3686679174484055,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 1,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.5546875,
+        "relative_effect": 2.3874296435272044,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 2,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.8125,
+        "relative_effect": 2.4183864915572233,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 3,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.8984375,
+        "relative_effect": 2.428705440900563,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 4,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.8359375,
+        "relative_effect": 2.421200750469043,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 5,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.875,
+        "relative_effect": 2.425891181988743,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 6,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.4921875,
+        "relative_effect": 2.379924953095685,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 7,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 9.7265625,
+        "relative_effect": 2.1679174484052535,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 8,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 10.2578125,
+        "relative_effect": 2.2317073170731705,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 9,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 10.7109375,
+        "relative_effect": 2.2861163227016883,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 10,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 10.796875,
+        "relative_effect": 2.296435272045028,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 11,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.0234375,
+        "relative_effect": 2.323639774859287,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 12,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 11.390625,
+        "relative_effect": 2.367729831144465,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 13,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 8.46875,
+        "relative_effect": 2.016885553470919,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 14,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 8.46875,
+        "relative_effect": 2.016885553470919,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 15,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 6.859375,
+        "relative_effect": 1.823639774859287,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 16,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 6.25,
+        "relative_effect": 1.7504690431519698,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 17,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 5.75,
+        "relative_effect": 1.6904315196998123,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 18,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -3.0,
+        "relative_effect": 0.6397748592870545,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 19,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -3.640625,
+        "relative_effect": 0.5628517823639775,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 20,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -3.84375,
+        "relative_effect": 0.5384615384615384,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 21,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -4.03125,
+        "relative_effect": 0.5159474671669794,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 22,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -3.0625,
+        "relative_effect": 0.6322701688555348,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 23,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -3.265625,
+        "relative_effect": 0.6078799249530957,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 24,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -2.140625,
+        "relative_effect": 0.7429643527204504,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 25,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -1.875,
+        "relative_effect": 0.774859287054409,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 26,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": -0.828125,
+        "relative_effect": 0.900562851782364,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 27,
+        "positive_chain_id": "PROB_011",
+        "negative_chain_id": "VERB_044",
+        "token_position": 2319,
+        "logit_diff_baseline": -8.328125,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 0,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 4.703125,
+        "relative_effect": 1.456060606060606,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 1,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 3.4765625,
+        "relative_effect": 1.3371212121212122,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 2,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 3.6953125,
+        "relative_effect": 1.3583333333333334,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 3,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 3.2421875,
+        "relative_effect": 1.3143939393939394,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 4,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 3.375,
+        "relative_effect": 1.3272727272727272,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 5,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 2.6796875,
+        "relative_effect": 1.2598484848484848,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 6,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 2.2890625,
+        "relative_effect": 1.221969696969697,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 7,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.703125,
+        "relative_effect": 1.165151515151515,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 8,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.5859375,
+        "relative_effect": 1.1537878787878788,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 9,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.4921875,
+        "relative_effect": 1.1446969696969698,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 10,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.5625,
+        "relative_effect": 1.1515151515151516,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 11,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.3984375,
+        "relative_effect": 1.1356060606060607,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 12,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.5078125,
+        "relative_effect": 1.1462121212121212,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 13,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.1328125,
+        "relative_effect": 1.1098484848484849,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 14,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.359375,
+        "relative_effect": 1.1318181818181818,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 15,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.3515625,
+        "relative_effect": 1.131060606060606,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 16,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.4921875,
+        "relative_effect": 1.1446969696969698,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 17,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 2.2265625,
+        "relative_effect": 1.2159090909090908,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 18,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.171875,
+        "relative_effect": 1.1136363636363635,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 19,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 1.1171875,
+        "relative_effect": 1.1083333333333334,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 20,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.75,
+        "relative_effect": 1.0727272727272728,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 21,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.8984375,
+        "relative_effect": 1.0871212121212122,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 22,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.921875,
+        "relative_effect": 1.0893939393939394,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 23,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.796875,
+        "relative_effect": 1.0772727272727272,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 24,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.375,
+        "relative_effect": 1.0363636363636364,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 25,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.1875,
+        "relative_effect": 1.018181818181818,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 26,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.203125,
+        "relative_effect": 1.0196969696969698,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 27,
+        "positive_chain_id": "PROB_009",
+        "negative_chain_id": "SPAT_110",
+        "token_position": 2513,
+        "logit_diff_baseline": -10.3125,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 0,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 11.30859375,
+        "relative_effect": 0.10936778957083526,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 1,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 10.546875,
+        "relative_effect": 0.16935856022150442,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 2,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 10.09375,
+        "relative_effect": 0.20504537763421016,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 3,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 10.0078125,
+        "relative_effect": 0.2118135671435164,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 4,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 9.76953125,
+        "relative_effect": 0.23057991078295648,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 5,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 9.41015625,
+        "relative_effect": 0.25888324873096447,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 6,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 9.2734375,
+        "relative_effect": 0.2696508229503153,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 7,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 8.72265625,
+        "relative_effect": 0.3130287648054145,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 8,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 9.0078125,
+        "relative_effect": 0.29057068143362563,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 9,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 8.85546875,
+        "relative_effect": 0.30256883556375946,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 10,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 7.4375,
+        "relative_effect": 0.41424396246731277,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 11,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 5.4765625,
+        "relative_effect": 0.5686817412705738,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 12,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 5.9140625,
+        "relative_effect": 0.534225503768651,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 13,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 4.5859375,
+        "relative_effect": 0.6388247961852023,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 14,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 4.15625,
+        "relative_effect": 0.6726657437317336,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 15,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 2.984375,
+        "relative_effect": 0.7649592370404553,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 16,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 4.171875,
+        "relative_effect": 0.6714351638209506,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 17,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 3.4609375,
+        "relative_effect": 0.7274265497615752,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 18,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 2.234375,
+        "relative_effect": 0.8240270727580372,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 19,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 2.4375,
+        "relative_effect": 0.8080295339178588,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 20,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 1.9609375,
+        "relative_effect": 0.845562221196739,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 21,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 1.734375,
+        "relative_effect": 0.8634056299030919,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 22,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 0.625,
+        "relative_effect": 0.9507768035686818,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 23,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 0.53125,
+        "relative_effect": 0.9581602830333795,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 24,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": -0.1875,
+        "relative_effect": 1.0147669589293955,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 25,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": -0.140625,
+        "relative_effect": 1.0110752191970467,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 26,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": -0.28125,
+        "relative_effect": 1.0221504383940931,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 27,
+        "positive_chain_id": "CREA_089",
+        "negative_chain_id": "CAUS_049",
+        "token_position": 191,
+        "logit_diff_baseline": 12.697265625,
+        "logit_diff_patched": 0.015625,
+        "relative_effect": 0.9987694200892171,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 0,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 10.28125,
+        "relative_effect": 20.939393939393938,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 1,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 12.0859375,
+        "relative_effect": 24.439393939393938,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 2,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.8671875,
+        "relative_effect": 24.015151515151516,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 3,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.78125,
+        "relative_effect": 23.848484848484848,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 4,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 10.7265625,
+        "relative_effect": 21.803030303030305,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 5,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 10.6328125,
+        "relative_effect": 21.62121212121212,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 6,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 9.921875,
+        "relative_effect": 20.242424242424242,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 7,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 12.625,
+        "relative_effect": 25.484848484848484,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 8,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 12.8125,
+        "relative_effect": 25.848484848484848,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 9,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 12.9765625,
+        "relative_effect": 26.166666666666668,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 10,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 13.1796875,
+        "relative_effect": 26.560606060606062,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 11,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.8671875,
+        "relative_effect": 24.015151515151516,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 12,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.4765625,
+        "relative_effect": 23.257575757575758,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 13,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 13.7890625,
+        "relative_effect": 27.742424242424242,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 14,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 13.5234375,
+        "relative_effect": 27.227272727272727,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 15,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 12.484375,
+        "relative_effect": 25.21212121212121,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 16,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.59375,
+        "relative_effect": 23.484848484848484,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 17,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 10.640625,
+        "relative_effect": 21.636363636363637,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 18,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 11.125,
+        "relative_effect": 22.575757575757574,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 19,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 7.6875,
+        "relative_effect": 15.909090909090908,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 20,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 4.375,
+        "relative_effect": 9.484848484848484,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 21,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 3.78125,
+        "relative_effect": 8.333333333333332,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 22,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 3.25,
+        "relative_effect": 7.303030303030303,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 23,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 0.921875,
+        "relative_effect": 2.787878787878788,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 24,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 0.46875,
+        "relative_effect": 1.9090909090909092,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 25,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": -0.109375,
+        "relative_effect": 0.7878787878787878,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 26,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": -0.171875,
+        "relative_effect": 0.6666666666666667,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 27,
+        "positive_chain_id": "PROB_081",
+        "negative_chain_id": "SPAT_079",
+        "token_position": 96,
+        "logit_diff_baseline": -0.515625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 0,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 9.6875,
+        "relative_effect": 0.6038496865141169,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 1,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 9.5625,
+        "relative_effect": 0.6089613034623218,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 2,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 12.4921875,
+        "relative_effect": 0.4891577812387684,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 3,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 13.4609375,
+        "relative_effect": 0.44954274989018006,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 4,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 12.8984375,
+        "relative_effect": 0.47254502615710237,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 5,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 12.5234375,
+        "relative_effect": 0.4878798770017172,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 6,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 9.40625,
+        "relative_effect": 0.615350824647578,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 7,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 9.9375,
+        "relative_effect": 0.593626452617707,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 8,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 7.046875,
+        "relative_effect": 0.7118325945449463,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 9,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.890625,
+        "relative_effect": 0.759115051315842,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 10,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.28125,
+        "relative_effect": 0.7840341839383411,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 11,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.4375,
+        "relative_effect": 0.777644662753085,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 12,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.375,
+        "relative_effect": 0.7802004712271874,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 13,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.421875,
+        "relative_effect": 0.7782836148716106,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 14,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 5.234375,
+        "relative_effect": 0.7859510402939179,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 15,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 2.890625,
+        "relative_effect": 0.8817938580727607,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 16,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 3.609375,
+        "relative_effect": 0.8524020606205822,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 17,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 3.9375,
+        "relative_effect": 0.8389840661315443,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 18,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 2.171875,
+        "relative_effect": 0.9111856555249391,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 19,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": -0.484375,
+        "relative_effect": 1.019807515674294,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 20,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 21,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": -0.171875,
+        "relative_effect": 1.0070284733037818,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 22,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": -0.375,
+        "relative_effect": 1.0153348508446147,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 23,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 0.3125,
+        "relative_effect": 0.9872209576294877,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 24,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 0.890625,
+        "relative_effect": 0.9635797292440398,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 25,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": -0.296875,
+        "relative_effect": 1.0121400902519868,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 26,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": -0.21875,
+        "relative_effect": 1.0089453296593587,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "adding-knowledge",
+        "layer": 27,
+        "positive_chain_id": "SYST_096",
+        "negative_chain_id": "SPAT_039",
+        "token_position": 971,
+        "logit_diff_baseline": 24.4541015625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ]
+  ]
+}

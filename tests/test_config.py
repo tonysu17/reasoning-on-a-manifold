@@ -56,7 +56,7 @@ def test_target_behaviours_are_the_four():
 def test_peak_layers_from_config():
     cfg = load_config()
     assert PEAK_LAYERS == {k: int(v) for k, v in cfg["analysis"]["peak_layers"].items()}
-    assert PEAK_LAYERS["adding-knowledge"] == 17
+    assert PEAK_LAYERS["adding-knowledge"] == 16  # reconciled 2026-06-20 to triangulation PR-trough (was 17)
 
 
 def test_provenance_has_git_and_seed():

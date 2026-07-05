@@ -1,0 +1,42 @@
+{
+  "model_short": "R1-1.5B",
+  "layer": 27,
+  "args": {
+    "model_short": "R1-1.5B",
+    "layer": 27,
+    "variant": "single",
+    "tangent_dim": 10,
+    "curvature_diagnostic": "tangent_space_variation_deg",
+    "curvature_k": 30,
+    "skip_empirical_comparison": false
+  },
+  "predictions": {
+    "backtracking": {
+      "kappa": 1.1896557738919473,
+      "v_par_norm": 0.8456931710243225,
+      "v_perp_norm": 0.5336692929267883,
+      "alpha_star_pred": 0.9939530245207477
+    },
+    "uncertainty-estimation": {
+      "kappa": 1.190220191028157,
+      "v_par_norm": 0.8672322630882263,
+      "v_perp_norm": 0.49790385365486145,
+      "alpha_star_pred": 0.9688069826533825
+    },
+    "example-testing": {
+      "kappa": 1.1799803864091896,
+      "v_par_norm": 0.879372239112854,
+      "v_perp_norm": 0.4761345684528351,
+      "alpha_star_pred": 0.9637235243897161
+    },
+    "adding-knowledge": {
+      "kappa": 1.191722502618539,
+      "v_par_norm": 0.7945440411567688,
+      "v_perp_norm": 0.607206404209137,
+      "alpha_star_pred": 1.0561044805161655
+    }
+  },
+  "empirical": {},
+  "correlation": null,
+  "alternative_mechanisms": null
+}

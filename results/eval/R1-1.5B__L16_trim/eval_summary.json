@@ -1,0 +1,226 @@
+{
+  "adding-knowledge": {
+    "manifold_auto": {
+      "1.0": {
+        "mean": 0.10485759338700515,
+        "std": 0.09875632885056977,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.11589362421570715,
+          "uncertainty-estimation": 0.13225162654767286,
+          "example-testing": 0.1062734549282283
+        },
+        "leakage_mean": 0.11813956856386944,
+        "mean_n_tokens": 2814.2,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5222818465720319
+      }
+    },
+    "single_direction": {
+      "1.0": {
+        "mean": 0.09656489601757726,
+        "std": 0.10169616241366876,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.017588107913552968,
+          "uncertainty-estimation": 0.15598304496214224,
+          "example-testing": 0.166572586233695
+        },
+        "leakage_mean": 0.11338124636979674,
+        "mean_n_tokens": 2475.9,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.3994335309380742
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": 0.10381052235616613,
+        "std": 0.0762652331087663,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.05937311858220677,
+          "uncertainty-estimation": 0.15342017385310722,
+          "example-testing": 0.05735516201829098
+        },
+        "leakage_mean": 0.09004948481786833,
+        "mean_n_tokens": 2184.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.28284764767065124
+      }
+    }
+  },
+  "backtracking": {
+    "manifold_auto": {
+      "1.0": {
+        "mean": 0.03293488232921381,
+        "std": 0.06786800453526275,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "uncertainty-estimation": 0.0841803530312833,
+          "example-testing": 0.1662967865509052,
+          "adding-knowledge": 0.11417656134293139
+        },
+        "leakage_mean": 0.12155123364170665,
+        "mean_n_tokens": 2062.4,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.26988715315178097
+      }
+    },
+    "single_direction": {
+      "1.0": {
+        "mean": 0.023725965858041327,
+        "std": 0.03131146243344049,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "uncertainty-estimation": 0.0949430667228098,
+          "example-testing": 0.13025356813728906,
+          "adding-knowledge": 0.1290065393645155
+        },
+        "leakage_mean": 0.11806772474153811,
+        "mean_n_tokens": 2535.6,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.40207774669225493
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": 0.05937311858220677,
+        "std": 0.0639321757853319,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "uncertainty-estimation": 0.15342017385310722,
+          "example-testing": 0.05735516201829098,
+          "adding-knowledge": 0.10381052235616613
+        },
+        "leakage_mean": 0.10486195274252143,
+        "mean_n_tokens": 2184.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.28284764767065124
+      }
+    }
+  },
+  "example-testing": {
+    "manifold_auto": {
+      "1.0": {
+        "mean": 0.12999304993096575,
+        "std": 0.15164934238731506,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.07853926496272289,
+          "uncertainty-estimation": 0.20517116525051377,
+          "adding-knowledge": 0.08808748237949311
+        },
+        "leakage_mean": 0.12393263753090993,
+        "mean_n_tokens": 2942.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5050275211505799
+      }
+    },
+    "single_direction": {
+      "1.0": {
+        "mean": 0.14736960734114435,
+        "std": 0.2296355160408284,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.03188106783932211,
+          "uncertainty-estimation": 0.11322146295794304,
+          "adding-knowledge": 0.11528916046705422
+        },
+        "leakage_mean": 0.08679723042143979,
+        "mean_n_tokens": 2509.5,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.4079970140759658
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": 0.05735516201829098,
+        "std": 0.0535476786381276,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.05937311858220677,
+          "uncertainty-estimation": 0.15342017385310722,
+          "adding-knowledge": 0.10381052235616613
+        },
+        "leakage_mean": 0.10553460493049337,
+        "mean_n_tokens": 2184.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.28284764767065124
+      }
+    }
+  },
+  "uncertainty-estimation": {
+    "manifold_auto": {
+      "1.0": {
+        "mean": 0.17265671609239175,
+        "std": 0.07463927521328997,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.05846226272366585,
+          "example-testing": 0.09437570169661963,
+          "adding-knowledge": 0.08297566465927454
+        },
+        "leakage_mean": 0.07860454302652,
+        "mean_n_tokens": 3304.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5936569559141217
+      }
+    },
+    "single_direction": {
+      "1.0": {
+        "mean": 0.14268134978599178,
+        "std": 0.11120851524138682,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.04064662759784711,
+          "example-testing": 0.05131703131703132,
+          "adding-knowledge": 0.10076865930524467
+        },
+        "leakage_mean": 0.06424410607337437,
+        "mean_n_tokens": 2723.9,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5003280032211421
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": 0.15342017385310722,
+        "std": 0.06792430913696702,
+        "n": 10,
+        "n_missing": 0,
+        "n_empty": 0,
+        "leakage_by_behaviour": {
+          "backtracking": 0.05937311858220677,
+          "example-testing": 0.05735516201829098,
+          "adding-knowledge": 0.10381052235616613
+        },
+        "leakage_mean": 0.07351293431888796,
+        "mean_n_tokens": 2184.7,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.28284764767065124
+      }
+    }
+  }
+}

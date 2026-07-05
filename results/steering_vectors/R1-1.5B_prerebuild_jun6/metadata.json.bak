@@ -1,0 +1,67 @@
+{
+  "_provenance": {
+    "git_commit": "dc5190991c91a8201e07c0114c04e93033640e6b",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "layer": 27,
+      "k": "['1', '3', '5', '10', 'auto']",
+      "variance_threshold": 0.7
+    },
+    "input_sha256": {
+      "data/activations/R1-1.5B": null
+    }
+  },
+  "backtracking": {
+    "layer": 27,
+    "n_on": 10267,
+    "n_off": 27584,
+    "auto_k": 57,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "uncertainty-estimation": {
+    "layer": 27,
+    "n_on": 16728,
+    "n_off": 21123,
+    "auto_k": 71,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "example-testing": {
+    "layer": 27,
+    "n_on": 5829,
+    "n_off": 32022,
+    "auto_k": 52,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "adding-knowledge": {
+    "layer": 27,
+    "n_on": 5027,
+    "n_off": 32824,
+    "auto_k": 76,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  }
+}

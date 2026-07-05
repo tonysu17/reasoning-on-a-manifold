@@ -1,0 +1,1698 @@
+{
+  "behaviour": "backtracking",
+  "n_pairs": 5,
+  "layer_effect": {
+    "0": {
+      "mean_effect": 1.5529037561541306,
+      "sem_effect": 0.48172867235008276,
+      "n": 5
+    },
+    "1": {
+      "mean_effect": 1.3411695978486693,
+      "sem_effect": 0.5130420884936677,
+      "n": 5
+    },
+    "2": {
+      "mean_effect": 1.3590020264542026,
+      "sem_effect": 0.5089781383925536,
+      "n": 5
+    },
+    "3": {
+      "mean_effect": 1.3475613346902449,
+      "sem_effect": 0.5092712798337401,
+      "n": 5
+    },
+    "4": {
+      "mean_effect": 1.3957052539518033,
+      "sem_effect": 0.5055385226734138,
+      "n": 5
+    },
+    "5": {
+      "mean_effect": 1.4239753216733066,
+      "sem_effect": 0.4995335283021706,
+      "n": 5
+    },
+    "6": {
+      "mean_effect": 1.4305790739367577,
+      "sem_effect": 0.49315034652438244,
+      "n": 5
+    },
+    "7": {
+      "mean_effect": 1.3735274602746355,
+      "sem_effect": 0.48211892287218705,
+      "n": 5
+    },
+    "8": {
+      "mean_effect": 1.3804959632992952,
+      "sem_effect": 0.4786543714489839,
+      "n": 5
+    },
+    "9": {
+      "mean_effect": 1.3400267893130844,
+      "sem_effect": 0.48266519967815114,
+      "n": 5
+    },
+    "10": {
+      "mean_effect": 1.3289187007198404,
+      "sem_effect": 0.44723871140320215,
+      "n": 5
+    },
+    "11": {
+      "mean_effect": 1.308456950820905,
+      "sem_effect": 0.44433280435846323,
+      "n": 5
+    },
+    "12": {
+      "mean_effect": 1.3147142584101912,
+      "sem_effect": 0.4359358086221017,
+      "n": 5
+    },
+    "13": {
+      "mean_effect": 1.186153596398709,
+      "sem_effect": 0.46211879022283264,
+      "n": 5
+    },
+    "14": {
+      "mean_effect": 1.193327151142953,
+      "sem_effect": 0.449131484889613,
+      "n": 5
+    },
+    "15": {
+      "mean_effect": 1.1387006406442757,
+      "sem_effect": 0.4192761990488885,
+      "n": 5
+    },
+    "16": {
+      "mean_effect": 1.136924122727156,
+      "sem_effect": 0.3905764541412049,
+      "n": 5
+    },
+    "17": {
+      "mean_effect": 1.1438812217047238,
+      "sem_effect": 0.3351976381325506,
+      "n": 5
+    },
+    "18": {
+      "mean_effect": 1.1234610300810468,
+      "sem_effect": 0.2647719211598614,
+      "n": 5
+    },
+    "19": {
+      "mean_effect": 1.030182716102394,
+      "sem_effect": 0.22011152990774877,
+      "n": 5
+    },
+    "20": {
+      "mean_effect": 1.155197601149704,
+      "sem_effect": 0.14724177683885473,
+      "n": 5
+    },
+    "21": {
+      "mean_effect": 1.1542379144460209,
+      "sem_effect": 0.11103739537177243,
+      "n": 5
+    },
+    "22": {
+      "mean_effect": 1.0725491175665565,
+      "sem_effect": 0.09285377057622071,
+      "n": 5
+    },
+    "23": {
+      "mean_effect": 1.0293203797350645,
+      "sem_effect": 0.07344411558596059,
+      "n": 5
+    },
+    "24": {
+      "mean_effect": 1.0320689778421301,
+      "sem_effect": 0.04233547776874268,
+      "n": 5
+    },
+    "25": {
+      "mean_effect": 0.9985021061467881,
+      "sem_effect": 0.022395384586801022,
+      "n": 5
+    },
+    "26": {
+      "mean_effect": 1.0052711085028272,
+      "sem_effect": 0.021335780886052057,
+      "n": 5
+    },
+    "27": {
+      "mean_effect": 1.0,
+      "sem_effect": 0.0,
+      "n": 5
+    }
+  },
+  "trials": [
+    [
+      {
+        "target_behaviour": "backtracking",
+        "layer": 0,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.73046875,
+        "relative_effect": 1.6445518453427064,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 1,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 3.3828125,
+        "relative_effect": 1.3804920913884007,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 2,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 4.6953125,
+        "relative_effect": 1.5281195079086116,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 3,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 4.5546875,
+        "relative_effect": 1.5123022847100176,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 4,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.5546875,
+        "relative_effect": 1.6247803163444638,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 5,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.79296875,
+        "relative_effect": 1.6515817223198594,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 6,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 6.12109375,
+        "relative_effect": 1.6884885764499122,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 7,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.6015625,
+        "relative_effect": 1.6300527240773286,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 8,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.65625,
+        "relative_effect": 1.6362038664323375,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 9,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.7578125,
+        "relative_effect": 1.647627416520211,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 10,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.3515625,
+        "relative_effect": 1.601933216168717,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 11,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.4609375,
+        "relative_effect": 1.6142355008787346,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 12,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 5.5625,
+        "relative_effect": 1.625659050966608,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 13,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 3.1484375,
+        "relative_effect": 1.3541300527240774,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 14,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 3.3046875,
+        "relative_effect": 1.3717047451669595,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 15,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 3.5859375,
+        "relative_effect": 1.4033391915641475,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 16,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 3.5,
+        "relative_effect": 1.3936731107205624,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 17,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 2.4296875,
+        "relative_effect": 1.273286467486819,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 18,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 1.71875,
+        "relative_effect": 1.1933216168717047,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 19,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 1.6484375,
+        "relative_effect": 1.1854130052724077,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 20,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 1.3046875,
+        "relative_effect": 1.1467486818980668,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 21,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 1.1484375,
+        "relative_effect": 1.1291739894551847,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 22,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 0.65625,
+        "relative_effect": 1.0738137082601054,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 23,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 0.4453125,
+        "relative_effect": 1.0500878734622143,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 24,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": -0.0546875,
+        "relative_effect": 0.9938488576449912,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 25,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": -0.421875,
+        "relative_effect": 0.9525483304042179,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 26,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 0.1484375,
+        "relative_effect": 1.0166959578207382,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 27,
+        "positive_chain_id": "VERB_026",
+        "negative_chain_id": "LATE_097",
+        "token_position": 808,
+        "logit_diff_baseline": -8.890625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      }
+    ],
+    [
+      {
+        "target_behaviour": "backtracking",
+        "layer": 0,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 9.40625,
+        "relative_effect": 2.213709677419355,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 1,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 8.0,
+        "relative_effect": 2.032258064516129,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 2,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.6796875,
+        "relative_effect": 1.9909274193548387,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 3,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.6015625,
+        "relative_effect": 1.9808467741935485,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 4,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.96875,
+        "relative_effect": 2.028225806451613,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 5,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 8.2265625,
+        "relative_effect": 2.061491935483871,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 6,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 8.2890625,
+        "relative_effect": 2.069556451612903,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 7,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.6953125,
+        "relative_effect": 1.9929435483870968,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 8,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.84375,
+        "relative_effect": 2.0120967741935485,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 9,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 7.2109375,
+        "relative_effect": 1.9304435483870968,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 10,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 6.0078125,
+        "relative_effect": 1.7752016129032258,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 11,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 5.125,
+        "relative_effect": 1.661290322580645,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 12,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 4.9765625,
+        "relative_effect": 1.6421370967741935,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 13,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 4.7265625,
+        "relative_effect": 1.6098790322580645,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 14,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 4.5,
+        "relative_effect": 1.5806451612903225,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 15,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 0.625,
+        "relative_effect": 1.0806451612903225,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 16,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.09375,
+        "relative_effect": 0.9879032258064516,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 17,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 0.0625,
+        "relative_effect": 1.0080645161290323,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 18,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 0.015625,
+        "relative_effect": 1.002016129032258,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 19,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -1.125,
+        "relative_effect": 0.8548387096774194,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 20,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -2.21875,
+        "relative_effect": 0.7137096774193548,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 21,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.34375,
+        "relative_effect": 0.9556451612903226,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 22,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.90625,
+        "relative_effect": 0.8830645161290323,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 23,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.9375,
+        "relative_effect": 0.8790322580645161,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 24,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.640625,
+        "relative_effect": 0.9173387096774194,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 25,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 0.0625,
+        "relative_effect": 1.0080645161290323,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 26,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": -0.09375,
+        "relative_effect": 0.9879032258064516,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 27,
+        "positive_chain_id": "SCIE_012",
+        "negative_chain_id": "PROB_083",
+        "token_position": 565,
+        "logit_diff_baseline": -7.75,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      }
+    ],
+    [
+      {
+        "target_behaviour": "backtracking",
+        "layer": 0,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.625,
+        "relative_effect": 2.8784530386740332,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 1,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.44140625,
+        "relative_effect": 2.845994475138122,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 2,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.34619140625,
+        "relative_effect": 2.8291609116022096,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 3,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.30615234375,
+        "relative_effect": 2.8220821823204423,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 4,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.30224609375,
+        "relative_effect": 2.8213915745856353,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 5,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.31689453125,
+        "relative_effect": 2.82398135359116,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 6,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 10.1142578125,
+        "relative_effect": 2.7881560773480665,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 7,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.62890625,
+        "relative_effect": 2.7023480662983426,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 8,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.546875,
+        "relative_effect": 2.6878453038674035,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 9,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.4052734375,
+        "relative_effect": 2.662810773480663,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 10,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.208984375,
+        "relative_effect": 2.6281077348066297,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 11,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.220703125,
+        "relative_effect": 2.63017955801105,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 12,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.123046875,
+        "relative_effect": 2.6129143646408837,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 13,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 9.099609375,
+        "relative_effect": 2.6087707182320443,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 14,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 8.93359375,
+        "relative_effect": 2.5794198895027627,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 15,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 8.859375,
+        "relative_effect": 2.5662983425414367,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 16,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 8.337890625,
+        "relative_effect": 2.4741022099447516,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 17,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 7.298828125,
+        "relative_effect": 2.290400552486188,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 18,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 5.24609375,
+        "relative_effect": 1.9274861878453038,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 19,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 3.0390625,
+        "relative_effect": 1.5372928176795582,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 20,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 2.6796875,
+        "relative_effect": 1.473756906077348,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 21,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 2.9375,
+        "relative_effect": 1.5193370165745856,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 22,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 2.15625,
+        "relative_effect": 1.3812154696132597,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 23,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 1.59375,
+        "relative_effect": 1.281767955801105,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 24,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 0.7578125,
+        "relative_effect": 1.1339779005524862,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 25,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 0.3515625,
+        "relative_effect": 1.0621546961325967,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 26,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 27,
+        "positive_chain_id": "PROB_088",
+        "negative_chain_id": "SPAT_084",
+        "token_position": 4156,
+        "logit_diff_baseline": -5.65625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      }
+    ],
+    [
+      {
+        "target_behaviour": "backtracking",
+        "layer": 0,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.49609375,
+        "relative_effect": 0.8881057268722466,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 1,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -2.97265625,
+        "relative_effect": 0.3295154185022027,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 2,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.08984375,
+        "relative_effect": 0.3030837004405287,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 3,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.33984375,
+        "relative_effect": 0.24669603524229078,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 4,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -2.99609375,
+        "relative_effect": 0.32422907488986785,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 5,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -2.87890625,
+        "relative_effect": 0.35066079295154184,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 6,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -2.87109375,
+        "relative_effect": 0.35242290748898675,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 7,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.05859375,
+        "relative_effect": 0.3101321585903084,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 8,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.24609375,
+        "relative_effect": 0.26784140969162995,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 9,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.35546875,
+        "relative_effect": 0.24317180616740086,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 10,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -2.88671875,
+        "relative_effect": 0.34889867841409694,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 11,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.49609375,
+        "relative_effect": 0.21145374449339205,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 12,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.49609375,
+        "relative_effect": 0.21145374449339205,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 13,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.96484375,
+        "relative_effect": 0.10572687224669608,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 14,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.98046875,
+        "relative_effect": 0.10220264317180616,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 15,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.83203125,
+        "relative_effect": 0.13568281938325988,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 16,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.73046875,
+        "relative_effect": 0.15859030837004406,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 17,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.44921875,
+        "relative_effect": 0.2220264317180617,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 18,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.23046875,
+        "relative_effect": 0.27136563876651987,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 19,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -3.24609375,
+        "relative_effect": 0.26784140969162995,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 20,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.14453125,
+        "relative_effect": 0.9674008810572687,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 21,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.41796875,
+        "relative_effect": 0.905726872246696,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 22,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.5234375,
+        "relative_effect": 0.8819383259911895,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 23,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.5078125,
+        "relative_effect": 0.8854625550660793,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 24,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.05078125,
+        "relative_effect": 0.9885462555066079,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 25,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.25,
+        "relative_effect": 0.9436123348017621,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 26,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": -0.2421875,
+        "relative_effect": 0.945374449339207,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 27,
+        "positive_chain_id": "PATT_036",
+        "negative_chain_id": "CREA_033",
+        "token_position": 420,
+        "logit_diff_baseline": -4.43359375,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      }
+    ],
+    [
+      {
+        "target_behaviour": "backtracking",
+        "layer": 0,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.34375,
+        "relative_effect": 0.13969849246231159,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 1,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.4296875,
+        "relative_effect": 0.11758793969849246,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 2,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.328125,
+        "relative_effect": 0.14371859296482414,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 3,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.203125,
+        "relative_effect": 0.1758793969849246,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 4,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.1875,
+        "relative_effect": 0.17989949748743717,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 5,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.984375,
+        "relative_effect": 0.23216080402010053,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 6,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.8984375,
+        "relative_effect": 0.25427135678391954,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 7,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.984375,
+        "relative_effect": 0.23216080402010053,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 8,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.7265625,
+        "relative_effect": 0.2984924623115578,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 9,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 3.046875,
+        "relative_effect": 0.2160804020100503,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 10,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.7578125,
+        "relative_effect": 0.2904522613065327,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 11,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.234375,
+        "relative_effect": 0.42512562814070354,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 12,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.015625,
+        "relative_effect": 0.48140703517587935,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 13,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.90625,
+        "relative_effect": 0.2522613065326633,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 14,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 2.59375,
+        "relative_effect": 0.3326633165829146,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 15,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 1.9140625,
+        "relative_effect": 0.507537688442211,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 16,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 1.28125,
+        "relative_effect": 0.6703517587939698,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 17,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 0.2890625,
+        "relative_effect": 0.9256281407035176,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 18,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.8671875,
+        "relative_effect": 1.2231155778894474,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 19,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -1.1875,
+        "relative_effect": 1.3055276381909549,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 20,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -1.84375,
+        "relative_effect": 1.4743718592964825,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 21,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -1.015625,
+        "relative_effect": 1.2613065326633166,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 22,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.5546875,
+        "relative_effect": 1.142713567839196,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 23,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.1953125,
+        "relative_effect": 1.050251256281407,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 24,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.4921875,
+        "relative_effect": 1.1266331658291457,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 25,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.1015625,
+        "relative_effect": 1.0261306532663317,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 26,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": -0.296875,
+        "relative_effect": 1.0763819095477387,
+        "n_b_tokens": 20
+      },
+      {
+        "target_behaviour": "backtracking",
+        "layer": 27,
+        "positive_chain_id": "PATT_056",
+        "negative_chain_id": "SCIE_062",
+        "token_position": 451,
+        "logit_diff_baseline": 3.88671875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 20
+      }
+    ]
+  ]
+}

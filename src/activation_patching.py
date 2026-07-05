@@ -21,7 +21,8 @@ positive's residual stream at layer L gets patched with the negative's
 residual at the same layer-and-token-position, then forward pass continues.
 
 Behavioural metric. Two complementary measurements:
-  (a) Behavioural-shift via re-annotation: ask the same annotator (GPT-4o)
+  (a) Behavioural-shift via re-annotation: ask the same annotator (Claude
+      Sonnet 4.5 via the AWS Bedrock proxy — the Phase-3 annotator, not GPT-4o)
       whether the patched continuation still exhibits behaviour b. Effect
       size: change in P(b in continuation).
   (b) Direct logit-difference: the token-level next-token logit shift on

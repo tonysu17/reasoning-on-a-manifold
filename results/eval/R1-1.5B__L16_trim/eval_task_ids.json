@@ -1,0 +1,19 @@
+{
+  "task_ids": [
+    "CAUS_097",
+    "CAUS_098",
+    "CAUS_099",
+    "CAUS_100",
+    "CAUS_101",
+    "CREA_095",
+    "CREA_096",
+    "CREA_097",
+    "CREA_098",
+    "CREA_099"
+  ],
+  "category_counts": {
+    "causal_reasoning": 5,
+    "creative_problem_solving": 5
+  },
+  "rule": "last 5 per category (subset: first 10 of the hold-out split)"
+}

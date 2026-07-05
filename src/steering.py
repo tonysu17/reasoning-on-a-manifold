@@ -49,11 +49,21 @@ def single_direction_vector(
     Returns:
         Unit-norm vector of shape (hidden_dim,)
     """
+    if on_activations.shape[0] == 0 or off_activations.shape[0] == 0:
+        # An empty mean is all-NaN; the near-zero guard below treats NaN as
+        # "not < 1e-10" and would emit a silent NaN unit vector that poisons
+        # downstream steering. Refuse loudly instead.
+        raise ValueError(
+            f"single_direction_vector needs non-empty inputs "
+            f"(on={on_activations.shape[0]}, off={off_activations.shape[0]} rows)"
+        )
     r = on_activations.mean(axis=0) - off_activations.mean(axis=0)
     norm = np.linalg.norm(r)
-    if norm < 1e-10:
-        logger.warning("Steering vector has near-zero norm — returning zero vector")
-        return r
+    # NB: a plain `norm < 1e-10` is False when norm is NaN/inf, so it would let a
+    # degenerate vector through; guard finiteness explicitly.
+    if not np.isfinite(norm) or norm < 1e-10:
+        logger.warning("Steering vector has near-zero/non-finite norm — returning zero vector")
+        return np.zeros_like(r)
     return r / norm
 
 
@@ -92,8 +102,8 @@ def manifold_projected_vector(
     r_proj = coords @ V          # (hidden_dim,) — back in activation space
 
     norm = np.linalg.norm(r_proj)
-    if norm < 1e-10:
-        logger.warning("Projected vector has near-zero norm — falling back to r")
+    if not np.isfinite(norm) or norm < 1e-10:
+        logger.warning("Projected vector has near-zero/non-finite norm — falling back to r")
         return r
     return r_proj / norm
 

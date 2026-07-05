@@ -1,0 +1,155 @@
+{
+  "layer": 27,
+  "seed": 42,
+  "dim": 1536,
+  "behaviours": [
+    "backtracking",
+    "uncertainty-estimation",
+    "example-testing",
+    "adding-knowledge"
+  ],
+  "auto_k": {
+    "backtracking": 58,
+    "uncertainty-estimation": 71,
+    "example-testing": 60,
+    "adding-knowledge": 83
+  },
+  "gram_cosine": {
+    "backtracking": {
+      "backtracking": 1.0,
+      "uncertainty-estimation": 0.145,
+      "example-testing": -0.5852,
+      "adding-knowledge": -0.6164
+    },
+    "uncertainty-estimation": {
+      "backtracking": 0.145,
+      "uncertainty-estimation": 1.0,
+      "example-testing": -0.7729,
+      "adding-knowledge": -0.7125
+    },
+    "example-testing": {
+      "backtracking": -0.5852,
+      "uncertainty-estimation": -0.7729,
+      "example-testing": 1.0,
+      "adding-knowledge": 0.6015
+    },
+    "adding-knowledge": {
+      "backtracking": -0.6164,
+      "uncertainty-estimation": -0.7125,
+      "example-testing": 0.6015,
+      "adding-knowledge": 1.0
+    }
+  },
+  "gram_offdiag_abs_mean": 0.5722,
+  "gram_offdiag_abs_max": 0.7729,
+  "test2_vector_reconstruction": {
+    "backtracking": {
+      "weights": {
+        "uncertainty-estimation": -1.337,
+        "example-testing": -1.057,
+        "adding-knowledge": -0.933
+      },
+      "residual_ratio": 0.0,
+      "R2": 1.0,
+      "null_residual_mean": 0.999,
+      "null_residual_sd": 0.0008,
+      "z_vs_null": -1241.01
+    },
+    "uncertainty-estimation": {
+      "weights": {
+        "backtracking": -0.748,
+        "example-testing": -0.791,
+        "adding-knowledge": -0.698
+      },
+      "residual_ratio": 0.0,
+      "R2": 1.0,
+      "null_residual_mean": 0.999,
+      "null_residual_sd": 0.0008,
+      "z_vs_null": -1241.02
+    },
+    "example-testing": {
+      "weights": {
+        "backtracking": -0.946,
+        "uncertainty-estimation": -1.264,
+        "adding-knowledge": -0.882
+      },
+      "residual_ratio": 0.0,
+      "R2": 1.0,
+      "null_residual_mean": 0.999,
+      "null_residual_sd": 0.0008,
+      "z_vs_null": -1241.01
+    },
+    "adding-knowledge": {
+      "weights": {
+        "backtracking": -1.072,
+        "uncertainty-estimation": -1.433,
+        "example-testing": -1.134
+      },
+      "residual_ratio": 0.0,
+      "R2": 1.0,
+      "null_residual_mean": 0.999,
+      "null_residual_sd": 0.0008,
+      "z_vs_null": -1241.01
+    }
+  },
+  "activation_rows": {
+    "backtracking": 10267,
+    "uncertainty-estimation": 16728,
+    "example-testing": 5829,
+    "adding-knowledge": 5027
+  },
+  "test3_subspace_in_span": {
+    "backtracking": {
+      "k_b": 58,
+      "union_span_dim_m": 200,
+      "principal_angle_min_deg": 4.55,
+      "principal_angle_median_deg": 16.95,
+      "principal_angle_max_deg": 43.18,
+      "frac_angles_lt_30deg": 0.828,
+      "mean_cos2_energy_in_span": 0.874,
+      "steervec_offspan_residual": 0.1617,
+      "steervec_offspan_null_mean": 0.9327,
+      "steervec_offspan_null_sd": 0.0065,
+      "steervec_z_vs_null": -118.1
+    },
+    "uncertainty-estimation": {
+      "k_b": 71,
+      "union_span_dim_m": 188,
+      "principal_angle_min_deg": 4.14,
+      "principal_angle_median_deg": 19.22,
+      "principal_angle_max_deg": 53.81,
+      "frac_angles_lt_30deg": 0.746,
+      "mean_cos2_energy_in_span": 0.826,
+      "steervec_offspan_residual": 0.2039,
+      "steervec_offspan_null_mean": 0.9368,
+      "steervec_offspan_null_sd": 0.0064,
+      "steervec_z_vs_null": -114.63
+    },
+    "example-testing": {
+      "k_b": 60,
+      "union_span_dim_m": 195,
+      "principal_angle_min_deg": 4.69,
+      "principal_angle_median_deg": 23.46,
+      "principal_angle_max_deg": 56.39,
+      "frac_angles_lt_30deg": 0.667,
+      "mean_cos2_energy_in_span": 0.791,
+      "steervec_offspan_residual": 0.178,
+      "steervec_offspan_null_mean": 0.9342,
+      "steervec_offspan_null_sd": 0.0064,
+      "steervec_z_vs_null": -117.71
+    },
+    "adding-knowledge": {
+      "k_b": 83,
+      "union_span_dim_m": 174,
+      "principal_angle_min_deg": 5.04,
+      "principal_angle_median_deg": 27.93,
+      "principal_angle_max_deg": 65.41,
+      "frac_angles_lt_30deg": 0.542,
+      "mean_cos2_energy_in_span": 0.714,
+      "steervec_offspan_residual": 0.1825,
+      "steervec_offspan_null_mean": 0.9417,
+      "steervec_offspan_null_sd": 0.0062,
+      "steervec_z_vs_null": -122.74
+    }
+  }
+}

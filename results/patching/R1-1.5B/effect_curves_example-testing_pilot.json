@@ -1,0 +1,1698 @@
+{
+  "behaviour": "example-testing",
+  "n_pairs": 5,
+  "layer_effect": {
+    "0": {
+      "mean_effect": 0.9378545632848668,
+      "sem_effect": 0.7820515381122612,
+      "n": 5
+    },
+    "1": {
+      "mean_effect": 0.852456569588551,
+      "sem_effect": 0.6156122301887772,
+      "n": 5
+    },
+    "2": {
+      "mean_effect": 0.8175681631685794,
+      "sem_effect": 0.5366195051446963,
+      "n": 5
+    },
+    "3": {
+      "mean_effect": 0.744687293235397,
+      "sem_effect": 0.43705551165547624,
+      "n": 5
+    },
+    "4": {
+      "mean_effect": 0.8219488608567322,
+      "sem_effect": 0.48685163185409935,
+      "n": 5
+    },
+    "5": {
+      "mean_effect": 0.8556129425490819,
+      "sem_effect": 0.5110246654774133,
+      "n": 5
+    },
+    "6": {
+      "mean_effect": 0.9060778718927001,
+      "sem_effect": 0.5416060966169179,
+      "n": 5
+    },
+    "7": {
+      "mean_effect": 0.8664234434492494,
+      "sem_effect": 0.4504876652429432,
+      "n": 5
+    },
+    "8": {
+      "mean_effect": 0.8800874416977053,
+      "sem_effect": 0.46168781070386034,
+      "n": 5
+    },
+    "9": {
+      "mean_effect": 0.92173396870603,
+      "sem_effect": 0.483744814898003,
+      "n": 5
+    },
+    "10": {
+      "mean_effect": 0.971432220616968,
+      "sem_effect": 0.488017988748919,
+      "n": 5
+    },
+    "11": {
+      "mean_effect": 0.7987621506321718,
+      "sem_effect": 0.35068184588478957,
+      "n": 5
+    },
+    "12": {
+      "mean_effect": 0.7346257506247376,
+      "sem_effect": 0.33403163577183037,
+      "n": 5
+    },
+    "13": {
+      "mean_effect": 0.7903140263809716,
+      "sem_effect": 0.3947014115833876,
+      "n": 5
+    },
+    "14": {
+      "mean_effect": 0.782777574388149,
+      "sem_effect": 0.4057757775079143,
+      "n": 5
+    },
+    "15": {
+      "mean_effect": 0.6243272958655665,
+      "sem_effect": 0.28384855836370015,
+      "n": 5
+    },
+    "16": {
+      "mean_effect": 0.6763215426902904,
+      "sem_effect": 0.29183458132766615,
+      "n": 5
+    },
+    "17": {
+      "mean_effect": 0.744734680272297,
+      "sem_effect": 0.20963593517813633,
+      "n": 5
+    },
+    "18": {
+      "mean_effect": 0.6928176899042502,
+      "sem_effect": 0.1538137203508685,
+      "n": 5
+    },
+    "19": {
+      "mean_effect": 0.6457061074099475,
+      "sem_effect": 0.10651710761931285,
+      "n": 5
+    },
+    "20": {
+      "mean_effect": 0.6816805916268092,
+      "sem_effect": 0.12297840108472761,
+      "n": 5
+    },
+    "21": {
+      "mean_effect": 0.9120233043161579,
+      "sem_effect": 0.08848422828624204,
+      "n": 5
+    },
+    "22": {
+      "mean_effect": 0.8910294455606351,
+      "sem_effect": 0.07544206406224331,
+      "n": 5
+    },
+    "23": {
+      "mean_effect": 0.8785841735309858,
+      "sem_effect": 0.06454117978903486,
+      "n": 5
+    },
+    "24": {
+      "mean_effect": 0.9590426044936435,
+      "sem_effect": 0.04970719089324252,
+      "n": 5
+    },
+    "25": {
+      "mean_effect": 0.940212320435109,
+      "sem_effect": 0.03680940095569171,
+      "n": 5
+    },
+    "26": {
+      "mean_effect": 0.9808784160629292,
+      "sem_effect": 0.029521122433456184,
+      "n": 5
+    },
+    "27": {
+      "mean_effect": 1.0,
+      "sem_effect": 0.0,
+      "n": 5
+    }
+  },
+  "trials": [
+    [
+      {
+        "target_behaviour": "example-testing",
+        "layer": 0,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 7.8203125,
+        "relative_effect": 0.061855670103092786,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 1,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.6171875,
+        "relative_effect": 0.20618556701030932,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 2,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.6953125,
+        "relative_effect": 0.1968134957825679,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 3,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.5859375,
+        "relative_effect": 0.2099343955014058,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 4,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.625,
+        "relative_effect": 0.2052483598875351,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 5,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.59375,
+        "relative_effect": 0.20899718837863168,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 6,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.59375,
+        "relative_effect": 0.20899718837863168,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 7,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.40625,
+        "relative_effect": 0.2314901593252109,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 8,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.625,
+        "relative_effect": 0.2052483598875351,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 9,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.609375,
+        "relative_effect": 0.20712277413308344,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 10,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.578125,
+        "relative_effect": 0.21087160262417992,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 11,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.75,
+        "relative_effect": 0.19025304592314907,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 12,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.765625,
+        "relative_effect": 0.18837863167760072,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 13,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.53125,
+        "relative_effect": 0.21649484536082475,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 14,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.90625,
+        "relative_effect": 0.17150890346766634,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 15,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.953125,
+        "relative_effect": 0.1658856607310215,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 16,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.5703125,
+        "relative_effect": 0.21180880974695404,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 17,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 6.4453125,
+        "relative_effect": 0.22680412371134018,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 18,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 7.0703125,
+        "relative_effect": 0.1518275538894096,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 19,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 5.609375,
+        "relative_effect": 0.3270852858481724,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 20,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 5.59375,
+        "relative_effect": 0.32895970009372066,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 21,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 2.84375,
+        "relative_effect": 0.6588566073102156,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 22,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 2.328125,
+        "relative_effect": 0.7207122774133083,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 23,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 0.53125,
+        "relative_effect": 0.936269915651359,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 24,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": -0.421875,
+        "relative_effect": 1.0506091846298031,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 25,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": -0.546875,
+        "relative_effect": 1.0656044985941893,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 26,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": -0.46875,
+        "relative_effect": 1.056232427366448,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 27,
+        "positive_chain_id": "LATE_066",
+        "negative_chain_id": "LATE_033",
+        "token_position": 849,
+        "logit_diff_baseline": 8.3359375,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "example-testing",
+        "layer": 0,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.2109375,
+        "relative_effect": 0.9243697478991597,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 1,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.2421875,
+        "relative_effect": 0.9131652661064426,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 2,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.203125,
+        "relative_effect": 0.927170868347339,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 3,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.2109375,
+        "relative_effect": 0.9243697478991597,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 4,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.171875,
+        "relative_effect": 0.938375350140056,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 5,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.03125,
+        "relative_effect": 0.988795518207283,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 6,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.234375,
+        "relative_effect": 0.9159663865546218,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 7,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.40625,
+        "relative_effect": 0.8543417366946778,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 8,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.59375,
+        "relative_effect": 0.7871148459383753,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 9,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.5078125,
+        "relative_effect": 0.8179271708683473,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 10,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.1640625,
+        "relative_effect": 1.0588235294117647,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 11,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.3671875,
+        "relative_effect": 1.1316526610644257,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 12,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.6875,
+        "relative_effect": 1.246498599439776,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 13,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.203125,
+        "relative_effect": 1.072829131652661,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 14,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.0625,
+        "relative_effect": 1.022408963585434,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 15,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.171875,
+        "relative_effect": 0.938375350140056,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 16,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.234375,
+        "relative_effect": 0.9159663865546218,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 17,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.0546875,
+        "relative_effect": 1.0196078431372548,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 18,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.078125,
+        "relative_effect": 0.9719887955182073,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 19,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.203125,
+        "relative_effect": 0.927170868347339,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 20,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.2109375,
+        "relative_effect": 1.0756302521008403,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 21,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.265625,
+        "relative_effect": 1.0952380952380953,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 22,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.40625,
+        "relative_effect": 1.145658263305322,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 23,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.15625,
+        "relative_effect": 1.0560224089635855,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 24,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.2109375,
+        "relative_effect": 1.0756302521008403,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 25,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": -0.125,
+        "relative_effect": 0.9551820728291317,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 26,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.1015625,
+        "relative_effect": 1.0364145658263306,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 27,
+        "positive_chain_id": "PATT_063",
+        "negative_chain_id": "CAUS_085",
+        "token_position": 1662,
+        "logit_diff_baseline": -2.7890625,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "example-testing",
+        "layer": 0,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.8359375,
+        "relative_effect": 0.4654327708219924,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 1,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.71875,
+        "relative_effect": 0.4817637452367991,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 2,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.6953125,
+        "relative_effect": 0.4850299401197605,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 3,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.6328125,
+        "relative_effect": 0.4937397931409907,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 4,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.6484375,
+        "relative_effect": 0.49156232988568316,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 5,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.5546875,
+        "relative_effect": 0.5046271094175285,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 6,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.5234375,
+        "relative_effect": 0.5089820359281437,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 7,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.7734375,
+        "relative_effect": 0.4741426238432227,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 8,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.84375,
+        "relative_effect": 0.46434403919433864,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 9,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.7890625,
+        "relative_effect": 0.47196516058791504,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 10,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.8203125,
+        "relative_effect": 0.46761023407729996,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 11,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.8046875,
+        "relative_effect": 0.4697876973326075,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 12,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 4.0390625,
+        "relative_effect": 0.437125748502994,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 13,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 4.1875,
+        "relative_effect": 0.41643984757757213,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 14,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 4.1875,
+        "relative_effect": 0.41643984757757213,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 15,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 4.3125,
+        "relative_effect": 0.39902014153511156,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 16,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.9453125,
+        "relative_effect": 0.4501905280348394,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 17,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 3.4453125,
+        "relative_effect": 0.5198693522046816,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 18,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 2.796875,
+        "relative_effect": 0.6102340772999455,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 19,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 2.6171875,
+        "relative_effect": 0.6352749047359826,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 20,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 2.2421875,
+        "relative_effect": 0.6875340228633642,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 21,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 1.8046875,
+        "relative_effect": 0.7485029940119761,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 22,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 1.703125,
+        "relative_effect": 0.7626565051714752,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 23,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 1.65625,
+        "relative_effect": 0.769188894937398,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 24,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 1.0078125,
+        "relative_effect": 0.8595536200326619,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 25,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 0.546875,
+        "relative_effect": 0.9237887860642352,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 26,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 0.15625,
+        "relative_effect": 0.9782253674469243,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 27,
+        "positive_chain_id": "SPAT_091",
+        "negative_chain_id": "LATE_043",
+        "token_position": 509,
+        "logit_diff_baseline": 7.17578125,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "example-testing",
+        "layer": 0,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 13.578125,
+        "relative_effect": -0.6520912547528517,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 1,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 12.171875,
+        "relative_effect": -0.4809885931558935,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 2,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 10.890625,
+        "relative_effect": -0.3250950570342206,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 3,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 10.09375,
+        "relative_effect": -0.22813688212927752,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 4,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 9.515625,
+        "relative_effect": -0.1577946768060836,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 5,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 9.671875,
+        "relative_effect": -0.17680608365019013,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 6,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 8.828125,
+        "relative_effect": -0.07414448669201512,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 7,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 6.828125,
+        "relative_effect": 0.16920152091254748,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 8,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 6.0625,
+        "relative_effect": 0.2623574144486692,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 9,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 5.75,
+        "relative_effect": 0.30038022813688214,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 10,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 5.84375,
+        "relative_effect": 0.2889733840304183,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 11,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 6.71875,
+        "relative_effect": 0.18250950570342206,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 12,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 8.0,
+        "relative_effect": 0.026615969581749055,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 13,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 7.890625,
+        "relative_effect": 0.03992395437262353,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 14,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 7.859375,
+        "relative_effect": 0.04372623574144485,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 15,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 7.890625,
+        "relative_effect": 0.03992395437262353,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 16,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 7.375,
+        "relative_effect": 0.1026615969581749,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 17,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 3.734375,
+        "relative_effect": 0.5456273764258555,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 18,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 2.21875,
+        "relative_effect": 0.7300380228136882,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 19,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 1.484375,
+        "relative_effect": 0.8193916349809887,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 20,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 1.953125,
+        "relative_effect": 0.7623574144486692,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 21,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.171875,
+        "relative_effect": 0.9790874524714829,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 22,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.421875,
+        "relative_effect": 0.9486692015209125,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 23,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.53125,
+        "relative_effect": 0.935361216730038,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 24,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.15625,
+        "relative_effect": 0.9809885931558935,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 25,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.671875,
+        "relative_effect": 0.9182509505703422,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 26,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.5625,
+        "relative_effect": 0.9315589353612167,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 27,
+        "positive_chain_id": "PATT_038",
+        "negative_chain_id": "LATE_001",
+        "token_position": 544,
+        "logit_diff_baseline": 8.21875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "example-testing",
+        "layer": 0,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 9.2109375,
+        "relative_effect": 3.889705882352941,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 1,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 6.828125,
+        "relative_effect": 3.142156862745098,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 2,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.75,
+        "relative_effect": 2.803921568627451,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 3,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 4.21875,
+        "relative_effect": 2.3235294117647056,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 4,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.203125,
+        "relative_effect": 2.6323529411764706,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 5,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.5859375,
+        "relative_effect": 2.752450980392157,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 6,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 6.28125,
+        "relative_effect": 2.9705882352941178,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 7,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.109375,
+        "relative_effect": 2.6029411764705883,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 8,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.359375,
+        "relative_effect": 2.681372549019608,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 9,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.7734375,
+        "relative_effect": 2.811274509803922,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 10,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 5.8359375,
+        "relative_effect": 2.8308823529411766,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 11,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 3.25,
+        "relative_effect": 2.019607843137255,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 12,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 2.46875,
+        "relative_effect": 1.7745098039215685,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 13,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 3.84375,
+        "relative_effect": 2.2058823529411766,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 14,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 4.015625,
+        "relative_effect": 2.2598039215686274,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 15,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 1.84375,
+        "relative_effect": 1.5784313725490198,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 16,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 2.234375,
+        "relative_effect": 1.7009803921568627,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 17,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 1.3125,
+        "relative_effect": 1.4117647058823528,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 18,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 19,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -1.53125,
+        "relative_effect": 0.5196078431372548,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 20,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -1.421875,
+        "relative_effect": 0.553921568627451,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 21,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 0.25,
+        "relative_effect": 1.0784313725490196,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 22,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -0.390625,
+        "relative_effect": 0.8774509803921569,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 23,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -0.96875,
+        "relative_effect": 0.696078431372549,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 24,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -0.546875,
+        "relative_effect": 0.8284313725490196,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 25,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -0.515625,
+        "relative_effect": 0.8382352941176471,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 26,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": -0.3125,
+        "relative_effect": 0.9019607843137255,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "example-testing",
+        "layer": 27,
+        "positive_chain_id": "MATH_106",
+        "negative_chain_id": "SYST_006",
+        "token_position": 817,
+        "logit_diff_baseline": -3.1875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ]
+  ]
+}

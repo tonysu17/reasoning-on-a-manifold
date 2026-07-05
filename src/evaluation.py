@@ -75,7 +75,20 @@ def aggregate_results(
 
     Returns:
         Nested dict:
-          {behaviour: {method: {alpha: {"mean", "std", "n", "n_missing", "n_empty"}}}}
+          {behaviour: {method: {alpha: {"mean", "std", "n", "n_missing",
+                                        "n_empty", "leakage_mean",
+                                        "leakage_by_behaviour"}}}}
+
+        ``leakage_*`` (added 2026-06-21) quantify OFF-TARGET behaviour bleed:
+        for a cell steering behaviour *b*, ``leakage_by_behaviour`` maps each of
+        the OTHER target behaviours to its mean sentence fraction in the same
+        re-annotated chains, and ``leakage_mean`` is the mean over those others.
+        Steering *b* should suppress/amplify *b* without dragging the siblings
+        along; this measures whether it does. The labels are free — the
+        annotator already classifies every sentence into all behaviours — so
+        this reuses ``annotations`` with no extra spend. Skips the same missing/
+        empty re-annotations as the on-target metric (a chain contributes to
+        BOTH on-target and leakage, or to neither).
     """
     if target_behaviours is None:
         from src.annotation import TARGET_BEHAVIOURS
@@ -91,6 +104,10 @@ def aggregate_results(
 
     # Compute fractions + annotation-free generation metrics
     fractions: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    # Off-target leakage: per cell, per OTHER behaviour, the list of that
+    # behaviour's sentence fractions across the cell's re-annotated chains.
+    leakage: dict = defaultdict(  # [beh][method][alpha][other_beh] -> [frac,..]
+        lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
     n_missing: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
     n_empty: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
     # Off-target damage metrics computed straight from the generated text (no
@@ -121,6 +138,11 @@ def aggregate_results(
                 n_empty[beh][method][alpha] += 1
             else:
                 fractions[beh][method][alpha].append(behaviour_fraction(anns, beh))
+                # Same chain feeds the off-target leakage of the other targets.
+                for other in target_behaviours:
+                    if other != beh:
+                        leakage[beh][method][alpha][other].append(
+                            behaviour_fraction(anns, other))
 
     total_missing = sum(v for b in n_missing.values() for m in b.values() for v in m.values())
     total_empty = sum(v for b in n_empty.values() for m in b.values() for v in m.values())
@@ -150,6 +172,15 @@ def aggregate_results(
             "n_missing": int(n_missing.get(beh, {}).get(method, {}).get(alpha, 0)),
             "n_empty": int(n_empty.get(beh, {}).get(method, {}).get(alpha, 0)),
         }
+        # Off-target leakage: per-other-behaviour mean fraction over the same
+        # scored chains, and the mean across those others. None when the cell
+        # has no scored chain (mirrors `mean` above — nothing to average).
+        leak_cell = leakage.get(beh, {}).get(method, {}).get(alpha, {})
+        leak_by = {other: float(np.mean(fracs))
+                   for other, fracs in leak_cell.items() if fracs}
+        cell["leakage_by_behaviour"] = leak_by
+        cell["leakage_mean"] = (float(np.mean(list(leak_by.values())))
+                                if leak_by else None)
         toks = gen_tokens.get(beh, {}).get(method, {}).get(alpha, [])
         if toks:
             cell["mean_n_tokens"] = float(np.mean(toks))
@@ -159,6 +190,121 @@ def aggregate_results(
         reps = gen_rep.get(beh, {}).get(method, {}).get(alpha, [])
         if reps:
             cell["repetition_rate"] = float(np.mean(reps))
+        summary.setdefault(beh, {}).setdefault(method, {})[alpha] = cell
+    return summary
+
+
+def aggregate_accuracy(
+    steered_results: list[dict],
+    correctness: dict,
+    vanilla_correctness: Optional[dict] = None,
+    target_behaviours: Optional[list[str]] = None,
+) -> dict:
+    """
+    Aggregate task-accuracy preservation per (behaviour, method, alpha).
+
+    This is pure aggregation over externally-supplied correctness labels — it
+    does NOT generate, run, or judge anything. The boolean correctness of each
+    steered generation is produced elsewhere at run time (an LLM judge or a
+    benchmark's exact-match scorer, e.g. GSM8k answer extraction) and handed in
+    via `correctness`. Steering can "suppress a behaviour" by simply breaking
+    the model's ability to solve the task; this is the metric that catches that.
+
+    Args:
+        steered_results: output of run_steering_experiment() — the set of cells
+                         (and their task_ids) to aggregate over. The same list
+                         passed to aggregate_results().
+        correctness:     map of solved-or-not for each STEERED generation, keyed
+                         by (task_id, behaviour, method, alpha) -> bool. Keys for
+                         the shared-vanilla baseline may use behaviour == "shared"
+                         (it expands to every target, like aggregate_results);
+                         missing keys are skipped and counted in `n_missing`
+                         (mirrors the re-annotation handling in aggregate_results
+                         — a missing label is NOT scored as wrong).
+        vanilla_correctness: optional map of the UNSTEERED baseline's correctness
+                         keyed by task_id -> bool (one shared generation per task,
+                         behaviour-independent). When given, each non-vanilla cell
+                         also reports `accuracy_drop_vs_vanilla` = vanilla_acc −
+                         cell_acc, computed on the intersection of task_ids that
+                         BOTH the cell and the baseline have labels for (a paired
+                         comparison; positive = steering hurt accuracy). When
+                         omitted, the per-task vanilla baseline is taken from the
+                         cells whose method == "vanilla" inside `correctness`.
+
+    Returns:
+        Nested dict mirroring aggregate_results' schema:
+          {behaviour: {method: {alpha: {"accuracy", "n", "n_missing",
+                                        "n_correct", "accuracy_drop_vs_vanilla"}}}}
+        `accuracy` is the mean of the available labels (None if none present);
+        `accuracy_drop_vs_vanilla` is None when no paired vanilla label exists.
+    """
+    if target_behaviours is None:
+        from src.annotation import TARGET_BEHAVIOURS
+        target_behaviours = TARGET_BEHAVIOURS
+
+    SHARED = "shared"  # = src.steered_inference.SHARED_BASELINE
+
+    # Per-cell collected (task_id -> bool) labels, so the vanilla drop can be a
+    # paired (intersection-of-tasks) comparison rather than mean-of-means.
+    labels: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+    n_missing: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+
+    # Per-task vanilla baseline. Prefer the explicit map; otherwise reconstruct
+    # it from the vanilla cells already present in `correctness`.
+    vanilla_by_task: dict = dict(vanilla_correctness or {})
+
+    for r in steered_results:
+        method = r["method"]
+        alpha = r["alpha"]
+        task_id = r["task_id"]
+        targets = (list(target_behaviours)
+                   if r["behaviour"] == SHARED else [r["behaviour"]])
+        # The correctness label is keyed by the record's OWN behaviour (shared
+        # vanilla is scored once per task, then expanded to every target).
+        ckey = (task_id, r["behaviour"], method, alpha)
+        correct = correctness.get(ckey)
+        for beh in targets:
+            if correct is None:
+                n_missing[beh][method][alpha] += 1
+            else:
+                labels[beh][method][alpha][task_id] = bool(correct)
+                # Vanilla cells double as the per-task baseline when no explicit
+                # vanilla_correctness map was provided.
+                if (vanilla_correctness is None and method == "vanilla"
+                        and task_id not in vanilla_by_task):
+                    vanilla_by_task[task_id] = bool(correct)
+
+    total_missing = sum(v for b in n_missing.values()
+                        for m in b.values() for v in m.values())
+    if total_missing:
+        logger.warning(f"aggregate_accuracy: skipped {total_missing} missing "
+                       f"correctness labels (reported per cell as n_missing — "
+                       f"NOT scored as incorrect)")
+
+    summary: dict = {}
+    cells = {(b, m, a) for b, ms in labels.items()
+             for m, als in ms.items() for a in als}
+    cells |= {(b, m, a) for b, ms in n_missing.items()
+              for m, als in ms.items() for a in als}
+    for beh, method, alpha in sorted(cells, key=lambda c: (c[0], c[1], float(c[2]))):
+        task_labels = labels.get(beh, {}).get(method, {}).get(alpha, {})
+        vals = list(task_labels.values())
+        cell = {
+            "accuracy": float(np.mean(vals)) if vals else None,
+            "n": len(vals),
+            "n_correct": int(sum(vals)),
+            "n_missing": int(n_missing.get(beh, {}).get(method, {}).get(alpha, 0)),
+            "accuracy_drop_vs_vanilla": None,
+        }
+        # Paired drop: vanilla is behaviour-independent and per-task, so compare
+        # only on tasks BOTH this cell and the baseline scored. Vanilla cells
+        # are their own baseline (drop == 0 by construction on shared tasks).
+        paired = [(task_labels[t], vanilla_by_task[t])
+                  for t in task_labels if t in vanilla_by_task]
+        if paired:
+            cell_acc = float(np.mean([c for c, _ in paired]))
+            van_acc = float(np.mean([v for _, v in paired]))
+            cell["accuracy_drop_vs_vanilla"] = van_acc - cell_acc
         summary.setdefault(beh, {}).setdefault(method, {})[alpha] = cell
     return summary
 

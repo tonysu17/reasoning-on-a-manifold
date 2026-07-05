@@ -1,0 +1,26 @@
+{
+  "backtracking": {
+    "auto": {
+      "cos_single_manifold": 0.9596845410375487,
+      "retained_energy": 0.9596845410375487
+    }
+  },
+  "uncertainty-estimation": {
+    "auto": {
+      "cos_single_manifold": 0.9733265169898593,
+      "retained_energy": 0.9733265169898592
+    }
+  },
+  "example-testing": {
+    "auto": {
+      "cos_single_manifold": 0.9497802229697049,
+      "retained_energy": 0.9497802229697047
+    }
+  },
+  "adding-knowledge": {
+    "auto": {
+      "cos_single_manifold": 0.9635450579549979,
+      "retained_energy": 0.9635450579549979
+    }
+  }
+}

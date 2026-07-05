@@ -1,0 +1,46 @@
+{
+  "example-testing": {
+    "3": {
+      "cos_single_manifold": 0.6800683195214081,
+      "retained_energy": 0.6800683195214081
+    },
+    "5": {
+      "cos_single_manifold": 0.7988418075997966,
+      "retained_energy": 0.7988418075997966
+    },
+    "energy_matched_random_scale": 7.732922776497429
+  },
+  "uncertainty-estimation": {
+    "3": {
+      "cos_single_manifold": 0.7638152671629531,
+      "retained_energy": 0.7638152671629531
+    },
+    "5": {
+      "cos_single_manifold": 0.9652112491143864,
+      "retained_energy": 0.9652112491143866
+    },
+    "energy_matched_random_scale": 6.12272997225579
+  },
+  "adding-knowledge": {
+    "3": {
+      "cos_single_manifold": 0.7405366846119597,
+      "retained_energy": 0.7405366846119595
+    },
+    "5": {
+      "cos_single_manifold": 0.8004532523352401,
+      "retained_energy": 0.8004532523352401
+    },
+    "energy_matched_random_scale": 2.3741566337624387
+  },
+  "backtracking": {
+    "3": {
+      "cos_single_manifold": 0.8349382015835553,
+      "retained_energy": 0.8349382015835551
+    },
+    "5": {
+      "cos_single_manifold": 0.9645871535508875,
+      "retained_energy": 0.9645871535508874
+    },
+    "energy_matched_random_scale": 2.0594208424008458
+  }
+}

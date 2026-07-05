@@ -74,3 +74,17 @@ results/_archive_run1_20260528_094332/
 
 # Thesis lives in its OWN PRIVATE repo — must never enter this PUBLIC repo
 thesis/
+
+# Heavy per-run generation/annotation outputs (kept locally + on pod; the
+# small per-run reports/metrics ARE tracked)
+results/eval/*/steering_results.json
+results/eval/*/annotated_steered*.json
+results/eval/*/annotated_steered*.json.bak
+results/eval/*/annotated_steered*.recovery.json
+results/eval/*/_incomplete_count
+results/eval/*.log
+results/loop_geometry/*/shards/
+
+# Scratch / stream dumps
+*.out
+scratch_*

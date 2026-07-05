@@ -1,0 +1,74 @@
+{
+  "_provenance": {
+    "git_commit": null,
+    "git_dirty": false,
+    "seed": 42,
+    "builder": "build_venhoff_vectors.py (Venhoff Table-2 per-behaviour layers 17/18/15/18)",
+    "layers": {
+      "backtracking": 17,
+      "uncertainty-estimation": 18,
+      "example-testing": 15,
+      "adding-knowledge": 18
+    },
+    "holdout": {
+      "n_tasks": 50,
+      "rule": "src.task_gen.stratified_eval_split"
+    }
+  },
+  "example-testing": {
+    "layer": 15,
+    "n_on": 5465,
+    "n_off": 30025,
+    "auto_k": 41,
+    "n_excluded": 364,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "backtracking": {
+    "layer": 17,
+    "n_on": 9598,
+    "n_off": 25892,
+    "auto_k": 37,
+    "n_excluded": 669,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "uncertainty-estimation": {
+    "layer": 18,
+    "n_on": 15710,
+    "n_off": 19780,
+    "auto_k": 41,
+    "n_excluded": 1018,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  },
+  "adding-knowledge": {
+    "layer": 18,
+    "n_on": 4717,
+    "n_off": 30773,
+    "auto_k": 51,
+    "n_excluded": 310,
+    "k_values": [
+      1,
+      3,
+      5,
+      10,
+      "auto"
+    ]
+  }
+}

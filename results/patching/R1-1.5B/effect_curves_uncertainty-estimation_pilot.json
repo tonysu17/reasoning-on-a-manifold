@@ -1,0 +1,1698 @@
+{
+  "behaviour": "uncertainty-estimation",
+  "n_pairs": 5,
+  "layer_effect": {
+    "0": {
+      "mean_effect": 0.8038493887022604,
+      "sem_effect": 1.088170760805198,
+      "n": 5
+    },
+    "1": {
+      "mean_effect": 0.8646155647078363,
+      "sem_effect": 1.0406664513761887,
+      "n": 5
+    },
+    "2": {
+      "mean_effect": 0.8825428846251855,
+      "sem_effect": 1.0549807674170417,
+      "n": 5
+    },
+    "3": {
+      "mean_effect": 0.9207178675247812,
+      "sem_effect": 1.0328077083740144,
+      "n": 5
+    },
+    "4": {
+      "mean_effect": 0.9313158912622173,
+      "sem_effect": 1.0291839198590327,
+      "n": 5
+    },
+    "5": {
+      "mean_effect": 0.949981573972962,
+      "sem_effect": 1.0414277620065187,
+      "n": 5
+    },
+    "6": {
+      "mean_effect": 0.9678671882162568,
+      "sem_effect": 1.0527211790055424,
+      "n": 5
+    },
+    "7": {
+      "mean_effect": 0.9761281679821009,
+      "sem_effect": 1.009434495785057,
+      "n": 5
+    },
+    "8": {
+      "mean_effect": 0.9558152468730075,
+      "sem_effect": 0.9830226250563424,
+      "n": 5
+    },
+    "9": {
+      "mean_effect": 0.9577367732179436,
+      "sem_effect": 0.9689258168613987,
+      "n": 5
+    },
+    "10": {
+      "mean_effect": 0.9692210049493918,
+      "sem_effect": 0.9606443519202911,
+      "n": 5
+    },
+    "11": {
+      "mean_effect": 0.9014470421149998,
+      "sem_effect": 0.9407135869377287,
+      "n": 5
+    },
+    "12": {
+      "mean_effect": 0.8443890649579571,
+      "sem_effect": 0.9172466534983396,
+      "n": 5
+    },
+    "13": {
+      "mean_effect": 0.6972343195272438,
+      "sem_effect": 0.7075551617969738,
+      "n": 5
+    },
+    "14": {
+      "mean_effect": 0.7383430824814232,
+      "sem_effect": 0.6636121676368245,
+      "n": 5
+    },
+    "15": {
+      "mean_effect": 0.7852735901844021,
+      "sem_effect": 0.6058939218283482,
+      "n": 5
+    },
+    "16": {
+      "mean_effect": 0.8306148422136894,
+      "sem_effect": 0.645425802408914,
+      "n": 5
+    },
+    "17": {
+      "mean_effect": 0.6300759062071342,
+      "sem_effect": 0.46648024733130466,
+      "n": 5
+    },
+    "18": {
+      "mean_effect": 0.7740632959786266,
+      "sem_effect": 0.34020474014986335,
+      "n": 5
+    },
+    "19": {
+      "mean_effect": 0.75737265151539,
+      "sem_effect": 0.30612193222066253,
+      "n": 5
+    },
+    "20": {
+      "mean_effect": 0.9016833638538756,
+      "sem_effect": 0.29065817242515307,
+      "n": 5
+    },
+    "21": {
+      "mean_effect": 0.8831966188598402,
+      "sem_effect": 0.27077437380750635,
+      "n": 5
+    },
+    "22": {
+      "mean_effect": 0.8701756299907908,
+      "sem_effect": 0.1443492295392647,
+      "n": 5
+    },
+    "23": {
+      "mean_effect": 0.9105807547583116,
+      "sem_effect": 0.04320066270695597,
+      "n": 5
+    },
+    "24": {
+      "mean_effect": 0.9538084545866059,
+      "sem_effect": 0.04070037545579146,
+      "n": 5
+    },
+    "25": {
+      "mean_effect": 0.9639556918344179,
+      "sem_effect": 0.022486185963117192,
+      "n": 5
+    },
+    "26": {
+      "mean_effect": 1.0149662137062754,
+      "sem_effect": 0.03074587142143714,
+      "n": 5
+    },
+    "27": {
+      "mean_effect": 1.0,
+      "sem_effect": 0.0,
+      "n": 5
+    }
+  },
+  "trials": [
+    [
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 0,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 17.3125,
+        "relative_effect": -0.22906267332224073,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 1,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 16.8203125,
+        "relative_effect": -0.1941209095951193,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 2,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.7265625,
+        "relative_effect": -0.11647254575707144,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 3,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.45703125,
+        "relative_effect": -0.09733777038269542,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 4,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.4375,
+        "relative_effect": -0.095951192457016,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 5,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 16.03515625,
+        "relative_effect": -0.13838047698280653,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 6,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.859375,
+        "relative_effect": -0.12590127565169174,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 7,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.93359375,
+        "relative_effect": -0.13117027176927354,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 8,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.2421875,
+        "relative_effect": -0.08208541320022178,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 9,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.45703125,
+        "relative_effect": -0.09733777038269542,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 10,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 15.1640625,
+        "relative_effect": -0.07653910149750409,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 14.734375,
+        "relative_effect": -0.04603438713255681,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 12,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 14.5,
+        "relative_effect": -0.029395452024403745,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 13,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 14.7890625,
+        "relative_effect": -0.04991680532445919,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 13.2734375,
+        "relative_effect": 0.05768164170826395,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 15,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 13.8984375,
+        "relative_effect": 0.01331114808652245,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 16,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 13.71875,
+        "relative_effect": 0.026067665002773133,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 13.7890625,
+        "relative_effect": 0.021075984470327214,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 18,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 11.734375,
+        "relative_effect": 0.16694398225180251,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 19,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 11.171875,
+        "relative_effect": 0.20687742651136998,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 9.5859375,
+        "relative_effect": 0.31946755407653915,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 21,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 9.15625,
+        "relative_effect": 0.34997226844148643,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 22,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 5.125,
+        "relative_effect": 0.6361619523017193,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 23,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 2.40625,
+        "relative_effect": 0.8291735995562951,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 24,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 1.6875,
+        "relative_effect": 0.8801996672212978,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 25,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 0.34375,
+        "relative_effect": 0.9755962285080422,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 26,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 0.5625,
+        "relative_effect": 0.9600665557404326,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "positive_chain_id": "CAUS_062",
+        "negative_chain_id": "PATT_052",
+        "token_position": 659,
+        "logit_diff_baseline": 14.0859375,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 0,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.3828125,
+        "relative_effect": 4.705882352941177,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 1,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.3828125,
+        "relative_effect": 4.705882352941177,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 2,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.48828125,
+        "relative_effect": 4.758823529411765,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 3,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.435546875,
+        "relative_effect": 4.732352941176471,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 4,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.423828125,
+        "relative_effect": 4.726470588235294,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 5,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.5546875,
+        "relative_effect": 4.792156862745098,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 6,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.6123046875,
+        "relative_effect": 4.821078431372549,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 7,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.341796875,
+        "relative_effect": 4.685294117647059,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 8,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.103515625,
+        "relative_effect": 4.565686274509805,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 9,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 7.0,
+        "relative_effect": 4.513725490196078,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 10,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 6.98046875,
+        "relative_effect": 4.503921568627451,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 6.533203125,
+        "relative_effect": 4.279411764705882,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 12,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 6.134765625,
+        "relative_effect": 4.079411764705883,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 13,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 4.1328125,
+        "relative_effect": 3.074509803921569,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 3.9609375,
+        "relative_effect": 2.988235294117647,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 15,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 3.6953125,
+        "relative_effect": 2.854901960784314,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 16,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 4.1796875,
+        "relative_effect": 3.0980392156862746,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 2.125,
+        "relative_effect": 2.0666666666666664,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 18,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 1.2421875,
+        "relative_effect": 1.6235294117647059,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 19,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 1.2265625,
+        "relative_effect": 1.615686274509804,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 1.69140625,
+        "relative_effect": 1.8490196078431373,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 21,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 1.5234375,
+        "relative_effect": 1.7647058823529411,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 22,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 0.8046875,
+        "relative_effect": 1.4039215686274509,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 23,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 0.1328125,
+        "relative_effect": 1.0666666666666667,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 24,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 0.1796875,
+        "relative_effect": 1.0901960784313725,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 25,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": -0.1171875,
+        "relative_effect": 0.9411764705882353,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 26,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 0.265625,
+        "relative_effect": 1.1333333333333333,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "positive_chain_id": "MATH_033",
+        "negative_chain_id": "LATE_081",
+        "token_position": 1047,
+        "logit_diff_baseline": -1.9921875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 0,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 16.865234375,
+        "relative_effect": -0.13379726890756305,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 1,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.15625,
+        "relative_effect": -0.15336134453781503,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 2,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 16.6875,
+        "relative_effect": -0.12184873949579833,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 3,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 16.96484375,
+        "relative_effect": -0.14049369747899165,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 4,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.11328125,
+        "relative_effect": -0.15047268907563027,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 5,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.142578125,
+        "relative_effect": -0.15244222689075637,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 6,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.015625,
+        "relative_effect": -0.14390756302521002,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 7,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.017578125,
+        "relative_effect": -0.1440388655462186,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 8,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 17.119140625,
+        "relative_effect": -0.15086659663865554,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 9,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 16.791015625,
+        "relative_effect": -0.12880777310924363,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 10,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 16.640625,
+        "relative_effect": -0.11869747899159666,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 15.3046875,
+        "relative_effect": -0.028886554621848637,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 12,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 15.1796875,
+        "relative_effect": -0.02048319327731085,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 13,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 12.8046875,
+        "relative_effect": 0.1391806722689075,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 13.078125,
+        "relative_effect": 0.12079831932773111,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 15,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 13.0859375,
+        "relative_effect": 0.1202731092436975,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 16,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 13.23046875,
+        "relative_effect": 0.11055672268907568,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 13.234375,
+        "relative_effect": 0.11029411764705888,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 18,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 7.0625,
+        "relative_effect": 0.5252100840336135,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 19,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 7.078125,
+        "relative_effect": 0.5241596638655462,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 6.4765625,
+        "relative_effect": 0.5646008403361344,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 21,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 6.421875,
+        "relative_effect": 0.5682773109243697,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 22,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 2.4375,
+        "relative_effect": 0.8361344537815126,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 23,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 0.890625,
+        "relative_effect": 0.9401260504201681,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 24,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 0.078125,
+        "relative_effect": 0.9947478991596639,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 25,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": -0.140625,
+        "relative_effect": 1.009453781512605,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 26,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": -0.15625,
+        "relative_effect": 1.0105042016806722,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "positive_chain_id": "LATE_001",
+        "negative_chain_id": "PATT_062",
+        "token_position": 507,
+        "logit_diff_baseline": 14.875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 0,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.671875,
+        "relative_effect": 1.362098138747885,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 1,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.1328125,
+        "relative_effect": 1.245346869712352,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 2,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.21875,
+        "relative_effect": 1.263959390862944,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 3,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.421875,
+        "relative_effect": 1.3079526226734348,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 4,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.5703125,
+        "relative_effect": 1.3401015228426396,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 5,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.765625,
+        "relative_effect": 1.3824027072758036,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 6,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.1796875,
+        "relative_effect": 1.4720812182741116,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 7,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.1640625,
+        "relative_effect": 1.4686971235194586,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 8,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.9921875,
+        "relative_effect": 1.4314720812182742,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 9,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.0390625,
+        "relative_effect": 1.4416243654822334,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 10,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.9921875,
+        "relative_effect": 1.4314720812182742,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.1015625,
+        "relative_effect": 1.455160744500846,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 12,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.1328125,
+        "relative_effect": 1.4619289340101522,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 13,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.703125,
+        "relative_effect": 1.3688663282571911,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.703125,
+        "relative_effect": 1.3688663282571911,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 15,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.953125,
+        "relative_effect": 1.4230118443316413,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 16,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.8203125,
+        "relative_effect": 1.3942470389170896,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.7109375,
+        "relative_effect": 1.3705583756345177,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 18,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 2.4921875,
+        "relative_effect": 1.5397631133671743,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 19,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.5859375,
+        "relative_effect": 1.3434856175972927,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.3828125,
+        "relative_effect": 1.299492385786802,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 21,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 1.1875,
+        "relative_effect": 1.257191201353638,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 22,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": -0.5546875,
+        "relative_effect": 0.8798646362098139,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 23,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": -0.671875,
+        "relative_effect": 0.8544839255499154,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 24,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": -0.3046875,
+        "relative_effect": 0.934010152284264,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 25,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 0.0234375,
+        "relative_effect": 1.0050761421319796,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 26,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": -0.03125,
+        "relative_effect": 0.9932318104906938,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "positive_chain_id": "VERB_097",
+        "negative_chain_id": "CREA_047",
+        "token_position": 73,
+        "logit_diff_baseline": -4.6171875,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ],
+    [
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 0,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 11.2890625,
+        "relative_effect": -1.6858736059479553,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 1,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.5859375,
+        "relative_effect": -1.2806691449814127,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 2,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.96875,
+        "relative_effect": -1.3717472118959106,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 3,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.2421875,
+        "relative_effect": -1.1988847583643123,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 4,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.09375,
+        "relative_effect": -1.1635687732342008,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 5,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 8.96875,
+        "relative_effect": -1.1338289962825279,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 6,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.1796875,
+        "relative_effect": -1.1840148698884758,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 7,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 8.3984375,
+        "relative_effect": -0.9981412639405205,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 8,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 8.34375,
+        "relative_effect": -0.9851301115241635,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 9,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 8.15625,
+        "relative_effect": -0.9405204460966543,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 10,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 7.9609375,
+        "relative_effect": -0.8940520446096654,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.046875,
+        "relative_effect": -1.1524163568773234,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 12,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 9.5390625,
+        "relative_effect": -1.2695167286245352,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 13,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 8.6015625,
+        "relative_effect": -1.046468401486989,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 7.75,
+        "relative_effect": -0.8438661710037174,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 15,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 6.2421875,
+        "relative_effect": -0.4851301115241635,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 16,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 6.203125,
+        "relative_effect": -0.4758364312267658,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 5.9609375,
+        "relative_effect": -0.4182156133828996,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 18,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 4.140625,
+        "relative_effect": 0.014869888475836479,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 19,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 3.796875,
+        "relative_effect": 0.09665427509293678,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 2.203125,
+        "relative_effect": 0.4758364312267658,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 21,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 2.203125,
+        "relative_effect": 0.4758364312267658,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 22,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 1.703125,
+        "relative_effect": 0.5947955390334573,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 23,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 0.578125,
+        "relative_effect": 0.862453531598513,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 24,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 0.546875,
+        "relative_effect": 0.8698884758364313,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 25,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 0.46875,
+        "relative_effect": 0.8884758364312267,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 26,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 0.09375,
+        "relative_effect": 0.9776951672862454,
+        "n_b_tokens": 24
+      },
+      {
+        "target_behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "positive_chain_id": "VERB_018",
+        "negative_chain_id": "PROB_028",
+        "token_position": 1214,
+        "logit_diff_baseline": 4.203125,
+        "logit_diff_patched": 0.0,
+        "relative_effect": 1.0,
+        "n_b_tokens": 24
+      }
+    ]
+  ]
+}

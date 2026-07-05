@@ -1,22 +1,29 @@
 {
   "_provenance": {
-    "git_commit": "dc5190991c91a8201e07c0114c04e93033640e6b",
-    "git_dirty": true,
+    "git_commit": null,
+    "git_dirty": false,
     "seed": 42,
     "args": {
-      "layer": 27,
-      "k": "['1', '3', '5', '10', 'auto']",
-      "variance_threshold": 0.7
+      "model_short": "R1-1.5B",
+      "layer": null,
+      "k_values": "['1', '3', '5', '10', 'auto']",
+      "no_holdout": false,
+      "n_test": 50,
+      "tasks": "data/tasks_final.json"
     },
-    "input_sha256": {
-      "data/activations/R1-1.5B": null
+    "builder": "06_build_steering.py (all behaviours at layer 27)",
+    "holdout": {
+      "n_tasks": 50,
+      "n_test_arg": 50,
+      "rule": "src.task_gen.stratified_eval_split"
     }
   },
   "backtracking": {
     "layer": 27,
-    "n_on": 10267,
-    "n_off": 27584,
-    "auto_k": 57,
+    "n_on": 9598,
+    "n_off": 25892,
+    "auto_k": 58,
+    "n_excluded": 669,
     "k_values": [
       1,
       3,
@@ -27,9 +34,10 @@
   },
   "uncertainty-estimation": {
     "layer": 27,
-    "n_on": 16728,
-    "n_off": 21123,
+    "n_on": 15710,
+    "n_off": 19780,
     "auto_k": 71,
+    "n_excluded": 1018,
     "k_values": [
       1,
       3,
@@ -40,9 +48,10 @@
   },
   "example-testing": {
     "layer": 27,
-    "n_on": 5829,
-    "n_off": 32022,
-    "auto_k": 52,
+    "n_on": 5465,
+    "n_off": 30025,
+    "auto_k": 60,
+    "n_excluded": 364,
     "k_values": [
       1,
       3,
@@ -53,9 +62,10 @@
   },
   "adding-knowledge": {
     "layer": 27,
-    "n_on": 5027,
-    "n_off": 32824,
-    "auto_k": 76,
+    "n_on": 4717,
+    "n_off": 30773,
+    "auto_k": 83,
+    "n_excluded": 310,
     "k_values": [
       1,
       3,

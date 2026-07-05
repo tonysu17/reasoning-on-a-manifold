@@ -1,0 +1,27 @@
+{
+  "git_commit": null,
+  "git_dirty": false,
+  "seed": 42,
+  "args": {
+    "model": "1.5b",
+    "n_test": 50,
+    "alpha_values": "[1.0]",
+    "use_4bit": false,
+    "cache_dir": null,
+    "max_new_tokens": 4096,
+    "no_random_control": true,
+    "no_random_subspace": true,
+    "no_energy_matched": true,
+    "no_orthogonal_complement": true,
+    "n_random_subspaces": 3,
+    "n_samples": 1,
+    "temperature": 0.0,
+    "sample_seed_base": 0,
+    "skip_annotation": true,
+    "annotator_model": null,
+    "smoke": false,
+    "vectors_dir": "results/steering_vectors/R1-1.5B__L16_auto",
+    "out_dir": "results/eval/R1-1.5B__L16_trim",
+    "max_eval_tasks": 10
+  }
+}

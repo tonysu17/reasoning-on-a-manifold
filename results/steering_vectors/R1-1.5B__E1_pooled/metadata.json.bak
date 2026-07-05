@@ -1,0 +1,66 @@
+{
+  "_provenance": {
+    "git_commit": null,
+    "git_dirty": false,
+    "seed": 42,
+    "builder": "build_e1_pooled_vectors.py (pooled manifold @ E1-argmax layers, k={3,5})",
+    "layers": {
+      "backtracking": 17,
+      "uncertainty-estimation": 15,
+      "example-testing": 15,
+      "adding-knowledge": 17
+    },
+    "k_values": [
+      3,
+      5
+    ],
+    "holdout": {
+      "n_tasks": 50,
+      "rule": "src.task_gen.stratified_eval_split"
+    }
+  },
+  "uncertainty-estimation": {
+    "layer": 15,
+    "n_on": 15710,
+    "n_off": 19780,
+    "auto_k": 46,
+    "n_excluded": 1018,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "example-testing": {
+    "layer": 15,
+    "n_on": 5465,
+    "n_off": 30025,
+    "auto_k": 46,
+    "n_excluded": 364,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "backtracking": {
+    "layer": 17,
+    "n_on": 9598,
+    "n_off": 25892,
+    "auto_k": 50,
+    "n_excluded": 669,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "adding-knowledge": {
+    "layer": 17,
+    "n_on": 4717,
+    "n_off": 30773,
+    "auto_k": 50,
+    "n_excluded": 310,
+    "k_values": [
+      3,
+      5
+    ]
+  }
+}

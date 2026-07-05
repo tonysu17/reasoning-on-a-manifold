@@ -394,7 +394,7 @@ def _annotate_single(
 def annotate_chains(
     chains: list[dict],
     save_path: Optional[Path] = None,
-    checkpoint_every: int = 25,
+    checkpoint_every: int = 1,
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
     kill_after: Optional[int] = None,
@@ -405,7 +405,10 @@ def annotate_chains(
     Annotate all chains sequentially with checkpointing.
 
     Safe to interrupt and resume — re-running retries any chain that did not
-    complete all its chunks (annotation_complete=False).
+    complete all its chunks (annotation_complete=False). The default
+    checkpoint_every=1 writes the results file after EVERY chain, so an
+    interruption (e.g. API credits exhausted mid-run) loses at most the single
+    in-flight chain; re-run to resume from exactly where it stopped.
 
     Args:
         kill_after:  if set, exit after annotating this many NEW chains.
@@ -446,8 +449,12 @@ def annotate_chains(
 
     # Only skip chains that are fully complete.
     # Partial chains (some chunks failed) must be retried.
+    # Use .get() (not c[k]) so a record missing a dedup key (e.g. a malformed
+    # steered record with no "alpha") yields a None-padded key instead of a
+    # KeyError that would crash the whole batch (mirrors chain_gen.py). Such a
+    # record can never match a fully-formed key, so it is simply re-processed.
     def _chain_key(c: dict) -> tuple:
-        return tuple(c[k] for k in dedup_keys)
+        return tuple(c.get(k) for k in dedup_keys)
     done_ids = {_chain_key(a) for a in annotated if _is_complete(a)}
 
     # Remove partial-completion records so they will be re-processed.
@@ -460,18 +467,40 @@ def annotate_chains(
         if _chain_key(chain) in done_ids:
             continue
 
-        anns, complete = annotate_chain(
-            chain["chain"],
-            proxy_url=proxy_url,
-            proxy_key=proxy_key,
-            model=model,
-        )
+        # Crash safety: annotate_chain already absorbs transport/parse errors
+        # inside its retry loop (→ empty annotations, complete=False). This
+        # outer guard is the backstop for everything else — a missing "chain"
+        # field (KeyError), a credit/HTTP error that somehow escapes the retry
+        # loop, or any unexpected exception deeper in the stack. A single bad
+        # record must NEVER abort a multi-thousand-chain Phase-7 run: catch it,
+        # record the chain as incomplete (so a re-run retries it), and continue.
+        # Everything annotated so far is already on disk via checkpoint_every=1.
+        try:
+            anns, complete = annotate_chain(
+                chain["chain"],
+                proxy_url=proxy_url,
+                proxy_key=proxy_key,
+                model=model,
+            )
+        except KeyboardInterrupt:
+            # Operator Ctrl-C: save what we have, then let it propagate so the
+            # run actually stops (don't swallow an intentional interrupt).
+            if save_path:
+                _save_json(annotated, save_path)
+            raise
+        except Exception as exc:
+            logger.error(
+                f"  Unhandled error annotating chain {_chain_key(chain)} — "
+                f"recording incomplete and continuing: {exc!r}"
+            )
+            anns, complete = [], False
         annotated.append({**chain, "annotations": anns, "annotation_complete": complete})
         new_count += 1
 
         if save_path and len(annotated) % checkpoint_every == 0:
             _save_json(annotated, save_path)
-            logger.info(f"  checkpoint: {len(annotated)}/{len(chains)}")
+            if len(annotated) % 25 == 0:  # saved every chain; throttle the log line
+                logger.info(f"  checkpoint: {len(annotated)}/{len(chains)}")
 
         time.sleep(0.3)  # rate-limit headroom
 

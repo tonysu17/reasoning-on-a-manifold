@@ -1,0 +1,78 @@
+{
+  "_provenance": {
+    "git_commit": null,
+    "git_dirty": false,
+    "seed": 42,
+    "args": {
+      "model_short": "R1-1.5B",
+      "layer": 27,
+      "k_values": "['3', '5']",
+      "huang_k": 10,
+      "no_holdout": false,
+      "n_test": 50,
+      "tasks": "data/tasks_final.json",
+      "annotated": null,
+      "out": "results/steering_vectors/R1-1.5B__L27_pooled",
+      "no_battery": true,
+      "n_boot": 200,
+      "battery_subspace": "both"
+    },
+    "builder": "build_huang_manifold.py \u2014 Huang pooled-class PCA (arXiv:2505.22411v2 Eqs.2/5/9)",
+    "construction": "huang_pooled_pca",
+    "layers": {
+      "backtracking": 27,
+      "uncertainty-estimation": 27,
+      "example-testing": 27,
+      "adding-knowledge": 27
+    },
+    "huang_k": 10,
+    "holdout": {
+      "n_tasks": 50,
+      "rule": "src.task_gen.stratified_eval_split"
+    }
+  },
+  "backtracking": {
+    "layer": 27,
+    "n_on": 9598,
+    "n_off": 25892,
+    "auto_k": 82,
+    "n_excluded": 669,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "uncertainty-estimation": {
+    "layer": 27,
+    "n_on": 15710,
+    "n_off": 19780,
+    "auto_k": 82,
+    "n_excluded": 1018,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "example-testing": {
+    "layer": 27,
+    "n_on": 5465,
+    "n_off": 30025,
+    "auto_k": 82,
+    "n_excluded": 364,
+    "k_values": [
+      3,
+      5
+    ]
+  },
+  "adding-knowledge": {
+    "layer": 27,
+    "n_on": 4717,
+    "n_off": 30773,
+    "auto_k": 82,
+    "n_excluded": 310,
+    "k_values": [
+      3,
+      5
+    ]
+  }
+}
