@@ -635,9 +635,17 @@ def run_steering_experiment(
     temperature: float = 0.0,
     sample_seed_base: int = 0,
     batch_size: int = 1,
+    steer_mode: str = "subtract",
 ) -> list[dict]:
     """
     Run the main comparison experiment.
+
+    ``steer_mode``: "subtract" (suppression — every executed run before E9.1b)
+    or "add" (amplification, E9.1b: h' = h + α(rᵀh)r, over-expressing the
+    component). All arms including the floors run in the same mode so the
+    matched-perturbation logic is preserved; the shared vanilla baseline is a
+    zero-vector identity in either mode. Run different modes into DIFFERENT
+    out-dirs — the resume key space does not encode the mode.
 
     Arms (see ``_build_arms`` and the module docstring):
       - ``vanilla``: ONE unsteered generation per task, recorded once under
@@ -693,6 +701,11 @@ def run_steering_experiment(
     # N samples only makes sense under sampling. Greedy (T=0) is deterministic,
     # so N greedy draws are byte-identical and would manufacture N data points
     # from one — a silent variance fraud. Fail loud rather than mislead.
+    if steer_mode not in ("subtract", "add"):
+        raise ValueError(f"steer_mode must be 'subtract' or 'add', got {steer_mode!r}")
+    if steer_mode == "add":
+        logger.info("AMPLIFY mode (E9.1b): h' = h + α(rᵀh)r on every arm incl. "
+                    "floors; use a dedicated out-dir (resume keys don't encode mode)")
     n_samples = int(n_samples)
     if n_samples < 1:
         raise ValueError(f"n_samples must be >= 1, got {n_samples}")
@@ -865,7 +878,7 @@ def run_steering_experiment(
                 escale = arm["energy_scale"]
                 rep_tag = "" if rep is None else f" r{rep}"
                 steered = SteeredModel(model, tokenizer, vec, layer,
-                                       alpha=alpha, mode="subtract",
+                                       alpha=alpha, mode=steer_mode,
                                        energy_scale=escale)
 
                 # Random-subspace REPLICATES (rep) and temperature SAMPLES (j) both
@@ -891,6 +904,7 @@ def run_steering_experiment(
                         "subspace_replicate": rep, "sample": j,
                         "temperature": float(temperature),
                         "seed": int(sample_seed_base + j),
+                        "mode": steer_mode,
                         "mean_abs_proj": r.get("mean_abs_proj"),
                     })
                     done.add((beh, method_name, alpha, eff_task_id, rep))

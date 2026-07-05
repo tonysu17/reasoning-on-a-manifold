@@ -73,6 +73,12 @@ def main():
                              "config generation.max_new_tokens = 8192 — the "
                              "corpus cap; lower values confound α with "
                              "truncation).")
+    parser.add_argument("--steer-mode", choices=["subtract", "add"],
+                        default="subtract",
+                        help="Intervention sign: 'subtract' = suppression "
+                             "(every run before E9.1b), 'add' = amplification "
+                             "(E9.1b sign/parity test: h' = h + a(r^T h)r). "
+                             "Use a dedicated --out-dir per mode.")
     parser.add_argument("--behaviours", nargs="+", default=None,
                         help="Restrict the run to these behaviours (default: all "
                              "behaviours in the vectors dir). E9.1 uses "
@@ -252,6 +258,7 @@ def main():
         temperature=args.temperature,
         sample_seed_base=args.sample_seed_base,
         batch_size=args.batch_size,
+        steer_mode=args.steer_mode,
     )
 
     logger.info(f"Generation complete: {len(results)} outputs → {results_path}")

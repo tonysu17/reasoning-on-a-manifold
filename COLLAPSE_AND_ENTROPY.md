@@ -189,6 +189,41 @@ the *observational* data upstream. The loop probe from E9.0 doubles as a corpus-
 
 ---
 
+## 4b. Terminology discipline: "localising" vs "inducing" (2026-07-05)
+
+Two verbs were doing too much work in discussion; fixed senses, binding for all write-ups.
+
+**Localising** — three distinct claims, never conflated:
+1. **In depth** (which layer): concentration (PR-trough 16/16/16/12 bt/unc/ak/ex) ≠
+   specificity (bt/unc all layers; ex L27 only; ak nowhere) ≠ causal purchase (steered at
+   bt17/unc15/ex15/ak17). Example-testing splits three ways (12 / 27 / 15) — always name
+   which sense is meant.
+2. **In direction** (which subspace): diff-of-means vector / top-k PCA; adjudicated by the
+   chain-stratified specificity null + the steering floor.
+3. **In time** (where along the trajectory): loop onset (median 25% into chain, detector);
+   forks/residual spikes (predictive geometry; E9.3 — NOT yet run).
+
+**Inducing** — the crucial asymmetry: **no behaviour has ever been induced.** All executed
+causal cells are subtract-mode (suppression/ablation); the amplify (+) arm is protocol-defined
+with zero cells run. What HAS been induced causally is **collapse** (damage induction via
+ex-test/unc subspace ablation, beyond matched floors) — never say "we can control behaviour X"
+(control implies both signs); planned inductions: entropy (E9.2/E9.3).
+
+**Per-behaviour verdict ledger** (all numbers in §2 / RESULTS_LEDGER §B/B3):
+
+| Behaviour | Localised? | Suppression (subtract) | Collapse role when ablated | Loop-region loading (meandiff) |
+|---|---|---|---|---|
+| backtracking | ✅ direction+depth (spec. all layers; L17) | ✅ Δ_floor +0.054/+0.070 (Holm .002), de-confound-robust, −49/−64% rel., d_z .46/.64; entangled w/ unc (0.881 vs 1.093 per-1k; abs p=.06); k3 arm fails floor | REDUCES (k5 24%, Δrep −0.11; k3 anomaly 50% — worse direction estimate, matches its floor fail) | **+0.34** (loop partly made of it → ablation drains re-entry) |
+| uncertainty-est. | ✅ direction+depth (spec. all layers; L15) | ❓ UNDETERMINED (sd 1.7×, power .10–.13 @Δ=.05); vector not own-specific (bt 0.523 > own 0.320) | WORST INFLATOR (k3 68%, +0.195, 20 net new) | **+0.47** (largest) |
+| example-testing | 🟧 partial (spec. L27 only; conc. 12; steered 15) | ❌ ARTEFACT (fraction +0.060 = dilution; count p=.27, per-1k p=.10) | INFLATES at every arm (48/54/64%); dose-response persists at T=0.6 (E9.1 prelim) | **−0.25** (loops starved of it → ablation removes the testing exit) |
+| adding-knowledge | ❌ (spec. p=1.0 everywhere) | ❌ NULL as pre-registered; vector barely moves own behaviour (0.023 per-1k) | REDUCES (single 20%, −0.148) — but NOT evidence about the behaviour (direction isn't behaviour-specific) | **−0.75** (strongest negative) |
+
+One-liners: localised = bt, unc; partially = ex; not = ak. Suppressed = bt only;
+undetermined = unc; artefact = ex; null = ak. Collapse-inducing ablations = ex, unc;
+collapse-reducing = bt, ak-vector. Induced (amplify) = nothing yet (open cell).
+
+---
+
 ## 5. Proposed experiments — the E9 ladder (gated, cheap-first)
 
 **E9.0 — Loop geometry on existing data — ✅ EXECUTED 2026-07-04/05** (runner
@@ -235,6 +270,31 @@ this doubles as the strongest robustness check available for the thesis; (P4) is
 contours: α needed to collapse falls as decoding entropy falls (the budget picture). Also
 delivers the α-sweep + Pareto frontier already owed (`PLAN_EXPERIMENTS.md` E6/E7,
 `steering.tex:494-513`).
+
+**E9.1b — Amplify arm: the sign/parity test — 📋 PRE-REGISTERED 2026-07-05 (before any
+amplify cell has ever been generated; Tony-approved).** Everything causal so far is
+SUPPRESSION (subtract mode, §4b); E9.1b runs the SAME arms in **add mode**
+(h' = h + α(rᵀh)r; engine support existed, plumbing + `--steer-mode add` added 2026-07-05,
+mode recorded per row). Design: {backtracking, example-testing} × arms {single, manifold_k5,
+random_subspace_k5 ×2, energy_matched} × α ∈ {0.5, 1.0} × greedy × 50 tasks × 1 sample
+(~1,050 chains incl. fresh vanilla; the greedy regime is where the attractor has headroom in
+BOTH directions: vanilla 34%). **The headline is response PARITY in the intervention sign,
+per behaviour** — the single cleanest discriminator between the functional story (H-D) and
+generic-damage stories: H-D predicts an ODD response (backtracking: subtract ↓collapse /
+add ↑collapse — amplifying the re-entry move feeds the cycle; ex-test: subtract ↑ / add ↓ —
+amplifying the exit machinery resolves deliberation), while any
+perturbation-is-perturbation account predicts an EVEN response (both signs damage).
+Pre-registered predictions: **(P5)** amplifying backtracking RAISES collapse vs vanilla and
+vs the add-mode floors (falsifier: unchanged/decreased); **(P6)** amplifying ex-test LOWERS
+collapse below vanilla's 34% (falsifier: increase ⇒ even parity ⇒ damage account);
+**(P7)** add-mode floors stay ≈ vanilla (as their subtract twins did); **(P8)** |Δcollapse|
+grows with α on behaviour arms only. Caveats sealed with it: amplification inflates
+activation norms (Householder critique), which the energy-matched add-floor controls at
+matched added energy; the behaviour-frequency (on-target induction) half needs annotation
+and is budget-gated exactly like P3; α capped at 1.0 (at α=1 add doubles the component —
+larger doses risk trivial norm blow-up, reserved for a later sweep). Endpoints + analysis:
+same annotation-free battery via `e9_1_analysis.py` extension. Runs gated on the E9.1
+greedy leg finishing (same pod, queued launcher).
 
 **E9.2 — Structured state-entropy injection (same harness, new hook mode; ~$10).** Replace
 subtract with **add-noise**: ε ~ N(0, σ²) per token, three geometries at matched energy —
