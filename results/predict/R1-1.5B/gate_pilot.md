@@ -1,3 +1,5 @@
+> ⚠️ SUPERSEDED — DO NOT CITE (see RESULTS_LEDGER.md §E): this is the FLAWED/INFLATED gate — the next-step predictor was trained on the labelled subset only (~183 chains), so its residuals encode chain idiosyncrasies that correlate with correctness, inflating AUC to ≈0.61 and the residual/persistence ratio above 1. Cite the corrected train-on-all-986-chains run instead: `results/predict/R1-1.5B/corrected/` (honest AUC 0.54–0.59; see `corrected/SUMMARY.md`). This file is retained only for the before/after comparison referenced there.
+
 # Predictive-geometry gate
 
 ## layer 11

@@ -1,0 +1,67 @@
+{
+  "n_common_chains": 1000,
+  "span_counts": {
+    "Sonnet-4.5": 77562,
+    "Qwen3-235B": 88836,
+    "Nova-Pro": 87632
+  },
+  "pairs": {
+    "Sonnet-4.5 vs Qwen3-235B": {
+      "n_spans": {
+        "Sonnet-4.5": 77562,
+        "Qwen3-235B": 88836
+      },
+      "f1": {
+        "exact": 0.211,
+        "iou": 0.306,
+        "overlap": 0.413
+      },
+      "per_label_f1_iou50": {
+        "adding-knowledge": 0.208,
+        "backtracking": 0.297,
+        "deduction": 0.359,
+        "example-testing": 0.245,
+        "initializing": 0.249,
+        "uncertainty-estimation": 0.279
+      }
+    },
+    "Sonnet-4.5 vs Nova-Pro": {
+      "n_spans": {
+        "Sonnet-4.5": 77562,
+        "Nova-Pro": 87632
+      },
+      "f1": {
+        "exact": 0.171,
+        "iou": 0.257,
+        "overlap": 0.375
+      },
+      "per_label_f1_iou50": {
+        "adding-knowledge": 0.149,
+        "backtracking": 0.233,
+        "deduction": 0.294,
+        "example-testing": 0.174,
+        "initializing": 0.23,
+        "uncertainty-estimation": 0.259
+      }
+    },
+    "Qwen3-235B vs Nova-Pro": {
+      "n_spans": {
+        "Qwen3-235B": 88836,
+        "Nova-Pro": 87632
+      },
+      "f1": {
+        "exact": 0.247,
+        "iou": 0.307,
+        "overlap": 0.373
+      },
+      "per_label_f1_iou50": {
+        "adding-knowledge": 0.181,
+        "backtracking": 0.265,
+        "deduction": 0.384,
+        "example-testing": 0.182,
+        "initializing": 0.246,
+        "uncertainty-estimation": 0.26
+      }
+    }
+  }
+}

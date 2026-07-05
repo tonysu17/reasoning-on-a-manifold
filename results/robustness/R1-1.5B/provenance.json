@@ -1,0 +1,8 @@
+{
+  "git_commit": null,
+  "git_dirty": false,
+  "seed": 42,
+  "input_sha256": {
+    "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+  }
+}

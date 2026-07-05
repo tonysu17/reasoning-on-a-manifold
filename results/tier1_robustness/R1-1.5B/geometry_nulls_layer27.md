@@ -1,3 +1,5 @@
+> ⚠️ SUPERSEDED — DO NOT CITE (see RESULTS_LEDGER.md §E): pre-dedup 2026-06-08 run; the TwoNN "0.168" intrinsic-dim is a zero-distance (duplicate-row, CF-13) artefact and the p-values are unsmoothed count/B. Live replacement: `results/robustness/R1-1.5B/geometry_robustness_summary.md`. (Re-run owed: `tier1_geometry_nulls.py` after re-extraction.)
+
 # Tier-1 R1.1 - Geometry nulls (R1-1.5B, layer 27)
 
 CF-3 fix: the chain-stratified null applied to the *intrinsic-dim* and

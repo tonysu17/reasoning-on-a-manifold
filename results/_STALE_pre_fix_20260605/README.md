@@ -47,3 +47,20 @@ regenerating, refresh the TwoNN dims quoted in `PROGRESS.md`.
 > An even-older run ("run1") is already archived separately at
 > `results/_archive_run1_20260528_094332/` — that one predates even the
 > May-28 cap fix. This quarantine is the *second* (May 25–30) run.
+
+---
+
+## 2026-06-21 — DO-NOT-CITE quarantine (plan item E10)
+
+Authoritative list: [`RESULTS_LEDGER.md` §E](../../RESULTS_LEDGER.md). Two superseded
+outputs were quarantined on 2026-06-21. **Both were left in place and given a prominent
+`⚠️ SUPERSEDED — DO NOT CITE` banner rather than moved here**, because code/docs reference
+their paths (moving them would break those references):
+
+| File (left in place, bannered) | Why superseded | Live replacement |
+|--------------------------------|----------------|------------------|
+| `results/tier1_robustness/R1-1.5B/geometry_nulls_layer27.md` | Pre-dedup 2026-06-08 keystone-null run; TwoNN "0.168" intrinsic-dim = zero-distance (duplicate-row, CF-13) artefact; unsmoothed p-values. Referenced by `INVENTORY.md`, `PLAN_EXPERIMENTS.md`, `RESULTS_LEDGER.md`; dir is the output target of `tier1_geometry_nulls.py`. | `results/robustness/R1-1.5B/geometry_robustness_summary.md` |
+| `results/predict/R1-1.5B/gate_pilot.md` | Flawed/inflated predictive-geometry gate — predictor trained on the labelled subset only (~183 chains) → AUC ≈0.61, residual/persistence >1. The corrected `SUMMARY.md` links to it as `../gate_pilot.md` for the before/after comparison, so a move would break that pointer. | `results/predict/R1-1.5B/corrected/` (honest AUC 0.54–0.59) |
+
+No data was deleted or moved in this pass; `.json` siblings of both files are unreferenced
+and were left untouched alongside the bannered `.md`.

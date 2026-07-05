@@ -1,0 +1,249 @@
+{
+  "provenance": {
+    "git_commit": "06f07fec6bcfad921f37ff1a49a858f3e180d340",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "base_acts": "data/activations/R1-1.5B",
+      "post_acts": "data/activations/STAR1-1.5B",
+      "base_model_id": null,
+      "post_model_id": null,
+      "annotated": "data/annotated_R1-1.5B.json",
+      "dtype": "bfloat16",
+      "behaviours": null,
+      "layers": null,
+      "k": 5,
+      "out": "results/safety_posttrain/spillover_star1_full.json"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  },
+  "behaviours": [
+    "adding-knowledge",
+    "backtracking",
+    "deduction",
+    "example-testing",
+    "initializing",
+    "uncertainty-estimation"
+  ],
+  "layers": [
+    12,
+    16
+  ],
+  "k": 5,
+  "by_layer": {
+    "12": {
+      "layer": 12,
+      "k": 5,
+      "behaviours": {
+        "adding-knowledge": {
+          "n_base": 5027,
+          "n_post": 5027,
+          "dim": 1536,
+          "principal_angles_deg": [
+            2.325,
+            2.662,
+            2.749,
+            4.415,
+            7.741
+          ],
+          "mean_principal_angle_deg": 3.978,
+          "max_principal_angle_deg": 7.741,
+          "d_eff_base": 26.794,
+          "d_eff_post": 26.63,
+          "delta_d_eff": -0.164,
+          "centroid_l2": 2.8911,
+          "mean_direction_cos": 0.9989
+        },
+        "backtracking": {
+          "n_base": 10267,
+          "n_post": 10267,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.919,
+            1.953,
+            2.21,
+            2.74,
+            6.002
+          ],
+          "mean_principal_angle_deg": 2.965,
+          "max_principal_angle_deg": 6.002,
+          "d_eff_base": 21.578,
+          "d_eff_post": 21.305,
+          "delta_d_eff": -0.273,
+          "centroid_l2": 2.4552,
+          "mean_direction_cos": 0.9992
+        },
+        "deduction": {
+          "skipped": "missing activations"
+        },
+        "example-testing": {
+          "n_base": 5829,
+          "n_post": 5829,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.758,
+            1.964,
+            2.402,
+            2.895,
+            4.649
+          ],
+          "mean_principal_angle_deg": 2.733,
+          "max_principal_angle_deg": 4.649,
+          "d_eff_base": 21.925,
+          "d_eff_post": 21.88,
+          "delta_d_eff": -0.045,
+          "centroid_l2": 2.3655,
+          "mean_direction_cos": 0.9994
+        },
+        "initializing": {
+          "skipped": "missing activations"
+        },
+        "uncertainty-estimation": {
+          "n_base": 16728,
+          "n_post": 16728,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.672,
+            1.991,
+            2.378,
+            2.922,
+            5.497
+          ],
+          "mean_principal_angle_deg": 2.892,
+          "max_principal_angle_deg": 5.497,
+          "d_eff_base": 23.742,
+          "d_eff_post": 23.501,
+          "delta_d_eff": -0.241,
+          "centroid_l2": 2.4843,
+          "mean_direction_cos": 0.9992
+        }
+      },
+      "selectivity_ranking": [
+        [
+          "adding-knowledge",
+          3.978
+        ],
+        [
+          "backtracking",
+          2.965
+        ],
+        [
+          "uncertainty-estimation",
+          2.892
+        ],
+        [
+          "example-testing",
+          2.733
+        ]
+      ]
+    },
+    "16": {
+      "layer": 16,
+      "k": 5,
+      "behaviours": {
+        "adding-knowledge": {
+          "n_base": 5027,
+          "n_post": 5027,
+          "dim": 1536,
+          "principal_angles_deg": [
+            2.254,
+            2.459,
+            3.575,
+            6.289,
+            7.27
+          ],
+          "mean_principal_angle_deg": 4.369,
+          "max_principal_angle_deg": 7.27,
+          "d_eff_base": 24.696,
+          "d_eff_post": 24.014,
+          "delta_d_eff": -0.682,
+          "centroid_l2": 4.0913,
+          "mean_direction_cos": 0.9986
+        },
+        "backtracking": {
+          "n_base": 10267,
+          "n_post": 10267,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.872,
+            2.148,
+            2.454,
+            3.754,
+            8.108
+          ],
+          "mean_principal_angle_deg": 3.667,
+          "max_principal_angle_deg": 8.108,
+          "d_eff_base": 18.433,
+          "d_eff_post": 18.21,
+          "delta_d_eff": -0.223,
+          "centroid_l2": 3.2599,
+          "mean_direction_cos": 0.9992
+        },
+        "deduction": {
+          "skipped": "missing activations"
+        },
+        "example-testing": {
+          "n_base": 5829,
+          "n_post": 5829,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.743,
+            2.014,
+            2.935,
+            4.922,
+            7.161
+          ],
+          "mean_principal_angle_deg": 3.755,
+          "max_principal_angle_deg": 7.161,
+          "d_eff_base": 20.916,
+          "d_eff_post": 20.606,
+          "delta_d_eff": -0.31,
+          "centroid_l2": 3.2923,
+          "mean_direction_cos": 0.9992
+        },
+        "initializing": {
+          "skipped": "missing activations"
+        },
+        "uncertainty-estimation": {
+          "n_base": 16728,
+          "n_post": 16728,
+          "dim": 1536,
+          "principal_angles_deg": [
+            1.931,
+            1.996,
+            2.523,
+            3.116,
+            6.378
+          ],
+          "mean_principal_angle_deg": 3.189,
+          "max_principal_angle_deg": 6.378,
+          "d_eff_base": 20.844,
+          "d_eff_post": 20.527,
+          "delta_d_eff": -0.317,
+          "centroid_l2": 3.4583,
+          "mean_direction_cos": 0.999
+        }
+      },
+      "selectivity_ranking": [
+        [
+          "adding-knowledge",
+          4.369
+        ],
+        [
+          "example-testing",
+          3.755
+        ],
+        [
+          "backtracking",
+          3.667
+        ],
+        [
+          "uncertainty-estimation",
+          3.189
+        ]
+      ]
+    }
+  }
+}

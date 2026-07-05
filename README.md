@@ -166,10 +166,11 @@ python -m pytest
   full-corpus analyses (and Huang's published layer 27), so layer selection
   is not held out.
 
-- **Single LLM annotator.** All behaviour labels come from one annotator
-  (Claude Sonnet 4.5 via the lab proxy — not GPT-4o, despite Venhoff's
-  original setup); the 3-annotator robustness arm (Qwen3-235B, Nova-Pro) is in
-  flight. Labels are the dependent variable for everything downstream.
+- **LLM annotator (+ robustness arm).** Behaviour labels come from Claude
+  Sonnet 4.5 via the lab proxy — not GPT-4o, despite Venhoff's original setup.
+  A 3-annotator robustness arm re-annotates with two further proxy models,
+  Qwen3-235B and Nova-Pro, and reports 3-way Cohen's κ (R2.1). Labels are the
+  dependent variable for everything downstream.
 
 (Resolved former entries: `configs/config.yaml` is now loaded by `src/config.py`
 as the single config source; Phase 7 reads the canonical `data/tasks_final.json`;

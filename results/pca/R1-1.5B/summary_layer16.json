@@ -1,0 +1,42 @@
+{
+  "backtracking": {
+    "d_eff_50": 10,
+    "d_eff_70": 38,
+    "d_eff_80": 82,
+    "d_eff_90": 100,
+    "d_eff_95": 100,
+    "participation_ratio": 12.549991607666016,
+    "n_samples": 10267,
+    "hidden_dim": 1536
+  },
+  "uncertainty-estimation": {
+    "d_eff_50": 12,
+    "d_eff_70": 44,
+    "d_eff_80": 96,
+    "d_eff_90": 100,
+    "d_eff_95": 100,
+    "participation_ratio": 13.524603843688965,
+    "n_samples": 16728,
+    "hidden_dim": 1536
+  },
+  "example-testing": {
+    "d_eff_50": 12,
+    "d_eff_70": 45,
+    "d_eff_80": 95,
+    "d_eff_90": 100,
+    "d_eff_95": 100,
+    "participation_ratio": 13.649213790893555,
+    "n_samples": 5829,
+    "hidden_dim": 1536
+  },
+  "adding-knowledge": {
+    "d_eff_50": 14,
+    "d_eff_70": 53,
+    "d_eff_80": 100,
+    "d_eff_90": 100,
+    "d_eff_95": 100,
+    "participation_ratio": 15.265666007995605,
+    "n_samples": 5027,
+    "hidden_dim": 1536
+  }
+}

@@ -124,14 +124,15 @@ tasks = generate_all_tasks(
 **Cell 4 — Annotate chains:**
 ```python
 import os
-os.environ["OPENAI_API_KEY"] = "sk-..."  # If not already set
+os.environ["CLAUDE_PROXY_URL"] = "https://..."   # AWS Bedrock / Claude proxy
+os.environ["CLAUDE_PROXY_KEY"] = "rp_..."        # annotation goes through the proxy, NOT OpenAI
 
 from src.data.annotate_chains import annotate_chains
 
 annotated = annotate_chains(
     chains=chains,
     save_path=Path("/content/drive/MyDrive/reasoning-on-manifold/annotated_R1-1.5B.json"),
-    annotation_model="gpt-4o",
+    annotation_model="eu.anthropic.claude-sonnet-4-5-20250929-v1:0",  # Sonnet via proxy (not gpt-4o)
     checkpoint_every=10,  # Frequent checkpoints for Colab
 )
 ```
@@ -303,7 +304,7 @@ The same resume logic is built into `annotate_chains` and `run_phase1.py`.
 
 ## Cost Summary
 
-| Approach | GPU Cost | API Cost (GPT-4o) | Total |
+| Approach | GPU Cost | API Cost (annotation, proxy) | Total |
 |----------|---------|-------------------|-------|
 | Colab Free + 1.5B | $0 | ~$10-15 | ~$10-15 |
 | Kaggle Free + 1.5B | $0 | ~$10-15 | ~$10-15 |

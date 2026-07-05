@@ -1,0 +1,280 @@
+{
+ "base_acts": "data/activations/R1-1.5B",
+ "post_acts": "data/activations/R1-1.5B-lora-safety300",
+ "k": 5,
+ "n_perm": 250,
+ "n_rep": 8,
+ "seed": 42,
+ "gates_not_run": [
+  "surprisal_control",
+  "annotator_swap"
+ ],
+ "parity": {
+  "ok": true,
+  "behaviours": {
+   "backtracking": {
+    "n_base": 10267,
+    "n_post": 10267,
+    "row_identity_ok": true,
+    "token_start_ok": true,
+    "first_mismatch": null
+   },
+   "uncertainty-estimation": {
+    "n_base": 16728,
+    "n_post": 16728,
+    "row_identity_ok": true,
+    "token_start_ok": true,
+    "first_mismatch": null
+   },
+   "example-testing": {
+    "n_base": 5829,
+    "n_post": 5829,
+    "row_identity_ok": true,
+    "token_start_ok": true,
+    "first_mismatch": null
+   },
+   "adding-knowledge": {
+    "n_base": 5027,
+    "n_post": 5027,
+    "row_identity_ok": true,
+    "token_start_ok": true,
+    "first_mismatch": null
+   }
+  }
+ },
+ "matched_n": 1500,
+ "behaviour_counts": {
+  "backtracking": 10267,
+  "uncertainty-estimation": 16728,
+  "example-testing": 5829,
+  "adding-knowledge": 5027
+ },
+ "layers": {
+  "12": {
+   "backtracking": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 7.945,
+    "null_mean_deg": 8.54,
+    "null_sd_deg": 0.66,
+    "excess_deg": -0.594,
+    "p_within": 0.78884,
+    "pooled_perm_mean_deg": 8.61,
+    "split_half_base_deg": 4.524,
+    "split_half_post_deg": 4.665,
+    "dup_fraction_base": 0.0128,
+    "dup_fraction_post": 0.0128,
+    "paired": {
+     "mean_disp_norm": 0.1063,
+     "mean_disp_over_base_norm": 0.00162,
+     "coherence": 0.6978,
+     "coherence_null_mean": 0.0092,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "uncertainty-estimation": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 7.95,
+    "null_mean_deg": 8.265,
+    "null_sd_deg": 0.637,
+    "excess_deg": -0.315,
+    "p_within": 0.62151,
+    "pooled_perm_mean_deg": 8.291,
+    "split_half_base_deg": 3.472,
+    "split_half_post_deg": 3.46,
+    "dup_fraction_base": 0.0109,
+    "dup_fraction_post": 0.0109,
+    "paired": {
+     "mean_disp_norm": 0.1088,
+     "mean_disp_over_base_norm": 0.00167,
+     "coherence": 0.6805,
+     "coherence_null_mean": 0.0075,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "example-testing": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 7.299,
+    "null_mean_deg": 8.447,
+    "null_sd_deg": 0.597,
+    "excess_deg": -1.148,
+    "p_within": 0.99203,
+    "pooled_perm_mean_deg": 8.466,
+    "split_half_base_deg": 6.19,
+    "split_half_post_deg": 5.936,
+    "dup_fraction_base": 0.0108,
+    "dup_fraction_post": 0.0108,
+    "paired": {
+     "mean_disp_norm": 0.1089,
+     "mean_disp_over_base_norm": 0.00162,
+     "coherence": 0.6442,
+     "coherence_null_mean": 0.0129,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "adding-knowledge": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 9.916,
+    "null_mean_deg": 12.54,
+    "null_sd_deg": 2.086,
+    "excess_deg": -2.624,
+    "p_within": 0.94422,
+    "pooled_perm_mean_deg": 12.829,
+    "split_half_base_deg": 9.828,
+    "split_half_post_deg": 8.989,
+    "dup_fraction_base": 0.0076,
+    "dup_fraction_post": 0.0076,
+    "paired": {
+     "mean_disp_norm": 0.118,
+     "mean_disp_over_base_norm": 0.00176,
+     "coherence": 0.6533,
+     "coherence_null_mean": 0.0139,
+     "coherence_p_perm": 0.00398
+    }
+   }
+  },
+  "16": {
+   "backtracking": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 9.063,
+    "null_mean_deg": 9.869,
+    "null_sd_deg": 1.034,
+    "excess_deg": -0.807,
+    "p_within": 0.80478,
+    "pooled_perm_mean_deg": 9.87,
+    "split_half_base_deg": 5.431,
+    "split_half_post_deg": 5.317,
+    "dup_fraction_base": 0.0128,
+    "dup_fraction_post": 0.0128,
+    "paired": {
+     "mean_disp_norm": 0.1445,
+     "mean_disp_over_base_norm": 0.00167,
+     "coherence": 0.6273,
+     "coherence_null_mean": 0.0095,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "uncertainty-estimation": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 8.223,
+    "null_mean_deg": 8.603,
+    "null_sd_deg": 0.757,
+    "excess_deg": -0.38,
+    "p_within": 0.6494,
+    "pooled_perm_mean_deg": 8.615,
+    "split_half_base_deg": 3.717,
+    "split_half_post_deg": 3.511,
+    "dup_fraction_base": 0.0109,
+    "dup_fraction_post": 0.0109,
+    "paired": {
+     "mean_disp_norm": 0.1514,
+     "mean_disp_over_base_norm": 0.00173,
+     "coherence": 0.6099,
+     "coherence_null_mean": 0.0077,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "example-testing": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 10.66,
+    "null_mean_deg": 11.824,
+    "null_sd_deg": 2.108,
+    "excess_deg": -1.164,
+    "p_within": 0.66534,
+    "pooled_perm_mean_deg": 12.172,
+    "split_half_base_deg": 8.52,
+    "split_half_post_deg": 8.52,
+    "dup_fraction_base": 0.0108,
+    "dup_fraction_post": 0.0108,
+    "paired": {
+     "mean_disp_norm": 0.151,
+     "mean_disp_over_base_norm": 0.00174,
+     "coherence": 0.5704,
+     "coherence_null_mean": 0.0131,
+     "coherence_p_perm": 0.00398
+    }
+   },
+   "adding-knowledge": {
+    "k": 5,
+    "matched_n": 1500,
+    "n_rep": 8,
+    "n_perm": 250,
+    "observed_deg": 10.435,
+    "null_mean_deg": 12.694,
+    "null_sd_deg": 2.579,
+    "excess_deg": -2.259,
+    "p_within": 0.81275,
+    "pooled_perm_mean_deg": 13.188,
+    "split_half_base_deg": 10.398,
+    "split_half_post_deg": 8.754,
+    "dup_fraction_base": 0.0076,
+    "dup_fraction_post": 0.0076,
+    "paired": {
+     "mean_disp_norm": 0.1651,
+     "mean_disp_over_base_norm": 0.00187,
+     "coherence": 0.6066,
+     "coherence_null_mean": 0.0142,
+     "coherence_p_perm": 0.00398
+    }
+   }
+  }
+ },
+ "selectivity_by_excess": {
+  "12": [
+   [
+    "uncertainty-estimation",
+    -0.315
+   ],
+   [
+    "backtracking",
+    -0.594
+   ],
+   [
+    "example-testing",
+    -1.148
+   ],
+   [
+    "adding-knowledge",
+    -2.624
+   ]
+  ],
+  "16": [
+   [
+    "uncertainty-estimation",
+    -0.38
+   ],
+   [
+    "backtracking",
+    -0.807
+   ],
+   [
+    "example-testing",
+    -1.164
+   ],
+   [
+    "adding-knowledge",
+    -2.259
+   ]
+  ]
+ }
+}

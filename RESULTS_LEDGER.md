@@ -1,0 +1,104 @@
+# Results Ledger — living tracker
+
+> **Canonical record of WHAT WE FOUND and its trust status.** Every session: READ before
+> citing or building on any result; UPDATE the moment a result lands, is superseded, or is
+> dropped. Supersedes the status role of `PROGRESS.md` + `INVENTORY.md`. Why-a-result-is-wrong
+> detail → [`CONFOUNDS_AND_REMEDIATION.md`](CONFOUNDS_AND_REMEDIATION.md). How we measure →
+> [`METHODOLOGY.md`](METHODOLOGY.md). **Last updated: 2026-07-05.**
+
+Legend: ✅ solid / survives · ❌ falsified (clean negative) · 🟧 partial/mixed · ⬜ built, unrun · ⚠️ caveat.
+All numbers below are on the **clean (deduplicated) Gate-0 re-run** unless marked stale.
+
+---
+
+## A. Geometry (R1-1.5B, clean Gate-0 re-run, 2026-06-13→18)
+
+| Claim | Status | Key numbers | Source |
+|---|---|---|---|
+| Low **intrinsic dim** (per behaviour) | ✅ | corr-dim ≈ 5.9 / 6.2 / 6.0 / 7.7 (back / unc / ex-test / add-know) in 1536-D; stable across full / random-sub / one-per-chain (sd ≈ 0.1) | `results/robustness/R1-1.5B/geometry_robustness_summary.md` |
+| Compression gap (intrinsic ≪ PCA) | ✅ | corr-dim ~6–8 vs PCA d_eff_70 ~38–83; PR(L27) ~17–26 | `results/pca/R1-1.5B/layer_profiles.json` |
+| Per-behaviour **curvature** | ❌ | local↔global 0.43–0.69 (full) → ≈1.0 (one-per-chain) = within-chain artefact; well-powered (detectable at N≥500; pools ~600–900 chains) | `geometry_robustness_summary.md`, `results/power_analysis/` |
+| **Behaviour-specificity** (chain-strat variance-ratio null, B=2500) | 🟧 2/4 | back & unc p<.001 @ all layers; ex-test only @ L27; **add-know p=1.0 everywhere** | `results/pca/R1-1.5B/null_pvalues_per_layer.json` |
+| Linear **decodability** (probes, chain-grouped CV, chance 0.50) | ✅ but flat | 0.70–0.84 @ every layer; flat across depth (CV 0.012–0.023). Old leaky 0.83–0.93 was train/test leak | `results/cross_layer/R1-1.5B/` |
+| Layer **concentration** (PR-trough) | ✅ | peaks 16/16/16/12 (back/unc/add-know/ex-test), broad 10–14-layer plateaus | `results/triangulation/R1-1.5B/candidate_layers.json` |
+| Discrete **sub-types** within a behaviour | ❌ (confirmed @ reconciled layers) | best k=2, silhouette **0.18–0.20** at reconciled layers 16/16/16/12 (was 0.16–0.18 @ 14/14/17/27); ↓ with k → one continuous region each. Rebuilt 2026-06-21; old run archived | `results/clustering/R1-1.5B/` |
+
+## B. Steering (Phase 7 / E8 RUN 2026-06-29 — preliminary, within-annotator)
+
+| Item | Status | Notes |
+|---|---|---|
+| Steering vectors (single + manifold k∈{1,3,5,10,auto}) | ✅ built 2026-06-18 | true hold-out (50 tasks), occurrence-aware; `results/steering_vectors/R1-1.5B/` (all-L27) + `R1-1.5B-peak/` |
+| **E1-pooled vectors (the run's basis)** | ✅ built 2026-06-29 | 6-label Venhoff overall (OFF=other-5), pooled Huang PCA (ON∪OFF), per-behaviour attribution layers bt17/unc15/ex15/ak17; `results/steering_vectors/R1-1.5B__E1_pooled/` |
+| Saturation predictions (pre-registered α*) | ⬜ sealed, untested | run used fixed α=1.0 single dose; α-sweep owed |
+| Composition check | ✅ | 4 directions strongly non-orthogonal (off-diag |cos| mean 0.57, max 0.77); each ≈ reconstructable (R²=1.0) from other 3 |
+| **Phase 7 / E8 Δ_floor eval** | 🟧 **RUN, preliminary** | `results/eval/R1-1.5B__E1/` (n=50 tasks, α∈{0,1}, greedy, energy-matched + rank-matched floors; annotation 1629/1650). **ONE clean behaviour: backtracking** — Δ_floor +0.054 single / +0.070 k5 (Holm p=.002), survives count+per-1k de-confound (`strengthen_report.json`); example-testing frac effect = length/dilution artefact; uncertainty under-powered (undetermined); add-knowledge null as predicted; **no manifold advantage** (cos single↔k5 = 0.965). Within-annotator (Sonnet=builder) ⇒ n_pass=0, verdict provisional; non-builder band budget-blocked ($560/$560 spent). Written into thesis `chapters/v2/steering.tex` 2026-06-30 |
+| **Repetition-collapse secondary analysis** | 🟧 analysed 2026-07-04 (preliminary; same run's data) | Per-chain 4-gram repetition is **bimodal loop-to-cap** (clean <0.1 or looped >0.8 to the 8192 cap; rep↔length r≈0.9). Collapse is **arm-induced + subspace-specific**: ex-test manifold_k5 collapsed 34%→64%, unc manifold_k3 35%→68% (net transitions vs vanilla +15/+17) while equal-k random-subspace floors add ≈0; **backtracking k5 / add-know single REDUCE collapse** (Δrep −0.11/−0.15). Loop = generic "Wait, maybe… / Alternatively…" hypothesis-revision cycle, identical in vanilla and steered chains (steering shifts basin, attractor pre-exists; vanilla collapses 34%); collapsed chains ~never reach `\boxed`. Energy multipliers (ex 7.7 / unc 6.1 vs bt 2.1 / ak 2.4) rank-track collapse propensity. Interpretation + E9 remedy ladder (loop-probe, α×T factorial, structured noise injection, fork-localized entropy): [`COLLAPSE_AND_ENTROPY.md`](COLLAPSE_AND_ENTROPY.md); registered as CF-19 | 
+
+## B2. Safety spillover (Rung-0 RUN 2026-07-04, full corpus, $<1 pod)
+
+| Claim | Status | Key numbers | Source |
+|---|---|---|---|
+| Safety SFT rotates generic-reasoning subspaces | ❌ clean null (well-powered) | R1-1.5B vs STAR1-1.5B, 986 chains, byte-identical input_ids; excess angle over within-model floor −2.0°…+0.2°, all p≥0.33 (8/8 cells, layers 12+16, matched n=1500, k=5) | `results/safety_posttrain/spillover_gated_full.json` |
+| Coherent global translation instead | ✅ | paired displacement 4.7–6.4% of activation norm; coherence 0.70–0.78 vs sign-flip null ≈0.01 (p=1/251 all cells); ONE global direction (pairwise cos 0.95–0.99 across behaviours) | same + `ANALYSIS_2026-07-04.md` |
+| PH2 selectivity | ❌ none detectable | raw-angle ranking (add-know "most moved") INVERTED by matched-n gating = the predicted n-artefact | same |
+| **Attribution (Rung-1 RUN 2026-07-04, LoRA doses + control, ~$0.30 pod)** | 🟧 **split verdict** | Rotation stays null for EVERY arm incl. control (excess −2.6°…−0.3°, p≥0.62, 32 cells) ⇒ subspace-quiet is a fine-tuning property, not safety's. Translation MAGNITUDE not safety-specific (control 0.0054 ≈ safety1000 0.0049). Translation DIRECTION **is** recipe-specific: safety1000↔full-SFT-STAR1 cos **0.57** vs control↔full-SFT **0.15** (random floor 0.026); safety direction stable across dose (cos 0.92–0.98) + converges to full-SFT with dose (0.52→0.58, coherence 0.40→0.75) | `results/safety_posttrain/attribution_report.json`, `ANALYSIS_2026-07-04.md` |
+
+## B3. Collapse & entropy — E9 ladder (`COLLAPSE_AND_ENTROPY.md`; CF-19)
+
+| Claim | Status | Key numbers | Source |
+|---|---|---|---|
+| E8 collapse is bimodal, arm-induced, subspace-specific | ✅ (secondary, annotation-free) | vanilla 34% collapsed (rep4>0.8); ex-test k5 64% / unc k3 68% (net +15/+17 tasks McNemar); equal-k random floors ≈ vanilla (35–38%); backtracking k5 24% / add-know single 20% (REDUCE) | `e9_collapse_table.py` → `results/eval/R1-1.5B__E1/collapse_table.json` |
+| **E9.0a loop probe + contamination gate** | ✅ **RUN 2026-07-05** — **H-B rejected** | loop regime linearly separable: token OOF AUC **0.994**, chain-level 1.0 (884 chains: 415 loop/469 clean); \|cos(probe dir, steering vec)\| ≤ **0.13** all 12 vectors < 0.3 gate ⇒ no cleaned-vector arm needed | `results/loop_geometry/R1-1.5B/REPORT.md` |
+| E9.0a meandiff sign structure (H-D support) | ✅ correlational | loop states displaced toward backtracking +0.34 / uncertainty +0.47, away from ex-test −0.25 / add-know −0.75 (own-layer, arm-averaged) | same |
+| **E9.0b state-before-text precedence** | 🟧 metric-dependent | PR pre-onset −3.0 (p≈1e-36) but clean-chain positional control −4.6 ⇒ PR precedence KILLED by matched-position control; uniformity clears control at L17 only (+0.037 vs +0.018, MW p=8e-4) | same |
+| E9.1 dose × decoding factorial | 🚀 generation running 2026-07-05 | greedy α∈{0.5,1.5} (α=1 merged from E8) + T=0.6 ×3 samples; annotation-free endpoints + P1–P4 pre-registered | `results/eval/R1-1.5B__E9_1_*/`, analysis `e9_1_analysis.py` |
+
+## C. Annotator robustness
+
+| Item | Status | Numbers | Source |
+|---|---|---|---|
+| R2.1 inter-annotator agreement | ✅ | Cohen's κ 0.436 (Son↔Qwen) / 0.350 (Son↔Nova) / 0.345 (Qwen↔Nova); span-F1@IoU≥0.5 0.26–0.31 | `results/robustness/cross_annotator_comparison.md`, `span_f1.md` |
+| Nova-Pro weakness | ⚠️ | 8.0% unlocatable spans (vs 0.1% Sonnet, 2.3% Qwen); 58% dup rows → weak arm | (verified 2026-06-20) |
+| R2.2 geometry replication across annotators | ✅ **3-way COMPLETE** | **Intrinsic-dim + curvature REPLICATE across all 3 annotators** (Sonnet / Qwen3-235B / Nova-Pro) despite κ=0.35–0.44. cdim-full per behaviour (Son/Qwen/Nova): backtracking 5.9/6.7/6.6, uncertainty 6.2/7.0/7.2, add-know 7.7/8.4/8.7, example-test 6.0/6.6/6.0 — consistent + same ordering; keystone PASS (chainstrat≈full) in all three; curvature-as-chain-artefact (geo full≈3.0–4.2 > chainstrat≈2.3–2.5) holds in all three. ⚠️ Qwen3/Nova on analysis-side dedup (dup 28–58%) vs Sonnet clean (1%) → absolute values modestly shifted; variance-ratio specificity-null replication still not formally compared. | local (Nova synced 2026-06-23) + cluster |
+
+## D. Predictive geometry (pilot; branch `predictive-geometry-of-reasoning`)
+
+| Item | Status | Numbers |
+|---|---|---|
+| Predictor beats persistence (label-free) | ✅ | residual/persistence ≈ 0.88 (train on all 986 chains); displacement R² ≈ +0.25–0.31 |
+| Residual→correctness AUROC | 🟧 small | L27 0.578 ridge (p=.034) / 0.591 JEPA (p=.024); L14 JEPA 0.582 (p=.026); **L17 dead** |
+| H1 (magnitude) vs H3 (order) | — | step-shuffle null n.s. (p>0.7) → supports H1, refutes H3 |
+| Integrity | ⚠️ | first gate inflated AUC≈0.61 (trained on labelled subset); **cite corrected 0.54–0.59** |
+| Next | ⬜ | scale 183→~1000 labels (user decision, ~5× judge cost) |
+
+## E. DO NOT CITE / dropped
+- `results/tier1_robustness/R1-1.5B/geometry_nulls_layer27.md` (2026-06-08, pre-dedup; TwoNN "0.168" = zero-distance artefact; unsmoothed p).
+- **TwoNN** intrinsic-dim values (unstable). **PCA d_eff ≥80%** (saturated at 100). **tangent-space variation** curvature.
+- Any **full-data curvature ratio** presented as evidence *of* curvature (it is the artefact).
+- The **first/flawed** predictive-geometry gate (AUC 0.61) — superseded by `corrected/`.
+- Everything under `results/_STALE_pre_fix_20260605/` and `results/_archive_*`.
+
+## F. Needs REBUILD / re-run (stale vs current state)
+1. **`-peak` steering vectors + `05d` clustering** — built at the OLD `peak_layers` (14/14/17/27); config reconciled to 16/16/16/12 on 2026-06-20 → rebuild (a run) before relying on them. (Decide example-testing layer first: 12 PR-trough vs 27 specificity/Huang.)
+2. **Canonical steering `metadata.json`** — `git_commit:null` provenance (cosmetic).
+3. **R2.2 outputs** — rsync Sonnet+Qwen3 (and Nova when done) from cluster → local, then run `compare_annotators.py` to fill the `manifold_replication` table.
+4. **Phase 7** — RUN 2026-06-29 (see §B); still owed: non-builder re-annotation band (budget), α-sweep, k∈{1,10,auto}, task-accuracy guard.
+
+## G. What ran WHERE
+- **Cluster `spark-06aa`** (no-git stale copy): G0.0 re-extraction (GPU); R2.2 multi-annotator geometry (Sonnet+Qwen3 done, Nova-Pro running). Outputs not auto-synced to local.
+- **Local**: G0.1 downstream (PCA/05c/triangulation/05d/05b/power), steering-vector rebuild, predictive-geometry pilot, R2.1 agreement/span-F1.
+
+---
+### Change log
+- 2026-07-05: **§B3 added — E9.0 loop-geometry gate EXECUTED** (884-chain extraction on RunPod ~10 min; probe AUC 0.994; contamination gate PASSED |cos|≤0.13 ⇒ H-B rejected; meandiff sign structure supports H-D; PR-precedence killed by the matched-position control, uniformity-precedence stands at L17 only). E9.1 factorial LAUNCHED (greedy α∈{0.5,1.5} + T=0.6×3; E8 α=1 merged; min-p deferred). Thesis: sec:steering-collapse + sec:steering-collapse-programme written into steering.tex, conclusion RSI paragraph extended (collapse↔creativity, Funes/compression); both builds compile (69pp/80pp). Batched SAMPLING added to steered_inference (batch-level seeding; suite 556 green).
+- 2026-07-04 (later): **§B repetition-collapse secondary analysis added** — E8 chains re-analysed per-chain: collapse is bimodal loop-to-cap, arm-induced + behaviour-subspace-specific (ex-test/unc inflate ~2×; backtracking/add-know REDUCE it), attractor pre-exists in vanilla (34%). New docs: `COLLAPSE_AND_ENTROPY.md` (representational-collapse framing, verified lit shortlist, E9 experiment ladder: loop-probe geometry → α×decoding-entropy factorial → structured state-noise → fork-localized entropy injection); CF-19 registered in `CONFOUNDS_AND_REMEDIATION.md` (the length-dilution confound was remediated in the run analysis but never registered). E8 verdict unchanged (backtracking-only headline already survives the de-confounds).
+- 2026-07-04: **§B2 added — safety-spillover Rung-0 EXECUTED at full corpus** (RunPod 4090 ~50min <$1): NO subspace rotation (8/8 cells null vs within-model floor), representational footprint = ONE global translation (~5–6% norm, cos 0.95–0.99 across behaviours); raw-angle selectivity was the predicted matched-n artefact. Gates pre-registered + two estimator flaws fixed on synthetic data BEFORE real data (see `METHODOLOGY_SAFETY_SPILLOVER_2026-07-03.md`). Attribution to safety blocked on the Rung-1 control. Folded into thesis safety chapter same day.
+- 2026-07-02: **§B updated to reflect the E8/Phase-7 run** (was stale "UNRUN" since 2026-06-23): one clean behaviour (backtracking), example-testing artefact, no manifold advantage, within-annotator/preliminary. Header B retitled. Also: thesis v2 chapters passed a multi-agent review + fix pass this date (accuracy vs `results/eval/R1-1.5B__E1/` verified; both builds compile).
+- 2026-06-23: **R2.2 CLOSED** — Nova-Pro geometry finished on cluster, synced local; 3-way replication confirmed (geometry replicates across Sonnet/Qwen3/Nova despite κ=0.35–0.44). Annotator-robustness loop complete.
+- 2026-06-21 (night): **methodology-evaluation cycle** (4 agents: research + adversarial critique on layer-selection and Phase-7). **Layer-selection:** attribution patching (07c) was proximity-confounded → rebuilt as a forward-intervention steering-effect sweep (`07d`/`src/layer_sweep.py`), then HARDENED per critique — per-layer **random-direction null** (de-confounded effect = behaviour − random), **per-layer α-normalization**, **KL read-out**, **bootstrap shortlist** (not a lone argmax), early-layer exclusion, **context-window truncation** for tractability. De-confounded smoke: **backtracking causal layer = L16 (mid), not L27** — matches Venhoff (~L15–18), validates the redesign. Full de-confounded sweep DONE (4 beh × 12 donors × R2-null, W=1024): a universal **L27 KL-spike** (last-layer direct-logit-edit — the artifact a logprob/KL proxy can't escape even de-confounded; random-null can't remove a *behaviour-specific* direct effect) PLUS, revealed by the random-null, **Venhoff-aligned mid peaks** (backtracking L11, uncertainty L16, example-testing L19, adding-knowledge L16 ≈ Venhoff 15–18). Proxy can't settle mid-vs-late → **fold layer into Phase 7**: build at per-behaviour mid + L27, let free-generation steering-effectiveness decide. **Phase-7:** critique verdict "not fundable as-is" → HARDENED — **k-sweep** (auto_k≈single, cos 0.96), **random-subspace control**, **energy-matched random** (norm-matched was ~19× too weak), **orthogonal-complement decomposition** arm, **matched-effect Pareto + paired BCa bootstrap + Holm** analysis module (`src/steering_analysis.py`), generation-first runner; saturation-α* test cut. All refinements tested (suite green). Pending Phase-7 judgment calls: primary endpoint, n (50 vs 100+), sampling (greedy vs multi), add-knowledge in headline?, annotation scope + $ gate.
+- 2026-06-21 (late): **E3 attribution patching RAN on cluster** (4 behaviours × 20 pairs × 28 layers) → **CONFOUNDED**: all behaviours ramp monotonically to L26–27 (read-out-proximity artifact, metric reads at last layer L27), so it does NOT give per-behaviour causal layers (Venhoff's comparable method finds mid-layers 15–18). **Do not pick layers from it.** Decision: fold layer selection into Phase 7 (build E4 vectors at mid-16 + late-27, choose by steering effectiveness). `results/patching/R1-1.5B/attribution_curves.json`.
+- 2026-06-21 (eve): **PLAN_EXPERIMENTS batch** — E1 metrics (off-target leakage + `aggregate_accuracy`) + E3 attribution-patching code (CF-10 metric fixed: projection-onto-steering-geometry, not lexical) landed with tests (41 green). E10 DO-NOT-CITE bannered. E11 clustering rebuilt @ reconciled layers (no sub-types holds, silhouette 0.18–0.20). **E2 pooling RESOLVED**: our mean-pool = Venhoff's published recipe (verified in their code) → keep it; position sweep optional. GPU/$ items staged for go-ahead.
+- 2026-06-21 (pm): **pulled the 2-way verdict** — Sonnet↔Qwen3-235B intrinsic-dim + curvature geometry **REPLICATES** (external validity ✅). cdim within ~0.6, keystone PASS in both, curvature-artefact holds. Caveat: Qwen3 on lossy analysis-dedup (dup 33–52%) vs Sonnet clean (1%). Nova-Pro (3rd arm) + variance-ratio-null replication still pending.
+- 2026-06-21 (pm): correction — Nova-Pro `05b` runs the null hierarchy **per-layer (×5)**, ~45h in and still cycling; earlier "few hours" ETA was wrong (~1 day+ more). Sonnet+Qwen3 geometry both done → a **2-way Sonnet↔Qwen3 replication verdict is available now** without waiting for Nova.
+- 2026-06-21: R2.2 Nova-Pro geometry ~39h in, on its final behaviour (uncertainty null); replication verdict still pending; no new local results; Phase 7 still unrun.
+- 2026-06-20: created from the Gate-0 re-run, cluster R2.2 check, steering metadata, and the supervisor brief.

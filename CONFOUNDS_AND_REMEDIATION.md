@@ -1,6 +1,6 @@
 # Confounds & Negative Results — register and remediation plan
 
-**Created:** 2026-06-06 · **Last verified against repo state:** 2026-06-12 (branch `main`, post duplicate-row/alignment/null-hardening fixes; see CF-13…CF-17).
+**Created:** 2026-06-06 · **Last verified against repo state:** 2026-06-12 (branch `main`, post duplicate-row/alignment/null-hardening fixes; see CF-13…CF-17). · **Gate-0 regeneration COMPLETE 2026-06-18 — see the status banner below; this register is now partly historical. Last reviewed 2026-06-20.**
 
 This is the **single source of truth** for *what is scientifically wrong or unproven* in
 the project and *how, in what order, we fix it*. It unifies three pre-existing docs that
@@ -18,6 +18,40 @@ each cover only one slice:
 > it before touching geometry/steering results. When a number is regenerated, also clear the
 > matching row in `INVENTORY.md` and the stale banner in `PROGRESS.md`. Bump the
 > "Last verified" date above when you re-check repo state.
+
+---
+
+## ⛳ STATUS UPDATE — 2026-06-20: Gate 0 is COMPLETE (this register is now partly historical)
+
+The "nothing is citable / everything quarantined" framing in §0–§1 was written **before** the
+regeneration and is kept as the historical rationale. **As of 2026-06-18 the Gate-0 re-extraction +
+full geometry re-run are done on clean (deduplicated) data, and the geometry numbers are citable.**
+
+- **G0.0–G0.4 DONE.** Activations re-extracted occurrence-aware (duplicate fraction 35–56% → ~1%)
+  with `row_index.json` provenance; the CPU downstream (PCA / 05c / triangulation / 05d / 05b / power)
+  re-ran. All "code FIXED, re-run owed" rows — **CF-1, CF-3, CF-4, CF-9, CF-13, CF-14, CF-15, CF-16** —
+  are now satisfied; **NR-1** (the all-NaN power table) is closed.
+- **The headline shifted honestly:**
+  - ✅ **Low intrinsic dim SURVIVES** the chain control — corr-dim ≈ 5.9 / 6.2 / 6.0 / 7.7
+    (backtracking / uncertainty / example-testing / adding-knowledge) in 1536-D, stable across
+    one-sentence-per-chain (the low-dim half of CF-2).
+  - ❌ **Per-behaviour curvature is a CLEAN, WELL-POWERED NEGATIVE** — curved on full data, ≈1.0 (flat)
+    at one-sentence-per-chain (within-chain autocorrelation). Power analysis confirms ~600–900 chains
+    could have detected it. (CF-1 closes as a *negative*; CF-5's linear-apparatus worry is moot.)
+  - 🟧 **Behaviour-specificity is MIXED (2/4):** backtracking + uncertainty specific at all layers
+    (B=2500 null, p<.001); example-testing only at L27; adding-knowledge nowhere (p=1.0). The
+    variance-ratio null now also carries the intrinsic-dim / curvature statistics (CF-3).
+- **Still OPEN / unrun:** design rows CF-5/6/8/10/11/18; **Phase-7 steering** (CF-17, fixed) is
+  **built but unrun**.
+- **R2.2 (per-annotator geometry replication) DONE 3-way (2026-06-23):** Sonnet ✅ + Qwen3-235B ✅ +
+  Nova-Pro ✅, all synced local. Intrinsic-dim + curvature-as-chain-artefact **replicate across all
+  three** despite κ=0.35–0.44 (cdim-full back/unc/add/ex = 5.9·6.7·6.6 / 6.2·7.0·7.2 / 7.7·8.4·8.7 /
+  6.0·6.6·6.0 for Son/Qwen/Nova; chain-control keystone passes in all three). **Caveat:** Qwen3/Nova
+  on analysis-side dedup (28–58%) vs Sonnet clean (1%) → absolute values modestly shifted; the
+  variance-ratio specificity null is still single-annotator (so behaviour-specificity replicates at
+  the subspace level, not yet at the specificity-test level).
+
+Authoritative live summary: `results/supervisor_meeting/MEETING_2026-06-18.md`.
 
 ---
 
@@ -47,24 +81,24 @@ On top of that there is **no working power analysis** (`power_analysis_curvature
 all-NaN table; fixed to fail-loud but **not re-run**), so we cannot even say whether our effective
 sample size *could* detect the curvature we claim.
 
-**Net effect: no geometry number in this repository is currently citable.** Every geometry/steering
+**Net effect (written 2026-06-06 — now SUPERSEDED; see the 2026-06-20 banner above): no geometry number in this repository is currently citable.** Every geometry/steering
 output is quarantined in `results/_STALE_pre_fix_20260605/`. The temporal-ordering pilot (Paper 1)
 is the *only* standing empirical result. This is not a crisis — the code is fixed; what remains is
 to **re-run, and to test the right statistics.** This document sequences that.
 
 ---
 
-## 1. Verified current state (2026-06-06)
+## 1. Verified current state (2026-06-06 — SUPERSEDED by Gate-0 completion 2026-06-18; bullets corrected below)
 
 What I confirmed directly against the repo (not from memory):
 
-- **Geometry NOT regenerated.** No fresh `results/geometric|pca|cross_layer|triangulation|clustering`;
-  all 12 dirs sit in `results/_STALE_pre_fix_20260605/`. The regeneration gate (§4 Gate 0) is **open**.
+- **Geometry REGENERATED (Gate 0 complete 2026-06-18).** Fresh `results/{geometric,pca,cross_layer,triangulation,clustering}`
+  on clean (deduplicated) data; the `results/_STALE_pre_fix_20260605/` copies remain the "before" snapshot. The regeneration gate (§4 Gate 0) is **CLOSED**.
 - **Steering vectors ARE fresh** (`results/steering_vectors/R1-1.5B/`, 2026-06-06, built on the fixed
   `svd_solver="full"` PCA). But they are **linear** (diff-of-means projected onto a top-k PCA subspace)
   and built on **mean-pooled** activations — see CF-5, CF-6.
-- **Power analysis NOT re-run** — no fresh `results/power_analysis/`; the stale one is the all-NaN table.
-- **`results/robustness/` exists but is empty** — the robustness pipeline has produced nothing yet.
+- **Power analysis RE-RUN (2026-06-15)** — `results/power_analysis/{summary.md,power_table.csv}`, non-NaN; the curvature negative is well-powered (local↔global ratio detectable at N≥500; pools ~600–900 chains). **NR-1 closed.**
+- **`results/robustness/` now POPULATED** — Sonnet geometry + R2.1 cross-annotator agreement (κ 0.35–0.44, span-F1 0.26–0.31) done; **R2.2** per-annotator geometry replication **DONE 3-way** (Sonnet ✅ + Qwen3-235B ✅ + Nova-Pro ✅, all synced local 2026-06-23): intrinsic-dim + curvature-artefact replicate across all three.
 - **The N story (resolved — the audit's "N=51–145" was a smoke-run artifact):**
   - The *full* geometry run (28-May, now stale) used the **full** per-behaviour counts:
     backtracking **10 267**, uncertainty **16 728**, example-testing **5 829**, adding-knowledge **5 027**
@@ -83,6 +117,12 @@ Severity: **S0** = invalidates the headline claim if unaddressed · **S1** = wea
 **S2** = reviewer-objection / scope caveat. Type: **bug→fixed** (code fixed, re-run owed) vs
 **design** (research-design choice, no code fix possible — needs a different experiment).
 
+> **2026-06-20:** the **Status** cells below are as of 2026-06-12. The "code FIXED, re-run owed"
+> rows — **CF-1, CF-3, CF-4, CF-9, CF-13, CF-14, CF-15, CF-16** — were satisfied by the Gate-0
+> re-run (2026-06-18) and should be read as **CLOSED** (CF-1 closed as a *negative* — curvature is
+> a chain artefact). **CF-7**'s R2.2 half is **DONE 3-way** (Qwen3 ✅; Nova-Pro ✅ 2026-06-23 — geometry replicates). Still-open
+> *design* rows (CF-5/6/8/10/11/18) and **CF-17** (Phase-7 — fixed, still unrun) are unchanged.
+
 | ID | Confound | Claim threatened | Sev | Type | Status |
 |----|----------|------------------|-----|------|--------|
 | **CF-1** | Curvature diagnostic confounded (flat data scored in the same range as "evidence"); geodesic symmetrization halved edges | "manifold is **curved**" (Paper 2/3 core) | S0 | bug→fixed | code FIXED 2026-06-05; **re-run owed** |
@@ -91,10 +131,10 @@ Severity: **S0** = invalidates the headline claim if unaddressed · **S1** = wea
 | **CF-4** | Intrinsic-dim estimators biased high (`twoNN` +35–50%, CBS `local_intrinsic_dim` ~3–4×) | "intrinsic dim ≪ PCA dim" (the compression gap = the whole result) | S0 | bug→fixed | code FIXED 2026-06-05; **re-run owed** |
 | **CF-5** | **Linear apparatus, curvature claim.** "Manifold-projected" steering is a top-k PCA (linear-subspace) projection; curvature in 5b is measured *after* projecting to a top-k PCA subspace (`05b:135`). A linear operator cannot test a curvature claim | Paper 3 (curvature → steering) | S1 | design | **OPEN** (reframe or build a nonlinear operator) |
 | **CF-6** | **Mean-pooling destroys the trajectory.** Activations are mean-pooled over the first ~10 tokens of each span; the manifold claim is fundamentally about a *trajectory* (a curve through the chain) | process/trajectory claims; "curve not point" | S1 | design | **OPEN** |
-| **CF-7** | **Single unvalidated annotator.** Labels (the dependent variable) come from one LLM (Sonnet 4.5). 3-annotator robustness (Qwen3-235B, Nova-Pro) arms complete; Nova-Pro had ~290/1000 partial-parse failures (weak arm) | every geometry claim (labels gate everything) | S1 | design (mitigation in progress) | **R2.1 analysis DONE 2026-06-12** (`results/robustness/cross_annotator_comparison.md`, occurrence-aware spans, 1000 common chains): char-level 6-label **κ = 0.436 / 0.350 / 0.345** (Sonnet↔Qwen3 / Sonnet↔Nova / Qwen3↔Nova) — fair-to-moderate, with large per-label divergence (uncertainty-estimation 21.6% vs 7.0% of spans; Nova-Pro deduction 54.1% — plausibly inflated by the CF-18 unknown→deduction coercion on its parse failures). Label noise is substantial → the **R2.2 geometry-replication test is now load-bearing** (does the geometry survive the label disagreement?); it awaits re-extraction of the annotator arms under the occurrence-aware matcher (their June-6 extractions carry the CF-13 duplicates). Char-level κ is a harsh metric (boundary disagreements count fully) — report span-F1 alongside before judging the annotator |
+| **CF-7** | **Single unvalidated annotator.** Labels (the dependent variable) come from one LLM (Sonnet 4.5). 3-annotator robustness (Qwen3-235B, Nova-Pro) arms complete; Nova-Pro had ~290/1000 partial-parse failures (weak arm) | every geometry claim (labels gate everything) | S1 | design (mitigated — R2.2 done 3-way) | **R2.1 analysis DONE 2026-06-12** (`results/robustness/cross_annotator_comparison.md`, occurrence-aware spans, 1000 common chains): char-level 6-label **κ = 0.436 / 0.350 / 0.345** (Sonnet↔Qwen3 / Sonnet↔Nova / Qwen3↔Nova) — fair-to-moderate, with large per-label divergence (uncertainty-estimation 21.6% vs 7.0% of spans; Nova-Pro deduction 54.1% — plausibly inflated by the CF-18 unknown→deduction coercion on its parse failures). Label noise is substantial → the **R2.2 geometry-replication test was load-bearing**; it is now **DONE 3-way (2026-06-23)** — intrinsic-dim + curvature-as-chain-artefact replicate across Sonnet/Qwen3/Nova-Pro despite the disagreement (the variance-ratio specificity null is still single-annotator). Char-level κ is a harsh metric (boundary disagreements count fully) — report span-F1 alongside before judging the annotator |
 | **CF-8** | **50% truncation.** 50.2% of chains hit the 8192 cap and lack a closing `</think>`; truncation rate correlates with category (lateral 95%, spatial 71%) → correlates with behaviour mix | position/behaviour analyses; corpus validity | S1 | design | **OPEN** (raise cap / stratify / drop categories — undecided) |
 | **CF-9** | Bootstrap CIs too narrow — `intrinsic_dim`/`curvature` resampled *derived* quantities (μ ratios, pairwise distances), which are dependent → CIs like [0.575, 0.587] (AUDIT #16) | any CI-backed geometry comparison | S2 | bug→fixed | code **FIXED 2026-06-05** (`d7d147e`: point-subsample bootstrap, end-to-end recompute — this row was stale); **re-run owed** with Gate 0 |
-| **CF-10** | Activation-patching proxy — `behaviour_marker_logprob` scores behaviours by tokens like "wait"/"actually" and patches position *i* across non-aligned chains → conflates behaviour with surface lexis | causal "Paper 2 main" claim | S1 | design | **OPEN** (validated metric + positional alignment) |
+| **CF-10** | Activation-patching proxy — `behaviour_marker_logprob` scores behaviours by tokens like "wait"/"actually" and patches position *i* across non-aligned chains → conflates behaviour with surface lexis. **Attribution-patching fix (07c) was itself CONFOUNDED**: a metric read at a FIXED late layer (L27) + a *first-order gradient* gave a monotone early→late ramp to L26–27 for all 4 behaviours (read-out-proximity artefact; `results/patching/R1-1.5B/attribution_summary.md`) — no interior peak, no per-behaviour signal | causal "Paper 2 main" / steering-layer claim | S1 | design | **CODED 2026-06-21 (unrun)** — de-confounded via FORWARD-PASS intervention `src/layer_sweep.py` + runner `07d_layer_steering_sweep.py`: measures the *actual non-linear* per-layer steering effect (hook adds −α·v_ℓ over the onset prefix, Huang Eq.3 projective form) with the read-out at the **OUTPUT** (teacher-forced log-prob of the donor's REAL onset token — CF-10a: not a lexical-marker list; CF-10b onset alignment retained). The output read-out is common to every layer ⇒ no proximity term ⇒ the curve CAN have a genuine interior peak (forward intervention captures the amplification the gradient cannot). Interior-peak recovery + old-vs-new contrast pinned by synthetic-stub tests (`tests/test_layer_sweep.py`, 21 green). Caveat: log-prob read-out still token-anchored. Run (GPU, forward-only ~26 fwd×N×4): `python 07d_layer_steering_sweep.py --behaviours all --n-donors 20`. **OPEN** until run |
 | **CF-11** | **Safety ∦ capability** ([2505.14185]). A "safety manifold" may be a difficulty/capability manifold; linear separability of safety from capability is not given | the proposed safety flagship (Part II) | S0 (for safety arm) | design | **OPEN** (capability control is mandatory, not optional) |
 | **CF-12** | Cross-model "bootstrap" was a Gaussian reconstructed from CI width, not a bootstrap — the load-bearing distillation-vs-reveals test for the knowledge-creation arm | knowledge-creation / cross-model H4 | S1 | bug→partial | relabelled `p_normal_approx`; true two-sample bootstrap added but needs producers to persist per-resample arrays — **verify end-to-end** |
 | **CF-13** | **Exact-duplicate activation rows (35–56%).** First-occurrence sentence matching (`str.find`) bound every verbatim repeat to the first span → byte-identical rows. Zero-distance neighbours corrupt every kNN estimator (TwoNN, LB, geodesic), AND duplicates concentrate *within* behaviour labels, so real per-behaviour matrices are duplicate-rich while label-permuted resamples are duplicate-poor. The 2026-06-08 tier1 layer-27 null results (twoNN "dim" 0.168!) are **superseded** | every geometry number + the keystone null itself | S0 | bug→**FIXED 2026-06-12** (occurrence-aware `locate_annotation_offsets`; dedup in 05/05b/05c/tier1 via `src/row_provenance.py`) | **re-extraction + re-run owed**. 2026-06-12 experiment (stats review): the LB "real < null" signal **SURVIVES dedup** (backtracking 9.12 vs null 10.65, ~18 SD; adding-knowledge similar) — duplicates understated absolute dims ~3× but did **not** manufacture the compression direction. twoNN's nonsense values were the duplicate artifact. Near-duplicate (canned-phrase) caveat stands. Occurrence-aware matching empirically drops dup-rows 51.9%→1.2% (residual = over-annotation collisions + nested spans; `dedup_rows` is load-bearing for those) |
@@ -103,6 +143,7 @@ Severity: **S0** = invalidates the headline claim if unaddressed · **S1** = wea
 | **CF-16** | **Monte-Carlo machinery.** p-values were unsmoothed count/B (B=100 default) → p=0 artifacts read against a Bonferroni threshold (0.05/112≈4.5e-4) that was **never computed** (dead loader); the null pool contains only the 4 target behaviours (deduction/initializing = 51% of sentences excluded) | "significant at 28/28 layers" claims | S1 | bug→**mostly FIXED 2026-06-12** (Phipson–Smyth smoothing; real Holm–Bonferroni in triangulation with resolution-limited flags; B guidance logged). Null-pool scope is a standing design caveat — extracting deduction/initializing activations would close it | re-run with B ≥ 2239 on reported layers |
 | **CF-17** | **Phase-7 design debt** (pre-spend): 2048-token cap (vs corpus 8192 — the BAD_2048cap mistake recurring), vanilla regenerated byte-identically at every α (1600 vs 50 needed generations + re-annotations), no random-direction control arm (no causal baseline), missing re-annotations silently scored 0.0 (deflates the most-destructive arm), "held-out" set = `tasks[-50:]` of a category-blocked file = **100% lateral_thinking**, and two builders clobbering the same vector files | the entire steering result + $290 of annotation | S1 | bug→**FIXED 2026-06-12** (config-cap default 8192 + warning; shared vanilla baseline; norm-matched `random_direction` arm; n_missing/n_empty accounting; category-stratified eval split persisted to `eval_task_ids.json`; `-peak` output dir + builder provenance). 02b baseline cap also raised 2048→8192. Second-pass review fixes: all-failed cells now survive aggregation (union-key summary + free off-target metrics: mean_n_tokens / repetition_rate / degenerate_rate); config key read corrected (`chains.max_new_tokens`); legacy pre-hoist vanilla records dropped on resume; transformers-5.x hook crash fixed (tuple-or-tensor layer output). Note: the random arm is **vector-norm** matched (generic-perturbation floor), not energy-matched — describe precisely | Phase 7 still unrun. **Hold-out CLOSED 2026-06-12:** the vector builders now exclude the eval tasks' rows by default (row-provenance hold-out; 06/07 share `stratified_eval_split` so the sets cannot drift; recorded in vector metadata + provenance). Residual caveat: steering-LAYER choice was informed by full-corpus analyses (+ Huang's published layer 27) — note in the paper, do not claim layer selection is held out. 7B arm DROPPED for the paper (Tony, 2026-06-12) |
 | **CF-18** | **Annotation-layer integrity (verified with repros, data-integrity review 2026-06-12):** (a) chunk-merge overlap dedup silently deletes genuine recurrences of short sentences — exactly backtracking/uncertainty markers — and 936/1000 production chains were chunked; (b) unknown annotator labels are irreversibly coerced to `deduction` (`src/annotation.py` parse_annotation_response, ~:305) with only a transient warning, no persisted trace — contaminating the probe "other" class and any deduction-based comparison; (c) the canonical annotated file ships 7 `annotation_complete=False` records (incl. empty CREA_026) that Phase 4 consumed unfiltered; 03's count-only early-exit + task_id-keyed resume arms a stale-annotation trap for any chain regeneration | labels are the dependent variable for everything; sentence-level recall of repeat-heavy behaviours | S1 | design/bug | **OPEN** — mitigated in part by the 3-annotator arm (CF-7). Fix chunk-merge before any re-annotation; heal/exclude the 7 incomplete records together with G0.0 (healing them now would reorder the file against existing matrices) |
+| **CF-19** | **Degeneration manufactures Δ_floor (length-dilution), and collapse is bimodal loop-to-cap.** The fraction endpoint is length-sensitive: a vector that drives looping/padding dilutes behaviour share and manufactures spurious "suppression". E8 secondary analysis (2026-07-04, [`COLLAPSE_AND_ENTROPY.md`](COLLAPSE_AND_ENTROPY.md) §2): per-chain repetition is U-shaped — chains either stay clean or loop verbatim to the 8192 cap (rep↔length r≈0.9; `degenerate_rate`(<32 tok) is blind to this mode — collapse makes *long* chains); the excess collapse is **arm-induced and subspace-specific** (ex-test manifold_k5 collapsed 34%→64%, unc manifold_k3 35%→68% vs vanilla, net transitions +15/+17; equal-k random-subspace floors add ≈0) while backtracking/add-knowledge ablation *reduces* collapse (Δrep −0.11/−0.15). Residual open threats: (a) steering-vector contamination by a repetition direction (loop-probe cosine test, E9.0a); (b) greedy decoding as collapse enabler — headline effect unverified at T>0 (E9.1 P3) | steering fraction endpoints; interpretation of ex-test/unc "suppression"; any future diversity/entropy claim | S1 | design | **REMEDIATED for the E8 verdict** (count + per-1k + non-degenerate-subset endpoints, `strengthen_report.json`; backtracking survives, ex-test/unc do not — folded into `steering.tex` 2026-06-30) but unregistered here until 2026-07-04; mechanism analysis + E9 remedy ladder in `COLLAPSE_AND_ENTROPY.md` |
 
 ### Notes on the non-obvious ones
 
@@ -131,6 +172,8 @@ Severity: **S0** = invalidates the headline claim if unaddressed · **S1** = wea
 These are findings that came out null/weak. Several are *honest* results worth reporting; the danger
 is letting a downstream plan keep assuming the positive version.
 
+> **2026-06-20:** **NR-1 is CLOSED** (power table re-run, non-NaN — the curvature null is well-powered). NR-3 stays RESOLVED (continuous-manifold reframe). NR-2 / NR-4 / NR-5 remain standing caveats, sharpened by the Gate-0 re-run (adding-knowledge fails behaviour-specificity at every layer; example-testing is specific only at L27).
+
 | ID | Negative result | What it kills / weakens | Honest reframe | Status |
 |----|-----------------|-------------------------|----------------|--------|
 | **NR-1** | Power analysis wrote an **all-NaN** table that masqueraded as a ">max tested" null | we have **no** detection-power result for curvature at our (effective) N | not a null — a **silent failure**; must re-run the fixed fail-loud version | **OPEN** (re-run) |
@@ -147,9 +190,15 @@ Ordering principle (inherited from ROBUSTNESS_PLAN): **cheapest-to-falsify first
 GPU/API until the free CPU checks either survive or force a reframe.** Each task names the confound(s)
 it closes.
 
-### Gate 0 — Regenerate on the fixed code (BLOCKING; nothing downstream is valid until this is done)
+### Gate 0 — Regenerate on the fixed code ✅ COMPLETE 2026-06-18 (was BLOCKING)
 
 Until Gate 0 completes, **do not** write results prose, refresh figures, or cite any geometry number.
+
+> **✅ DONE 2026-06-18.** G0.0 (re-extraction; dup 35–56% → ~1%; `row_index.json` sidecars),
+> G0.1 (PCA / 05c / triangulation / 05d / 05b re-run), G0.2 (power table, non-NaN), G0.3 (figures +
+> numeral-lift into ch07), G0.4 (sanity gate: curvature scored ≈flat at one-per-chain → reframed as a
+> clean negative; did **not** abort the downstream). Geometry numbers are now citable. Remaining gated
+> work is Tier-3 Phase-7 steering (unrun); Tier-2 R2.2 geometry replication is **DONE 3-way** (2026-06-23).
 
 - **G0.0** *(added 2026-06-12 — now FIRST)* **Re-extract activations** on the cluster
   (`04_extract_activations.py`, GPU). The saved `.npy` matrices were produced under the

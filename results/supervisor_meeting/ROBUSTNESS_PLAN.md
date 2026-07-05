@@ -59,7 +59,7 @@ These need no new data, no API, no GPU (except where noted). They are the cheape
 
 ## 4. Tier 2 — Annotator robustness (modest API)
 
-- **2.1 Second annotator + agreement.** Re-annotate a stratified subset (~100–150 chains) with a *different* model (GPT-4o / Gemini / Claude-Opus); compute span-F1 and Cohen's κ; anchor both to a small human-labelled gold set. *Defends label validity.*
+- **2.1 Second & third annotators + agreement.** Re-annotate with two *different* proxy models — **Qwen3-235B** and **Nova-Pro** (not GPT-4o; all via the AWS Bedrock proxy) — and compute span-F1 and 3-way Cohen's κ against the Sonnet primary; anchor to a small human-labelled gold set. *Defends label validity.*
 - **2.2 Re-derive the manifold under the second annotator's labels.** The headline external-robustness test: does the geometry replicate when the labels come from a different annotator? *Defends every geometry claim, externally.* *Cost: API (subset) + CPU.*
 
 ---

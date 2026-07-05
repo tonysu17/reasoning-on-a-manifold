@@ -1,0 +1,14 @@
+{
+  "git_commit": "06f07fec6bcfad921f37ff1a49a858f3e180d340",
+  "git_dirty": true,
+  "seed": 42,
+  "args": {
+    "model_short": "R1-1.5B",
+    "layers": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]",
+    "behaviours": "['backtracking', 'uncertainty-estimation', 'example-testing', 'adding-knowledge']",
+    "top_k": 10,
+    "out_dir": "results/cross_layer/R1-1.5B",
+    "seed": 42,
+    "annotated": null
+  }
+}

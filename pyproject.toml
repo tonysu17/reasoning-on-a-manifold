@@ -26,6 +26,15 @@ gpu = [
     "accelerate>=0.30",
     "huggingface_hub>=0.22",
 ]
+# Safety post-training intervention (src/safety_posttrain + pt0* runners).
+# LoRA SFT needs peft; trl is optional (the trainer uses transformers.Trainer).
+posttrain = [
+    "torch>=2.2",
+    "transformers>=4.40",
+    "accelerate>=0.30",
+    "peft>=0.11",
+    "datasets>=2.19",
+]
 cbs = [
     "statsmodels>=0.14",
     "umap-learn>=0.5",

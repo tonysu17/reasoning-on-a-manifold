@@ -1,0 +1,330 @@
+{
+  "triangulation": {
+    "backtracking": {
+      "behaviour": "backtracking",
+      "pr_peak": 16,
+      "pr_plateau": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "pr_status": "peaked",
+      "probe_peak": null,
+      "probe_plateau": [],
+      "probe_status": "flat",
+      "patching_peak": null,
+      "patching_plateau": [],
+      "patching_status": "missing",
+      "candidate_set": [
+        16
+      ],
+      "agreement_level": "single-signal (PR only; others flat/missing)"
+    },
+    "uncertainty-estimation": {
+      "behaviour": "uncertainty-estimation",
+      "pr_peak": 16,
+      "pr_plateau": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "pr_status": "peaked",
+      "probe_peak": null,
+      "probe_plateau": [],
+      "probe_status": "flat",
+      "patching_peak": null,
+      "patching_plateau": [],
+      "patching_status": "missing",
+      "candidate_set": [
+        16
+      ],
+      "agreement_level": "single-signal (PR only; others flat/missing)"
+    },
+    "example-testing": {
+      "behaviour": "example-testing",
+      "pr_peak": 12,
+      "pr_plateau": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "pr_status": "peaked",
+      "probe_peak": null,
+      "probe_plateau": [],
+      "probe_status": "flat",
+      "patching_peak": null,
+      "patching_plateau": [],
+      "patching_status": "missing",
+      "candidate_set": [
+        12
+      ],
+      "agreement_level": "single-signal (PR only; others flat/missing)"
+    },
+    "adding-knowledge": {
+      "behaviour": "adding-knowledge",
+      "pr_peak": 16,
+      "pr_plateau": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "pr_status": "peaked",
+      "probe_peak": null,
+      "probe_plateau": [],
+      "probe_status": "flat",
+      "patching_peak": null,
+      "patching_plateau": [],
+      "patching_status": "missing",
+      "candidate_set": [
+        16
+      ],
+      "agreement_level": "single-signal (PR only; others flat/missing)"
+    }
+  },
+  "multiple_comparisons": {
+    "method": "holm-bonferroni",
+    "alpha": 0.05,
+    "n_tests": 20,
+    "n_significant": 11,
+    "n_resolution_limited": 0,
+    "note": "p-values are Phipson-Smyth smoothed permutation p's; resolution_limited cells CANNOT reach their Holm threshold at the B used \u2014 increase --null-resamples before reading non-significance as evidence of absence.",
+    "cells": [
+      {
+        "behaviour": "backtracking",
+        "layer": 11,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 1,
+        "holm_threshold": 0.0025,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "backtracking",
+        "layer": 14,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 2,
+        "holm_threshold": 0.002631578947368421,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "backtracking",
+        "layer": 17,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 3,
+        "holm_threshold": 0.002777777777777778,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "backtracking",
+        "layer": 20,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 4,
+        "holm_threshold": 0.0029411764705882353,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "backtracking",
+        "layer": 27,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 5,
+        "holm_threshold": 0.003125,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "uncertainty-estimation",
+        "layer": 11,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 6,
+        "holm_threshold": 0.0033333333333333335,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "uncertainty-estimation",
+        "layer": 14,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 7,
+        "holm_threshold": 0.0035714285714285718,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "uncertainty-estimation",
+        "layer": 17,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 8,
+        "holm_threshold": 0.0038461538461538464,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "uncertainty-estimation",
+        "layer": 20,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 9,
+        "holm_threshold": 0.004166666666666667,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "uncertainty-estimation",
+        "layer": 27,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 10,
+        "holm_threshold": 0.004545454545454546,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "example-testing",
+        "layer": 27,
+        "p": 0.00039984006397441024,
+        "n_resamples": 2500,
+        "rank": 11,
+        "holm_threshold": 0.005,
+        "holm_significant": true,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "example-testing",
+        "layer": 17,
+        "p": 0.01919232307077169,
+        "n_resamples": 2500,
+        "rank": 12,
+        "holm_threshold": 0.005555555555555556,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "example-testing",
+        "layer": 20,
+        "p": 0.01919232307077169,
+        "n_resamples": 2500,
+        "rank": 13,
+        "holm_threshold": 0.00625,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "example-testing",
+        "layer": 11,
+        "p": 0.6073570571771292,
+        "n_resamples": 2500,
+        "rank": 14,
+        "holm_threshold": 0.0071428571428571435,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "example-testing",
+        "layer": 14,
+        "p": 0.7532986805277889,
+        "n_resamples": 2500,
+        "rank": 15,
+        "holm_threshold": 0.008333333333333333,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "adding-knowledge",
+        "layer": 11,
+        "p": 1.0,
+        "n_resamples": 2500,
+        "rank": 16,
+        "holm_threshold": 0.01,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "adding-knowledge",
+        "layer": 14,
+        "p": 1.0,
+        "n_resamples": 2500,
+        "rank": 17,
+        "holm_threshold": 0.0125,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "adding-knowledge",
+        "layer": 17,
+        "p": 1.0,
+        "n_resamples": 2500,
+        "rank": 18,
+        "holm_threshold": 0.016666666666666666,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "adding-knowledge",
+        "layer": 20,
+        "p": 1.0,
+        "n_resamples": 2500,
+        "rank": 19,
+        "holm_threshold": 0.025,
+        "holm_significant": false,
+        "resolution_limited": false
+      },
+      {
+        "behaviour": "adding-knowledge",
+        "layer": 27,
+        "p": 1.0,
+        "n_resamples": 2500,
+        "rank": 20,
+        "holm_threshold": 0.05,
+        "holm_significant": false,
+        "resolution_limited": false
+      }
+    ]
+  }
+}

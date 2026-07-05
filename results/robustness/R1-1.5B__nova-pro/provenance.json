@@ -1,0 +1,8 @@
+{
+  "git_commit": null,
+  "git_dirty": false,
+  "seed": 42,
+  "input_sha256": {
+    "data/annotated_R1-1.5B__nova-pro.json": "1ebddde7d3f92fd1"
+  }
+}

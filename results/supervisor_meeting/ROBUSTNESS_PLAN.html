@@ -117,7 +117,7 @@
 <hr />
 <h2>4. Tier 2 — Annotator robustness (modest API)</h2>
 <ul>
-<li><strong>2.1 Second annotator + agreement.</strong> Re-annotate a stratified subset (~100–150 chains) with a <em>different</em> model (GPT-4o / Gemini / Claude-Opus); compute span-F1 and Cohen's κ; anchor both to a small human-labelled gold set. <em>Defends label validity.</em></li>
+<li><strong>2.1 Second &amp; third annotators + agreement.</strong> Re-annotate with two <em>different</em> proxy models — <strong>Qwen3-235B</strong> and <strong>Nova-Pro</strong> (not GPT-4o; all via the AWS Bedrock proxy) — and compute span-F1 and 3-way Cohen's κ against the Sonnet primary; anchor to a small human-labelled gold set. <em>Defends label validity.</em></li>
 <li><strong>2.2 Re-derive the manifold under the second annotator's labels.</strong> The headline external-robustness test: does the geometry replicate when the labels come from a different annotator? <em>Defends every geometry claim, externally.</em> <em>Cost: API (subset) + CPU.</em></li>
 </ul>
 <hr />

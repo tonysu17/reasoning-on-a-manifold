@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Supervisor brief — 23 June 2026</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 16mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #1a1f24; font-size: 10.4pt; line-height: 1.5; margin: 0;
+  }
+  h1 { font-size: 20pt; margin: 0 0 2px 0; letter-spacing: -0.2px; }
+  h2 {
+    font-size: 13pt; margin: 22px 0 8px 0; padding-bottom: 4px;
+    border-bottom: 2px solid #2d6cdf; color: #14315e;
+  }
+  h3 { font-size: 11pt; margin: 16px 0 4px 0; color: #14315e; }
+  p { margin: 6px 0; }
+  .sub { color: #5a6573; font-size: 9.6pt; margin: 2px 0 0 0; }
+  .lede {
+    background: #f3f7ff; border: 1px solid #d6e3fb; border-radius: 6px;
+    padding: 10px 14px; margin: 14px 0 4px 0; font-size: 10.2pt;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px 0; font-size: 9.6pt; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid #e1e6ec; }
+  th { background: #14315e; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f7f9fc; }
+  td.num { white-space: nowrap; color: #5a6573; font-variant-numeric: tabular-nums; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin: 4px 0; }
+  code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 8.8pt;
+         background: #eef1f5; padding: 1px 4px; border-radius: 3px; }
+  .pill { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 8.4pt;
+          font-weight: 700; white-space: nowrap; }
+  .ok   { background: #e3f5e9; color: #1c7a40; }
+  .part { background: #fdf0d8; color: #9a6a09; }
+  .neg  { background: #fde3e3; color: #b23030; }
+  .todo { background: #e9edf2; color: #56606c; }
+  .lead { color: #2d6cdf; font-weight: 700; }
+  .kpi { color: #14315e; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .note { font-size: 9.2pt; color: #5a6573; }
+  h2, h3 { break-after: avoid; }
+  table, tr { break-inside: avoid; }
+  .foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #e1e6ec;
+          color: #8a929c; font-size: 8.6pt; }
+</style>
+</head>
+<body>
+
+<h1>Supervisor brief — progress since 18 June</h1>
+<p class="sub"><b>Date:</b> 23 June 2026 &nbsp;·&nbsp; <b>Period covered:</b> 19–21 June 2026 &nbsp;·&nbsp; <b>Project:</b> <i>The Geometry of Machine Reasoning</i></p>
+<p class="sub">MSc Computational Finance · joint industry project with Holistic AI · supervised by Dr Paolo Barucca (UCL) &amp; Zekun Wu (Holistic AI)</p>
+
+<div class="lede">
+At the 18 June meeting the cleaned geometry was citable for the first time, but three things were still open: the annotator-robustness loop was <i>running, not closed</i>; Phase-7 steering was <i>built but unrun</i>; and we hadn't settled <i>which layer</i> to steer at. The last few days <b>closed the robustness loop (2-way), turned the layer question into a clean methodological result, and hardened the Phase-7 design against a critique</b> before spending GPU on it. One new strand opened: finance as a reasoning domain.
+</div>
+
+<h2>Headlines</h2>
+<table>
+  <tr><th style="width:31%">What happened</th><th>Detail</th><th style="width:24%">Why it matters</th></tr>
+  <tr>
+    <td><span class="lead">1.</span> <b>Annotator-robustness loop closed (2-way)</b></td>
+    <td>The geometry <b>replicates across annotators</b>: intrinsic dimension <i>and</i> the curvature pattern reproduce on Sonnet-4.5 ↔ Qwen3-235B labels (corr-dim <span class="kpi">~6–8</span> in both, same ordering, low-dim keystone passes in both, curvature-as-chain-artefact holds) — <b>despite κ being only 0.44</b>.</td>
+    <td>The external-validity result the robustness argument was waiting on. The manifold is a property of the <i>model</i>, not of one labeller.</td>
+  </tr>
+  <tr>
+    <td><span class="lead">2.</span> <b>Layer selection: confounded → redesigned → de-confounded</b></td>
+    <td>The attribution-patching method (E3) <b>ran and was confounded</b> — every behaviour ramps monotonically to L26–27 (a read-out-proximity artefact), giving no per-behaviour layer. Rebuilt as a <i>forward-intervention</i> steering-effect sweep with a random-direction null, per-layer α-normalisation and a bootstrap shortlist. De-confounded test: backtracking's causal layer is <span class="kpi">L16 (mid-network), not L27</span> — <b>matches Venhoff (~L15–18)</b>. Full sweep now running on the cluster.</td>
+    <td>This was the hidden blocker under "run Phase-7": we now have a principled, literature-consistent way to choose the steering layer.</td>
+  </tr>
+  <tr>
+    <td><span class="lead">3.</span> <b>Phase-7 steering hardened after adversarial critique</b></td>
+    <td>A methodology-evaluation pass judged the original design <i>"not fundable as-is."</i> Added: a k-sweep; a <b>random-subspace</b> control; an <b>energy-matched</b> random baseline (the old norm-matched one was <span class="kpi">~19× too weak</span> — a real flaw caught); an orthogonal-complement arm; and a proper stats module (paired BCa bootstrap + Holm).</td>
+    <td>The causal headline experiment is now de-risked and worth the GPU spend — ready to run rather than likely to give an un-defensible result.</td>
+  </tr>
+</table>
+
+<h2>Supporting &amp; smaller items</h2>
+<ul>
+  <li><b>No sub-types, confirmed at the new layers.</b> Re-ran clustering at the reconciled layers (16/16/16/12); silhouette stays <span class="kpi">0.18–0.20</span> — each behaviour is one continuous region, robust to layer choice.</li>
+  <li><b>Pooling question settled.</b> Our mean-pooling matches Venhoff's published recipe (verified in their code) — one less methodological wobble.</li>
+  <li><b>Gate-0 results ledger created</b> (<code>RESULTS_LEDGER.md</code>) as the canonical "what we found + trust status" tracker; candidate steering layers reconciled to 16/16/16/12.</li>
+  <li><b>New strand — finance as a reasoning domain (UCL).</b> Built a concrete-metric quant-exam benchmark (200 items: mental arithmetic, expected value, risk/sizing, no-arbitrage pricing, estimation) with a scoring harness that <b>rewards calibrated abstention over wrong answers</b>. An E0 pilot validated the harness end-to-end with oracle solvers (perfect → <span class="kpi">+1.0</span>, wrong → <span class="kpi">−1.0</span>, abstain → <span class="kpi">0.0</span>). Scaffolding only — no model runs yet.</li>
+</ul>
+
+<h2>Status of the decisions raised on 18 June</h2>
+<table>
+  <tr><th style="width:42%">Decision</th><th style="width:16%">Status</th><th>Where it stands now</th></tr>
+  <tr>
+    <td><b>#2 — Run Phase-7 steering</b> (the causal Movement-I headline)</td>
+    <td><span class="pill part">DE-RISKED</span></td>
+    <td>Not just "ready" — <b>hardened</b> after the critique; still needs your go-ahead + cluster GPU. The layer-selection blocker is now resolved.</td>
+  </tr>
+  <tr>
+    <td><b>#1 — Scale correctness labels 183 → ~1000</b> (predictive geometry)</td>
+    <td><span class="pill todo">PENDING</span></td>
+    <td>Still your call (~5× judge spend). No change since 18 June.</td>
+  </tr>
+  <tr>
+    <td>Layer-selection method (implicit blocker under #2)</td>
+    <td><span class="pill ok">RESOLVED</span></td>
+    <td>Forward-intervention sweep; backtracking → L16, consistent with Venhoff.</td>
+  </tr>
+</table>
+
+<h2>Still open / owed</h2>
+<ul>
+  <li><span class="pill todo">UNRUN</span> &nbsp;<b>Phase-7 steering</b> — the causal Movement-I result. Awaiting go-ahead + GPU.</li>
+  <li><span class="pill part">PARTIAL</span> &nbsp;<b>R2.2 third arm (Nova-Pro)</b> and the variance-ratio specificity-null replication are still pending; the 2-way verdict stands now.</li>
+  <li><span class="pill part">CAVEAT</span> &nbsp;The Qwen3 arm ran on lossy analysis-side dedup (dup 33–52%), not a clean re-extraction (Sonnet ~1%) — so the replication holds <i>in the pattern</i>, not in the exact absolute numbers. To state plainly.</li>
+  <li><span class="pill todo">BLOCKED</span> &nbsp;<b>Predictive-geometry label scaling</b> — gated on decision #1.</li>
+</ul>
+
+<h2>What I'd value from you</h2>
+<ul>
+  <li><b>Go / no-go on Phase-7</b> now that it's hardened — this is the missing <i>causal</i> leg of Movement I.</li>
+  <li><b>The label-scaling spend</b> (#1) for predictive geometry — still open.</li>
+  <li><b>A steer on the finance strand:</b> how far to push it as a parallel reasoning domain vs. keeping it a contained UCL-facing chapter.</li>
+</ul>
+
+<div class="foot">
+Source trackers: <code>RESULTS_LEDGER.md</code> (what/status), <code>CONFOUNDS_AND_REMEDIATION.md</code> (why-wrong), <code>METHODOLOGY.md</code> (how). Builds on the 18 June brief (<code>results/supervisor_meeting/MEETING_2026-06-18.md</code>). Numbers as of the clean Gate-0 re-run; cluster layer-sweep + R2.2 Nova-Pro arm still in flight.
+</div>
+
+</body>
+</html>

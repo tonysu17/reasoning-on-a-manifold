@@ -1,0 +1,46 @@
+{
+  "0": [
+    {
+      "chain_id": "LATE_002",
+      "text": "Wait, but the store owner said the parrot would repeat every word it hears,"
+    },
+    {
+      "chain_id": "CAUS_062",
+      "text": "But the problem states that the same fertilizer treatments are used, so maybe the economic aspect isn't the main reason."
+    },
+    {
+      "chain_id": "CREA_061",
+      "text": "I think I have a better idea now."
+    },
+    {
+      "chain_id": "SPAT_084",
+      "text": "Wait, perhaps the crease is the fold line, and the two resulting figures are congruent triangles."
+    },
+    {
+      "chain_id": "CAUS_062",
+      "text": "But the problem states that the same fertilizer treatments are used, so maybe the economic aspect isn't the main reason."
+    }
+  ],
+  "1": [
+    {
+      "chain_id": "LATE_072",
+      "text": "So, maybe the issue is that the second hand is moving too fast, but the minute and hour hands are moving too slow."
+    },
+    {
+      "chain_id": "MATH_104",
+      "text": "Wait, maybe I need to use associativity differently. Let me try another approach."
+    },
+    {
+      "chain_id": "PATT_064",
+      "text": "Let me think again.\n\nAlternatively, perhaps the marked positions are following a pattern where the row number and the position within the row are related in a specific way."
+    },
+    {
+      "chain_id": "PROB_074",
+      "text": "Wait, maybe I need to think in terms of the total number of days."
+    },
+    {
+      "chain_id": "PROB_052",
+      "text": "Wait, actually,"
+    }
+  ]
+}

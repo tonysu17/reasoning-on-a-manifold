@@ -45,6 +45,22 @@ models:
     steering_layer: 27          # matches R1-1.5B for direct comparability
     is_thinking: false          # no <think>...</think> template; differential behaviour fractions are part of the finding
 
+  # ── Post-training spillover extension (safety chapter, Rung 0) ──────────
+  # Safety-post-trained twin of the primary model: STAR-1 deliberative-safety
+  # SFT (1K examples, arXiv:2504.01903) applied to the EXACT thesis model.
+  # Only delta vs primary = one isolated safety SFT step, so a geometry diff
+  # on the same annotated generic-reasoning chains reads as safety-post-
+  # training spillover (post_training_spillover_extension.md, Route C).
+  safety_post:
+    id: "UCSC-VLAA/STAR1-R1-Distill-1.5B"
+    short_name: "STAR1-1.5B"
+    cli_alias: "star1-1.5b"
+    n_layers: 28
+    hidden_dim: 1536
+    dtype: "float16"
+    use_4bit: false
+    steering_layer: 27          # matches R1-1.5B for direct comparability
+
   tertiary:
     id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
     short_name: "R1-8B"
@@ -104,8 +120,11 @@ chains:
 
 # ── Phase 3: Annotation ───────────────────────────────────
 annotation:
-  # Claude Sonnet 4.5 via AWS proxy (GPT-4o unavailable on this proxy)
-  # Deviation from Venhoff noted in methods section
+  # Claude Sonnet 4.5 (primary) via the AWS Bedrock / Claude proxy — NOT GPT-4o.
+  # Venhoff used GPT-4o, but it is unavailable on this proxy (deviation noted in
+  # the methods section). The annotator-robustness arm re-annotates the same
+  # chains with two further proxy models — Qwen3-235B and Nova-Pro — for a 3-way
+  # agreement check (see run_multiannotator_pipeline.sh).
   model: "eu.anthropic.claude-sonnet-4-5-20250929-v1:0"
   provider: "anthropic_aws_proxy"
   prompt_source: "venhoff_2025_appendix_a"  # verbatim, hyphenated labels
@@ -158,21 +177,38 @@ steering:
   mode: "subtract"                   # reduce the behaviour
 
 # ── Analysis: per-behaviour peak (PR-trough) layers ───────
-# Derived from layer triangulation (compute_layer_triangulation.py); the layer
-# at which each behaviour's manifold is most concentrated. Previously hardcoded
-# (and duplicated) in build_phase6.py and robustness_geometry.py.
+# Smoothed participation-ratio trough (argmin PR = most concentrated low-dim
+# manifold) from the 2026-06-18 triangulation re-run, field `pr_peak` in
+# results/triangulation/R1-1.5B/candidate_layers.json.
+# RECONCILED 2026-06-20: the previous values (backtracking/uncertainty 14,
+# adding-knowledge 17, example-testing 27) were STALE — they did not match the
+# current triangulation output the comment claimed to derive from.
+#
+# ⚠️ PR-trough = manifold CONCENTRATION, not behaviour-SPECIFICITY. Per the
+# chain-stratified variance-ratio null (results/pca/R1-1.5B/null_pvalues_per_layer.json):
+#   - backtracking, uncertainty-estimation: specific at ALL layers.
+#   - example-testing: specific ONLY at L27; its PR-trough (L12) is NOT specific.
+#   - adding-knowledge: NOT specific at any tested layer — its peak is descriptive only.
+# The canonical 06_build_steering.py steers every behaviour at L27 (Huang-aligned);
+# these per-behaviour layers drive ONLY build_phase6.py (the `-peak` vectors) and
+# 05d sub-type clustering. Both on-disk artefacts were built at the OLD layers and
+# are now stale vs this field — rebuild before relying on them. For steering,
+# consider overriding example-testing back to 27 (specific + Huang + canonical).
 analysis:
   peak_layers:
-    backtracking: 14
-    uncertainty-estimation: 14
-    adding-knowledge: 17
-    example-testing: 27
+    backtracking: 16
+    uncertainty-estimation: 16
+    adding-knowledge: 16
+    example-testing: 12
 
 # ── Phase 7: Evaluation ───────────────────────────────────
 evaluation:
   alpha_values: [0.0, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0]
   n_test_tasks: 50
-  annotation_model: "gpt-4o-2024-11-20"  # re-annotate steered outputs (pinned)
+  # Re-annotation of steered outputs reuses the Phase-3 annotator via the Claude
+  # proxy (NOT gpt-4o — that string was a stale, unused plan value). 07/eval read
+  # the proxy env (CLAUDE_PROXY_URL/KEY), not this key; kept for documentation.
+  annotation_model: "eu.anthropic.claude-sonnet-4-5-20250929-v1:0"  # matches annotation.model
   benchmarks:
     - name: "gsm8k"
       dataset_id: "openai/gsm8k"

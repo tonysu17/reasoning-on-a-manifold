@@ -1,0 +1,15 @@
+{
+  "git_commit": "06f07fec6bcfad921f37ff1a49a858f3e180d340",
+  "git_dirty": true,
+  "seed": 42,
+  "args": {
+    "model_short": "R1-1.5B",
+    "out_dir": "results/triangulation/R1-1.5B"
+  },
+  "input_sha256": {
+    "results/pca/R1-1.5B/layer_profiles.json": "640735acee4e244a",
+    "results/pca/R1-1.5B/null_pvalues_per_layer.json": "c9523e26c6c62463",
+    "results/cross_layer/R1-1.5B/probe_accuracy.json": "153e031c5bdfc077",
+    "results/patching/R1-1.5B/pilot_effect_curves.json": null
+  }
+}

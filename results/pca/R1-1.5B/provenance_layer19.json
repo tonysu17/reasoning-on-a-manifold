@@ -1,0 +1,13 @@
+{
+  "git_commit": "06f07fec6bcfad921f37ff1a49a858f3e180d340",
+  "git_dirty": true,
+  "seed": 42,
+  "args": {
+    "model_short": "R1-1.5B",
+    "layers": null,
+    "focus_layer": null,
+    "with_nulls": false,
+    "null_resamples": 100,
+    "annotated": null
+  }
+}

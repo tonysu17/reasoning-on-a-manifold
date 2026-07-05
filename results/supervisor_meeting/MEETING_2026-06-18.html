@@ -1,0 +1,359 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Supervisor meeting brief — 18 June 2026</title><style>
+:root{--ink:#1a1a1a;--muted:#5b6470;--line:#e3e6ea;--accent:#0072B2;--bg:#fff;--soft:#f6f8fa;}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+ color:var(--ink);max-width:860px;margin:0 auto;padding:48px 28px 96px;line-height:1.55;font-size:15.5px;background:var(--bg)}
+h1{font-size:30px;line-height:1.15;margin:0 0 4px;letter-spacing:-.4px}
+h1+p{color:var(--muted);margin-top:0}
+h2{font-size:22px;margin:42px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:17.5px;margin:28px 0 8px}
+h2[id^="part"], h2:first-of-type{}
+hr{border:0;border-top:1px solid var(--line);margin:36px 0}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+code{background:var(--soft);padding:1.5px 5px;border-radius:4px;font-size:.86em;
+ font-family:"SF Mono",Menlo,Consolas,monospace;color:#b0306b}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:13.6px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:650}
+tr:nth-child(even) td{background:#fbfcfd}
+img{max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid var(--line);border-radius:8px}
+blockquote{margin:0;padding:.2px 16px;border-left:3px solid var(--accent);background:var(--soft);color:var(--muted)}
+ul,ol{padding-left:22px}li{margin:3px 0}
+strong{font-weight:660}
+em{color:var(--muted)}
+.tldr{background:linear-gradient(180deg,#f0f7fc,#f6f8fa);border:1px solid #cfe6f5;border-radius:10px;padding:4px 20px;margin:20px 0}
+@media print{body{padding:0;font-size:11pt;max-width:none}h2{page-break-after:avoid}img,table{page-break-inside:avoid}}
+</style></head><body><h1 id="supervisor-meeting-progress-brief">Supervisor meeting — progress brief</h1>
+<p><strong>Date:</strong> 18 June 2026 · <strong>Period covered:</strong> ~5 → 18 June 2026 (last 2 weeks, "last week" flagged) · <strong>Project:</strong> <em>The Geometry of Reasoning</em></p>
+<hr />
+<h2 id="tldr-read-this-first">TL;DR (read this first)</h2>
+<p>The last two weeks were a <strong>"make the geometry trustworthy, then build on it"</strong> fortnight. Three things happened:</p>
+<ol>
+<li><strong>Scientific hardening + Gate-0 regeneration (the big one).</strong> I found and fixed a family of confounds — chief among them a duplicate-row bug inflating every distance estimator (35–56% of pooled activations were exact duplicates) — re-extracted all activations clean, and <strong>re-ran the whole geometry pipeline on clean data</strong>. The headline result <em>changed honestly</em>: <strong>low-dimensional per-behaviour structure survives every control, but per-behaviour "curvature" does not — it was a within-chain artefact.</strong> Geometry numbers are now citable for the first time.</li>
+<li><strong>A new extension — "Predictive Geometry of Reasoning"</strong> (the JEPA × reasoning bridge). Built and pilot-tested in the last week: a next-step predictor over reasoning steps, using its <em>residual</em> as a correctness signal. <strong>Modest but statistically significant</strong> (AUC ≈ 0.58–0.59 at layer 27).</li>
+<li><strong>Write-up moved a lot.</strong> The thesis is now ~40k words across 11 chapters (8 drafted), compiles cleanly at <strong>89 pages</strong>, was reframed to match the cleaned geometry, had the Gate-0.1 numerals + four figures lifted into ch07, and went through a four-agent refinement + literature-scooping pass plus a conceptual expansion of ch02 (see the update note below).</li>
+</ol>
+<p><strong>What I most need from you:</strong> two spend/compute decisions (scale the correctness labels; run the causal steering experiment) and a framing sign-off on leading with the curvature <em>negative</em>. See <strong><a href="#decisions-i-need-from-you">Decisions needed</a></strong>.</p>
+<hr />
+<h2 id="update-later-on-18-june-continued-work-today">Update — later on 18 June (continued work today)</h2>
+<p>Since this brief was first drafted, the geometry chapter went from embargoed placeholders to a <strong>finished results chapter with real numbers and four figures</strong>, and two results <em>hardened</em> the headline:</p>
+<ul>
+<li><strong>The numeral-lift is done.</strong> Gate-0.1's full downstream completed on the cluster — chain-grouped probes (05c), layer triangulation, sub-type clustering (05d), and the per-layer 05b battery — and the now-citable numbers are written into <strong>ch07</strong> with four figures (the compression gap; curvature-as-chain-artefact; the layer profile; the silhouette). The thesis now compiles at <strong>89 pages</strong>.</li>
+<li><strong>The curvature negative is well-powered, not underpowered.</strong> A detection-power analysis (closing NR-1, which had previously written an all-NaN table) shows the local-to-global diagnostic resolves curvature down to the smallest simulated level at $N \ge 500$; our chain-control pools (~600–900 independent chains) sit above that floor. <strong>We had the power to detect curvature at the behaviour level and did not</strong> — so the negative is a genuine null, not a missing-power result. (It also explains why the geodesic diagnostic, which needs $N \ge 2000$, couldn't isolate the chain effect while the local-global one could.) This directly strengthens decision #4 below.</li>
+<li><strong>Two more clean downstream findings.</strong> Chain-grouped probe accuracy is <strong>flat across all 28 layers</strong> at 0.70–0.84 — and <em>below</em> the pre-fix leaky 0.83–0.93 (the grouped CV removed a train/test leak; the drop is the correction working). Sub-type clustering finds <strong>no discrete sub-behaviours</strong> (silhouette ≤ 0.18 at $k=2$): each behaviour is a continuous region. Honest nuance: the <em>geometry</em> (participation ratio) peaks mid-network while <em>decodability</em> (the probe) does not — they disagree, and I report both.</li>
+<li><strong>R2.2 is now running</strong> (not just owed): the multi-annotator pipeline is regenerating the geometry under each annotator's labels on the cluster (Qwen3 done; Nova-Pro in progress), closing the annotator-robustness loop autonomously.</li>
+<li><strong>The conceptual chapter (ch02) was substantially expanded</strong> after a close read: a transformer/residual-stream <strong>notation</strong> set + an architecture diagram (shown once); the <strong>theory of manifold steering</strong> (projecting the difference-of-means onto the PCA subspace, and why projection sustains the effect where a raw direction saturates); discussions of <strong>atomic parts of reasoning</strong> (composition as a steering-vector algebra) and <strong>whether post-training is necessary</strong> ("base models know how to reason, thinking models learn <em>when</em>"); and a new <strong>"limits of algorithmic reasoning"</strong> section that grounds the thesis's <em>measurement-not-proof</em> stance in undecidability (Rice's theorem) — which also frames AI safety as an undecidable semantic property, apt for the Holistic AI angle. Three geometric-intuition figures were added (PCA, flat-vs-curved manifold, manifold steering).</li>
+<li><strong>Title page finalised:</strong> MSc in Computational Finance; a joint industry research project with Holistic AI; supervised by Dr Paolo Barucca (UCL Financial Computing) and Zekun Wu (Holistic AI).</li>
+</ul>
+<hr />
+<h2 id="at-a-glance">At a glance</h2>
+<p><img alt="Two-week timeline" src="meeting_fig3_timeline.png" /></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Workstream</th>
+<th>Status</th>
+<th>Headline outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Audit &amp; confound remediation (CF-13…17)</td>
+<td>✅ Done</td>
+<td>Duplicate-row + null-test bugs fixed; test suite green</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Gate-0.0 re-extraction (clean activations)</td>
+<td>✅ Done</td>
+<td>Duplicate fraction 35–56% → ~1%; verified clean</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gate-0.1 regen (PCA / 05c probes / triangulation / 05d / 05b / power)</td>
+<td>✅ Done</td>
+<td><strong>Citable &amp; lifted into ch07</strong>: low-dim survives, curvature falls (well-powered), probes flat, no sub-types</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3-annotator robustness (κ + span-F1)</td>
+<td>✅ Done</td>
+<td>κ = 0.35–0.44 (fair–moderate); span-F1 0.26–0.31</td>
+</tr>
+<tr>
+<td>4b</td>
+<td>R2.2 geometry replication under each annotator</td>
+<td>🟧 Running</td>
+<td>Multi-annotator pipeline on cluster (Qwen3 done; Nova-Pro in progress)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Predictive-geometry extension (Rung 1–2)</td>
+<td>✅ Pilot done</td>
+<td>Residual→correctness AUC 0.58–0.59 @ L27 (sig.)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Thesis: reframe + ch07 numeral-lift + ch02 expansion</td>
+<td>✅ Done</td>
+<td><strong>89 pp</strong>; ch07 numbers+figures in; ch02 conceptual expansion</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Safety / gpt-oss extraction extension</td>
+<td>🟧 Built, unrun</td>
+<td>Components offline-tested; needs GPU + a scope call</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Full-1000 labels &amp; Phase-7 steering</td>
+<td>⬜ Pending</td>
+<td><strong>Need your decision</strong> (spend / compute)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="part-a-experiments">PART A — Experiments</h1>
+<h2 id="a1-scientific-hardening-why-the-old-numbers-were-quarantined-and-why-the-new-ones-arent">A1. Scientific hardening — why the old numbers were quarantined, and why the new ones aren't</h2>
+<p>Before this fortnight, <strong>all geometry numbers were quarantined</strong> pending a known list of confounds. I worked through them and fixed them in code (commits <code>47a168d</code>, <code>2d4ec11</code>, <code>542b321</code>, <code>5e37e46</code>):</p>
+<ul>
+<li><strong>CF-13 (the keystone bug):</strong> 35–56% of pooled activation rows were <strong>exact duplicates</strong> — short repeated markers ("Wait", "So") matched to the same span. This corrupted every k-NN / intrinsic-dimension / curvature estimator <em>and</em> biased the permutation null <strong>anti-conservatively</strong> (duplicates concentrate within a label, so real matrices looked duplicate-rich vs permuted ones). Fixed with occurrence-aware span location + dedup.</li>
+<li><strong>CF-14:</strong> a row-provenance bug made the within-chain permutation a no-op (p ≈ 1.0). Now there's a <code>row_index.json</code> sidecar written at extraction time with a hard-fail guard.</li>
+<li><strong>CF-15/16/17:</strong> probe chain-leakage (→ grouped splits), un-smoothed permutation p-values (→ Phipson–Smyth + Holm–Bonferroni), and Phase-7 pre-spend debt.</li>
+</ul>
+<p><strong>Takeaway for the meeting:</strong> the reason the geometry story shifted is <em>not</em> fragility — it's that the pre-fix numbers were measuring a duplicate/autocorrelation artefact, and the clean numbers tell a sharper, more defensible story. This is the honest-by-design posture the whole thesis rests on.</p>
+<h2 id="a2-gate-0-regeneration-the-cleaned-geometry-headline">A2. Gate-0 regeneration — the cleaned geometry headline ⭐</h2>
+<p>Re-extracted all activations on the cluster (verified clean: duplicate fraction 0.76–1.28%, all 28 layers × 4 behaviours, sidecars consistent) and re-ran the pipeline. The <strong>Tier-0 robustness analysis</strong> (correlation-dimension as the stable estimator; "random subsample" vs "one-sentence-per-chain" at matched N isolates the chain effect) gives three clean findings:</p>
+<p><img alt="Geometry scorecard" src="meeting_fig2_geometry_scorecard.png" /></p>
+<p><strong>① Low intrinsic dimension is REAL and robust (survives).</strong>
+Correlation dimension ≈ <strong>5.9 / 6.2 / 7.7 / 6.0</strong> (backtracking / uncertainty / adding-knowledge / example-testing) in a <strong>1536-dim</strong> ambient space, and it barely moves across full data, random subsample, and chain-stratified controls (sd ≈ 0.1). → <em>The "reasoning behaviours live on low-dimensional subspaces" claim holds.</em> <strong>Rung 2 (subspace) survives.</strong></p>
+<p><strong>② Per-behaviour curvature does NOT survive the chain control (clean negative).</strong>
+The local-to-global dimension ratio looks "curved" on full data (0.55–0.69, where &lt;1 = curved) but goes to <strong>≈ 1.0 (flat)</strong> once you take one sentence per chain at matched N. The apparent curvature was <strong>within-chain autocorrelation</strong> (consecutive sentences cluster locally), not a per-behaviour geometric property. → <strong>Rung 3 (per-behaviour curvature) is effectively falsified.</strong> The positive reframe: curvature is a <em>trajectory-level</em> phenomenon, not a static per-behaviour one — which is exactly where the new predictive-geometry extension (A4) and the concurrent literature (Zhou et al. 2510.09782) point.</p>
+<p><strong>③ Behaviour-specificity is mixed — and I think we should say so plainly.</strong>
+The variance-ratio null (chain-stratified permutation, high-res <strong>B = 2500</strong>) asks whether each behaviour's low-dim structure is <em>more</em> than its host chains' structure:</p>
+<table>
+<thead>
+<tr>
+<th>Behaviour</th>
+<th>L11</th>
+<th>L14</th>
+<th>L17</th>
+<th>L20</th>
+<th>L27</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backtracking</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>✅ specific at all layers</td>
+</tr>
+<tr>
+<td>uncertainty-estimation</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>&lt;.001</td>
+<td>✅ specific at all layers</td>
+</tr>
+<tr>
+<td>example-testing</td>
+<td>0.61</td>
+<td>0.75</td>
+<td>0.019</td>
+<td>0.019</td>
+<td>&lt;.001</td>
+<td>🟧 emerges at deep layers only</td>
+</tr>
+<tr>
+<td>adding-knowledge</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>❌ not behaviour-specific</td>
+</tr>
+</tbody>
+</table>
+<p>→ Two behaviours are cleanly behaviour-specific everywhere, one emerges late, one fails. <code>adding-knowledge</code> is also the rarest (lowest N) and highest-dimensional — consistent with it being the least-structured. <strong>This is a more honest and more interesting claim than a blanket "all behaviours are special."</strong></p>
+<p><em>Supporting outputs:</em> <code>results/robustness/R1-1.5B/geometry_robustness_summary.md</code>, <code>results/geometric/R1-1.5B/summary_layer14.md</code>, <code>results/triangulation/R1-1.5B/{summary.md,layer_sweep_curves.png}</code>, <code>results/cross_layer/R1-1.5B/{summary.md,subspace_angles_heatmap.png}</code>.</p>
+<h2 id="a3-annotator-robustness-3-independent-labellers">A3. Annotator robustness — 3 independent labellers</h2>
+<p>To check the corpus isn't an artefact of one labeller, I compared three annotators (Sonnet-4.5, Qwen3-235B, Nova-Pro) on the same 1000 chains:</p>
+<ul>
+<li><strong>Character-level Cohen's κ = 0.35–0.44</strong> (fair-to-moderate); best pair Sonnet↔Qwen (0.44).</li>
+<li><strong>Span-level F1</strong> (new this fortnight, <code>span_f1.py</code>): 0.21 exact-boundary → <strong>0.26–0.31 at IoU ≥ 0.5</strong> → 0.37–0.41 any-overlap. The exact→overlap gap shows boundary jitter is real but only partly explains the disagreement.</li>
+<li><strong>Honest read:</strong> agreement is <strong>fair, not strong.</strong> It confirms rather than rescues the κ. The load-bearing follow-up — <em>does the manifold replicate under each annotator's labels?</em> (R2.2) — is <strong>now running on the cluster</strong> (the multi-annotator pipeline: Qwen3 complete, Nova-Pro in progress), so the loop closes autonomously over the next runs.</li>
+</ul>
+<p><em>Outputs:</em> <code>results/robustness/cross_annotator_comparison.md</code>, <code>results/robustness/span_f1.md</code>.</p>
+<h2 id="a4-new-the-predictive-geometry-of-reasoning-last-week">A4. NEW: "The Predictive Geometry of Reasoning" (last week) ⭐</h2>
+<p>A new extension that bridges the thesis to JEPA / world-models. <strong>Idea:</strong> train a next-step predictor <code>f</code> over chain-of-thought <em>step</em> embeddings and study the <strong>residual</strong> <code>r_t = x_{t+1} − f(x_≤t)</code> — does how <em>predictable</em> a chain's reasoning is tell us whether the answer is correct?</p>
+<p><strong>Pilot setup:</strong> LLM-judged correctness labels on 200 chains → 183 usable (84 correct / 99 incorrect); predictor trained label-agnostically on all 986 chains (chain-grouped out-of-fold), correctness AUC evaluated on the labelled subset.</p>
+<p><img alt="Predictive geometry pilot" src="meeting_fig1_predictive_geometry.png" /></p>
+<p><strong>Findings:</strong>
+- <strong>The predictor works</strong> (label-free): it beats persistence at every layer (displacement R² ≈ 0.25–0.31), so step-to-step reasoning is partially predictable in latent space <em>and generalises across chains</em>.
+- <strong>Residual geometry carries a correctness signal — modest but significant:</strong> AUC <strong>0.578 (p = 0.034)</strong> ridge and <strong>0.591 (p = 0.024)</strong> JEPA at L27; <strong>0.582 (p = 0.026)</strong> JEPA at L14. Beats curvature/persistence/length baselines and survives a label-permutation null. L17 is a dead spot.
+- <strong>Order doesn't matter</strong> (step-shuffle null never rejects, p &gt; 0.7) → the signal is in predictability <em>magnitude</em>, not trajectory <em>order</em>. → <strong>Supports H1 (magnitude), not H3 (branch/order geometry).</strong> Matches the PHi paper (2503.13431).
+- <strong>Nonlinearity buys little:</strong> the JEPA edge over ridge is small and doesn't scale (60-epoch run overfits). The signal is largely <strong>linear-accessible.</strong></p>
+<p><strong>Integrity note I'll raise myself:</strong> my <em>first</em> gate trained the predictor on the labelled subset only and reported an inflated AUC ≈ 0.61 (p &lt; 0.01). That was a small-sample artefact; the honest train-on-all-chains design gives 0.54–0.59. I caught it, corrected it, and kept the flawed run for comparison. <strong>Report the corrected numbers.</strong></p>
+<p><em>Outputs:</em> <code>results/predict/R1-1.5B/corrected/{SUMMARY.md, gate_pilot.md, compare_rung2.md}</code>, sweep at <code>results/predict/R1-1.5B/residual_geometry_sweep.md</code>. Code: <code>src/predict/</code>, tests 8/8 green.</p>
+<h2 id="a5-safety-gpt-oss-extension-built-not-yet-run">A5. Safety / gpt-oss extension (built, not yet run)</h2>
+<p>The deliberative-alignment / "shape of safety reasoning" extension (refusal-direction engine, multi-annotator DSR pass, forgery-dataset builder, de-confounded fingerprint) is <strong>implemented and offline-tested</strong> on branch <code>safety/gpt-oss-extraction</code> (suite green). It is <strong>unrun</strong> — it needs gpt-oss-20b on the cluster and, more importantly, <strong>a scope decision</strong> (it's the thesis's "Movement II" flagship but it's a second, large arm). Flagged here so it's on your radar, not because it's blocking.</p>
+<hr />
+<h1 id="part-b-write-up">PART B — Write-up</h1>
+<h2 id="b1-thesis-state">B1. Thesis state</h2>
+<p>Lives in its <strong>own private repo</strong> now (<code>reasoning-on-a-manifold-thesis</code>), separate from the public code. Compiles cleanly with <code>tectonic</code> at <strong>89 pages, zero undefined refs/cites</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Chapters</th>
+<th>Status</th>
+<th>Words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Foundations</td>
+<td>ch01 intro, ch02 reasoning, ch03 background</td>
+<td>✅ drafted</td>
+<td>~15k</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td>ch04 corpus, ch05 apparatus, ch06 standing results</td>
+<td>✅ drafted</td>
+<td>~13k</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td>ch07 geometry results, ch08 steering</td>
+<td>🟧 ch07 drafted (numbers + 4 figures); ch08 stub</td>
+<td>~4k</td>
+</tr>
+<tr>
+<td>Origin (safety)</td>
+<td>ch09 programme, ch10 results</td>
+<td>🟧 ch09 drafted, ch10 embargoed stub</td>
+<td>~4k</td>
+</tr>
+<tr>
+<td>Synthesis</td>
+<td>ch11 conclusions</td>
+<td>⬜ stub</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>ch02 "Reasoning" (new Foundations chapter, ~6.4k words)</strong> — concept / induction / knowledge-creation-horizon. Knowledge-creation enters as a <em>conceptual thread only</em> (experiments remain future work, per the earlier deferral decision). 21 philosophy/cog-sci citations backfilled.</li>
+<li><strong>The Gate-0 reframe is in the thesis</strong> (commit <code>bf4a68b</code>): ch05–07 reconciled to "subspace supported, per-behaviour curvature rejected (chain artefact)." <strong>The now-final Gate-0.1 numerals have since been lifted into ch07</strong> with four figures; the remaining embargoed numbers (steering / Phase-7, Movement-II) stay behind the <code>\gateZero{}</code> / <code>\phaseSeven{}</code> macros.</li>
+<li>Number-embargo discipline is enforced by a style contract (<code>thesis/_planning/STYLE.md</code>): no geometry number appears outside a <code>\gateZero</code> marker.</li>
+</ul>
+<h2 id="b2-refinement-pass-literature-scooping-triage-last-week">B2. Refinement pass + literature-scooping triage (last week)</h2>
+<p>A four-agent pass (lit comparison + scooping scan + draft diagnostic + narrative planning) produced <code>IMPROVEMENT_PROPOSAL_2026-06-15.md</code>. Key outcomes:</p>
+<ul>
+<li><strong>The title-collision question you'll want to know about:</strong> arXiv:<strong>2510.09782</strong> "The Geometry of Reasoning: Flowing Logics in Representation Space" (Duke, ICLR 2026) shares our title near-verbatim. Verdict: <strong>LOW risk / cite as a complement</strong> — they study a <em>logical-form trajectory</em> (one vector per growing prefix), are descriptive-only (no steering/patching), and are safety-agnostic. Their curvature claim is at the <em>trajectory</em> level — exactly where our reframe puts it. Now cited + differentiated.</li>
+<li><strong>Higher-threat neighbours triaged</strong> (e.g. "Tracing Representation Geometry Pretraining→Post-training" 2509.23024 is the most relevant to our Movement-II fingerprint claim). Our defensible lanes: per-behaviour geometry with MP + chain nulls; subspace-projected steering as <em>causal</em> validation; deliberative-alignment-specific fingerprint; rigorous genuine-vs-forged forgery probe. 6 verified citations + differentiation paragraphs added.</li>
+<li><strong>#1 fix applied:</strong> ch05 was stale and contradicted ch06/07 (said "gate not closed" while later chapters reported it closed). Reconciled.</li>
+</ul>
+<h2 id="b3-predictive-geometry-write-up">B3. Predictive-geometry write-up</h2>
+<p>Draft section + related-work survey already written: <code>writeup/predictive_geometry.tex</code> (13k), <code>writeup/predictive_geometry_related_work.md</code> (22k). Novelty wedge is narrowed and honest: the "first to use predictor residual for correctness" claim is <strong>retired</strong> (PHi got there for per-token scalars); our wedge is the predictor over <em>behaviour-segmented steps</em> + residual geometry + chain-grouped nulls.</p>
+<hr />
+<h1 id="talking-points-the-honest-tensions-to-surface">Talking points (the honest tensions to surface)</h1>
+<ol>
+<li><strong>The geometry story got smaller but stronger.</strong> We lost per-behaviour curvature (clean negative) but gained trustworthy low-dim structure + a sharper, controlled claim. I'd rather lead with the negative than defend a confounded positive.</li>
+<li><strong>Behaviour-specificity is partial (2 of 4 behaviours).</strong> This is real and I want to present it as a finding, not bury it. <code>adding-knowledge</code> simply isn't behaviour-specific in this metric.</li>
+<li><strong>The causal headline isn't in yet.</strong> The thesis's Movement-I causal claim rests on <strong>Phase-7 steering</strong> (subspace vs single-direction vs random), which is built but <strong>not run</strong> (needs cluster GPU). Right now we have <em>descriptive</em> low-dim + <em>predictive</em> residual signal, not <em>causal</em>.</li>
+<li><strong>Predictive geometry is promising but modest.</strong> AUC ~0.58. It supports H1 (predictability magnitude) and quietly <em>refutes</em> H3 (order/branch geometry). Worth deciding whether it's a thesis chapter, a side paper, or a paragraph.</li>
+<li><strong>Annotator agreement is only fair.</strong> κ ≈ 0.4. The robustness argument has to run through "the <em>geometry</em> replicates across annotators," which I still owe.</li>
+<li><strong>Scope risk.</strong> There are now three live arms (core structure, predictive geometry, safety/gpt-oss). I could spread thin. I'd value your steer on sequencing.</li>
+</ol>
+<hr />
+<h1 id="decisions-i-need-from-you">Decisions I need from you</h1>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Cost / implication</th>
+<th>My lean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Scale correctness labels 183 → ~1000</strong> to tighten the predictive-geometry AUC and map the layer profile?</td>
+<td>~5× the pilot API spend</td>
+<td><strong>Yes</strong> — the L27 signal is real but noisy at n=183</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Run Phase-7 steering on the cluster</strong> (the causal specificity headline for Movement I)?</td>
+<td>GPU time; pre-spend debt already fixed</td>
+<td><strong>Yes</strong> — it's the missing causal leg</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Predictive geometry: chapter, side-paper, or paragraph?</strong></td>
+<td>Detour vs finishing the core</td>
+<td>Lean <strong>side-paper / Part-II insert</strong> if label-scaling holds</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Sign off on the curvature reframe</strong> (lead with low-dim + steering; curvature = trajectory-level future work)?</td>
+<td>Framing of Movement I</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>gpt-oss safety arm — green-light now or after the core closes?</strong></td>
+<td>A second large empirical arm</td>
+<td>Lean <strong>after core</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>ch02 knowledge-creation: keep substantial, or compress ~60%?</strong></td>
+<td>Thesis length / focus</td>
+<td>Your call — it's a locked decision I can revisit</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="next-steps-sequenced">Next steps (sequenced)</h1>
+<p><strong>Immediately (no new compute):</strong>
+- Finish R2.2: replicate the manifold (cdim/curvature) under each of the 3 annotators' labels — closes the annotator-robustness loop.
+- Lift the now-citable Gate-0 numerals into ch07 (currently embargoed placeholders).</p>
+<p><strong>Pending decision #1 (label spend):</strong>
+- Re-run the predictive-geometry gate at full ~1000 labels; pin the ridge-vs-JEPA gap and layer profile.</p>
+<p><strong>Pending decision #2 (cluster GPU):</strong>
+- Phase-7 steering (subspace vs single vs random control) → the causal Movement-I result → drafts ch08.</p>
+<p><strong>Write-up:</strong>
+- Apply the remaining refinement-proposal items (maturity-ledger table; methodology citations; flat-generic→curved-safety bridge).
+- Decide predictive-geometry placement (#3) and draft accordingly.</p>
+<hr />
+<h1 id="appendix-key-numbers-file-pointers">Appendix — key numbers &amp; file pointers</h1>
+<p><strong>Headline numbers (all on clean, regenerated data):</strong>
+- Intrinsic dim (corr-dim): 5.9 / 6.2 / 7.7 / 6.0 in 1536-dim; stable across chain controls (sd ≈ 0.1).
+- Curvature local/global ratio: 0.55–0.69 (full) → ≈1.0 (one-per-chain) = chain artefact.
+- Behaviour-specificity (variance-ratio null, B=2500): 2/4 specific at all layers, 1 deep-only, 1 not.
+- Predictive geometry: L27 AUC 0.578 (ridge, p=.034) / 0.591 (JEPA, p=.024); L14 JEPA 0.582 (p=.026).
+- Annotator κ 0.35–0.44; span-F1 (IoU≥0.5) 0.26–0.31.
+- Duplicate fraction: 35–56% (pre-fix) → ~1% (clean).</p>
+<p><strong>Where things live:</strong>
+- Cleaned geometry: <code>results/{robustness,geometric,triangulation,cross_layer,pca,power_analysis}/</code>
+- Predictive geometry: <code>results/predict/R1-1.5B/corrected/</code> · code <code>src/predict/</code>
+- Annotator robustness: <code>results/robustness/{cross_annotator_comparison,span_f1}.md</code>
+- Confound register (source of truth): <code>CONFOUNDS_AND_REMEDIATION.md</code>
+- Thesis: private repo <code>thesis/</code> (build: <code>cd thesis &amp;&amp; tectonic main.tex</code>)
+- Predictive-geometry write-up: <code>writeup/predictive_geometry*.{tex,md}</code>
+- Figures in this brief: <code>make_meeting_figures.py</code> (reproducible from result JSON)</p>
+<p><em>This brief: <code>results/supervisor_meeting/MEETING_2026-06-18.md</code>. Figures generated 2026-06-18 from the regenerated Gate-0.1 / Tier-0 outputs and the predictive-geometry pilot.</em></p></body></html>
