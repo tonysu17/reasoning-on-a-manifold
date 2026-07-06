@@ -1,0 +1,16 @@
+{
+  "example-testing": {
+    "5": {
+      "cos_single_manifold": 0.7988418075997966,
+      "retained_energy": 0.7988418075997966
+    },
+    "energy_matched_random_scale": 7.732922776497429
+  },
+  "backtracking": {
+    "5": {
+      "cos_single_manifold": 0.9645871535508875,
+      "retained_energy": 0.9645871535508874
+    },
+    "energy_matched_random_scale": 2.0594208424008458
+  }
+}

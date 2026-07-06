@@ -246,7 +246,7 @@ precedence DOES clear the control at L17 (+0.037 vs +0.018, MW p=8e-4; weak L16 
 absent L15) ⇒ Duan-style state-before-text survives only as uniformity-at-L17. Folded into
 thesis `steering.tex` rung-one paragraph 2026-07-05.
 
-**E9.1 — Dose-response × decoding-entropy factorial — 🚀 LAUNCHED 2026-07-05** (generation
+**E9.1 — Dose-response × decoding-entropy factorial — ✅ EXECUTED 2026-07-06 (P1 ✅ / P2 ✅ / P3-annotation-free ✅ + boxed-rate bonus / P4 ✅ qualitative; see RESULTS_LEDGER §B3 + `results/eval/E9_1_ANALYSIS.md`)** (generation
 running on RunPod; declared deltas from the spec below: (i) **min-p arm deferred** (owed;
 greedy + T=0.6 only), (ii) **greedy α=1.0 cells reused from E8** — same model, vectors dir,
 eval split, arms, decoding, so the merge is exact; new greedy generation covers α∈{0.5,1.5}
@@ -260,8 +260,11 @@ decoding ∈ {greedy, T=0.6 (vendor-recommended), min-p} × 50 tasks × 3 sample
 Annotation-free endpoints: collapse rate (loop-to-cap), per-chain repetition, length,
 task-accuracy guard (`\boxed` grading on structured tasks — closes the owed guard from
 `steering.tex:253-255`), **cross-sample diversity** (distinct-n / self-BLEU across the 3
-samples — the entropy endpoint the run never had). Annotated endpoint (budget-gated, non-builder
-annotator if the band is funded): does backtracking Δ_floor survive at T=0.6? Pre-registered
+samples — the entropy endpoint the run never had). Annotated endpoint: **SKIPPED ENTIRELY per Tony 2026-07-06** (was: budget-gated non-builder
+band — does backtracking Δ_floor survive at T=0.6?). P3 is adjudicated on the
+annotation-free half only (backtracking collapse/repetition/length vs floors at T=0.6);
+the behaviour-fraction Δ_floor at T>0 and the non-builder circularity break both remain
+OPEN, permanently declared as such in the thesis. Pre-registered
 predictions: (P1) collapse rises with α for ex-test manifold, flat for floors (H-A
 dose-response); (P2) T=0.6 rescues ≥ half of steering-induced collapses (entropy injection at
 the output compensates variance removal in the state); (P3) backtracking suppression persists

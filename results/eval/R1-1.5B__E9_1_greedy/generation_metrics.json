@@ -1,0 +1,274 @@
+{
+  "adding-knowledge": {
+    "vanilla": {
+      "0.0": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5787.34,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5192581298976843
+      }
+    }
+  },
+  "backtracking": {
+    "energy_matched_random": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5902.46,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5482268442727112
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5107.86,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.4493048526076037
+      }
+    },
+    "manifold_k5": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 4635.56,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.43357715337385655
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 4761.2,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.48437283931952935
+      }
+    },
+    "random_subspace_k5": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 100,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5451.86,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.4841793167942798
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 100,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5579.91,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.4983180430141729
+      }
+    },
+    "single_direction": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5070.2,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.44863496078918325
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 4849.1,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.46402065392880915
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5787.34,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5192581298976843
+      }
+    }
+  },
+  "example-testing": {
+    "energy_matched_random": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5989.8,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5464448933477719
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 6461.52,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.6374735577343543
+      }
+    },
+    "manifold_k5": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 6683.92,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.6257808352604894
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 7520.62,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.7998679315076717
+      }
+    },
+    "random_subspace_k5": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 100,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5582.48,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5268495220277747
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 100,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5490.68,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.4900436969502803
+      }
+    },
+    "single_direction": {
+      "0.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5991.28,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5441153947706359
+      },
+      "1.5": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 7283.08,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.7543154123122285
+      }
+    },
+    "vanilla": {
+      "0.0": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5787.34,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5192581298976843
+      }
+    }
+  },
+  "uncertainty-estimation": {
+    "vanilla": {
+      "0.0": {
+        "mean": null,
+        "std": null,
+        "n": 0,
+        "n_missing": 50,
+        "n_empty": 0,
+        "leakage_by_behaviour": {},
+        "leakage_mean": null,
+        "mean_n_tokens": 5787.34,
+        "degenerate_rate": 0.0,
+        "repetition_rate": 0.5192581298976843
+      }
+    }
+  }
+}
