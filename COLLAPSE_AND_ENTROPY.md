@@ -274,8 +274,7 @@ contours: α needed to collapse falls as decoding entropy falls (the budget pict
 delivers the α-sweep + Pareto frontier already owed (`PLAN_EXPERIMENTS.md` E6/E7,
 `steering.tex:494-513`).
 
-**E9.1b — Amplify arm: the sign/parity test — 📋 PRE-REGISTERED 2026-07-05 (before any
-amplify cell has ever been generated; Tony-approved).** Everything causal so far is
+**E9.1b — Amplify arm: the sign/parity test — ✅ EXECUTED 2026-07-06 (P5 ✅ odd+significant / P6 🟧 asymmetric / P7 ✅ / P8 🟧; even-parity damage account REJECTED; see RESULTS_LEDGER §B3 + `results/eval/E9_1B_PARITY.md`). Pre-registered 2026-07-05 before any amplify cell existed; Tony-approved.** Everything causal so far is
 SUPPRESSION (subtract mode, §4b); E9.1b runs the SAME arms in **add mode**
 (h' = h + α(rᵀh)r; engine support existed, plumbing + `--steer-mode add` added 2026-07-05,
 mode recorded per row). Design: {backtracking, example-testing} × arms {single, manifold_k5,

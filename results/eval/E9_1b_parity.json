@@ -1,0 +1,130 @@
+{
+ "backtracking|energy_matched_random|0.5": {
+  "subtract": 0.42,
+  "amplify": 0.42,
+  "parity": "even/flat",
+  "arm_only": 9,
+  "van_only": 6,
+  "p_sign": 0.6072
+ },
+ "backtracking|energy_matched_random|1.0": {
+  "subtract": 0.28,
+  "amplify": 0.4,
+  "parity": "ODD",
+  "arm_only": 8,
+  "van_only": 6,
+  "p_sign": 0.7905
+ },
+ "backtracking|manifold_k5|0.5": {
+  "subtract": 0.3,
+  "amplify": 0.58,
+  "parity": "ODD",
+  "arm_only": 14,
+  "van_only": 3,
+  "p_sign": 0.0127
+ },
+ "backtracking|manifold_k5|1.0": {
+  "subtract": 0.24,
+  "amplify": 0.58,
+  "parity": "ODD",
+  "arm_only": 15,
+  "van_only": 4,
+  "p_sign": 0.0192
+ },
+ "backtracking|random_subspace_k5|0.5": {
+  "subtract": 0.28,
+  "amplify": 0.37,
+  "parity": "ODD",
+  "arm_only": 1,
+  "van_only": 7,
+  "p_sign": 0.0703
+ },
+ "backtracking|random_subspace_k5|1.0": {
+  "subtract": 0.37,
+  "amplify": 0.33,
+  "parity": "ODD",
+  "arm_only": 1,
+  "van_only": 9,
+  "p_sign": 0.0215
+ },
+ "backtracking|single_direction|0.5": {
+  "subtract": 0.28,
+  "amplify": 0.46,
+  "parity": "ODD",
+  "arm_only": 11,
+  "van_only": 6,
+  "p_sign": 0.3323
+ },
+ "backtracking|single_direction|1.0": {
+  "subtract": 0.36,
+  "amplify": 0.64,
+  "parity": "even/flat",
+  "arm_only": 17,
+  "van_only": 3,
+  "p_sign": 0.0026
+ },
+ "example-testing|energy_matched_random|0.5": {
+  "subtract": 0.38,
+  "amplify": 0.48,
+  "parity": "even/flat",
+  "arm_only": 10,
+  "van_only": 4,
+  "p_sign": 0.1796
+ },
+ "example-testing|energy_matched_random|1.0": {
+  "subtract": 0.38,
+  "amplify": 0.46,
+  "parity": "even/flat",
+  "arm_only": 11,
+  "van_only": 6,
+  "p_sign": 0.3323
+ },
+ "example-testing|manifold_k5|0.5": {
+  "subtract": 0.42,
+  "amplify": 0.3,
+  "parity": "ODD",
+  "arm_only": 5,
+  "van_only": 8,
+  "p_sign": 0.5811
+ },
+ "example-testing|manifold_k5|1.0": {
+  "subtract": 0.64,
+  "amplify": 0.42,
+  "parity": "even/flat",
+  "arm_only": 7,
+  "van_only": 4,
+  "p_sign": 0.5488
+ },
+ "example-testing|random_subspace_k5|0.5": {
+  "subtract": 0.33,
+  "amplify": 0.37,
+  "parity": "ODD",
+  "arm_only": 4,
+  "van_only": 9,
+  "p_sign": 0.2668
+ },
+ "example-testing|random_subspace_k5|1.0": {
+  "subtract": 0.36,
+  "amplify": 0.36,
+  "parity": "even/flat",
+  "arm_only": 3,
+  "van_only": 9,
+  "p_sign": 0.146
+ },
+ "example-testing|single_direction|0.5": {
+  "subtract": 0.36,
+  "amplify": 0.36,
+  "parity": "even/flat",
+  "arm_only": 6,
+  "van_only": 6,
+  "p_sign": 1.0
+ },
+ "example-testing|single_direction|1.0": {
+  "subtract": 0.48,
+  "amplify": 0.34,
+  "parity": "ODD",
+  "arm_only": 6,
+  "van_only": 7,
+  "p_sign": 1.0
+ }
+}
