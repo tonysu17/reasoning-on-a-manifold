@@ -4,7 +4,7 @@
 > touching geometry/steering; UPDATE it the moment a method changes. Pairs with
 > [`RESULTS_LEDGER.md`](RESULTS_LEDGER.md) (what we found) and
 > [`CONFOUNDS_AND_REMEDIATION.md`](CONFOUNDS_AND_REMEDIATION.md) (what is wrong / owed).
-> **Last updated: 2026-06-20.**
+> **Last updated: 2026-07-06.**
 
 Tags used below: **[CURRENT]** = implemented and run as described · **[CODED, UNRUN]** =
 implemented but not yet executed · **[PROPOSED]** = not yet built (design only).
@@ -143,7 +143,122 @@ Full design + hypothesis register (H-A…H-D) + pre-registered predictions: [`CO
 - **Precedence (E9.0b):** windowed participation ratio (Gram-trick exact PR — `participation_ratio` docstring) + token uniformity (mean pairwise cosine), stride-64 windows over the generated region; pre-onset window vs early-chain baseline, ALWAYS against the **matched-relative-position contrast in clean chains** — the control that killed the naive PR-precedence claim (clean chains decline MORE; only uniformity@L17 survives it).
 - **Batched sampling (E9.1):** `SteeredModel.generate_batch` supports T>0 with **batch-level seeding** (batches grouped by sample index j, seed = base+j); the reproducibility contract is per (batch composition, seed), not per sequence — draws pool per cell downstream. Greedy path unchanged (validated batched == unbatched).
 
+## 8. Featurizer interventions / causal basis (E10)  `[E10 COMPLETE: E10.0 PASS; E10.1 RUN (P1 confirmed, P2b run); E10.2 RUN]`  `19_sae_gate.py`, `20_das_backtracking.py`
+The causal-abstraction framing (Geiger et al.): every intervention is performed in a coordinate
+system; ours has so far been a **fixed, correlationally chosen linear featurizer** (diff-of-means
+direction, optionally restricted to the behaviour's top-k PCA subspace; Huang Eq. 3 at α=1 = zero-
+ablation of ONE feature coordinate in that frame). The upgrade path is a frame selected **causally**
+(interchange interventions / DAS). Thesis: formalism in `sec:bg-mechinterp` (eq:bg-featurizer),
+programme in `sec:steering-featurizer-programme`. Key algebra: swap = `h_b + U Uᵀ(h_s − h_b)` for an
+orthonormal frame U; a **swap has no α** (injected values are on-distribution by construction) —
+directly relevant to CF-19 collapse.
+- **E10.0 dictionary gate** `[EXECUTED 2026-07-05 = PASS, local MPS, 60 chains]` — `19_sae_gate.py` →
+  `results/sae_gate/R1-1.5B/` (`REPORT.md`, `e10_0_gate.json`). Public-SAE audit (web-verified 2026-07-05): EleutherAI 65k = MLP-out
+  only (all 28 layers); Resa (arXiv 2506.09967) = MLP-out L12, reasoning-triggered, HF `Resa-Yi`;
+  DGurgurov = the ONLY residual candidate, metadata self-contradictory (card resid_pre 19 / folder
+  blocks.1 / cfg resid_post 19) → gate resolved the site **empirically** (FVU probe over 3 sites ×
+  {raw, norm-folded}: **blocks.19.resid_post, raw** = the winner; cfg was right, card+folder wrong).
+  Metrics: FVU, L0, CE-splice (clean/recon/zero → CE-recovered). Sealed thresholds: PASS FVU≤0.15 ∧
+  CE-rec≥0.85; AMBER FVU≤0.40 ∧ CE-rec≥0.60; else FAIL ⇒ self-train residual SAEs at causal-candidate
+  layers on the CoT distribution (Resa recipe moved to the residual hookpoint — kills site+distribution
+  mismatch at once). **Verdict: PASS** — DGurgurov @ resid_post19 scored **FVU 0.061, CE-recovered 0.958, L0 71**
+  on OUR CoT distribution despite LMSYS-chat training (transfers cleanly); L19-MLP reference FVU 0.478 /
+  CE-rec 0.669 confirms the wrong-site penalty. ⇒ a usable external residual dictionary EXISTS but only at L19
+  (near ex-test mid-peak); self-trained residual SAEs still owed at the other causal layers (bt17/unc15/L27).
+  MLP-site SAEs are NOT admissible as the comparator (edits one addend of the stream, not the accumulated
+  state → site confounded with featurizer).
+- **E10.1 DAS-1D on backtracking** `[INTERCHANGE STAGE RUN 2026-07-06 → P1 supported @ L17, grounded; L11/L27 ungrounded (see RESULTS_LEDGER §B4 + results/das/R1-1.5B/main/ANALYSIS_2026-07-06.md); P2 generation stage + CIs owed]` — learn 1-D orthogonal frame at bt attribution layer
+  (17) + de-confounded mid (11), L27 as read-out-proximity control; onset-anchored donor/recipient
+  pairs (E9.0 machinery); objective = teacher-forced CE toward donor's real post-onset continuation
+  (CF-10a-style output read-out; annotator stays eval-only → loosens circularity).
+  ⚠️ **Minival-1 (2026-07-06) fired the illusion control** — single-onset-token labels admit a
+  generic "Wait-booster" solution (shuffled-pair dlp +5.87 ≈ learned +6.56) ⇒ objective upgraded to
+  **windowed W=12 teacher-forced continuation, symmetric induce+remove** (prereg Amendment 1);
+  primary endpoint = sym Δlogprob + **pair_specificity_gap** (learned − shuffled). W=1 kept only as
+  ablation. Eval battery unchanged (E8 Δ_floor machinery for the generation stage + collapse
+  endpoints). Controls: untrained random rotation (floor), **shuffled-pair training**
+  (Makelov-illusion control), misaligned-position swaps (E9.0b-style positional control). Sealed
+  predictions: (P1) causal frame ≥ diff-of-means at matched energy; (P2) swap collapses less than
+  projective ablation at matched on-target effect (a collapse-account prediction too).
+- **E10.2 causal width** `[PROPOSED]` — boundless-DAS-style learned k*; k*≈corr-dim (6–8) certifies
+  low-dim causally, k*=1 explains the manifold null at its root. Bonus: add-knowledge **removal** test
+  (swap is symmetric; amplification null ≠ removal null).
+
+## 9. Predictive-geometry value track & precursors (PG rungs 3–7)  `[PROPOSED — prereg sealed 2026-07-06]`  [`PREDICTIVE_GEOMETRY.md`](PREDICTIVE_GEOMETRY.md) §11
+Adopted reframe of the predictive-geometry side project (branch `predictive-geometry-of-reasoning`)
+after the LRS deep-read (2606.00726) + the pilot verdict (residual detector weak 0.54–0.59,
+**shuffle-invariant = occupancy not dynamics**, dead at causal L17 / best at read-out L27). The
+programme pivots from correctness detection to **mechanism around collapse**, composing E8/E9/E10
+assets: value head + ∇V-vs-DAS-vs-diff-of-means triangulation (R3) → precursor lead-time race at
+loop onsets (R4) → **dose-response validation of precursors on the E9.1b arms** (R5 — intervention-
+validated early warning; all neighbour detectors are observational) → precursor-gated ablation
+with count+energy-matched random-gate floor (R6, the WHEN-vs-WHERE factorization) → action-
+conditioned forward model (R7, stretch). Full sealed predictions/kills per rung in PG §11.3.
+**Two rules bind ALL trajectory claims repo-wide** (not just this programme):
+- **M3 order-sensitivity null:** any trajectory claim reports its step-shuffle variant;
+  shuffle-invariant results are worded as *state-occupancy geometry* — "trajectory/dynamical" is
+  reserved for order-sensitive results.
+- **M5 LRS anti-inheritance:** sealed hyperparams + val checkpoint (no test-tuned knobs); gated
+  interventions get **count-matched AND energy-matched** random-gate floors (extends §4's floor
+  discipline); matched-pair recovery tables as standard endpoints.
+Interlocks: collapse endpoint + onsets from §7; frames from §3 (behaviour-PCA), §8 (SAE@L19
+dense-arm-only, DAS-1D@L17); R4+R5 share ONE extraction pod session (~$1–3); total new spend <$10.
+
+**Proposed trajectory-dynamics apparatus (A1–A5, 2026-07-07)** `[PROPOSED — full P/K/cost at PG §12]`
+— extends the sealed ladder along the "trajectory of reasoning in latent space" axis; each anchored to
+JEPA or a named mech-interp method, each cheap, each with a kill criterion. Together they upgrade
+Movement 1 from "reasoning occupies static low-dimensional subspaces" to "**reasoning is a dynamical
+process with identifiable geometric structure**":
+- **A1 belief-state trajectory** — logit / tuned lens (Belrose et al.; Shai et al. belief-state
+  geometry) read of the model's own answer-belief per step = a label-free value track, the baseline
+  R3's trained V must beat, a free R4 precursor, the M4 5th frame; order-sensitive by construction
+  (the M3 positive the pilot lacked).
+- **A2 switching LDS** — rSLDS (Linderman et al.; `ssm`) → discrete reasoning modes + switch points;
+  unsupervised mode↔annotated-behaviour alignment = an annotator-circularity de-confound; loop-mode
+  entry = a lead-time precursor.
+- **A3 loops-as-attractors** — the JEPA representational-collapse ↔ reasoning-collapse bridge;
+  effective-rank / SIGReg sliding-window precursors + a perturbation-return (basin-of-attraction)
+  causal test (no detector paper — Sun/PHi/LRS — runs it).
+- **A4 circuit attribution** — induction-head (Olsson et al.) attribution + ablation of loop onset =
+  the mechanism *under* the geometric precursor; the mechanism-not-benchmark wedge vs LRS.
+- **A5 forward-map grounding** — activation-patch the JEPA-predicted next-state into the model
+  (E10.1-style interchange) to test whether the learned direction IS the model's own update.
+
+## 10. Entropy-ladder instruments (creativity–entropy programme, R0)  `[R0 EXECUTED 2026-07-12 — gate PASS, see RESULTS_LEDGER §B5]`  `29_r0_entropy_ladder.py`, `r0_runner.sh`, [`R0_ENTROPY_LADDER_PREREG.md`](R0_ENTROPY_LADDER_PREREG.md)
+Programme doc: `../creativity_entropy_extension.md` (parent dir) — creativity as entropy
+*management*; four-level entropy ladder **E-1 decoding / E-2 state occupancy / E-3 solution-space /
+E-4 semantic** with cross-level relations measured, never assumed. R0 = bookkeeping on existing
+corpora (E9.0 shards + E9.1 T06 vanilla arm), local MPS, $0. E-4 deferred by declaration (R4's job).
+- **E-1 instrument:** teacher-forced next-token predictive entropy (nats), chunked LM head (never
+  materialises the (T, vocab) logits tensor), tokenization + window grid identical to §7's
+  loop-geometry extract (window 128 / stride 64); **center-grid equality with the E9.0 state shard
+  asserted per chain** — mismatches excluded and counted, not kept. Re-scoring caveat: exact for
+  greedy corpora; for T>0 samples it measures local uncertainty along the sampled path.
+- **E-2:** §7's windowed PR (Gram-trick) + token uniformity, from the existing shards.
+- **E-3:** 1 − mean pairwise 4-gram Jaccard across same-task samples (`e9_1_analysis` definition).
+- **Primary-region discipline (R0.a):** clean chains = all generated windows; loop chains =
+  pre-onset windows only — else the loop tail manufactures a spurious pooled correlation. The
+  E9.0b **matched-relative-position clean control is mandatory** for all onset-anchored tests.
+- Sealed predictions P-R0.1–P-R0.5 (dissociation gate at |ρ|<0.9; jam = in-loop E-1 depression;
+  state-first vs thermostat-failure pre-onset race; mid-range E-1↔E-3 coupling) in the prereg doc.
+- **Ops lessons (2026-07-12, in docstrings):** MPS caching allocator accumulates freed blocks
+  across variable-length chains — per-chain `torch.mps.empty_cache()`+gc AND a restart-loop runner
+  (`r0_runner.sh`, `--limit` chains/process) are both needed; ~1% of 8192-token bf16 forwards go
+  all-NaN on MPS ⇒ `--fp32` retry path (extract stages refuse to save all-NaN shards).
+
 ---
 ### Change log
+- 2026-07-11: §10 added — entropy-ladder instruments (creativity–entropy R0); prereg sealed before
+  computation (`R0_ENTROPY_LADDER_PREREG.md`); programme doc `creativity_entropy_extension.md`
+  drafted in parent dir (proposal only — thesis untouched).
+- 2026-07-07: §9 extended — PROPOSED trajectory-dynamics apparatus A1–A5 (belief-lens value track ·
+  rSLDS modes/switches · loops-as-attractors JEPA-collapse bridge · induction-head circuit attribution ·
+  forward-map patching); full per-item design/predictions/kills/cost at `PREDICTIVE_GEOMETRY.md` §12.
+  Motivated by this session's LRS read (value/outcome-map vs forward/dynamics-map dissociation) + the
+  latent-space-trajectory focus; connects the programme to JEPA + logit-lens / rSLDS / induction-head /
+  activation-patching mech-interp.
+- 2026-07-06 (later): §9 added — predictive-geometry value-track reframe ADOPTED (Tony) + rungs 3–7 sealed in `PREDICTIVE_GEOMETRY.md` §11 (M-register M1–M6; H5–H8; per-rung predictions + kills; collapse-primary outcome, correctness secondary). Repo-wide binding rules M3 (order-sensitivity null / occupancy-vs-dynamics wording) + M5 (LRS anti-inheritance: sealed knobs, count+energy-matched gate floors, matched-pair recovery tables). PG doc also reconciled: §8 pilot verdict replaces stale pre-label read, old Rung-3 apex superseded (CEM cut; causal loop → R6), LRS added to §5 wedge, §10 world-model framing added.
+- 2026-07-06: §8 reconciled to executed state — E10.0 gate verdict = **PASS** (was tagged RUNNING): DGurgurov resid SAE @ blocks.19.resid_post scores FVU 0.061 / CE-recovered 0.958 on our CoT ⇒ usable external residual dictionary at L19 only, self-trained SAEs owed at bt17/unc15/L27. Thesis `sec:steering-featurizer-programme` rung one updated from failure-branch-only to the partial-pass result (steering.tex; ucl_msc build compiles clean, 0 undefined citations in PDF). E10.1 DAS harness (`20_das_backtracking.py`) noted as built + smoke-only (conclusive run still UNRUN).
+- 2026-07-05 (later): §8 added — E10 featurizer/causal-basis programme (audit executed, E10.0 gate launched locally, E10.1–2 pre-registered; thesis sections written same day).
 - 2026-07-05: §7 added (E9 collapse/loop-geometry instruments; E9.0 executed, E9.1 launched — see `COLLAPSE_AND_ENTROPY.md` + `RESULTS_LEDGER.md` §B3).
 - 2026-06-20: created. Captured verified construction (§3) + application (§4) from `src/steering.py` / `src/steered_inference.py`; metric keep/drop list (§2); layer-selection + attribution-patching proposal (§5); reconciled peak_layers.

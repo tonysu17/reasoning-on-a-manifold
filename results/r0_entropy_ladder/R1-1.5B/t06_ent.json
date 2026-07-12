@@ -1,0 +1,1352 @@
+[
+ {
+  "task_id": "CAUS_097",
+  "base_task_id": "CAUS_097",
+  "sample": 0,
+  "n_gen_tokens": 1203,
+  "mean_ent": 1.132006287574768,
+  "mean_pr": 33.53147099183892,
+  "mean_unif": 0.3496309246865004
+ },
+ {
+  "task_id": "CAUS_098",
+  "base_task_id": "CAUS_098",
+  "sample": 0,
+  "n_gen_tokens": 1215,
+  "mean_ent": 1.0241646766662598,
+  "mean_pr": 32.72903426981547,
+  "mean_unif": 0.34831359457418687
+ },
+ {
+  "task_id": "CAUS_097#s1",
+  "base_task_id": "CAUS_097",
+  "sample": 1,
+  "n_gen_tokens": 1412,
+  "mean_ent": 0.989180862903595,
+  "mean_pr": 32.097733180636446,
+  "mean_unif": 0.3723197273644519
+ },
+ {
+  "task_id": "CAUS_098#s1",
+  "base_task_id": "CAUS_098",
+  "sample": 1,
+  "n_gen_tokens": 1084,
+  "mean_ent": 0.9842391014099121,
+  "mean_pr": 33.341606102831335,
+  "mean_unif": 0.3402430575373729
+ },
+ {
+  "task_id": "CAUS_097#s2",
+  "base_task_id": "CAUS_097",
+  "sample": 2,
+  "n_gen_tokens": 841,
+  "mean_ent": 1.1568288803100586,
+  "mean_pr": 34.23612204296166,
+  "mean_unif": 0.36349834180743135
+ },
+ {
+  "task_id": "CAUS_098#s2",
+  "base_task_id": "CAUS_098",
+  "sample": 2,
+  "n_gen_tokens": 1556,
+  "mean_ent": 0.9717215299606323,
+  "mean_pr": 34.578815752204875,
+  "mean_unif": 0.3539272689553763
+ },
+ {
+  "task_id": "MATH_102",
+  "base_task_id": "MATH_102",
+  "sample": 0,
+  "n_gen_tokens": 2582,
+  "mean_ent": 0.34403133392333984,
+  "mean_pr": 25.87776305281466,
+  "mean_unif": 0.42155093891008066
+ },
+ {
+  "task_id": "PATT_106",
+  "base_task_id": "PATT_106",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 6.209660053253174,
+  "mean_pr": 2.3593295322212633,
+  "mean_unif": 0.35443301944967054
+ },
+ {
+  "task_id": "PATT_107",
+  "base_task_id": "PATT_107",
+  "sample": 0,
+  "n_gen_tokens": 7174,
+  "mean_ent": 4.710875511169434,
+  "mean_pr": 30.55124837212635,
+  "mean_unif": 0.5424638964413706
+ },
+ {
+  "task_id": "CREA_098",
+  "base_task_id": "CREA_098",
+  "sample": 0,
+  "n_gen_tokens": 8030,
+  "mean_ent": 4.0735578536987305,
+  "mean_pr": 1.4744030311257554,
+  "mean_unif": 0.4190617396241639
+ },
+ {
+  "task_id": "CREA_095",
+  "base_task_id": "CREA_095",
+  "sample": 0,
+  "n_gen_tokens": 1602,
+  "mean_ent": 1.1781384944915771,
+  "mean_pr": 31.202857436014337,
+  "mean_unif": 0.36765601709852974
+ },
+ {
+  "task_id": "SYST_098",
+  "base_task_id": "SYST_098",
+  "sample": 0,
+  "n_gen_tokens": 1048,
+  "mean_ent": 1.2839326858520508,
+  "mean_pr": 31.336345341302938,
+  "mean_unif": 0.34685961855889
+ },
+ {
+  "task_id": "CREA_097",
+  "base_task_id": "CREA_097",
+  "sample": 0,
+  "n_gen_tokens": 1498,
+  "mean_ent": 1.2077494859695435,
+  "mean_pr": 32.63799870052092,
+  "mean_unif": 0.34661524027053403
+ },
+ {
+  "task_id": "LATE_095",
+  "base_task_id": "LATE_095",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.39545363187789917,
+  "mean_pr": 25.197795296380566,
+  "mean_unif": 0.44048981610375154
+ },
+ {
+  "task_id": "MATH_103",
+  "base_task_id": "MATH_103",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6044653654098511,
+  "mean_pr": 27.016206387251884,
+  "mean_unif": 0.39709168201556877
+ },
+ {
+  "task_id": "SYST_096",
+  "base_task_id": "SYST_096",
+  "sample": 0,
+  "n_gen_tokens": 1330,
+  "mean_ent": 0.8885319828987122,
+  "mean_pr": 33.12724660791266,
+  "mean_unif": 0.3414215507619745
+ },
+ {
+  "task_id": "PATT_109",
+  "base_task_id": "PATT_109",
+  "sample": 0,
+  "n_gen_tokens": 8025,
+  "mean_ent": 0.41460534930229187,
+  "mean_pr": 24.584970930751332,
+  "mean_unif": 0.42421976202493555
+ },
+ {
+  "task_id": "VERB_101",
+  "base_task_id": "VERB_101",
+  "sample": 0,
+  "n_gen_tokens": 3398,
+  "mean_ent": 0.7635917663574219,
+  "mean_pr": 28.108236847631357,
+  "mean_unif": 0.4004048970722148
+ },
+ {
+  "task_id": "CREA_096",
+  "base_task_id": "CREA_096",
+  "sample": 0,
+  "n_gen_tokens": 4150,
+  "mean_ent": 0.9272480010986328,
+  "mean_pr": 32.744113110154636,
+  "mean_unif": 0.37772639474402114
+ },
+ {
+  "task_id": "SPAT_112",
+  "base_task_id": "SPAT_112",
+  "sample": 0,
+  "n_gen_tokens": 3531,
+  "mean_ent": 0.5624529719352722,
+  "mean_pr": 28.46348381559592,
+  "mean_unif": 0.40317025031776693
+ },
+ {
+  "task_id": "VERB_103#s1",
+  "base_task_id": "VERB_103",
+  "sample": 1,
+  "n_gen_tokens": 2125,
+  "mean_ent": 0.6900598406791687,
+  "mean_pr": 28.99863597723928,
+  "mean_unif": 0.3742937386032529
+ },
+ {
+  "task_id": "CREA_099#s1",
+  "base_task_id": "CREA_099",
+  "sample": 1,
+  "n_gen_tokens": 1292,
+  "mean_ent": 1.2966279983520508,
+  "mean_pr": 31.603327054386707,
+  "mean_unif": 0.3693873591987343
+ },
+ {
+  "task_id": "LATE_097#s1",
+  "base_task_id": "LATE_097",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.20859110355377197,
+  "mean_pr": 26.948858840176296,
+  "mean_unif": 0.4669097017825619
+ },
+ {
+  "task_id": "SPAT_113#s1",
+  "base_task_id": "SPAT_113",
+  "sample": 1,
+  "n_gen_tokens": 6453,
+  "mean_ent": 0.42688852548599243,
+  "mean_pr": 25.586007575016833,
+  "mean_unif": 0.4065849378498281
+ },
+ {
+  "task_id": "SYST_099#s1",
+  "base_task_id": "SYST_099",
+  "sample": 1,
+  "n_gen_tokens": 1317,
+  "mean_ent": 1.083775281906128,
+  "mean_pr": 31.894053248466367,
+  "mean_unif": 0.35259139023676306
+ },
+ {
+  "task_id": "SCIE_101#s1",
+  "base_task_id": "SCIE_101",
+  "sample": 1,
+  "n_gen_tokens": 1387,
+  "mean_ent": 1.1882197856903076,
+  "mean_pr": 29.8792062811407,
+  "mean_unif": 0.3508032512717635
+ },
+ {
+  "task_id": "LATE_098#s1",
+  "base_task_id": "LATE_098",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.48249825835227966,
+  "mean_pr": 30.31974848155919,
+  "mean_unif": 0.4328725140392998
+ },
+ {
+  "task_id": "CAUS_099#s1",
+  "base_task_id": "CAUS_099",
+  "sample": 1,
+  "n_gen_tokens": 961,
+  "mean_ent": 0.7757154107093811,
+  "mean_pr": 32.684454890678126,
+  "mean_unif": 0.3265233900463828
+ },
+ {
+  "task_id": "SPAT_116#s1",
+  "base_task_id": "SPAT_116",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5330924391746521,
+  "mean_pr": 27.282671014298764,
+  "mean_unif": 0.40033253832684484
+ },
+ {
+  "task_id": "SYST_097",
+  "base_task_id": "SYST_097",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.195852130651474,
+  "mean_pr": 29.22872654348442,
+  "mean_unif": 0.442959044660812
+ },
+ {
+  "task_id": "MATH_105",
+  "base_task_id": "MATH_105",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.36360201239585876,
+  "mean_pr": 27.928805459717253,
+  "mean_unif": 0.397990016970049
+ },
+ {
+  "task_id": "SPAT_114",
+  "base_task_id": "SPAT_114",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6737854480743408,
+  "mean_pr": 29.758317573598227,
+  "mean_unif": 0.42066573443824756
+ },
+ {
+  "task_id": "LATE_096",
+  "base_task_id": "LATE_096",
+  "sample": 0,
+  "n_gen_tokens": 4650,
+  "mean_ent": 0.7229357361793518,
+  "mean_pr": 28.111673655243496,
+  "mean_unif": 0.41130592955023687
+ },
+ {
+  "task_id": "PATT_108",
+  "base_task_id": "PATT_108",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.47286131978034973,
+  "mean_pr": 21.043403627022595,
+  "mean_unif": 0.4289035175297504
+ },
+ {
+  "task_id": "VERB_103",
+  "base_task_id": "VERB_103",
+  "sample": 0,
+  "n_gen_tokens": 686,
+  "mean_ent": 0.6228243708610535,
+  "mean_pr": 25.83492243544664,
+  "mean_unif": 0.3503754363048091
+ },
+ {
+  "task_id": "CREA_099",
+  "base_task_id": "CREA_099",
+  "sample": 0,
+  "n_gen_tokens": 1131,
+  "mean_ent": 1.1754869222640991,
+  "mean_pr": 33.41059345519821,
+  "mean_unif": 0.36569396320518494
+ },
+ {
+  "task_id": "LATE_097",
+  "base_task_id": "LATE_097",
+  "sample": 0,
+  "n_gen_tokens": 2730,
+  "mean_ent": 0.58631831407547,
+  "mean_pr": 28.288285392592034,
+  "mean_unif": 0.4326263816060573
+ },
+ {
+  "task_id": "SPAT_113",
+  "base_task_id": "SPAT_113",
+  "sample": 0,
+  "n_gen_tokens": 7872,
+  "mean_ent": 0.5699120163917542,
+  "mean_pr": 25.449199690958817,
+  "mean_unif": 0.40330952447304796
+ },
+ {
+  "task_id": "SYST_099",
+  "base_task_id": "SYST_099",
+  "sample": 0,
+  "n_gen_tokens": 1528,
+  "mean_ent": 1.2029917240142822,
+  "mean_pr": 29.917181971875173,
+  "mean_unif": 0.3576742919215597
+ },
+ {
+  "task_id": "SCIE_101",
+  "base_task_id": "SCIE_101",
+  "sample": 0,
+  "n_gen_tokens": 1318,
+  "mean_ent": 1.1634482145309448,
+  "mean_pr": 32.33662865231022,
+  "mean_unif": 0.3480740580968032
+ },
+ {
+  "task_id": "LATE_098",
+  "base_task_id": "LATE_098",
+  "sample": 0,
+  "n_gen_tokens": 2032,
+  "mean_ent": 0.82834792137146,
+  "mean_pr": 28.82120826198878,
+  "mean_unif": 0.40711220120488156
+ },
+ {
+  "task_id": "CAUS_099",
+  "base_task_id": "CAUS_099",
+  "sample": 0,
+  "n_gen_tokens": 987,
+  "mean_ent": 0.8812611103057861,
+  "mean_pr": 33.288444605218146,
+  "mean_unif": 0.3417996358418964
+ },
+ {
+  "task_id": "SPAT_116",
+  "base_task_id": "SPAT_116",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5098284482955933,
+  "mean_pr": 26.02320566618086,
+  "mean_unif": 0.4084121310226418
+ },
+ {
+  "task_id": "PROB_111",
+  "base_task_id": "PROB_111",
+  "sample": 0,
+  "n_gen_tokens": 3740,
+  "mean_ent": 0.3738318979740143,
+  "mean_pr": 27.646030582354772,
+  "mean_unif": 0.38795058597673204
+ },
+ {
+  "task_id": "SPAT_115",
+  "base_task_id": "SPAT_115",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4721149504184723,
+  "mean_pr": 26.993386817009178,
+  "mean_unif": 0.39279622656859176
+ },
+ {
+  "task_id": "SCIE_103",
+  "base_task_id": "SCIE_103",
+  "sample": 0,
+  "n_gen_tokens": 1369,
+  "mean_ent": 1.0975450277328491,
+  "mean_pr": 31.063353750905794,
+  "mean_unif": 0.35306359480281335
+ },
+ {
+  "task_id": "PROB_112",
+  "base_task_id": "PROB_112",
+  "sample": 0,
+  "n_gen_tokens": 5256,
+  "mean_ent": 0.3858407139778137,
+  "mean_pr": 26.39456798808081,
+  "mean_unif": 0.3851366314791515
+ },
+ {
+  "task_id": "VERB_105",
+  "base_task_id": "VERB_105",
+  "sample": 0,
+  "n_gen_tokens": 6514,
+  "mean_ent": 0.6040834188461304,
+  "mean_pr": 24.59225009610779,
+  "mean_unif": 0.40383633031392496
+ },
+ {
+  "task_id": "PROB_114",
+  "base_task_id": "PROB_114",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6914264559745789,
+  "mean_pr": 28.076757695766883,
+  "mean_unif": 0.4183458791370632
+ },
+ {
+  "task_id": "CAUS_100",
+  "base_task_id": "CAUS_100",
+  "sample": 0,
+  "n_gen_tokens": 1379,
+  "mean_ent": 1.1715989112854004,
+  "mean_pr": 32.421910675166274,
+  "mean_unif": 0.3482065193670607
+ },
+ {
+  "task_id": "PROB_113",
+  "base_task_id": "PROB_113",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.3936057686805725,
+  "mean_pr": 24.549111265109538,
+  "mean_unif": 0.39871021723659106
+ },
+ {
+  "task_id": "VERB_104",
+  "base_task_id": "VERB_104",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4508190155029297,
+  "mean_pr": 26.216217966337425,
+  "mean_unif": 0.43825349036732875
+ },
+ {
+  "task_id": "LATE_099",
+  "base_task_id": "LATE_099",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6726231575012207,
+  "mean_pr": 30.27137181933839,
+  "mean_unif": 0.4095163524992803
+ },
+ {
+  "task_id": "MATH_104",
+  "base_task_id": "MATH_104",
+  "sample": 0,
+  "n_gen_tokens": 1878,
+  "mean_ent": 0.4527446925640106,
+  "mean_pr": 27.575286307032087,
+  "mean_unif": 0.3755465864582758
+ },
+ {
+  "task_id": "SCIE_102",
+  "base_task_id": "SCIE_102",
+  "sample": 0,
+  "n_gen_tokens": 1287,
+  "mean_ent": 1.1615350246429443,
+  "mean_pr": 31.06100166355767,
+  "mean_unif": 0.35572662463187515
+ },
+ {
+  "task_id": "SCIE_104",
+  "base_task_id": "SCIE_104",
+  "sample": 0,
+  "n_gen_tokens": 2102,
+  "mean_ent": 1.034483790397644,
+  "mean_pr": 30.035203183726512,
+  "mean_unif": 0.3737144501106198
+ },
+ {
+  "task_id": "VERB_102",
+  "base_task_id": "VERB_102",
+  "sample": 0,
+  "n_gen_tokens": 8189,
+  "mean_ent": 0.656656801700592,
+  "mean_pr": 26.712279961176534,
+  "mean_unif": 0.3930912139063345
+ },
+ {
+  "task_id": "CAUS_101",
+  "base_task_id": "CAUS_101",
+  "sample": 0,
+  "n_gen_tokens": 1370,
+  "mean_ent": 1.1380695104599,
+  "mean_pr": 31.764145117158318,
+  "mean_unif": 0.3437401346008581
+ },
+ {
+  "task_id": "SYST_100",
+  "base_task_id": "SYST_100",
+  "sample": 0,
+  "n_gen_tokens": 1276,
+  "mean_ent": 1.2649568319320679,
+  "mean_pr": 31.340168527804046,
+  "mean_unif": 0.3612955240806928
+ },
+ {
+  "task_id": "PROB_115",
+  "base_task_id": "PROB_115",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5603256225585938,
+  "mean_pr": 28.616034407162495,
+  "mean_unif": 0.3944988521118184
+ },
+ {
+  "task_id": "SCIE_105",
+  "base_task_id": "SCIE_105",
+  "sample": 0,
+  "n_gen_tokens": 1036,
+  "mean_ent": 1.1238429546356201,
+  "mean_pr": 29.755810982050615,
+  "mean_unif": 0.339855632028786
+ },
+ {
+  "task_id": "MATH_102#s1",
+  "base_task_id": "MATH_102",
+  "sample": 1,
+  "n_gen_tokens": 4056,
+  "mean_ent": 0.36192643642425537,
+  "mean_pr": 24.075962347348085,
+  "mean_unif": 0.4292160827991191
+ },
+ {
+  "task_id": "PATT_106#s1",
+  "base_task_id": "PATT_106",
+  "sample": 1,
+  "n_gen_tokens": 2555,
+  "mean_ent": 0.4369755983352661,
+  "mean_pr": 26.845092823858916,
+  "mean_unif": 0.4242723647577935
+ },
+ {
+  "task_id": "PATT_107#s1",
+  "base_task_id": "PATT_107",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4912736415863037,
+  "mean_pr": 26.365955113138188,
+  "mean_unif": 0.41209677734929817
+ },
+ {
+  "task_id": "CREA_098#s1",
+  "base_task_id": "CREA_098",
+  "sample": 1,
+  "n_gen_tokens": 3067,
+  "mean_ent": 0.7109425067901611,
+  "mean_pr": 28.827559849651443,
+  "mean_unif": 0.392194071326774
+ },
+ {
+  "task_id": "CREA_095#s1",
+  "base_task_id": "CREA_095",
+  "sample": 1,
+  "n_gen_tokens": 1627,
+  "mean_ent": 1.3156208992004395,
+  "mean_pr": 33.18503296915878,
+  "mean_unif": 0.3632878595078759
+ },
+ {
+  "task_id": "SYST_098#s1",
+  "base_task_id": "SYST_098",
+  "sample": 1,
+  "n_gen_tokens": 1606,
+  "mean_ent": 1.0891644954681396,
+  "mean_pr": 30.914795346016945,
+  "mean_unif": 0.3419134239361403
+ },
+ {
+  "task_id": "CREA_097#s1",
+  "base_task_id": "CREA_097",
+  "sample": 1,
+  "n_gen_tokens": 1776,
+  "mean_ent": 1.222368836402893,
+  "mean_pr": 33.605590914419544,
+  "mean_unif": 0.34936637392139036
+ },
+ {
+  "task_id": "LATE_095#s1",
+  "base_task_id": "LATE_095",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4798339307308197,
+  "mean_pr": 24.13884574821674,
+  "mean_unif": 0.45060176540337066
+ },
+ {
+  "task_id": "MATH_103#s1",
+  "base_task_id": "MATH_103",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4768027067184448,
+  "mean_pr": 26.61912586025419,
+  "mean_unif": 0.40215849479491617
+ },
+ {
+  "task_id": "SYST_096#s1",
+  "base_task_id": "SYST_096",
+  "sample": 1,
+  "n_gen_tokens": 1279,
+  "mean_ent": 0.9022610783576965,
+  "mean_pr": 32.32298626144967,
+  "mean_unif": 0.35129467944317166
+ },
+ {
+  "task_id": "PATT_109#s1",
+  "base_task_id": "PATT_109",
+  "sample": 1,
+  "n_gen_tokens": 4857,
+  "mean_ent": 0.4067639112472534,
+  "mean_pr": 24.56637964965153,
+  "mean_unif": 0.43468097190208804
+ },
+ {
+  "task_id": "SYST_097#s1",
+  "base_task_id": "SYST_097",
+  "sample": 1,
+  "n_gen_tokens": 1486,
+  "mean_ent": 1.3193514347076416,
+  "mean_pr": 33.23942396007396,
+  "mean_unif": 0.3675336355947105
+ },
+ {
+  "task_id": "VERB_101#s1",
+  "base_task_id": "VERB_101",
+  "sample": 1,
+  "n_gen_tokens": 8190,
+  "mean_ent": 0.20166555047035217,
+  "mean_pr": 17.51026212363974,
+  "mean_unif": 0.533042854544409
+ },
+ {
+  "task_id": "CREA_096#s1",
+  "base_task_id": "CREA_096",
+  "sample": 1,
+  "n_gen_tokens": 4680,
+  "mean_ent": 0.8569533824920654,
+  "mean_pr": 32.56313260481805,
+  "mean_unif": 0.38388677698703344
+ },
+ {
+  "task_id": "SPAT_112#s1",
+  "base_task_id": "SPAT_112",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.7080774307250977,
+  "mean_pr": 28.05098674240044,
+  "mean_unif": 0.4094030065252465
+ },
+ {
+  "task_id": "SPAT_114#s1",
+  "base_task_id": "SPAT_114",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5613624453544617,
+  "mean_pr": 28.471298812828614,
+  "mean_unif": 0.4034734377869069
+ },
+ {
+  "task_id": "LATE_096#s1",
+  "base_task_id": "LATE_096",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 5.064371109008789,
+  "mean_pr": 35.51527491001146,
+  "mean_unif": 0.5528958379958049
+ },
+ {
+  "task_id": "PATT_108#s1",
+  "base_task_id": "PATT_108",
+  "sample": 1,
+  "n_gen_tokens": 6369,
+  "mean_ent": 0.3548200726509094,
+  "mean_pr": 22.24734873241393,
+  "mean_unif": 0.4351766509047463
+ },
+ {
+  "task_id": "SPAT_115#s1",
+  "base_task_id": "SPAT_115",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5583771467208862,
+  "mean_pr": 30.173896198585183,
+  "mean_unif": 0.3973916043267594
+ },
+ {
+  "task_id": "SCIE_103#s1",
+  "base_task_id": "SCIE_103",
+  "sample": 1,
+  "n_gen_tokens": 993,
+  "mean_ent": 1.2487876415252686,
+  "mean_pr": 33.838933320886476,
+  "mean_unif": 0.37402136010394826
+ },
+ {
+  "task_id": "PROB_112#s1",
+  "base_task_id": "PROB_112",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4487873911857605,
+  "mean_pr": 26.814339595401325,
+  "mean_unif": 0.39178607644316954
+ },
+ {
+  "task_id": "PATT_110",
+  "base_task_id": "PATT_110",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.48015064001083374,
+  "mean_pr": 25.831690091998055,
+  "mean_unif": 0.41394861614967937
+ },
+ {
+  "task_id": "MATH_106#s1",
+  "base_task_id": "MATH_106",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.7037392854690552,
+  "mean_pr": 29.682512621116576,
+  "mean_unif": 0.4014137545737637
+ },
+ {
+  "task_id": "MATH_105#s1",
+  "base_task_id": "MATH_105",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.3694835305213928,
+  "mean_pr": 24.833307999633313,
+  "mean_unif": 0.4161286787902236
+ },
+ {
+  "task_id": "PROB_111#s1",
+  "base_task_id": "PROB_111",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4513304531574249,
+  "mean_pr": 27.114208947785617,
+  "mean_unif": 0.39622606104467956
+ },
+ {
+  "task_id": "VERB_105#s1",
+  "base_task_id": "VERB_105",
+  "sample": 1,
+  "n_gen_tokens": 8191,
+  "mean_ent": 0.6877054572105408,
+  "mean_pr": 26.702101715895555,
+  "mean_unif": 0.3920095075010918
+ },
+ {
+  "task_id": "PATT_110#s1",
+  "base_task_id": "PATT_110",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.49361351132392883,
+  "mean_pr": 26.095168285021483,
+  "mean_unif": 0.41189489752460207
+ },
+ {
+  "task_id": "PROB_114#s1",
+  "base_task_id": "PROB_114",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6341325640678406,
+  "mean_pr": 28.50387477248968,
+  "mean_unif": 0.40616504063152714
+ },
+ {
+  "task_id": "CAUS_100#s1",
+  "base_task_id": "CAUS_100",
+  "sample": 1,
+  "n_gen_tokens": 1790,
+  "mean_ent": 1.2338459491729736,
+  "mean_pr": 30.98046471059833,
+  "mean_unif": 0.35548762467990613
+ },
+ {
+  "task_id": "PROB_113#s1",
+  "base_task_id": "PROB_113",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.41606247425079346,
+  "mean_pr": 24.749677629266493,
+  "mean_unif": 0.39955116299751653
+ },
+ {
+  "task_id": "VERB_104#s1",
+  "base_task_id": "VERB_104",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.39713144302368164,
+  "mean_pr": 27.908004859718616,
+  "mean_unif": 0.44793806818813103
+ },
+ {
+  "task_id": "LATE_099#s1",
+  "base_task_id": "LATE_099",
+  "sample": 1,
+  "n_gen_tokens": 5293,
+  "mean_ent": 0.7074339985847473,
+  "mean_pr": 29.303154641450526,
+  "mean_unif": 0.41839361508570017
+ },
+ {
+  "task_id": "MATH_104#s1",
+  "base_task_id": "MATH_104",
+  "sample": 1,
+  "n_gen_tokens": 5920,
+  "mean_ent": 0.6644207835197449,
+  "mean_pr": 25.525096815020383,
+  "mean_unif": 0.38740076957545444
+ },
+ {
+  "task_id": "SCIE_102#s1",
+  "base_task_id": "SCIE_102",
+  "sample": 1,
+  "n_gen_tokens": 1239,
+  "mean_ent": 1.1133825778961182,
+  "mean_pr": 30.223175935480995,
+  "mean_unif": 0.34808392855943315
+ },
+ {
+  "task_id": "SCIE_104#s1",
+  "base_task_id": "SCIE_104",
+  "sample": 1,
+  "n_gen_tokens": 2998,
+  "mean_ent": 0.9016528725624084,
+  "mean_pr": 26.89216724876405,
+  "mean_unif": 0.39699884635208504
+ },
+ {
+  "task_id": "VERB_102#s1",
+  "base_task_id": "VERB_102",
+  "sample": 1,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.7155829071998596,
+  "mean_pr": 28.076026348872183,
+  "mean_unif": 0.40415417428162964
+ },
+ {
+  "task_id": "CAUS_101#s1",
+  "base_task_id": "CAUS_101",
+  "sample": 1,
+  "n_gen_tokens": 1300,
+  "mean_ent": 1.095857858657837,
+  "mean_pr": 30.326050095795914,
+  "mean_unif": 0.3432200909014226
+ },
+ {
+  "task_id": "SYST_100#s1",
+  "base_task_id": "SYST_100",
+  "sample": 1,
+  "n_gen_tokens": 1513,
+  "mean_ent": 1.2949497699737549,
+  "mean_pr": 31.257530820236596,
+  "mean_unif": 0.36283728248176217
+ },
+ {
+  "task_id": "PROB_115#s1",
+  "base_task_id": "PROB_115",
+  "sample": 1,
+  "n_gen_tokens": 5061,
+  "mean_ent": 0.5422940850257874,
+  "mean_pr": 26.561310096972818,
+  "mean_unif": 0.40442519939881527
+ },
+ {
+  "task_id": "SCIE_105#s1",
+  "base_task_id": "SCIE_105",
+  "sample": 1,
+  "n_gen_tokens": 1237,
+  "mean_ent": 1.077582597732544,
+  "mean_pr": 29.34570789293725,
+  "mean_unif": 0.3452553389583661
+ },
+ {
+  "task_id": "MATH_102#s2",
+  "base_task_id": "MATH_102",
+  "sample": 2,
+  "n_gen_tokens": 2857,
+  "mean_ent": 0.41970834136009216,
+  "mean_pr": 26.3285750291097,
+  "mean_unif": 0.4197050781757402
+ },
+ {
+  "task_id": "PATT_106#s2",
+  "base_task_id": "PATT_106",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4441410303115845,
+  "mean_pr": 25.386730665590477,
+  "mean_unif": 0.4104426720965329
+ },
+ {
+  "task_id": "PATT_107#s2",
+  "base_task_id": "PATT_107",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.38318055868148804,
+  "mean_pr": 26.070255534111094,
+  "mean_unif": 0.4136686543875467
+ },
+ {
+  "task_id": "CREA_098#s2",
+  "base_task_id": "CREA_098",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.1466866433620453,
+  "mean_pr": 24.637584820218564,
+  "mean_unif": 0.4718649277401274
+ },
+ {
+  "task_id": "CREA_095#s2",
+  "base_task_id": "CREA_095",
+  "sample": 2,
+  "n_gen_tokens": 1578,
+  "mean_ent": 1.175000548362732,
+  "mean_pr": 31.00651779155712,
+  "mean_unif": 0.3614272244688937
+ },
+ {
+  "task_id": "SYST_098#s2",
+  "base_task_id": "SYST_098",
+  "sample": 2,
+  "n_gen_tokens": 1283,
+  "mean_ent": 1.2374298572540283,
+  "mean_pr": 30.804739838205318,
+  "mean_unif": 0.35282890323718535
+ },
+ {
+  "task_id": "CREA_097#s2",
+  "base_task_id": "CREA_097",
+  "sample": 2,
+  "n_gen_tokens": 1471,
+  "mean_ent": 1.2638275623321533,
+  "mean_pr": 32.64185116479931,
+  "mean_unif": 0.34879409211272555
+ },
+ {
+  "task_id": "LATE_095#s2",
+  "base_task_id": "LATE_095",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.3761790990829468,
+  "mean_pr": 22.974651329196323,
+  "mean_unif": 0.4697074149064284
+ },
+ {
+  "task_id": "MATH_103#s2",
+  "base_task_id": "MATH_103",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5612374544143677,
+  "mean_pr": 27.542105358624852,
+  "mean_unif": 0.3930164008953054
+ },
+ {
+  "task_id": "SYST_096#s2",
+  "base_task_id": "SYST_096",
+  "sample": 2,
+  "n_gen_tokens": 1121,
+  "mean_ent": 0.982245683670044,
+  "mean_pr": 32.01186080614602,
+  "mean_unif": 0.37279304664633
+ },
+ {
+  "task_id": "PATT_109#s2",
+  "base_task_id": "PATT_109",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5394083857536316,
+  "mean_pr": 24.205016583568845,
+  "mean_unif": 0.4269820967335827
+ },
+ {
+  "task_id": "SYST_097#s2",
+  "base_task_id": "SYST_097",
+  "sample": 2,
+  "n_gen_tokens": 1466,
+  "mean_ent": 1.3196682929992676,
+  "mean_pr": 32.95367008939522,
+  "mean_unif": 0.36013069784640495
+ },
+ {
+  "task_id": "VERB_101#s2",
+  "base_task_id": "VERB_101",
+  "sample": 2,
+  "n_gen_tokens": 4516,
+  "mean_ent": 0.6308023929595947,
+  "mean_pr": 25.85705177258814,
+  "mean_unif": 0.4182506261074607
+ },
+ {
+  "task_id": "CREA_096#s2",
+  "base_task_id": "CREA_096",
+  "sample": 2,
+  "n_gen_tokens": 6314,
+  "mean_ent": 0.7595734000205994,
+  "mean_pr": 32.0136589681191,
+  "mean_unif": 0.36681702273052846
+ },
+ {
+  "task_id": "SPAT_112#s2",
+  "base_task_id": "SPAT_112",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6992337107658386,
+  "mean_pr": 28.217459819444034,
+  "mean_unif": 0.42062521592963886
+ },
+ {
+  "task_id": "MATH_106#s2",
+  "base_task_id": "MATH_106",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6103240251541138,
+  "mean_pr": 29.233684754567633,
+  "mean_unif": 0.40084494644837754
+ },
+ {
+  "task_id": "MATH_105#s2",
+  "base_task_id": "MATH_105",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.28877201676368713,
+  "mean_pr": 26.461574052679197,
+  "mean_unif": 0.4052314127644187
+ },
+ {
+  "task_id": "SPAT_114#s2",
+  "base_task_id": "SPAT_114",
+  "sample": 2,
+  "n_gen_tokens": 6265,
+  "mean_ent": 0.5767504572868347,
+  "mean_pr": 29.581207997779227,
+  "mean_unif": 0.40785752375572293
+ },
+ {
+  "task_id": "LATE_096#s2",
+  "base_task_id": "LATE_096",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.42236465215682983,
+  "mean_pr": 22.45702442333917,
+  "mean_unif": 0.48247660797675596
+ },
+ {
+  "task_id": "PATT_108#s2",
+  "base_task_id": "PATT_108",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 4.558578968048096,
+  "mean_pr": 28.44555906101127,
+  "mean_unif": 0.5679315592266151
+ },
+ {
+  "task_id": "VERB_103#s2",
+  "base_task_id": "VERB_103",
+  "sample": 2,
+  "n_gen_tokens": 2266,
+  "mean_ent": 0.808992326259613,
+  "mean_pr": 24.86109851420633,
+  "mean_unif": 0.38548666006207677
+ },
+ {
+  "task_id": "CREA_099#s2",
+  "base_task_id": "CREA_099",
+  "sample": 2,
+  "n_gen_tokens": 1618,
+  "mean_ent": 1.3106893301010132,
+  "mean_pr": 31.814157619965226,
+  "mean_unif": 0.3683066502415547
+ },
+ {
+  "task_id": "LATE_097#s2",
+  "base_task_id": "LATE_097",
+  "sample": 2,
+  "n_gen_tokens": 2037,
+  "mean_ent": 0.6847671866416931,
+  "mean_pr": 29.769269044421552,
+  "mean_unif": 0.3995479569241077
+ },
+ {
+  "task_id": "SPAT_113#s2",
+  "base_task_id": "SPAT_113",
+  "sample": 2,
+  "n_gen_tokens": 5330,
+  "mean_ent": 0.5282956957817078,
+  "mean_pr": 27.634724485870183,
+  "mean_unif": 0.4053000791021589
+ },
+ {
+  "task_id": "SYST_099#s2",
+  "base_task_id": "SYST_099",
+  "sample": 2,
+  "n_gen_tokens": 1124,
+  "mean_ent": 1.1692885160446167,
+  "mean_pr": 32.3421094999041,
+  "mean_unif": 0.34687011061072376
+ },
+ {
+  "task_id": "SCIE_101#s2",
+  "base_task_id": "SCIE_101",
+  "sample": 2,
+  "n_gen_tokens": 1613,
+  "mean_ent": 1.0387200117111206,
+  "mean_pr": 31.016113847562902,
+  "mean_unif": 0.35106183464017143
+ },
+ {
+  "task_id": "LATE_098#s2",
+  "base_task_id": "LATE_098",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.3543105125427246,
+  "mean_pr": 28.415979512626397,
+  "mean_unif": 0.4412395415572354
+ },
+ {
+  "task_id": "CAUS_099#s2",
+  "base_task_id": "CAUS_099",
+  "sample": 2,
+  "n_gen_tokens": 1036,
+  "mean_ent": 0.8481855392456055,
+  "mean_pr": 33.05563374319355,
+  "mean_unif": 0.3309936806295848
+ },
+ {
+  "task_id": "SPAT_116#s2",
+  "base_task_id": "SPAT_116",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5189602971076965,
+  "mean_pr": 27.410757041419604,
+  "mean_unif": 0.4114846015924728
+ },
+ {
+  "task_id": "PROB_111#s2",
+  "base_task_id": "PROB_111",
+  "sample": 2,
+  "n_gen_tokens": 7117,
+  "mean_ent": 4.8357367515563965,
+  "mean_pr": 33.259755307580996,
+  "mean_unif": 0.5423436261165612
+ },
+ {
+  "task_id": "SPAT_115#s2",
+  "base_task_id": "SPAT_115",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5324035882949829,
+  "mean_pr": 28.599667475038952,
+  "mean_unif": 0.4010115801666044
+ },
+ {
+  "task_id": "SCIE_103#s2",
+  "base_task_id": "SCIE_103",
+  "sample": 2,
+  "n_gen_tokens": 852,
+  "mean_ent": 1.12610924243927,
+  "mean_pr": 32.47823575691876,
+  "mean_unif": 0.3428445503509668
+ },
+ {
+  "task_id": "PROB_112#s2",
+  "base_task_id": "PROB_112",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5760068893432617,
+  "mean_pr": 27.234955395582404,
+  "mean_unif": 0.39044972046135173
+ },
+ {
+  "task_id": "VERB_105#s2",
+  "base_task_id": "VERB_105",
+  "sample": 2,
+  "n_gen_tokens": 8164,
+  "mean_ent": 4.961831092834473,
+  "mean_pr": 1.0555916336129516,
+  "mean_unif": 0.5806501215581725
+ },
+ {
+  "task_id": "PROB_114#s2",
+  "base_task_id": "PROB_114",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.45572349429130554,
+  "mean_pr": 28.237791354992176,
+  "mean_unif": 0.3944759078103702
+ },
+ {
+  "task_id": "CAUS_100#s2",
+  "base_task_id": "CAUS_100",
+  "sample": 2,
+  "n_gen_tokens": 2627,
+  "mean_ent": 0.8797256350517273,
+  "mean_pr": 29.776924494355388,
+  "mean_unif": 0.36594189754817924
+ },
+ {
+  "task_id": "PROB_113#s2",
+  "base_task_id": "PROB_113",
+  "sample": 2,
+  "n_gen_tokens": 4189,
+  "mean_ent": 0.24122954905033112,
+  "mean_pr": 25.0741104206325,
+  "mean_unif": 0.40525166546937075
+ },
+ {
+  "task_id": "VERB_104#s2",
+  "base_task_id": "VERB_104",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.3628897964954376,
+  "mean_pr": 27.996708361770256,
+  "mean_unif": 0.44456322309198026
+ },
+ {
+  "task_id": "MATH_104#s2",
+  "base_task_id": "MATH_104",
+  "sample": 2,
+  "n_gen_tokens": 1973,
+  "mean_ent": 0.5050156712532043,
+  "mean_pr": 27.56133439961158,
+  "mean_unif": 0.37329396720235564
+ },
+ {
+  "task_id": "PATT_110#s2",
+  "base_task_id": "PATT_110",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4613243043422699,
+  "mean_pr": 26.54112514668007,
+  "mean_unif": 0.39576241941002444
+ },
+ {
+  "task_id": "LATE_099#s2",
+  "base_task_id": "LATE_099",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.4604330062866211,
+  "mean_pr": 26.143748747165816,
+  "mean_unif": 0.4502336998390877
+ },
+ {
+  "task_id": "SCIE_102#s2",
+  "base_task_id": "SCIE_102",
+  "sample": 2,
+  "n_gen_tokens": 1641,
+  "mean_ent": 1.127400517463684,
+  "mean_pr": 31.262955226427653,
+  "mean_unif": 0.34967706358496353
+ },
+ {
+  "task_id": "SCIE_104#s2",
+  "base_task_id": "SCIE_104",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.2525010406970978,
+  "mean_pr": 31.954362762093883,
+  "mean_unif": 0.46081595071188525
+ },
+ {
+  "task_id": "VERB_102#s2",
+  "base_task_id": "VERB_102",
+  "sample": 2,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.5290107131004333,
+  "mean_pr": 28.18614286003734,
+  "mean_unif": 0.4127147062284689
+ },
+ {
+  "task_id": "CAUS_101#s2",
+  "base_task_id": "CAUS_101",
+  "sample": 2,
+  "n_gen_tokens": 1238,
+  "mean_ent": 0.9788650870323181,
+  "mean_pr": 32.21089724346956,
+  "mean_unif": 0.3405404539806021
+ },
+ {
+  "task_id": "SYST_100#s2",
+  "base_task_id": "SYST_100",
+  "sample": 2,
+  "n_gen_tokens": 1567,
+  "mean_ent": 1.2628265619277954,
+  "mean_pr": 32.4620581819557,
+  "mean_unif": 0.35948373670562417
+ },
+ {
+  "task_id": "PROB_115#s2",
+  "base_task_id": "PROB_115",
+  "sample": 2,
+  "n_gen_tokens": 3589,
+  "mean_ent": 0.4095044434070587,
+  "mean_pr": 28.476498192308355,
+  "mean_unif": 0.3894710394229743
+ },
+ {
+  "task_id": "SCIE_105#s2",
+  "base_task_id": "SCIE_105",
+  "sample": 2,
+  "n_gen_tokens": 3276,
+  "mean_ent": 0.943196177482605,
+  "mean_pr": 27.14596654237086,
+  "mean_unif": 0.38569339775301736
+ },
+ {
+  "task_id": "MATH_106",
+  "base_task_id": "MATH_106",
+  "sample": 0,
+  "n_gen_tokens": 8192,
+  "mean_ent": 0.6246342062950134,
+  "mean_pr": 26.841272677507583,
+  "mean_unif": 0.4290871175490475
+ }
+]
