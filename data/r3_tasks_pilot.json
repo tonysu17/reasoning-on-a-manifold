@@ -1,0 +1,176 @@
+[
+ {
+  "task_id": "T1_0",
+  "template": "T1",
+  "prompt": "In how many ways can a 2×10 board be completely tiled by 1×2 dominoes? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "89",
+  "strategy_space": [
+   "recursion",
+   "pattern",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T1_1",
+  "template": "T1",
+  "prompt": "In how many ways can a 2×12 board be completely tiled by 1×2 dominoes? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "233",
+  "strategy_space": [
+   "recursion",
+   "pattern",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T2_0",
+  "template": "T2",
+  "prompt": "Evaluate the sum 1·2 + 2·3 + 3·4 + … + 15·16. Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "1360",
+  "strategy_space": [
+   "formula",
+   "telescoping",
+   "induction",
+   "pattern"
+  ]
+ },
+ {
+  "task_id": "T2_1",
+  "template": "T2",
+  "prompt": "Evaluate the sum 1·2 + 2·3 + 3·4 + … + 20·21. Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "3080",
+  "strategy_space": [
+   "formula",
+   "telescoping",
+   "induction",
+   "pattern"
+  ]
+ },
+ {
+  "task_id": "T3_0",
+  "template": "T3",
+  "prompt": "How many paths are there from the bottom-left corner to the top-right corner of a 6×5 grid of unit squares, moving only right or up along the grid lines? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "462",
+  "strategy_space": [
+   "formula",
+   "recursion",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T3_1",
+  "template": "T3",
+  "prompt": "How many paths are there from the bottom-left corner to the top-right corner of a 7×6 grid of unit squares, moving only right or up along the grid lines? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "1716",
+  "strategy_space": [
+   "formula",
+   "recursion",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T4_0",
+  "template": "T4",
+  "prompt": "Let x and y be real numbers with 3x + 5y = 41 and 2x − 1y = 10. Find the value of xy. Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "28",
+  "strategy_space": [
+   "substitution",
+   "elimination",
+   "matrix"
+  ]
+ },
+ {
+  "task_id": "T4_1",
+  "template": "T4",
+  "prompt": "Let x and y be real numbers with 4x + 3y = 51 and 1x + 2y = 24. Find the value of xy. Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "54",
+  "strategy_space": [
+   "substitution",
+   "elimination",
+   "matrix"
+  ]
+ },
+ {
+  "task_id": "T5_0",
+  "template": "T5",
+  "prompt": "Evaluate 1² + 2² + 3² + … + 20². Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "2870",
+  "strategy_space": [
+   "formula",
+   "induction",
+   "pattern"
+  ]
+ },
+ {
+  "task_id": "T5_1",
+  "template": "T5",
+  "prompt": "Evaluate 1² + 2² + 3² + … + 24². Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "4900",
+  "strategy_space": [
+   "formula",
+   "induction",
+   "pattern"
+  ]
+ },
+ {
+  "task_id": "T6_0",
+  "template": "T6",
+  "prompt": "What is the last digit of 7^2026? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "9",
+  "strategy_space": [
+   "pattern",
+   "modular"
+  ]
+ },
+ {
+  "task_id": "T6_1",
+  "template": "T6",
+  "prompt": "What is the last digit of 3^2025? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "3",
+  "strategy_space": [
+   "pattern",
+   "modular"
+  ]
+ },
+ {
+  "task_id": "T7_0",
+  "template": "T7",
+  "prompt": "A fair six-sided die is rolled 3 times, and the sequence of results is recorded. How many distinct sequences contain at least one 6? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "91",
+  "strategy_space": [
+   "complement",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T7_1",
+  "template": "T7",
+  "prompt": "A fair six-sided die is rolled 4 times, and the sequence of results is recorded. How many distinct sequences contain at least one 6? Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "671",
+  "strategy_space": [
+   "complement",
+   "casework"
+  ]
+ },
+ {
+  "task_id": "T8_0",
+  "template": "T8",
+  "prompt": "Let r and s be the roots of x² − 7x + 5 = 0. Find r² + s². Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "39",
+  "strategy_space": [
+   "vieta",
+   "identity",
+   "explicit_roots"
+  ]
+ },
+ {
+  "task_id": "T8_1",
+  "template": "T8",
+  "prompt": "Let r and s be the roots of x² − 9x + 14 = 0. Find r² + s². Please reason step by step, and put your final answer within \\boxed{}.",
+  "gold": "53",
+  "strategy_space": [
+   "vieta",
+   "identity",
+   "explicit_roots"
+  ]
+ }
+]
