@@ -1,0 +1,145 @@
+{
+  "results": [
+    {
+      "layer": 17,
+      "collapse": {
+        "n": 251,
+        "n_pos": 127,
+        "n_neg": 124,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.44196088392176786
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.5182245364490728
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.528511557023114,
+            "auc_fold_mean": 0.5438766385418264,
+            "auc_fold_std": 0.06421777590580464,
+            "stable": true,
+            "n": 251,
+            "n_pos": 127,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.4309753619507239,
+            "auc_fold_mean": 0.4891097507181995,
+            "auc_fold_std": 0.06201765548934491,
+            "stable": true,
+            "n": 251,
+            "n_pos": 127,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.3571882143764288,
+            "auc_fold_mean": 0.40443661588461255,
+            "auc_fold_std": 0.05468478198945327,
+            "stable": true,
+            "n": 251,
+            "n_pos": 127,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.4390398780797562,
+            "auc_fold_mean": 0.4712724587928478,
+            "auc_fold_std": 0.04860209186260647,
+            "stable": true,
+            "n": 251,
+            "n_pos": 127,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.986,
+        "value_beats_baselines_by": -0.5440391160782321,
+        "order_gain_vs_shuffled": -0.07626365252730499,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      },
+      "correctness": {
+        "n": 119,
+        "n_pos": 59,
+        "n_neg": 60,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.5384180790960452
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.48672316384180786
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.5358757062146893,
+            "auc_fold_mean": 0.5651031668494904,
+            "auc_fold_std": 0.0850487624593414,
+            "stable": true,
+            "n": 119,
+            "n_pos": 59,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.4774011299435028,
+            "auc_fold_mean": 0.5574307126696832,
+            "auc_fold_std": 0.057830872322594234,
+            "stable": true,
+            "n": 119,
+            "n_pos": 59,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.4313559322033898,
+            "auc_fold_mean": 0.5183722731516849,
+            "auc_fold_std": 0.10550674386969282,
+            "stable": true,
+            "n": 119,
+            "n_pos": 59,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.32288135593220335,
+            "auc_fold_mean": 0.38756453921895095,
+            "auc_fold_std": 0.10664925314382306,
+            "stable": true,
+            "n": 119,
+            "n_pos": 59,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.71,
+        "value_beats_baselines_by": -0.17158192090395474,
+        "order_gain_vs_shuffled": 0.05169491525423736,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "order_bearing"
+      }
+    }
+  ],
+  "collapse_class_counts": {
+    "loop": 155,
+    "clean": 98,
+    "ambiguous": 47
+  },
+  "smoke": true,
+  "belief_floor": {
+    "correctness": 0.71,
+    "collapse": 0.986
+  },
+  "provenance": {
+    "git_commit": "e002e599548e4e26d99d5c3fba1f5f7839f578f3",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "data/activations/R1-1.5B",
+      "chains": "data/annotated_R1-1.5B.json",
+      "labels": "data/correctness_R1-1.5B_pilot.json",
+      "layers": "17",
+      "max_steps": 64,
+      "epochs": 12,
+      "device": "cpu",
+      "min_confidence": null,
+      "smoke": 300,
+      "out": "results/predict/R1-1.5B/value"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  }
+}

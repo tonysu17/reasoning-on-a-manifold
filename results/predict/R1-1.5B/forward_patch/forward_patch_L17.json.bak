@@ -1,0 +1,71 @@
+{
+  "layer": 17,
+  "aggregate": {
+    "n": 3,
+    "mean_kl": {
+      "real_pooled": 16.01391092936198,
+      "pred_normed": 12.030080477396647,
+      "pred": 11.085281372070312,
+      "persist": 14.715794245402018,
+      "random": 18.461366653442383
+    },
+    "median_kl": {
+      "real_pooled": 14.029167175292969,
+      "pred_normed": 8.28396224975586,
+      "pred": 7.280571937561035,
+      "persist": 11.565631866455078,
+      "random": 18.17275047302246
+    },
+    "prednormed_vs_persist": {
+      "frac_a_lt_b": 1.0,
+      "median_b_minus_a": 2.6298084259033203,
+      "wilcoxon_p": NaN,
+      "n": 3
+    },
+    "prednormed_vs_random": {
+      "frac_a_lt_b": 0.6666666666666666,
+      "median_b_minus_a": 9.49484634399414,
+      "wilcoxon_p": NaN,
+      "n": 3
+    },
+    "real_vs_prednormed": {
+      "frac_a_lt_b": 0.3333333333333333,
+      "median_b_minus_a": -5.745204925537109,
+      "wilcoxon_p": NaN,
+      "n": 3
+    },
+    "predraw_vs_persist": {
+      "frac_a_lt_b": 1.0,
+      "median_b_minus_a": 3.354771614074707,
+      "wilcoxon_p": NaN,
+      "n": 3
+    },
+    "recovery_fraction_median": -0.5102471666303051,
+    "A5P_ordering_holds": false
+  },
+  "site_counts": {
+    "n_sites_total": 3,
+    "n_resolved_total": 3,
+    "n_chains": 2
+  },
+  "dry_run": false,
+  "provenance": {
+    "git_commit": "e002e599548e4e26d99d5c3fba1f5f7839f578f3",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "data/activations/R1-1.5B",
+      "chains": "data/annotated_R1-1.5B.json",
+      "layer": 17,
+      "n_chains": 2,
+      "max_steps": 2,
+      "max_len": 1024,
+      "seed": 42,
+      "dry_run": false,
+      "out": "results/predict/R1-1.5B/forward_patch"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  }
+}

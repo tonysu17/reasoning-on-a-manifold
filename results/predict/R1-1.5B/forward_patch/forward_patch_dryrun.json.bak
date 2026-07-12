@@ -1,0 +1,32 @@
+{
+  "layer": 17,
+  "aggregate": {
+    "n": 0,
+    "status": "no resolved patch sites"
+  },
+  "site_counts": {
+    "n_sites_total": 13,
+    "n_resolved_total": 13,
+    "n_chains": 4
+  },
+  "dry_run": true,
+  "provenance": {
+    "git_commit": "e002e599548e4e26d99d5c3fba1f5f7839f578f3",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "data/activations/R1-1.5B",
+      "chains": "data/annotated_R1-1.5B.json",
+      "layer": 17,
+      "n_chains": 4,
+      "max_steps": 6,
+      "max_len": 1024,
+      "seed": 42,
+      "dry_run": true,
+      "out": "results/predict/R1-1.5B/forward_patch"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  }
+}

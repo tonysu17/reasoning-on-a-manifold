@@ -1,0 +1,368 @@
+{
+  "results": [
+    {
+      "layer": 14,
+      "collapse": {
+        "n": 868,
+        "n_pos": 410,
+        "n_neg": 458,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.9602673341143894
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.9751570987325594
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.97649909468527,
+            "auc_fold_mean": 0.9765667173967726,
+            "auc_fold_std": 0.007904533663653584,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.9863563744807754,
+            "auc_fold_mean": 0.9888980832257792,
+            "auc_fold_std": 0.0066435552665261586,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.856134838640963,
+            "auc_fold_mean": 0.8567742202239724,
+            "auc_fold_std": 0.00687780522275829,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.8864948343806581,
+            "auc_fold_mean": 0.8873110765633051,
+            "auc_fold_std": 0.012663728090811278,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.9863563744807754,
+        "value_beats_baselines_by": -0.02608904036638604,
+        "order_gain_vs_shuffled": -0.014889764618170043,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      },
+      "correctness": {
+        "n": 183,
+        "n_pos": 84,
+        "n_neg": 99,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.7403799903799904
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.7512025012025012
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.7008177008177009,
+            "auc_fold_mean": 0.7180088334307442,
+            "auc_fold_std": 0.06308981605454204,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.4415584415584416,
+            "auc_fold_mean": 0.49052642826598775,
+            "auc_fold_std": 0.09265762861446843,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.5494227994227996,
+            "auc_fold_mean": 0.5688943868234486,
+            "auc_fold_std": 0.0666200786869923,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.5291005291005291,
+            "auc_fold_mean": 0.5497590092655882,
+            "auc_fold_std": 0.01668658925718414,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.71,
+        "value_beats_baselines_by": 0.030379990379990396,
+        "order_gain_vs_shuffled": -0.010822510822510845,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      }
+    },
+    {
+      "layer": 17,
+      "collapse": {
+        "n": 868,
+        "n_pos": 410,
+        "n_neg": 458,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.9710778570667803
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.973618063691554
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.9737298966876132,
+            "auc_fold_mean": 0.9749255779287838,
+            "auc_fold_std": 0.008963187830857255,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.9863563744807754,
+            "auc_fold_mean": 0.9888980832257792,
+            "auc_fold_std": 0.0066435552665261586,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.866402172755352,
+            "auc_fold_mean": 0.8678766077418555,
+            "auc_fold_std": 0.010863975973505007,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.8913995100649696,
+            "auc_fold_mean": 0.8921134740629209,
+            "auc_fold_std": 0.00700221036369819,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.9863563744807754,
+        "value_beats_baselines_by": -0.015278517413995107,
+        "order_gain_vs_shuffled": -0.002540206624773722,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      },
+      "correctness": {
+        "n": 183,
+        "n_pos": 84,
+        "n_neg": 99,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.746151996151996
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.7724867724867724
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.7257094757094756,
+            "auc_fold_mean": 0.7457533697550861,
+            "auc_fold_std": 0.052617794963046687,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.4415584415584416,
+            "auc_fold_mean": 0.49052642826598775,
+            "auc_fold_std": 0.09265762861446843,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.5056517556517556,
+            "auc_fold_mean": 0.5306320746695461,
+            "auc_fold_std": 0.03594426266019452,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.49651274651274646,
+            "auc_fold_mean": 0.5121714220498546,
+            "auc_fold_std": 0.032843197133086255,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.7257094757094756,
+        "value_beats_baselines_by": 0.020442520442520373,
+        "order_gain_vs_shuffled": -0.026334776334776433,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      }
+    },
+    {
+      "layer": 27,
+      "collapse": {
+        "n": 868,
+        "n_pos": 410,
+        "n_neg": 458,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.9653743742677601
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.9491745659814677
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.9674938758121204,
+            "auc_fold_mean": 0.9675599885309266,
+            "auc_fold_std": 0.007633311894890536,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.9863563744807754,
+            "auc_fold_mean": 0.9888980832257792,
+            "auc_fold_std": 0.0066435552665261586,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.8511502822451804,
+            "auc_fold_mean": 0.8529352807564134,
+            "auc_fold_std": 0.00700418986211661,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.883906699329002,
+            "auc_fold_mean": 0.884372992053821,
+            "auc_fold_std": 0.009176766862681951,
+            "stable": true,
+            "n": 868,
+            "n_pos": 410,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.9863563744807754,
+        "value_beats_baselines_by": -0.020982000213015328,
+        "order_gain_vs_shuffled": 0.016199808286292416,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      },
+      "correctness": {
+        "n": 183,
+        "n_pos": 84,
+        "n_neg": 99,
+        "auc": {
+          "value_gru": {
+            "auc_oof": 0.7285954785954785
+          },
+          "value_gru_stepshuffled": {
+            "auc_oof": 0.753968253968254
+          },
+          "pooled_logistic": {
+            "auc_oof": 0.7506012506012505,
+            "auc_fold_mean": 0.767951259902061,
+            "auc_fold_std": 0.05705218003748676,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "length_gap_trunc": {
+            "auc_oof": 0.4415584415584416,
+            "auc_fold_mean": 0.49052642826598775,
+            "auc_fold_std": 0.09265762861446843,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "persistence_step": {
+            "auc_oof": 0.5262145262145262,
+            "auc_fold_mean": 0.5565749621913809,
+            "auc_fold_std": 0.051060032092147045,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          },
+          "rung0_curvature": {
+            "auc_oof": 0.5434102934102935,
+            "auc_fold_mean": 0.5604947769621683,
+            "auc_fold_std": 0.027041431673251442,
+            "stable": true,
+            "n": 183,
+            "n_pos": 84,
+            "n_splits": 5
+          }
+        },
+        "best_baseline_incl_belief_floor": 0.7506012506012505,
+        "value_beats_baselines_by": -0.02200577200577203,
+        "order_gain_vs_shuffled": -0.02537277537277549,
+        "verdict": "value_track_closed (V <= best free baseline)",
+        "m3_order": "occupancy (order adds <0.05 even with a sequence model)"
+      }
+    }
+  ],
+  "collapse_class_counts": {
+    "loop": 415,
+    "clean": 469,
+    "ambiguous": 116
+  },
+  "smoke": false,
+  "belief_floor": {
+    "correctness": 0.71,
+    "collapse": 0.986
+  },
+  "provenance": {
+    "git_commit": "e002e599548e4e26d99d5c3fba1f5f7839f578f3",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "activations": "data/activations/R1-1.5B",
+      "chains": "data/annotated_R1-1.5B.json",
+      "labels": "data/correctness_R1-1.5B_pilot.json",
+      "layers": "14,17,27",
+      "max_steps": 64,
+      "epochs": 60,
+      "device": "cpu",
+      "min_confidence": null,
+      "smoke": 0,
+      "out": "results/predict/R1-1.5B/value"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5",
+      "data/correctness_R1-1.5B_pilot.json": "7613f9a847637bf6"
+    }
+  }
+}

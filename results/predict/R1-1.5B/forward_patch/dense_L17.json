@@ -1,0 +1,62 @@
+{
+  "layer": 17,
+  "aggregate": {
+    "n": 1884,
+    "mean_kl": {
+      "real_onset": 7.256015526892986e-06,
+      "pred_normed": 12.418407408339394,
+      "pred": 12.691899441242901,
+      "persist": 13.9779764697634,
+      "random": 17.193598855563664
+    },
+    "median_kl": {
+      "real_onset": 5.084884264761058e-07,
+      "pred_normed": 13.700320720672607,
+      "pred": 13.938137531280518,
+      "persist": 16.577553749084473,
+      "random": 17.89182472229004
+    },
+    "prednormed_vs_persist": {
+      "frac_a_lt_b": 0.5652866242038217,
+      "median_b_minus_a": 0.28919124603271484,
+      "n": 1884,
+      "wilcoxon_p": 1.920545081897497e-11
+    },
+    "prednormed_vs_random": {
+      "frac_a_lt_b": 0.6475583864118896,
+      "median_b_minus_a": 2.190047264099121,
+      "n": 1884,
+      "wilcoxon_p": 6.897415768904541e-68
+    },
+    "real_vs_prednormed": {
+      "frac_a_lt_b": 1.0,
+      "median_b_minus_a": 13.700320554287474,
+      "n": 1884,
+      "wilcoxon_p": 2.60642100099735e-309
+    },
+    "recovery_fraction_median": 0.03292024136083986,
+    "real_onset_is_valid_ceiling": true
+  },
+  "counts": {
+    "n_sites": 1884,
+    "n_chains": 291
+  },
+  "provenance": {
+    "git_commit": null,
+    "git_dirty": false,
+    "seed": 42,
+    "args": {
+      "chains": "data/annotated_R1-1.5B.json",
+      "layer": 17,
+      "n_chains": 300,
+      "max_steps": 10,
+      "max_len": 4096,
+      "seed": 42,
+      "smoke": 0,
+      "out": "results/predict/R1-1.5B/forward_patch"
+    },
+    "input_sha256": {
+      "data/annotated_R1-1.5B.json": "9b24020ec3ce4ea5"
+    }
+  }
+}
