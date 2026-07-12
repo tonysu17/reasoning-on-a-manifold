@@ -1,0 +1,30 @@
+{
+  "experiment": "E9.3 fork-locator gate",
+  "date": "2026-07-07",
+  "n_chains": 60,
+  "n_tokens": 61053,
+  "base_rate_bt_onset": 0.0010646487478092805,
+  "base_rate_branch_onset": 0.004881005028417932,
+  "entropy_gini": 0.4357038316074294,
+  "gate": {
+    "auroc": 0.6,
+    "lift_top20": 1.5
+  },
+  "locators": {
+    "entropy__backtracking_onset": {
+      "auroc_pooled": 0.5872541130411532,
+      "auroc_chaingrouped": 0.6416208387794349,
+      "n_groups": 29,
+      "lift_top10": 0.15385371385371385,
+      "lift_top20": 0.46156114156114153
+    },
+    "entropy__branching_onset": {
+      "auroc_pooled": 0.5996973486315099,
+      "auroc_chaingrouped": 0.6243832520490651,
+      "n_groups": 59,
+      "lift_top10": 0.43626304767244367,
+      "lift_top20": 0.7718500074204773
+    }
+  },
+  "verdict": "NO-GO (entropy fails bar)"
+}

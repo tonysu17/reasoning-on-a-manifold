@@ -1,0 +1,12 @@
+{
+  "site": "hs[17] == block-16 output (SteeredModel layer=16)",
+  "causal": "E10.2 frame_k2.npy (QR-orthonormalised)",
+  "pca": "top-2 PCA of backtracking_layer16.npy, eval-task rows EXCLUDED (row_index.json)",
+  "pca_fit_rows": 9598,
+  "excluded_rows": 669,
+  "random": "Haar QR seed 0",
+  "cos_principal_angles_causal_pca": [
+    0.3928632564736484,
+    0.04236303482019116
+  ]
+}

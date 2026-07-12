@@ -310,6 +310,66 @@ Either outcome is a result: "entropy must be structured" or "any entropy works" 
 naive-remedy question the collapse literature leaves open (uniform entropy bonuses are blunt —
 SIREN arXiv:2509.25133, AER arXiv:2510.10959 make the same point at training time).
 
+**E9.2 AMENDMENT (2026-07-07, sealed BEFORE the run — E10-informed; runner `24_e9_2_noise.py`, frames `results/e9_2/frames.npz`).**
+The within-subspace arm is upgraded from the correlational PCA subspace to a THREE-WAY k-matched
+comparison at the E10 grounded site hs[17] (block-16 output): **causal** = the grounded 2-D frame
+from E10.2 (`frame_k2.npy`), **pca** = top-2 PCA of backtracking activations at the same site
+(eval-task rows excluded via row_index.json; nearly disjoint from causal — principal-angle cos
+0.39/0.04), **random** = Haar 2-D floor, plus **iso** (full 1536-D). Energy-matched at
+E||eps|| = frac x mean||h|| (measured at runtime; frac in {0.01, 0.03}; sigma = target/sqrt(k) —
+the sqrt(k) approximation undershoots k=2 arms by ~11%, which is conservative AGAINST P1).
+GREEDY decoding + 3 noise seeds per cell: all cross-sample diversity is attributable to state
+noise alone. Endpoints add the **boxed-rate completion guard** (P2b lesson: loop-avoidance is
+not preserved reasoning) to collapse, tokens, and cross-seed diversity (1 - shared/union
+4-grams; distinct-4 fraction secondary).
+
+Sealed predictions:
+- **P1 (headline, P2b-informed):** at matched energy the causal-frame noise Pareto-dominates
+  isotropic — cross-seed diversity >= iso's AND smaller boxed-rate drop vs vanilla. (P2b showed
+  bounded intervention is gentle ONLY on the grounded axis; this is its entropy-injection form.)
+- **P2 (rescue):** at least one structured arm reduces greedy vanilla collapse (~32%); the
+  random-2D floor stays ~= vanilla.
+- **P3 (dose):** diversity is monotone in frac within each geometry.
+- Secondary/deferred, not scored: loop-probe trajectory analysis (post-hoc on saved chains);
+  front-loaded sigma schedule; comparison against E9.1 T=0.6 decoding-entropy cells at matched
+  output diversity (analysis-time, if local data suffices).
+
+**E9.2 EXECUTED = P1 REFUTED (2026-07-08, `results/eval/R1-1.5B__E9_2/`).** 1250 chains, four
+energy-matched geometries @ hs[17] (causal-2D / pca-2D / random-2D / iso-1536), greedy + 3 noise
+seeds. **The noise geometry did not matter on any endpoint.** Cross-seed diversity scales with the
+injected ENERGY, not the subspace: ~0.90 at 1% of ‖h‖ and ~0.95 at 3%, essentially identical for
+causal, pca, random and iso; collapse sits at the vanilla third (0.30–0.38) for all arms — state
+noise at these energies does NOT rescue the loop that DECODING entropy rescued (rung two). So P1
+(causal Pareto-dominates iso) is refuted, P3 (dose-monotone diversity) holds, P2 (structured rescue)
+is null. **The "entropy must be structured" hypothesis is answered in the negative** — the clean
+"any entropy works (weakly), geometry-blind" outcome the pre-registration named as equally
+informative. Crucially this REFINES rather than contradicts P2b (E10 featurizer): P2b's gentleness
+was a property of the DIRECTED clamp toward a real grounded class-mean value (a move onto the data
+manifold), whereas UNDIRECTED noise is geometry-blind. Direction onto a grounded target is what the
+geometry buys; scatter around it is not. Folded into thesis `sec:steering-collapse-programme` rung
+three + conclusion (the "must be structured" sentence corrected). **The E9 collapse ladder is now
+complete: rungs one–three executed, rung four (E9.3) gated out.**
+
+**E9.3 GO/NO-GO GATE = NO-GO (2026-07-07, `26_fork_locator_validation.py`, `results/e9_3_gate/`).**
+Before spending a pod, the cheap precondition — does any locator identify the reasoning FORKS
+E9.3 injects at? — was tested locally against annotated branching-behaviour onsets
+({backtracking, uncertainty, example-testing}) as ground truth. Token entropy (the free online
+locator E9.3 would use; Bigelow) gives chain-grouped AUROC 0.624 on branching-onsets but
+**lift@top-20% = 0.77 (<1)** and backtracking-onset lift@top-20% = 0.46: the highest-entropy
+tokens are DEPLETED of branch points, not enriched, so entropy-thresholded injection would
+systematically MISS the behaviour forks. The residual-spike locator was already ruled out by the
+pilot's step-shuffle null (H3 unsupported, p>0.7). **Neither cheap locator finds the thesis's
+behaviour-geometric forks**, so "fork-localized" collapses to "uniform on unprincipled sites":
+E9.3 as the geometry-guided main-track swing is NOT worth a pod as specified — running it would
+benchmark a generic high-entropy-injection heuristic (already in Wang/Bigelow), not the thesis's
+distinctive claim. Mechanistically this is coherent with E9.0b (state-before-text: the branch is
+committed in the residual stream BEFORE logit entropy rises), and it is a citable negative in its
+own right. **Salvage options if pursued later** (each its own gate): (a) empirical-divergence
+ground truth — forks = positions where N parallel samples first diverge (annotation-free, but
+needs multi-sampling); (b) a supervised fork detector trained on onsets (drops the free-online
+property); (c) reframe as "does uniform state-entropy injection (E9.2) buy diversity at all",
+which E9.2 already answers without any locator. Original design retained below for the record.
+
 **E9.3 — Trajectory-localized entropy injection at branch points (the creativity arm; gated on
 E9.0 + Rung-1 residual).** The predictive-geometry pilot already localizes *unpredictable*
 steps (residual spikes of the Rung-1 ridge predictor; `PREDICTIVE_GEOMETRY.md`). Inject
