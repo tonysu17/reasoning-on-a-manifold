@@ -1,0 +1,454 @@
+{
+  "k_sweep": {
+    "k2_backtracking_L12": {
+      "mean": 0.251,
+      "q95": [
+        0.057,
+        0.439
+      ]
+    },
+    "k2_uncertainty-estimation_L12": {
+      "mean": 0.263,
+      "q95": [
+        0.073,
+        0.56
+      ]
+    },
+    "k2_example-testing_L12": {
+      "mean": 0.483,
+      "q95": [
+        -1.189,
+        1.817
+      ]
+    },
+    "k2_adding-knowledge_L12": {
+      "mean": 0.433,
+      "q95": [
+        -0.009,
+        0.762
+      ]
+    },
+    "k2_backtracking_L16": {
+      "mean": 0.236,
+      "q95": [
+        -0.089,
+        0.575
+      ]
+    },
+    "k2_uncertainty-estimation_L16": {
+      "mean": 0.247,
+      "q95": [
+        -0.107,
+        0.604
+      ]
+    },
+    "k2_example-testing_L16": {
+      "mean": 0.734,
+      "q95": [
+        -1.74,
+        3.311
+      ]
+    },
+    "k2_adding-knowledge_L16": {
+      "mean": 0.456,
+      "q95": [
+        -0.074,
+        1.074
+      ]
+    },
+    "k3_backtracking_L12": {
+      "mean": 0.254,
+      "q95": [
+        -0.104,
+        0.624
+      ]
+    },
+    "k3_uncertainty-estimation_L12": {
+      "mean": 0.258,
+      "q95": [
+        -0.067,
+        0.503
+      ]
+    },
+    "k3_example-testing_L12": {
+      "mean": 0.321,
+      "q95": [
+        -0.007,
+        0.687
+      ]
+    },
+    "k3_adding-knowledge_L12": {
+      "mean": 0.412,
+      "q95": [
+        0.084,
+        0.861
+      ]
+    },
+    "k3_backtracking_L16": {
+      "mean": 0.263,
+      "q95": [
+        -0.279,
+        0.814
+      ]
+    },
+    "k3_uncertainty-estimation_L16": {
+      "mean": 0.225,
+      "q95": [
+        -0.047,
+        0.453
+      ]
+    },
+    "k3_example-testing_L16": {
+      "mean": 0.398,
+      "q95": [
+        -0.014,
+        0.77
+      ]
+    },
+    "k3_adding-knowledge_L16": {
+      "mean": 0.432,
+      "q95": [
+        -0.01,
+        0.875
+      ]
+    },
+    "k8_backtracking_L12": {
+      "mean": 0.31,
+      "q95": [
+        -0.373,
+        0.921
+      ]
+    },
+    "k8_uncertainty-estimation_L12": {
+      "mean": 0.368,
+      "q95": [
+        -0.138,
+        0.979
+      ]
+    },
+    "k8_example-testing_L12": {
+      "mean": 0.187,
+      "q95": [
+        -0.09,
+        0.518
+      ]
+    },
+    "k8_adding-knowledge_L12": {
+      "mean": 0.375,
+      "q95": [
+        -0.265,
+        0.916
+      ]
+    },
+    "k8_backtracking_L16": {
+      "mean": 0.334,
+      "q95": [
+        -0.19,
+        0.806
+      ]
+    },
+    "k8_uncertainty-estimation_L16": {
+      "mean": 0.479,
+      "q95": [
+        -0.017,
+        1.264
+      ]
+    },
+    "k8_example-testing_L16": {
+      "mean": 0.274,
+      "q95": [
+        -0.241,
+        0.846
+      ]
+    },
+    "k8_adding-knowledge_L16": {
+      "mean": 0.435,
+      "q95": [
+        -0.074,
+        1.202
+      ]
+    },
+    "k10_backtracking_L12": {
+      "mean": 0.32,
+      "q95": [
+        0.023,
+        0.719
+      ]
+    },
+    "k10_uncertainty-estimation_L12": {
+      "mean": 0.351,
+      "q95": [
+        0.058,
+        0.603
+      ]
+    },
+    "k10_example-testing_L12": {
+      "mean": 0.193,
+      "q95": [
+        -0.17,
+        0.566
+      ]
+    },
+    "k10_adding-knowledge_L12": {
+      "mean": 0.298,
+      "q95": [
+        -0.086,
+        0.55
+      ]
+    },
+    "k10_backtracking_L16": {
+      "mean": 0.332,
+      "q95": [
+        -0.177,
+        0.777
+      ]
+    },
+    "k10_uncertainty-estimation_L16": {
+      "mean": 0.422,
+      "q95": [
+        -0.366,
+        1.863
+      ]
+    },
+    "k10_example-testing_L16": {
+      "mean": 0.296,
+      "q95": [
+        -0.317,
+        1.079
+      ]
+    },
+    "k10_adding-knowledge_L16": {
+      "mean": 0.466,
+      "q95": [
+        -0.285,
+        1.383
+      ]
+    }
+  },
+  "depth": {
+    "backtracking_L2": {
+      "rot_excess": 0.345,
+      "q95": [
+        -0.461,
+        0.881
+      ],
+      "disp_over_norm": 0.0341
+    },
+    "uncertainty-estimation_L2": {
+      "rot_excess": 0.351,
+      "q95": [
+        -0.118,
+        0.796
+      ],
+      "disp_over_norm": 0.0347
+    },
+    "example-testing_L2": {
+      "rot_excess": 0.362,
+      "q95": [
+        -0.545,
+        1.794
+      ],
+      "disp_over_norm": 0.0359
+    },
+    "adding-knowledge_L2": {
+      "rot_excess": 0.25,
+      "q95": [
+        0.003,
+        0.509
+      ],
+      "disp_over_norm": 0.0412
+    },
+    "backtracking_L6": {
+      "rot_excess": 0.332,
+      "q95": [
+        -0.287,
+        1.017
+      ],
+      "disp_over_norm": 0.0463
+    },
+    "uncertainty-estimation_L6": {
+      "rot_excess": 0.376,
+      "q95": [
+        0.009,
+        0.746
+      ],
+      "disp_over_norm": 0.0474
+    },
+    "example-testing_L6": {
+      "rot_excess": 0.379,
+      "q95": [
+        0.122,
+        0.651
+      ],
+      "disp_over_norm": 0.049
+    },
+    "adding-knowledge_L6": {
+      "rot_excess": 0.461,
+      "q95": [
+        -0.612,
+        1.492
+      ],
+      "disp_over_norm": 0.0556
+    },
+    "backtracking_L10": {
+      "rot_excess": 0.453,
+      "q95": [
+        -0.57,
+        1.323
+      ],
+      "disp_over_norm": 0.0378
+    },
+    "uncertainty-estimation_L10": {
+      "rot_excess": 0.338,
+      "q95": [
+        -0.031,
+        0.735
+      ],
+      "disp_over_norm": 0.0387
+    },
+    "example-testing_L10": {
+      "rot_excess": 0.265,
+      "q95": [
+        -0.119,
+        0.589
+      ],
+      "disp_over_norm": 0.0397
+    },
+    "adding-knowledge_L10": {
+      "rot_excess": 0.424,
+      "q95": [
+        -0.894,
+        2.737
+      ],
+      "disp_over_norm": 0.0468
+    },
+    "backtracking_L14": {
+      "rot_excess": 0.305,
+      "q95": [
+        -0.124,
+        0.729
+      ],
+      "disp_over_norm": 0.0371
+    },
+    "uncertainty-estimation_L14": {
+      "rot_excess": 0.328,
+      "q95": [
+        0.079,
+        0.627
+      ],
+      "disp_over_norm": 0.0381
+    },
+    "example-testing_L14": {
+      "rot_excess": 0.206,
+      "q95": [
+        -0.402,
+        0.757
+      ],
+      "disp_over_norm": 0.0379
+    },
+    "adding-knowledge_L14": {
+      "rot_excess": 0.39,
+      "q95": [
+        -0.863,
+        1.362
+      ],
+      "disp_over_norm": 0.0455
+    },
+    "backtracking_L18": {
+      "rot_excess": 0.375,
+      "q95": [
+        -0.328,
+        1.005
+      ],
+      "disp_over_norm": 0.0358
+    },
+    "uncertainty-estimation_L18": {
+      "rot_excess": 0.434,
+      "q95": [
+        -0.16,
+        0.919
+      ],
+      "disp_over_norm": 0.0373
+    },
+    "example-testing_L18": {
+      "rot_excess": 0.352,
+      "q95": [
+        -1.036,
+        1.747
+      ],
+      "disp_over_norm": 0.0346
+    },
+    "adding-knowledge_L18": {
+      "rot_excess": 0.569,
+      "q95": [
+        -0.083,
+        1.37
+      ],
+      "disp_over_norm": 0.0437
+    },
+    "backtracking_L22": {
+      "rot_excess": 0.552,
+      "q95": [
+        0.003,
+        1.172
+      ],
+      "disp_over_norm": 0.0398
+    },
+    "uncertainty-estimation_L22": {
+      "rot_excess": 0.492,
+      "q95": [
+        0.238,
+        0.726
+      ],
+      "disp_over_norm": 0.0406
+    },
+    "example-testing_L22": {
+      "rot_excess": 0.34,
+      "q95": [
+        -0.324,
+        1.102
+      ],
+      "disp_over_norm": 0.0356
+    },
+    "adding-knowledge_L22": {
+      "rot_excess": 0.671,
+      "q95": [
+        -1.667,
+        4.98
+      ],
+      "disp_over_norm": 0.0445
+    },
+    "backtracking_L26": {
+      "rot_excess": 0.568,
+      "q95": [
+        -2.222,
+        3.31
+      ],
+      "disp_over_norm": 0.0427
+    },
+    "uncertainty-estimation_L26": {
+      "rot_excess": 0.608,
+      "q95": [
+        -0.011,
+        1.166
+      ],
+      "disp_over_norm": 0.0428
+    },
+    "example-testing_L26": {
+      "rot_excess": 0.337,
+      "q95": [
+        -0.492,
+        1.081
+      ],
+      "disp_over_norm": 0.0366
+    },
+    "adding-knowledge_L26": {
+      "rot_excess": 0.613,
+      "q95": [
+        -0.996,
+        3.0
+      ],
+      "disp_over_norm": 0.0428
+    }
+  }
+}

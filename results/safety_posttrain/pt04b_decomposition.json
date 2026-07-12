@@ -1,0 +1,116 @@
+{
+  "seed": 42,
+  "n_flip_draws": 300,
+  "layers": {
+    "12": {
+      "i4_dc_decomposition": {
+        "cos_to_dc": {
+          "safety100": 0.3575,
+          "safety300": 0.3394,
+          "safety1000": 0.3513,
+          "control1000": -0.0376,
+          "star1_full": 0.4806
+        },
+        "cos_to_full_raw": {
+          "safety100": 0.521,
+          "safety300": 0.5364,
+          "safety1000": 0.5803,
+          "control1000": 0.1432
+        },
+        "cos_to_full_dc_removed": {
+          "safety100": 0.4264,
+          "safety300": 0.4526,
+          "safety1000": 0.5012,
+          "control1000": 0.1841
+        },
+        "dc_predicted_cos": {
+          "safety100": 0.1718,
+          "safety300": 0.1631,
+          "safety1000": 0.1688,
+          "control1000": -0.0181
+        }
+      },
+      "i5_chain_signflip": {
+        "backtracking": {
+          "observed_coherence": 0.7832,
+          "chain_null_mean": 0.0476,
+          "chain_null_max": 0.1704,
+          "p": 0.0033222591362126247
+        },
+        "uncertainty-estimation": {
+          "observed_coherence": 0.7694,
+          "chain_null_mean": 0.0407,
+          "chain_null_max": 0.1069,
+          "p": 0.0033222591362126247
+        },
+        "example-testing": {
+          "observed_coherence": 0.7481,
+          "chain_null_mean": 0.0633,
+          "chain_null_max": 0.1906,
+          "p": 0.0033222591362126247
+        },
+        "adding-knowledge": {
+          "observed_coherence": 0.7554,
+          "chain_null_mean": 0.0498,
+          "chain_null_max": 0.1569,
+          "p": 0.0033222591362126247
+        }
+      }
+    },
+    "16": {
+      "i4_dc_decomposition": {
+        "cos_to_dc": {
+          "safety100": 0.4038,
+          "safety300": 0.3404,
+          "safety1000": 0.3585,
+          "control1000": -0.0831,
+          "star1_full": 0.4631
+        },
+        "cos_to_full_raw": {
+          "safety100": 0.5282,
+          "safety300": 0.513,
+          "safety1000": 0.5675,
+          "control1000": 0.174
+        },
+        "cos_to_full_dc_removed": {
+          "safety100": 0.4208,
+          "safety300": 0.4264,
+          "safety1000": 0.4852,
+          "control1000": 0.2406
+        },
+        "dc_predicted_cos": {
+          "safety100": 0.187,
+          "safety300": 0.1577,
+          "safety1000": 0.166,
+          "control1000": -0.0385
+        }
+      },
+      "i5_chain_signflip": {
+        "backtracking": {
+          "observed_coherence": 0.7239,
+          "chain_null_mean": 0.048,
+          "chain_null_max": 0.1559,
+          "p": 0.0033222591362126247
+        },
+        "uncertainty-estimation": {
+          "observed_coherence": 0.7185,
+          "chain_null_mean": 0.0426,
+          "chain_null_max": 0.1306,
+          "p": 0.0033222591362126247
+        },
+        "example-testing": {
+          "observed_coherence": 0.6991,
+          "chain_null_mean": 0.0596,
+          "chain_null_max": 0.1688,
+          "p": 0.0033222591362126247
+        },
+        "adding-knowledge": {
+          "observed_coherence": 0.7212,
+          "chain_null_mean": 0.0489,
+          "chain_null_max": 0.1195,
+          "p": 0.0033222591362126247
+        }
+      }
+    }
+  }
+}

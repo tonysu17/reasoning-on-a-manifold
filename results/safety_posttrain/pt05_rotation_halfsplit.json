@@ -1,0 +1,475 @@
+{
+  "seed": 42,
+  "k": 5,
+  "design": "chain-partition half-split; excess = cross - within, H0-mean 0",
+  "arms": {
+    "star1_full": {
+      "backtracking_L12": {
+        "mean_excess_deg": 0.298,
+        "split_iqr95": [
+          -0.079,
+          0.647
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "backtracking_L16": {
+        "mean_excess_deg": 0.449,
+        "split_iqr95": [
+          -0.294,
+          1.124
+        ],
+        "frac_above_1deg": 0.055
+      },
+      "uncertainty-estimation_L12": {
+        "mean_excess_deg": 0.402,
+        "split_iqr95": [
+          0.036,
+          0.756
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L16": {
+        "mean_excess_deg": 0.432,
+        "split_iqr95": [
+          0.015,
+          0.81
+        ],
+        "frac_above_1deg": 0.005
+      },
+      "example-testing_L12": {
+        "mean_excess_deg": 0.26,
+        "split_iqr95": [
+          -0.004,
+          0.484
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L16": {
+        "mean_excess_deg": 0.312,
+        "split_iqr95": [
+          -0.579,
+          1.189
+        ],
+        "frac_above_1deg": 0.07
+      },
+      "adding-knowledge_L12": {
+        "mean_excess_deg": 0.41,
+        "split_iqr95": [
+          -0.892,
+          1.869
+        ],
+        "frac_above_1deg": 0.125
+      },
+      "adding-knowledge_L16": {
+        "mean_excess_deg": 0.445,
+        "split_iqr95": [
+          -0.467,
+          1.415
+        ],
+        "frac_above_1deg": 0.12
+      }
+    },
+    "safety100": {
+      "backtracking_L12": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.002,
+          0.004
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "backtracking_L16": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.005,
+          0.005
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L12": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.003,
+          0.004
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L16": {
+        "mean_excess_deg": -0.0,
+        "split_iqr95": [
+          -0.005,
+          0.004
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L12": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.002,
+          0.002
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L16": {
+        "mean_excess_deg": -0.001,
+        "split_iqr95": [
+          -0.009,
+          0.005
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L12": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.004,
+          0.005
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L16": {
+        "mean_excess_deg": -0.001,
+        "split_iqr95": [
+          -0.01,
+          0.006
+        ],
+        "frac_above_1deg": 0.0
+      }
+    },
+    "safety300": {
+      "backtracking_L12": {
+        "mean_excess_deg": 0.001,
+        "split_iqr95": [
+          -0.009,
+          0.012
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "backtracking_L16": {
+        "mean_excess_deg": 0.001,
+        "split_iqr95": [
+          -0.015,
+          0.019
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L12": {
+        "mean_excess_deg": 0.002,
+        "split_iqr95": [
+          -0.016,
+          0.019
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L16": {
+        "mean_excess_deg": -0.001,
+        "split_iqr95": [
+          -0.021,
+          0.016
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L12": {
+        "mean_excess_deg": -0.0,
+        "split_iqr95": [
+          -0.009,
+          0.009
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L16": {
+        "mean_excess_deg": -0.002,
+        "split_iqr95": [
+          -0.023,
+          0.027
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L12": {
+        "mean_excess_deg": -0.0,
+        "split_iqr95": [
+          -0.009,
+          0.019
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L16": {
+        "mean_excess_deg": 0.001,
+        "split_iqr95": [
+          -0.024,
+          0.027
+        ],
+        "frac_above_1deg": 0.0
+      }
+    },
+    "safety1000": {
+      "backtracking_L12": {
+        "mean_excess_deg": 0.003,
+        "split_iqr95": [
+          -0.028,
+          0.034
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "backtracking_L16": {
+        "mean_excess_deg": 0.0,
+        "split_iqr95": [
+          -0.074,
+          0.059
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L12": {
+        "mean_excess_deg": 0.004,
+        "split_iqr95": [
+          -0.044,
+          0.05
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L16": {
+        "mean_excess_deg": 0.009,
+        "split_iqr95": [
+          -0.051,
+          0.066
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L12": {
+        "mean_excess_deg": 0.004,
+        "split_iqr95": [
+          -0.025,
+          0.03
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L16": {
+        "mean_excess_deg": 0.012,
+        "split_iqr95": [
+          -0.058,
+          0.106
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L12": {
+        "mean_excess_deg": 0.005,
+        "split_iqr95": [
+          -0.043,
+          0.06
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L16": {
+        "mean_excess_deg": 0.009,
+        "split_iqr95": [
+          -0.098,
+          0.08
+        ],
+        "frac_above_1deg": 0.0
+      }
+    },
+    "control1000": {
+      "backtracking_L12": {
+        "mean_excess_deg": 0.005,
+        "split_iqr95": [
+          -0.023,
+          0.03
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "backtracking_L16": {
+        "mean_excess_deg": 0.007,
+        "split_iqr95": [
+          -0.096,
+          0.091
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L12": {
+        "mean_excess_deg": 0.004,
+        "split_iqr95": [
+          -0.021,
+          0.025
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "uncertainty-estimation_L16": {
+        "mean_excess_deg": 0.002,
+        "split_iqr95": [
+          -0.044,
+          0.048
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L12": {
+        "mean_excess_deg": 0.002,
+        "split_iqr95": [
+          -0.03,
+          0.036
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "example-testing_L16": {
+        "mean_excess_deg": 0.005,
+        "split_iqr95": [
+          -0.053,
+          0.072
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L12": {
+        "mean_excess_deg": 0.001,
+        "split_iqr95": [
+          -0.059,
+          0.045
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "adding-knowledge_L16": {
+        "mean_excess_deg": 0.002,
+        "split_iqr95": [
+          -0.221,
+          0.134
+        ],
+        "frac_above_1deg": 0.0
+      }
+    }
+  },
+  "mde": {
+    "backtracking_L12": {
+      "0.5": {
+        "mean_excess_deg": 0.366,
+        "split_iqr95": [
+          -0.097,
+          0.66
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "1.0": {
+        "mean_excess_deg": 0.264,
+        "split_iqr95": [
+          -0.045,
+          0.61
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "2.0": {
+        "mean_excess_deg": 0.338,
+        "split_iqr95": [
+          -0.007,
+          0.6
+        ],
+        "frac_above_1deg": 0.0
+      },
+      "5.0": {
+        "mean_excess_deg": 0.553,
+        "split_iqr95": [
+          0.181,
+          0.944
+        ],
+        "frac_above_1deg": 0.0
+      }
+    },
+    "backtracking_L16": {
+      "0.5": {
+        "mean_excess_deg": 0.387,
+        "split_iqr95": [
+          -0.278,
+          1.03
+        ],
+        "frac_above_1deg": 0.06
+      },
+      "1.0": {
+        "mean_excess_deg": 0.47,
+        "split_iqr95": [
+          -0.29,
+          1.116
+        ],
+        "frac_above_1deg": 0.12
+      },
+      "2.0": {
+        "mean_excess_deg": 0.569,
+        "split_iqr95": [
+          -0.169,
+          1.131
+        ],
+        "frac_above_1deg": 0.14
+      },
+      "5.0": {
+        "mean_excess_deg": 0.718,
+        "split_iqr95": [
+          0.005,
+          1.399
+        ],
+        "frac_above_1deg": 0.18
+      }
+    },
+    "adding-knowledge_L12": {
+      "0.5": {
+        "mean_excess_deg": 0.105,
+        "split_iqr95": [
+          -1.047,
+          1.107
+        ],
+        "frac_above_1deg": 0.08
+      },
+      "1.0": {
+        "mean_excess_deg": 0.388,
+        "split_iqr95": [
+          -0.402,
+          1.502
+        ],
+        "frac_above_1deg": 0.08
+      },
+      "2.0": {
+        "mean_excess_deg": 0.42,
+        "split_iqr95": [
+          -0.639,
+          2.345
+        ],
+        "frac_above_1deg": 0.08
+      },
+      "5.0": {
+        "mean_excess_deg": 0.45,
+        "split_iqr95": [
+          -0.605,
+          1.622
+        ],
+        "frac_above_1deg": 0.12
+      }
+    },
+    "adding-knowledge_L16": {
+      "0.5": {
+        "mean_excess_deg": 0.534,
+        "split_iqr95": [
+          -0.28,
+          1.246
+        ],
+        "frac_above_1deg": 0.12
+      },
+      "1.0": {
+        "mean_excess_deg": 0.345,
+        "split_iqr95": [
+          -0.716,
+          1.254
+        ],
+        "frac_above_1deg": 0.1
+      },
+      "2.0": {
+        "mean_excess_deg": 0.5,
+        "split_iqr95": [
+          -0.333,
+          2.105
+        ],
+        "frac_above_1deg": 0.1
+      },
+      "5.0": {
+        "mean_excess_deg": 0.593,
+        "split_iqr95": [
+          -0.254,
+          1.415
+        ],
+        "frac_above_1deg": 0.14
+      }
+    }
+  }
+}
