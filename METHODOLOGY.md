@@ -246,6 +246,21 @@ corpora (E9.0 shards + E9.1 T06 vanilla arm), local MPS, $0. E-4 deferred by dec
   (`r0_runner.sh`, `--limit` chains/process) are both needed; ~1% of 8192-token bf16 forwards go
   all-NaN on MPS ⇒ `--fp32` retry path (extract stages refuse to save all-NaN shards).
 
+## 11. R1 compression-contrast instruments (creativity–entropy rung 1 + RL.a)  `[BUILT — prereg sealed 2026-07-12, awaiting pod]`  `30_r1_compression.py`, `runpod_r1.sh`, [`R1_COMPRESSION_PREREG.md`](R1_COMPRESSION_PREREG.md)
+Post-training ladder at 1.5B, all public: qwenmath (base) → r1 (SFT-distill) → **deepscaler**
+(GRPO-RLVR on top of r1, verified agentica-org/DeepScaleR-1.5B-Preview) + star1 (safety-SFT
+control). **Primary contrast r1↔deepscaler** (tokenizer gate: byte-identical ids; star1 also
+matched-ids; **qwenmath matched-TEXT only** — DeepSeek modified the tokenizer, gate codified in
+`--stage gate` → `results/r1_compression/gate_tokenizer.json`).
+- **R1-rep:** teacher-forced E-1 + E-2@L17 on the R0 200-chain sample, same full_texts every arm;
+  r1 reference REUSED from R0/E9.0 shards; matched-ids arms assert grid equality ⇒ paired
+  per-chain deltas (Wilcoxon).
+- **R1-beh:** own-generation, 50 E9.1 eval tasks × (greedy + 3×T0.6) per arm, E9.1-style
+  batch-seeding; annotation-free proxies sealed in the runner (BT_CUE_RE per 1k, boxed,
+  repetition_rate>0.8).
+- **R1-score:** each arm re-scores its own generations (on-policy E-1/PR; CF-M cross-check).
+- Sealed P-R1.1–P-R1.6 + kill criteria in the prereg; confounds CF-M/N/L/O registered there.
+
 ---
 ### Change log
 - 2026-07-11: §10 added — entropy-ladder instruments (creativity–entropy R0); prereg sealed before

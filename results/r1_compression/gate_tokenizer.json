@@ -1,0 +1,17 @@
+{
+ "deepscaler": {
+  "vocab_identical": true,
+  "chain_body_ids_identical": true,
+  "tier": "matched-ids"
+ },
+ "star1": {
+  "vocab_identical": true,
+  "chain_body_ids_identical": true,
+  "tier": "matched-ids"
+ },
+ "qwenmath": {
+  "vocab_identical": false,
+  "chain_body_ids_identical": false,
+  "tier": "matched-text"
+ }
+}
