@@ -245,6 +245,8 @@ class SteeredModel:
         alpha: float = 1.0,
         mode: str = "subtract",
         energy_scale: float = 1.0,
+        clamp_value: float = 0.0,
+        clamp_gain: float = 1.0,
     ):
         import torch
         self.model = model
@@ -252,6 +254,14 @@ class SteeredModel:
         self.layer = layer
         self.alpha = alpha
         self.mode = mode
+        #: Target coordinate for mode="clamp": h' = h + β·(c − rᵀh)·r moves the
+        #: r-coordinate a fraction β (clamp_gain) of the way to the constant c at
+        #: every position. c is data-derived (a class-mean coordinate the model
+        #: actually exhibits); β<1 makes the bounded clamp DOSE-ABLE so its
+        #: realized displacement can be swept to overlap the projective arm's
+        #: (E10 P2 redesign — the matched-displacement fix).
+        self.clamp_value = float(clamp_value)
+        self.clamp_gain = float(clamp_gain)
         #: Extra multiplicative gain on the perturbation. =1.0 for behaviour /
         #: norm-matched arms; the energy-matched-random arm sets it so the
         #: delivered |αᵀh| matches the behaviour arm's mean projection energy
@@ -264,6 +274,11 @@ class SteeredModel:
         #: calibrate the energy-matched control. Reset at the start of generate().
         self._abs_proj_sum = 0.0
         self._abs_proj_count = 0
+        #: Realized per-position coordinate displacement |Δ(rᵀh)| delivered by
+        #: the intervention — the state-level on-target measure that lets clamp
+        #: and projective arms be compared at matched displacement (E10 P2).
+        self._disp_sum = 0.0
+        self._disp_count = 0
 
         device = next(model.parameters()).device
         dtype = next(model.parameters()).dtype
@@ -288,13 +303,28 @@ class SteeredModel:
             # hidden state through untouched. Used to calibrate the energy-
             # matched control against the behaviour arm on identical activations.
             return output
-        delta = (self.alpha * self.energy_scale) * proj * r.view(1, 1, -1)
-        if self.mode == "subtract":
-            h = h - delta
-        else:
-            h = h + delta
+        if self.mode == "clamp":
+            # Move the r-coordinate a fraction β toward the class-mean value: the
+            # data-bounded intervention (interchange-swap analogue). β=1 is a full
+            # clamp; β<1 doses it so displacement can be matched to the projective arm.
+            coord_delta = self.clamp_gain * (self.clamp_value - proj)  # (b, s, 1)
+        elif self.mode == "subtract":
+            coord_delta = -(self.alpha * self.energy_scale) * proj
+        else:  # "add"
+            coord_delta = (self.alpha * self.energy_scale) * proj
+        self._disp_sum += float(coord_delta.abs().sum().item())
+        self._disp_count += int(coord_delta.numel())
+        h = h + coord_delta * r.view(1, 1, -1)
         h = h.to(hidden.dtype)
         return ((h,) + output[1:]) if is_tuple else h
+
+    def mean_abs_displacement(self) -> Optional[float]:
+        """Mean realized |Δ(rᵀh)| the intervention delivered during the last
+        generate() (None if unused). The matching variable for clamp-vs-
+        projective comparisons (E10 P2)."""
+        if self._disp_count == 0:
+            return None
+        return self._disp_sum / self._disp_count
 
     def mean_abs_projection(self) -> Optional[float]:
         """Mean |rᵀh| observed during the last generate() (None if unused).
@@ -342,6 +372,8 @@ class SteeredModel:
 
         self._abs_proj_sum = 0.0      # reset per-generation energy probe
         self._abs_proj_count = 0
+        self._disp_sum = 0.0
+        self._disp_count = 0
         hook = self.model.model.layers[self.layer].register_forward_hook(self._hook_fn)
         try:
             with torch.no_grad():
@@ -455,6 +487,8 @@ class SteeredModel:
 
         self._abs_proj_sum = 0.0      # reset per-generation energy probe
         self._abs_proj_count = 0
+        self._disp_sum = 0.0
+        self._disp_count = 0
         hook = self.model.model.layers[self.layer].register_forward_hook(self._hook_fn)
         try:
             with torch.no_grad():

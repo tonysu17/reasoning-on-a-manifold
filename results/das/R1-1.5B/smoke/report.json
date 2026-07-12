@@ -1,0 +1,72 @@
+{
+  "experiment": "E10.1 DAS-1D backtracking",
+  "date": "2026-07-06",
+  "device": "mps",
+  "n_pairs": 8,
+  "config": {
+    "stage": "all",
+    "layers": [
+      17
+    ],
+    "n_pairs": 8,
+    "ctx": 96,
+    "min_ctx": 16,
+    "max_chains": 60,
+    "bs": 4,
+    "epochs": 3,
+    "lr": 0.01,
+    "seed": 0,
+    "window": 12,
+    "no_warm": true,
+    "smoke": true,
+    "tag": ""
+  },
+  "layers": {
+    "17": {
+      "train_curve": [
+        6.754660606384277,
+        6.753743648529053,
+        6.753332614898682
+      ],
+      "warm_train_curve": null,
+      "shuf_train_curve": [
+        6.757469654083252,
+        6.756415843963623,
+        6.754979848861694
+      ],
+      "cos_learned_diffmeans": -0.0011274556163698435,
+      "cos_warm_diffmeans": null,
+      "learned": {
+        "n": 8,
+        "induce_dlp": 0.0017246454954147339,
+        "remove_dlp": 0.0003557652235031128,
+        "sym_dlp": 0.0010402053594589233
+      },
+      "learned_positional": {
+        "n": 8,
+        "induce_dlp": 0.01249818503856659,
+        "remove_dlp": -0.0039025992155075073,
+        "sym_dlp": 0.004297792911529541
+      },
+      "shuffled_pair": {
+        "n": 8,
+        "induce_dlp": 0.0029404759407043457,
+        "remove_dlp": 0.002090141177177429,
+        "sym_dlp": 0.0025153085589408875
+      },
+      "random_rotation": {
+        "n": 8,
+        "induce_dlp": 0.00023470818996429443,
+        "remove_dlp": 0.00038145482540130615,
+        "sym_dlp": 0.0003080815076828003
+      },
+      "diff_of_means": {
+        "n": 8,
+        "induce_dlp": 0.04449678957462311,
+        "remove_dlp": 0.03691728413105011,
+        "sym_dlp": 0.04070703685283661
+      },
+      "pair_specificity_gap": -0.0014751031994819641
+    }
+  }
+}
