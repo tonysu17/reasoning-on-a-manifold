@@ -232,7 +232,7 @@ def stage_generate(args) -> None:
             for (t, s_), g in zip(batch, gen):
                 rows.append({"task_id": t["task_id"], "template": t["template"],
                              "gold": t["gold"], "sample": s_, "temperature": 0.6,
-                             **g})
+                             "max_new": args.max_new_tokens, **g})
         except Exception as e:
             logger.warning(f"generate FAILED batch@{i}: {e}")
         finally:
@@ -251,7 +251,7 @@ def stage_gate(args) -> None:
         r["answer"] = normalise(_boxed_answer(r["chain"]))
         r["correct"] = r["answer"] is not None and r["answer"] == r["gold"]
         r["strategy"] = primary_strategy(r["chain"], r["template"])
-        r["cap_hit"] = r["n_tokens"] >= args.max_new_tokens
+        r["cap_hit"] = r["n_tokens"] >= r.get("max_new", args.max_new_tokens)
 
     parse_rate = float(np.mean([r["answer"] is not None for r in rows]))
     accuracy = float(np.mean([r["correct"] for r in rows]))

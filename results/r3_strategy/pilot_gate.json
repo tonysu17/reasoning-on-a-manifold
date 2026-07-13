@@ -1,0 +1,123 @@
+{
+ "n_rows": 48,
+ "n_tasks": 16,
+ "gates": {
+  "G_R3_1_answerable": {
+   "parse_rate": 0.896,
+   "bar": 0.7,
+   "pass": true
+  },
+  "G_R3_2_headroom": {
+   "accuracy": 0.896,
+   "bar": [
+    0.2,
+    0.95
+   ],
+   "pass": true
+  },
+  "G_R3_3_coverage": {
+   "coverage_answered": 1.0,
+   "bar": 0.6,
+   "pass": true
+  },
+  "G_R3_4_variation": {
+   "tasks_with_2plus_strategies": "4/16",
+   "fraction": 0.25,
+   "bar": 0.25,
+   "pass": true
+  }
+ },
+ "verdict": "ALL GATES PASS \u2014 full R3 as designed",
+ "per_template": {
+  "T1": {
+   "n": 6,
+   "parse": 0.67,
+   "acc": 0.67,
+   "cap_hit": 0.33,
+   "mean_tok": 5121,
+   "strategies": [
+    "pattern",
+    "recursion"
+   ]
+  },
+  "T2": {
+   "n": 6,
+   "parse": 0.67,
+   "acc": 0.67,
+   "cap_hit": 0.33,
+   "mean_tok": 4607,
+   "strategies": [
+    "formula",
+    "telescoping"
+   ]
+  },
+  "T3": {
+   "n": 6,
+   "parse": 0.83,
+   "acc": 0.83,
+   "cap_hit": 0.17,
+   "mean_tok": 4208,
+   "strategies": [
+    "formula"
+   ]
+  },
+  "T4": {
+   "n": 6,
+   "parse": 1.0,
+   "acc": 1.0,
+   "cap_hit": 0.0,
+   "mean_tok": 1408,
+   "strategies": [
+    "substitution"
+   ]
+  },
+  "T5": {
+   "n": 6,
+   "parse": 1.0,
+   "acc": 1.0,
+   "cap_hit": 0.0,
+   "mean_tok": 2563,
+   "strategies": [
+    "formula"
+   ]
+  },
+  "T6": {
+   "n": 6,
+   "parse": 1.0,
+   "acc": 1.0,
+   "cap_hit": 0.0,
+   "mean_tok": 1836,
+   "strategies": [
+    "pattern"
+   ]
+  },
+  "T7": {
+   "n": 6,
+   "parse": 1.0,
+   "acc": 1.0,
+   "cap_hit": 0.0,
+   "mean_tok": 1729,
+   "strategies": [
+    "casework",
+    "complement"
+   ]
+  },
+  "T8": {
+   "n": 6,
+   "parse": 1.0,
+   "acc": 1.0,
+   "cap_hit": 0.0,
+   "mean_tok": 1648,
+   "strategies": [
+    "explicit_roots",
+    "vieta"
+   ]
+  }
+ },
+ "varied_tasks": [
+  "T1_0",
+  "T2_1",
+  "T7_1",
+  "T8_1"
+ ]
+}

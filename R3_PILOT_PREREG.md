@@ -94,3 +94,17 @@ Gates, bars, task parameters, seeds, and classifier keyword lists fixed before g
 file written to `data/r3_tasks_pilot.json` and committed with the code. Fail-soft with exclusions
 counted. M3 wording discipline inherited; no test-set tuning (the pilot IS the test of the
 instrument, not of the science).
+
+---
+
+## Amendment 1 (2026-07-12, after batch 1 of 12; instrument fix, gates UNCHANGED)
+
+First batch (4 chains): ALL hit the 3072 cap; 3/4 no `\boxed`; rep4 = 0.08–0.14 (no looping); two
+chains had already stated the CORRECT gold answer mid-chain ("the number of ways is 233",
+"gives me 1360") and were still re-verifying / trying alternative methods when truncated — the
+programme's own overthinking tax biting the instrument. This is a pure truncation artifact:
+`max_new_tokens` 3072 under-budgeted R1-Distill's verbosity even on easy tasks (corpus mean ~4.9k).
+**Fix: `max_new_tokens` 3072 → 6144; the 4 capped rows deleted so all 48 chains regenerate under
+the uniform new cap; rows now record their `max_new` so the gate's cap-hit diagnostic is
+self-describing. All four gate bars unchanged** — this amendment is made before any gate statistic
+was computed. Precedent: E10 Amendment 1 (instrument upgrade pre-analysis).
