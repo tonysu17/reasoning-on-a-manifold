@@ -1,0 +1,178 @@
+{
+  "layers": {
+    "12": {
+      "base_PR": 25.73,
+      "base_top5_share": 0.3641,
+      "arms": {
+        "sft_full_safety(star1)": {
+          "kl": 0.00766,
+          "dH": -0.01035,
+          "disp_pct": 3.77,
+          "cos_star1": 1.0,
+          "dPR": -0.26,
+          "d_top5_share": 0.0019,
+          "var_ratio": 1.0071
+        },
+        "sft_fullft_safety": {
+          "kl": 0.00122,
+          "dH": 0.00017,
+          "disp_pct": 1.17,
+          "cos_star1": 0.683,
+          "dPR": -0.15,
+          "d_top5_share": 0.0005,
+          "var_ratio": 1.0001
+        },
+        "sft_fullft_control": {
+          "kl": 0.00182,
+          "dH": -0.00327,
+          "disp_pct": 1.44,
+          "cos_star1": 0.159,
+          "dPR": -0.45,
+          "d_top5_share": 0.002,
+          "var_ratio": 1.0035
+        },
+        "sft_lora_safety": {
+          "kl": 0.00027,
+          "dH": 0.0004,
+          "disp_pct": 0.36,
+          "cos_star1": 0.58,
+          "dPR": -0.05,
+          "d_top5_share": 0.0001,
+          "var_ratio": 0.9996
+        },
+        "sft_lora_control": {
+          "kl": 0.0003,
+          "dH": -0.00403,
+          "disp_pct": 0.43,
+          "cos_star1": 0.143,
+          "dPR": -0.13,
+          "d_top5_share": 0.0005,
+          "var_ratio": 1.0005
+        },
+        "dpo_safety": {
+          "kl": 0.00024,
+          "dH": 0.001,
+          "disp_pct": 0.15,
+          "cos_star1": 0.228,
+          "dPR": 0.04,
+          "d_top5_share": -0.0002,
+          "var_ratio": 0.9989
+        },
+        "dpo_control": {
+          "kl": 0.00024,
+          "dH": 1e-05,
+          "disp_pct": 0.01,
+          "cos_star1": -0.003,
+          "dPR": -0.0,
+          "d_top5_share": 0.0,
+          "var_ratio": 1.0
+        },
+        "grpo_refusal": {
+          "kl": 0.00024,
+          "dH": 1e-05,
+          "disp_pct": 0.0,
+          "cos_star1": -0.032,
+          "dPR": 0.0,
+          "d_top5_share": -0.0,
+          "var_ratio": 1.0
+        },
+        "grpo_math": {
+          "kl": 0.00024,
+          "dH": -0.0001,
+          "disp_pct": 0.01,
+          "cos_star1": 0.023,
+          "dPR": -0.0,
+          "d_top5_share": 0.0,
+          "var_ratio": 1.0
+        }
+      }
+    },
+    "16": {
+      "base_PR": 22.5,
+      "base_top5_share": 0.3716,
+      "arms": {
+        "sft_full_safety(star1)": {
+          "kl": 0.00766,
+          "dH": -0.01035,
+          "disp_pct": 3.93,
+          "cos_star1": 1.0,
+          "dPR": -0.37,
+          "d_top5_share": 0.0032,
+          "var_ratio": 1.0084
+        },
+        "sft_fullft_safety": {
+          "kl": 0.00122,
+          "dH": 0.00017,
+          "disp_pct": 1.16,
+          "cos_star1": 0.699,
+          "dPR": -0.19,
+          "d_top5_share": 0.001,
+          "var_ratio": 0.9993
+        },
+        "sft_fullft_control": {
+          "kl": 0.00182,
+          "dH": -0.00327,
+          "disp_pct": 1.51,
+          "cos_star1": 0.137,
+          "dPR": -0.41,
+          "d_top5_share": 0.002,
+          "var_ratio": 0.9999
+        },
+        "sft_lora_safety": {
+          "kl": 0.00027,
+          "dH": 0.0004,
+          "disp_pct": 0.35,
+          "cos_star1": 0.567,
+          "dPR": -0.07,
+          "d_top5_share": 0.0003,
+          "var_ratio": 0.9992
+        },
+        "sft_lora_control": {
+          "kl": 0.0003,
+          "dH": -0.00403,
+          "disp_pct": 0.47,
+          "cos_star1": 0.174,
+          "dPR": -0.14,
+          "d_top5_share": 0.0006,
+          "var_ratio": 1.001
+        },
+        "dpo_safety": {
+          "kl": 0.00024,
+          "dH": 0.001,
+          "disp_pct": 0.13,
+          "cos_star1": 0.204,
+          "dPR": 0.02,
+          "d_top5_share": -0.0001,
+          "var_ratio": 0.9993
+        },
+        "dpo_control": {
+          "kl": 0.00024,
+          "dH": 1e-05,
+          "disp_pct": 0.01,
+          "cos_star1": -0.175,
+          "dPR": -0.0,
+          "d_top5_share": 0.0,
+          "var_ratio": 1.0
+        },
+        "grpo_refusal": {
+          "kl": 0.00024,
+          "dH": 1e-05,
+          "disp_pct": 0.0,
+          "cos_star1": -0.081,
+          "dPR": 0.0,
+          "d_top5_share": -0.0,
+          "var_ratio": 1.0
+        },
+        "grpo_math": {
+          "kl": 0.00024,
+          "dH": -0.0001,
+          "disp_pct": 0.01,
+          "cos_star1": -0.059,
+          "dPR": -0.0,
+          "d_top5_share": 0.0,
+          "var_ratio": 1.0
+        }
+      }
+    }
+  }
+}

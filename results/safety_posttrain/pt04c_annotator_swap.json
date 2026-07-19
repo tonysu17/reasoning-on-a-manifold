@@ -1,0 +1,53 @@
+{
+ "n_perm": 500,
+ "seed": 42,
+ "layers": {
+  "12": {
+   "nova": {
+    "n_rows": 35028,
+    "n_chains": 956,
+    "disp_over_base_norm": 0.04753,
+    "coherence": 0.7529,
+    "coherence_chain_null_mean": 0.0361,
+    "coherence_p_perm": 0.002
+   },
+   "sonnet": {
+    "n_rows": 37851,
+    "n_chains": 993,
+    "disp_over_base_norm": 0.04934,
+    "coherence": 0.76,
+    "coherence_chain_null_mean": 0.036,
+    "coherence_p_perm": 0.002
+   },
+   "cos_nova_vs_sonnet_direction": 0.9992,
+   "gate": {
+    "cos_bar": 0.8,
+    "pass": true
+   }
+  },
+  "16": {
+   "nova": {
+    "n_rows": 35028,
+    "n_chains": 956,
+    "disp_over_base_norm": 0.05317,
+    "coherence": 0.7091,
+    "coherence_chain_null_mean": 0.0347,
+    "coherence_p_perm": 0.002
+   },
+   "sonnet": {
+    "n_rows": 37851,
+    "n_chains": 993,
+    "disp_over_base_norm": 0.05532,
+    "coherence": 0.7096,
+    "coherence_chain_null_mean": 0.0346,
+    "coherence_p_perm": 0.002
+   },
+   "cos_nova_vs_sonnet_direction": 0.999,
+   "gate": {
+    "cos_bar": 0.8,
+    "pass": true
+   }
+  }
+ },
+ "verdict": "PASS \u2014 recipe direction reproduces under Nova-Pro spans"
+}

@@ -1,0 +1,242 @@
+<title>Geometry of Machine Reasoning — Supervisor Brief, 16 Jul 2026</title>
+<style>
+  :root {
+    --paper: #f7f8f6;
+    --card: #ffffff;
+    --ink: #20262a;
+    --muted: #5b6660;
+    --line: #dce1dd;
+    --accent: #136558;
+    --accent-soft: #e3efec;
+    --null: #9c4432;
+    --null-soft: #f4e7e2;
+    --warn: #8a6a1f;
+    --warn-soft: #f3ecd8;
+    --stop: #444d4a;
+    --stop-soft: #e7eae8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #151a1b;
+      --card: #1c2224;
+      --ink: #e4e9e6;
+      --muted: #93a09a;
+      --line: #2b3335;
+      --accent: #45a28f;
+      --accent-soft: #1d312d;
+      --null: #cf8068;
+      --null-soft: #362420;
+      --warn: #c9a44e;
+      --warn-soft: #322b1a;
+      --stop: #aab4b0;
+      --stop-soft: #242b29;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151a1b; --card: #1c2224; --ink: #e4e9e6; --muted: #93a09a;
+    --line: #2b3335; --accent: #45a28f; --accent-soft: #1d312d;
+    --null: #cf8068; --null-soft: #362420; --warn: #c9a44e; --warn-soft: #322b1a;
+    --stop: #aab4b0; --stop-soft: #242b29;
+  }
+  :root[data-theme="light"] {
+    --paper: #f7f8f6; --card: #ffffff; --ink: #20262a; --muted: #5b6660;
+    --line: #dce1dd; --accent: #136558; --accent-soft: #e3efec;
+    --null: #9c4432; --null-soft: #f4e7e2; --warn: #8a6a1f; --warn-soft: #f3ecd8;
+    --stop: #444d4a; --stop-soft: #e7eae8;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin: 0;
+    padding: 28px 24px 40px;
+  }
+  .brief { max-width: 1060px; margin: 0 auto; }
+
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 16px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 6px;
+  }
+  h1 {
+    font-family: Charter, "Bitstream Charter", Cambria, Georgia, serif;
+    font-size: 27px; font-weight: 700; letter-spacing: -0.01em;
+    margin: 0 0 4px; text-wrap: balance;
+  }
+  .subtitle { color: var(--muted); margin: 0 0 10px; font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; padding: 3px 9px; border: 1px solid var(--line);
+    border-radius: 3px; color: var(--muted); background: var(--card);
+  }
+
+  .spine {
+    background: var(--accent-soft); border-left: 4px solid var(--accent);
+    padding: 12px 16px; margin: 0 0 18px; border-radius: 0 4px 4px 0;
+  }
+  .spine p { margin: 0; }
+  .spine .label {
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; color: var(--accent); display: block; margin-bottom: 4px;
+  }
+  .spine strong { font-family: Charter, Cambria, Georgia, serif; font-size: 15.5px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  section {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 5px; padding: 13px 15px 11px;
+  }
+  section.wide { grid-column: 1 / -1; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  h2 {
+    font-family: Charter, "Bitstream Charter", Cambria, Georgia, serif;
+    font-size: 15.5px; font-weight: 700; margin: 0; text-wrap: balance;
+  }
+  .verdict {
+    flex-shrink: 0; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 3px; white-space: nowrap;
+  }
+  .v-pos { color: var(--accent); background: var(--accent-soft); }
+  .v-null { color: var(--null); background: var(--null-soft); }
+  .v-warn { color: var(--warn); background: var(--warn-soft); }
+  .v-stop { color: var(--stop); background: var(--stop-soft); }
+
+  .lede { margin: 0 0 7px; font-size: 13px; }
+  ul { margin: 0; padding-left: 17px; }
+  li { margin-bottom: 4px; font-size: 12.5px; }
+  li:last-child { margin-bottom: 0; }
+  .n {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11.5px; font-variant-numeric: tabular-nums;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 3px; padding: 0 4px; white-space: nowrap;
+  }
+  .why { color: var(--muted); font-style: italic; }
+
+  footer {
+    margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 11.5px; display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  @media print {
+    body { padding: 0; font-size: 11px; background: #fff; color: #111; }
+    section { break-inside: avoid; border-color: #ccc; }
+    .grid { gap: 8px; }
+  }
+</style>
+
+<div class="brief">
+  <header>
+    <p class="eyebrow">Supervisor brief · 16 July 2026</p>
+    <h1>The Geometry of Machine Reasoning — progress since the steering vectors</h1>
+    <p class="subtitle">Per-behaviour structure, causal steering, and the post-training origin of safety reasoning · model: DeepSeek-R1-Distill-Qwen-1.5B</p>
+    <div class="chips">
+      <span class="chip">thesis 69pp · compiles clean</span>
+      <span class="chip">all declared gates run or fired</span>
+      <span class="chip">E8 · E9 · E10 · pt01–12 · R0–R3 executed</span>
+      <span class="chip">gpt-oss pilot stopped at κ gate</span>
+    </div>
+  </header>
+
+  <div class="spine">
+    <p><span class="label">Unifying claim (now the thesis spine)</span>
+    <strong>Post-training spends entropy in the decoding distribution, not in representational geometry.</strong>
+    Safety SFT translates the representation without restructuring it; RLVR compresses behaviour over unchanged geometry; collapse is rescued by decoding entropy, not state noise; and a targeted steering “pump” trades entropy for value more efficiently than temperature.</p>
+  </div>
+
+  <div class="grid">
+
+    <section>
+      <div class="head"><h2>Geometry: low-dimensional and flat</h2><span class="verdict v-pos">replicated ×3</span></div>
+      <p class="lede">Each reasoning behaviour occupies a compact region of the 1536-D stream; apparent curvature was an artefact.</p>
+      <ul>
+        <li>Intrinsic dim <span class="n">≈ 6–8</span> per behaviour vs linear span <span class="n">40–80</span>; replicates across three annotators despite label agreement of only <span class="n">κ 0.35–0.44</span>.</li>
+        <li>Curvature = within-chain autocorrelation: one point per chain → ratio <span class="n">≈ 1.0</span> (well-powered negative). <span class="why">Flatness licenses every linear instrument used downstream.</span></li>
+        <li>Specificity 2/4: backtracking &amp; uncertainty own their subspaces (<span class="n">p &lt; .001</span>); adding-knowledge null everywhere (<span class="n">p = 1.0</span>) — content is distributed, control moves are localised.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Layer attribution</h2><span class="verdict v-pos">mid layers</span></div>
+      <p class="lede">Naive attribution patching pointed at L27 for everything — a read-out-proximity artefact, caught three separate times.</p>
+      <ul>
+        <li>Faithful gradient attribution: <span class="n">bt L17 · unc L15 · ex L15 · ak L17</span> — recovers Venhoff’s published layers 3/4 with a different annotator.</li>
+        <li>Mid-vs-late settled by free-generation steering outcome; DAS grounding controls later confirmed L17 and exposed L27 as an optimiser trap. <span class="why">Any logit-proximal metric must be validated behaviourally.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Steering (E8): one real handle</h2><span class="verdict v-warn">preliminary</span></div>
+      <p class="lede">Against energy-matched random floors, exactly one behaviour is causally steerable: backtracking.</p>
+      <ul>
+        <li>Δ_floor <span class="n">+0.054</span> single / <span class="n">+0.070</span> k5 (<span class="n">Holm p = .002</span>); survives count and per-1k endpoints; behaviour-specific (<span class="n">+73% own-vs-other</span>).</li>
+        <li>Example-testing effect = length-dilution artefact (count endpoint <span class="n">p = .27</span>); adding-knowledge null, as geometry predicted; uncertainty under-powered.</li>
+        <li>No manifold advantage: subspace ≈ the same vector (<span class="n">cos 0.965</span>). Caveat: builder-annotator scored; non-builder band budget-blocked.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Collapse (E9): the loop attractor</h2><span class="verdict v-pos">bidirectional</span></div>
+      <p class="lede">A pre-existing “Wait, maybe…” whirlpool (34% of vanilla chains); steering moves the state relative to it.</p>
+      <ul>
+        <li>Backtracking is a two-way handle: ablate → collapse <span class="n">24%</span>, boxed answers <span class="n">2–4×</span> (“overthinking tax”); amplify → <span class="n">58–64%</span>, boxed <span class="n">0.00</span>. Generic damage rejected both signs.</li>
+        <li>Temperature <span class="n">T = 0.6</span> rescues <span class="n">75–100%</span>; state-noise of any geometry rescues nothing. <span class="why">The rut is the state↔text feedback cycle — only the sampler can break it.</span></li>
+        <li>Branch points invisible in token entropy: forks are decided in the state before the logits show it.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Causal basis (E10, DAS)</h2><span class="verdict v-pos">confirmed</span></div>
+      <p class="lede">The causally-trained axis is a different object from the correlational steering vector — and far stronger.</p>
+      <ul>
+        <li>1-D DAS frame @ L17 transfers <span class="n">+0.649</span> vs diff-of-means <span class="n">+0.048</span> (<span class="n">≈13×</span>; CI [+0.54, +0.67]), nearly orthogonal to it (<span class="n">cos ≈ 0.2</span>).</li>
+        <li>Grounding controls caught L11/L27 as optimiser-carved illusions (coord-AUC <span class="n">0.36 / 0.21</span>) — raw transfer would have picked L27.</li>
+        <li>Grounded causal width <span class="n">≈ 2-D</span> inside the 6–8-D envelope. <span class="why">Explains the E8 manifold null: occupancy ≠ causation.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Safety post-training: translate, don’t rewire</h2><span class="verdict v-pos">fully gated</span></div>
+      <p class="lede">LoRA/full-FT on STAR-1 (doses 100/300/1000) vs size-matched controls, 3 seeds, + DPO/GRPO — all measured on byte-identical generic reasoning text.</p>
+      <ul>
+        <li>No rotation (<span class="n">sub-degree</span>), no contraction; one global translation <span class="n">≈ 5% of norm</span> whose direction is content-determined: cos→STAR1 <span class="n">0.57–0.59</span> safety vs <span class="n">0.14–0.18</span> control; seeds <span class="n">0.989–0.994</span>; annotator-swap <span class="n">cos 0.999</span>.</li>
+        <li>Method-dependent signature: SFT sharpens (<span class="n">dH −0.010</span>) and translates; DPO on the same data moves a different axis (<span class="n">cos 0.16–0.20</span>) and raises entropy (<span class="n">+0.0145</span>, safety-specific); GRPO ≈ no-op.</li>
+        <li><span class="why">Fine-tuning re-weights the policy over an intact representational substrate — a fingerprint of method, not just data.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Creativity / entropy (R0–R3)</h2><span class="verdict v-warn">R3 provisional</span></div>
+      <p class="lede">RLVR compresses behaviour, not representation; targeted entropy beats indiscriminate entropy.</p>
+      <ul>
+        <li>R1: distillation installs deliberation (<span class="n">0.14 → 12</span> bt-cues/1k); RLVR re-compresses it — entropy, length, diversity all fall while matched-text geometry is untouched (<span class="n">ΔPR ≈ 0</span>).</li>
+        <li>R3 (<span class="n">3,584 chains</span>): at matched strategy entropy the backtracking “pump” retains more accuracy than the temperature “thermostat” (<span class="n">+0.016</span>, CI [.013, .019], 24/25 grid pts); T = 1.2 burns accuracy <span class="n">0.88 → 0.56</span>. Lexical strategy labels — sign provisional.</li>
+        <li>The loop jam is a low-entropy state (<span class="n">0.39 vs 0.86 nats</span>): being stuck is a rut, not a storm.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="head"><h2>Predictive geometry &amp; the gpt-oss gate</h2><span class="verdict v-stop">gated stop</span></div>
+      <p class="lede">Value information is occupancy, not order; the gpt-oss pilot killed itself as designed.</p>
+      <ul>
+        <li>Correctness = state-occupancy, confirmed 3 independent ways (order-blind models beat the trained GRU). Linear forward map: real, onset-specific (<span class="n">p ≈ 1e-68</span>) but small (<span class="n">3–7%</span> recovery).</li>
+        <li>gpt-oss-20b pilot: 100 chains, 3-judge annotation — harm-recognition <span class="n">κ 0.62</span> citable, but <span class="n">decision κ 0.22 &lt; 0.4</span> → pre-registered kill criterion fired; stopped before geometry spend. <span class="why">Abstract deliberative labels have no shared textual anchor.</span></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Open caveats: single 1.5B model · steering within-annotator · R3 lexical labels · 1-seed RL arms · math-weighted corpus</span>
+    <span>Sources: RESULTS_LEDGER.md · thesis ucl_msc.tex</span>
+  </footer>
+</div>

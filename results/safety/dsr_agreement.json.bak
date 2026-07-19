@@ -1,0 +1,109 @@
+{
+  "agreement": {
+    "spec_citation": {
+      "kappa": 0.6677,
+      "gate": "citable",
+      "pairwise": {
+        "Nova-Pro|Qwen3-235B": 0.5955,
+        "Nova-Pro|Sonnet-4.5": 0.724,
+        "Qwen3-235B|Sonnet-4.5": 0.6945
+      },
+      "fleiss": 0.6677,
+      "span_f1": {
+        "Nova-Pro|Qwen3-235B": 0.3878,
+        "Nova-Pro|Sonnet-4.5": 0.3844,
+        "Qwen3-235B|Sonnet-4.5": 0.3836
+      },
+      "prevalence": {
+        "Nova-Pro": 0.0164,
+        "Qwen3-235B": 0.0201,
+        "Sonnet-4.5": 0.0142
+      },
+      "n_chars": 374934
+    },
+    "adjudication": {
+      "kappa": 0.1592,
+      "gate": "uninterpretable",
+      "pairwise": {
+        "Nova-Pro|Qwen3-235B": 0.1294,
+        "Nova-Pro|Sonnet-4.5": 0.0669,
+        "Qwen3-235B|Sonnet-4.5": 0.2473
+      },
+      "fleiss": 0.1592,
+      "span_f1": {
+        "Nova-Pro|Qwen3-235B": 0.0499,
+        "Nova-Pro|Sonnet-4.5": 0.0394,
+        "Qwen3-235B|Sonnet-4.5": 0.0877
+      },
+      "prevalence": {
+        "Nova-Pro": 0.0012,
+        "Qwen3-235B": 0.0074,
+        "Sonnet-4.5": 0.0209
+      },
+      "n_chars": 374934
+    },
+    "decision": {
+      "kappa": 0.252,
+      "gate": "uninterpretable",
+      "pairwise": {
+        "Nova-Pro|Qwen3-235B": 0.187,
+        "Nova-Pro|Sonnet-4.5": 0.2306,
+        "Qwen3-235B|Sonnet-4.5": 0.4505
+      },
+      "fleiss": 0.252,
+      "span_f1": {
+        "Nova-Pro|Qwen3-235B": 0.5049,
+        "Nova-Pro|Sonnet-4.5": 0.557,
+        "Qwen3-235B|Sonnet-4.5": 0.5374
+      },
+      "prevalence": {
+        "Nova-Pro": 0.0473,
+        "Qwen3-235B": 0.0083,
+        "Sonnet-4.5": 0.0201
+      },
+      "n_chars": 374934
+    },
+    "harm_recognition": {
+      "kappa": 0.7065,
+      "gate": "citable",
+      "pairwise": {
+        "Nova-Pro|Qwen3-235B": 0.6164,
+        "Nova-Pro|Sonnet-4.5": 0.7702,
+        "Qwen3-235B|Sonnet-4.5": 0.7416
+      },
+      "fleiss": 0.7065,
+      "span_f1": {
+        "Nova-Pro|Qwen3-235B": 0.3561,
+        "Nova-Pro|Sonnet-4.5": 0.362,
+        "Qwen3-235B|Sonnet-4.5": 0.4152
+      },
+      "prevalence": {
+        "Nova-Pro": 0.0213,
+        "Qwen3-235B": 0.032,
+        "Sonnet-4.5": 0.0236
+      },
+      "n_chars": 374934
+    }
+  },
+  "n_chains": 100,
+  "n_complete": 76,
+  "judges": [
+    "Sonnet-4.5",
+    "Qwen3-235B",
+    "Nova-Pro"
+  ],
+  "provenance": {
+    "git_commit": "05a75e39f6982cab340f8541a5087000510def90",
+    "git_dirty": true,
+    "seed": 42,
+    "args": {
+      "chains": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/chains_gpt-oss-20b_p0.json",
+      "judges": "['Sonnet-4.5:eu.anthropic.claude-sonnet-4-5-20250929-v1:0', 'Qwen3-235B:qwen.qwen3-235b-a22b-2507-v1:0', 'Nova-Pro:amazon.nova-pro-v1:0']",
+      "policy": null,
+      "out": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/safety/dsr_annotated.json",
+      "agreement_out": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/safety/dsr_agreement.json",
+      "limit": null,
+      "dry_run": false
+    }
+  }
+}

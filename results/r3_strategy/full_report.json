@@ -1,0 +1,7524 @@
+{
+ "prereg": "R3_PILOT_PREREG.md \u00a7'What the full R3 adds' + R2_FRONTIER_PREREG.md knob definitions (R2 folded into R3)",
+ "definitions": {
+  "value": "TRUE correctness (computable golds; unparsed = incorrect)",
+  "strategy_entropy": "Shannon entropy (bits) of primary-strategy labels over a task's samples, unclassified excluded, None if <2 labelled; cell value = mean over tasks with defined entropy",
+  "classifier": "FROZEN pilot lexical classifier \u2014 RANGE-FINDER only (CF-T); judged labels are a declared follow-on",
+  "collapse": "house 4-gram repetition_rate > 0.8"
+ },
+ "n_rows": 3584,
+ "n_tasks": 64,
+ "cells": {
+  "pump_subtract_a0.5": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.90625,
+   "accuracy": 0.890625,
+   "accuracy_uncollapsed": 0.890625,
+   "coverage_answered": 0.9870689655172413,
+   "strategy_entropy": 0.509298179002864,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.38107952273773626,
+   "strategy_entropy_incl_unclassified": 0.5462564659014851,
+   "multi_strategy_frac": 0.5625,
+   "answer_diversity": 0.16824776785714285,
+   "fourgram_diversity": 0.915392017634886,
+   "collapse": 0.0,
+   "cap_hit": 0.099609375,
+   "mean_tokens": 2739.3359375
+  },
+  "pump_subtract_a1": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.8984375,
+   "accuracy": 0.880859375,
+   "accuracy_uncollapsed": 0.880859375,
+   "coverage_answered": 0.9804347826086957,
+   "strategy_entropy": 0.41007835451473684,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.3066242535325866,
+   "strategy_entropy_incl_unclassified": 0.4674037417112454,
+   "multi_strategy_frac": 0.484375,
+   "answer_diversity": 0.18113839285714284,
+   "fourgram_diversity": 0.9102073160330542,
+   "collapse": 0.0,
+   "cap_hit": 0.111328125,
+   "mean_tokens": 2561.568359375
+  },
+  "pump_subtract_a1.5": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.880859375,
+   "accuracy": 0.853515625,
+   "accuracy_uncollapsed": 0.853515625,
+   "coverage_answered": 0.9844789356984479,
+   "strategy_entropy": 0.4470744399120919,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.3239535660005839,
+   "strategy_entropy_incl_unclassified": 0.4929963257889021,
+   "multi_strategy_frac": 0.53125,
+   "answer_diversity": 0.2019652305366591,
+   "fourgram_diversity": 0.9087003982930772,
+   "collapse": 0.0,
+   "cap_hit": 0.123046875,
+   "mean_tokens": 2520.2734375
+  },
+  "vanilla_T0.3": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.849609375,
+   "accuracy": 0.837890625,
+   "accuracy_uncollapsed": 0.8411764705882353,
+   "coverage_answered": 0.9908045977011494,
+   "strategy_entropy": 0.4589805220192954,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.34516676898365406,
+   "strategy_entropy_incl_unclassified": 0.49746116521006956,
+   "multi_strategy_frac": 0.5,
+   "answer_diversity": 0.17196800595238093,
+   "fourgram_diversity": 0.8876956609466518,
+   "collapse": 0.00390625,
+   "cap_hit": 0.158203125,
+   "mean_tokens": 3087.802734375
+  },
+  "vanilla_T0.6": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.8984375,
+   "accuracy": 0.8828125,
+   "accuracy_uncollapsed": 0.8828125,
+   "coverage_answered": 0.9978260869565218,
+   "strategy_entropy": 0.5407662479249685,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.3965301763832041,
+   "strategy_entropy_incl_unclassified": 0.5492594423499623,
+   "multi_strategy_frac": 0.640625,
+   "answer_diversity": 0.16642485119047618,
+   "fourgram_diversity": 0.9278007177072419,
+   "collapse": 0.0,
+   "cap_hit": 0.111328125,
+   "mean_tokens": 3054.5078125
+  },
+  "vanilla_T0.9": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.8828125,
+   "accuracy": 0.875,
+   "accuracy_uncollapsed": 0.875,
+   "coverage_answered": 0.9933628318584071,
+   "strategy_entropy": 0.4017529137277649,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.28935209967324005,
+   "strategy_entropy_incl_unclassified": 0.4236224409390724,
+   "multi_strategy_frac": 0.515625,
+   "answer_diversity": 0.1581473214285714,
+   "fourgram_diversity": 0.9549203794682346,
+   "collapse": 0.0,
+   "cap_hit": 0.140625,
+   "mean_tokens": 3337.5625
+  },
+  "vanilla_T1.2": {
+   "n_rows": 512,
+   "n_tasks": 64,
+   "parse_rate": 0.5859375,
+   "accuracy": 0.560546875,
+   "accuracy_uncollapsed": 0.560546875,
+   "coverage_answered": 0.99,
+   "strategy_entropy": 0.396573477392044,
+   "strategy_entropy_n": 64,
+   "strategy_entropy_norm": 0.2764114234500785,
+   "strategy_entropy_incl_unclassified": 0.4255420967899664,
+   "multi_strategy_frac": 0.46875,
+   "answer_diversity": 0.2853653530377668,
+   "fourgram_diversity": 0.9821473204515347,
+   "collapse": 0.0,
+   "cap_hit": 0.28125,
+   "mean_tokens": 3665.20703125
+  }
+ },
+ "substrate_diagnostics_anchor": {
+  "cell": "vanilla_T0.6",
+  "parse_rate": 0.8984375,
+  "accuracy": 0.8828125,
+  "coverage_answered": 0.9978260869565218,
+  "multi_strategy_frac": 0.640625,
+  "note": "pilot-gate analogues at full scale (informational \u2014 the gates themselves were the pilot's, already passed)"
+ },
+ "pump_frontier": [
+  {
+   "level": 1.0,
+   "cell": "pump_subtract_a1",
+   "strategy_entropy": 0.41007835451473684,
+   "y": 0.880859375
+  },
+  {
+   "level": 1.5,
+   "cell": "pump_subtract_a1.5",
+   "strategy_entropy": 0.4470744399120919,
+   "y": 0.853515625
+  },
+  {
+   "level": 0.5,
+   "cell": "pump_subtract_a0.5",
+   "strategy_entropy": 0.509298179002864,
+   "y": 0.890625
+  },
+  {
+   "level": 0.0,
+   "cell": "vanilla_T0.6",
+   "strategy_entropy": 0.5407662479249685,
+   "y": 0.8828125
+  }
+ ],
+ "thermo_frontier": [
+  {
+   "level": 1.2,
+   "cell": "vanilla_T1.2",
+   "strategy_entropy": 0.396573477392044,
+   "y": 0.560546875
+  },
+  {
+   "level": 0.9,
+   "cell": "vanilla_T0.9",
+   "strategy_entropy": 0.4017529137277649,
+   "y": 0.875
+  },
+  {
+   "level": 0.3,
+   "cell": "vanilla_T0.3",
+   "strategy_entropy": 0.4589805220192954,
+   "y": 0.837890625
+  },
+  {
+   "level": 0.6,
+   "cell": "vanilla_T0.6",
+   "strategy_entropy": 0.5407662479249685,
+   "y": 0.8828125
+  }
+ ],
+ "P_R2_1_reframed": {
+  "overlap_entropy": [
+   0.41007835451473684,
+   0.5407662479249685
+  ],
+  "mean_gap_pump_minus_thermo": 0.015912597944158603,
+  "ci95": [
+   0.012892599736197686,
+   0.01891790808835551
+  ],
+  "grid_points_pump_higher": "24/25",
+  "verdict": "P-R2.1 (reframed) SUPPORTED \u2014 pump retains more value at matched strategy entropy"
+ },
+ "P_R2_2_reframed": {
+  "pump": {
+   "spearman_rho": 0.6,
+   "p": 0.4,
+   "n": 4
+  },
+  "thermostat": {
+   "spearman_rho": 0.8,
+   "p": 0.2000000000000001,
+   "n": 4
+  }
+ },
+ "P_R2_3_reframed": {
+  "collapse_by_pump_level": {
+   "vanilla_T0.6": 0.0,
+   "pump_subtract_a0.5": 0.0,
+   "pump_subtract_a1": 0.0,
+   "pump_subtract_a1.5": 0.0
+  },
+  "collapse_by_thermo_level": {
+   "vanilla_T0.3": 0.00390625,
+   "vanilla_T0.6": 0.0,
+   "vanilla_T0.9": 0.0,
+   "vanilla_T1.2": 0.0
+  },
+  "matched_gap_uncollapsed": {
+   "overlap_entropy": [
+    0.41007835451473684,
+    0.5407662479249685
+   ],
+   "mean_gap_pump_minus_thermo": 0.014240175685315113,
+   "ci95": [
+    0.011436968172389265,
+    0.01702351498710015
+   ],
+   "grid_points_pump_higher": "24/25",
+   "verdict": "P-R2.1 (reframed) SUPPORTED \u2014 pump retains more value at matched strategy entropy"
+  }
+ },
+ "difficulty_strata": {
+  "pump_subtract_a0.5": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.9375,
+    "accuracy": 0.92578125,
+    "strategy_entropy": 0.5616551418758731,
+    "cap_hit": 0.06640625
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.875,
+    "accuracy": 0.85546875,
+    "strategy_entropy": 0.456941216129855,
+    "cap_hit": 0.1328125
+   }
+  },
+  "pump_subtract_a1": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.91796875,
+    "accuracy": 0.9140625,
+    "strategy_entropy": 0.43383604174152063,
+    "cap_hit": 0.0859375
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.87890625,
+    "accuracy": 0.84765625,
+    "strategy_entropy": 0.386320667287953,
+    "cap_hit": 0.13671875
+   }
+  },
+  "pump_subtract_a1.5": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.921875,
+    "accuracy": 0.890625,
+    "strategy_entropy": 0.4476579695066989,
+    "cap_hit": 0.08203125
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.83984375,
+    "accuracy": 0.81640625,
+    "strategy_entropy": 0.44649091031748483,
+    "cap_hit": 0.1640625
+   }
+  },
+  "vanilla_T0.3": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.890625,
+    "accuracy": 0.87890625,
+    "strategy_entropy": 0.526524782239399,
+    "cap_hit": 0.1171875
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.80859375,
+    "accuracy": 0.796875,
+    "strategy_entropy": 0.3914362617991918,
+    "cap_hit": 0.19921875
+   }
+  },
+  "vanilla_T0.6": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.9296875,
+    "accuracy": 0.921875,
+    "strategy_entropy": 0.49962535348887693,
+    "cap_hit": 0.08203125
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.8671875,
+    "accuracy": 0.84375,
+    "strategy_entropy": 0.5819071423610602,
+    "cap_hit": 0.140625
+   }
+  },
+  "vanilla_T0.9": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.9296875,
+    "accuracy": 0.92578125,
+    "strategy_entropy": 0.4574416484391015,
+    "cap_hit": 0.08984375
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.8359375,
+    "accuracy": 0.82421875,
+    "strategy_entropy": 0.3460641790164283,
+    "cap_hit": 0.19140625
+   }
+  },
+  "vanilla_T1.2": {
+   "easy": {
+    "n": 256,
+    "parse_rate": 0.64453125,
+    "accuracy": 0.625,
+    "strategy_entropy": 0.36393390471743925,
+    "cap_hit": 0.2421875
+   },
+   "hard": {
+    "n": 256,
+    "parse_rate": 0.52734375,
+    "accuracy": 0.49609375,
+    "strategy_entropy": 0.42921305006664884,
+    "cap_hit": 0.3203125
+   }
+  }
+ },
+ "strategy_correctness_xtab": {
+  "T1": {
+   "pattern": {
+    "n": 187,
+    "n_correct": 123,
+    "accuracy": 0.658
+   },
+   "recursion": {
+    "n": 252,
+    "n_correct": 82,
+    "accuracy": 0.325
+   },
+   "casework": {
+    "n": 9,
+    "n_correct": 0,
+    "accuracy": 0.0
+   }
+  },
+  "T2": {
+   "formula": {
+    "n": 428,
+    "n_correct": 387,
+    "accuracy": 0.904
+   },
+   "telescoping": {
+    "n": 20,
+    "n_correct": 7,
+    "accuracy": 0.35
+   }
+  },
+  "T3": {
+   "formula": {
+    "n": 446,
+    "n_correct": 318,
+    "accuracy": 0.713
+   },
+   "recursion": {
+    "n": 2,
+    "n_correct": 1,
+    "accuracy": 0.5
+   }
+  },
+  "T4": {
+   "substitution": {
+    "n": 142,
+    "n_correct": 142,
+    "accuracy": 1.0
+   },
+   "elimination": {
+    "n": 297,
+    "n_correct": 289,
+    "accuracy": 0.973
+   },
+   "matrix": {
+    "n": 9,
+    "n_correct": 8,
+    "accuracy": 0.889
+   }
+  },
+  "T5": {
+   "formula": {
+    "n": 448,
+    "n_correct": 383,
+    "accuracy": 0.855
+   }
+  },
+  "T6": {
+   "pattern": {
+    "n": 359,
+    "n_correct": 334,
+    "accuracy": 0.93
+   },
+   "modular": {
+    "n": 89,
+    "n_correct": 89,
+    "accuracy": 1.0
+   }
+  },
+  "T7": {
+   "complement": {
+    "n": 316,
+    "n_correct": 240,
+    "accuracy": 0.759
+   },
+   "unclassified": {
+    "n": 28,
+    "n_correct": 24,
+    "accuracy": 0.857
+   },
+   "casework": {
+    "n": 104,
+    "n_correct": 91,
+    "accuracy": 0.875
+   }
+  },
+  "T8": {
+   "identity": {
+    "n": 46,
+    "n_correct": 45,
+    "accuracy": 0.978
+   },
+   "unclassified": {
+    "n": 8,
+    "n_correct": 8,
+    "accuracy": 1.0
+   },
+   "vieta": {
+    "n": 255,
+    "n_correct": 250,
+    "accuracy": 0.98
+   },
+   "explicit_roots": {
+    "n": 139,
+    "n_correct": 139,
+    "accuracy": 1.0
+   }
+  }
+ },
+ "per_task": {
+  "pump_subtract_a0.5": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 6,
+     "pattern": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9585073926762617
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 2,
+     "casework": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9619768443513398
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 4,
+     "casework": 1
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9601344568313313
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9655144862868141
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9627429276980851
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "recursion": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9628532593622672
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9709067063299527
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "recursion": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9586501380567569
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "telescoping": 1,
+     "formula": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9079752406782788
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9242668921514663
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9250201948227974
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9055435674909593
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9183251635193947
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9417650163906407
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9196149995212415
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9119372642807074
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9278430200656832
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.934604058585173
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9388142201266009
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.9411235899677184
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9350175564671988
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9249124931367518
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9488919237608814
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9427322686718014
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8779925942442823
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8303665779783471
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "matrix": 1,
+     "elimination": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8635914160032256
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8349049733027956
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 6,
+     "substitution": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8648207627735996
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 6,
+     "substitution": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.857048869905431
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8940088992536687
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8693487991741228
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9382619263099977
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9342817078758525
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9182812257951978
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9268460890964701
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9096842690498504
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9173310420416319
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9401910308096508
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9090553507164786
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.913572494925318
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "modular": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.910768252197173
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "modular": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9086174753855687
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9025219784797759
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9128151498507318
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9107115461711044
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.916471389810441
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9012315687108429
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 1,
+     "casework": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9150509352930823
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 6,
+     "complement": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9190728399457161
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 3,
+     "complement": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8890443814324313
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 5,
+     "casework": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9242381641049705
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 5,
+     "casework": 1,
+     "unclassified": 2
+    },
+    "strategy_entropy": 0.6500224216483541,
+    "strategy_entropy_norm": 0.6500224216483541,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8960526327943691
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9294071717409795
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 2,
+     "complement": 6
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9246545566551688
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "unclassified": 1,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5916727785823275,
+    "strategy_entropy_norm": 0.5916727785823275,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9377700756801023
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 1,
+     "identity": 1
+    },
+    "strategy_entropy": 1.061278124459133,
+    "strategy_entropy_norm": 0.6695919455357793,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8972832763580446
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 2,
+     "identity": 2
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9040131563778498
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 3,
+     "vieta": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8869681104783048
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 3,
+     "identity": 3,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 1.561278124459133,
+    "strategy_entropy_norm": 0.985056822321508,
+    "strategy_entropy_incl_unclassified": 1.561278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8771224929945378
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "identity": 3,
+     "explicit_roots": 3,
+     "vieta": 2
+    },
+    "strategy_entropy": 1.561278124459133,
+    "strategy_entropy_norm": 0.985056822321508,
+    "strategy_entropy_incl_unclassified": 1.561278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8586565813034442
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 5,
+     "vieta": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8851003189929275
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "identity": 1,
+     "vieta": 4,
+     "explicit_roots": 3
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9182639457034455
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 5,
+     "vieta": 2,
+     "unclassified": 1
+    },
+    "strategy_entropy": 0.863120568566631,
+    "strategy_entropy_norm": 0.5445684476282008,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9099914176856643
+   }
+  },
+  "pump_subtract_a1": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 7,
+     "pattern": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9572612569279599
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.25,
+    "answer_diversity": 0.6666666666666666,
+    "fourgram_diversity": 0.966645139281513
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9597430116802443
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 2,
+     "casework": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9581147636949682
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "casework": 1,
+     "recursion": 2
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9552398602970477
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.967008138179615
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "recursion": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9655660286286551
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9639255094919041
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9106006968584709
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9209205959427655
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9275703203488348
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9126804471236772
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9103099685616725
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9046798213210875
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9323166971297464
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8981802322466381
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 1,
+     "formula": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9390116361197146
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9252163658702925
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9247058738815016
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9227149084729867
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9171668687892758
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.947721808656732
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.6,
+    "fourgram_diversity": 0.9579360161990711
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.9425667305176224
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.852234703661114
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8640996928320518
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8679433647447893
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 1,
+     "elimination": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8700085467873616
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8574216729389824
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8685799187357007
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8786430074096727
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 6,
+     "substitution": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.8971883206488184
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8938302115781458
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.936292909789244
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9021386592829687
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9144944980648557
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9134108742793947
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8970181237593199
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9057295197951835
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9293472055900587
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8919631718546066
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8979106999021267
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8795087347840131
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8974389572412621
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9172739263550481
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8741801193302035
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8917052417406228
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8977839981516261
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 5,
+     "complement": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9063041842437377
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "casework": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8964820712490127
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 1,
+     "complement": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8862950811869605
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 5,
+     "casework": 2
+    },
+    "strategy_entropy": 0.863120568566631,
+    "strategy_entropy_norm": 0.863120568566631,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9140259104407985
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 7
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.917925168494659
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 3,
+     "complement": 5
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9135896533808018
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 4,
+     "casework": 3
+    },
+    "strategy_entropy": 0.9852281360342515,
+    "strategy_entropy_norm": 0.9852281360342515,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9347255225279498
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9164181530261132
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "explicit_roots": 1,
+     "identity": 1,
+     "unclassified": 1
+    },
+    "strategy_entropy": 1.1488348542809166,
+    "strategy_entropy_norm": 0.72483409150576,
+    "strategy_entropy_incl_unclassified": 1.5487949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8963655829525474
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 4,
+     "vieta": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8765589608885094
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8626306851833414
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "identity": 2,
+     "unclassified": 1,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 1.3787834934861753,
+    "strategy_entropy_norm": 0.8699155297736259,
+    "strategy_entropy_incl_unclassified": 1.75,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8984825919326072
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8870996029270378
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 3,
+     "vieta": 3,
+     "identity": 2
+    },
+    "strategy_entropy": 1.561278124459133,
+    "strategy_entropy_norm": 0.985056822321508,
+    "strategy_entropy_incl_unclassified": 1.561278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8762757313331194
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 4,
+     "vieta": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.903434204543815
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8827063463252827
+   }
+  },
+  "pump_subtract_a1.5": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.6666666666666666,
+    "fourgram_diversity": 0.958766531439357
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "recursion": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.6666666666666666,
+    "fourgram_diversity": 0.9625773472230409
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "recursion": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9604458079581132
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.6666666666666666,
+    "fourgram_diversity": 0.964796545810855
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.960443093650257
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "recursion": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9533072553675659
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 3,
+     "pattern": 4,
+     "casework": 1
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9604818117054511
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 6,
+     "pattern": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": 1.0,
+    "fourgram_diversity": 0.9637707177647344
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9082671154934632
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9125106416206858
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9209019670984248
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9068710314973705
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9088917776863299
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9235775070922463
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9308881190632624
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9121123979924282
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "recursion": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9409515783724337
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9188868574273586
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9195164546473515
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9363255134203929
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9050646685222077
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.9413016523266281
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9558215467185309
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9532979165403038
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8043185011875105
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8034641461884233
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8274389397087716
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8867505262329636
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 6,
+     "substitution": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9101806009937743
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8537839534694645
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8609416101046107
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9291655742909961
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8937758271017742
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9217730788780933
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8972799585361044
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9145357940211906
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9013628632046673
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8950475189738288
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8980959456921411
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9105445906971571
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.890282930872648
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8889756276424953
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8971039728143366
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9125201499245457
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.900118956673927
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 1,
+     "pattern": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8972532439283667
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9215889428609266
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8840670768933896
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 6,
+     "unclassified": 1,
+     "complement": 1
+    },
+    "strategy_entropy": 0.5916727785823275,
+    "strategy_entropy_norm": 0.5916727785823275,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9306886160242307
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8920257217999815
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8831110350483101
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 4,
+     "unclassified": 2,
+     "casework": 2
+    },
+    "strategy_entropy": 0.9182958340544896,
+    "strategy_entropy_norm": 0.9182958340544896,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8951800106115917
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 7
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8851765970239921
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 4,
+     "casework": 2,
+     "unclassified": 2
+    },
+    "strategy_entropy": 0.9182958340544896,
+    "strategy_entropy_norm": 0.9182958340544896,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9354189753594732
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.938753722033053
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9472091742600764
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 7,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8603400437662994
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "unclassified": 1,
+     "identity": 1,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 1.1488348542809166,
+    "strategy_entropy_norm": 0.72483409150576,
+    "strategy_entropy_incl_unclassified": 1.5487949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8797533021118521
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 2,
+     "identity": 1,
+     "explicit_roots": 5
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.909254024849959
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "explicit_roots": 2,
+     "identity": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.848964553056632
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "identity": 2,
+     "vieta": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9006766908646662
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 2,
+     "explicit_roots": 5,
+     "identity": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8889547027942389
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 5,
+     "identity": 1,
+     "vieta": 2
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8856942726493602
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 3,
+     "identity": 1,
+     "unclassified": 1,
+     "vieta": 3
+    },
+    "strategy_entropy": 1.4488156357251847,
+    "strategy_entropy_norm": 0.9141008920185653,
+    "strategy_entropy_incl_unclassified": 1.811278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8954778611723276
+   }
+  },
+  "vanilla_T0.3": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 1,
+     "recursion": 6,
+     "casework": 1
+    },
+    "strategy_entropy": 1.061278124459133,
+    "strategy_entropy_norm": 0.6695919455357793,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9515123221637095
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9595204275765427
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9537297038604146
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.950128788211715
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9548325552155037
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 2,
+     "recursion": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9569844059266802
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9557159428431122
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9450884229665751
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9168829102945739
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9016612627371915
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 6,
+     "telescoping": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.4056390622295664,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9376473684690307
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.888489396343663
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9138071026959622
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9149978787756333
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9324365021050257
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9224366992330556
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9050951614407932
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9117463081312771
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9261949541687035
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9065710745898902
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9375028968319152
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9071831578040443
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9235080418947476
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9343415619055915
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8149543416761972
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.7969945649094203
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.756819305094271
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8051457109517823
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8209808308274358
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8206893512624491
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8303196513747884
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8407006031202118
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9048712644750776
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9336094937315202
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.8990194963631284
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8842687392209675
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9002501986669573
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9078152450370433
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9042336660270834
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.8823003513292632
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8798061772030726
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "modular": 2,
+     "pattern": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8588772784544192
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "modular": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8622663057657416
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "modular": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8669582689677358
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8754501397287645
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8874554573083712
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.907128093014789
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8895825698024049
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 1,
+     "casework": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8966513058773711
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 4,
+     "casework": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.883497066996667
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 4,
+     "casework": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8509031850463126
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 7
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.8976894753412381
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.8805302658717138
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9238155243934706
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.8984789350509782
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "unclassified": 1,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5916727785823275,
+    "strategy_entropy_norm": 0.5916727785823275,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.8929012400336148
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "identity": 2,
+     "vieta": 2,
+     "explicit_roots": 4
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8559503299287335
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "explicit_roots": 3,
+     "vieta": 3,
+     "identity": 1
+    },
+    "strategy_entropy": 1.4488156357251847,
+    "strategy_entropy_norm": 0.9141008920185653,
+    "strategy_entropy_incl_unclassified": 1.811278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8073607218474224
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8030320912445854
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 2,
+     "identity": 2
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8383541962362038
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 6,
+     "vieta": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8594522044692647
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 3,
+     "explicit_roots": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8024351713496126
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8158361080560934
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "explicit_roots": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.867122528344183
+   }
+  },
+  "vanilla_T0.6": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 7,
+     "pattern": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9615554514632626
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9502780675589952
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.964694499592269
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9653850933353892
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 4,
+     "casework": 1
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9667372375746712
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9578116203514758
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.2857142857142857,
+    "fourgram_diversity": 0.9582583773933706
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9582908190717835
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9414937616050122
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9077598933419996
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 6,
+     "telescoping": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.4056390622295664,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9512678338223308
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9294169289513478
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9423113095054523
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9533214833873165
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9430591927444899
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 6,
+     "telescoping": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.4056390622295664,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9420524196593638
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9522354039064985
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9391923446695408
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9479408486029195
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9433134541911019
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.951772277398274
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9459183724091434
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9590883011433151
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9575946933437108
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8738705490856272
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 1,
+     "substitution": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.891364234128641
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8871244432529344
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8992883667697318
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8604840583694289
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8917005853996424
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9058940740185537
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "substitution": 3,
+     "elimination": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9400429422560119
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9204827401183427
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9354560573021011
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9277470705497467
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9364847465763998
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9519847146090178
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9226096476369876
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9218321889256522
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9307453674230104
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9268560209038168
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8913752274140315
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "modular": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.910270208762086
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "modular": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9096578651765544
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "modular": 3,
+     "pattern": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9164325465487382
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "modular": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9060233358317531
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9272550314256661
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "modular": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9116862890617974
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 7,
+     "complement": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.934517811205355
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "casework": 4,
+     "complement": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9204537789045408
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9192704938595649
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9194614263928045
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "casework": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9330247333605051
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9406730710590544
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9375224722417159
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9416952689960048
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9021046235165
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "identity": 2,
+     "vieta": 2,
+     "explicit_roots": 4
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.8632310965353468
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 7,
+     "identity": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9073984739483288
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "explicit_roots": 2,
+     "identity": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9107631355235803
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "identity": 1,
+     "vieta": 5,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9112610853503668
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 3,
+     "vieta": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9205614778505841
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 3,
+     "identity": 1
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9173363814178518
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 2,
+     "identity": 2
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.912552606532073
+   }
+  },
+  "vanilla_T0.9": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 2,
+     "recursion": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9709914841540852
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 7,
+     "pattern": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9745280836174265
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "recursion": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9729186967521131
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9696507511895347
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 6,
+     "recursion": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9753558575697572
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 3,
+     "pattern": 4,
+     "casework": 1
+    },
+    "strategy_entropy": 1.4056390622295665,
+    "strategy_entropy_norm": 0.886859507142915,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9762184702106435
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 5,
+     "casework": 1,
+     "recursion": 2
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9745810503161415
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "recursion": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9739875183422679
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9620906951176004
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9665510563263009
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 6,
+     "telescoping": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.4056390622295664,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9735031426135125
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9700204383714842
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9664567347514169
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.964351456213742
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9735372591407768
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9753541910215479
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9500882046519116
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9569688887935934
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9547315400265335
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9577862044991267
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.953645296035176
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9725631147186793
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9752696916488838
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9665547471666469
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.914144463030836
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9268852151472264
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.923088069359742
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9186138345724723
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.927805866879725
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9291252313831243
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9448032780104642
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 7,
+     "substitution": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9589155297477999
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9679600276230825
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9647900441040418
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9610185209697311
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9640890873504793
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9647749387237663
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.962858478963954
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9727019808542436
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9733880935710775
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9436175978944185
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9482423018843052
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "modular": 4,
+     "pattern": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 1.0,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9567952535486748
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "modular": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.954434002924965,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9485642112660935
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9552501098414868
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9578408255665771
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9468346313464897
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.956429812198074
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 1,
+     "casework": 7
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9427685862305407
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9448682843701293
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9370257911462269
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "casework": 3,
+     "complement": 4
+    },
+    "strategy_entropy": 0.9852281360342515,
+    "strategy_entropy_norm": 0.9852281360342515,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9421557186177355
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9588573345627018
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "casework": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9640422430554618
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9716331163180567
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "casework": 2,
+     "complement": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.8112781244591328,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9649449075629468
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 1,
+     "identity": 1
+    },
+    "strategy_entropy": 1.061278124459133,
+    "strategy_entropy_norm": 0.6695919455357793,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9219809383410184
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9457940062193444
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 2,
+     "identity": 2
+    },
+    "strategy_entropy": 1.5,
+    "strategy_entropy_norm": 0.9463946303571862,
+    "strategy_entropy_incl_unclassified": 1.5,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9223700302086233
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.923601015404536
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 2,
+     "explicit_roots": 5,
+     "unclassified": 1
+    },
+    "strategy_entropy": 0.863120568566631,
+    "strategy_entropy_norm": 0.5445684476282008,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9463498624913877
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9350066101106902
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 4,
+     "vieta": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9439120466425457
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9333518175982778
+   }
+  },
+  "vanilla_T1.2": {
+   "T1_f0": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "recursion": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.0,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.995917291146221
+   },
+   "T1_f1": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 2,
+     "recursion": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.0,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9965331063743257
+   },
+   "T1_f2": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": 1.0,
+    "fourgram_diversity": 0.994617312419258
+   },
+   "T1_f3": {
+    "template": "T1",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 3,
+     "recursion": 5
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9944025603991662
+   },
+   "T1_f4": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.125,
+    "answer_diversity": 0.6666666666666666,
+    "fourgram_diversity": 0.9935059613990493
+   },
+   "T1_f5": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 6,
+     "pattern": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": 1.0,
+    "fourgram_diversity": 0.9968972935260997
+   },
+   "T1_f6": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 4,
+     "recursion": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9962006238147413
+   },
+   "T1_f7": {
+    "template": "T1",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "recursion": 5,
+     "pattern": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9967186469240156
+   },
+   "T2_f0": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9674504309650559
+   },
+   "T2_f1": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9764611945223166
+   },
+   "T2_f2": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9908541189319736
+   },
+   "T2_f3": {
+    "template": "T2",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9803767365262617
+   },
+   "T2_f4": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9904157253724111
+   },
+   "T2_f5": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 7,
+     "telescoping": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.2717822215997982,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.992948454969836
+   },
+   "T2_f6": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.125,
+    "answer_diversity": 1.0,
+    "fourgram_diversity": 0.9936053026144506
+   },
+   "T2_f7": {
+    "template": "T2",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9903503408000301
+   },
+   "T3_f0": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9903616836117892
+   },
+   "T3_f1": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9867290284903143
+   },
+   "T3_f2": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9883348020749845
+   },
+   "T3_f3": {
+    "template": "T3",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.983130761804156
+   },
+   "T3_f4": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9935391953379858
+   },
+   "T3_f5": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9929053540640979
+   },
+   "T3_f6": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.99162598594882
+   },
+   "T3_f7": {
+    "template": "T3",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9862151166779217
+   },
+   "T4_f0": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 7,
+     "matrix": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9639195460156726
+   },
+   "T4_f1": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 5,
+     "matrix": 2,
+     "elimination": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9582680820678623
+   },
+   "T4_f2": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "substitution": 2,
+     "elimination": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9606081232438772
+   },
+   "T4_f3": {
+    "template": "T4",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "elimination": 5,
+     "substitution": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9782010450332878
+   },
+   "T4_f4": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 5,
+     "substitution": 3
+    },
+    "strategy_entropy": 0.954434002924965,
+    "strategy_entropy_norm": 0.6021808102656679,
+    "strategy_entropy_incl_unclassified": 0.954434002924965,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9760322754079775
+   },
+   "T4_f5": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "substitution": 2,
+     "elimination": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9659548296698662
+   },
+   "T4_f6": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "elimination": 6,
+     "substitution": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9686899880881698
+   },
+   "T4_f7": {
+    "template": "T4",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "substitution": 2,
+     "elimination": 6
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9850851356658662
+   },
+   "T5_f0": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9886969741324148
+   },
+   "T5_f1": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9848945189126218
+   },
+   "T5_f2": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9815813907659982
+   },
+   "T5_f3": {
+    "template": "T5",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9931014806025684
+   },
+   "T5_f4": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9900665160461611
+   },
+   "T5_f5": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9899945053444401
+   },
+   "T5_f6": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9900762167182118
+   },
+   "T5_f7": {
+    "template": "T5",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "formula": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.993005889255116
+   },
+   "T6_f0": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9895207997118018
+   },
+   "T6_f1": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9899033510445389
+   },
+   "T6_f2": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.98854398831611
+   },
+   "T6_f3": {
+    "template": "T6",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9754855046297088
+   },
+   "T6_f4": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9866742217706406
+   },
+   "T6_f5": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9830720260136365
+   },
+   "T6_f6": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.5,
+    "answer_diversity": 0.25,
+    "fourgram_diversity": 0.9892677441623908
+   },
+   "T6_f7": {
+    "template": "T6",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "pattern": 7,
+     "modular": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9880715611934106
+   },
+   "T7_f0": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 3,
+     "casework": 4,
+     "unclassified": 1
+    },
+    "strategy_entropy": 0.9852281360342515,
+    "strategy_entropy_norm": 0.9852281360342515,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.2,
+    "fourgram_diversity": 0.9789435256032105
+   },
+   "T7_f1": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 6,
+     "casework": 1,
+     "unclassified": 1
+    },
+    "strategy_entropy": 0.5916727785823275,
+    "strategy_entropy_norm": 0.5916727785823275,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.625,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9784518164480741
+   },
+   "T7_f2": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.75,
+    "answer_diversity": 0.16666666666666666,
+    "fourgram_diversity": 0.9786101925709171
+   },
+   "T7_f3": {
+    "template": "T7",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "unclassified": 1
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9875908200195659
+   },
+   "T7_f4": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 7,
+     "casework": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.5435644431995964,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.5,
+    "answer_diversity": 0.4,
+    "fourgram_diversity": 0.9798133762888968
+   },
+   "T7_f5": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.375,
+    "answer_diversity": 0.3333333333333333,
+    "fourgram_diversity": 0.9869777531005925
+   },
+   "T7_f6": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "unclassified": 1,
+     "complement": 4,
+     "casework": 3
+    },
+    "strategy_entropy": 0.9852281360342515,
+    "strategy_entropy_norm": 0.9852281360342515,
+    "strategy_entropy_incl_unclassified": 1.4056390622295665,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.25,
+    "answer_diversity": 0.5,
+    "fourgram_diversity": 0.9894070737185675
+   },
+   "T7_f7": {
+    "template": "T7",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "complement": 8
+    },
+    "strategy_entropy": -0.0,
+    "strategy_entropy_norm": -0.0,
+    "strategy_entropy_incl_unclassified": -0.0,
+    "n_distinct_labelled": 1,
+    "accuracy": 0.125,
+    "answer_diversity": null,
+    "fourgram_diversity": 0.9854847792113298
+   },
+   "T8_f0": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 7,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9650068621707799
+   },
+   "T8_f1": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "identity": 2,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9517106730214645
+   },
+   "T8_f2": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 7,
+     "identity": 1
+    },
+    "strategy_entropy": 0.5435644431995964,
+    "strategy_entropy_norm": 0.34295098019812786,
+    "strategy_entropy_incl_unclassified": 0.5435644431995964,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9502578247364907
+   },
+   "T8_f3": {
+    "template": "T8",
+    "difficulty": "easy",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "explicit_roots": 2
+    },
+    "strategy_entropy": 0.8112781244591328,
+    "strategy_entropy_norm": 0.5118595071429148,
+    "strategy_entropy_incl_unclassified": 0.8112781244591328,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9449228191606397
+   },
+   "T8_f4": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 4,
+     "explicit_roots": 4
+    },
+    "strategy_entropy": 1.0,
+    "strategy_entropy_norm": 0.6309297535714575,
+    "strategy_entropy_incl_unclassified": 1.0,
+    "n_distinct_labelled": 2,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9694004422953977
+   },
+   "T8_f5": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "explicit_roots": 1,
+     "vieta": 6,
+     "identity": 1
+    },
+    "strategy_entropy": 1.061278124459133,
+    "strategy_entropy_norm": 0.6695919455357793,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9601004762662384
+   },
+   "T8_f6": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 6,
+     "identity": 1,
+     "explicit_roots": 1
+    },
+    "strategy_entropy": 1.061278124459133,
+    "strategy_entropy_norm": 0.6695919455357793,
+    "strategy_entropy_incl_unclassified": 1.061278124459133,
+    "n_distinct_labelled": 3,
+    "accuracy": 0.875,
+    "answer_diversity": 0.14285714285714285,
+    "fourgram_diversity": 0.9670294079985843
+   },
+   "T8_f7": {
+    "template": "T8",
+    "difficulty": "hard",
+    "n": 8,
+    "labels": {
+     "vieta": 5,
+     "explicit_roots": 1,
+     "identity": 2
+    },
+    "strategy_entropy": 1.2987949406953985,
+    "strategy_entropy_norm": 0.8194483718728035,
+    "strategy_entropy_incl_unclassified": 1.2987949406953985,
+    "n_distinct_labelled": 3,
+    "accuracy": 1.0,
+    "answer_diversity": 0.125,
+    "fourgram_diversity": 0.9649079237598396
+   }
+  }
+ }
+}

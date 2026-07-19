@@ -1,0 +1,42 @@
+{
+ "seed": 20260718,
+ "built": "2026-07-18",
+ "tasks": {
+  "H1": {
+   "n": 150,
+   "strata": {
+    "contested": 70,
+    "unanimous_pos": 45,
+    "negative": 35
+   },
+   "arms": {
+    "benign": 73,
+    "capability": 26,
+    "harmful": 51
+   },
+   "file": "H1_gptoss_dsr.html"
+  },
+  "H2": {
+   "n": 150,
+   "strata": {
+    "three_way": 60,
+    "two_one": 55,
+    "unanimous": 35
+   },
+   "file": "H2_behaviour_spans.html"
+  },
+  "H3": {
+   "n": 56,
+   "cells": {
+    "pump_subtract_a0.5": 8,
+    "pump_subtract_a1": 8,
+    "pump_subtract_a1.5": 8,
+    "vanilla_T0.3": 8,
+    "vanilla_T0.6": 8,
+    "vanilla_T0.9": 8,
+    "vanilla_T1.2": 8
+   },
+   "file": "H3_r3_strategy.html"
+  }
+ }
+}

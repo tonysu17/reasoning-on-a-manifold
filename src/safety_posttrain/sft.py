@@ -1,10 +1,13 @@
-"""LoRA supervised fine-tuning for the safety post-training intervention.
+"""Supervised fine-tuning (LoRA and full-parameter) for the safety post-training
+intervention.
 
 Trains a reasoning model (default R1-1.5B) on the contrastive dataset with a
 **completion-only** loss (prompt tokens masked to -100), distribution-matched to
 how the model generates (prompt ends with ``<think>\\n``; the completion carries
 the reasoning, ``</think>``, and the answer). Supports dose-response runs and a
-size-matched non-safety control.
+size-matched non-safety control. ``train_lora`` is the pt02 path;
+``train_full`` (pt02c) removes the LoRA-vs-full-FT regime approximation by
+matching the published STAR-1 recipe (full-parameter SFT).
 
 Heavy dependencies (torch / transformers / peft) are imported lazily inside the
 functions so importing this module stays cheap (e.g. for unit tests of the
@@ -211,5 +214,132 @@ def train_lora(
         "n_examples": len(sft_examples),
         "train_loss": float(getattr(train_out, "training_loss", float("nan"))),
         "epochs": epochs,
+        "model_id": model_id,
+    }
+
+
+# ── Full-parameter SFT (pt02c) ───────────────────────────────────────────────
+
+def select_full_ft_optim() -> str:
+    """Pick the ONE memory-lean optimizer route for full-parameter FT.
+
+    fp32 AdamW states alone are ~14 GB for a 1.5B model, so a 24 GB RTX 4090
+    can't run the textbook recipe. Route: **8-bit Adam** (2 bytes/param state)
+    whenever it can actually run (CUDA + bitsandbytes importable — bnb kernels
+    are CUDA-only), else **Adafactor** (sub-linear state; also the CPU/unit-test
+    path). Both are driven through ``TrainingArguments(optim=...)``.
+    """
+    import importlib.util
+
+    import torch
+
+    if torch.cuda.is_available() and importlib.util.find_spec("bitsandbytes") is not None:
+        return "adamw_bnb_8bit"
+    return "adafactor"
+
+
+def train_full(
+    sft_examples: list[dict],
+    model_id: str,
+    output_dir,
+    *,
+    dtype: str = "bfloat16",
+    epochs: float = 5.0,
+    lr: float = 1e-5,
+    batch_size: int = 2,
+    grad_accum: int = 64,
+    max_len: int = 4096,
+    warmup_ratio: float = 0.05,
+    weight_decay: float = 1e-4,
+    adam_beta2: float = 0.95,
+    seed: int = 42,
+    max_steps: Optional[int] = None,
+    device_map: str = "auto",
+) -> dict:
+    """Full-parameter SFT (no LoRA) matching the published STAR-1 recipe.
+
+    Recipe (METHODOLOGY_SAFETY_SPILLOVER_2026-07-03.md §4): full SFT, bf16,
+    5 epochs, LR 1e-5 cosine + 5% warmup, AdamW betas 0.9/0.95, wd 1e-4,
+    effective batch 128, completion-only loss; seq capped at 4096 like the
+    LoRA arms (dataset p99 << 4096). Defaults reproduce it with
+    ``batch_size * grad_accum = 128``.
+
+    24 GB budget (1.5B): bf16 weights+grads ~7 GB, 8-bit Adam states ~3.5 GB
+    (or Adafactor less), gradient checkpointing for activations at seq 4096.
+    ``max_steps`` (optional) caps optimizer steps for smoke tests. Saves a
+    plain ``from_pretrained``-loadable checkpoint into ``output_dir`` (what
+    ``04_extract_activations.py --model-path`` expects).
+    """
+    import torch
+    from transformers import Trainer, TrainingArguments
+
+    from src.chain_gen import load_model
+
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    model, tokenizer = load_model(model_id, dtype=dtype, device_map=device_map)
+    model.train()
+    for p in model.parameters():
+        p.requires_grad_(True)
+    if getattr(model, "config", None) is not None:
+        model.config.use_cache = False
+
+    tokenised = [
+        tokenize_example(ex["prompt_text"], ex["completion_text"], tokenizer, max_len)
+        for ex in sft_examples
+    ]
+
+    use_cuda = torch.cuda.is_available()
+    optim = select_full_ft_optim()
+    logger.info("full-FT optimizer route: %s (effective batch %d = %d x %d)",
+                optim, batch_size * grad_accum, batch_size, grad_accum)
+    args = TrainingArguments(
+        output_dir=str(output_dir),
+        num_train_epochs=epochs,
+        max_steps=max_steps if max_steps is not None else -1,
+        per_device_train_batch_size=batch_size,
+        gradient_accumulation_steps=grad_accum,
+        learning_rate=lr,
+        lr_scheduler_type="cosine",
+        warmup_ratio=warmup_ratio,
+        weight_decay=weight_decay,
+        adam_beta1=0.9,
+        adam_beta2=adam_beta2,
+        optim=optim,
+        logging_steps=5,
+        save_strategy="no",
+        report_to=[],
+        seed=seed,
+        bf16=(use_cuda and dtype == "bfloat16"),
+        fp16=(use_cuda and dtype == "float16"),
+        gradient_checkpointing=use_cuda,
+        # full-FT targets CUDA pods; the non-CUDA path (unit tests) runs on
+        # plain CPU — MPS is deliberately excluded (no bnb, memory-unsafe).
+        use_cpu=not use_cuda,
+        remove_unused_columns=False,
+    )
+
+    pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
+    trainer = Trainer(
+        model=model,
+        args=args,
+        train_dataset=tokenised,
+        data_collator=SFTCollator(pad_id),
+    )
+    train_out = trainer.train()
+
+    model.save_pretrained(str(output_dir))
+    tokenizer.save_pretrained(str(output_dir))
+    logger.info("saved full-FT checkpoint -> %s", output_dir)
+
+    return {
+        "output_dir": str(output_dir),
+        "n_examples": len(sft_examples),
+        "steps": int(trainer.state.global_step),
+        "train_loss": float(getattr(train_out, "training_loss", float("nan"))),
+        "epochs": epochs,
+        "effective_batch": batch_size * grad_accum,
+        "optim": optim,
         "model_id": model_id,
     }

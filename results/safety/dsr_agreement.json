@@ -1,0 +1,86 @@
+{
+  "spec_citation": {
+    "kappa": 0.5232,
+    "gate": "replicate",
+    "pairwise": {
+      "Nova-Pro|Qwen3-235B": 0.4264,
+      "Nova-Pro|Sonnet-4.5": 0.7234,
+      "Qwen3-235B|Sonnet-4.5": 0.4977
+    },
+    "fleiss": 0.5232,
+    "span_f1": {
+      "Nova-Pro|Qwen3-235B": 0.3922,
+      "Nova-Pro|Sonnet-4.5": 0.3862,
+      "Qwen3-235B|Sonnet-4.5": 0.388
+    },
+    "prevalence": {
+      "Nova-Pro": 0.0172,
+      "Qwen3-235B": 0.0342,
+      "Sonnet-4.5": 0.0142
+    },
+    "n_chars": 374934
+  },
+  "adjudication": {
+    "kappa": 0.1446,
+    "gate": "uninterpretable",
+    "pairwise": {
+      "Nova-Pro|Qwen3-235B": 0.1166,
+      "Nova-Pro|Sonnet-4.5": 0.0429,
+      "Qwen3-235B|Sonnet-4.5": 0.2368
+    },
+    "fleiss": 0.1446,
+    "span_f1": {
+      "Nova-Pro|Qwen3-235B": 0.0499,
+      "Nova-Pro|Sonnet-4.5": 0.0233,
+      "Qwen3-235B|Sonnet-4.5": 0.0899
+    },
+    "prevalence": {
+      "Nova-Pro": 0.001,
+      "Qwen3-235B": 0.0086,
+      "Sonnet-4.5": 0.0217
+    },
+    "n_chars": 374934
+  },
+  "decision": {
+    "kappa": 0.2228,
+    "gate": "uninterpretable",
+    "pairwise": {
+      "Nova-Pro|Qwen3-235B": 0.1601,
+      "Nova-Pro|Sonnet-4.5": 0.2143,
+      "Qwen3-235B|Sonnet-4.5": 0.4047
+    },
+    "fleiss": 0.2228,
+    "span_f1": {
+      "Nova-Pro|Qwen3-235B": 0.5198,
+      "Nova-Pro|Sonnet-4.5": 0.5652,
+      "Qwen3-235B|Sonnet-4.5": 0.5571
+    },
+    "prevalence": {
+      "Nova-Pro": 0.0604,
+      "Qwen3-235B": 0.0137,
+      "Sonnet-4.5": 0.0209
+    },
+    "n_chars": 374934
+  },
+  "harm_recognition": {
+    "kappa": 0.6159,
+    "gate": "citable",
+    "pairwise": {
+      "Nova-Pro|Qwen3-235B": 0.5063,
+      "Nova-Pro|Sonnet-4.5": 0.7658,
+      "Qwen3-235B|Sonnet-4.5": 0.6207
+    },
+    "fleiss": 0.6159,
+    "span_f1": {
+      "Nova-Pro|Qwen3-235B": 0.3561,
+      "Nova-Pro|Sonnet-4.5": 0.3613,
+      "Qwen3-235B|Sonnet-4.5": 0.4152
+    },
+    "prevalence": {
+      "Nova-Pro": 0.0217,
+      "Qwen3-235B": 0.0424,
+      "Sonnet-4.5": 0.0234
+    },
+    "n_chars": 374934
+  }
+}

@@ -88,3 +88,33 @@ results/loop_geometry/*/shards/
 # Scratch / stream dumps
 *.out
 scratch_*
+
+# --- added 2026-07-19: keep the public repo within its stated convention ---
+# (largest tracked artefact is ~4MB; the rules below excluded ~3.0GB of raw
+#  dumps whose DERIVED verdicts/reports are tracked and are what we cite)
+
+# Training checkpoints (LoRA/full-FT adapters, optimiser + tokenizer state).
+# *.safetensors was already ignored, but the surrounding checkpoint tree was not.
+checkpoints/
+
+# Archived pod result snapshots — same intent as the _STALE_/_archive_ rules
+# above. Contains steering_results.json up to 86MB.
+results/_pod_archive/
+
+# Heavy per-run generation dumps, generalised beyond results/eval/ (the newer
+# _pod_archive/ and safety_posttrain/ trees reproduce the same filenames).
+results/**/steering_results.json
+results/**/annotated_steered*.json
+
+# pt08 per-token surprisal/entropy dumps: ~34MB each and duplicated across
+# consol/, rl/ and _pod_backup/. The citable artefact is the derived
+# pt12_verdict.json (small, tracked).
+results/safety_posttrain/**/pt08_*.json
+
+# On-pod backup mirrors (byte-duplicates of the sibling result files)
+**/_pod_backup/
+
+# Transient mid-run annotation snapshots (superseded by the completed file
+# committed alongside them). Plain *.bak is left tracked — it has precedent
+# under results/pca/.
+*_precomplete

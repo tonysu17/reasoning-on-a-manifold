@@ -1,0 +1,36 @@
+{
+  "git_commit": null,
+  "git_dirty": false,
+  "seed": 42,
+  "args": {
+    "stimuli": "data/gptoss_stimuli.json",
+    "capability": "builtin",
+    "n_harmful": 40,
+    "n_benign": 40,
+    "n_capability": 20,
+    "reasoning_effort": "medium",
+    "max_new_tokens": 4096,
+    "seed": 42,
+    "model": "gpt-oss-20b",
+    "attn_impl": null,
+    "pool_out": "data/p0_pool.json",
+    "chains_out": "data/chains_gpt-oss-20b_p0.json",
+    "provenance_out": "results/safety/p0_provenance.json",
+    "verification_out": "results/safety/p0_verification.json",
+    "allow_placeholders": false,
+    "dry_run": false
+  },
+  "input_sha256": {
+    "data/gptoss_stimuli.json": "45f80046b3c8eace"
+  },
+  "model": "gpt-oss-20b",
+  "reasoning_effort": "medium",
+  "max_new_tokens": 4096,
+  "arm_counts": {
+    "harmful": 40,
+    "benign": 40,
+    "capability": 20
+  },
+  "n_pool": 100,
+  "placeholder_stimuli": false
+}

@@ -122,3 +122,18 @@ Base model already in the Spark HF cache; `peft`/`trl` need `pip install --no-ca
 Disk has ~5.5 GB free: train + extract one arm at a time, rsync the ~900 MB activation set
 back to the Mac, delete on the pod-side before the next arm (pattern proven in the E9/E10
 pods). On-policy generation for R4 fits GB10 unified memory comfortably at 1.5B.
+
+## 5. First execution outcome (2026-07-13, pt12)
+
+The SFT half of the plane is now measured and clean: translation scales with KL
+(0.4% -> 1.2-1.5% -> 3.8% across lora -> full-FT -> STAR1), direction is
+recipe-locked at every dose, and **no SFT arm contracts** (dPR under 2% of base
+PR, top-5 variance share moves at the 4th decimal) — translate-without-contract
+is the SFT signature, exactly as §2 predicted. The RL half is NOT yet decided:
+the GRPO arms produced near-zero updates because every rollout hit the 512-token
+completion cap (R1-style models need 1.4-5k tokens to finish a thought), halving
+group-reward variance to zero and leaving training KL at 1e-05; the DPO arms
+trained but at half the KL of even the LoRA-SFT arm. P-RL1/P-RL2 therefore
+remain open — this is an under-dose, not a falsification. Re-run spec:
+`--max-completion-len 4096`, LoRA lr ≈1e-5, ≥3 epochs, same seeds/pool
+(~1 night of 4090 time).

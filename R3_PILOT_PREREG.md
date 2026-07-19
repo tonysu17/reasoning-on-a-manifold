@@ -108,3 +108,36 @@ programme's own overthinking tax biting the instrument. This is a pure truncatio
 the uniform new cap; rows now record their `max_new` so the gate's cap-hit diagnostic is
 self-describing. All four gate bars unchanged** — this amendment is made before any gate statistic
 was computed. Precedent: E10 Amendment 1 (instrument upgrade pre-analysis).
+
+---
+
+## Amendment 2 (2026-07-13, FULL-run design; registered before any full-run generation)
+
+The pilot passed all four gates (2026-07-13, `results/r3_strategy/PILOT_GATE.md`), but its verdict
+(RESULTS_LEDGER §B5) imposes three full-run requirements this document's §"What the full R3 adds"
+did not spell out. They are registered here, pre-generation, together with the minimal choices the
+prereg left silent (full list in the `32_r3_strategy.py` docstring):
+
+1. **Difficulty stratified upward (CF-V):** pilot accuracy 0.896 was near ceiling — every parsed
+   answer was correct; the only headroom came from T1/T2 truncation. Full task set = same 8
+   templates × 8 instances (**4 easy + 4 hard**, hard = larger parameters), 64 tasks total
+   (inside the "~50–80"), parameters **disjoint from the 16 pilot instances**, golds still
+   computable by construction, declared strategy spaces and the sealed lexical classifier
+   **unchanged** → `data/r3_tasks_full.json`.
+2. **k ≥ 5 samples:** G-R3.4 passed exactly at the 0.25 bar at k=3 — too thin for an entropy
+   axis. Full run: **k=8** (seeds 0–7), per-(batch, seed) E9.1 contract.
+3. **Temperature arm:** strategy entropy must be readable against decoding entropy. Cells =
+   the R2 prereg's shelved P-R2.1 sweep transplanted verbatim (R2 folded into R3): thermostat
+   vanilla **T ∈ {0.3, 0.6, 0.9, 1.2}**; pump **bt `single_direction` (E1-pooled, L17,
+   mode=subtract — the sign E9.1 T06 actually ran) α ∈ {0.5, 1.0, 1.5} @ T=0.6**; vanilla T=0.6
+   doubles as the pump's α=0 anchor. 7 cells × 64 × 8 = 3,584 chains, `max_new` 6144 (Amendment
+   1's cap kept — requirement 4).
+
+Analysis (sealed with this amendment): strategy entropy = Shannon entropy (bits) of
+primary-strategy labels over a task's k chains (unclassified excluded; <2 labelled → undefined;
+unclassified-included sensitivity reported); value = TRUE correctness; the value×strategy-entropy
+plane tests **P-R2.1/P-R2.2/P-R2.3 (reframed)** with the R2 prereg's own matched-level
+interpolation + bootstrap machinery; difficulty strata (CF-V) and strategy×correctness cross-tabs
+(CF-U) reported. LLM-judge labels (R2.2 κ protocol) and R3(ii) excursion signatures remain
+declared follow-ons consuming `full_gen.json`, not part of this run. Runner stages:
+`full-tasks` / `full-generate` / `full-analyse`; pod runner `pod_r3_full.sh`.
