@@ -82,6 +82,7 @@ def pool_dsr_spans(
     n_preceding: int = 1,
     n_execution: int = 10,
     seq_len: Optional[int] = None,
+    unlabelled_key: Optional[str] = None,
 ) -> tuple[dict, list]:
     """Pool one chain's DSR spans into per-label vectors (torch-free core).
 
@@ -102,13 +103,19 @@ def pool_dsr_spans(
     stim_label = chain_record.get("label", "unknown")
     spans = chain_record.get("dsr_consensus", {}).get("spans", [])
 
-    acc: dict = {lab: {L: [] for L in layers} for lab in DSR_LABELS}
-    rows: dict = {lab: [] for lab in DSR_LABELS}
+    keys = list(DSR_LABELS) + ([unlabelled_key] if unlabelled_key else [])
+    acc: dict = {lab: {L: [] for L in layers} for lab in keys}
+    rows: dict = {lab: [] for lab in keys}
 
     for span in spans:
         labels = [l for l in span.get("dsr_labels", []) if l in DSR_LABELS]
         if not labels:
-            continue
+            # H1's separation leg needs the complement class: sentences the
+            # consensus left unlabelled are generic reasoning, pooled under
+            # ``unlabelled_key`` when the caller asks for them.
+            if unlabelled_key is None:
+                continue
+            labels = [unlabelled_key]
         sent_off = find_sentence_offset(chain_text, span.get("text", ""))
         if sent_off is None:
             continue
@@ -136,6 +143,7 @@ def extract_dsr_span_activations(
     n_preceding: int = 1,
     n_execution: int = 10,
     max_chains: Optional[int] = None,
+    unlabelled_key: Optional[str] = None,
 ) -> tuple[dict, dict]:
     """Pool per-DSR-label residual activations across DSR-annotated chains.
 
@@ -154,8 +162,9 @@ def extract_dsr_span_activations(
         layers = list(range(len(locate_decoder_layers(model))))
     layers = list(layers)
 
-    acc: dict = {lab: {L: [] for L in layers} for lab in DSR_LABELS}
-    rows: dict = {lab: [] for lab in DSR_LABELS}
+    keys = list(DSR_LABELS) + ([unlabelled_key] if unlabelled_key else [])
+    acc: dict = {lab: {L: [] for L in layers} for lab in keys}
+    rows: dict = {lab: [] for lab in keys}
 
     use = chains[:max_chains] if max_chains else chains
     for chain in use:
@@ -173,8 +182,9 @@ def extract_dsr_span_activations(
 
             c_acc, c_rows = pool_dsr_spans(
                 chain, offsets, _pool, layers,
-                n_preceding=n_preceding, n_execution=n_execution, seq_len=seq_len)
-        for lab in DSR_LABELS:
+                n_preceding=n_preceding, n_execution=n_execution, seq_len=seq_len,
+                unlabelled_key=unlabelled_key)
+        for lab in keys:
             for L in layers:
                 acc[lab][L].extend(c_acc[lab][L])
             rows[lab].extend(c_rows[lab])

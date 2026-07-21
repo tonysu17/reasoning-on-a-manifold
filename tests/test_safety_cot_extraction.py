@@ -74,3 +74,28 @@ def test_split_by_stim_label():
     meta = [{"stim_label": "harmful"}, {"stim_label": "benign"}, {"stim_label": "harmful"}]
     h, l = split_by_stim_label(mat, meta)
     assert h.shape[0] == 2 and l.shape[0] == 1
+
+
+def test_pool_unlabelled_key_collects_generic_sentences():
+    rec = _record([])  # consensus left the span unlabelled
+    full = rec["prompt"] + rec["chain"]
+    # default: unlabelled spans are skipped (pre-P2 behaviour unchanged)
+    acc, rows = pool_dsr_spans(rec, _char_offsets(full), _count_pool, [0],
+                               seq_len=len(full))
+    assert all(acc[lab][0] == [] for lab in acc)
+    # with unlabelled_key: pooled under the generic class (H1 separation leg)
+    acc, rows = pool_dsr_spans(rec, _char_offsets(full), _count_pool, [0],
+                               seq_len=len(full), unlabelled_key="__generic__")
+    assert len(acc["__generic__"][0]) == 1
+    assert rows["__generic__"][0]["chain_id"] == "t1"
+    # DSR labels untouched
+    assert acc["spec_citation"][0] == []
+
+
+def test_pool_unlabelled_key_does_not_swallow_labelled_spans():
+    rec = _record(["decision"])
+    full = rec["prompt"] + rec["chain"]
+    acc, _ = pool_dsr_spans(rec, _char_offsets(full), _count_pool, [0],
+                            seq_len=len(full), unlabelled_key="__generic__")
+    assert len(acc["decision"][0]) == 1
+    assert acc["__generic__"][0] == []
