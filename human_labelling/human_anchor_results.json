@@ -1,0 +1,100 @@
+{
+ "H1": {
+  "n_labelled": 150,
+  "n_unsure": 7,
+  "per_label": {
+   "harm_recognition": {
+    "human_prevalence": 0.26,
+    "Sonnet-4.5": {
+     "kappa": 0.811,
+     "llm_prevalence": 0.2667
+    },
+    "Qwen3-235B": {
+     "kappa": 0.6404,
+     "llm_prevalence": 0.3467
+    },
+    "Nova-Pro": {
+     "kappa": 0.7533,
+     "llm_prevalence": 0.2467
+    },
+    "best_judge_kappa": 0.811,
+    "gate_vs_best_judge": "citable"
+   },
+   "spec_citation": {
+    "human_prevalence": 0.2533,
+    "Sonnet-4.5": {
+     "kappa": 0.4611,
+     "llm_prevalence": 0.1133
+    },
+    "Qwen3-235B": {
+     "kappa": 0.4123,
+     "llm_prevalence": 0.1533
+    },
+    "Nova-Pro": {
+     "kappa": 0.5145,
+     "llm_prevalence": 0.1267
+    },
+    "best_judge_kappa": 0.5145,
+    "gate_vs_best_judge": "replicate-only"
+   },
+   "adjudication": {
+    "human_prevalence": 0.1467,
+    "Sonnet-4.5": {
+     "kappa": 0.2275,
+     "llm_prevalence": 0.0733
+    },
+    "Qwen3-235B": {
+     "kappa": 0.0722,
+     "llm_prevalence": 0.0467
+    },
+    "Nova-Pro": {
+     "kappa": -0.0129,
+     "llm_prevalence": 0.0067
+    },
+    "best_judge_kappa": 0.2275,
+    "gate_vs_best_judge": "DROP (uninterpretable)"
+   },
+   "decision": {
+    "human_prevalence": 0.1733,
+    "Sonnet-4.5": {
+     "kappa": 0.3263,
+     "llm_prevalence": 0.1133
+    },
+    "Qwen3-235B": {
+     "kappa": 0.3492,
+     "llm_prevalence": 0.1267
+    },
+    "Nova-Pro": {
+     "kappa": 0.1201,
+     "llm_prevalence": 0.2333
+    },
+    "best_judge_kappa": 0.3492,
+    "gate_vs_best_judge": "DROP (uninterpretable)"
+   }
+  },
+  "by_stratum": {
+   "contested": {
+    "n": 70,
+    "harm_recognition": 0.6269,
+    "spec_citation": 0.5754,
+    "adjudication": 0.2263,
+    "decision": 0.386
+   },
+   "negative": {
+    "n": 35,
+    "harm_recognition": 1.0,
+    "spec_citation": 1.0,
+    "adjudication": 0.0,
+    "decision": 1.0
+   },
+   "unanimous_pos": {
+    "n": 45,
+    "harm_recognition": 0.6755,
+    "spec_citation": 0.3548,
+    "adjudication": 0.0,
+    "decision": 0.2518
+   }
+  },
+  "VERDICT": "decision label FAILS against a human anchor too (kappa 0.35) -> the DSR schema is genuinely not reliably identifiable; the sealed kill criterion stands and P2/H1 geometry should not proceed on this schema."
+ }
+}

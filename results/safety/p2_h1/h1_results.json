@@ -1,0 +1,300 @@
+{
+ "layers": {
+  "f25": 6,
+  "f50": 11,
+  "f75": 17
+ },
+ "n_dsr_union": 273,
+ "dsr_by_arm": {
+  "harmful": 221,
+  "benign": 52
+ },
+ "generic_by_arm": {
+  "harmful": 4,
+  "benign": 3241,
+  "capability": 1040
+ },
+ "primary_n": {
+  "dsr_benign": 52,
+  "generic_benign": 3241,
+  "cap_hard_rows": 590,
+  "cap_easy_rows": 450
+ },
+ "f25": {
+  "primary_benign": {
+   "heldout": {
+    "cohens_d_mean": 3.6887111639682324,
+    "auroc_mean": 0.9746351779860987,
+    "cohens_d_folds": [
+     2.5116,
+     5.571,
+     4.4877,
+     3.055,
+     2.8182
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 3.6182433689799542,
+    "null_mean": 0.53493311400632,
+    "null_p95": 0.6797808895610233,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 3.650260318730672,
+    "ci_low": 3.296705708012446,
+    "ci_high": 4.041856872485599
+   },
+   "folds_positive": 5,
+   "PASS": true
+  },
+  "secondary_all": {
+   "heldout": {
+    "cohens_d_mean": 4.965943809260903,
+    "auroc_mean": 0.9962099617877238,
+    "cohens_d_folds": [
+     5.0162,
+     5.3307,
+     4.5404,
+     4.8352,
+     5.1072
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 4.883744786780689,
+    "null_mean": 0.2548009191808294,
+    "null_p95": 0.32769677859713003,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 4.892019655280793,
+    "ci_low": 4.671277153337278,
+    "ci_high": 5.124692594167593
+   },
+   "folds_positive": 5,
+   "PASS": true
+  }
+ },
+ "f50": {
+  "primary_benign": {
+   "heldout": {
+    "cohens_d_mean": 5.018657046373164,
+    "auroc_mean": 0.9787021619142356,
+    "cohens_d_folds": [
+     3.4048,
+     7.4805,
+     5.8423,
+     4.5186,
+     3.847
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 4.899722425982684,
+    "null_mean": 0.6126984790667747,
+    "null_p95": 0.7536222669236804,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 4.9432008225642585,
+    "ci_low": 4.3554112007190495,
+    "ci_high": 5.5922880660277565
+   },
+   "folds_positive": 5,
+   "PASS": true
+  },
+  "secondary_all": {
+   "heldout": {
+    "cohens_d_mean": 7.1661192832443685,
+    "auroc_mean": 0.9958901219180692,
+    "cohens_d_folds": [
+     6.7723,
+     7.8159,
+     6.1999,
+     6.8744,
+     8.1681
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 6.973751358205693,
+    "null_mean": 0.29349384645114,
+    "null_p95": 0.36495527970938996,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 6.98694006186663,
+    "ci_low": 6.598422453875275,
+    "ci_high": 7.386595985277349
+   },
+   "folds_positive": 5,
+   "PASS": true
+  },
+  "leg_a_lowdim": {
+   "n": 52,
+   "twoNN": {
+    "estimate": 3.519520377802967,
+    "ci": [
+     2.9884397295110516,
+     5.501123672671133
+    ]
+   },
+   "levina_bickel": {
+    "estimate": 5.645203249840322,
+    "ci": [
+     4.900900135995899,
+     5.91326086196121
+    ]
+   },
+   "generic_null_twoNN": {
+    "mean": 4.729161491070445,
+    "p5": 2.8061985178147664,
+    "p95": 8.834238193638914
+   },
+   "pca90_dim": 17,
+   "low_dimensional": false,
+   "pca_thresholds_postseal": {
+    "dsr": {
+     "90": 17,
+     "95": 25,
+     "99": 39
+    },
+    "generic_matched_n": {
+     "90": {
+      "mean": 18.81,
+      "p5": 16.95,
+      "p95": 21.049999999999997
+     },
+     "95": {
+      "mean": 24.02,
+      "p5": 21.0,
+      "p95": 27.049999999999997
+     },
+     "99": {
+      "mean": 32.6,
+      "p5": 29.0,
+      "p95": 37.0
+     }
+    },
+    "note": "post-seal descriptive addition (Tony request); rank-capped at n-1=51"
+   }
+  },
+  "leg_c_capability": {
+   "collinearity_abs_cos": 0.19242432206524862,
+   "d_raw": 3.5298725827301207,
+   "d_controlled": 3.510940734996608,
+   "retention": 0.9946366767383796,
+   "PASS": true
+  },
+  "per_label_benign_heldout": {
+   "harm_recognition": {
+    "cohens_d_mean": 4.593665449020956,
+    "auroc_mean": 0.980139108649789,
+    "cohens_d_folds": [
+     2.8787,
+     7.7407,
+     3.7852,
+     3.97
+    ],
+    "n_folds_used": 4
+   },
+   "spec_citation": {
+    "cohens_d_mean": 7.141879904783525,
+    "auroc_mean": 0.9985544217687075,
+    "cohens_d_folds": [
+     6.9224,
+     10.4846,
+     7.8308,
+     6.1212,
+     4.3504
+    ],
+    "n_folds_used": 5
+   },
+   "decision": {
+    "cohens_d_mean": 5.744548827486154,
+    "auroc_mean": 0.9958380264144614,
+    "cohens_d_folds": [
+     6.6309,
+     7.5347,
+     5.0908,
+     5.123,
+     4.3434
+    ],
+    "n_folds_used": 5
+   }
+  }
+ },
+ "f75": {
+  "primary_benign": {
+   "heldout": {
+    "cohens_d_mean": 5.070197076985687,
+    "auroc_mean": 0.9870007925348367,
+    "cohens_d_folds": [
+     3.3053,
+     7.9515,
+     6.3791,
+     4.3738,
+     3.3414
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 4.693214431447265,
+    "null_mean": 0.6020483528006318,
+    "null_p95": 0.7735613960956604,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 4.778799962462834,
+    "ci_low": 4.2223390962554115,
+    "ci_high": 5.405813003024444
+   },
+   "folds_positive": 5,
+   "PASS": true
+  },
+  "secondary_all": {
+   "heldout": {
+    "cohens_d_mean": 7.524315906609732,
+    "auroc_mean": 0.9977983073308945,
+    "cohens_d_folds": [
+     7.9454,
+     7.8933,
+     6.5266,
+     7.3336,
+     7.9226
+    ],
+    "n_folds_used": 5
+   },
+   "permutation": {
+    "observed_d": 7.335154732364552,
+    "null_mean": 0.3198674159624008,
+    "null_p95": 0.397321803658081,
+    "p_value": 0.000999000999000999
+   },
+   "bootstrap": {
+    "cohens_d_mean": 7.355079106680417,
+    "ci_low": 6.929157967650956,
+    "ci_high": 7.757856746880837
+   },
+   "folds_positive": 5,
+   "PASS": true
+  }
+ },
+ "VERDICT": {
+  "H1": "SUPPORTED",
+  "leg_b_separation": true,
+  "leg_c_capability": true,
+  "leg_a_low_dimensional": false
+ },
+ "provenance": {
+  "git_commit": "05a75e39f6982cab340f8541a5087000510def90",
+  "git_dirty": true,
+  "seed": 42,
+  "args": {
+   "acts_root": "../reasoning-on-manifold/results/safety/p2_activations",
+   "chains": "../reasoning-on-manifold/data/chains_gpt-oss-20b_p0.json",
+   "out_root": "../reasoning-on-manifold/results/safety/p2_h1"
+  }
+ }
+}

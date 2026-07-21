@@ -118,3 +118,7 @@ results/safety_posttrain/**/pt08_*.json
 # committed alongside them). Plain *.bak is left tracked — it has precedent
 # under results/pca/.
 *_precomplete
+
+# gpt-oss safety activation dirs (large .npy/.npz — outputs, not source)
+results/safety/p2_activations/
+results/safety/p3_forgery/activations/

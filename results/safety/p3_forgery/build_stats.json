@@ -1,0 +1,27 @@
+{
+ "n_hosts": 80,
+ "n_records": 160,
+ "n_genuine_pool": 38,
+ "n_forged_pool": 24,
+ "records_by_variant": {
+  "genuine": 80,
+  "forged": 80
+ },
+ "records_by_fold": {
+  "4": 32,
+  "3": 32,
+  "0": 32,
+  "2": 32,
+  "1": 32
+ },
+ "hosts_by_arm": {
+  "harmful": 40,
+  "benign": 40
+ },
+ "seed": 0,
+ "n_folds": 5,
+ "injection_position": "pre_decision",
+ "length_matching": "truncate",
+ "style_source": "attacker_template",
+ "mitigation": "fold_partitioned"
+}
