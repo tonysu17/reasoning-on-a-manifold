@@ -37,12 +37,15 @@ effect on the behaviour representations to ≤ ~1.7% variance removal. "STAR-1
 translates the residual stream without contracting the behaviour subspaces" is a
 defensible bounded claim.
 
-## Scope
-The curve is computed on the R1-1.5B base matrices, which are the reference for
-BOTH the §B2 (STAR1) and §B5 (RLVR) dPR comparisons, so the instrument-sensitivity
-result covers both. The §B2 observed values are mapped directly above; the §B5
-RLVR arm's own dPR values should be mapped onto this same curve when consolidating
-that claim (same instrument, same base family — the sensitivity conclusion carries;
-only the per-cell bound needs the RLVR dPRs substituted). This removes the "two
-nulls from one uncalibrated instrument" objection: the instrument is now shown
-sensitive to <15% contraction at dPR ≈ −4.
+## §B5 RLVR arm (mapped onto the same curve; pt13_rlvr_mapped.json)
+The two GRPO/RLVR arms map even tighter than STAR-1: max |dPR| = **0.003**
+(grpo-math) and **0.001** (grpo-refusal) across all eight cells, i.e. **≤0.01%**
+variance removed. RLVR leaves the behaviour geometry unchanged to within the
+instrument's noise floor, against a device that reads −4 at an 11% contraction.
+
+## Scope — closed
+One curve on the shared R1-1.5B base covers both claims, and both are now mapped:
+§B2 (STAR-1) ≤1.7% and §B5 (RLVR) ≤0.01% variance contraction. This removes the
+"two nulls from one uncalibrated instrument" objection: the instrument is shown
+sensitive to an 11% contraction at dPR ≈ −4, and both interventions sit orders of
+magnitude below that.

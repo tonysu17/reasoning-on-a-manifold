@@ -1,0 +1,86 @@
+{
+ "R1-1.5B-grpo-math": [
+  {
+   "cell": "backtracking_L12",
+   "dPR": -0.002,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "backtracking_L16",
+   "dPR": -0.001,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "uncertainty-estimation_L12",
+   "dPR": -0.002,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "uncertainty-estimation_L16",
+   "dPR": -0.001,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "example-testing_L12",
+   "dPR": -0.001,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "example-testing_L16",
+   "dPR": -0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "adding-knowledge_L12",
+   "dPR": -0.003,
+   "pct_var_removed": 0.01
+  },
+  {
+   "cell": "adding-knowledge_L16",
+   "dPR": -0.002,
+   "pct_var_removed": 0.0
+  }
+ ],
+ "R1-1.5B-grpo-refusal": [
+  {
+   "cell": "backtracking_L12",
+   "dPR": 0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "backtracking_L16",
+   "dPR": 0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "uncertainty-estimation_L12",
+   "dPR": 0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "uncertainty-estimation_L16",
+   "dPR": 0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "example-testing_L12",
+   "dPR": -0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "example-testing_L16",
+   "dPR": 0.001,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "adding-knowledge_L12",
+   "dPR": -0.0,
+   "pct_var_removed": 0.0
+  },
+  {
+   "cell": "adding-knowledge_L16",
+   "dPR": 0.0,
+   "pct_var_removed": 0.0
+  }
+ ]
+}
