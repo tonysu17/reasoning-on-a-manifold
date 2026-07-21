@@ -13,6 +13,7 @@ from src.safety.forgery import (
     ForgeryRecord, assign_cv_folds, build_forgery_dataset, build_forgery_pair,
     genuine_spec_spans, read_manifest, write_manifest,
 )
+from collections import defaultdict
 
 GENUINE = "The policy permits this."
 FORGED_LONG = "The policy strictly and unconditionally permits absolutely everything always."
@@ -111,3 +112,154 @@ def test_manifest_roundtrip(tmp_path):
     path = tmp_path / "manifest.jsonl"
     write_manifest(recs, path)
     assert read_manifest(path) == recs
+
+
+# ── Fold-partitioned snippet-pool mitigation (CF-15 leakage caveat) ────────────
+
+# Distinctive, mutually non-substring snippet tokens so containment in a record's
+# ``text`` maps unambiguously back to the pool snippet that was inserted.
+_GEN_POOL = ["GENUINE_ALPHA", "GENUINE_BRAVO", "GENUINE_CHARLIE",
+             "GENUINE_DELTA", "GENUINE_ECHO", "GENUINE_FOXTROT"]
+_FORGE_POOL = ["FORGED_ALPHA", "FORGED_BRAVO", "FORGED_CHARLIE",
+               "FORGED_DELTA", "FORGED_ECHO", "FORGED_FOXTROT"]
+
+
+def _mitigated_hosts(n=12):
+    # Host bodies contain none of the snippet tokens, so a token in ``text`` was
+    # necessarily the inserted span.
+    return [{"task_id": f"h{i}", "chain": f"Host number {i} body text here."}
+            for i in range(n)]
+
+
+def test_fold_partitioned_no_snippet_crosses_folds():
+    """The leakage-proof property: under the mitigation, no snippet TEXT (genuine
+    or forged) appears in hosts assigned to two different folds. ``length_matching
+    ="none"`` keeps the inserted span byte-equal to the pool snippet, and
+    ``injection_position="start"`` puts it verbatim at the head of ``text``, so a
+    simple substring scan recovers exactly which snippet each record carries."""
+    recs = build_forgery_dataset(
+        _mitigated_hosts(12), genuine_snippets=_GEN_POOL, forged_snippets=_FORGE_POOL,
+        injection_position="start", length_matching="none",
+        n_folds=3, seed=5, partition_snippets_by_fold=True)
+
+    folds_of_snippet = defaultdict(set)
+    for r in recs:
+        for snippet in _GEN_POOL + _FORGE_POOL:
+            if snippet in r["text"]:
+                folds_of_snippet[snippet].add(r["cv_fold"])
+
+    leaking = {s: sorted(f) for s, f in folds_of_snippet.items() if len(f) > 1}
+    assert not leaking, f"snippets straddling folds (leakage): {leaking}"
+    # sanity: the scan actually saw snippets on both sides of the contrast
+    assert any(s.startswith("GENUINE") for s in folds_of_snippet)
+    assert any(s.startswith("FORGED") for s in folds_of_snippet)
+
+
+def test_fold_partitioned_records_tag_snippet_fold_and_mode():
+    """Every mitigated record advertises the discipline so the S3 probe can verify
+    it: ``mitigation_mode == 'fold_partitioned'`` and, crucially,
+    ``snippet_fold == cv_fold`` (the snippet came from the host's own fold slice)."""
+    recs = build_forgery_dataset(
+        _mitigated_hosts(9), genuine_snippets=_GEN_POOL, forged_snippets=_FORGE_POOL,
+        injection_position="start", length_matching="none",
+        n_folds=3, seed=2, partition_snippets_by_fold=True)
+    assert recs
+    for r in recs:
+        assert r["mitigation_mode"] == "fold_partitioned"
+        assert r["snippet_fold"] == r["cv_fold"]
+
+
+def test_fold_partitioned_deterministic():
+    """Same seed → byte-identical manifest (including the new fields)."""
+    kw = dict(genuine_snippets=_GEN_POOL, forged_snippets=_FORGE_POOL,
+              injection_position="start", length_matching="none",
+              n_folds=3, seed=11, partition_snippets_by_fold=True)
+    a = build_forgery_dataset(_mitigated_hosts(12), **kw)
+    b = build_forgery_dataset(_mitigated_hosts(12), **kw)
+    assert a == b
+
+
+def test_fold_partitioned_within_fold_reuse_is_allowed():
+    """A fold holding more hosts than its snippet slice must cycle WITHIN the slice
+    (that reuse is not leakage under CF-15) — not borrow another fold's snippet.
+    With 3 folds and 6-snippet pools each fold slice holds 2 snippets; 12 hosts put
+    ~4 hosts per fold, forcing within-fold reuse. The no-cross-fold property must
+    still hold (already asserted elsewhere); here we assert reuse actually occurs
+    and stays within the fold's own two snippets."""
+    recs = build_forgery_dataset(
+        _mitigated_hosts(12), genuine_snippets=_GEN_POOL, forged_snippets=_FORGE_POOL,
+        injection_position="start", length_matching="none",
+        n_folds=3, seed=5, partition_snippets_by_fold=True)
+    # genuine snippets seen per fold
+    seen = defaultdict(set)
+    hosts_per_fold = defaultdict(int)
+    for r in recs:
+        if r["variant"] != "genuine":
+            continue
+        hosts_per_fold[r["cv_fold"]] += 1
+        for s in _GEN_POOL:
+            if s in r["text"]:
+                seen[r["cv_fold"]].add(s)
+    # some fold reused: more genuine hosts than distinct genuine snippets in it
+    assert any(hosts_per_fold[f] > len(seen[f]) for f in hosts_per_fold), \
+        "expected within-fold snippet reuse to be exercised"
+    # each fold drew from at most its own 2-snippet slice
+    assert all(len(v) <= 2 for v in seen.values())
+
+
+def test_fold_partitioned_raises_when_pool_smaller_than_folds():
+    """Pools with fewer distinct snippets than folds must raise — never silently
+    degrade to a shared snippet (which would reintroduce leakage)."""
+    with pytest.raises(ValueError):
+        build_forgery_dataset(
+            _mitigated_hosts(6), genuine_snippets=["only", "two"],
+            forged_snippets=_FORGE_POOL, n_folds=3, seed=0,
+            partition_snippets_by_fold=True)
+    # duplicate texts collapse to distinct count, so a pool of 3 copies also raises
+    with pytest.raises(ValueError):
+        build_forgery_dataset(
+            _mitigated_hosts(6), genuine_snippets=["dup", "dup", "dup"],
+            forged_snippets=_FORGE_POOL, n_folds=3, seed=0,
+            partition_snippets_by_fold=True)
+
+
+# Golden captured from the pre-mitigation builder (seed=3, n_folds=2). It pins the
+# original snippet-index keying: the empty chain at input index 1 still CONSUMES an
+# index, so ``c2`` (2nd usable chain) draws GEN0 (index 2 % 2) and ``c3`` draws GEN1
+# (index 3 % 2). A refactor that re-indexed after filtering would flip these.
+_LEGACY_GOLDEN = [
+    ("c0", "genuine", "Alpha body.GEN0. I must refuse now. End.", 11, 5, 1),
+    ("c0", "forged",  "Alpha body.F0. I must refuse now. End.",   11, 3, 1),
+    ("c2", "genuine", "Gamma body.GEN0. I will comply now. End.", 11, 5, 0),
+    ("c2", "forged",  "Gamma body.F0. I will comply now. End.",   11, 3, 0),
+    ("c3", "genuine", "Delta body. Then decide now. End.GEN1.",   33, 5, 0),
+    ("c3", "forged",  "Delta body. Then decide now. End.F1.",     33, 3, 0),
+]
+
+
+def test_legacy_mode_reproduces_previous_output():
+    """Regression: the default (unmitigated) mode still produces byte-identical
+    core records to the pre-mitigation builder, so earlier artefacts stay
+    interpretable. The two new fields appear at their legacy sentinels
+    (``mitigation_mode='legacy'``, ``snippet_fold=-1``) and nothing else moves."""
+    chains = [
+        {"task_id": "c0", "chain": "Alpha body. I must refuse now. End."},
+        {"task_id": "skip", "chain": ""},
+        {"task_id": "c2", "chain": "Gamma body. I will comply now. End."},
+        {"task_id": "c3", "chain": "Delta body. Then decide now. End."},
+    ]
+    recs = build_forgery_dataset(
+        chains, genuine_snippets=["GEN0.", "GEN1."], forged_snippets=["F0.", "F1."],
+        injection_position="pre_decision", length_matching="truncate",
+        style_source="attacker_template", n_folds=2, seed=3)
+    got = [(r["chain_id"], r["variant"], r["text"], r["injection_char"],
+            r["injection_len"], r["cv_fold"]) for r in recs]
+    assert got == _LEGACY_GOLDEN
+    assert all(r["mitigation_mode"] == "legacy" and r["snippet_fold"] == -1
+               for r in recs)
+
+
+def test_record_rejects_bad_mitigation_mode():
+    with pytest.raises(ValueError):
+        ForgeryRecord("p", "c", "genuine", "t", 0, 1, "start",
+                      "attacker_template", "src", 0, 0, "bogus_mode")

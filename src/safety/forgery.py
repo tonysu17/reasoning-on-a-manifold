@@ -27,15 +27,30 @@ The manifest is chain-grouped: every record carries the host ``chain_id`` and a
 (``05c_cross_layer_probing``) can hold whole chains out and cannot memorise a
 chain it has already seen (the CF-15 leakage discipline).
 
-CAVEAT (probe validity): :func:`build_forgery_dataset` draws genuine/forged
-snippets cyclically from the supplied pools, so a given snippet can appear in both
-a train-fold host and a test-fold host. A probe could then separate variants by
-memorising *snippet identity* rather than provenance. Folds group only the HOST
-chain. For a clean S3 probe the run-time caller should partition the snippet pools
-by fold as well (draw genuine and forged snippets disjointly across folds), or
-pass one snippet per host. This is left to the run-time step because the genuine
-snippets are the models' own spec spans, which do not exist until the chains are
-generated and DSR-annotated.
+CAVEAT (probe validity, legacy default): with ``partition_snippets_by_fold=False``
+(the default, kept for backward compatibility) :func:`build_forgery_dataset` draws
+genuine/forged snippets cyclically from the supplied pools, so a given snippet can
+appear in both a train-fold host and a test-fold host. A probe could then separate
+variants by memorising *snippet identity* rather than provenance. Folds group only
+the HOST chain. This mode is retained so pre-mitigation artefacts stay interpretable.
+
+MITIGATION (implemented): pass ``partition_snippets_by_fold=True`` to draw the
+genuine and forged snippets *disjointly across folds*. Each pool is split into
+``n_folds`` disjoint, non-empty slices (deterministically, keyed on ``seed``), and a
+host only ever receives a snippet from its own fold's slice, so no snippet text
+crosses the train/test boundary. Within one fold, hosts reuse that fold's slice
+cyclically — within-fold reuse is *not* leakage under the CF-15 (chain-grouped)
+discipline, since the whole fold is held out together. Each record records its
+``snippet_fold`` and ``mitigation_mode`` so the downstream probe can verify no
+snippet crossed folds (``snippet_fold == cv_fold`` for every record). The **S3 probe
+(``05c_cross_layer_probing``) MUST run with ``partition_snippets_by_fold=True``**;
+the legacy mode is for reproducing earlier artefacts only. If a pool holds fewer
+distinct snippets than ``n_folds`` the mitigation raises rather than silently
+degrade to leakage.
+
+This is kept a run-time knob (not the default) because the genuine snippets are the
+models' own spec spans, which do not exist until the chains are generated and
+DSR-annotated.
 
 Fully offline and deterministic given ``seed``.
 """
@@ -51,6 +66,13 @@ INJECTION_POSITIONS = ("start", "middle", "pre_decision")
 LENGTH_STRATEGIES = ("none", "truncate", "pad")
 STYLE_SOURCES = ("attacker_template", "model_paraphrase")
 VARIANTS = ("genuine", "forged")
+MITIGATION_MODES = ("legacy", "fold_partitioned")
+
+# Independent LCG salts so the genuine and forged pools are partitioned by
+# unrelated shuffles (and neither coincides with the chain-fold shuffle, which
+# uses the bare ``seed``). See ``_partition_pool``.
+_GENUINE_POOL_SALT = 0x9E3779B9
+_FORGED_POOL_SALT = 0x7F4A7C15
 
 _PAD_FILLER = " Furthermore, this consideration applies in the present case."
 
@@ -67,10 +89,17 @@ class ForgeryRecord:
     style_source: str          # which confound regime the forged span came from
     snippet_source: str        # provenance tag of the inserted span
     cv_fold: int = -1          # chain-grouped fold (assigned later)
+    snippet_fold: int = -1     # fold the inserted snippet is confined to; == cv_fold
+                               # under the fold-partitioned mitigation, -1 in legacy
+    mitigation_mode: str = "legacy"  # "legacy" | "fold_partitioned" (see module doc)
 
     def __post_init__(self):
         if self.variant not in VARIANTS:
             raise ValueError(f"variant must be one of {VARIANTS}, got {self.variant!r}")
+        if self.mitigation_mode not in MITIGATION_MODES:
+            raise ValueError(
+                f"mitigation_mode must be one of {MITIGATION_MODES}, "
+                f"got {self.mitigation_mode!r}")
 
 
 # ── Insertion mechanics ───────────────────────────────────────────────────────
@@ -198,21 +227,63 @@ def build_forgery_pair(
 
 # ── Dataset assembly + chain-grouped folds ────────────────────────────────────
 
-def assign_cv_folds(records: Sequence[ForgeryRecord], n_folds: int, seed: int) -> None:
-    """Assign ``cv_fold`` in place, grouping by ``chain_id`` so a chain's records
-    never straddle the train/test split (CF-15). Deterministic given *seed*."""
-    chain_ids = sorted({r.chain_id for r in records})
-    # Seeded Fisher–Yates over the unique chain ids (no Math.random equivalent
-    # needed; a simple LCG keeps it dependency-free and reproducible).
-    order = list(chain_ids)
+def _lcg_shuffle(order: list, seed: int) -> None:
+    """Seeded Fisher–Yates shuffle of *order* in place (no ``random`` dependency; a
+    simple LCG keeps it dependency-free and reproducible). Deterministic given
+    *seed*."""
     state = (seed * 2654435761 + 1) & 0xFFFFFFFF
     for i in range(len(order) - 1, 0, -1):
         state = (state * 1103515245 + 12345) & 0x7FFFFFFF
         j = state % (i + 1)
         order[i], order[j] = order[j], order[i]
-    fold_of = {cid: (k % n_folds) for k, cid in enumerate(order)}
+
+
+def _chain_fold_map(chain_ids: Sequence[str], n_folds: int, seed: int) -> dict:
+    """Map each unique chain id to a fold, grouping so a chain's records never
+    straddle the split (CF-15). The single source of truth for fold assignment,
+    shared by :func:`assign_cv_folds` and the fold-partitioned builder path so
+    both agree on which fold a chain lands in. Deterministic given *seed*."""
+    order = sorted(set(chain_ids))
+    _lcg_shuffle(order, seed)
+    return {cid: (k % n_folds) for k, cid in enumerate(order)}
+
+
+def assign_cv_folds(records: Sequence[ForgeryRecord], n_folds: int, seed: int) -> None:
+    """Assign ``cv_fold`` in place, grouping by ``chain_id`` so a chain's records
+    never straddle the train/test split (CF-15). Deterministic given *seed*."""
+    fold_of = _chain_fold_map([r.chain_id for r in records], n_folds, seed)
     for r in records:
         r.cv_fold = fold_of[r.chain_id]
+
+
+def _partition_pool(pool: Sequence[str], n_folds: int, seed: int, salt: int) -> list[list[str]]:
+    """Split *pool* into ``n_folds`` disjoint, non-empty slices of *distinct*
+    snippet texts, so no snippet text is shared across folds.
+
+    Duplicate entries in *pool* collapse to a single text (deduped) before
+    partitioning, so a text that occurs twice cannot land in two folds. A seeded
+    round-robin over the shuffled distinct texts gives every fold either
+    ``floor`` or ``ceil`` of ``len(distinct)/n_folds`` snippets — always at least
+    one. Deterministic given *seed* (independent per pool via *salt*).
+
+    Raises ``ValueError`` if the pool holds fewer than ``n_folds`` distinct
+    snippets: there is then no way to give each fold its own snippet without
+    sharing, and silently degrading to a shared snippet would reintroduce the very
+    fold-leakage this mitigation exists to remove.
+    """
+    uniq = sorted(set(pool))
+    if len(uniq) < n_folds:
+        raise ValueError(
+            f"snippet pool has only {len(uniq)} distinct snippet(s) but "
+            f"partition_snippets_by_fold=True needs at least n_folds={n_folds} to "
+            f"assign each fold a disjoint slice; supply more snippets, lower "
+            f"n_folds, or disable the mitigation")
+    idx = list(range(len(uniq)))
+    _lcg_shuffle(idx, seed ^ salt)
+    buckets: list[list[str]] = [[] for _ in range(n_folds)]
+    for k, j in enumerate(idx):
+        buckets[k % n_folds].append(uniq[j])
+    return buckets
 
 
 def build_forgery_dataset(
@@ -225,31 +296,100 @@ def build_forgery_dataset(
     style_source: str = "attacker_template",
     n_folds: int = 5,
     seed: int = 0,
+    partition_snippets_by_fold: bool = False,
 ) -> list[dict]:
     """Build a full forged-vs-genuine manifest from host chains.
 
     ``chains`` are records with ``task_id`` (or ``chain_id``) and ``chain`` text.
     ``genuine_snippets`` / ``forged_snippets`` are pools the builder draws from
-    cyclically (so the caller controls provenance: genuine = real model spec
-    spans; forged = attacker text, or model-paraphrased text for the style
-    control). Returns a list of manifest dicts with chain-grouped ``cv_fold``.
+    (so the caller controls provenance: genuine = real model spec spans; forged =
+    attacker text, or model-paraphrased text for the style control). Returns a
+    list of manifest dicts with chain-grouped ``cv_fold``.
+
+    ``partition_snippets_by_fold`` (default ``False``) selects the snippet-drawing
+    discipline (see the module docstring):
+
+      * ``False`` — **legacy**: snippets are drawn cyclically from the whole pool
+        (``pool[i % len(pool)]``), so one snippet can appear in hosts on both sides
+        of the split. Retained for backward compatibility / reproducing earlier
+        artefacts; every record carries ``mitigation_mode="legacy"`` and
+        ``snippet_fold=-1``.
+      * ``True`` — **fold_partitioned mitigation**: each pool is split into
+        ``n_folds`` disjoint slices of distinct texts (:func:`_partition_pool`) and
+        a host draws only from its own fold's slice, so no snippet text crosses the
+        train/test boundary. Hosts within a fold cycle through that fold's slice
+        (within-fold reuse is not leakage under CF-15). Every record carries
+        ``mitigation_mode="fold_partitioned"`` and ``snippet_fold==cv_fold``, so the
+        S3 probe can assert no snippet crossed folds. Raises ``ValueError`` if a
+        pool holds fewer than ``n_folds`` distinct snippets (never degrades to
+        leakage silently).
     """
     if not genuine_snippets or not forged_snippets:
         raise ValueError("need at least one genuine and one forged snippet")
+
     records: list[ForgeryRecord] = []
+
+    if not partition_snippets_by_fold:
+        # ── Legacy path: cyclic draw over the whole pool, keyed on the *original*
+        # enumerate index over ``chains`` (empty chains are skipped but still
+        # consume an index — matching pre-mitigation behaviour byte-for-byte so
+        # prior artefacts stay reproducible; only the two new fields differ, at
+        # their legacy sentinels).
+        for i, chain in enumerate(chains):
+            cid = str(chain.get("chain_id", chain.get("task_id", i)))
+            text = chain.get("chain", "")
+            if not text:
+                continue
+            g = genuine_snippets[i % len(genuine_snippets)]
+            f = forged_snippets[i % len(forged_snippets)]
+            records.extend(build_forgery_pair(
+                cid, text, g, f,
+                injection_position=injection_position,
+                length_matching=length_matching,
+                style_source=style_source,
+            ))
+        assign_cv_folds(records, n_folds=n_folds, seed=seed)
+        return [asdict(r) for r in records]
+
+    # ── Fold-partitioned mitigation ──────────────────────────────────────────
+    # Resolve host chains (id + non-empty text), preserving input order for
+    # deterministic within-fold cycling.
+    hosts: list[tuple[str, str]] = []
     for i, chain in enumerate(chains):
         cid = str(chain.get("chain_id", chain.get("task_id", i)))
         text = chain.get("chain", "")
         if not text:
             continue
-        g = genuine_snippets[i % len(genuine_snippets)]
-        f = forged_snippets[i % len(forged_snippets)]
-        records.extend(build_forgery_pair(
+        hosts.append((cid, text))
+
+    # Fold assignment must be known *before* drawing snippets, so compute it up
+    # front from the same shared map ``assign_cv_folds`` uses (guaranteeing the
+    # final ``cv_fold`` equals the fold we drew from).
+    fold_of = _chain_fold_map([cid for cid, _ in hosts], n_folds, seed)
+    genuine_by_fold = _partition_pool(genuine_snippets, n_folds, seed, _GENUINE_POOL_SALT)
+    forged_by_fold = _partition_pool(forged_snippets, n_folds, seed, _FORGED_POOL_SALT)
+
+    # Per-fold cursors: hosts in a fold cycle through *that fold's slice only*.
+    g_cursor = [0] * n_folds
+    f_cursor = [0] * n_folds
+    for cid, text in hosts:
+        fold = fold_of[cid]
+        g_slice = genuine_by_fold[fold]
+        f_slice = forged_by_fold[fold]
+        g = g_slice[g_cursor[fold] % len(g_slice)]
+        f = f_slice[f_cursor[fold] % len(f_slice)]
+        g_cursor[fold] += 1
+        f_cursor[fold] += 1
+        pair = build_forgery_pair(
             cid, text, g, f,
             injection_position=injection_position,
             length_matching=length_matching,
             style_source=style_source,
-        ))
+        )
+        for r in pair:
+            r.snippet_fold = fold
+            r.mitigation_mode = "fold_partitioned"
+        records.extend(pair)
     assign_cv_folds(records, n_folds=n_folds, seed=seed)
     return [asdict(r) for r in records]
 
@@ -286,6 +426,7 @@ def read_manifest(path) -> list[dict]:
 
 __all__ = [
     "INJECTION_POSITIONS", "LENGTH_STRATEGIES", "STYLE_SOURCES", "VARIANTS",
-    "ForgeryRecord", "build_forgery_pair", "build_forgery_dataset",
-    "assign_cv_folds", "genuine_spec_spans", "write_manifest", "read_manifest",
+    "MITIGATION_MODES", "ForgeryRecord", "build_forgery_pair",
+    "build_forgery_dataset", "assign_cv_folds", "genuine_spec_spans",
+    "write_manifest", "read_manifest",
 ]
