@@ -38,23 +38,49 @@ paraphrase control (correctly) also sits at ceiling.
 This is the text-classifier control working as designed: it exists precisely to
 refuse a provenance claim that could be lexical, and it did.
 
-## The fix (a matched-valence redesign; needs a phase-A rebuild + re-extraction)
-Isolate provenance by matching valence:
-- **Genuine PERMISSIVE pool**: mine the model's real deliberation that concludes
-  compliance is allowed — benign-chain `decision:comply`/`safe_complete` spans
-  with policy reasoning ("this is allowed", "no policy bars this"). These are
-  genuine permissive deliberation, the natural counterpart to a permissive forgery.
-- Contrast genuine-permissive vs forged-permissive: both argue for compliance;
-  only provenance differs. The text classifier should then DROP toward chance
-  (or at least off ceiling), making the activation probe interpretable.
-- Optionally add a forged-PROHIBITIVE pool matched to the current genuine pool as
-  a symmetric second contrast.
+## The attempted fix failed on inspection — and revealed a deeper problem
+The first-pass fix was "match valence" (genuine permissive vs forged permissive).
+Two findings killed it, the second decisive:
 
-Cost: rebuild pools (offline) + one more injection-span extraction (~$2–5 pod).
-The probe/controls/verdict machinery is unchanged and ready.
+1. **The corpus has ZERO genuine permissive policy-deliberation spans.** When
+   gpt-oss cites policy it is essentially always refusing (38 genuine
+   spec-citation spans, all prohibitive; benign chains that comply mostly do so
+   without citing policy). So a genuine-permissive pool cannot be mined; it would
+   have to be generated.
+
+2. **The probe cannot test provenance-as-generation IN PRINCIPLE, for any pool.**
+   Both variants in this design are teacher-forced INSERTIONS into a host chain.
+   A forward pass's activations are a function of the input TOKENS (and their
+   context) only — not of whether those tokens were sampled by the model or
+   spliced in. Two sequences that differ only by an inserted span differ in
+   activation space because the SPAN TEXT differs, full stop. So a "provenance
+   probe" can only ever read text/content/context differences between genuine and
+   forged spans; "did the model generate these tokens" is not a function of the
+   current activations. Matching valence would only move the confound from
+   valence to whatever text cue remained; identical-text pools would collapse the
+   probe to reading host-context congruity. There is no pool construction that
+   makes this probe isolate provenance.
+
+## The well-posed experiment is CAUSAL, not a probe
+The forged-policy jailbreak is a claim about EFFECT: does inserted forged
+*permissive* deliberation cause the model to comply when it otherwise refuses?
+That is measurable and attack-relevant, and it is the activation-patching /
+behavioural arm the thesis names ("where the forged premise becomes causally
+load-bearing"), not the probe:
+- **Behavioural**: on refusal-expected (harmful) chains, insert forged permissive
+  policy deliberation before the decision point; measure the refuse→comply flip
+  rate vs a no-insertion and a neutral-insertion control. Needs generation
+  (sampling continuations), not just a forward pass — a larger pod job.
+- **Mechanistic (patching)**: patch activations at the injection site between a
+  forged-continuation and its genuine-refusal counterpart aligned at that site;
+  locate where the forged premise becomes load-bearing.
+
+The probe is retained only as a text-distinguishability descriptor, correctly
+caveated; it is not evidence about provenance representation.
 
 ## Status
-Files: `results/safety/p3_forgery/{p3b_probe_results.json,activations/,
-manifest_*.jsonl,pools.json}`. Code `rom-safety-worktree/p3b_*.py`. The
-attacker/paraphrase manifests + activations are kept (the genuine spans and the
-forged-permissive pool are reusable in the matched redesign).
+Files kept: `results/safety/p3_forgery/{p3b_probe_results.json,activations/,
+manifest_*.jsonl,pools.json}`; code `rom-safety-worktree/p3b_*.py`. The forged
+permissive pool + hosts are reusable as the INSERTION set for the causal
+experiment. Recommend NOT re-running the probe; pivot S3 to the behavioural flip
+test (scope + cost is a fresh decision — it needs generation, not extraction).
