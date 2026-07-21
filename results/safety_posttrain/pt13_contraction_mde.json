@@ -1,0 +1,279 @@
+{
+  "instrument": "participation-ratio d_eff; tail-shrink injection beyond rank k",
+  "k": 5,
+  "c_grid": [
+    1.0,
+    0.9,
+    0.75,
+    0.5,
+    0.25,
+    0.0
+  ],
+  "base": "R1-1.5B",
+  "cells": {
+    "backtracking_L12": {
+      "d_eff_base": 21.578,
+      "d_eff_from_svd_check": 21.578,
+      "n": 10267,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -4.1268,
+          "variance_removed_frac": 0.1151
+        },
+        "0.75": {
+          "dPR": -9.1368,
+          "variance_removed_frac": 0.2651
+        },
+        "0.5": {
+          "dPR": -14.5457,
+          "variance_removed_frac": 0.4545
+        },
+        "0.25": {
+          "dPR": -17.1435,
+          "variance_removed_frac": 0.5681
+        },
+        "0.0": {
+          "dPR": -17.8856,
+          "variance_removed_frac": 0.606
+        }
+      },
+      "observed_dPR": -0.273,
+      "variance_removed_at_observed": 0.0076
+    },
+    "backtracking_L16": {
+      "d_eff_base": 18.433,
+      "d_eff_from_svd_check": 18.433,
+      "n": 10267,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -3.5738,
+          "variance_removed_frac": 0.1142
+        },
+        "0.75": {
+          "dPR": -7.8605,
+          "variance_removed_frac": 0.2631
+        },
+        "0.5": {
+          "dPR": -12.4396,
+          "variance_removed_frac": 0.451
+        },
+        "0.25": {
+          "dPR": -14.6295,
+          "variance_removed_frac": 0.5637
+        },
+        "0.0": {
+          "dPR": -15.2554,
+          "variance_removed_frac": 0.6013
+        }
+      },
+      "observed_dPR": -0.223,
+      "variance_removed_at_observed": 0.0071
+    },
+    "uncertainty-estimation_L12": {
+      "d_eff_base": 23.742,
+      "d_eff_from_svd_check": 23.742,
+      "n": 16728,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -4.6159,
+          "variance_removed_frac": 0.1168
+        },
+        "0.75": {
+          "dPR": -10.201,
+          "variance_removed_frac": 0.2691
+        },
+        "0.5": {
+          "dPR": -16.1962,
+          "variance_removed_frac": 0.4612
+        },
+        "0.25": {
+          "dPR": -19.0526,
+          "variance_removed_frac": 0.5765
+        },
+        "0.0": {
+          "dPR": -19.8637,
+          "variance_removed_frac": 0.615
+        }
+      },
+      "observed_dPR": -0.241,
+      "variance_removed_at_observed": 0.0061
+    },
+    "uncertainty-estimation_L16": {
+      "d_eff_base": 20.844,
+      "d_eff_from_svd_check": 20.844,
+      "n": 16728,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -4.098,
+          "variance_removed_frac": 0.1162
+        },
+        "0.75": {
+          "dPR": -9.0089,
+          "variance_removed_frac": 0.2675
+        },
+        "0.5": {
+          "dPR": -14.2356,
+          "variance_removed_frac": 0.4586
+        },
+        "0.25": {
+          "dPR": -16.7173,
+          "variance_removed_frac": 0.5733
+        },
+        "0.0": {
+          "dPR": -17.4222,
+          "variance_removed_frac": 0.6115
+        }
+      },
+      "observed_dPR": -0.317,
+      "variance_removed_at_observed": 0.009
+    },
+    "example-testing_L12": {
+      "d_eff_base": 21.925,
+      "d_eff_from_svd_check": 21.925,
+      "n": 5829,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -4.3599,
+          "variance_removed_frac": 0.1164
+        },
+        "0.75": {
+          "dPR": -9.552,
+          "variance_removed_frac": 0.2681
+        },
+        "0.5": {
+          "dPR": -15.0422,
+          "variance_removed_frac": 0.4595
+        },
+        "0.25": {
+          "dPR": -17.6371,
+          "variance_removed_frac": 0.5744
+        },
+        "0.0": {
+          "dPR": -18.3729,
+          "variance_removed_frac": 0.6127
+        }
+      },
+      "observed_dPR": -0.045,
+      "variance_removed_at_observed": 0.0012
+    },
+    "example-testing_L16": {
+      "d_eff_base": 20.916,
+      "d_eff_from_svd_check": 20.916,
+      "n": 5829,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -4.1355,
+          "variance_removed_frac": 0.117
+        },
+        "0.75": {
+          "dPR": -9.0895,
+          "variance_removed_frac": 0.2694
+        },
+        "0.5": {
+          "dPR": -14.3538,
+          "variance_removed_frac": 0.4618
+        },
+        "0.25": {
+          "dPR": -16.8458,
+          "variance_removed_frac": 0.5772
+        },
+        "0.0": {
+          "dPR": -17.5518,
+          "variance_removed_frac": 0.6157
+        }
+      },
+      "observed_dPR": -0.31,
+      "variance_removed_at_observed": 0.0088
+    },
+    "adding-knowledge_L12": {
+      "d_eff_base": 26.794,
+      "d_eff_from_svd_check": 26.794,
+      "n": 5027,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -5.5422,
+          "variance_removed_frac": 0.1255
+        },
+        "0.75": {
+          "dPR": -12.209,
+          "variance_removed_frac": 0.2889
+        },
+        "0.5": {
+          "dPR": -19.2303,
+          "variance_removed_frac": 0.4952
+        },
+        "0.25": {
+          "dPR": -22.4563,
+          "variance_removed_frac": 0.619
+        },
+        "0.0": {
+          "dPR": -23.3436,
+          "variance_removed_frac": 0.6603
+        }
+      },
+      "observed_dPR": -0.164,
+      "variance_removed_at_observed": 0.0037
+    },
+    "adding-knowledge_L16": {
+      "d_eff_base": 24.696,
+      "d_eff_from_svd_check": 24.696,
+      "n": 5027,
+      "grid": {
+        "1.0": {
+          "dPR": 0.0,
+          "variance_removed_frac": 0.0
+        },
+        "0.9": {
+          "dPR": -5.0046,
+          "variance_removed_frac": 0.1231
+        },
+        "0.75": {
+          "dPR": -11.0511,
+          "variance_removed_frac": 0.2836
+        },
+        "0.5": {
+          "dPR": -17.4703,
+          "variance_removed_frac": 0.4861
+        },
+        "0.25": {
+          "dPR": -20.4548,
+          "variance_removed_frac": 0.6076
+        },
+        "0.0": {
+          "dPR": -21.2837,
+          "variance_removed_frac": 0.6481
+        }
+      },
+      "observed_dPR": -0.682,
+      "variance_removed_at_observed": 0.0168
+    }
+  }
+}
