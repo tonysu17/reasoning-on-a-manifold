@@ -37,6 +37,7 @@ from src.config import provenance, backup_existing
 from src.safety.annotate import (
     Judge, agreement_report, annotate_chains_dsr, default_judges,
 )
+from src.safety.deliberation import DSR_SCHEMA_VERSION
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s  %(message)s", datefmt="%H:%M:%S"
@@ -67,6 +68,10 @@ def main():
     p.add_argument("--out", default="results/safety/dsr_annotated.json")
     p.add_argument("--agreement-out", default="results/safety/dsr_agreement.json")
     p.add_argument("--limit", type=int, default=None, help="annotate at most N chains")
+    p.add_argument("--chunk-chars", type=int, default=None,
+                   help="chunk chains to <= N chars per judge call (default: "
+                        "module default, sized for the proxy gateway's 29 s cap); "
+                        "0 disables chunking")
     p.add_argument("--dry-run", action="store_true",
                    help="print panel + chain count and exit (no proxy calls)")
     args = p.parse_args()
@@ -88,13 +93,17 @@ def main():
     policy_excerpt = Path(args.policy).read_text() if args.policy else None
 
     out = Path(args.out)
+    chunk_kw = {}
+    if args.chunk_chars is not None:
+        chunk_kw["chunk_chars"] = args.chunk_chars or None  # 0 -> disable
     annotated = annotate_chains_dsr(
-        chains, judges, save_path=out, policy_excerpt=policy_excerpt,
+        chains, judges, save_path=out, policy_excerpt=policy_excerpt, **chunk_kw,
     )
 
     agreement = agreement_report(annotated)
     report = {
         "agreement": agreement,
+        "schema_version": DSR_SCHEMA_VERSION,
         "n_chains": len(annotated),
         "n_complete": sum(1 for a in annotated if a.get("dsr_complete")),
         "judges": [j.name for j in judges],

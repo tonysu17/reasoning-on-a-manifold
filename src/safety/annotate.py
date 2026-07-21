@@ -49,8 +49,8 @@ logger = logging.getLogger(__name__)
 # (Sonnet / Qwen3 / Nova). Model ids are proxy aliases; override via --judges.
 DEFAULT_JUDGES = (
     ("Sonnet-4.5", "eu.anthropic.claude-sonnet-4-5-20250929-v1:0"),
-    ("Qwen3-235B", "qwen3-235b"),
-    ("Nova-Pro", "nova-pro"),
+    ("Qwen3-235B", "qwen.qwen3-235b-a22b-2507-v1:0"),
+    ("Nova-Pro", "amazon.nova-pro-v1:0"),
 )
 
 
@@ -127,8 +127,17 @@ def parse_dsr_response(text: str) -> list[dict]:
             lab = str(lab).strip().lower()
             if lab in DSR_LABELS:
                 clean.append(lab)
-            else:
-                logger.warning(f"  dropping unknown DSR label {lab!r}")
+                continue
+            # Judges sometimes imitate the prompt's example notation and emit
+            # 'decision:refuse' as a single label — normalise it rather than
+            # dropping the decision signal (caught live in the P1v2 launch).
+            m = re.match(r"^decision[:=/\s]+([a-z_]+)$", lab)
+            if m and m.group(1) in DECISION_TYPES:
+                clean.append("decision")
+                if not item.get("decision_type"):
+                    item["decision_type"] = m.group(1)
+                continue
+            logger.warning(f"  dropping unknown DSR label {lab!r}")
         dt = item.get("decision_type")
         if dt is not None:
             dt = str(dt).strip().lower()
@@ -185,6 +194,49 @@ def _default_call_fn(judge: Judge, prompt: str) -> str:
 
 # ── Single-chain, multi-judge annotation ──────────────────────────────────────
 
+# The lab proxy fronts the models with AWS API Gateway, which hard-terminates
+# every call at 29 s. The judge echoes each sentence back as JSON, so output
+# length tracks chain length and a long chain can NEVER finish inside the
+# window — retries are doomed by construction (caught live in P1v2, 2026-07-20:
+# 24 judge failures, concentrated on the slowest judge). Fix: annotate the
+# chain in sentence-boundary chunks small enough that each call fits the
+# window, and concatenate the per-chunk spans. Chunks are verbatim slices of
+# the chain, so ``aggregate_dsr``'s substring locating is unaffected.
+CHUNK_MAX_CHARS = 2500
+_CONTEXT_TAIL_CHARS = 300
+
+
+def _backoff_seconds(attempt: int, exc_str: str) -> float:
+    """Retry delay. Capacity errors (503/Service Unavailable) get tens of
+    seconds — the P1v2 run showed three sub-minute retries burn straight
+    through an outage blip; everything else keeps the short exponential."""
+    if "503" in exc_str or "Service Unavailable" in exc_str:
+        return 20.0 * (attempt + 1)
+    return float(2 ** attempt)
+
+
+def chunk_chain_text(chain_text: str, max_chars: int = CHUNK_MAX_CHARS) -> list[str]:
+    """Split ``chain_text`` into verbatim slices of at most ``max_chars``,
+    cutting at the last sentence-ish boundary (``.!?`` or newline followed by
+    whitespace) inside each window; a boundary-free window is hard-cut. The
+    chunks concatenate back to the original text exactly."""
+    if len(chain_text) <= max_chars:
+        return [chain_text]
+    chunks: list[str] = []
+    start = 0
+    n = len(chain_text)
+    while n - start > max_chars:
+        window = chain_text[start:start + max_chars]
+        last = None
+        for last in re.finditer(r"[.!?\n]\s", window):
+            pass
+        cut = start + (last.end() if last else max_chars)
+        chunks.append(chain_text[start:cut])
+        start = cut
+    chunks.append(chain_text[start:])
+    return [c for c in chunks if c.strip()]
+
+
 def annotate_chain_dsr(
     chain_text: str,
     judges: Sequence[Judge],
@@ -192,32 +244,57 @@ def annotate_chain_dsr(
     policy_excerpt: Optional[str] = None,
     call_fn: Callable[[Judge, str], str] = _default_call_fn,
     max_retries: int = 3,
+    chunk_chars: Optional[int] = CHUNK_MAX_CHARS,
 ) -> dict:
-    """Annotate one chain with every judge.
+    """Annotate one chain with every judge, chunking long chains to fit the
+    proxy's 29 s gateway window.
 
-    Returns ``{"judges": {judge_name: [span, ...]}, "complete": bool}`` where
-    ``complete`` is True iff every judge returned a non-empty parse.
+    Returns ``{"judges": {judge_name: [span, ...]}, "judges_ok": {judge_name:
+    bool}, "complete": bool, "n_chunks": int}`` where a judge is ok iff it
+    returned a non-empty parse for every chunk and ``complete`` is True iff
+    every judge is ok. Each chunk after the first carries the tail of its
+    predecessor as unlabelled context so chain-scope rules (D2) keep their
+    footing.
     """
-    prompt = build_dsr_judge_prompt(chain_text, policy_excerpt=policy_excerpt)
+    chunks = chunk_chain_text(chain_text, chunk_chars) if chunk_chars else [chain_text]
     by_judge: dict[str, list] = {}
+    judges_ok: dict[str, bool] = {}
     complete = True
     for judge in judges:
         spans: list[dict] = []
-        for attempt in range(max_retries):
-            try:
-                text = call_fn(judge, prompt)
-                spans = parse_dsr_response(text)
-                if spans:
-                    break
-                logger.warning(f"  {judge.name} attempt {attempt+1}: 0 spans parsed")
-            except Exception as exc:  # noqa: BLE001 — log and retry, mirror annotation.py
-                logger.warning(f"  {judge.name} attempt {attempt+1}/{max_retries}: {exc}")
-                time.sleep(2 ** attempt)
-        if not spans:
+        judge_ok = True
+        for ci, chunk in enumerate(chunks):
+            context_tail = chunks[ci - 1][-_CONTEXT_TAIL_CHARS:] if ci else None
+            prompt = build_dsr_judge_prompt(
+                chunk, policy_excerpt=policy_excerpt, context_tail=context_tail,
+            )
+            chunk_spans: list[dict] = []
+            for attempt in range(max_retries):
+                try:
+                    text = call_fn(judge, prompt)
+                    chunk_spans = parse_dsr_response(text)
+                    if chunk_spans:
+                        break
+                    logger.warning(
+                        f"  {judge.name} chunk {ci+1}/{len(chunks)} "
+                        f"attempt {attempt+1}: 0 spans parsed")
+                except Exception as exc:  # noqa: BLE001 — log and retry, mirror annotation.py
+                    logger.warning(
+                        f"  {judge.name} chunk {ci+1}/{len(chunks)} "
+                        f"attempt {attempt+1}/{max_retries}: {exc}")
+                    time.sleep(_backoff_seconds(attempt, str(exc)))
+            if not chunk_spans:
+                judge_ok = False
+            spans.extend(chunk_spans)
+        if not judge_ok:
             complete = False
-            logger.error(f"  {judge.name}: failed after {max_retries} retries")
+            logger.error(
+                f"  {judge.name}: incomplete after {max_retries} retries "
+                f"({len(spans)} spans over {len(chunks)} chunks)")
         by_judge[judge.name] = spans
-    return {"judges": by_judge, "complete": complete}
+        judges_ok[judge.name] = judge_ok
+    return {"judges": by_judge, "judges_ok": judges_ok,
+            "complete": complete, "n_chunks": len(chunks)}
 
 
 # ── Consensus aggregation (character-level majority) ──────────────────────────
@@ -330,12 +407,17 @@ def annotate_chains_dsr(
     checkpoint_every: int = 25,
     kill_after: Optional[int] = None,
     dedup_keys: tuple = ("task_id",),
+    chunk_chars: Optional[int] = CHUNK_MAX_CHARS,
 ) -> list[dict]:
     """Annotate every chain with the judge panel, with resume + atomic checkpoint.
 
     Each output record is the original chain plus ``dsr_per_judge`` (raw per-judge
-    spans), ``dsr_consensus`` (aggregated spans + unresolved count), and
-    ``dsr_complete`` (all judges parsed). Resume skips records already complete.
+    spans), ``dsr_consensus`` (aggregated spans + unresolved count),
+    ``dsr_judges_ok`` (per-judge success) and ``dsr_complete`` (all judges
+    parsed). Resume skips records already complete; incomplete records that
+    carry ``dsr_judges_ok`` get a judge-targeted top-up (only the failed judges
+    are re-called — the successful judges' spans are kept, not re-billed);
+    legacy incomplete records without the flags are fully re-run.
     """
     annotated: list[dict] = []
     save_path = Path(save_path) if save_path else None
@@ -349,22 +431,53 @@ def annotate_chains_dsr(
         return tuple(c.get(k) for k in dedup_keys)
 
     done = {_key(a) for a in annotated if a.get("dsr_complete")}
+    topup = {_key(a): a for a in annotated
+             if not a.get("dsr_complete") and isinstance(a.get("dsr_judges_ok"), dict)}
     annotated = [a for a in annotated if a.get("dsr_complete")]
 
     new_count = 0
     for chain in chains:
         if _key(chain) in done:
             continue
-        result = annotate_chain_dsr(
-            chain.get("chain", ""), judges,
-            policy_excerpt=policy_excerpt, call_fn=call_fn,
-        )
-        consensus = aggregate_dsr(chain.get("chain", ""), result["judges"])
+        chain_text = chain.get("chain", "")
+        prior = topup.get(_key(chain))
+        if prior is not None:
+            failed = [j for j in judges
+                      if not prior["dsr_judges_ok"].get(j.name, False)]
+            if failed:
+                logger.info(f"  top-up {_key(chain)}: re-calling only "
+                            f"{[j.name for j in failed]}")
+            result = annotate_chain_dsr(
+                chain_text, failed,
+                policy_excerpt=policy_excerpt, call_fn=call_fn,
+                chunk_chars=chunk_chars,
+            )
+            by_judge = {
+                **{n: s for n, s in prior.get("dsr_per_judge", {}).items()
+                   if prior["dsr_judges_ok"].get(n)},
+                **result["judges"],
+            }
+            judges_ok = {**prior["dsr_judges_ok"], **result["judges_ok"]}
+            complete = all(judges_ok.get(j.name, False) for j in judges)
+            n_chunks = result["n_chunks"] if failed else prior.get("dsr_n_chunks", 1)
+        else:
+            result = annotate_chain_dsr(
+                chain_text, judges,
+                policy_excerpt=policy_excerpt, call_fn=call_fn,
+                chunk_chars=chunk_chars,
+            )
+            by_judge = result["judges"]
+            judges_ok = result["judges_ok"]
+            complete = result["complete"]
+            n_chunks = result["n_chunks"]
+        consensus = aggregate_dsr(chain_text, by_judge)
         annotated.append({
             **chain,
-            "dsr_per_judge": result["judges"],
+            "dsr_per_judge": by_judge,
             "dsr_consensus": consensus,
-            "dsr_complete": result["complete"],
+            "dsr_judges_ok": judges_ok,
+            "dsr_complete": complete,
+            "dsr_n_chunks": n_chunks,
         })
         new_count += 1
         if save_path and len(annotated) % checkpoint_every == 0:
