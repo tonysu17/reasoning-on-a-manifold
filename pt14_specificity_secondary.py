@@ -42,6 +42,7 @@ ALPHA = 0.05
 ANNOTATORS = {
     "Sonnet": ("data/activations/R1-1.5B", "data/annotated_R1-1.5B.json"),
     "Nova":   ("data/activations/R1-1.5B-novaspans", "data/annotated_R1-1.5B__nova-pro.json"),
+    "Qwen3":  ("data/activations/R1-1.5B-qwenspans", "data/annotated_R1-1.5B__qwen3-235b.json"),
 }
 OUT = Path("results/robustness/specificity_secondary_annotator.json")
 
@@ -94,16 +95,17 @@ def main():
 
     # cross-annotator agreement on the specificity call, per behaviour-layer
     agree = {}
+    names = list(ANNOTATORS)
     for L in LAYERS:
         for b in BEHAVIOURS:
-            s = report["annotators"]["Sonnet"][f"L{L}"]["behaviours"][b]["specific"]
-            n = report["annotators"]["Nova"][f"L{L}"]["behaviours"][b]["specific"]
-            agree[f"{b}_L{L}"] = {"Sonnet": s, "Nova": n, "agree": s == n}
+            calls = {nm: report["annotators"][nm][f"L{L}"]["behaviours"][b]["specific"]
+                     for nm in names}
+            agree[f"{b}_L{L}"] = {**calls, "agree": len(set(calls.values())) == 1}
     report["cross_annotator"] = agree
     n_agree = sum(1 for v in agree.values() if v["agree"])
     report["summary"] = {
         "cells": len(agree), "agree": n_agree,
-        "note": "Qwen arm needs span re-extraction (no local qwenspans); Nova is the 2nd annotator here.",
+        "note": "Full 3-way: Sonnet + Nova + Qwen3 (qwenspans extracted 2026-07-22).",
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     json.dump(report, open(OUT, "w"), indent=2)

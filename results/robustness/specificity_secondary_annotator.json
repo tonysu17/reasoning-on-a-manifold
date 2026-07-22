@@ -128,53 +128,123 @@
           }
         }
       }
+    },
+    "Qwen3": {
+      "L12": {
+        "dup_frac": 0.0221,
+        "n_total": 34406,
+        "behaviours": {
+          "backtracking": {
+            "real": 0.4817,
+            "null_mean": 0.4564,
+            "p_value": 0.001996007984031936,
+            "specific": true
+          },
+          "uncertainty-estimation": {
+            "real": 0.4954,
+            "null_mean": 0.4621,
+            "p_value": 0.001996007984031936,
+            "specific": true
+          },
+          "example-testing": {
+            "real": 0.426,
+            "null_mean": 0.4371,
+            "p_value": 1.0,
+            "specific": false
+          },
+          "adding-knowledge": {
+            "real": 0.3974,
+            "null_mean": 0.4328,
+            "p_value": 1.0,
+            "specific": false
+          }
+        }
+      },
+      "L16": {
+        "dup_frac": 0.0221,
+        "n_total": 34406,
+        "behaviours": {
+          "backtracking": {
+            "real": 0.4868,
+            "null_mean": 0.468,
+            "p_value": 0.001996007984031936,
+            "specific": true
+          },
+          "uncertainty-estimation": {
+            "real": 0.4915,
+            "null_mean": 0.4712,
+            "p_value": 0.001996007984031936,
+            "specific": true
+          },
+          "example-testing": {
+            "real": 0.4356,
+            "null_mean": 0.4451,
+            "p_value": 1.0,
+            "specific": false
+          },
+          "adding-knowledge": {
+            "real": 0.4179,
+            "null_mean": 0.4429,
+            "p_value": 1.0,
+            "specific": false
+          }
+        }
+      }
     }
   },
   "cross_annotator": {
     "backtracking_L12": {
       "Sonnet": true,
       "Nova": true,
+      "Qwen3": true,
       "agree": true
     },
     "uncertainty-estimation_L12": {
       "Sonnet": true,
       "Nova": true,
+      "Qwen3": true,
       "agree": true
     },
     "example-testing_L12": {
       "Sonnet": false,
       "Nova": false,
+      "Qwen3": false,
       "agree": true
     },
     "adding-knowledge_L12": {
       "Sonnet": false,
       "Nova": false,
+      "Qwen3": false,
       "agree": true
     },
     "backtracking_L16": {
       "Sonnet": true,
       "Nova": true,
+      "Qwen3": true,
       "agree": true
     },
     "uncertainty-estimation_L16": {
       "Sonnet": true,
       "Nova": true,
+      "Qwen3": true,
       "agree": true
     },
     "example-testing_L16": {
       "Sonnet": false,
       "Nova": false,
+      "Qwen3": false,
       "agree": true
     },
     "adding-knowledge_L16": {
       "Sonnet": false,
       "Nova": false,
+      "Qwen3": false,
       "agree": true
     }
   },
   "summary": {
     "cells": 8,
     "agree": 8,
-    "note": "Qwen arm needs span re-extraction (no local qwenspans); Nova is the 2nd annotator here."
+    "note": "Full 3-way: Sonnet + Nova + Qwen3 (qwenspans extracted 2026-07-22)."
   }
 }
