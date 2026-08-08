@@ -183,6 +183,16 @@ directly relevant to CF-19 collapse.
 - **E10.2 causal width** `[PROPOSED]` — boundless-DAS-style learned k*; k*≈corr-dim (6–8) certifies
   low-dim causally, k*=1 explains the manifold null at its root. Bonus: add-knowledge **removal** test
   (swap is symmetric; amplification null ≠ removal null).
+- **E10.3 cross-behaviour generalization** `[EXECUTED 2026-07-20 — P-cross alternative CONFIRMED]` —
+  identical E10.1+E10.2 recipe on **uncertainty-estimation** {15,16,27} and **example-testing**
+  {15,19,27}, hyperparams UNCHANGED (M5); grounding gate codified in `e10_pick_grounded_layer.py`.
+  **Verdict:** transfer huge everywhere (+0.62…+0.72 vs dm +0.01…+0.03) but UNGROUNDED at every mid
+  layer (unc L15/L16 AUC 0.412/0.626; ex 0.579/0.599; ex width skipped by sealed rule); learned
+  frames align ACROSS behaviours (unc↔ex mid |cos| 0.946; bt↔both 0.64–0.77; unc_L27↔bt_L27 0.97)
+  ⇒ DAS found ONE shared discourse-shift/onset axis per depth-family, not per-behaviour causal
+  structure; only backtracking's frame is also state-reading. Grounded causal frame = n=1
+  (backtracking-specific); third independent "transfer ≠ feature" demonstration. Full adjudication:
+  `E10_DAS_PREREG.md` **ADJUDICATION 5**.
 
 ## 9. Predictive-geometry value track & precursors (PG rungs 3–7)  `[PROPOSED — prereg sealed 2026-07-06]`  [`PREDICTIVE_GEOMETRY.md`](PREDICTIVE_GEOMETRY.md) §11
 Adopted reframe of the predictive-geometry side project (branch `predictive-geometry-of-reasoning`)
@@ -201,6 +211,9 @@ conditioned forward model (R7, stretch). Full sealed predictions/kills per rung 
 - **M5 LRS anti-inheritance:** sealed hyperparams + val checkpoint (no test-tuned knobs); gated
   interventions get **count-matched AND energy-matched** random-gate floors (extends §4's floor
   discipline); matched-pair recovery tables as standard endpoints.
+- **M7 prefix-contamination control** *(added 2026-08-02, PG §11.1 M7)*: latent value/precursor
+  claims include a corrupted-prefix arm (PAIR-style, 2605.17877); signals that survive prefix
+  corruption unchanged are worded as *prefix-coherence*, not progress.
 Interlocks: collapse endpoint + onsets from §7; frames from §3 (behaviour-PCA), §8 (SAE@L19
 dense-arm-only, DAS-1D@L17); R4+R5 share ONE extraction pod session (~$1–3); total new spend <$10.
 

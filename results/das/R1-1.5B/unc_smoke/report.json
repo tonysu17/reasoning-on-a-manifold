@@ -1,0 +1,84 @@
+{
+  "experiment": "DAS-1D uncertainty-estimation (E10.1 recipe)",
+  "date": "2026-07-19",
+  "device": "mps",
+  "n_pairs": 8,
+  "config": {
+    "stage": "all",
+    "behaviour": "uncertainty-estimation",
+    "layers": [
+      15
+    ],
+    "primary_layer": 15,
+    "n_pairs": 8,
+    "ctx": 96,
+    "min_ctx": 16,
+    "max_chains": 60,
+    "bs": 4,
+    "epochs": 3,
+    "lr": 0.01,
+    "seed": 0,
+    "window": 12,
+    "no_warm": false,
+    "smoke": true,
+    "tag": ""
+  },
+  "layers": {
+    "15": {
+      "train_curve": [
+        7.170616865158081,
+        7.1692540645599365,
+        7.169485569000244
+      ],
+      "warm_train_curve": [
+        7.152460336685181,
+        7.001375436782837,
+        6.920654773712158
+      ],
+      "shuf_train_curve": [
+        7.743966341018677,
+        7.74254298210144,
+        7.740452289581299
+      ],
+      "cos_learned_diffmeans": -0.016256945207715034,
+      "cos_warm_diffmeans": 0.5600169897079468,
+      "learned": {
+        "n": 8,
+        "induce_dlp": 0.001726493239402771,
+        "remove_dlp": 0.0009465515613555908,
+        "sym_dlp": 0.001336522400379181
+      },
+      "learned_positional": {
+        "n": 8,
+        "induce_dlp": 0.01502181589603424,
+        "remove_dlp": -0.002807319164276123,
+        "sym_dlp": 0.006107248365879059
+      },
+      "warm": {
+        "n": 8,
+        "induce_dlp": 0.1946178376674652,
+        "remove_dlp": 0.16590619087219238,
+        "sym_dlp": 0.1802620142698288
+      },
+      "shuffled_pair": {
+        "n": 8,
+        "induce_dlp": 0.00013458728790283203,
+        "remove_dlp": 0.0005943775177001953,
+        "sym_dlp": 0.00036448240280151367
+      },
+      "random_rotation": {
+        "n": 8,
+        "induce_dlp": 0.0015039891004562378,
+        "remove_dlp": 0.0005318224430084229,
+        "sym_dlp": 0.0010179057717323303
+      },
+      "diff_of_means": {
+        "n": 8,
+        "induce_dlp": 0.008099079132080078,
+        "remove_dlp": 0.010456055402755737,
+        "sym_dlp": 0.009277567267417908
+      },
+      "pair_specificity_gap": 0.0009720399975776672
+    }
+  }
+}

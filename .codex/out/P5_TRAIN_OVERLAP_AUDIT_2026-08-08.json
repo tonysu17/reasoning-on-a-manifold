@@ -1,0 +1,5098 @@
+{
+  "status": "planning audit; not a scientific result or thesis evidence artefact",
+  "evaluation": {
+    "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/grpo_refusal_prompts.json",
+    "bytes": 224640,
+    "sha256": "661b7bd32b4b14ba627b629ccb26111ffba4adca0a00ee48a7b5712a5a27035d",
+    "n": 500,
+    "n_harmful": 250,
+    "n_benign": 250
+  },
+  "normalisation": "Unicode NFKC, casefold, collapse whitespace",
+  "training_roles": {
+    "public_star1_training": {
+      "n_train": 1000,
+      "n_eval": 500,
+      "n_normalised_exact": 250,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 250,
+          "n_normalised_exact": 250,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 250,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [
+        {
+          "eval_index": 0,
+          "eval_id": "harmful_079",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 898,
+          "train_id": "star1_00898",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 1,
+          "eval_id": "harmful_099",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 84,
+          "train_id": "star1_00084",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 4,
+          "eval_id": "harmful_075",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 883,
+          "train_id": "star1_00883",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 5,
+          "eval_id": "harmful_004",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 685,
+          "train_id": "star1_00685",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 6,
+          "eval_id": "harmful_026",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 8,
+          "train_id": "star1_00008",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 7,
+          "eval_id": "harmful_003",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 486,
+          "train_id": "star1_00486",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 8,
+          "eval_id": "harmful_235",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 490,
+          "train_id": "star1_00490",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 9,
+          "eval_id": "harmful_091",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 240,
+          "train_id": "star1_00240",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 10,
+          "eval_id": "harmful_028",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 737,
+          "train_id": "star1_00737",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 14,
+          "eval_id": "harmful_172",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 787,
+          "train_id": "star1_00787",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 15,
+          "eval_id": "harmful_130",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 665,
+          "train_id": "star1_00665",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 16,
+          "eval_id": "harmful_105",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 731,
+          "train_id": "star1_00731",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 19,
+          "eval_id": "harmful_100",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 293,
+          "train_id": "star1_00293",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 20,
+          "eval_id": "harmful_215",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 343,
+          "train_id": "star1_00343",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 22,
+          "eval_id": "harmful_090",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 690,
+          "train_id": "star1_00690",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 27,
+          "eval_id": "harmful_221",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 615,
+          "train_id": "star1_00615",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 28,
+          "eval_id": "harmful_054",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 857,
+          "train_id": "star1_00857",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 30,
+          "eval_id": "harmful_101",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 472,
+          "train_id": "star1_00472",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 35,
+          "eval_id": "harmful_202",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 668,
+          "train_id": "star1_00668",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 38,
+          "eval_id": "harmful_145",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 541,
+          "train_id": "star1_00541",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 40,
+          "eval_id": "harmful_226",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 267,
+          "train_id": "star1_00267",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 42,
+          "eval_id": "harmful_059",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 324,
+          "train_id": "star1_00324",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 44,
+          "eval_id": "harmful_019",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 989,
+          "train_id": "star1_00989",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 45,
+          "eval_id": "harmful_108",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 386,
+          "train_id": "star1_00386",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 46,
+          "eval_id": "harmful_171",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 916,
+          "train_id": "star1_00916",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 47,
+          "eval_id": "harmful_193",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 715,
+          "train_id": "star1_00715",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 48,
+          "eval_id": "harmful_241",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 894,
+          "train_id": "star1_00894",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 49,
+          "eval_id": "harmful_125",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 130,
+          "train_id": "star1_00130",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 52,
+          "eval_id": "harmful_232",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 342,
+          "train_id": "star1_00342",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 54,
+          "eval_id": "harmful_084",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 241,
+          "train_id": "star1_00241",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 56,
+          "eval_id": "harmful_137",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 192,
+          "train_id": "star1_00192",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 57,
+          "eval_id": "harmful_117",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 602,
+          "train_id": "star1_00602",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 62,
+          "eval_id": "harmful_246",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 189,
+          "train_id": "star1_00189",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 67,
+          "eval_id": "harmful_065",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 862,
+          "train_id": "star1_00862",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 68,
+          "eval_id": "harmful_025",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 662,
+          "train_id": "star1_00662",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 69,
+          "eval_id": "harmful_244",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 55,
+          "train_id": "star1_00055",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 70,
+          "eval_id": "harmful_178",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 935,
+          "train_id": "star1_00935",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 72,
+          "eval_id": "harmful_200",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 634,
+          "train_id": "star1_00634",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 73,
+          "eval_id": "harmful_047",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 242,
+          "train_id": "star1_00242",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 79,
+          "eval_id": "harmful_035",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 145,
+          "train_id": "star1_00145",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 80,
+          "eval_id": "harmful_175",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 144,
+          "train_id": "star1_00144",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 82,
+          "eval_id": "harmful_206",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 816,
+          "train_id": "star1_00816",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 83,
+          "eval_id": "harmful_049",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 147,
+          "train_id": "star1_00147",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 84,
+          "eval_id": "harmful_009",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 853,
+          "train_id": "star1_00853",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 85,
+          "eval_id": "harmful_104",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 526,
+          "train_id": "star1_00526",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 87,
+          "eval_id": "harmful_152",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 943,
+          "train_id": "star1_00943",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 91,
+          "eval_id": "harmful_126",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 235,
+          "train_id": "star1_00235",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 93,
+          "eval_id": "harmful_005",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 871,
+          "train_id": "star1_00871",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 94,
+          "eval_id": "harmful_096",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 54,
+          "train_id": "star1_00054",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 95,
+          "eval_id": "harmful_051",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 954,
+          "train_id": "star1_00954",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 100,
+          "eval_id": "harmful_055",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 302,
+          "train_id": "star1_00302",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 102,
+          "eval_id": "harmful_001",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 515,
+          "train_id": "star1_00515",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 103,
+          "eval_id": "harmful_194",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 548,
+          "train_id": "star1_00548",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 104,
+          "eval_id": "harmful_111",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 128,
+          "train_id": "star1_00128",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 106,
+          "eval_id": "harmful_195",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 70,
+          "train_id": "star1_00070",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 108,
+          "eval_id": "harmful_208",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 986,
+          "train_id": "star1_00986",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 110,
+          "eval_id": "harmful_124",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 722,
+          "train_id": "star1_00722",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 112,
+          "eval_id": "harmful_113",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 335,
+          "train_id": "star1_00335",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 113,
+          "eval_id": "harmful_006",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 528,
+          "train_id": "star1_00528",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 114,
+          "eval_id": "harmful_045",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 482,
+          "train_id": "star1_00482",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 115,
+          "eval_id": "harmful_138",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 193,
+          "train_id": "star1_00193",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 117,
+          "eval_id": "harmful_030",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 369,
+          "train_id": "star1_00369",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 123,
+          "eval_id": "harmful_002",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 542,
+          "train_id": "star1_00542",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 124,
+          "eval_id": "harmful_135",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 796,
+          "train_id": "star1_00796",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 125,
+          "eval_id": "harmful_201",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 487,
+          "train_id": "star1_00487",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 126,
+          "eval_id": "harmful_165",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 356,
+          "train_id": "star1_00356",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 131,
+          "eval_id": "harmful_048",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 132,
+          "train_id": "star1_00132",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 133,
+          "eval_id": "harmful_083",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 953,
+          "train_id": "star1_00953",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 136,
+          "eval_id": "harmful_107",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 35,
+          "train_id": "star1_00035",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 137,
+          "eval_id": "harmful_098",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 869,
+          "train_id": "star1_00869",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 139,
+          "eval_id": "harmful_012",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 682,
+          "train_id": "star1_00682",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 147,
+          "eval_id": "harmful_061",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 61,
+          "train_id": "star1_00061",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 149,
+          "eval_id": "harmful_027",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 465,
+          "train_id": "star1_00465",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 150,
+          "eval_id": "harmful_143",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 780,
+          "train_id": "star1_00780",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 151,
+          "eval_id": "harmful_131",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 743,
+          "train_id": "star1_00743",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 152,
+          "eval_id": "harmful_094",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 735,
+          "train_id": "star1_00735",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 153,
+          "eval_id": "harmful_238",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 991,
+          "train_id": "star1_00991",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 158,
+          "eval_id": "harmful_036",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 180,
+          "train_id": "star1_00180",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 159,
+          "eval_id": "harmful_155",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 408,
+          "train_id": "star1_00408",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 160,
+          "eval_id": "harmful_087",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 300,
+          "train_id": "star1_00300",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 162,
+          "eval_id": "harmful_118",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 129,
+          "train_id": "star1_00129",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 164,
+          "eval_id": "harmful_183",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 119,
+          "train_id": "star1_00119",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 165,
+          "eval_id": "harmful_112",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 170,
+          "train_id": "star1_00170",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 169,
+          "eval_id": "harmful_116",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 433,
+          "train_id": "star1_00433",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 170,
+          "eval_id": "harmful_076",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 553,
+          "train_id": "star1_00553",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 176,
+          "eval_id": "harmful_074",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 492,
+          "train_id": "star1_00492",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 178,
+          "eval_id": "harmful_211",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 765,
+          "train_id": "star1_00765",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 180,
+          "eval_id": "harmful_192",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 384,
+          "train_id": "star1_00384",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 183,
+          "eval_id": "harmful_106",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 467,
+          "train_id": "star1_00467",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 186,
+          "eval_id": "harmful_166",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 595,
+          "train_id": "star1_00595",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 187,
+          "eval_id": "harmful_067",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 624,
+          "train_id": "star1_00624",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 188,
+          "eval_id": "harmful_147",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 918,
+          "train_id": "star1_00918",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 189,
+          "eval_id": "harmful_205",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 204,
+          "train_id": "star1_00204",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 190,
+          "eval_id": "harmful_011",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 971,
+          "train_id": "star1_00971",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 192,
+          "eval_id": "harmful_007",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 571,
+          "train_id": "star1_00571",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 194,
+          "eval_id": "harmful_144",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 493,
+          "train_id": "star1_00493",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 195,
+          "eval_id": "harmful_086",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 926,
+          "train_id": "star1_00926",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 196,
+          "eval_id": "harmful_154",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 151,
+          "train_id": "star1_00151",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 198,
+          "eval_id": "harmful_159",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 66,
+          "train_id": "star1_00066",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 199,
+          "eval_id": "harmful_168",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 961,
+          "train_id": "star1_00961",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 201,
+          "eval_id": "harmful_229",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 811,
+          "train_id": "star1_00811",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 206,
+          "eval_id": "harmful_236",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 985,
+          "train_id": "star1_00985",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 207,
+          "eval_id": "harmful_023",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 897,
+          "train_id": "star1_00897",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 209,
+          "eval_id": "harmful_157",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 884,
+          "train_id": "star1_00884",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 212,
+          "eval_id": "harmful_247",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 37,
+          "train_id": "star1_00037",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 214,
+          "eval_id": "harmful_243",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 494,
+          "train_id": "star1_00494",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 216,
+          "eval_id": "harmful_050",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 102,
+          "train_id": "star1_00102",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 218,
+          "eval_id": "harmful_020",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 448,
+          "train_id": "star1_00448",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 219,
+          "eval_id": "harmful_216",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 131,
+          "train_id": "star1_00131",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 220,
+          "eval_id": "harmful_072",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 36,
+          "train_id": "star1_00036",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 222,
+          "eval_id": "harmful_248",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 406,
+          "train_id": "star1_00406",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 223,
+          "eval_id": "harmful_057",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 574,
+          "train_id": "star1_00574",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 224,
+          "eval_id": "harmful_181",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 461,
+          "train_id": "star1_00461",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 225,
+          "eval_id": "harmful_082",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 987,
+          "train_id": "star1_00987",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 226,
+          "eval_id": "harmful_041",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 402,
+          "train_id": "star1_00402",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 228,
+          "eval_id": "harmful_077",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 377,
+          "train_id": "star1_00377",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 230,
+          "eval_id": "harmful_249",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 355,
+          "train_id": "star1_00355",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 231,
+          "eval_id": "harmful_031",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 308,
+          "train_id": "star1_00308",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 233,
+          "eval_id": "harmful_014",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 697,
+          "train_id": "star1_00697",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 235,
+          "eval_id": "harmful_233",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 850,
+          "train_id": "star1_00850",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 236,
+          "eval_id": "harmful_128",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 929,
+          "train_id": "star1_00929",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 237,
+          "eval_id": "harmful_110",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 301,
+          "train_id": "star1_00301",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 240,
+          "eval_id": "harmful_046",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 437,
+          "train_id": "star1_00437",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 243,
+          "eval_id": "harmful_141",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 126,
+          "train_id": "star1_00126",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 245,
+          "eval_id": "harmful_212",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 928,
+          "train_id": "star1_00928",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 249,
+          "eval_id": "harmful_132",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 719,
+          "train_id": "star1_00719",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 250,
+          "eval_id": "harmful_174",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 447,
+          "train_id": "star1_00447",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 251,
+          "eval_id": "harmful_119",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 980,
+          "train_id": "star1_00980",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 252,
+          "eval_id": "harmful_115",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 227,
+          "train_id": "star1_00227",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 255,
+          "eval_id": "harmful_162",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 495,
+          "train_id": "star1_00495",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 258,
+          "eval_id": "harmful_209",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 597,
+          "train_id": "star1_00597",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 259,
+          "eval_id": "harmful_210",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 278,
+          "train_id": "star1_00278",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 265,
+          "eval_id": "harmful_066",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 969,
+          "train_id": "star1_00969",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 266,
+          "eval_id": "harmful_239",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 466,
+          "train_id": "star1_00466",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 271,
+          "eval_id": "harmful_121",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 25,
+          "train_id": "star1_00025",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 272,
+          "eval_id": "harmful_071",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 535,
+          "train_id": "star1_00535",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 275,
+          "eval_id": "harmful_114",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 804,
+          "train_id": "star1_00804",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 279,
+          "eval_id": "harmful_080",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 878,
+          "train_id": "star1_00878",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 280,
+          "eval_id": "harmful_153",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 531,
+          "train_id": "star1_00531",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 281,
+          "eval_id": "harmful_148",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 176,
+          "train_id": "star1_00176",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 284,
+          "eval_id": "harmful_033",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 194,
+          "train_id": "star1_00194",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 285,
+          "eval_id": "harmful_177",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 31,
+          "train_id": "star1_00031",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 286,
+          "eval_id": "harmful_163",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 938,
+          "train_id": "star1_00938",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 287,
+          "eval_id": "harmful_044",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 807,
+          "train_id": "star1_00807",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 289,
+          "eval_id": "harmful_088",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 19,
+          "train_id": "star1_00019",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 290,
+          "eval_id": "harmful_231",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 919,
+          "train_id": "star1_00919",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 291,
+          "eval_id": "harmful_037",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 43,
+          "train_id": "star1_00043",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 293,
+          "eval_id": "harmful_062",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 496,
+          "train_id": "star1_00496",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 297,
+          "eval_id": "harmful_109",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 454,
+          "train_id": "star1_00454",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 299,
+          "eval_id": "harmful_133",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 443,
+          "train_id": "star1_00443",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 300,
+          "eval_id": "harmful_134",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 86,
+          "train_id": "star1_00086",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 301,
+          "eval_id": "harmful_060",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 694,
+          "train_id": "star1_00694",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 307,
+          "eval_id": "harmful_013",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 679,
+          "train_id": "star1_00679",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 308,
+          "eval_id": "harmful_058",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 877,
+          "train_id": "star1_00877",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 309,
+          "eval_id": "harmful_127",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 14,
+          "train_id": "star1_00014",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 310,
+          "eval_id": "harmful_142",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 846,
+          "train_id": "star1_00846",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 311,
+          "eval_id": "harmful_160",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 460,
+          "train_id": "star1_00460",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 315,
+          "eval_id": "harmful_070",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 159,
+          "train_id": "star1_00159",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 317,
+          "eval_id": "harmful_039",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 859,
+          "train_id": "star1_00859",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 319,
+          "eval_id": "harmful_190",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 564,
+          "train_id": "star1_00564",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 320,
+          "eval_id": "harmful_189",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 155,
+          "train_id": "star1_00155",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 321,
+          "eval_id": "harmful_230",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 672,
+          "train_id": "star1_00672",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 322,
+          "eval_id": "harmful_078",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 906,
+          "train_id": "star1_00906",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 324,
+          "eval_id": "harmful_016",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 215,
+          "train_id": "star1_00215",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 326,
+          "eval_id": "harmful_196",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 310,
+          "train_id": "star1_00310",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 327,
+          "eval_id": "harmful_185",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 281,
+          "train_id": "star1_00281",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 328,
+          "eval_id": "harmful_187",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 740,
+          "train_id": "star1_00740",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 329,
+          "eval_id": "harmful_120",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 15,
+          "train_id": "star1_00015",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 331,
+          "eval_id": "harmful_064",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 89,
+          "train_id": "star1_00089",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 332,
+          "eval_id": "harmful_017",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 764,
+          "train_id": "star1_00764",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 333,
+          "eval_id": "harmful_224",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 344,
+          "train_id": "star1_00344",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 336,
+          "eval_id": "harmful_015",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 13,
+          "train_id": "star1_00013",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 337,
+          "eval_id": "harmful_081",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 378,
+          "train_id": "star1_00378",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 339,
+          "eval_id": "harmful_186",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 640,
+          "train_id": "star1_00640",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 340,
+          "eval_id": "harmful_207",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 641,
+          "train_id": "star1_00641",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 342,
+          "eval_id": "harmful_038",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 756,
+          "train_id": "star1_00756",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 343,
+          "eval_id": "harmful_029",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 188,
+          "train_id": "star1_00188",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 345,
+          "eval_id": "harmful_140",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 736,
+          "train_id": "star1_00736",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 346,
+          "eval_id": "harmful_222",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 416,
+          "train_id": "star1_00416",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 351,
+          "eval_id": "harmful_179",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 580,
+          "train_id": "star1_00580",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 352,
+          "eval_id": "harmful_227",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 277,
+          "train_id": "star1_00277",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 354,
+          "eval_id": "harmful_085",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 706,
+          "train_id": "star1_00706",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 355,
+          "eval_id": "harmful_218",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 333,
+          "train_id": "star1_00333",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 357,
+          "eval_id": "harmful_228",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 635,
+          "train_id": "star1_00635",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 358,
+          "eval_id": "harmful_156",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 374,
+          "train_id": "star1_00374",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 359,
+          "eval_id": "harmful_151",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 331,
+          "train_id": "star1_00331",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 361,
+          "eval_id": "harmful_167",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 680,
+          "train_id": "star1_00680",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 363,
+          "eval_id": "harmful_052",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 398,
+          "train_id": "star1_00398",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 364,
+          "eval_id": "harmful_164",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 793,
+          "train_id": "star1_00793",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 367,
+          "eval_id": "harmful_092",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 423,
+          "train_id": "star1_00423",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 369,
+          "eval_id": "harmful_220",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 982,
+          "train_id": "star1_00982",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 370,
+          "eval_id": "harmful_040",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 173,
+          "train_id": "star1_00173",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 371,
+          "eval_id": "harmful_217",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 353,
+          "train_id": "star1_00353",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 372,
+          "eval_id": "harmful_042",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 157,
+          "train_id": "star1_00157",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 373,
+          "eval_id": "harmful_136",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 872,
+          "train_id": "star1_00872",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 381,
+          "eval_id": "harmful_197",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 520,
+          "train_id": "star1_00520",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 382,
+          "eval_id": "harmful_225",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 127,
+          "train_id": "star1_00127",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 384,
+          "eval_id": "harmful_204",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 555,
+          "train_id": "star1_00555",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 385,
+          "eval_id": "harmful_223",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 290,
+          "train_id": "star1_00290",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 386,
+          "eval_id": "harmful_188",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 213,
+          "train_id": "star1_00213",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 387,
+          "eval_id": "harmful_063",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 537,
+          "train_id": "star1_00537",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 388,
+          "eval_id": "harmful_139",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 440,
+          "train_id": "star1_00440",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 389,
+          "eval_id": "harmful_169",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 967,
+          "train_id": "star1_00967",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 391,
+          "eval_id": "harmful_024",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 323,
+          "train_id": "star1_00323",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 393,
+          "eval_id": "harmful_146",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 179,
+          "train_id": "star1_00179",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 394,
+          "eval_id": "harmful_097",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 557,
+          "train_id": "star1_00557",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 399,
+          "eval_id": "harmful_242",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 455,
+          "train_id": "star1_00455",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 401,
+          "eval_id": "harmful_203",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 153,
+          "train_id": "star1_00153",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 403,
+          "eval_id": "harmful_158",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 952,
+          "train_id": "star1_00952",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 404,
+          "eval_id": "harmful_161",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 726,
+          "train_id": "star1_00726",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 405,
+          "eval_id": "harmful_021",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 677,
+          "train_id": "star1_00677",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 406,
+          "eval_id": "harmful_102",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 632,
+          "train_id": "star1_00632",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 409,
+          "eval_id": "harmful_103",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 749,
+          "train_id": "star1_00749",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 410,
+          "eval_id": "harmful_150",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 917,
+          "train_id": "star1_00917",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 411,
+          "eval_id": "harmful_018",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 228,
+          "train_id": "star1_00228",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 416,
+          "eval_id": "harmful_069",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 881,
+          "train_id": "star1_00881",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 418,
+          "eval_id": "harmful_093",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 42,
+          "train_id": "star1_00042",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 420,
+          "eval_id": "harmful_245",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 273,
+          "train_id": "star1_00273",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 422,
+          "eval_id": "harmful_237",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 233,
+          "train_id": "star1_00233",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 426,
+          "eval_id": "harmful_089",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 913,
+          "train_id": "star1_00913",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 429,
+          "eval_id": "harmful_173",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 471,
+          "train_id": "star1_00471",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 433,
+          "eval_id": "harmful_068",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 563,
+          "train_id": "star1_00563",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 434,
+          "eval_id": "harmful_170",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 47,
+          "train_id": "star1_00047",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 439,
+          "eval_id": "harmful_053",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 619,
+          "train_id": "star1_00619",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 444,
+          "eval_id": "harmful_176",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 427,
+          "train_id": "star1_00427",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 447,
+          "eval_id": "harmful_182",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 17,
+          "train_id": "star1_00017",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 450,
+          "eval_id": "harmful_129",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 964,
+          "train_id": "star1_00964",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 451,
+          "eval_id": "harmful_191",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 851,
+          "train_id": "star1_00851",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 452,
+          "eval_id": "harmful_198",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 821,
+          "train_id": "star1_00821",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 454,
+          "eval_id": "harmful_022",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 577,
+          "train_id": "star1_00577",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 455,
+          "eval_id": "harmful_240",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 806,
+          "train_id": "star1_00806",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 457,
+          "eval_id": "harmful_199",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 298,
+          "train_id": "star1_00298",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 458,
+          "eval_id": "harmful_010",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 136,
+          "train_id": "star1_00136",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 465,
+          "eval_id": "harmful_034",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 442,
+          "train_id": "star1_00442",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 466,
+          "eval_id": "harmful_184",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 805,
+          "train_id": "star1_00805",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 468,
+          "eval_id": "harmful_043",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 161,
+          "train_id": "star1_00161",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 471,
+          "eval_id": "harmful_095",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 320,
+          "train_id": "star1_00320",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 472,
+          "eval_id": "harmful_213",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 854,
+          "train_id": "star1_00854",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 475,
+          "eval_id": "harmful_180",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 415,
+          "train_id": "star1_00415",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 477,
+          "eval_id": "harmful_000",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 710,
+          "train_id": "star1_00710",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 478,
+          "eval_id": "harmful_219",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 979,
+          "train_id": "star1_00979",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 479,
+          "eval_id": "harmful_149",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 372,
+          "train_id": "star1_00372",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 480,
+          "eval_id": "harmful_073",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 135,
+          "train_id": "star1_00135",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 482,
+          "eval_id": "harmful_123",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 730,
+          "train_id": "star1_00730",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 486,
+          "eval_id": "harmful_008",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 92,
+          "train_id": "star1_00092",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 492,
+          "eval_id": "harmful_056",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 674,
+          "train_id": "star1_00674",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 493,
+          "eval_id": "harmful_032",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 628,
+          "train_id": "star1_00628",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 494,
+          "eval_id": "harmful_234",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 750,
+          "train_id": "star1_00750",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 498,
+          "eval_id": "harmful_214",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 428,
+          "train_id": "star1_00428",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 499,
+          "eval_id": "harmful_122",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 914,
+          "train_id": "star1_00914",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        }
+      ],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.0,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+        "bytes": 2130057,
+        "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+      }
+    },
+    "owned_fullft_safety_s42_training": {
+      "n_train": 1000,
+      "n_eval": 500,
+      "n_normalised_exact": 250,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 250,
+          "n_normalised_exact": 250,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 250,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [
+        {
+          "eval_index": 0,
+          "eval_id": "harmful_079",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 898,
+          "train_id": "star1_00898",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 1,
+          "eval_id": "harmful_099",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 84,
+          "train_id": "star1_00084",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 4,
+          "eval_id": "harmful_075",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 883,
+          "train_id": "star1_00883",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 5,
+          "eval_id": "harmful_004",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 685,
+          "train_id": "star1_00685",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 6,
+          "eval_id": "harmful_026",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 8,
+          "train_id": "star1_00008",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 7,
+          "eval_id": "harmful_003",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 486,
+          "train_id": "star1_00486",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 8,
+          "eval_id": "harmful_235",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 490,
+          "train_id": "star1_00490",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 9,
+          "eval_id": "harmful_091",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 240,
+          "train_id": "star1_00240",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 10,
+          "eval_id": "harmful_028",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 737,
+          "train_id": "star1_00737",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 14,
+          "eval_id": "harmful_172",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 787,
+          "train_id": "star1_00787",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 15,
+          "eval_id": "harmful_130",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 665,
+          "train_id": "star1_00665",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 16,
+          "eval_id": "harmful_105",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 731,
+          "train_id": "star1_00731",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 19,
+          "eval_id": "harmful_100",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 293,
+          "train_id": "star1_00293",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 20,
+          "eval_id": "harmful_215",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 343,
+          "train_id": "star1_00343",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 22,
+          "eval_id": "harmful_090",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 690,
+          "train_id": "star1_00690",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 27,
+          "eval_id": "harmful_221",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 615,
+          "train_id": "star1_00615",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 28,
+          "eval_id": "harmful_054",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 857,
+          "train_id": "star1_00857",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 30,
+          "eval_id": "harmful_101",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 472,
+          "train_id": "star1_00472",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 35,
+          "eval_id": "harmful_202",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 668,
+          "train_id": "star1_00668",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 38,
+          "eval_id": "harmful_145",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 541,
+          "train_id": "star1_00541",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 40,
+          "eval_id": "harmful_226",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 267,
+          "train_id": "star1_00267",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 42,
+          "eval_id": "harmful_059",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 324,
+          "train_id": "star1_00324",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 44,
+          "eval_id": "harmful_019",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 989,
+          "train_id": "star1_00989",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 45,
+          "eval_id": "harmful_108",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 386,
+          "train_id": "star1_00386",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 46,
+          "eval_id": "harmful_171",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 916,
+          "train_id": "star1_00916",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 47,
+          "eval_id": "harmful_193",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 715,
+          "train_id": "star1_00715",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 48,
+          "eval_id": "harmful_241",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 894,
+          "train_id": "star1_00894",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 49,
+          "eval_id": "harmful_125",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 130,
+          "train_id": "star1_00130",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 52,
+          "eval_id": "harmful_232",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 342,
+          "train_id": "star1_00342",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 54,
+          "eval_id": "harmful_084",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 241,
+          "train_id": "star1_00241",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 56,
+          "eval_id": "harmful_137",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 192,
+          "train_id": "star1_00192",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 57,
+          "eval_id": "harmful_117",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 602,
+          "train_id": "star1_00602",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 62,
+          "eval_id": "harmful_246",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 189,
+          "train_id": "star1_00189",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 67,
+          "eval_id": "harmful_065",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 862,
+          "train_id": "star1_00862",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 68,
+          "eval_id": "harmful_025",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 662,
+          "train_id": "star1_00662",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 69,
+          "eval_id": "harmful_244",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 55,
+          "train_id": "star1_00055",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 70,
+          "eval_id": "harmful_178",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 935,
+          "train_id": "star1_00935",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 72,
+          "eval_id": "harmful_200",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 634,
+          "train_id": "star1_00634",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 73,
+          "eval_id": "harmful_047",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 242,
+          "train_id": "star1_00242",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 79,
+          "eval_id": "harmful_035",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 145,
+          "train_id": "star1_00145",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 80,
+          "eval_id": "harmful_175",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 144,
+          "train_id": "star1_00144",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 82,
+          "eval_id": "harmful_206",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 816,
+          "train_id": "star1_00816",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 83,
+          "eval_id": "harmful_049",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 147,
+          "train_id": "star1_00147",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 84,
+          "eval_id": "harmful_009",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 853,
+          "train_id": "star1_00853",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 85,
+          "eval_id": "harmful_104",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 526,
+          "train_id": "star1_00526",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 87,
+          "eval_id": "harmful_152",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 943,
+          "train_id": "star1_00943",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 91,
+          "eval_id": "harmful_126",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 235,
+          "train_id": "star1_00235",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 93,
+          "eval_id": "harmful_005",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 871,
+          "train_id": "star1_00871",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 94,
+          "eval_id": "harmful_096",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 54,
+          "train_id": "star1_00054",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 95,
+          "eval_id": "harmful_051",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 954,
+          "train_id": "star1_00954",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 100,
+          "eval_id": "harmful_055",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 302,
+          "train_id": "star1_00302",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 102,
+          "eval_id": "harmful_001",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 515,
+          "train_id": "star1_00515",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 103,
+          "eval_id": "harmful_194",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 548,
+          "train_id": "star1_00548",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 104,
+          "eval_id": "harmful_111",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 128,
+          "train_id": "star1_00128",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 106,
+          "eval_id": "harmful_195",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 70,
+          "train_id": "star1_00070",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 108,
+          "eval_id": "harmful_208",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 986,
+          "train_id": "star1_00986",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 110,
+          "eval_id": "harmful_124",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 722,
+          "train_id": "star1_00722",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 112,
+          "eval_id": "harmful_113",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 335,
+          "train_id": "star1_00335",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 113,
+          "eval_id": "harmful_006",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 528,
+          "train_id": "star1_00528",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 114,
+          "eval_id": "harmful_045",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 482,
+          "train_id": "star1_00482",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 115,
+          "eval_id": "harmful_138",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 193,
+          "train_id": "star1_00193",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 117,
+          "eval_id": "harmful_030",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 369,
+          "train_id": "star1_00369",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 123,
+          "eval_id": "harmful_002",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 542,
+          "train_id": "star1_00542",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 124,
+          "eval_id": "harmful_135",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 796,
+          "train_id": "star1_00796",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 125,
+          "eval_id": "harmful_201",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 487,
+          "train_id": "star1_00487",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 126,
+          "eval_id": "harmful_165",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 356,
+          "train_id": "star1_00356",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 131,
+          "eval_id": "harmful_048",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 132,
+          "train_id": "star1_00132",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 133,
+          "eval_id": "harmful_083",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 953,
+          "train_id": "star1_00953",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 136,
+          "eval_id": "harmful_107",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 35,
+          "train_id": "star1_00035",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 137,
+          "eval_id": "harmful_098",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 869,
+          "train_id": "star1_00869",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 139,
+          "eval_id": "harmful_012",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 682,
+          "train_id": "star1_00682",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 147,
+          "eval_id": "harmful_061",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 61,
+          "train_id": "star1_00061",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 149,
+          "eval_id": "harmful_027",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 465,
+          "train_id": "star1_00465",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 150,
+          "eval_id": "harmful_143",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 780,
+          "train_id": "star1_00780",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 151,
+          "eval_id": "harmful_131",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 743,
+          "train_id": "star1_00743",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 152,
+          "eval_id": "harmful_094",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 735,
+          "train_id": "star1_00735",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 153,
+          "eval_id": "harmful_238",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 991,
+          "train_id": "star1_00991",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 158,
+          "eval_id": "harmful_036",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 180,
+          "train_id": "star1_00180",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 159,
+          "eval_id": "harmful_155",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 408,
+          "train_id": "star1_00408",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 160,
+          "eval_id": "harmful_087",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 300,
+          "train_id": "star1_00300",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 162,
+          "eval_id": "harmful_118",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 129,
+          "train_id": "star1_00129",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 164,
+          "eval_id": "harmful_183",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 119,
+          "train_id": "star1_00119",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 165,
+          "eval_id": "harmful_112",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 170,
+          "train_id": "star1_00170",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 169,
+          "eval_id": "harmful_116",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 433,
+          "train_id": "star1_00433",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 170,
+          "eval_id": "harmful_076",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 553,
+          "train_id": "star1_00553",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 176,
+          "eval_id": "harmful_074",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 492,
+          "train_id": "star1_00492",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 178,
+          "eval_id": "harmful_211",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 765,
+          "train_id": "star1_00765",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 180,
+          "eval_id": "harmful_192",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 384,
+          "train_id": "star1_00384",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 183,
+          "eval_id": "harmful_106",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 467,
+          "train_id": "star1_00467",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 186,
+          "eval_id": "harmful_166",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 595,
+          "train_id": "star1_00595",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 187,
+          "eval_id": "harmful_067",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 624,
+          "train_id": "star1_00624",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 188,
+          "eval_id": "harmful_147",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 918,
+          "train_id": "star1_00918",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 189,
+          "eval_id": "harmful_205",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 204,
+          "train_id": "star1_00204",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 190,
+          "eval_id": "harmful_011",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 971,
+          "train_id": "star1_00971",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 192,
+          "eval_id": "harmful_007",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 571,
+          "train_id": "star1_00571",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 194,
+          "eval_id": "harmful_144",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 493,
+          "train_id": "star1_00493",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 195,
+          "eval_id": "harmful_086",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 926,
+          "train_id": "star1_00926",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 196,
+          "eval_id": "harmful_154",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 151,
+          "train_id": "star1_00151",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 198,
+          "eval_id": "harmful_159",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 66,
+          "train_id": "star1_00066",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 199,
+          "eval_id": "harmful_168",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 961,
+          "train_id": "star1_00961",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 201,
+          "eval_id": "harmful_229",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 811,
+          "train_id": "star1_00811",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 206,
+          "eval_id": "harmful_236",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 985,
+          "train_id": "star1_00985",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 207,
+          "eval_id": "harmful_023",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 897,
+          "train_id": "star1_00897",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 209,
+          "eval_id": "harmful_157",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 884,
+          "train_id": "star1_00884",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 212,
+          "eval_id": "harmful_247",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 37,
+          "train_id": "star1_00037",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 214,
+          "eval_id": "harmful_243",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 494,
+          "train_id": "star1_00494",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 216,
+          "eval_id": "harmful_050",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 102,
+          "train_id": "star1_00102",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 218,
+          "eval_id": "harmful_020",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 448,
+          "train_id": "star1_00448",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 219,
+          "eval_id": "harmful_216",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 131,
+          "train_id": "star1_00131",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 220,
+          "eval_id": "harmful_072",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 36,
+          "train_id": "star1_00036",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 222,
+          "eval_id": "harmful_248",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 406,
+          "train_id": "star1_00406",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 223,
+          "eval_id": "harmful_057",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 574,
+          "train_id": "star1_00574",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 224,
+          "eval_id": "harmful_181",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 461,
+          "train_id": "star1_00461",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 225,
+          "eval_id": "harmful_082",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 987,
+          "train_id": "star1_00987",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 226,
+          "eval_id": "harmful_041",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 402,
+          "train_id": "star1_00402",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 228,
+          "eval_id": "harmful_077",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 377,
+          "train_id": "star1_00377",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 230,
+          "eval_id": "harmful_249",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 355,
+          "train_id": "star1_00355",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 231,
+          "eval_id": "harmful_031",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 308,
+          "train_id": "star1_00308",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 233,
+          "eval_id": "harmful_014",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 697,
+          "train_id": "star1_00697",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 235,
+          "eval_id": "harmful_233",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 850,
+          "train_id": "star1_00850",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 236,
+          "eval_id": "harmful_128",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 929,
+          "train_id": "star1_00929",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 237,
+          "eval_id": "harmful_110",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 301,
+          "train_id": "star1_00301",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 240,
+          "eval_id": "harmful_046",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 437,
+          "train_id": "star1_00437",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 243,
+          "eval_id": "harmful_141",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 126,
+          "train_id": "star1_00126",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 245,
+          "eval_id": "harmful_212",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 928,
+          "train_id": "star1_00928",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 249,
+          "eval_id": "harmful_132",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 719,
+          "train_id": "star1_00719",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 250,
+          "eval_id": "harmful_174",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 447,
+          "train_id": "star1_00447",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 251,
+          "eval_id": "harmful_119",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 980,
+          "train_id": "star1_00980",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 252,
+          "eval_id": "harmful_115",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 227,
+          "train_id": "star1_00227",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 255,
+          "eval_id": "harmful_162",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 495,
+          "train_id": "star1_00495",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 258,
+          "eval_id": "harmful_209",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 597,
+          "train_id": "star1_00597",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 259,
+          "eval_id": "harmful_210",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 278,
+          "train_id": "star1_00278",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 265,
+          "eval_id": "harmful_066",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 969,
+          "train_id": "star1_00969",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 266,
+          "eval_id": "harmful_239",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 466,
+          "train_id": "star1_00466",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 271,
+          "eval_id": "harmful_121",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 25,
+          "train_id": "star1_00025",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 272,
+          "eval_id": "harmful_071",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 535,
+          "train_id": "star1_00535",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 275,
+          "eval_id": "harmful_114",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 804,
+          "train_id": "star1_00804",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 279,
+          "eval_id": "harmful_080",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 878,
+          "train_id": "star1_00878",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 280,
+          "eval_id": "harmful_153",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 531,
+          "train_id": "star1_00531",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 281,
+          "eval_id": "harmful_148",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 176,
+          "train_id": "star1_00176",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 284,
+          "eval_id": "harmful_033",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 194,
+          "train_id": "star1_00194",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 285,
+          "eval_id": "harmful_177",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 31,
+          "train_id": "star1_00031",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 286,
+          "eval_id": "harmful_163",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 938,
+          "train_id": "star1_00938",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 287,
+          "eval_id": "harmful_044",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 807,
+          "train_id": "star1_00807",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 289,
+          "eval_id": "harmful_088",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 19,
+          "train_id": "star1_00019",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 290,
+          "eval_id": "harmful_231",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 919,
+          "train_id": "star1_00919",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 291,
+          "eval_id": "harmful_037",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 43,
+          "train_id": "star1_00043",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 293,
+          "eval_id": "harmful_062",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 496,
+          "train_id": "star1_00496",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 297,
+          "eval_id": "harmful_109",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 454,
+          "train_id": "star1_00454",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 299,
+          "eval_id": "harmful_133",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 443,
+          "train_id": "star1_00443",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 300,
+          "eval_id": "harmful_134",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 86,
+          "train_id": "star1_00086",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 301,
+          "eval_id": "harmful_060",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 694,
+          "train_id": "star1_00694",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 307,
+          "eval_id": "harmful_013",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 679,
+          "train_id": "star1_00679",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 308,
+          "eval_id": "harmful_058",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 877,
+          "train_id": "star1_00877",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 309,
+          "eval_id": "harmful_127",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 14,
+          "train_id": "star1_00014",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 310,
+          "eval_id": "harmful_142",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 846,
+          "train_id": "star1_00846",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 311,
+          "eval_id": "harmful_160",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 460,
+          "train_id": "star1_00460",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 315,
+          "eval_id": "harmful_070",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 159,
+          "train_id": "star1_00159",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 317,
+          "eval_id": "harmful_039",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 859,
+          "train_id": "star1_00859",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 319,
+          "eval_id": "harmful_190",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 564,
+          "train_id": "star1_00564",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 320,
+          "eval_id": "harmful_189",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 155,
+          "train_id": "star1_00155",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 321,
+          "eval_id": "harmful_230",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 672,
+          "train_id": "star1_00672",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 322,
+          "eval_id": "harmful_078",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 906,
+          "train_id": "star1_00906",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 324,
+          "eval_id": "harmful_016",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 215,
+          "train_id": "star1_00215",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 326,
+          "eval_id": "harmful_196",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 310,
+          "train_id": "star1_00310",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 327,
+          "eval_id": "harmful_185",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 281,
+          "train_id": "star1_00281",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 328,
+          "eval_id": "harmful_187",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 740,
+          "train_id": "star1_00740",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 329,
+          "eval_id": "harmful_120",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 15,
+          "train_id": "star1_00015",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 331,
+          "eval_id": "harmful_064",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 89,
+          "train_id": "star1_00089",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 332,
+          "eval_id": "harmful_017",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 764,
+          "train_id": "star1_00764",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 333,
+          "eval_id": "harmful_224",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 344,
+          "train_id": "star1_00344",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 336,
+          "eval_id": "harmful_015",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 13,
+          "train_id": "star1_00013",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 337,
+          "eval_id": "harmful_081",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 378,
+          "train_id": "star1_00378",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 339,
+          "eval_id": "harmful_186",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 640,
+          "train_id": "star1_00640",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 340,
+          "eval_id": "harmful_207",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 641,
+          "train_id": "star1_00641",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 342,
+          "eval_id": "harmful_038",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 756,
+          "train_id": "star1_00756",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 343,
+          "eval_id": "harmful_029",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 188,
+          "train_id": "star1_00188",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 345,
+          "eval_id": "harmful_140",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 736,
+          "train_id": "star1_00736",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 346,
+          "eval_id": "harmful_222",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 416,
+          "train_id": "star1_00416",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 351,
+          "eval_id": "harmful_179",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 580,
+          "train_id": "star1_00580",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 352,
+          "eval_id": "harmful_227",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 277,
+          "train_id": "star1_00277",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 354,
+          "eval_id": "harmful_085",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 706,
+          "train_id": "star1_00706",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 355,
+          "eval_id": "harmful_218",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 333,
+          "train_id": "star1_00333",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 357,
+          "eval_id": "harmful_228",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 635,
+          "train_id": "star1_00635",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 358,
+          "eval_id": "harmful_156",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 374,
+          "train_id": "star1_00374",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 359,
+          "eval_id": "harmful_151",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 331,
+          "train_id": "star1_00331",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 361,
+          "eval_id": "harmful_167",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 680,
+          "train_id": "star1_00680",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 363,
+          "eval_id": "harmful_052",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 398,
+          "train_id": "star1_00398",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 364,
+          "eval_id": "harmful_164",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 793,
+          "train_id": "star1_00793",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 367,
+          "eval_id": "harmful_092",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 423,
+          "train_id": "star1_00423",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 369,
+          "eval_id": "harmful_220",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 982,
+          "train_id": "star1_00982",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 370,
+          "eval_id": "harmful_040",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 173,
+          "train_id": "star1_00173",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 371,
+          "eval_id": "harmful_217",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 353,
+          "train_id": "star1_00353",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 372,
+          "eval_id": "harmful_042",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 157,
+          "train_id": "star1_00157",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 373,
+          "eval_id": "harmful_136",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 872,
+          "train_id": "star1_00872",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 381,
+          "eval_id": "harmful_197",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 520,
+          "train_id": "star1_00520",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 382,
+          "eval_id": "harmful_225",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 127,
+          "train_id": "star1_00127",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 384,
+          "eval_id": "harmful_204",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 555,
+          "train_id": "star1_00555",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 385,
+          "eval_id": "harmful_223",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 290,
+          "train_id": "star1_00290",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 386,
+          "eval_id": "harmful_188",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 213,
+          "train_id": "star1_00213",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 387,
+          "eval_id": "harmful_063",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 537,
+          "train_id": "star1_00537",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 388,
+          "eval_id": "harmful_139",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 440,
+          "train_id": "star1_00440",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 389,
+          "eval_id": "harmful_169",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 967,
+          "train_id": "star1_00967",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 391,
+          "eval_id": "harmful_024",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 323,
+          "train_id": "star1_00323",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 393,
+          "eval_id": "harmful_146",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 179,
+          "train_id": "star1_00179",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 394,
+          "eval_id": "harmful_097",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 557,
+          "train_id": "star1_00557",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 399,
+          "eval_id": "harmful_242",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 455,
+          "train_id": "star1_00455",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 401,
+          "eval_id": "harmful_203",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 153,
+          "train_id": "star1_00153",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 403,
+          "eval_id": "harmful_158",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 952,
+          "train_id": "star1_00952",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 404,
+          "eval_id": "harmful_161",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 726,
+          "train_id": "star1_00726",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 405,
+          "eval_id": "harmful_021",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 677,
+          "train_id": "star1_00677",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 406,
+          "eval_id": "harmful_102",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 632,
+          "train_id": "star1_00632",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 409,
+          "eval_id": "harmful_103",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 749,
+          "train_id": "star1_00749",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 410,
+          "eval_id": "harmful_150",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 917,
+          "train_id": "star1_00917",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 411,
+          "eval_id": "harmful_018",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 228,
+          "train_id": "star1_00228",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 416,
+          "eval_id": "harmful_069",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 881,
+          "train_id": "star1_00881",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 418,
+          "eval_id": "harmful_093",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 42,
+          "train_id": "star1_00042",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 420,
+          "eval_id": "harmful_245",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 273,
+          "train_id": "star1_00273",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 422,
+          "eval_id": "harmful_237",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 233,
+          "train_id": "star1_00233",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 426,
+          "eval_id": "harmful_089",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 913,
+          "train_id": "star1_00913",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 429,
+          "eval_id": "harmful_173",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 471,
+          "train_id": "star1_00471",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 433,
+          "eval_id": "harmful_068",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 563,
+          "train_id": "star1_00563",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 434,
+          "eval_id": "harmful_170",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 47,
+          "train_id": "star1_00047",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 439,
+          "eval_id": "harmful_053",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 619,
+          "train_id": "star1_00619",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 444,
+          "eval_id": "harmful_176",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 427,
+          "train_id": "star1_00427",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 447,
+          "eval_id": "harmful_182",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 17,
+          "train_id": "star1_00017",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 450,
+          "eval_id": "harmful_129",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 964,
+          "train_id": "star1_00964",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 451,
+          "eval_id": "harmful_191",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 851,
+          "train_id": "star1_00851",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 452,
+          "eval_id": "harmful_198",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 821,
+          "train_id": "star1_00821",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 454,
+          "eval_id": "harmful_022",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 577,
+          "train_id": "star1_00577",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 455,
+          "eval_id": "harmful_240",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 806,
+          "train_id": "star1_00806",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 457,
+          "eval_id": "harmful_199",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 298,
+          "train_id": "star1_00298",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 458,
+          "eval_id": "harmful_010",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 136,
+          "train_id": "star1_00136",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 465,
+          "eval_id": "harmful_034",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 442,
+          "train_id": "star1_00442",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 466,
+          "eval_id": "harmful_184",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 805,
+          "train_id": "star1_00805",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 468,
+          "eval_id": "harmful_043",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 161,
+          "train_id": "star1_00161",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 471,
+          "eval_id": "harmful_095",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 320,
+          "train_id": "star1_00320",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 472,
+          "eval_id": "harmful_213",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 854,
+          "train_id": "star1_00854",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 475,
+          "eval_id": "harmful_180",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 415,
+          "train_id": "star1_00415",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 477,
+          "eval_id": "harmful_000",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 710,
+          "train_id": "star1_00710",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 478,
+          "eval_id": "harmful_219",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 979,
+          "train_id": "star1_00979",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 479,
+          "eval_id": "harmful_149",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 372,
+          "train_id": "star1_00372",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 480,
+          "eval_id": "harmful_073",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 135,
+          "train_id": "star1_00135",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 482,
+          "eval_id": "harmful_123",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 730,
+          "train_id": "star1_00730",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 486,
+          "eval_id": "harmful_008",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 92,
+          "train_id": "star1_00092",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 492,
+          "eval_id": "harmful_056",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 674,
+          "train_id": "star1_00674",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 493,
+          "eval_id": "harmful_032",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 628,
+          "train_id": "star1_00628",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 494,
+          "eval_id": "harmful_234",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 750,
+          "train_id": "star1_00750",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 498,
+          "eval_id": "harmful_214",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 428,
+          "train_id": "star1_00428",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        },
+        {
+          "eval_index": 499,
+          "eval_id": "harmful_122",
+          "eval_harmful": true,
+          "eval_source": "STAR-1",
+          "train_index": 914,
+          "train_id": "star1_00914",
+          "train_source": "UCSC-VLAA/STAR-1",
+          "normalised_exact": true
+        }
+      ],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.0,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+        "bytes": 2130057,
+        "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+      }
+    },
+    "owned_fullft_control_s42_training": {
+      "n_train": 1000,
+      "n_eval": 500,
+      "n_normalised_exact": 0,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 250,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 250,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.039604,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/control_offpolicy_sft.json",
+        "bytes": 1844996,
+        "sha256": "eb7e3face9761a8ebb9589814860b806a0f274e4344b842da1ca5ba06fe0e585"
+      }
+    }
+  },
+  "admission_consequence": "Any exact or near-overlapping evaluation prompt is excluded from the final held-out safety benchmark for that checkpoint role."
+}

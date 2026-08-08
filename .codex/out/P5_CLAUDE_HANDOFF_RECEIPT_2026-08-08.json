@@ -1,0 +1,36 @@
+{
+  "schema_version": "p5-claude-handoff-receipt-1",
+  "received_date": "2026-08-08",
+  "source": "Tony-provided Claude handoff in the current chat; repository mirror pending",
+  "phase2": {
+    "completed": false,
+    "do_not_short_poll_analyse_marker": true,
+    "a2_decision_sealed_in_chat": true,
+    "a2_file_sync_pending": true,
+    "manifest_path": "results/prereg/phase2_task_manifest.json",
+    "manifest_ids_sha256": null,
+    "p5_generic_reuse_confirmed": true,
+    "shared_vanilla_contract": {
+      "generated_once": true,
+      "settings": "E8 sealed decoding settings",
+      "seed": 20260808,
+      "scope": "generic stratum only",
+      "causal_family_firewall": "P5 observational endpoints may be analysed; Phase-2 causal-family outcomes remain unopened until the injection-recovery gate"
+    }
+  },
+  "snapshot_refresh": {
+    "safe_now": false,
+    "release_signal_branch": "codex/phase0-support",
+    "release_signal_commit_prefix": "Phase-0 closure"
+  },
+  "lora": {
+    "pt02_safety_sft_adapters_found_local_or_volume": false,
+    "disposition": "retrain-conditional under immutable manifests",
+    "estimated_retrain_cost_usd": "1-3",
+    "rl_adapters_survive_but_are_excluded_from_the_four-checkpoint_pilot": true
+  },
+  "pilot": {
+    "phase2_completion_required": false,
+    "tony_spend_authorisation_required": true
+  }
+}

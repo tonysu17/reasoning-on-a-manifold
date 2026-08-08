@@ -25,10 +25,10 @@ Common chains: 1000
 
 | Behaviour | Sonnet-4.5 cdim | Qwen3-235B cdim | Nova-Pro cdim | Sonnet-4.5 geo | Qwen3-235B geo | Nova-Pro geo |
 |---|---|---|---|---|---|---|
-| backtracking | — | — | — | — | — | — |
-| uncertainty-estimation | — | — | — | — | — | — |
-| example-testing | — | — | — | — | — | — |
-| adding-knowledge | — | — | — | — | — | — |
+| backtracking | 5.85 | 6.67 | 6.64 | 3.73 | 2.96 | 2.98 |
+| uncertainty-estimation | 6.21 | 7.0 | 7.15 | 4.04 | 2.92 | 2.96 |
+| example-testing | 6.04 | 6.56 | 5.96 | 4.22 | 3.35 | 3.17 |
+| adding-knowledge | 7.71 | 8.36 | 8.7 | 3.44 | 3.0 | 3.23 |
 
 **Read:** if cdim and geo are similar across annotators despite differing label distributions,
 the manifold result is annotator-robust (the headline external-robustness claim).

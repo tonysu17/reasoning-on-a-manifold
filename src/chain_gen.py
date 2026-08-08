@@ -121,7 +121,7 @@ def load_model(
 
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
-        dtype=torch_dtype,
+        torch_dtype=torch_dtype,  # 4.x name; 5.x accepts it (deprecated) — pod images vary
         device_map=device_map,
         trust_remote_code=True,
         quantization_config=quant_cfg,

@@ -1,0 +1,96 @@
+{
+  "status": "planning audit; not a scientific result or thesis evidence artefact",
+  "evaluation": {
+    "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json",
+    "bytes": 8902,
+    "sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+    "n": 24,
+    "n_harmful": 12,
+    "n_benign": 12
+  },
+  "normalisation": "Unicode NFKC, casefold, collapse whitespace",
+  "training_roles": {
+    "public_star1_training": {
+      "n_train": 1000,
+      "n_eval": 24,
+      "n_normalised_exact": 0,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.032258,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+        "bytes": 2130057,
+        "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+      }
+    },
+    "owned_fullft_safety_s42_training": {
+      "n_train": 1000,
+      "n_eval": 24,
+      "n_normalised_exact": 0,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.032258,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+        "bytes": 2130057,
+        "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+      }
+    },
+    "owned_fullft_control_s42_training": {
+      "n_train": 1000,
+      "n_eval": 24,
+      "n_normalised_exact": 0,
+      "n_near_only": 0,
+      "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+      "by_eval_stratum": {
+        "harmful": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        },
+        "benign": {
+          "n_eval": 12,
+          "n_normalised_exact": 0,
+          "n_near_only": 0
+        }
+      },
+      "normalised_exact_matches": [],
+      "near_only_matches": [],
+      "maximum_nonexact_similarity": 0.0,
+      "input": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/control_offpolicy_sft.json",
+        "bytes": 1844996,
+        "sha256": "eb7e3face9761a8ebb9589814860b806a0f274e4344b842da1ca5ba06fe0e585"
+      }
+    }
+  },
+  "admission_consequence": "Any exact or near-overlapping evaluation prompt is excluded from the final held-out safety benchmark for that checkpoint role."
+}

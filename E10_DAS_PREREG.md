@@ -260,3 +260,139 @@ the real finding.**
   loops (collapse 0.44) but boxed 0.00 and hits the 8192 cap ⇒ it prevents the degenerate-loop
   failure mode without preserving useful task completion. Lower repetition-collapse is NOT the same
   as preserved reasoning; report both.
+
+## AMENDMENT 4 (2026-07-19, sealed BEFORE the pod run — E10.3 cross-behaviour generalization)
+
+**Question.** Is the E10.1 finding — a causally selected 1-D frame that is grounded, nearly
+orthogonal to diff-of-means, and far stronger per unit intervention — a **general property of
+control-state behaviours**, or a **backtracking fact**? Backtracking was the friendliest possible
+case: a crisp lexical onset ("Wait"/"Actually") makes its counterfactual pairs sharply localized.
+The thesis's causal chapter currently rests on n=1 behaviour; this amendment extends the identical
+recipe to **uncertainty-estimation** and **example-testing**.
+
+**Method: IDENTICAL, no knob re-tuning (M5 anti-inheritance).** All hyperparameters are carried
+over from the executed backtracking run unchanged and are sealed here: n_pairs=400, ctx=320,
+min_ctx=16, W=12, bs=16, epochs=60, lr=1e-2, seed=0, cold+warm+shuffled arms, Amendment-1 windowed
+objective, Amendment-2 controls stage. **If results are weak, no per-behaviour hyperparameter
+search is permitted** — a weak result under the sealed knobs is the finding. Base labels stay
+`(deduction, initializing)` for every behaviour (comparability across behaviours; the annotation
+model is one-label-per-sentence, so source and base onset sets are disjoint by construction).
+Script: `20_das_backtracking.py --behaviour <b>` (Amendment-4 parameterization; backtracking
+defaults reproduce the executed run byte-for-byte).
+
+**Layers (per behaviour, same rationale as E10.1: E1 attribution / de-confounded 07d mid-peak /
+read-out-proximity control):**
+- uncertainty-estimation: **{15, 16, 27}** (E1 unc15 per `E1_pooled/metadata.json`; 07d mid-peak 16)
+- example-testing: **{15, 19, 27}** (E1 ex15; 07d mid-peak 19)
+Primary layer (cis stage) = the E1 layer (15 for both). Site-check as Amendment 3(b): the E1
+"layer 15" diff-means vector's true site is hs[16]; cis evaluates dm at hs[15] AND hs[16] with the
+same sealed >2× revision rule.
+
+**Grounding gate (SEALED; calibrated on the executed bt run, where L17 passed at AUC 0.760 /
+state-dep 4.3× and the ungrounded L11/L27 sat at 0.357/0.211):** a layer is GROUNDED iff
+coord-AUC ≥ 0.65 AND state-dependence ratio (real induce / base-donor-null induce) ≥ 2.0 AND
+real induce > 0. Implemented verbatim in `e10_pick_grounded_layer.py` (regression-tested: applied
+to the executed bt controls.json it returns 17).
+
+**Width probes (E10.2 recipe, k∈{1,2,4,8,16,32}):** run per behaviour ONLY at the grounded layer
+(argmax coord-AUC among grounded layers; `21_das_width.py --behaviour <b> --layer <picked>`), on
+the same pairs, ak-probe skipped (already executed). **If no layer grounds, the width probe is
+SKIPPED — the skip is the sealed outcome, not a failure to run.** Width readings as Amendment 3(d),
+against each behaviour's corr-dim (unc ≈ 6.2, ex ≈ 6.0).
+
+**Pre-registered predictions:**
+- **P-unc (headline):** uncertainty-estimation has a grounded causal frame at ≥1 mid layer
+  (15 or 16): learned sym Δlogprob > diff-of-means AND > random/positional floors AND the
+  grounding gate passes. Prior: STRONGEST candidate — the other behaviour that passed the
+  chain-stratified specificity null at all layers, and a control state rather than content.
+- **P-ex (genuinely two-sided):** example-testing sealed as uncertain — its E8 steering effect
+  dissolved into a length artefact and its specificity held only at L27. **If ex grounds ONLY at
+  L27, that is adjudicated as the read-out-proximity artefact (ungrounded-by-design layer), i.e.
+  a FAIL, not a pass.**
+- **P-L27 (trap reproduces):** at L27 both behaviours show high raw transfer with coord-AUC well
+  below gate — the optimizer-carving mode is behaviour-general.
+- **P-cross (analysis-time, free):** pairwise |cos| between grounded learned frames (bt-L17 vs
+  unc vs ex) is LOW (≲0.3, behaviour-specific frames). **Alternative reading sealed in advance:**
+  |cos| > 0.5 across behaviours ⇒ the interchange objective found a shared discourse-shift/onset
+  direction, NOT per-behaviour causal structure — reported as such, not as three discoveries.
+- **Kill / limitation branch:** a behaviour with high transfer but NO grounded layer ⇒ "no
+  grounded causal frame found under the sealed recipe"; the contrast with backtracking is then
+  evidence that DAS-on-this-model depends on lexically crisp onsets — reported as a limitation
+  finding of the method, which is itself informative for the thesis's causal-basis chapter.
+- **Stronger null:** learned ≈ random at all layers ⇒ the interchange objective finds nothing;
+  report as-is.
+
+**Caveats sealed with the design:** (i) within-annotator (Sonnet=builder) as all E10; (ii)
+uncertainty-estimation carries the WORST cross-annotator span divergence (21.6% vs 7.0% of spans,
+R2.1) — its pair labels are the noisiest of the three; a weak unc result is interpretable as label
+noise, a strong one is not thereby inflated; (iii) uncertainty/example onsets are less lexically
+marked than backtracking's — pair quality inspected on decoded samples locally BEFORE the pod run,
+and the locally built `pairs.json` files are pushed verbatim (the pod does NOT rebuild pairs).
+
+**Pre-pod pair inspection (2026-07-19, run before sealing the push):** unc = 16,679 source
+onsets → 400 pairs (254 distinct chains, 36 distinct first onset tokens); ex = 5,801 → 400
+(202 chains, 66 distinct first tokens). Decoded samples read correctly (unc: hedges/doubt
+raises; ex: case instantiation). **Observed and sealed as context for P-cross:** 38% of unc
+onsets begin with "Wait" — surface-token overlap with backtracking onsets. If cos(unc, bt)
+comes back high, the shared-discourse-shift reading is the honest one; the W=12 windowed
+objective (Amendment 1) is the design element that resists a pure "Wait-booster" solution.
+
+**Logistics:** one 4090 pod. Main (2 behaviours × 3 layers, train+eval+controls+cis) ≈ 5–6 h;
+width (conditional, ≤2 × ~2.5 h) ≈ 5 h; total ≈ **10–11 GPU-h ≈ $4–6**. Launch wrapper
+`runpod_e10_3.sh`; kill discipline per the 2026-07-13 authorization: NO on-pod self-kill — the
+Mac-side watcher (`runpod_e10_3.sh watch`) pulls on completion/crash and notifies; termination is
+Mac-side after verified pull.
+
+## ADJUDICATION 5 (2026-07-20 — E10.3 RUN; pod tk5qnd9uok53a9 terminated post-verified-pull)
+
+Run 2026-07-19 21:13 → 02:40 UTC (~5.5 h compute; ~$6.5–7 total incl. ~4 h idle overnight —
+the Mac slept and froze the watcher; pulled+verified+terminated manually 06:34 UTC).
+Artifacts: `results/das/R1-1.5B/{unc,ex}_main/{report,controls,cis}.json`, `unc_width/`.
+
+**Headline: the sealed P-cross ALTERNATIVE is the finding.** The E10.1 grounded-causal-frame
+result does NOT generalize; what generalizes is the transfer illusion the grounding controls
+exist to catch.
+
+1. **Raw transfer is enormous and non-diagnostic everywhere.** learned sym Δlogprob +0.62…+0.72
+   at every layer for both behaviours vs diff-of-means +0.01…+0.03 (paired CIs exclude 0:
+   unc +0.608 [0.542, 0.673]; ex +0.654 [0.584, 0.722]); random ≈ 0; positional ÷8–20.
+   Transfer alone would have "confirmed" grounded frames for both behaviours at every layer.
+2. **P-unc NOT SUPPORTED.** No grounded mid layer: L15 coord-AUC 0.412 (anti-separating),
+   L16 0.626 (< 0.65 gate). The gate's verdict, not a near-miss narrative: the causal-transfer
+   direction at unc's mid layers does not read the behaviour state.
+3. **P-ex FAIL (as the two-sided seal allowed).** No grounded layer anywhere: AUC 0.579 / 0.599 /
+   0.435 (L15/L19/L27). Width correctly skipped by the sealed rule.
+4. **P-L27 half-wrong, informatively.** ex L27 reproduces the trap (highest transfer +0.706,
+   worst AUC 0.435). But unc L27 PASSES the gate numerically (AUC 0.687, state-dep 2.4×) —
+   the width probe therefore ran at hs[27] per the sealed rule. Carry the read-out-proximity
+   caveat: this is the layer family E10.1 adjudicated as carved for bt, and cos(unc_L27, bt_L27)
+   = 0.97 (below). A plausible non-artefact reading — a read-out-proximal "about-to-hedge" /
+   next-token-entropy axis that genuinely separates unc states — is NOT distinguishable from
+   carving inside this run; flagged, not claimed.
+5. **P-cross: the alternative fires, decisively.** |cos| between learned frames ACROSS
+   behaviours: unc_L15↔ex_L15 **0.946**; bt_L17↔unc_L16 0.765; bt_L17↔ex_L19 0.668;
+   bt_L17↔unc_L15 0.663 — all far above the sealed 0.5 line. And unc_L27↔bt_L27 **0.968**.
+   Two shared axes, not six discoveries: ONE mid-layer direction and ONE L27 direction, each
+   found repeatedly regardless of which behaviour's pairs supervised it. The pre-sealed
+   "Wait"-overlap observation (38% of unc onsets) supplies the mechanism: DAS's interchange
+   objective is dominated by a behaviour-general **discourse-shift/onset axis**. Only for
+   backtracking — whose onsets are ~coextensive with that axis's surface trigger — does the
+   found frame ALSO read the behaviour state (bt L17 AUC 0.760).
+6. **unc width @ hs[27] (interpret under the ¶4 caveat):** transfer rises monotonically
+   0.68→1.29 (k1→k32), shuffled≈learned to k≈4 then diverges (k32 1.16 vs 1.29), AUC saturates
+   ~0.82–0.84 by k≈8. Same shape as bt's E10.2 (grounded width small, monotonic tail = carving),
+   but sited at the suspect layer, so it bounds nothing about a mid-layer unc frame.
+
+**Composite verdict for the thesis:** the causal-basis chapter's grounded frame is a
+**backtracking-specific (n=1) result** under the sealed recipe, and E10.3's contribution is the
+strongest evidence yet for its own methodological thread: interchange TRANSFER is not evidence of
+a behaviour feature (now shown 3 ways: L27 carving in E10.1, ak-removal in E10.2, and here two
+whole behaviours transferring via a shared onset axis). The lexical-onset-crispness limitation
+sealed in the kill branch is the live explanation for why bt grounds and unc/ex do not.
+Open (not run): P2-style generation stage on the shared onset axis; self-trained SAE featurizers
+at unc15/ex15; non-builder annotator band (unchanged caveat).
+
+**Ops lesson (recorded):** the Mac-side watcher is sleep-vulnerable — overnight it froze with the
+Mac and the pod idled ~4 h post-completion (~$2.7). Future overnight watchers: `caffeinate -i`
+the watcher process, or arm a pod-side "touch marker → poll Mac-pull-ack → self-terminate"
+backstop within the completed-run-only kill rule.

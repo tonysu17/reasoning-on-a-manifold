@@ -1,0 +1,1046 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reasoning-on-a-manifold.local/schemas/thesis_core_hardening_result_cell_v1.schema.json",
+  "title": "Thesis core-hardening result cell v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "family",
+    "hypothesis",
+    "cell_index",
+    "codes",
+    "model_id",
+    "annotator",
+    "label",
+    "pooling",
+    "window",
+    "layer_zero_based",
+    "input_hashes",
+    "estimator_settings",
+    "preprocessing",
+    "duplicate_audit",
+    "provenance",
+    "occurrence_list_sha256",
+    "row_counts",
+    "chain_counts",
+    "resamples",
+    "observed_cdim",
+    "observed_pr",
+    "sentence_weighted_cdim",
+    "sentence_weighted_label",
+    "chain_attrition_reasons",
+    "raw_p",
+    "holm_p",
+    "null_cdim",
+    "stability_draws",
+    "matched_results",
+    "decision",
+    "amendment_ids"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["thesis-core-hardening-result-cell-v1"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["UNRUN", "VALID", "INVALID", "STOPPED"]
+    },
+    "family": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "five_depth",
+        "three_annotator",
+        "truncation",
+        "pooling_window",
+        "curvature"
+      ]
+    },
+    "hypothesis": {
+      "type": "string",
+      "enum": [
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "CURVATURE_DIAGNOSTIC",
+        "SECONDARY"
+      ]
+    },
+    "cell_index": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 91
+    },
+    "codes": {
+      "$ref": "#/$defs/codes"
+    },
+    "model_id": {"type": "string"},
+    "annotator": {"type": "string"},
+    "label": {"type": "string"},
+    "pooling": {"type": "string"},
+    "window": {"type": "string"},
+    "layer_zero_based": {"type": "integer", "minimum": 0},
+    "input_hashes": {"$ref": "#/$defs/hash_manifest"},
+    "estimator_settings": {"$ref": "#/$defs/estimator_settings"},
+    "preprocessing": {"$ref": "#/$defs/preprocessing"},
+    "duplicate_audit": {"$ref": "#/$defs/duplicate_audit"},
+    "provenance": {"$ref": "#/$defs/result_provenance"},
+    "occurrence_list_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "row_counts": {"$ref": "#/$defs/row_counts"},
+    "chain_counts": {"$ref": "#/$defs/chain_counts"},
+    "resamples": {"$ref": "#/$defs/resamples"},
+    "observed_cdim": {"type": ["number", "null"]},
+    "observed_pr": {"type": ["number", "null"]},
+    "sentence_weighted_cdim": {"type": ["number", "null"]},
+    "sentence_weighted_label": {
+      "type": ["string", "null"],
+      "enum": ["sentence-weighted correlation dimension", null]
+    },
+    "chain_attrition_reasons": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"},
+        "minItems": 1,
+        "uniqueItems": true
+      }
+    },
+    "raw_p": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "holm_p": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "null_cdim": {
+      "type": "array",
+      "items": {"type": "number"}
+    },
+    "stability_draws": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/stability_draw"}
+    },
+    "matched_results": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/matched_results"}
+      ]
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["PASS", "MIXED", "FAIL", "UNRUN", "NOT_APPLICABLE"]
+    },
+    "amendment_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "codes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "purpose",
+        "annotator",
+        "behaviour",
+        "pooling",
+        "window",
+        "truncation"
+      ],
+      "properties": {
+        "family": {"type": "integer", "minimum": 1, "maximum": 6},
+        "purpose": {"type": "integer", "minimum": 1, "maximum": 4},
+        "annotator": {"type": "integer", "minimum": 1, "maximum": 3},
+        "behaviour": {"type": "integer", "minimum": 1, "maximum": 4},
+        "pooling": {"type": "integer", "minimum": 0, "maximum": 3},
+        "window": {"type": "integer", "minimum": 0, "maximum": 2},
+        "truncation": {"type": "integer", "minimum": 0, "maximum": 4}
+      }
+    },
+    "hash_manifest": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "estimator_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correlation_dimension",
+        "participation_ratio",
+        "curvature"
+      ],
+      "properties": {
+        "correlation_dimension": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "dtype",
+            "n_radii",
+            "random_state",
+            "n_bootstrap",
+            "subsample",
+            "distance"
+          ],
+          "properties": {
+            "dtype": {"const": "float64"},
+            "n_radii": {"const": 20},
+            "random_state": {"const": 42},
+            "n_bootstrap": {"const": 0},
+            "subsample": {"const": 2000},
+            "distance": {"const": "euclidean"}
+          }
+        },
+        "participation_ratio": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "dtype",
+            "column_centered",
+            "svd",
+            "component_cap"
+          ],
+          "properties": {
+            "dtype": {"const": "float64"},
+            "column_centered": {"const": true},
+            "svd": {"const": "full"},
+            "component_cap": {"type": "null"}
+          }
+        },
+        "curvature": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "dtype",
+                "k",
+                "variance_threshold",
+                "n_anchors",
+                "random_state",
+                "n_bootstrap"
+              ],
+              "properties": {
+                "dtype": {"const": "float32"},
+                "k": {"const": 10},
+                "variance_threshold": {"const": 0.9},
+                "n_anchors": {"const": 150},
+                "random_state": {"const": 42},
+                "n_bootstrap": {"const": 0}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "preprocessing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cdim_centered",
+        "cdim_scaled",
+        "cdim_normalized",
+        "cdim_whitened",
+        "duplicate_order"
+      ],
+      "properties": {
+        "cdim_centered": {"const": false},
+        "cdim_scaled": {"const": false},
+        "cdim_normalized": {"const": false},
+        "cdim_whitened": {"const": false},
+        "duplicate_order": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "occurrence_key"},
+            {"const": "exact_vector"}
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "duplicate_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_rows",
+        "deduplicated_rows",
+        "duplicate_fraction",
+        "occurrence_duplicate_groups",
+        "occurrence_duplicate_rows",
+        "vector_duplicate_groups",
+        "vector_duplicate_rows",
+        "cross_chain_groups",
+        "cross_label_groups"
+      ],
+      "properties": {
+        "raw_rows": {"type": "integer", "minimum": 0},
+        "deduplicated_rows": {"type": "integer", "minimum": 0},
+        "duplicate_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "occurrence_duplicate_groups": {"type": "integer", "minimum": 0},
+        "occurrence_duplicate_rows": {"type": "integer", "minimum": 0},
+        "vector_duplicate_groups": {"type": "integer", "minimum": 0},
+        "vector_duplicate_rows": {"type": "integer", "minimum": 0},
+        "cross_chain_groups": {"type": "integer", "minimum": 0},
+        "cross_label_groups": {"type": "integer", "minimum": 0}
+      }
+    },
+    "row_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw", "deduplicated", "analyzed", "sentence_weighted"],
+      "properties": {
+        "raw": {"type": "integer", "minimum": 0},
+        "deduplicated": {"type": "integer", "minimum": 0},
+        "analyzed": {"type": "integer", "minimum": 0},
+        "sentence_weighted": {"type": "integer", "minimum": 0}
+      }
+    },
+    "chain_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unique", "eligible", "selected", "mixed_label"],
+      "properties": {
+        "unique": {"type": "integer", "minimum": 0},
+        "eligible": {"type": "integer", "minimum": 0},
+        "selected": {"type": "integer", "minimum": 0},
+        "mixed_label": {"type": "integer", "minimum": 0}
+      }
+    },
+    "seed_coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_seed",
+        "purpose_code",
+        "family_code",
+        "cell_index"
+      ],
+      "properties": {
+        "base_seed": {"type": "integer"},
+        "purpose_code": {"type": "integer", "minimum": 1, "maximum": 4},
+        "family_code": {"type": "integer", "minimum": 1, "maximum": 6},
+        "cell_index": {"type": "integer", "minimum": 0, "maximum": 91}
+      }
+    },
+    "resamples": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested",
+        "attempt_cap",
+        "attempted",
+        "valid",
+        "invalid",
+        "invalid_reasons",
+        "seed_coordinates"
+      ],
+      "properties": {
+        "requested": {"type": "integer", "minimum": 0},
+        "attempt_cap": {"type": "integer", "minimum": 0},
+        "attempted": {"type": "integer", "minimum": 0},
+        "valid": {"type": "integer", "minimum": 0},
+        "invalid": {"type": "integer", "minimum": 0},
+        "invalid_reasons": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "seed_coordinates": {"$ref": "#/$defs/seed_coordinates"}
+      }
+    },
+    "software_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "numpy"],
+      "properties": {
+        "python": {"type": "string", "minLength": 1},
+        "numpy": {"type": "string", "minLength": 1}
+      }
+    },
+    "process_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pid", "workers"],
+      "properties": {
+        "pid": {"type": "integer", "minimum": 0},
+        "workers": {"type": "integer", "minimum": 1}
+      }
+    },
+    "host_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hostname", "system", "machine", "cpu_count"],
+      "properties": {
+        "hostname": {"type": "string", "minLength": 1},
+        "system": {"type": "string", "minLength": 1},
+        "machine": {"type": "string", "minLength": 1},
+        "cpu_count": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "result_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preregistration_path",
+        "preregistration_sha256",
+        "code_commit",
+        "dirty",
+        "dirty_paths",
+        "python_version",
+        "package_versions",
+        "argv",
+        "utc_start",
+        "utc_end",
+        "host",
+        "process",
+        "wall_seconds",
+        "peak_rss_bytes"
+      ],
+      "properties": {
+        "preregistration_path": {"type": "string", "minLength": 1},
+        "preregistration_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "code_commit": {"type": ["string", "null"]},
+        "dirty": {"type": "boolean"},
+        "dirty_paths": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "python_version": {"type": "string", "minLength": 1},
+        "package_versions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string", "minLength": 1}
+        },
+        "argv": {"type": "array", "items": {"type": "string"}},
+        "utc_start": {"type": "string", "format": "date-time"},
+        "utc_end": {"type": "string", "format": "date-time"},
+        "host": {"$ref": "#/$defs/host_facts"},
+        "process": {"$ref": "#/$defs/process_facts"},
+        "wall_seconds": {"type": "number", "minimum": 0},
+        "peak_rss_bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "count_object": {
+      "type": "object",
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {
+        "anyOf": [
+          {"type": "integer", "minimum": 0},
+          {
+            "type": "object",
+            "additionalProperties": {"type": "integer", "minimum": 0}
+          }
+        ]
+      }
+    },
+    "stability_draw": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["replicate", "status", "cdim", "pr", "failure"],
+      "properties": {
+        "replicate": {"type": "integer", "minimum": 0},
+        "status": {
+          "type": "string",
+          "enum": ["VALID", "INVALID", "UNRUN"]
+        },
+        "cdim": {"type": ["number", "null"]},
+        "pr": {"type": ["number", "null"]},
+        "failure": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "VALID"}}},
+          "then": {
+            "properties": {
+              "cdim": {"type": "number", "exclusiveMinimum": 0},
+              "pr": {"type": "number", "exclusiveMinimum": 0},
+              "failure": {"type": "null"}
+            }
+          },
+          "else": {
+            "properties": {
+              "cdim": {"type": "null"},
+              "pr": {"type": "null"}
+            }
+          }
+        }
+      ]
+    },
+    "stability_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n_valid", "q025", "median", "q975"],
+      "properties": {
+        "n_valid": {"type": "integer", "minimum": 0, "maximum": 500},
+        "q025": {"type": ["number", "null"]},
+        "median": {"type": ["number", "null"]},
+        "q975": {"type": ["number", "null"]}
+      }
+    },
+    "matched_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chain_ids",
+        "n_chains",
+        "n_categories",
+        "category_counts",
+        "occurrence_list_sha256",
+        "cdim",
+        "pr",
+        "cdim_stability",
+        "pr_stability",
+        "status"
+      ],
+      "properties": {
+        "chain_ids": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "n_chains": {"type": "integer", "minimum": 0},
+        "n_categories": {"type": "integer", "minimum": 0},
+        "category_counts": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "occurrence_list_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "cdim": {"type": ["number", "null"]},
+        "pr": {"type": ["number", "null"]},
+        "cdim_stability": {"$ref": "#/$defs/stability_summary"},
+        "pr_stability": {"$ref": "#/$defs/stability_summary"},
+        "status": {
+          "type": "string",
+          "enum": ["VALID", "INVALID", "UNRUN"]
+        }
+      }
+    },
+    "matched_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["matched_complete", "matched_truncated"],
+      "properties": {
+        "matched_complete": {"$ref": "#/$defs/matched_result"},
+        "matched_truncated": {"$ref": "#/$defs/matched_result"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"const": "pooling_window"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "sentence_weighted_cdim": {"type": "number", "exclusiveMinimum": 0},
+          "sentence_weighted_label": {
+            "const": "sentence-weighted correlation dimension"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "sentence_weighted_cdim": {"type": "null"},
+          "sentence_weighted_label": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {
+            "anyOf": [
+              {
+                "allOf": [
+                  {"properties": {"family": {"const": "primary"}}},
+                  {"properties": {"hypothesis": {"const": "H2"}}}
+                ]
+              },
+              {
+                "properties": {
+                  "family": {
+                    "enum": [
+                      "five_depth",
+                      "three_annotator",
+                      "pooling_window"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "number", "exclusiveMinimum": 0},
+          "raw_p": {"type": "number", "minimum": 0, "maximum": 1},
+          "holm_p": {"type": "number", "minimum": 0, "maximum": 1},
+          "null_cdim": {
+            "type": "array",
+            "items": {"type": "number", "exclusiveMinimum": 0},
+            "minItems": 2500,
+            "maxItems": 2500
+          },
+          "resamples": {
+            "properties": {
+              "requested": {"const": 2500},
+              "attempt_cap": {"const": 2750},
+              "attempted": {"minimum": 2500, "maximum": 2750},
+              "valid": {"const": 2500},
+              "invalid": {"minimum": 0, "maximum": 250}
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "null_cdim": {"type": "array", "maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "cell_index": {"minimum": 60, "maximum": 63}
+        }
+      },
+      "then": {
+        "properties": {
+          "matched_results": {"$ref": "#/$defs/matched_results"}
+        }
+      },
+      "else": {
+        "properties": {
+          "matched_results": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {"enum": ["UNRUN", "INVALID", "STOPPED"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "null"},
+          "observed_pr": {"type": "null"},
+          "raw_p": {"type": "null"},
+          "holm_p": {"type": "null"},
+          "null_cdim": {"type": "array", "maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "primary"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"enum": ["H1", "H2", "H3"]},
+          "cell_index": {"minimum": 0, "maximum": 3},
+          "layer_zero_based": {"const": 27},
+          "codes": {
+            "properties": {
+              "family": {"const": 1},
+              "purpose": {"enum": [1, 2]},
+              "annotator": {"const": 1},
+              "pooling": {"const": 1},
+              "window": {"const": 1},
+              "truncation": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "five_depth"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"const": "SECONDARY"},
+          "cell_index": {"minimum": 4, "maximum": 23},
+          "codes": {
+            "properties": {
+              "family": {"const": 2},
+              "purpose": {"const": 1},
+              "annotator": {"const": 1},
+              "pooling": {"const": 1},
+              "window": {"const": 1},
+              "truncation": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "three_annotator"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"const": "SECONDARY"},
+          "cell_index": {"minimum": 24, "maximum": 47},
+          "codes": {
+            "properties": {
+              "family": {"const": 3},
+              "purpose": {"const": 1},
+              "pooling": {"const": 1},
+              "window": {"const": 1},
+              "truncation": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "truncation"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"const": "H3"},
+          "cell_index": {"minimum": 48, "maximum": 63},
+          "layer_zero_based": {"const": 27},
+          "codes": {
+            "properties": {
+              "family": {"const": 4},
+              "purpose": {"const": 3},
+              "annotator": {"const": 1},
+              "pooling": {"const": 0},
+              "window": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "pooling_window"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"const": "H4"},
+          "cell_index": {"minimum": 64, "maximum": 87},
+          "layer_zero_based": {"const": 27},
+          "codes": {
+            "properties": {
+              "family": {"const": 5},
+              "purpose": {"const": 1},
+              "annotator": {"const": 1},
+              "truncation": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"family": {"const": "curvature"}}},
+      "then": {
+        "properties": {
+          "hypothesis": {"const": "CURVATURE_DIAGNOSTIC"},
+          "cell_index": {"minimum": 88, "maximum": 91},
+          "layer_zero_based": {"const": 16},
+          "codes": {
+            "properties": {
+              "family": {"const": 6},
+              "purpose": {"const": 4},
+              "annotator": {"const": 1},
+              "pooling": {"const": 0},
+              "window": {"const": 0},
+              "truncation": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"family": {"const": "primary"}}},
+          {"properties": {"hypothesis": {"enum": ["H1", "H2"]}}}
+        ]
+      },
+      "then": {"properties": {"codes": {"properties": {"purpose": {"const": 1}}}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"family": {"const": "primary"}}},
+          {"properties": {"hypothesis": {"const": "H3"}}}
+        ]
+      },
+      "then": {"properties": {"codes": {"properties": {"purpose": {"const": 2}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "cell_index": {
+            "enum": [0, 4, 5, 6, 7, 8, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88]
+          }
+        }
+      },
+      "then": {"properties": {"codes": {"properties": {"behaviour": {"const": 1}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "cell_index": {
+            "enum": [1, 9, 10, 11, 12, 13, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61, 65, 69, 73, 77, 81, 85, 89]
+          }
+        }
+      },
+      "then": {"properties": {"codes": {"properties": {"behaviour": {"const": 2}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "cell_index": {
+            "enum": [2, 14, 15, 16, 17, 18, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 66, 70, 74, 78, 82, 86, 90]
+          }
+        }
+      },
+      "then": {"properties": {"codes": {"properties": {"behaviour": {"const": 3}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "cell_index": {
+            "enum": [3, 19, 20, 21, 22, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71, 75, 79, 83, 87, 91]
+          }
+        }
+      },
+      "then": {"properties": {"codes": {"properties": {"behaviour": {"const": 4}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [4, 9, 14, 19]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 11}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [5, 10, 15, 20]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 14}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [6, 11, 16, 21]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 17}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [7, 12, 17, 22]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 20}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [8, 13, 18, 23]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 27}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 24, "maximum": 31}}},
+      "then": {"properties": {"codes": {"properties": {"annotator": {"const": 1}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 32, "maximum": 39}}},
+      "then": {"properties": {"codes": {"properties": {"annotator": {"const": 2}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 40, "maximum": 47}}},
+      "then": {"properties": {"codes": {"properties": {"annotator": {"const": 3}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [24, 25, 26, 27, 32, 33, 34, 35, 40, 41, 42, 43]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 12}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [28, 29, 30, 31, 36, 37, 38, 39, 44, 45, 46, 47]}}},
+      "then": {"properties": {"layer_zero_based": {"const": 16}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 48, "maximum": 51}}},
+      "then": {"properties": {"codes": {"properties": {"truncation": {"const": 1}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 52, "maximum": 55}}},
+      "then": {"properties": {"codes": {"properties": {"truncation": {"const": 2}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 56, "maximum": 59}}},
+      "then": {"properties": {"codes": {"properties": {"truncation": {"const": 3}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 60, "maximum": 63}}},
+      "then": {"properties": {"codes": {"properties": {"truncation": {"const": 4}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 64, "maximum": 71}}},
+      "then": {"properties": {"codes": {"properties": {"pooling": {"const": 1}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 72, "maximum": 79}}},
+      "then": {"properties": {"codes": {"properties": {"pooling": {"const": 2}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"minimum": 80, "maximum": 87}}},
+      "then": {"properties": {"codes": {"properties": {"pooling": {"const": 3}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [64, 65, 66, 67, 72, 73, 74, 75, 80, 81, 82, 83]}}},
+      "then": {"properties": {"codes": {"properties": {"window": {"const": 1}}}}}
+    },
+    {
+      "if": {"properties": {"cell_index": {"enum": [68, 69, 70, 71, 76, 77, 78, 79, 84, 85, 86, 87]}}},
+      "then": {"properties": {"codes": {"properties": {"window": {"const": 2}}}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"const": "primary"}}},
+          {"properties": {"hypothesis": {"const": "H1"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "number", "exclusiveMinimum": 0},
+          "observed_pr": {"type": "null"},
+          "raw_p": {"type": "null"},
+          "holm_p": {"type": "null"},
+          "null_cdim": {"type": "array", "maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {
+            "anyOf": [
+              {
+                "allOf": [
+                  {"properties": {"family": {"const": "primary"}}},
+                  {"properties": {"hypothesis": {"const": "H3"}}}
+                ]
+              },
+              {
+                "allOf": [
+                  {"properties": {"family": {"const": "truncation"}}},
+                  {
+                    "not": {
+                      "properties": {
+                        "cell_index": {"minimum": 60, "maximum": 63}
+                      },
+                      "required": ["cell_index"]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "number", "exclusiveMinimum": 0},
+          "observed_pr": {"type": "number", "exclusiveMinimum": 0},
+          "raw_p": {"type": "null"},
+          "holm_p": {"type": "null"},
+          "null_cdim": {"type": "array", "maxItems": 0},
+          "stability_draws": {"type": "array", "minItems": 500, "maxItems": 500},
+          "resamples": {
+            "properties": {
+              "requested": {"const": 500},
+              "attempt_cap": {"const": 500},
+              "attempted": {"const": 500},
+              "valid": {"minimum": 475, "maximum": 500},
+              "invalid": {"minimum": 0, "maximum": 25}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"const": "truncation"}}},
+          {"properties": {"cell_index": {"minimum": 60, "maximum": 63}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "null"},
+          "observed_pr": {"type": "null"},
+          "raw_p": {"type": "null"},
+          "holm_p": {"type": "null"},
+          "null_cdim": {"type": "array", "maxItems": 0},
+          "stability_draws": {"type": "array", "maxItems": 0},
+          "resamples": {
+            "properties": {
+              "requested": {"const": 0},
+              "attempt_cap": {"const": 0},
+              "attempted": {"const": 0},
+              "valid": {"const": 0},
+              "invalid": {"const": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"const": "curvature"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_cdim": {"type": "null"},
+          "observed_pr": {"type": "null"},
+          "raw_p": {"type": "null"},
+          "holm_p": {"type": "null"},
+          "null_cdim": {"type": "array", "maxItems": 0},
+          "stability_draws": {"type": "array", "minItems": 500, "maxItems": 500},
+          "resamples": {
+            "properties": {
+              "requested": {"const": 500},
+              "attempt_cap": {"const": 500},
+              "attempted": {"const": 500},
+              "valid": {"minimum": 475, "maximum": 500},
+              "invalid": {"minimum": 0, "maximum": 25}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"enum": ["primary", "five_depth", "three_annotator"]}}},
+          {"properties": {"hypothesis": {"enum": ["H2", "SECONDARY"]}}}
+        ]
+      },
+      "then": {"properties": {"observed_pr": {"type": "null"}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "VALID"}}},
+          {"properties": {"family": {"const": "pooling_window"}}}
+        ]
+      },
+      "then": {"properties": {"observed_pr": {"type": "number", "exclusiveMinimum": 0}}}
+    }
+  ]
+}

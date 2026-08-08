@@ -1,5 +1,10 @@
 # R3 FULL — strategy entropy on the multi-solution family
 
+> ⚠️ **P-R2.1 CI SUPERSEDED 2026-07-19.** The "+0.016 CI95 [0.013, 0.019]" below bootstraps
+> deterministic interpolants (see RESULTS_LEDGER downgrade). The correct task-level bootstrap
+> (`33_r3_task_bootstrap.py` → `TASK_BOOTSTRAP.md`) gives CI95 [−0.007, +0.163] ⇒ the gap is
+> **DIRECTIONAL ONLY**. Do not cite the interval below.
+
 3584 chains / 64 tasks / 7 cells. Prereg: R3_PILOT_PREREG.md §'What the full R3 adds' + R2_FRONTIER_PREREG.md knob definitions (R2 folded into R3)
 
 Value = TRUE correctness (computable golds; unparsed = incorrect). Strategy entropy = Shannon entropy (bits) of primary-strategy labels over a task's samples, unclassified excluded, None if <2 labelled; cell value = mean over tasks with defined entropy. Classifier: FROZEN pilot lexical classifier — RANGE-FINDER only (CF-T); judged labels are a declared follow-on.

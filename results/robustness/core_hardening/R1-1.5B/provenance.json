@@ -1,0 +1,64 @@
+{
+  "schema_version": "thesis-core-hardening-provenance-v1",
+  "preregistration_path": "results/prereg/THESIS_CORE_HARDENING_PREREG_2026-07-26.md",
+  "preregistration_sha256": "27d266e58d84c48946caf64c0ce9312a44528f3f20a9a3a55117128ff21085a5",
+  "input_manifest": {
+    "results/robustness/core_hardening/R1-1.5B/primary_L27_cdim_null.json": "99f9aec51af8447bdb576d46513da51db7418ad13354148d53226819f17abbd1",
+    "results/robustness/core_hardening/R1-1.5B/five_depth_cdim_null.json": "7122d85cb9b8d3f75f18ba84da3b33bb1c3b473302a4bc61710fd079caf8f369",
+    "results/robustness/core_hardening/R1-1.5B/three_annotator_cdim_null.json": "502e00f2862a0fc74f50f8997ce5fab3419ab803572bc21d18740159d442c4ed",
+    "results/robustness/core_hardening/R1-1.5B/chain_stability.json": "5d067729be2c55d05ab9ec4848ea9076d8008e22bf4328d51fe437d3d1ceb48f",
+    "results/robustness/core_hardening/R1-1.5B/truncation_sensitivity.json": "e0ee2090a2ee4a3a02bb90d62a1c1908d439bc2c7186bdd4297127c14b7fd929",
+    "results/robustness/core_hardening/R1-1.5B/curvature_L16.json": "9697654295e8f6a533aa2f523a264d2fdd45ddab2dd13be4adf84cf23a21262f",
+    "scripts/thesis_core_hardening.py": "753a2a2b75959d27f1c64446b6bc307f1f3a7ebd1cc5055d0148a1263dabc1c2",
+    "schemas/thesis_core_hardening_result_cell_v1.schema.json": "7342997425a708e102ee0f71246f72784736c6770f0e66f16869659fe3d9442b",
+    "schemas/thesis_core_hardening_provenance_v1.schema.json": "c20582e4462a2dbad7f13249df785d7ca4ea6df88d844cd42911cb385fb6b81d",
+    "tests/test_thesis_core_hardening.py": "62b1f98987e551035969c6ace3b56e28d05c0a02acb640bda8621f9be79606a9"
+  },
+  "code_commit": null,
+  "dirty": true,
+  "dirty_paths": [
+    "configs/analysis/thesis_core_hardening_2026-07-26.yaml",
+    "make_geometry_figures.py",
+    "results/prereg/THESIS_CORE_HARDENING_PREREG_2026-07-26.md",
+    "schemas/thesis_core_hardening_result_cell_v1.schema.json",
+    "scripts/thesis_core_hardening.py",
+    "tests/test_thesis_core_hardening.py",
+    "thesis/chapters/v2/background.tex",
+    "thesis/chapters/v2/conclusion.tex",
+    "thesis/chapters/v2/intro.tex",
+    "thesis/chapters/v2/methods.tex",
+    "thesis/chapters/v2/results.tex",
+    "thesis/chapters/v2/steering.tex",
+    "thesis/figures/fig_curvature_artefact.pdf",
+    "thesis/frontmatter/abstract_v2.tex",
+    "thesis/ucl_msc.pdf"
+  ],
+  "python_version": "3.13.12",
+  "package_versions": {
+    "numpy": "2.4.6"
+  },
+  "argv": [
+    "reporting-aggregation",
+    "--sealed-results-only",
+    "--h4-status",
+    "UNRUN"
+  ],
+  "utc_start": "2026-07-26T23:05:26.422789Z",
+  "utc_end": "2026-07-27T05:54:40.223338Z",
+  "host": {
+    "hostname": "Tonys-MacBook-Pro.local",
+    "system": "Darwin",
+    "machine": "arm64",
+    "cpu_count": 10
+  },
+  "process": {
+    "pid": 0,
+    "workers": 1
+  },
+  "amendment_ids": [
+    "2026-07-26-2345-same-window-duplicate-remedy",
+    "2026-07-26-2358-full-run-authorization",
+    "2026-07-27-scope-diagnostic-implementation-lock",
+    "2026-07-27-secondary-implementation-lock"
+  ]
+}

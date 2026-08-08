@@ -1,0 +1,416 @@
+{
+  "schema_version": "p5-preflight-1",
+  "status": "ready_for_spend_gated_pilot",
+  "phase2_observation": {
+    "transport_prereg": "sealed",
+    "behavioural_adjunct_file": "draft_for_seal",
+    "behavioural_adjunct_decision": "sealed_in_chat_file_sync_pending",
+    "task_manifest_exists": false,
+    "analyse_marker_exists": false
+  },
+  "claude_handoff": {
+    "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_CLAUDE_HANDOFF_RECEIPT_2026-08-08.json",
+    "sha256": "a59d344d2acc8e9d6d20810b659d305a92d3be692cf37cec4541b6429488b1ac",
+    "record": {
+      "schema_version": "p5-claude-handoff-receipt-1",
+      "received_date": "2026-08-08",
+      "source": "Tony-provided Claude handoff in the current chat; repository mirror pending",
+      "phase2": {
+        "completed": false,
+        "do_not_short_poll_analyse_marker": true,
+        "a2_decision_sealed_in_chat": true,
+        "a2_file_sync_pending": true,
+        "manifest_path": "results/prereg/phase2_task_manifest.json",
+        "manifest_ids_sha256": null,
+        "p5_generic_reuse_confirmed": true,
+        "shared_vanilla_contract": {
+          "generated_once": true,
+          "settings": "E8 sealed decoding settings",
+          "seed": 20260808,
+          "scope": "generic stratum only",
+          "causal_family_firewall": "P5 observational endpoints may be analysed; Phase-2 causal-family outcomes remain unopened until the injection-recovery gate"
+        }
+      },
+      "snapshot_refresh": {
+        "safe_now": false,
+        "release_signal_branch": "codex/phase0-support",
+        "release_signal_commit_prefix": "Phase-0 closure"
+      },
+      "lora": {
+        "pt02_safety_sft_adapters_found_local_or_volume": false,
+        "disposition": "retrain-conditional under immutable manifests",
+        "estimated_retrain_cost_usd": "1-3",
+        "rl_adapters_survive_but_are_excluded_from_the_four-checkpoint_pilot": true
+      },
+      "pilot": {
+        "phase2_completion_required": false,
+        "tony_spend_authorisation_required": true
+      }
+    }
+  },
+  "repository_state": {
+    "commit": "5fd66637f34981c6e79109c6f0ecbee04d71ff5b",
+    "tracked_worktree_dirty": true
+  },
+  "checkpoint_inventory": {
+    "status": "pass",
+    "deep_hash": true,
+    "tokenizer_identity": {
+      "n_unique_tokenizer_files": 3,
+      "tokenizer_sha256s": [
+        "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+        "e20ddafc659ba90242154b55275402edeca0715e5dbb30f56815a4ce081f4893",
+        "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be"
+      ],
+      "common_alias_required": true,
+      "n_unique_chat_templates": 1,
+      "chat_template_sha256s": [
+        "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f"
+      ]
+    },
+    "checkpoints": [
+      {
+        "role": "base_r1",
+        "checkpoint_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+        "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+        "root": "/Users/tonysu/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/snapshots/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+        "missing_files": [],
+        "weight_bytes": 3554214621,
+        "expected_weight_sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+        "observed_weight_sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+        "weight_hash_mode": "huggingface content-addressed blob",
+        "weight_hash_matches": true,
+        "config_sha256": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+        "tokenizer_sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+        "tokenizer_config_sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5",
+        "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+        "training_manifest": null
+      },
+      {
+        "role": "public_star1",
+        "checkpoint_id": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+        "revision": "f865d7ac5136370518986a5273f4d731d7a0f254",
+        "root": "/Users/tonysu/.cache/huggingface/hub/models--UCSC-VLAA--STAR1-R1-Distill-1.5B/snapshots/f865d7ac5136370518986a5273f4d731d7a0f254",
+        "missing_files": [],
+        "weight_bytes": 3554214752,
+        "expected_weight_sha256": "3de9789736e513b4ff105f8ce9a6dbca6d68caad8c3405fed53274dc5a908f3d",
+        "observed_weight_sha256": "3de9789736e513b4ff105f8ce9a6dbca6d68caad8c3405fed53274dc5a908f3d",
+        "weight_hash_mode": "huggingface content-addressed blob",
+        "weight_hash_matches": true,
+        "config_sha256": "be1796345be48a325e49acf51f3bb6780ad038e54a4108988c025b428dddca53",
+        "tokenizer_sha256": "e20ddafc659ba90242154b55275402edeca0715e5dbb30f56815a4ce081f4893",
+        "tokenizer_config_sha256": "d9125f504eea1bb56c8bb7cfa32ae9b782ab8e0fc59a5cd58d1ef7728fb61273",
+        "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+        "training_manifest": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+          "exists": true,
+          "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+        }
+      },
+      {
+        "role": "owned_fullft_safety_s42",
+        "checkpoint_id": "local/fullft_safety_s42",
+        "revision": null,
+        "root": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/checkpoints/pod_fullft/fullft_safety_s42",
+        "missing_files": [],
+        "weight_bytes": 3554214752,
+        "expected_weight_sha256": "37ebbcac54ce8bc55f5d061f8c0a88b2d826ecb1a342e1a2d11da7d3b4906dc4",
+        "observed_weight_sha256": "37ebbcac54ce8bc55f5d061f8c0a88b2d826ecb1a342e1a2d11da7d3b4906dc4",
+        "weight_hash_mode": "streamed sha256",
+        "weight_hash_matches": true,
+        "config_sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+        "tokenizer_sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+        "tokenizer_config_sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+        "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+        "training_manifest": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+          "exists": true,
+          "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+        }
+      },
+      {
+        "role": "owned_fullft_control_s42",
+        "checkpoint_id": "local/fullft_control_s42",
+        "revision": null,
+        "root": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/checkpoints/pod_fullft/fullft_control_s42",
+        "missing_files": [],
+        "weight_bytes": 3554214752,
+        "expected_weight_sha256": "1b2e5691496e780d577ff3ecd70b8f0e24eaf6dc34fa8e6169df56ed12588d65",
+        "observed_weight_sha256": "1b2e5691496e780d577ff3ecd70b8f0e24eaf6dc34fa8e6169df56ed12588d65",
+        "weight_hash_mode": "streamed sha256",
+        "weight_hash_matches": true,
+        "config_sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+        "tokenizer_sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+        "tokenizer_config_sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+        "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+        "training_manifest": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/control_offpolicy_sft.json",
+          "exists": true,
+          "sha256": "eb7e3face9761a8ebb9589814860b806a0f274e4344b842da1ca5ba06fe0e585"
+        }
+      }
+    ]
+  },
+  "prompt_manifests": {
+    "generic_pilot": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/tasks_pilot.json",
+      "validation": {
+        "status": "pass",
+        "kind": "generic",
+        "n_rows": 20,
+        "n_ids": 20,
+        "n_normalised_prompts": 20,
+        "pair_summary": null,
+        "errors": [],
+        "content_sha256": "af99a1b356dcd76569aa9386630c814faeff2dc6091ed85e15d0441470d3dbcd"
+      }
+    },
+    "generic_final": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/prereg/phase2_task_manifest.json",
+      "validation": null
+    },
+    "safety_pilot": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json",
+      "validation": {
+        "status": "pass",
+        "kind": "safety",
+        "n_rows": 24,
+        "n_ids": 24,
+        "n_normalised_prompts": 24,
+        "pair_summary": {
+          "n_pairs": 12,
+          "n_malformed": 0
+        },
+        "errors": [],
+        "content_sha256": "34ba2e1b7d6e8bbe634299df55bf215419d974e1abb7cc48938ce79a7f44a8ee"
+      }
+    },
+    "safety_final": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_FINAL_MANIFEST_2026-08-08.json",
+      "validation": null
+    },
+    "safety_pilot_overlap": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_OVERLAP_AUDIT_2026-08-08.json",
+      "sha256": "6c24be83f73727d4ba627d910a286ed9a5f9aedfc209aeb27f58511793a9f216",
+      "audit_status": "pass",
+      "audit": {
+        "status": "planning audit; not a scientific result or thesis evidence artefact",
+        "evaluation": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json",
+          "bytes": 8902,
+          "sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+          "n": 24,
+          "n_harmful": 12,
+          "n_benign": 12
+        },
+        "normalisation": "Unicode NFKC, casefold, collapse whitespace",
+        "training_roles": {
+          "public_star1_training": {
+            "n_train": 1000,
+            "n_eval": 24,
+            "n_normalised_exact": 0,
+            "n_near_only": 0,
+            "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+            "by_eval_stratum": {
+              "harmful": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              },
+              "benign": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              }
+            },
+            "normalised_exact_matches": [],
+            "near_only_matches": [],
+            "maximum_nonexact_similarity": 0.032258,
+            "input": {
+              "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+              "bytes": 2130057,
+              "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+            }
+          },
+          "owned_fullft_safety_s42_training": {
+            "n_train": 1000,
+            "n_eval": 24,
+            "n_normalised_exact": 0,
+            "n_near_only": 0,
+            "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+            "by_eval_stratum": {
+              "harmful": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              },
+              "benign": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              }
+            },
+            "normalised_exact_matches": [],
+            "near_only_matches": [],
+            "maximum_nonexact_similarity": 0.032258,
+            "input": {
+              "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/safety_star1_sft.json",
+              "bytes": 2130057,
+              "sha256": "e6fa7d158a9541faabfe7baa7ca68409fc7b0cb7b91857bd64c10c1fe3c665d8"
+            }
+          },
+          "owned_fullft_control_s42_training": {
+            "n_train": 1000,
+            "n_eval": 24,
+            "n_normalised_exact": 0,
+            "n_near_only": 0,
+            "near_rule": "word 5-gram Jaccard >= 0.800 after NFKC/case/whitespace normalisation; exact matches excluded",
+            "by_eval_stratum": {
+              "harmful": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              },
+              "benign": {
+                "n_eval": 12,
+                "n_normalised_exact": 0,
+                "n_near_only": 0
+              }
+            },
+            "normalised_exact_matches": [],
+            "near_only_matches": [],
+            "maximum_nonexact_similarity": 0.0,
+            "input": {
+              "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/control_offpolicy_sft.json",
+              "bytes": 1844996,
+              "sha256": "eb7e3face9761a8ebb9589814860b806a0f274e4344b842da1ca5ba06fe0e585"
+            }
+          }
+        },
+        "admission_consequence": "Any exact or near-overlapping evaluation prompt is excluded from the final held-out safety benchmark for that checkpoint role."
+      }
+    },
+    "safety_final_overlap": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_FINAL_OVERLAP_AUDIT_2026-08-08.json",
+      "sha256": null,
+      "audit_status": "blocked",
+      "audit": null
+    },
+    "existing_grpo_overlap_audit": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_TRAIN_OVERLAP_AUDIT_2026-08-08.json",
+      "sha256": "934670f41d3b0b76f8eeb054aec150545f5b270a6492df07f9679a0d6bc0a4cf",
+      "star1_exact": 250,
+      "disposition": "rejected for held-out harmful evaluation"
+    }
+  },
+  "safety_scorer": {
+    "rubric_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_SCORER_RUBRIC_2026-08-08.md",
+    "fixture_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_SCORER_FIXTURES_2026-08-08.json",
+    "rubric_sha256": "b91f4df77c9287f8e04d5ac9ce7ddcefed0af7bab4cf75bcb88a8fd1fa41f806",
+    "fixture_sha256": "d871c6a7c0cabb4299a57115425dd4bb78e78a4d0fd54d58108d0808336a7585",
+    "rubric_version": "p5-safety-rubric-1",
+    "n_fixtures": 6
+  },
+  "existing_grpo_star1_exact_overlap": 250,
+  "gates": [
+    {
+      "gate_id": "P2",
+      "status": "deferred",
+      "detail": "Phase 2 is not complete, but the received handoff explicitly removes analyse.done as a P5 pilot prerequisite; final shared-generic execution still waits for the manifest SHA (transport=sealed, adjunct_file=draft_for_seal)",
+      "blocking": false
+    },
+    {
+      "gate_id": "A1",
+      "status": "pass",
+      "detail": "four core checkpoints present with verified weight hashes",
+      "blocking": true
+    },
+    {
+      "gate_id": "A2",
+      "status": "blocked",
+      "detail": "pt02 safety-SFT LoRA adapters are definitively absent locally and on the searched volume; extension remains provenance-clean retrain-conditional",
+      "blocking": false
+    },
+    {
+      "gate_id": "A5",
+      "status": "pass",
+      "detail": "generic_pilot: /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/tasks_pilot.json: 20 rows; 0 errors",
+      "blocking": true
+    },
+    {
+      "gate_id": "A3",
+      "status": "blocked",
+      "detail": "generic_final: missing manifest: /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/prereg/phase2_task_manifest.json",
+      "blocking": false
+    },
+    {
+      "gate_id": "A5",
+      "status": "pass",
+      "detail": "safety_pilot: /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json: 24 rows; 0 errors",
+      "blocking": true
+    },
+    {
+      "gate_id": "A4",
+      "status": "blocked",
+      "detail": "safety_final: missing manifest: /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_FINAL_MANIFEST_2026-08-08.json",
+      "blocking": false
+    },
+    {
+      "gate_id": "A4P",
+      "status": "pass",
+      "detail": "safety_pilot_overlap: zero exact/near overlap across 3 training roles",
+      "blocking": true
+    },
+    {
+      "gate_id": "A4",
+      "status": "blocked",
+      "detail": "safety_final_overlap: missing overlap audit: /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_FINAL_OVERLAP_AUDIT_2026-08-08.json",
+      "blocking": false
+    },
+    {
+      "gate_id": "A6",
+      "status": "pass",
+      "detail": "offline base-tokenizer alias gate passed for 44 prompts across 4 checkpoint roles",
+      "blocking": true
+    },
+    {
+      "gate_id": "A7",
+      "status": "pass",
+      "detail": "generation and six-label behaviour-annotation schemas are implemented and unit-tested",
+      "blocking": true
+    },
+    {
+      "gate_id": "A8",
+      "status": "pass",
+      "detail": "metric fixtures, prompt-paired category-stratified bootstrap, and Holm adjustment are unit-tested",
+      "blocking": true
+    },
+    {
+      "gate_id": "A9",
+      "status": "pass",
+      "detail": "frozen rubric and 6 local fixtures validate",
+      "blocking": true
+    },
+    {
+      "gate_id": "A10",
+      "status": "pass",
+      "detail": "provenance-complete mock generation row is implemented and unit-tested",
+      "blocking": true
+    },
+    {
+      "gate_id": "A11",
+      "status": "pass",
+      "detail": "all named spend stages require authorisation and a valid manifest hash",
+      "blocking": true
+    },
+    {
+      "gate_id": "A12",
+      "status": "pass",
+      "detail": "generation, behaviour-annotation, and safety-score resume merges accept identical rows and reject conflicts",
+      "blocking": true
+    }
+  ],
+  "blocking_gate_ids": [],
+  "spend_authorised": false,
+  "model_or_api_calls_made": false
+}

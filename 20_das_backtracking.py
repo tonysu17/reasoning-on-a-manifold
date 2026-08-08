@@ -1,7 +1,14 @@
 #!/usr/bin/env python
-"""E10.1 — DAS-1D on backtracking (featurizer programme, rung F1).
+"""E10.1/E10.3 — DAS-1D per behaviour (featurizer programme, rung F1).
 
-Learns a ONE-dimensional orthogonal featurizer frame for backtracking by the
+Originally built and executed for backtracking (E10.1); Amendment 4 parameterizes
+the identical recipe over uncertainty-estimation and example-testing (E10.3) with
+sealed hyperparameters unchanged. `--behaviour` selects the source label, its E1
+diff-of-means comparator vector, the per-behaviour layer set, and the primary
+layer used by the cis stage; defaults reproduce the executed backtracking run
+byte-for-byte (output dir `main/`, layers 17/11/27).
+
+Learns a ONE-dimensional orthogonal featurizer frame for the behaviour by the
 interchange-intervention criterion of distributed alignment search (Geiger et al.
 2024; Wu et al. 2023), and compares it against the correlationally-built
 difference-of-means direction (E1) and a random-rotation floor. This is the
@@ -62,12 +69,24 @@ from src.text_offsets import locate_annotation_offsets  # noqa: E402
 
 MODEL_ID = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
 ANNOT = ROOT / "data" / "annotated_R1-1.5B.json"
-DIFFMEANS = ROOT / "results" / "steering_vectors" / "R1-1.5B__E1_pooled" / "backtracking_single.npy"
+E1_POOLED = ROOT / "results" / "steering_vectors" / "R1-1.5B__E1_pooled"
+DIFFMEANS = E1_POOLED / "backtracking_single.npy"
 OUT_ROOT = ROOT / "results" / "das" / "R1-1.5B"
 
 SOURCE_LABEL = "backtracking"
 BASE_LABELS = ("deduction", "initializing")  # ordinary forward reasoning
-HELDOUT_TASKS = ROOT / "results" / "steering_vectors" / "R1-1.5B__E1_pooled"  # eval split via metadata
+HELDOUT_TASKS = E1_POOLED  # eval split via metadata
+
+# Per-behaviour run spec (prereg Amendment 4). layers = [E1 attribution layer
+# (== the E1_pooled vector's layer, metadata.json), de-confounded 07d mid-peak,
+# 27 read-out-proximity control]; primary = the E1 layer (cis stage + smoke).
+# backtracking reproduces the executed E10.1 exactly (out dir `main/`).
+BEHAVIOURS = {
+    "backtracking":           {"short": "bt",  "layers": [17, 11, 27], "primary": 17},
+    "uncertainty-estimation": {"short": "unc", "layers": [15, 16, 27], "primary": 15},
+    "example-testing":        {"short": "ex",  "layers": [15, 19, 27], "primary": 15},
+    "adding-knowledge":       {"short": "ak",  "layers": [17, 16, 27], "primary": 17},
+}
 
 
 def log(msg):
@@ -160,7 +179,10 @@ def load_model(device, dtype):
     tok.padding_side = "left"  # prediction position is always the last token
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=dtype).to(device).eval()
+    try:  # transformers >= 5 spells it `dtype`; 4.x wants `torch_dtype`
+        model = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=dtype).to(device).eval()
+    except TypeError:
+        model = AutoModelForCausalLM.from_pretrained(MODEL_ID, torch_dtype=dtype).to(device).eval()
     for p in model.parameters():
         p.requires_grad_(False)
     return tok, model
@@ -384,23 +406,25 @@ def cis_stage(model, tok, pairs, cfg, device, OUT, diffmeans):
     discovered post-run: the pipeline's 'layer L' vectors are built at block-L
     OUTPUT = hidden_states[L+1], so the E1 'bt17' diff-means vector's true site
     is hs[18]; E10.1 evaluated it at hs[17] (one block off). Decision rule
-    (sealed): if sym_dlp(dm @ hs18) > 2x sym_dlp(dm @ hs17), the 13x headline
-    ratio is revised to the hs18 value and both are reported."""
+    (sealed): if sym_dlp(dm @ hs[P+1]) > 2x sym_dlp(dm @ hs[P]), the headline
+    ratio is revised to the hs[P+1] value and both are reported. P = the
+    behaviour's primary (E1) layer — 17 for backtracking, per BEHAVIOURS else."""
+    P = cfg.primary_layer
     arms = {}
-    lp = OUT / "dir_learned_L17.npy"
+    lp = OUT / f"dir_learned_L{P}.npy"
     if lp.exists():
         learned = torch.tensor(np.load(lp), dtype=torch.float32, device=device)
-        arms["learned@hs17"] = (learned, 17)
-        arms["learned_positional@hs17"] = (learned, 17)  # handled below
-    wp = OUT / "dir_warm_L17.npy"
+        arms[f"learned@hs{P}"] = (learned, P)
+        arms[f"learned_positional@hs{P}"] = (learned, P)  # handled below
+    wp = OUT / f"dir_warm_L{P}.npy"
     if wp.exists():
-        arms["warm@hs17"] = (torch.tensor(np.load(wp), dtype=torch.float32,
-                                          device=device), 17)
+        arms[f"warm@hs{P}"] = (torch.tensor(np.load(wp), dtype=torch.float32,
+                                            device=device), P)
     if diffmeans is not None:
-        arms["diff_of_means@hs17"] = (diffmeans, 17)
-        arms["diff_of_means@hs18_site_check"] = (diffmeans, 18)
+        arms[f"diff_of_means@hs{P}"] = (diffmeans, P)
+        arms[f"diff_of_means@hs{P+1}_site_check"] = (diffmeans, P + 1)
     rand = torch.randn(model.config.hidden_size, device=device)
-    arms["random@hs17"] = (rand / rand.norm(), 17)
+    arms[f"random@hs{P}"] = (rand / rand.norm(), P)
 
     out = {}
     for name, (unit, site) in arms.items():
@@ -412,11 +436,11 @@ def cis_stage(model, tok, pairs, cfg, device, OUT, diffmeans):
         log(f"  {name}: sym={res['sym_dlp']:+.4f} CI95=[{res['sym_ci95'][0]:+.4f}, "
             f"{res['sym_ci95'][1]:+.4f}]")
     # paired difference: learned vs dm at each dm site
-    if "learned@hs17" in out and "diff_of_means@hs17" in out:
-        for dm_name in ("diff_of_means@hs17", "diff_of_means@hs18_site_check"):
+    if f"learned@hs{P}" in out and f"diff_of_means@hs{P}" in out:
+        for dm_name in (f"diff_of_means@hs{P}", f"diff_of_means@hs{P+1}_site_check"):
             if dm_name not in out:
                 continue
-            l, d = out["learned@hs17"], out[dm_name]
+            l, d = out[f"learned@hs{P}"], out[dm_name]
             diff = [ (a + b) / 2 - (c + e) / 2 for a, b, c, e in
                      zip(l["per_pair_induce"], l["per_pair_remove"],
                          d["per_pair_induce"], d["per_pair_remove"]) ]
@@ -427,10 +451,17 @@ def cis_stage(model, tok, pairs, cfg, device, OUT, diffmeans):
 
 
 def main():
+    global SOURCE_LABEL, DIFFMEANS
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", choices=["pairs", "train", "eval", "controls", "cis", "all"],
                     default="all")
-    ap.add_argument("--layers", type=int, nargs="+", default=[17, 11, 27])
+    ap.add_argument("--behaviour", default="backtracking", choices=sorted(BEHAVIOURS),
+                    help="source behaviour; resolves layers, primary layer, the E1 "
+                         "diff-of-means comparator, and the output dir (Amendment 4)")
+    ap.add_argument("--layers", type=int, nargs="+", default=None,
+                    help="override the behaviour's layer set")
+    ap.add_argument("--primary-layer", type=int, default=None,
+                    help="override the behaviour's primary (E1) layer — cis stage site")
     ap.add_argument("--n-pairs", type=int, default=400)
     ap.add_argument("--ctx", type=int, default=320)
     ap.add_argument("--min-ctx", type=int, default=16)
@@ -446,15 +477,27 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--tag", default="")
     cfg = ap.parse_args()
+    spec = BEHAVIOURS[cfg.behaviour]
+    if cfg.layers is None:
+        cfg.layers = list(spec["layers"])
+    if cfg.primary_layer is None:
+        cfg.primary_layer = spec["primary"]
+    SOURCE_LABEL = cfg.behaviour
+    DIFFMEANS = E1_POOLED / f"{cfg.behaviour}_single.npy"
     if cfg.smoke:
-        cfg.n_pairs, cfg.ctx, cfg.bs, cfg.epochs, cfg.max_chains, cfg.layers = 8, 96, 4, 3, 60, [17]
-    OUT = OUT_ROOT / (cfg.tag or ("smoke" if cfg.smoke else "main"))
+        cfg.n_pairs, cfg.ctx, cfg.bs, cfg.epochs, cfg.max_chains = 8, 96, 4, 3, 60
+        cfg.layers = [cfg.primary_layer]
+    # backtracking keeps its executed-run dirs (main/smoke); others get short-prefixed
+    stem = "smoke" if cfg.smoke else "main"
+    default_tag = stem if cfg.behaviour == "backtracking" else f"{spec['short']}_{stem}"
+    OUT = OUT_ROOT / (cfg.tag or default_tag)
     OUT.mkdir(parents=True, exist_ok=True)
 
     device, dtype = pick_device()
     torch.set_grad_enabled(True)
-    log(f"device={device} dtype={dtype} stage={cfg.stage} layers={cfg.layers} "
-        f"n_pairs={cfg.n_pairs} smoke={cfg.smoke}")
+    log(f"behaviour={cfg.behaviour} device={device} dtype={dtype} stage={cfg.stage} "
+        f"layers={cfg.layers} primary={cfg.primary_layer} n_pairs={cfg.n_pairs} "
+        f"smoke={cfg.smoke} out={OUT.name}")
 
     from transformers import AutoTokenizer
     tok_only = AutoTokenizer.from_pretrained(MODEL_ID)
@@ -503,7 +546,8 @@ def main():
         log(f"controls -> {OUT}/controls.json")
         return
 
-    report = {"experiment": "E10.1 DAS-1D backtracking", "date": time.strftime("%Y-%m-%d"),
+    report = {"experiment": f"DAS-1D {cfg.behaviour} (E10.1 recipe)",
+              "date": time.strftime("%Y-%m-%d"),
               "device": device, "n_pairs": len(pairs), "config": vars(cfg), "layers": {}}
 
     dm_init = diffmeans.cpu().numpy() if diffmeans is not None else None
@@ -553,7 +597,7 @@ def main():
 
 def _write_report_md(report, OUT):
     W = report["config"].get("window")
-    L = ["# E10.1 DAS-1D backtracking — REPORT", "",
+    L = [f"# {report['experiment']} — REPORT", "",
          f"Date: {report['date']} · device {report['device']} · {report['n_pairs']} pairs · "
          f"window W={W}", "",
          "Windowed interchange transfer: does swapping the 1-D component make the base",

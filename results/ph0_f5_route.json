@@ -1,0 +1,7 @@
+{
+ "probe_wall_s": 1049,
+ "yield_per_task": 0.5,
+ "tasks_needed_500": 1000,
+ "projected_hours_500": 36.42,
+ "route": "FALLBACK_65PAIR"
+}

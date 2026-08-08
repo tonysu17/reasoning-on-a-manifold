@@ -1,0 +1,104 @@
+{
+  "15": {
+    "learned": {
+      "coord_auc_source_vs_base": 0.41196875,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.6008356142044068,
+        "remove_dlp": 0.6612029719352722,
+        "sym_dlp": 0.6310192930698395
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.16143975257873536,
+        "remove_dlp": 0.6643131864070893,
+        "sym_dlp": 0.4128764694929123
+      },
+      "state_dependence": 0.43939586162567146
+    },
+    "diff_of_means": {
+      "coord_auc_source_vs_base": 0.6880624999999999,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.024280278980731963,
+        "remove_dlp": 0.022302480936050414,
+        "sym_dlp": 0.02329137995839119
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.006051699966192246,
+        "remove_dlp": 0.011238982677459717,
+        "sym_dlp": 0.008645341321825982
+      },
+      "state_dependence": 0.01822857901453972
+    }
+  },
+  "16": {
+    "learned": {
+      "coord_auc_source_vs_base": 0.6262500000000001,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.57996572971344,
+        "remove_dlp": 0.6529105067253113,
+        "sym_dlp": 0.6164381182193757
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.11981931149959564,
+        "remove_dlp": 0.6296723282337189,
+        "sym_dlp": 0.3747458198666573
+      },
+      "state_dependence": 0.46014641821384433
+    },
+    "diff_of_means": {
+      "coord_auc_source_vs_base": 0.69245625,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.03470553666353226,
+        "remove_dlp": 0.03337203502655029,
+        "sym_dlp": 0.034038785845041275
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.009753874391317368,
+        "remove_dlp": 0.017359810769557952,
+        "sym_dlp": 0.013556842580437661
+      },
+      "state_dependence": 0.02495166227221489
+    }
+  },
+  "27": {
+    "learned": {
+      "coord_auc_source_vs_base": 0.6865875,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.723723613023758,
+        "remove_dlp": 0.7068847012519837,
+        "sym_dlp": 0.7153041571378708
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.2996693310141563,
+        "remove_dlp": 0.7243812501430511,
+        "sym_dlp": 0.5120252905786038
+      },
+      "state_dependence": 0.42405428200960166
+    },
+    "diff_of_means": {
+      "coord_auc_source_vs_base": 0.7597812499999999,
+      "real_donor": {
+        "n": 400,
+        "induce_dlp": 0.023298525959253313,
+        "remove_dlp": 0.00539200097322464,
+        "sym_dlp": 0.014345263466238975
+      },
+      "base_donor_null": {
+        "n": 400,
+        "induce_dlp": 0.004008177071809769,
+        "remove_dlp": 0.007160327136516571,
+        "sym_dlp": 0.00558425210416317
+      },
+      "state_dependence": 0.019290348887443545
+    }
+  }
+}

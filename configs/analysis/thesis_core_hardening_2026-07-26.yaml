@@ -1,0 +1,279 @@
+schema_version: thesis-core-hardening-config-v1
+status: UNRUN
+freeze_date: "2026-07-26"
+timezone: Europe/London
+preregistration:
+  path: results/prereg/THESIS_CORE_HARDENING_PREREG_2026-07-26.md
+  sha256: 27d266e58d84c48946caf64c0ce9312a44528f3f20a9a3a55117128ff21085a5
+
+model:
+  id: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+  code: R1-1.5B
+  n_transformer_layers: 28
+  hidden_width: 1536
+  checkpoint_revision: unresolved
+  checkpoint_weight_sha256: unresolved
+
+labels:
+  - backtracking
+  - uncertainty-estimation
+  - example-testing
+  - adding-knowledge
+
+annotators:
+  Sonnet:
+    code: 1
+    id: eu.anthropic.claude-sonnet-4-5-20250929-v1:0
+  Qwen3-235B:
+    code: 2
+  Nova-Pro:
+    code: 3
+
+layers:
+  primary_zero_based: 27
+  curvature_zero_based: 16
+  five_depth_zero_based: [11, 14, 17, 20, 27]
+  three_annotator_zero_based: [12, 16]
+
+representation:
+  primary:
+    pooling: mean
+    window: unclipped
+    preceding_tokens: 1
+    execution_tokens_max: 10
+    clip_window_to_sentence_end: false
+  pooling_window_family:
+    pooling_order: [mean, first, last]
+    window_order: [unclipped, clipped]
+    common_complete_case_required: true
+    selection_coordinate:
+      family_code: 5
+      annotator_code: 1
+      layer: 27
+      pooling_code: 0
+      window_code: 0
+      truncation_code: 0
+      replicate_index: -1
+      scope_key: H4-common
+
+duplicate_handling:
+  cross_chain_policy: hard_fail
+  empirical_resource_pilot_cross_label_policy: drop_all_same_extraction_window
+  registered_cpu_family_cross_label_policy: drop_all_same_extraction_window
+  scope: amended_registered_cpu_families
+
+statistics:
+  correlation_dimension:
+    dtype: float64
+    center: false
+    scale: false
+    n_radii: 20
+    random_state: 42
+    n_bootstrap: 0
+    subsample: 2000
+    minimum_points: 100
+  participation_ratio:
+    dtype: float64
+    column_center: true
+    svd: full
+    component_cap: null
+  curvature:
+    layer_zero_based: 16
+    dtype: float32
+    diagnostic: local_vs_global_dim_ratio
+    k: 10
+    variance_threshold: 0.90
+    n_anchors: 150
+    random_state: 42
+    n_bootstrap: 0
+
+resampling:
+  permutation_B: 2500
+  permutation_attempt_cap: 2750
+  resource_pilot_B: 25
+  chain_stability_replicates: 500
+  chain_stability_valid_threshold: 475
+
+seeds:
+  registered: 20260726
+  diagnostic: 20260727
+  permutation:
+    purpose_code: 1
+    coordinates:
+      - base_seed
+      - 1
+      - family_code
+      - cell_index
+      - attempt_index
+  chain_stability:
+    base_seed: 20260726
+    purpose_code: 2
+    coordinates:
+      - 20260726
+      - 2
+      - family_code
+      - cell_index
+      - replicate_index
+  curvature_pair:
+    base_seed: 20260726
+    purpose_code: 4
+    family_code: 6
+    spawn_children: 2
+
+codes:
+  family:
+    primary_H2: 1
+    five_depth: 2
+    three_annotator: 3
+    truncation: 4
+    pooling_window_H4: 5
+    curvature: 6
+  purpose:
+    permutation: 1
+    chain_stability: 2
+    truncation_match: 3
+    curvature_pair: 4
+  behaviour:
+    backtracking: 1
+    uncertainty-estimation: 2
+    example-testing: 3
+    adding-knowledge: 4
+  pooling:
+    not_applicable: 0
+    mean: 1
+    first: 2
+    last: 3
+  window:
+    not_applicable: 0
+    unclipped: 1
+    clipped: 2
+  truncation:
+    not_applicable: 0
+    combined: 1
+    complete: 2
+    truncated: 3
+    category_matched: 4
+
+cell_index_registry:
+  minimum: 0
+  maximum: 91
+  primary:
+    range: [0, 3]
+    formula: b
+  five_depth:
+    range: [4, 23]
+    formula: 4 + 5*b + d
+    depths: [11, 14, 17, 20, 27]
+  three_annotator:
+    range: [24, 47]
+    formula: 24 + ((a*2 + l)*4) + b
+    annotators: [Sonnet, Qwen3-235B, Nova-Pro]
+    layers: [12, 16]
+  truncation:
+    range: [48, 63]
+    formula: 48 + 4*t + b
+    strata: [combined, complete, truncated, category-matched]
+  pooling_window:
+    range: [64, 87]
+    formula: 64 + ((p*2 + w)*4) + b
+    pooling: [mean, first, last]
+    window: [unclipped, clipped]
+  curvature:
+    range: [88, 91]
+    formula: 88 + b
+
+thresholds:
+  alpha: 0.05
+  low_cdim_max: 10.0
+  relative_difference_max: 0.25
+  category_share_imbalance_trigger: 0.10
+  chain_fraction: 0.80
+  mixed_label_chain_fraction_min: 0.50
+  resource:
+    decision_gate: primary
+    reported_gates: [primary, secondary, H4_cpu, H4]
+    peak_rss_bytes_max: 51539607552
+    valid_attempt_fraction_min: 0.99
+    projected_primary_seconds_max: 86400
+    projected_secondary_seconds_max: 259200
+    projected_H4_seconds_max: 172800
+    h4_gpu_free_scratch_bytes_min: 107374182400
+    h4_gpu_projected_extraction_seconds_max: 86400
+    h4_gpu_vram_bytes_min: 25769803776
+    projected_primary_scratch_bytes_max: 10737418240
+    safety_factor: 1.25
+
+truncation:
+  n_tokens_min: 8192
+  completed_suffix: "</think>"
+  neutral_selection_before_strata: true
+  category_matching_annotation_index: -1
+  category_matching_char_offset: -1
+  category_matching_token_start: -1
+  category_matching_replicate_index: -1
+
+planned_paths:
+  implementation:
+    config: configs/analysis/thesis_core_hardening_2026-07-26.yaml
+    runner: scripts/thesis_core_hardening.py
+    result_schema: schemas/thesis_core_hardening_result_cell_v1.schema.json
+    resource_schema: schemas/thesis_core_hardening_resource_benchmark_v1.schema.json
+    provenance_schema: schemas/thesis_core_hardening_provenance_v1.schema.json
+    tests: tests/test_thesis_core_hardening.py
+  h4_extraction_root: data/activations/R1-1.5B-core-hardening-L27
+  outputs:
+    primary: results/robustness/core_hardening/R1-1.5B/primary_L27_cdim_null.json
+    five_depth: results/robustness/core_hardening/R1-1.5B/five_depth_cdim_null.json
+    three_annotator: results/robustness/core_hardening/R1-1.5B/three_annotator_cdim_null.json
+    chain_stability: results/robustness/core_hardening/R1-1.5B/chain_stability.json
+    truncation: results/robustness/core_hardening/R1-1.5B/truncation_sensitivity.json
+    pooling_window: results/robustness/core_hardening/R1-1.5B/pooling_window_sensitivity.json
+    curvature: results/robustness/core_hardening/R1-1.5B/curvature_L16.json
+    provenance: results/robustness/core_hardening/R1-1.5B/provenance.json
+    resource_only: results/robustness/cdim_null_pilot/R1-1.5B/backtracking_L27_resource_only.json
+
+primary_input_hashes:
+  src/intrinsic_dim.py: c3869d8b4462b7f06d004f3daee187e7e1a6d9d30a912cdb236bf4935464bfc5
+  src/nulls.py: 22c91862fa7e7caf2f2615ab6340554655f8114f1bd5747ead5aba3985719759
+  src/row_provenance.py: 9155ef8fd848a015c3637cf61dfa463eb9a0f8a187fbf2ac065506cf43e8a994
+  src/cbs/cohort.py: 0d406320fd5d12eb034d92a3a1f6f4ba9d473a98c9b71c2bf55e8709e57954f2
+  data/activations/R1-1.5B/metadata.json: 23220c350f165399e6a4b522af0fe3248b8912db2fc707f65ce044cfcaa4dfd1
+  data/activations/R1-1.5B/row_index.json: 399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734
+  data/annotated_R1-1.5B.json: 9b24020ec3ce4ea53d1a47468a17090eed9d80062752728381e79dd38ccb78d5
+  data/chains_R1-1.5B.json: 736201f490708349e9a1efb0321ed6e63fdbc6e93681e716130dbffe2741191c
+  data/activations/R1-1.5B/backtracking_layer27.npy: 0432cade1316cdd6fc8f4cdde83016a663676c0d33746be716b3f38b5797e716
+  data/activations/R1-1.5B/uncertainty-estimation_layer27.npy: a557a11a680143af2fb2f45de748d2617cfb51bcba522757815c0659137fa1ab
+  data/activations/R1-1.5B/example-testing_layer27.npy: cf0a2c4acdad9595203d67a8e8b4897a0d887e278a9ad315e7635a7007e127b8
+  data/activations/R1-1.5B/adding-knowledge_layer27.npy: 09d1df9d7d566002f85a5cd49fd25dd08247718da87c6a05513d7871129fce61
+
+execution:
+  cpu_only: true
+  gpu_enabled: false
+  api_enabled: false
+  empirical_pilot_authorized_in_this_batch: false
+  empirical_pilot_consumed_in_this_batch: true
+  empirical_pilot_retry_authorized_in_this_batch: false
+  empirical_pilot_retry_consumed_in_this_batch: true
+  empirical_B50_authorized_in_this_batch: false
+  full_primary_authorized_in_this_batch: false
+  full_primary_consumed_in_this_batch: true
+  cpu_secondary_authorized_in_this_batch: false
+  five_depth_consumed_in_this_batch: true
+  three_annotator_consumed_in_this_batch: true
+  cpu_scope_diagnostics_authorized_in_this_batch: false
+  h3_consumed_in_this_batch: true
+  curvature_consumed_in_this_batch: true
+  load_real_activation_matrices_in_this_batch: false
+  synthetic_validation_only: true
+  resource_modes:
+    synthetic:
+      arbitrary_small_B_allowed: true
+    empirical:
+      B: 25
+      B50_requires_signed_amendment: true
+      B50_requires_successful_B25: true
+  h4_gpu_prerequisites:
+    free_scratch_bytes_min: 107374182400
+    six_representation_alignment_smoke_pass_required: true
+    projected_extraction_seconds_max: 86400
+    vram_bytes_min: 25769803776

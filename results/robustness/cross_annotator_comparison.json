@@ -47,8 +47,75 @@
     }
   },
   "manifold_replication": {
-    "Sonnet-4.5": {},
-    "Qwen3-235B": {},
-    "Nova-Pro": {}
+    "Sonnet-4.5": {
+      "backtracking": {
+        "cdim": 5.85,
+        "geo": 3.73,
+        "chainstrat_cdim": 6.36,
+        "pr_trough_layer": 15
+      },
+      "uncertainty-estimation": {
+        "cdim": 6.21,
+        "geo": 4.04,
+        "chainstrat_cdim": 6.88,
+        "pr_trough_layer": 15
+      },
+      "adding-knowledge": {
+        "cdim": 7.71,
+        "geo": 3.44,
+        "chainstrat_cdim": 8.46,
+        "pr_trough_layer": 15
+      },
+      "example-testing": {
+        "cdim": 6.04,
+        "geo": 4.22,
+        "chainstrat_cdim": 6.72,
+        "pr_trough_layer": 11
+      }
+    },
+    "Qwen3-235B": {
+      "backtracking": {
+        "cdim": 6.67,
+        "geo": 2.96,
+        "chainstrat_cdim": 6.72
+      },
+      "uncertainty-estimation": {
+        "cdim": 7.0,
+        "geo": 2.92,
+        "chainstrat_cdim": 7.06
+      },
+      "adding-knowledge": {
+        "cdim": 8.36,
+        "geo": 3.0,
+        "chainstrat_cdim": 8.63
+      },
+      "example-testing": {
+        "cdim": 6.56,
+        "geo": 3.35,
+        "chainstrat_cdim": 6.98
+      }
+    },
+    "Nova-Pro": {
+      "backtracking": {
+        "cdim": 6.64,
+        "geo": 2.98,
+        "chainstrat_cdim": 6.75
+      },
+      "uncertainty-estimation": {
+        "cdim": 7.15,
+        "geo": 2.96,
+        "chainstrat_cdim": 6.98
+      },
+      "adding-knowledge": {
+        "cdim": 8.7,
+        "geo": 3.23,
+        "chainstrat_cdim": 8.51
+      },
+      "example-testing": {
+        "cdim": 5.96,
+        "geo": 3.17,
+        "chainstrat_cdim": 7.12
+      }
+    }
   }
 }

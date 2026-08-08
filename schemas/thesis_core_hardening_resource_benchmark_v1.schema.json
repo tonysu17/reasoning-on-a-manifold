@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reasoning-on-a-manifold.local/schemas/thesis_core_hardening_resource_benchmark_v1.schema.json",
+  "title": "Thesis core-hardening resource-only benchmark v1",
+  "type": "object",
+  "additionalProperties": false,
+  "propertyNames": {
+    "not": {
+      "pattern": "(?:^observed|cdim|(?:^|[^a-z0-9])null(?:$|[^a-z0-9])|p[^a-z0-9]*value|raw[^a-z0-9]*p|holm[^a-z0-9]*p)"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "mode",
+    "input_hashes",
+    "b_target",
+    "attempted",
+    "valid",
+    "invalid",
+    "workers",
+    "invalid_reasons",
+    "wall_seconds",
+    "seconds_per_attempt",
+    "projected_primary_seconds",
+    "projected_secondary_seconds",
+    "projected_H4_seconds",
+    "peak_rss_bytes",
+    "scratch_bytes",
+    "output_bytes_per_attempt",
+    "projected_scratch_bytes",
+    "software",
+    "process",
+    "host",
+    "gpu_prerequisites",
+    "gate",
+    "gates"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["thesis-core-hardening-resource-benchmark-v1"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["UNRUN", "COMPLETE", "INVALID", "STOPPED"]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["synthetic", "empirical"]
+    },
+    "input_hashes": {"$ref": "#/$defs/hash_manifest"},
+    "b_target": {"type": "integer", "minimum": 0},
+    "attempted": {"type": "integer", "minimum": 0},
+    "valid": {"type": "integer", "minimum": 0},
+    "invalid": {"type": "integer", "minimum": 0},
+    "workers": {"type": "integer", "minimum": 0},
+    "invalid_reasons": {"$ref": "#/$defs/count_object"},
+    "wall_seconds": {"type": "number", "minimum": 0},
+    "seconds_per_attempt": {"type": "number", "minimum": 0},
+    "projected_primary_seconds": {"type": "number", "minimum": 0},
+    "projected_secondary_seconds": {"type": "number", "minimum": 0},
+    "projected_H4_seconds": {"type": "number", "minimum": 0},
+    "peak_rss_bytes": {"type": "integer", "minimum": 0},
+    "scratch_bytes": {"type": "integer", "minimum": 0},
+    "output_bytes_per_attempt": {"type": "integer", "minimum": 0},
+    "projected_scratch_bytes": {"type": "integer", "minimum": 0},
+    "software": {"$ref": "#/$defs/software_facts"},
+    "process": {"$ref": "#/$defs/process_facts"},
+    "host": {"$ref": "#/$defs/host_facts"},
+    "gpu_prerequisites": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/gpu_prerequisites"}
+      ]
+    },
+    "gate": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "UNRUN"]
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "secondary", "H4_cpu", "H4"],
+      "properties": {
+        "primary": {"type": "string", "enum": ["PASS", "FAIL", "UNRUN"]},
+        "secondary": {"type": "string", "enum": ["PASS", "FAIL", "UNRUN"]},
+        "H4_cpu": {"type": "string", "enum": ["PASS", "FAIL", "UNRUN"]},
+        "H4": {"type": "string", "enum": ["PASS", "FAIL", "UNRUN"]}
+      }
+    }
+  },
+  "$defs": {
+    "safe_property_names": {
+      "not": {
+        "pattern": "(?:^observed|cdim|(?:^|[^a-z0-9])null(?:$|[^a-z0-9])|p[^a-z0-9]*value|raw[^a-z0-9]*p|holm[^a-z0-9]*p)"
+      }
+    },
+    "hash_manifest": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "count_object": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "software_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "required": ["python", "numpy"],
+      "properties": {
+        "python": {"type": "string", "minLength": 1},
+        "numpy": {"type": "string", "minLength": 1}
+      }
+    },
+    "process_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "required": ["pid", "workers"],
+      "properties": {
+        "pid": {"type": "integer", "minimum": 0},
+        "workers": {"type": "integer", "minimum": 1}
+      }
+    },
+    "host_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "required": ["hostname", "system", "machine", "cpu_count"],
+      "properties": {
+        "hostname": {"type": "string", "minLength": 1},
+        "system": {"type": "string", "minLength": 1},
+        "machine": {"type": "string", "minLength": 1},
+        "cpu_count": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        }
+      }
+    },
+    "gpu_prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyNames": {"$ref": "#/$defs/safe_property_names"},
+      "required": [
+        "free_scratch_bytes",
+        "six_representation_alignment_smoke_pass",
+        "projected_extraction_seconds",
+        "vram_bytes"
+      ],
+      "properties": {
+        "free_scratch_bytes": {"type": "integer", "minimum": 0},
+        "six_representation_alignment_smoke_pass": {"type": "boolean"},
+        "projected_extraction_seconds": {"type": "number", "minimum": 0},
+        "vram_bytes": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+ "prereg_note": "Re-analysis of P-R2.1 (reframed) with the resampling unit moved from interpolated grid points to tasks (paired cluster bootstrap over the 64 shared tasks). Classifier labels untouched (frozen lexical range-finder; CF-T judged-label caveat unaffected). Supersedes the grid-point CI of full_report.json for citation.",
+ "observed_gap": 0.015912597944158603,
+ "frozen_pipeline_gap": 0.015912597944158603,
+ "B": 2000,
+ "seed": 20260719,
+ "n_grid": 25,
+ "n_no_overlap_replicates": 0,
+ "ci95": [
+  -0.006586214650689966,
+  0.1631104474337135
+ ],
+ "p_gap_le_0": 0.049,
+ "bootstrap_mean": 0.05965598881121228,
+ "bootstrap_sd": 0.04634674156139433,
+ "verdict": "DIRECTIONAL ONLY \u2014 gap does not survive task-level resampling (CI95 straddles 0)"
+}

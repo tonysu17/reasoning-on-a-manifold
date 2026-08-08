@@ -1,0 +1,40 @@
+{
+ "script": "ph0_mde_firstcut.py",
+ "date": "2026-08-02",
+ "seed": 20260802,
+ "B": 10000,
+ "prereg": "results/prereg/PHASE0_TRANSPORT_FREEZE_2026-08-02.md \u00a71.4",
+ "formula": "f* = (z.95+z.80)*sqrt(2)*SE/delta; unpaired-across-models, conservative",
+ "results": {
+  "single_direction": {
+   "reported_delta_floor": 0.05378923565449617,
+   "estimand_recovery": {
+    "variant": "frac",
+    "delta_recomputed": 0.05378923565449617,
+    "rel_err": 0.0
+   },
+   "estimand_gate_pass": true,
+   "n_tasks_paired": 49,
+   "se_paired": 0.016380321747713585,
+   "se_unpaired": 0.01978512192859731,
+   "se_used": 0.01978512192859731,
+   "f_star_detectable_attenuation": 1.2934415841793263,
+   "n_tasks_for_f_star_0.5": 328
+  },
+  "manifold_k5": {
+   "reported_delta_floor": 0.06982169433792763,
+   "estimand_recovery": {
+    "variant": "frac",
+    "delta_recomputed": 0.04999247691412346,
+    "rel_err": 0.28399794092411196
+   },
+   "estimand_gate_pass": false,
+   "n_tasks_paired": 48,
+   "se_paired": 0.017826221934421897,
+   "se_unpaired": 0.01960733393728986,
+   "se_used": 0.01960733393728986,
+   "f_star_detectable_attenuation": 1.3791685723312912,
+   "n_tasks_for_f_star_0.5": 366
+  }
+ }
+}

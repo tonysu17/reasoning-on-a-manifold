@@ -44,7 +44,7 @@ ax.set_title("Each behaviour: intrinsic dimension $\\ll$ linear extent $\\ll$ am
 fig.savefig(OUT / "fig_compression_gap.pdf"); plt.close(fig)
 print("wrote fig_compression_gap.pdf")
 
-# ---------------------------------------------------------------- Fig 2: curvature is a chain artefact
+# ---------------------------------------------------------------- Fig 2: earlier curvature-ratio chain sensitivity
 fig, ax = plt.subplots(figsize=(5.4, 3.1))
 w = 0.26
 full = [rob[b]["keystone_local_global"]["full"] for b in BEH]
@@ -57,9 +57,9 @@ ax.axhline(1.0, ls="--", lw=0.9, color="0.3")
 ax.text(len(BEH)-0.5, 1.02, "flat baseline (ratio $=1$)", ha="right", va="bottom", fontsize=7.5, color="0.3")
 ax.set_ylim(0, 1.15)
 ax.set_xticks(x); ax.set_xticklabels([SHORT[b] for b in BEH], fontsize=8)
-ax.set_ylabel("local-to-global dimension ratio\n($<1$ = curved, $\\approx1$ = flat)")
+ax.set_ylabel("local-to-global dimension ratio")
 ax.legend(fontsize=7.5, frameon=False, loc="lower right")
-ax.set_title("Apparent curvature vanishes under the chain control", fontsize=8.5)
+ax.set_title("Earlier ratio diagnostic is chain-sensitive", fontsize=8.5)
 fig.savefig(OUT / "fig_curvature_artefact.pdf"); plt.close(fig)
 print("wrote fig_curvature_artefact.pdf")
 

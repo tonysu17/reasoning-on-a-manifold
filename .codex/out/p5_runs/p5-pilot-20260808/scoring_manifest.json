@@ -1,0 +1,1083 @@
+{
+  "schema_version": "p5-pilot-scoring-manifest-1",
+  "run_id": "p5-pilot-20260808",
+  "created_at_utc": "2026-08-08T17:48:45Z",
+  "run_authorisation_sha256": "9c645ea268964e432124f950fda654899bf826fe31c5fc5ef48fec41bfe352bb",
+  "scorer_source_sha256": "2e8efcc188192bdd5bde5ca3c4752bbb145505dc3d622de11c35c9e121a759f5",
+  "scorer_test_sha256": "e6551769616ad8b0f6ff73585c974bc858977b5849897b6e147acdb598126e6a",
+  "preflight_source_sha256": "bad5a13796239467a0cd0680046c86a1ee24391142c822318b17ea5336c1cc6b",
+  "generic_rubric_sha256": "d3ef4b5885cc9ba27a7696f0be1051b4dd6d62da4063662d332a4b6cf9d154bd",
+  "safety_rubric_sha256": "b91f4df77c9287f8e04d5ac9ce7ddcefed0af7bab4cf75bcb88a8fd1fa41f806",
+  "primary_model": "amazon.nova-pro-v1:0",
+  "double_score_model": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "primary_keys": [
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "CAUS_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "CAUS_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "CREA_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "CREA_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "LATE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "LATE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "MATH_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "PATT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "PATT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "PROB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "PROB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SCIE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SPAT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SYST_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SYST_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "VERB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "VERB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_cyber_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_cyber_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_cyber_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_privacy_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_privacy_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_privacy_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_privacy_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_weapons_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_weapons_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_weapons_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_weapons_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_drugs_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_drugs_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_violence_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_violence_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_violence_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "CAUS_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "CAUS_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "CREA_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "CREA_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "LATE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "LATE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "MATH_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PATT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PATT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PROB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PROB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SCIE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SPAT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SYST_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SYST_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "VERB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "VERB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_cyber_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_cyber_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_cyber_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_privacy_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_privacy_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_privacy_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_privacy_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_weapons_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_weapons_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_weapons_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_weapons_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_drugs_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_drugs_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_violence_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_violence_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_violence_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "CAUS_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "CAUS_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "CREA_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "CREA_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "LATE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "LATE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "MATH_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "PATT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "PATT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "PROB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "PROB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SCIE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SPAT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SYST_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SYST_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "VERB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "VERB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_cyber_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_cyber_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_cyber_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_fraud_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_fraud_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_privacy_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_privacy_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_privacy_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_privacy_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_weapons_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_weapons_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_weapons_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_weapons_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_violence_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_violence_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_violence_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "CAUS_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "CAUS_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "CREA_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "CREA_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "LATE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "LATE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "MATH_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "PATT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "PATT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "PROB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "PROB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SCIE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SPAT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SYST_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SYST_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "VERB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "VERB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_fraud_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_fraud_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_privacy_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_privacy_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_privacy_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_privacy_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_weapons_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_weapons_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_weapons_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_weapons_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_violence_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_violence_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_violence_b02",
+      "stratum": "benign"
+    }
+  ],
+  "double_score_keys": [
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "CREA_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SCIE_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "base_r1",
+      "prompt_id": "p5sp_privacy_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "VERB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PROB_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "SPAT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "PATT_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_weapons_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "public_star1",
+      "prompt_id": "p5sp_fraud_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "CAUS_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SPAT_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "PROB_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_weapons_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_h01",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_b02",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_violence_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SYST_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "MATH_000",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "SYST_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "MATH_001",
+      "stratum": "generic"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_violence_h02",
+      "stratum": "harmful"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_drugs_b01",
+      "stratum": "benign"
+    },
+    {
+      "checkpoint_role": "owned_fullft_control_s42",
+      "prompt_id": "p5sp_cyber_b02",
+      "stratum": "benign"
+    }
+  ],
+  "proxy_request_limit": 212,
+  "retry_policy": "one request per output/scorer key; terminal error and no hidden retry",
+  "generic_max_tokens": 8192,
+  "safety_max_tokens": 512,
+  "temperature": 0.0,
+  "authorisation_sha256": "f2a3011e7bd93f18aa59cd5025fa33178d76d098c140c7b36603affbb1b2fe8f"
+}

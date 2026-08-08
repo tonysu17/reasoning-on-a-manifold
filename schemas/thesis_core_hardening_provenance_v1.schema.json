@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reasoning-on-a-manifold.local/schemas/thesis_core_hardening_provenance_v1.schema.json",
+  "title": "Thesis core-hardening provenance v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "preregistration_path",
+    "preregistration_sha256",
+    "input_manifest",
+    "code_commit",
+    "dirty",
+    "dirty_paths",
+    "python_version",
+    "package_versions",
+    "argv",
+    "utc_start",
+    "utc_end",
+    "host",
+    "process",
+    "amendment_ids"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["thesis-core-hardening-provenance-v1"]
+    },
+    "preregistration_path": {"type": "string", "minLength": 1},
+    "preregistration_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "input_manifest": {
+      "type": "object",
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "code_commit": {
+      "type": ["string", "null"]
+    },
+    "dirty": {"type": "boolean"},
+    "dirty_paths": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "python_version": {"type": "string", "minLength": 1},
+    "package_versions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "argv": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "utc_start": {"type": "string", "format": "date-time"},
+    "utc_end": {"type": "string", "format": "date-time"},
+    "host": {"$ref": "#/$defs/host_facts"},
+    "process": {"$ref": "#/$defs/process_facts"},
+    "amendment_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "host_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hostname", "system", "machine", "cpu_count"],
+      "properties": {
+        "hostname": {"type": "string", "minLength": 1},
+        "system": {"type": "string", "minLength": 1},
+        "machine": {"type": "string", "minLength": 1},
+        "cpu_count": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "process_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pid", "workers"],
+      "properties": {
+        "pid": {"type": "integer", "minimum": 0},
+        "workers": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

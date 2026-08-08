@@ -1,0 +1,140 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 352bcb1..cf906b2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -22,7 +22,9 @@ dependencies = [
+ [project.optional-dependencies]
+ gpu = [
+     "torch>=2.2",
+-    "transformers>=4.40",
++    # Transformers 5.14.1 requires DTensor paths unavailable in the pod's torch 2.4.1.
++    # Keep the tested 4.x API until the torch floor and pod image are upgraded together.
++    "transformers>=4.40,<5",
+     "accelerate>=0.30",
+     "huggingface_hub>=0.22",
+ ]
+@@ -30,7 +32,7 @@ gpu = [
+ # LoRA SFT needs peft; trl is optional (the trainer uses transformers.Trainer).
+ posttrain = [
+     "torch>=2.2",
+-    "transformers>=4.40",
++    "transformers>=4.40,<5",
+     "accelerate>=0.30",
+     "peft>=0.11",
+     "datasets>=2.19",
+diff --git a/scripts/smoke_imports.py b/scripts/smoke_imports.py
+new file mode 100755
+index 0000000..e731848
+--- /dev/null
++++ b/scripts/smoke_imports.py
+@@ -0,0 +1,91 @@
++#!/usr/bin/env python3
++"""No-download dependency smoke test for pod setup.
++
++Run immediately after environment installation and before starting a paid GPU job:
++
++    python scripts/smoke_imports.py --profile extraction
++    python scripts/smoke_imports.py --profile posttrain
++
++The posttrain profile additionally requires peft, datasets, and trl. Nothing is imported
++from a remote repository and no model is instantiated.
++"""
++
++from __future__ import annotations
++
++import argparse
++import importlib
++import json
++import sys
++import traceback
++
++
++BASE_MODULES = (
++    "torch",
++    "transformers",
++    "accelerate",
++    "huggingface_hub",
++    "safetensors",
++)
++POSTTRAIN_MODULES = ("peft", "datasets", "trl")
++
++
++def version(module) -> str:
++    return str(getattr(module, "__version__", "unknown"))
++
++
++def import_modules(names: tuple[str, ...]) -> tuple[dict, list[dict]]:
++    imported, failures = {}, []
++    for name in names:
++        try:
++            imported[name] = importlib.import_module(name)
++        except Exception as exc:  # import-time compatibility failures are the point of the test
++            failures.append({
++                "module": name,
++                "error": f"{type(exc).__name__}: {exc}",
++                "traceback": traceback.format_exc(limit=8),
++            })
++    return imported, failures
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--profile", choices=("extraction", "posttrain"),
++                        default="extraction")
++    args = parser.parse_args()
++    names = BASE_MODULES + (POSTTRAIN_MODULES if args.profile == "posttrain" else ())
++    modules, failures = import_modules(names)
++
++    transformers = modules.get("transformers")
++    if transformers is not None:
++        try:
++            major = int(version(transformers).split(".", 1)[0])
++        except ValueError:
++            major = -1
++        if major < 4 or major >= 5:
++            failures.append({
++                "module": "transformers",
++                "error": f"unsupported version {version(transformers)}; expected >=4.40,<5",
++            })
++        try:
++            # These imports exercise the path that failed before the Phase-0 pod launch.
++            from transformers import (  # noqa: F401
++                AutoModelForCausalLM,
++                AutoTokenizer,
++                Trainer,
++                TrainingArguments,
++            )
++            from transformers.models.qwen2.modeling_qwen2 import Qwen2ForCausalLM  # noqa: F401
++        except Exception as exc:
++            failures.append({
++                "module": "transformers.qwen2/trainer",
++                "error": f"{type(exc).__name__}: {exc}",
++                "traceback": traceback.format_exc(limit=8),
++            })
++
++    if args.profile == "posttrain" and not failures:
++        try:
++            from peft import LoraConfig, get_peft_model  # noqa: F401
++            from trl import DPOTrainer  # noqa: F401
++        except Exception as exc:
++            failures.append({
++                "module": "posttrain symbols",
++                "error": f"{type(exc).__name__}: {exc}",
++                "traceback": traceback.format_exc(limit=8),
++            })
++
++    torch = modules.get("torch")
++    report = {
++        "profile": args.profile,
++        "python": sys.version.split()[0],
++        "versions": {name: version(module) for name, module in modules.items()},
++        "torch_cuda_available": bool(torch.cuda.is_available()) if torch is not None else None,
++        "failures": failures,
++        "status": "PASS" if not failures else "FAIL",
++    }
++    print(json.dumps(report, indent=2))
++    raise SystemExit(0 if not failures else 1)
++
++
++if __name__ == "__main__":
++    main()

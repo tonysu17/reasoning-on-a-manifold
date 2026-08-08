@@ -1,0 +1,41 @@
+{
+  "artifact_notice": "Synthetic B=1 pre-contract fixture; not an empirical pilot and not schema-valid under the final resource-benchmark contract.",
+  "attempted": 1,
+  "b_target": 1,
+  "gate": "PASS",
+  "gates": {
+    "H4": "PASS",
+    "primary": "PASS",
+    "secondary": "PASS"
+  },
+  "host": {
+    "cpu_count": 10,
+    "hostname": "Tonys-MacBook-Pro.local",
+    "machine": "arm64",
+    "system": "Darwin"
+  },
+  "input_hashes": {},
+  "invalid": 0,
+  "invalid_reasons": {},
+  "output_bytes_per_attempt": 0,
+  "peak_rss_bytes": 0,
+  "process": {
+    "pid": 2340,
+    "workers": 1
+  },
+  "projected_H4_seconds": 8250.0,
+  "projected_primary_seconds": 1375.0,
+  "projected_scratch_bytes": 0,
+  "projected_secondary_seconds": 15125.0,
+  "schema_version": "thesis-core-hardening-resource-benchmark-v1",
+  "scratch_bytes": 0,
+  "seconds_per_attempt": 0.1,
+  "software": {
+    "numpy": "2.4.6",
+    "python": "3.13.12"
+  },
+  "status": "COMPLETE",
+  "valid": 1,
+  "wall_seconds": 0.1,
+  "workers": 1
+}

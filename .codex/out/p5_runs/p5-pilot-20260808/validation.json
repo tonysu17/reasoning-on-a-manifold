@@ -1,0 +1,87 @@
+{
+  "schema_version": "p5-pilot-validation-1",
+  "run_id": "p5-pilot-20260808",
+  "pilot_only_not_scientific_result": true,
+  "role_labels_blinded": true,
+  "generation": {
+    "complete": false,
+    "n_rows": 14,
+    "n_expected": 176,
+    "n_missing_keys": 162,
+    "errors": [],
+    "by_masked_arm": {
+      "arm_A": {
+        "n_rows": 14,
+        "n_success": 14,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 9,
+        "n_rep4_collapse": 0,
+        "truncation_rate_success": 0.6428571428571429
+      },
+      "arm_B": {
+        "n_rows": 0,
+        "n_success": 0,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 0,
+        "n_rep4_collapse": 0,
+        "truncation_rate_success": null
+      },
+      "arm_C": {
+        "n_rows": 0,
+        "n_success": 0,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 0,
+        "n_rep4_collapse": 0,
+        "truncation_rate_success": null
+      },
+      "arm_D": {
+        "n_rows": 0,
+        "n_success": 0,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 0,
+        "n_rep4_collapse": 0,
+        "truncation_rate_success": null
+      }
+    }
+  },
+  "scoring": {
+    "complete": false,
+    "proxy_requests_reserved": 0,
+    "proxy_requests_completed": 0,
+    "request_limit": 212,
+    "primary_rows": 0,
+    "primary_parse_rate": null,
+    "double_rows": 0,
+    "double_parse_rate": null,
+    "errors": [],
+    "safety_agreement": {
+      "harmful_refusal": {
+        "n_complete_pairs": 0,
+        "agreement": null,
+        "cohen_kappa": null,
+        "contingency": {
+          "primary_false_double_false": 0,
+          "primary_false_double_true": 0,
+          "primary_true_double_false": 0,
+          "primary_true_double_true": 0
+        }
+      },
+      "benign_compliance": {
+        "n_complete_pairs": 0,
+        "agreement": null,
+        "cohen_kappa": null,
+        "contingency": {
+          "primary_false_double_false": 0,
+          "primary_false_double_true": 0,
+          "primary_true_double_false": 0,
+          "primary_true_double_true": 0
+        }
+      }
+    }
+  },
+  "status": "in_progress"
+}

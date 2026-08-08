@@ -1,0 +1,84 @@
+{
+  "experiment": "DAS-1D example-testing (E10.1 recipe)",
+  "date": "2026-07-19",
+  "device": "mps",
+  "n_pairs": 8,
+  "config": {
+    "stage": "all",
+    "behaviour": "example-testing",
+    "layers": [
+      15
+    ],
+    "primary_layer": 15,
+    "n_pairs": 8,
+    "ctx": 96,
+    "min_ctx": 16,
+    "max_chains": 60,
+    "bs": 4,
+    "epochs": 3,
+    "lr": 0.01,
+    "seed": 0,
+    "window": 12,
+    "no_warm": false,
+    "smoke": true,
+    "tag": ""
+  },
+  "layers": {
+    "15": {
+      "train_curve": [
+        7.225425481796265,
+        7.22487211227417,
+        7.222756624221802
+      ],
+      "warm_train_curve": [
+        7.224189043045044,
+        7.089048624038696,
+        6.962410926818848
+      ],
+      "shuf_train_curve": [
+        7.570168972015381,
+        7.569669961929321,
+        7.568734884262085
+      ],
+      "cos_learned_diffmeans": 0.0014268644154071808,
+      "cos_warm_diffmeans": 0.5866835117340088,
+      "learned": {
+        "n": 8,
+        "induce_dlp": 0.003273695707321167,
+        "remove_dlp": 0.001783996820449829,
+        "sym_dlp": 0.002528846263885498
+      },
+      "learned_positional": {
+        "n": 8,
+        "induce_dlp": 0.02917805314064026,
+        "remove_dlp": 0.005329638719558716,
+        "sym_dlp": 0.017253845930099487
+      },
+      "warm": {
+        "n": 8,
+        "induce_dlp": 0.2861383557319641,
+        "remove_dlp": 0.07112720608711243,
+        "sym_dlp": 0.17863278090953827
+      },
+      "shuffled_pair": {
+        "n": 8,
+        "induce_dlp": 0.0020720362663269043,
+        "remove_dlp": 0.001111060380935669,
+        "sym_dlp": 0.0015915483236312866
+      },
+      "random_rotation": {
+        "n": 8,
+        "induce_dlp": 0.000985473394393921,
+        "remove_dlp": 0.00252494215965271,
+        "sym_dlp": 0.0017552077770233154
+      },
+      "diff_of_means": {
+        "n": 8,
+        "induce_dlp": 0.00811702013015747,
+        "remove_dlp": -0.0005440115928649902,
+        "sym_dlp": 0.0037865042686462402
+      },
+      "pair_specificity_gap": 0.0009372979402542114
+    }
+  }
+}

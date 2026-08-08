@@ -1,0 +1,319 @@
+<meta charset="utf-8">
+<title>Geometry of Machine Reasoning — Results Report, 19 Jul 2026</title>
+<style>
+  :root {
+    --paper: #f7f8f6; --card: #ffffff; --ink: #20262a; --muted: #5b6660;
+    --line: #dce1dd; --accent: #136558; --accent-soft: #e3efec;
+    --null: #9c4432; --null-soft: #f4e7e2; --warn: #8a6a1f; --warn-soft: #f3ecd8;
+    --stop: #444d4a; --stop-soft: #e7eae8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #151a1b; --card: #1c2224; --ink: #e4e9e6; --muted: #93a09a;
+      --line: #2b3335; --accent: #45a28f; --accent-soft: #1d312d;
+      --null: #cf8068; --null-soft: #362420; --warn: #c9a44e; --warn-soft: #322b1a;
+      --stop: #aab4b0; --stop-soft: #242b29;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151a1b; --card: #1c2224; --ink: #e4e9e6; --muted: #93a09a;
+    --line: #2b3335; --accent: #45a28f; --accent-soft: #1d312d;
+    --null: #cf8068; --null-soft: #362420; --warn: #c9a44e; --warn-soft: #322b1a;
+    --stop: #aab4b0; --stop-soft: #242b29;
+  }
+  :root[data-theme="light"] {
+    --paper: #f7f8f6; --card: #ffffff; --ink: #20262a; --muted: #5b6660;
+    --line: #dce1dd; --accent: #136558; --accent-soft: #e3efec;
+    --null: #9c4432; --null-soft: #f4e7e2; --warn: #8a6a1f; --warn-soft: #f3ecd8;
+    --stop: #444d4a; --stop-soft: #e7eae8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    font-size: 13.5px; line-height: 1.5; margin: 0; padding: 28px 24px 44px;
+  }
+  .brief { max-width: 1060px; margin: 0 auto; }
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 18px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 6px;
+  }
+  h1 {
+    font-family: Charter, "Bitstream Charter", Cambria, Georgia, serif;
+    font-size: 27px; font-weight: 700; letter-spacing: -0.01em;
+    margin: 0 0 4px; text-wrap: balance;
+  }
+  .subtitle { color: var(--muted); margin: 0 0 12px; font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; padding: 3px 9px; border: 1px solid var(--line);
+    border-radius: 3px; color: var(--muted); background: var(--card);
+  }
+  h2 {
+    font-family: Charter, "Bitstream Charter", Cambria, Georgia, serif;
+    font-size: 19px; margin: 30px 0 4px; letter-spacing: -0.01em;
+  }
+  .parthead {
+    margin: 34px 0 10px; padding: 9px 14px; background: var(--stop-soft);
+    border-left: 4px solid var(--stop); border-radius: 0 4px 4px 0;
+  }
+  .parthead .label {
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px;
+  }
+  .parthead p { margin: 0; font-size: 13px; }
+  .lede { color: var(--muted); margin: 0 0 10px; font-size: 12.5px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 5px; padding: 13px 16px; margin: 0 0 12px;
+  }
+  .card h3 {
+    font-size: 13.5px; margin: 0 0 6px; display: flex;
+    align-items: baseline; justify-content: space-between; gap: 12px;
+  }
+  .card h3 .name { font-weight: 700; }
+  .card p { margin: 0 0 6px; }
+  .card p:last-child { margin-bottom: 0; }
+  .lab {
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin-right: 6px;
+  }
+  .status {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 10.5px;
+    letter-spacing: 0.06em; padding: 2px 8px; border-radius: 3px;
+    white-space: nowrap; font-weight: 600;
+  }
+  .s-stands { background: var(--accent-soft); color: var(--accent); }
+  .s-neg    { background: var(--null-soft);   color: var(--null); }
+  .s-part   { background: var(--warn-soft);   color: var(--warn); }
+  .s-prov   { background: var(--stop-soft);   color: var(--stop); }
+  code, .n {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; background: var(--accent-soft); color: var(--accent);
+    padding: 0 4px; border-radius: 2px;
+  }
+  .n-neg { background: var(--null-soft); color: var(--null); }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 6px 0 4px; }
+  th {
+    text-align: left; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; border-bottom: 1.5px solid var(--ink);
+    padding: 5px 8px 5px 0;
+  }
+  td { padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td.num { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px; }
+  td.st { width: 108px; }
+  .tablewrap { overflow-x: auto; }
+  ul { margin: 4px 0 0; padding-left: 18px; }
+  li { margin-bottom: 4px; }
+  footer {
+    margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 11.5px;
+  }
+</style>
+
+<div class="brief">
+
+<header>
+  <p class="eyebrow">Results report · 19 July 2026</p>
+  <h1>The Geometry of Machine Reasoning</h1>
+  <p class="subtitle">Per-behaviour structure, the causal handle, and the post-training origin of safety reasoning · DeepSeek-R1-Distill-Qwen-1.5B</p>
+  <div class="chips">
+    <span class="chip">thesis ucl_msc.tex · 69pp · compiles clean</span>
+    <span class="chip">986 chains · 3 annotators · κ 0.35–0.44</span>
+    <span class="chip">E8 · E9 · E10 · pt01–12 · R0–R3 · D-track executed</span>
+    <span class="chip">gpt-oss pilot stopped at its κ gate</span>
+  </div>
+</header>
+
+<p class="lede">
+  This report gives the results only. Part A covers what is written into the draft
+  (chapters 4–6); Part B covers executed work that is not yet in the body. Each block
+  states the claim, the numbers, the control that could have killed it, and a status.
+  <strong>Since the 16 July brief:</strong> the human validity anchors were built (18 Jul,
+  unlabelled); the R3 headline was downgraded (19 Jul); and a tracker audit corrected five
+  bookkeeping defects without changing any finding.
+</p>
+
+<h2>Summary of standing claims</h2>
+<div class="tablewrap">
+<table>
+  <tr><th>Claim</th><th>Key number</th><th class="st">Status</th></tr>
+
+  <tr><td>Each behaviour occupies a low-dimensional subspace</td>
+      <td class="num">corr-dim 5.9–7.7 in 1536-D; linear span 38–83</td>
+      <td class="st"><span class="status s-stands">STANDS ×3</span></td></tr>
+
+  <tr><td>That subspace is <em>curved</em></td>
+      <td class="num">ratio 0.43–0.69 → ≈1.0 one-per-chain</td>
+      <td class="st"><span class="status s-neg">NEGATIVE</span></td></tr>
+
+  <tr><td>Concentration is behaviour-specific, not chain-specific</td>
+      <td class="num">bt, unc p&lt;.001; add-know p=1.0</td>
+      <td class="st"><span class="status s-part">2 OF 4</span></td></tr>
+
+  <tr><td>A behaviour can be causally suppressed below a matched floor</td>
+      <td class="num">backtracking Δ_floor +0.054 / +0.070, Holm p=.002</td>
+      <td class="st"><span class="status s-prov">PRELIMINARY</span></td></tr>
+
+  <tr><td>Subspace steering beats the single direction</td>
+      <td class="num">cos(single, k5) = 0.965</td>
+      <td class="st"><span class="status s-neg">NULL</span></td></tr>
+
+  <tr><td>A causally trained frame is a stronger, different object</td>
+      <td class="num">+0.649 vs diff-means +0.048; paired +0.601 [.538,.666]</td>
+      <td class="st"><span class="status s-stands">CONFIRMED</span></td></tr>
+
+  <tr><td>Grounded causal width is low</td>
+      <td class="num">≈2 (coord-AUC 0.726→0.887, flat to k32)</td>
+      <td class="st"><span class="status s-stands">CONFIRMED</span></td></tr>
+
+  <tr><td>Backtracking is a bidirectional handle on the deliberation loop</td>
+      <td class="num">ablate 24% / vanilla 36% / amplify 58–64%</td>
+      <td class="st"><span class="status s-stands">CONFIRMED</span></td></tr>
+
+  <tr><td>Collapse is rescued by decoding entropy, not state noise</td>
+      <td class="num">T=0.6 rescues 75–100%; 4 noise geometries identical</td>
+      <td class="st"><span class="status s-stands">CONFIRMED</span></td></tr>
+
+  <tr><td>Safety fine-tuning rotates the reasoning subspaces</td>
+      <td class="num">+0.26…+0.45° vs a 35–74° depth scale</td>
+      <td class="st"><span class="status s-neg">BOUNDED</span></td></tr>
+
+  <tr><td>It translates them along a recipe-specific direction</td>
+      <td class="num">cos→STAR1 0.567–0.594 safety vs 0.143–0.183 control</td>
+      <td class="st"><span class="status s-stands">STANDS</span></td></tr>
+
+  <tr><td>The signature is method-dependent, not only data-dependent</td>
+      <td class="num">SFT dH −0.0104 vs DPO +0.0145 (opposite sign)</td>
+      <td class="st"><span class="status s-part">1 SEED</span></td></tr>
+
+  <tr><td>RLVR compresses behaviour without compressing representation</td>
+      <td class="num">ΔPR −0.017 (0.06% of PR≈28) vs Δent −0.017 nats, p=1.2e-13</td>
+      <td class="st"><span class="status s-stands">STANDS</span></td></tr>
+
+  <tr><td>Aimed amplification retains value better than temperature</td>
+      <td class="num">+0.016 [0.013, 0.019], 24/25 grid points</td>
+      <td class="st"><span class="status s-prov">PROVISIONAL</span></td></tr>
+
+  <tr><td>Correctness is carried by trajectory <em>order</em></td>
+      <td class="num">order gain −0.01…−0.03 at every layer</td>
+      <td class="st"><span class="status s-neg">NEGATIVE</span></td></tr>
+
+  <tr><td>gpt-oss deliberative labels are annotatable</td>
+      <td class="num">decision κ 0.223 &lt; 0.4 sealed floor</td>
+      <td class="st"><span class="status s-neg">KILL FIRED</span></td></tr>
+</table>
+</div>
+
+<!-- ============================ PART A ============================ -->
+<div class="parthead">
+  <span class="label">Part A</span>
+  <p><strong>Results written into the draft</strong> — chapters 4 (geometry), 5 (steering, collapse, causal basis) and 6 (safety origin).</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">A1 · Per-behaviour geometry</span> <span class="status s-stands">RUNG 1 CLIMBED, RUNG 3 REFUSED</span></h3>
+  <p><span class="lab">Claim</span> Each of the four reasoning behaviours occupies a compact, flat, low-dimensional region of the residual stream.</p>
+  <p><span class="lab">Numbers</span> Correlation dimension <span class="n">5.9 / 6.2 / 6.0 / 7.7</span> (backtracking, uncertainty, example-testing, adding-knowledge) against a 1536-D ambient space and a linear span of <span class="n">38–83</span>. Probes decode at 0.70–0.84 against a chance floor of 0.50, and do so flatly across depth (CV 0.012–0.023). No discrete sub-types: best <span class="n">k=2</span> at silhouette 0.18–0.20, falling with k.</p>
+  <p><span class="lab">Controls</span> The dimension survives a one-sentence-per-chain independence control, and replicates across all three annotators (backtracking 5.9 / 6.7 / 6.6, same ordering throughout) despite label agreement of only κ 0.35–0.44. Curvature does <em>not</em> survive that control: the local-to-global ratio moves from 0.43–0.69 on full data to <span class="n n-neg">≈1.0</span> at one point per chain, so apparent curvature is within-chain autocorrelation. The negative is well-powered — the effect would be detectable at N≥500 and the pools hold 600–900 chains.</p>
+  <p><span class="lab">Specificity</span> Against a chain-stratified variance-ratio null (B=2500), backtracking and uncertainty clear at p&lt;.001 at every layer; example-testing only at L27; adding-knowledge is null everywhere at <span class="n n-neg">p=1.0</span>. Content moves appear distributed, control moves localised.</p>
+  <p><span class="lab">Consequence</span> Flatness is what licenses every linear instrument used downstream.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">A2 · The causal handle</span> <span class="status s-part">OCCUPANCY ≠ CAUSATION</span></h3>
+  <p><span class="lab">Claim</span> Exactly one behaviour is causally steerable by the correlational direction; the causally <em>trained</em> axis is a different and far stronger object.</p>
+  <p><span class="lab">Steering (E8)</span> 50 held-out tasks, greedy decoding, energy-matched and rank-matched random floors. Backtracking clears its floor at <span class="n">Δ_floor +0.054</span> (single) and <span class="n">+0.070</span> (k=5), Holm p=.002, and survives count and per-1k endpoints. Example-testing's apparent effect is a length-dilution artefact (count endpoint p=.27); adding-knowledge is null as the geometry predicted; uncertainty is under-powered. There is no manifold advantage — the k=5 subspace vector sits at <span class="n">cos 0.965</span> to the single direction. The four directions are strongly non-orthogonal (off-diagonal |cos| mean 0.57) and each is reconstructable from the other three at R²=1.0.</p>
+  <p><span class="lab">Causal basis (E10)</span> A 1-D interchange frame trained at L17 transfers backtracking at <span class="n">+0.649</span> against difference-of-means <span class="n">+0.048</span> — a paired gap of <span class="n">+0.601, CI95 [+0.538, +0.666]</span> — while sitting nearly orthogonal to it (cos ≈ 0.2). Random frames return +0.0003 and positional controls +0.029. Grounding controls split the layers: L17 passes (coordination AUC 0.760, state-dependence 4.3×) whereas L11 and L27 fail at AUC 0.357 and 0.211. <em>By raw transfer L27 would have won</em>; the control caught it as an optimiser-carved illusion.</p>
+  <p><span class="lab">Width</span> Raw transfer rises monotonically with k (0.62→1.68, never saturating), but grounding saturates at <span class="n">k≈2</span> (AUC 0.726→0.887, then flat through k=32) and the within-class transfer signature diverges above k≈4. Grounded causal width is therefore ≈2, inside — not matching — the descriptive 6–8.</p>
+  <p><span class="lab">Reading</span> The subspace a behaviour occupies is not the subspace that causes it, which is what explains the E8 manifold null.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">A3 · Collapse and the loop attractor</span> <span class="status s-stands">4 RUNGS RUN</span></h3>
+  <p><span class="lab">Claim</span> The degeneration that ablation induces is representational collapse into a pre-existing attractor, and only the sampler breaks it.</p>
+  <p><span class="lab">Numbers</span> The loop regime is linearly separable from hidden state alone — token-level OOF <span class="n">AUC 0.994</span>, chain-level 1.0 over 884 chains — and the contamination gate passes (|cos| ≤ 0.13 against all twelve steering vectors), so the probe is not reading the intervention. Collapse is dose-monotone (example-testing k5: 42→64→76% greedy) while the rank-matched floor stays flat at 30–36% against a 34–35% vanilla rate. Decoding entropy at <span class="n">T=0.6</span> rescues 75–100% of collapses, and the whole collapse curve shifts about fivefold down — dose trades against decoding entropy.</p>
+  <p><span class="lab">Bidirectionality</span> Backtracking's response is odd-signed and significant: ablate 24%, vanilla 36%, amplify 58–64% (sign p=.013/.019), with boxed answers running 0.24 / 0.06–0.10 / 0.00–0.02 across the three. The generic-damage account is rejected in both signs. Ablation also carries an <em>overthinking tax</em>: at T=0.6 it lifts the boxed-answer rate to <span class="n">0.70</span> against vanilla's 0.37 while shortening chains, so removing deliberation makes the model finish more often. Example-testing is asymmetric — ablation inflates, amplification does not — i.e. necessity without sufficiency.</p>
+  <p><span class="lab">Refuted prediction</span> Four energy-matched noise geometries (causal-2D, PCA-2D, random-2D, isotropic-1536) proved <em>indistinguishable</em>: diversity scales with dose, not geometry, and collapse is unmoved. The sealed prediction that the causal geometry would Pareto-dominate is refuted — state noise is geometry-blind, and only the aimed clamp is direction-sensitive.</p>
+  <p><span class="lab">Gate</span> The fork-locator gate returned NO-GO: token entropy gives AUROC 0.624 but lift@top-20% of <span class="n n-neg">0.77 &lt; 1</span>, so the highest-entropy tokens are <em>depleted</em> of branch points. Forks are decided in the state before the logits show it.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">A4 · The post-training origin of safety reasoning</span> <span class="status s-stands">FULLY GATED</span></h3>
+  <p><span class="lab">Claim</span> Safety fine-tuning re-weights the policy over an intact representational substrate: it translates without rewiring, along a direction that is specific to the recipe.</p>
+  <p><span class="lab">Design</span> STAR-1 safety SFT at LoRA doses 100/300/1000, plus full fine-tune and the public checkpoint, each against a size-matched non-safety control, three seeds per recipe, plus DPO and GRPO arms — all measured on byte-identical generic-reasoning token IDs across 986 chains.</p>
+  <p><span class="lab">Rotation</span> On the recalibrated half-split statistic (whose null mean is exactly zero), the excess angle is positive in 8/8 cells at <span class="n">+0.26…+0.45°</span>, with LoRA arms flat at ≤+0.012° across 32 cells. An injected 5° single-plane rotation reads +0.55–0.72, placing the observed effect at roughly one degree of single-plane equivalent — against a 35–74° depth scale. The claim is a bounded sub-degree rotation, not a null. There is no contraction either (ΔPR −0.05…−0.45 on PR≈22–26, variance ratio ≈1.00).</p>
+  <p><span class="lab">Translation</span> A paired displacement of <span class="n">4.7–6.4%</span> of activation norm, coherence 0.70–0.78 against a chain-level sign-flip null of ≈0.05 (p=1/301), and one global direction (pairwise cos 0.95–0.99 across behaviours). Direction is recipe-specific: cos to the full safety SFT is <span class="n">0.580 [0.572, 0.588]</span> for safety-1000 versus <span class="n">0.143 [0.135, 0.152]</span> for the matched control, a paired gap of +0.437 [0.428, 0.446], and it is dose-monotone (0.521→0.536→0.580).</p>
+  <p><span class="lab">Controls that could have killed it</span> Three seeds per recipe give within-recipe cosines of 0.989–0.994 against cross-recipe 0.16–0.29, separating completely by recipe (gap ≥0.38, exact permutation p=0.05 per layer) — the one-seed caveat is discharged. Re-extracting both models on a <em>different annotator's</em> span boundaries returns <span class="n">cos 0.9992 / 0.9990</span>, so the directional claim is no longer single-annotator. The footprint is uniform across k∈{2,3,8,10} and across every layer L2–L26, so it is not an artefact of the pre-committed L12/L16 or k=5.</p>
+  <p><span class="lab">Method plane</span> SFT sharpens the decoding distribution (dH −0.0104) while DPO on the same data broadens it (+0.0145) and moves a different axis (cos→STAR1 0.20–0.23 versus SFT's 0.57–0.58). Dose cannot explain the split: the full SFT sits at ~2× the DPO arm's KL yet moves entropy ~85× less. GRPO is a near-no-op even re-dosed — with the consequence that the GRPO arms carry no RLVR evidence, and the RLVR claim rests on the public DeepScaleR checkpoint alone.</p>
+</div>
+
+<!-- ============================ PART B ============================ -->
+<div class="parthead">
+  <span class="label">Part B</span>
+  <p><strong>Executed results not yet in the draft body</strong> — the entropy/value ladder appears only as a conclusion-outlook paragraph; the predictive-geometry track and the gpt-oss gate are not in the body at all.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">B1 · Entropy and value (R0–R3)</span> <span class="status s-part">R3 PROVISIONAL</span></h3>
+  <p><span class="lab">R0 — the ladder is real and the jam is cold</span> The four entropy levels dissociate (max |ρ| = 0.705, under the 0.9 bar), so they are coupled but distinct. Inside the loop, token entropy runs <span class="n">0.393 nats</span> against 0.855 in matched clean text (p=1.2e-25): being stuck is a rut, not a storm. Mean entropy tracks solution diversity at ρ=+0.419 (p=.0024).</p>
+  <p><span class="lab">R1 — the ownable result</span> Across base → distilled → RLVR, backtracking cues per 1k tokens go <span class="n">0.14 → 11.99 → 8.51</span> and length 1200 → 5026 → 4446: distillation installs deliberation and RLVR compresses it. But matched-text geometry is untouched (<span class="n">ΔPR −0.017</span>, 0.06% of PR≈28, p=.051) while decoding entropy falls significantly (−0.017 nats, p=1.2e-13). <strong>Behavioural compression without representational compression.</strong> The pre-registered kill was not triggered. One sealed prediction was refuted on the base arm: distillation <em>raises</em> on-policy entropy rather than lowering it.</p>
+  <p><span class="lab">R2 — cancelled before spend</span> 4-gram diversity is saturated on the 50-task eval set (median 0.966, none below 0.9, flat across steering dose), so the intended frontier has no x-axis there. The sweep was cancelled as a measurement negative, and it is the empirical case for R3's strategy-level metric. Salvaged from existing data: backtracking amplification at T=0.6 gives a monotone completion gain (boxed 0.16→0.29, answered 0.30→0.46, length 4905→3867) at constant surface diversity and no collapse cost, plateauing at α≈1.0.</p>
+  <p><span class="lab">R3 — downgraded 19 July</span> 3,584 chains over 64 tasks and 7 cells, with true correctness against computed golds. The pump beats the thermostat by <span class="n">+0.016 [0.013, 0.019]</span> at 24 of 25 matched-entropy grid points, and temperature at T=1.2 burns accuracy from 0.883 to 0.561. <strong>The verdict rule that certified this is not a significance test</strong>, and the effect re-reads as <em>the pump preserving value better than low temperature on a descent from a shared anchor</em>, not as buying diversity more efficiently. Strategy labels come from a frozen lexical range-finder, so the sign is provisional pending judged-label replication. The draft's conclusion still carries the superseded framing.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">B2 · Predictive geometry</span> <span class="status s-neg">VALUE TRACK CLOSED</span></h3>
+  <p><span class="lab">Claim</span> Reasoning value is carried by where the state <em>is</em>, not by the order it got there.</p>
+  <p><span class="lab">Numbers</span> Three independent confirmations. The pilot residual detector, a logit-lens belief occupancy at 0.71 (L27), and a trained GRU value head at 0.73–0.75 — which sits under the free belief floor and is <em>beaten by its own order-blind counterparts</em> (step-shuffled 0.75–0.77). The order gain is −0.01…−0.03 at every layer, so the kill criterion fired on a model that could have used order and did not.</p>
+  <p><span class="lab">The one live signal</span> A linear forward map patched at behaviour onsets is real and overwhelmingly significant — beating a random control at 65% (L17, p=6.9e-68) and 62% (L27, p=5.3e-53) — and it is onset-specific, since patching off-onset drops it to 52% chance. But it beats persistence only 57%/55% and recovers just 3–7% of the update. A nonlinear JEPA predictor adds nothing over ridge. Real, causal, and small.</p>
+</div>
+
+<div class="card">
+  <h3><span class="name">B3 · The gpt-oss safety-reasoning gate</span> <span class="status s-neg">KILL FIRED AS DESIGNED</span></h3>
+  <p><span class="lab">Result</span> 100 chains annotated by three judges over 374,934 characters. Fleiss κ: harm recognition <span class="n">0.616</span> (citable), specification citation 0.523 (replicate), <span class="n n-neg">decision 0.223</span>, adjudication 0.145. The <code>decision</code> label was the pre-registered kill criterion at a 0.4 floor, and the disagreement is judge-specific rather than uniform (0.405 for one pair against 0.160 for another).</p>
+  <p><span class="lab">Consequence</span> The pilot stopped before any geometry spend. P2 and the downstream geometry are not approved and should not begin until the human anchor resolves whether this is a broken schema or a miscalibrated judge — the judges differ roughly fourfold in how often they emit the label at all.</p>
+</div>
+
+<!-- ============================ NEGATIVES ============================ -->
+<h2>Negative, null and retracted results</h2>
+<p class="lede">Collected deliberately. The audit-first apparatus is a stated contribution of the thesis, and these are its output.</p>
+<div class="card">
+  <ul>
+    <li><strong>Curvature is a chain artefact</strong> — a clean, well-powered negative, and the thesis's second descriptive finding.</li>
+    <li><strong>Adding-knowledge is null everywhere</strong> — specificity p=1.0, null under steering, and its DAS removal frame is ungrounded at coordination AUC 0.560 (chance). The behaviour fails on three independent instruments.</li>
+    <li><strong>No manifold advantage</strong> — the k=5 subspace vector is the single direction (cos 0.965).</li>
+    <li><strong>State-noise geometry is irrelevant</strong> — E9.2's sealed prediction refuted; four geometries indistinguishable.</li>
+    <li><strong>Fork-locator NO-GO</strong> — high-entropy tokens are depleted of branch points (lift 0.77); the rung was gated out before spend.</li>
+    <li><strong>Value is occupancy, not order</strong> — the trajectory-dynamics track is closed after three confirmations.</li>
+    <li><strong>R2 frontier unmeasurable</strong> — diversity metric saturated; sweep cancelled pre-spend.</li>
+    <li><strong>gpt-oss κ gate fired</strong> — pilot self-terminated at its own pre-registered floor.</li>
+    <li><strong>R3 headline downgraded (19 Jul)</strong> — directional, but the certifying rule was not a significance test and the framing mis-stated what the knobs did.</li>
+    <li><strong>DPO safety-specificity retracted (19 Jul)</strong> — the control arm never converged (train loss 0.615 against a 0.693 chance floor, 65 pairs), so its flat entropy is what an unconverged intervention returns, not evidence. A dose-matched control is owed.</li>
+    <li><strong>Rotation test recalibrated</strong> — the original statistic shared rows between observed and null, biasing the excess negative; the previously reported "adding-knowledge inversion" was that artefact. The headline moved from null to bounded.</li>
+    <li><strong>Three instruments caught mid-flight</strong> — attribution patching's read-out-proximity confound (three separate times, most recently as DAS's L27 illusion), the degenerate single-token DAS objective caught pre-spend on 48 local pairs, and the within-class shuffle re-read as a transfer signature rather than a null.</li>
+  </ul>
+</div>
+
+<!-- ============================ CAVEATS ============================ -->
+<h2>Open caveats and what would settle each</h2>
+<div class="card">
+  <ul>
+    <li><strong>No human has validated any annotator layer.</strong> Three blind stratified labelling sets were built on 18 July and are unlabelled (≈2–2.5h). H1 adjudicates the gpt-oss kill criterion, H2 the span-validity gap sitting under the geometry, steering and spillover results, H3 the lexical classifier behind R3. This is the single highest-leverage open item, and it gates the gpt-oss decision.</li>
+    <li><strong>Steering is scored within-annotator</strong> (the builder annotator scored its own run), so the E8 verdict is provisional by design. The non-builder re-annotation band is budget-blocked at $560/$560. Also owed on that run: the α-sweep, k∈{1,10,auto}, and a task-accuracy guard.</li>
+    <li><strong>The 2-of-4 specificity verdict is single-annotator</strong> — the three-way replication covers intrinsic dimension and the curvature negative only; the chain-stratified null has never been recomputed on the secondary annotators.</li>
+    <li><strong>R3's sign is provisional</strong> pending judged-label replication of the frozen lexical classifier.</li>
+    <li><strong>RL arms are one seed</strong>, GRPO carries no RLVR evidence, and the dose-matched DPO control is owed. The safety results are also LoRA-versus-full-fine-tune in regime.</li>
+    <li><strong>Scope</strong> — one 1.5B model in one family, on a math-weighted corpus. The geometry claims replicate across annotators but not yet across model families.</li>
+  </ul>
+</div>
+
+<footer>
+  Sources: <code>RESULTS_LEDGER.md</code> (audited 19 Jul 2026) · thesis <code>thesis/ucl_msc.tex</code>, 69pp, built 19 Jul 2026 ·
+  confound register <code>CONFOUNDS_AND_REMEDIATION.md</code> · methodology <code>METHODOLOGY.md</code>.
+  All numbers are from the clean deduplicated Gate-0 re-run unless stated.
+</footer>
+
+</div>

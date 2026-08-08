@@ -1,0 +1,317 @@
+# Checkpoint lineage/provenance table — Phase 0 item 4 (freeze §1.6)
+# Admission rule: a checkpoint enters Phase 1 only when its row is complete.
+generated: 2026-08-02
+verified_by: local sha256 (cached snapshots) + HF-page sweeps of 2026-08-02
+tokenizer_warning: >
+  tokenizer.json is NOT byte-identical across the family (R1 88145e3c... vs STAR1/DeepScaleR e20ddafc...; config bos_token_id: R1 151643 vs DeepScaleR 151646). The C1 rule therefore applies to EVERY cross-checkpoint extraction: byte-identical input_ids via --tokenizer-alias 1.5b. 30_r1_compression matched-ids arms additionally carry gate_tokenizer.json.
+core:
+  deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B:
+    role: base (thesis primary)
+    parent: Qwen/Qwen2.5-Math-1.5B (SFT distillation, 800K R1-curated samples, no RL)
+    local_cached: true
+    snapshot: ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562
+    tokenizer_json_sha256_16: 88145e3c3249adc2
+    tokenizer_config_json_sha256_16: 8ac8c85fb242563c
+    config_json_sha256_16: 37bd455e9679d295
+    arch: 1536h/28L/131072ctx/bos151643
+    license: MIT
+    adapters_merged: n/a (full checkpoints)
+    verification: local hash 2026-08-02
+  UCSC-VLAA/STAR1-R1-Distill-1.5B:
+    role: safety SFT descendant (Rung-0 pair)
+    parent: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (full SFT, 1K STAR-1, 5ep bs128 lr1e-5 seq8192)
+    local_cached: true
+    snapshot: f865d7ac5136370518986a5273f4d731d7a0f254
+    tokenizer_json_sha256_16: e20ddafc659ba902
+    tokenizer_config_json_sha256_16: d9125f504eea1bb5
+    config_json_sha256_16: be1796345be48a32
+    arch: 1536h/28L/131072ctx/bos151643
+    license: Apache-2.0
+    adapters_merged: n/a (full checkpoints)
+    verification: local hash 2026-08-02
+  Qwen/Qwen2.5-Math-1.5B:
+    role: pre-distillation parent (registry: baseline)
+    parent: Qwen2.5 pretrain (math continued-pretrain)
+    local_cached: true
+    snapshot: 4a83ca6e4526a4f2da3aa259ec36c259f66b2ab2
+    tokenizer_json_sha256_16: c0382117ea329cdf
+    tokenizer_config_json_sha256_16: a668be4b083078ac
+    config_json_sha256_16: 81d1dc3c9d479746
+    arch: 1536h/28L/4096ctx/bos151643 — 4096 ctx = the matched-ids grid mismatch
+    license: apache-2.0 (verify on HF page)
+    adapters_merged: n/a (full checkpoints)
+    verification: local hash 2026-08-02
+  agentica-org/DeepScaleR-1.5B-Preview:
+    role: RLVR descendant (best provenance: code+data+W&B public)
+    parent: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (GRPO, 8K->16K->24K curriculum, ~1750 steps)
+    local_cached: true
+    snapshot: e3f524ce413a296b4d388e7560dd5c82c1c56725
+    tokenizer_json_sha256_16: e20ddafc659ba902
+    tokenizer_config_json_sha256_16: b869a935677e8f9d
+    config_json_sha256_16: 9a7e68bc101a6aef
+    arch: 1536h/28L/131072ctx/bos151646
+    license: MIT
+    adapters_merged: n/a (full checkpoints)
+    verification: local hash 2026-08-02
+remote_verified:   # HF page verified 2026-08-02, not cached locally; hash before Phase-1 use
+  - id: "Nickyang/FastCuRL-1.5B-Preview|V2|V3"
+    parent: "R1-Distill-1.5B"
+    note: "staged curriculum RL (only public staged sequence)"
+    resolved_checkpoints:
+      - id: "Nickyang/FastCuRL-1.5B-Preview"
+        revision: "main"
+        commit: "44b07bdfea2bc96340360728635fad28f07d9fe5"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "8c32f3b0afaf748b"
+        config_json_sha256_16: "36b484882a47c544"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "Nickyang/FastCuRL-1.5B-V2"
+        revision: "main"
+        commit: "06f55012860536b4b2f824915a6f3442691718f4"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "8c32f3b0afaf748b"
+        config_json_sha256_16: "255f125f6c8af4d9"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "Nickyang/FastCuRL-1.5B-V3"
+        revision: "main"
+        commit: "f765b72f534de5957bc7fbe8e0c816b99530caf5"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "8c32f3b0afaf748b"
+        config_json_sha256_16: "fc29c6312d1a89d9"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "nvidia/Nemotron-Research-Reasoning-Qwen-1.5B (v1,v2 revisions)"
+    parent: "R1-Distill-1.5B"
+    note: "ProRL, 3000 steps, ref resets"
+    resolved_checkpoints:
+      - id: "nvidia/Nemotron-Research-Reasoning-Qwen-1.5B"
+        revision: "v1"
+        commit: "b89048893f95246c6b5749b287f0049e6df42ee9"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "d9125f504eea1bb5"
+        config_json_sha256_16: "5b3c4e17b37a11c9"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "nvidia/Nemotron-Research-Reasoning-Qwen-1.5B"
+        revision: "v2"
+        commit: "a8e647c7a46f04e84ce732d6fa3fa627ba343b8d"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "92a23085bfbd6862"
+        config_json_sha256_16: "f1b8eaf06009a58e"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "knoveleng/Open-RS1|RS2|RS3"
+    parent: "R1-Distill-1.5B"
+    note: "GRPO variants, $42 budget"
+    resolved_checkpoints:
+      - id: "knoveleng/Open-RS1"
+        revision: "main"
+        commit: "1f0d80f257dee863f3f94536b6c4b7c9b05f9227"
+        tokenizer_json_sha256_16: "a4256422650d141f"
+        tokenizer_config_json_sha256_16: "161b6e92d1d62443"
+        config_json_sha256_16: "1986788fc26f1ba8"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "knoveleng/Open-RS2"
+        revision: "main"
+        commit: "5a080aa479decb4fd9dda284a6523290d868fee8"
+        tokenizer_json_sha256_16: "a4256422650d141f"
+        tokenizer_config_json_sha256_16: "92a23085bfbd6862"
+        config_json_sha256_16: "1986788fc26f1ba8"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "knoveleng/Open-RS3"
+        revision: "main"
+        commit: "b9ea78ba17ad87b7f180de59a676fd6b7dd56484"
+        tokenizer_json_sha256_16: "a4256422650d141f"
+        tokenizer_config_json_sha256_16: "92a23085bfbd6862"
+        config_json_sha256_16: "1986788fc26f1ba8"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "RUC-AIBOX/STILL-3-1.5B-preview"
+    parent: "R1-Distill-1.5B"
+    note: "RL (2503.04548)"
+    resolved_checkpoints:
+      - id: "RUC-AIBOX/STILL-3-1.5B-preview"
+        revision: "main"
+        commit: "88d330baa0f8ea60bde6519141125ddf308e9fc2"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "7552ff5b82b05790"
+        config_json_sha256_16: "f510408a0b1bd78d"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "hbx/JustRL-DeepSeek-1.5B"
+    parent: "R1-Distill-1.5B"
+    note: "single-stage GRPO"
+    resolved_checkpoints:
+      - id: "hbx/JustRL-DeepSeek-1.5B"
+        revision: "main"
+        commit: "0637e4096c789c67f9eecbe8355e0bdeddede1c2"
+        tokenizer_json_sha256_16: "88145e3c3249adc2"
+        tokenizer_config_json_sha256_16: "8ac8c85fb242563c"
+        config_json_sha256_16: "f62729adb55c028e"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "agentica-org/DeepCoder-1.5B-Preview"
+    parent: "R1-Distill-1.5B"
+    note: "RL for code"
+    resolved_checkpoints:
+      - id: "agentica-org/DeepCoder-1.5B-Preview"
+        revision: "main"
+        commit: "103033da54f104b0d0a3570547fb3721fba99962"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "79e0359ba5ec6c33"
+        config_json_sha256_16: "b06206e84c910bb6"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "nvidia/DLER-R1-1.5B-Research"
+    parent: "R1-Distill-1.5B"
+    note: "RL length-penalty"
+    resolved_checkpoints:
+      - id: "nvidia/DLER-R1-1.5B-Research"
+        revision: "main"
+        commit: "d0523143ce164e59a1161884398da4c00238d846"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "92a23085bfbd6862"
+        config_json_sha256_16: "d2c9d01a6785866e"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "Zyphra/ZR1-1.5B"
+    parent: "R1-Distill-1.5B"
+    note: "RL math+code"
+    resolved_checkpoints:
+      - id: "Zyphra/ZR1-1.5B"
+        revision: "main"
+        commit: "6108a26d0cd7f378704e281ee4d842c4a055cb4a"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "79e0359ba5ec6c33"
+        config_json_sha256_16: "337cb800f14451b6"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "l3lab/L1-Qwen-1.5B, L1-Qwen-1.5B-Max"
+    parent: "agentica-org/DeepScaleR-1.5B-Preview"
+    note: "LCPO length-control RL — 2 RL generations deep"
+    resolved_checkpoints:
+      - id: "l3lab/L1-Qwen-1.5B-Exact"
+        revision: "main"
+        commit: "b1fa57f192f0b14bd033d0085faaa80cdc39694b"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "b869a935677e8f9d"
+        config_json_sha256_16: "82a91a93aaab1dcd"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+        resolution_note: "row's unqualified L1 checkpoint"
+      - id: "l3lab/L1-Qwen-1.5B-Max"
+        revision: "main"
+        commit: "8d5eff2725e735114ec3949d1c5ae90d519fa4b6"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "b869a935677e8f9d"
+        config_json_sha256_16: "283188fa6d2c2471"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "theshyustc/CoRT-Prompt-Hint-1.5B-RL, CoRT-Hint-Engineering-1.5B-RL"
+    parent: "R1-Distill-1.5B"
+    note: "tool-integrated RL (2506.09820); CONFIG-VERIFIED 2026-08-02; owed: tokenizer-file hash, chat-template diff, weight-delta sanity"
+    resolved_checkpoints:
+      - id: "theshyustc/CoRT-Prompt-Hint-1.5B-RL"
+        revision: "main"
+        commit: "fb0bc7ce122a31fbda11c2c432d0451fffa457cf"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "d5305a85802c9426"
+        config_json_sha256_16: "0f1713873c4ec526"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "theshyustc/CoRT-Hint-Engineering-1.5B-RL"
+        revision: "main"
+        commit: "c764ddc8f553e8494eff5d561e8a8aae9f59ea82"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "90c217294fc32c55"
+        config_json_sha256_16: "82d60d6f167d8e93"
+        arch: "1536h/28L/131072ctx/bos151646 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "huihui-ai/DeepSeek-R1-Distill-Qwen-1.5B-abliterated"
+    parent: "R1-Distill-1.5B"
+    note: "refusal-direction ablation (weight surgery, training-free)"
+    resolved_checkpoints:
+      - id: "huihui-ai/DeepSeek-R1-Distill-Qwen-1.5B-abliterated"
+        revision: "main"
+        commit: "a0f34fe37d34f68d8071d556d33d4b3967a8e535"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "a8dade878894b7aa"
+        config_json_sha256_16: "be0ccfa8d3e5eeeb"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "stepenZEN/DeepSeek-R1-Distill-Qwen-1.5B-Abliterated-dpo"
+    parent: "huihui abliterated"
+    note: "DPO on top of surgery — 2-step chain"
+    resolved_checkpoints:
+      - id: "stepenZEN/DeepSeek-R1-Distill-Qwen-1.5B-Abliterated-dpo"
+        revision: "main"
+        commit: "facdb70bfe5b421084012830fe654be429b5eeee"
+        tokenizer_json_sha256_16: "a4256422650d141f"
+        tokenizer_config_json_sha256_16: "4018a43a2cf98792"
+        config_json_sha256_16: "422f9cdafeeaf232"
+        arch: "1536h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "UCSC-VLAA/STAR1-R1-Distill-7B|8B|14B|32B"
+    parent: "respective R1-Distill bases"
+    note: "safety SFT scale family"
+    resolved_checkpoints:
+      - id: "UCSC-VLAA/STAR1-R1-Distill-7B"
+        revision: "main"
+        commit: "34ed6c6b813bea7d1783a8d0ce19401ac03bb917"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "d9125f504eea1bb5"
+        config_json_sha256_16: "841664ed9d282c04"
+        arch: "3584h/28L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "UCSC-VLAA/STAR1-R1-Distill-8B"
+        revision: "main"
+        commit: "a17db837abbf438b4699bf53e85e053f1bf5dd39"
+        tokenizer_json_sha256_16: "d91915040cfac999"
+        tokenizer_config_json_sha256_16: "d015c5337f32d7bb"
+        config_json_sha256_16: "61c111dfd62ca117"
+        arch: "4096h/32L/131072ctx/bos128000 [llama/LlamaForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "UCSC-VLAA/STAR1-R1-Distill-14B"
+        revision: "main"
+        commit: "160bf2c5252fc95ebf92473b7cc8aadacb485b77"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "d9125f504eea1bb5"
+        config_json_sha256_16: "bf697f2df9c01fee"
+        arch: "5120h/48L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+      - id: "UCSC-VLAA/STAR1-R1-Distill-32B"
+        revision: "main"
+        commit: "e0a3bb481c1db4e13d0754676f88e245d2687f57"
+        tokenizer_json_sha256_16: "e20ddafc659ba902"
+        tokenizer_config_json_sha256_16: "92a23085bfbd6862"
+        config_json_sha256_16: "8a9eed6e48724191"
+        arch: "5120h/64L/131072ctx/bos151643 [qwen2/Qwen2ForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "openai/gpt-oss-20b (registry: safety_gpt_oss)"
+    parent: "OpenAI pretrain+deliberative alignment"
+    note: "safety-chapter model"
+    resolved_checkpoints:
+      - id: "openai/gpt-oss-20b"
+        revision: "main"
+        commit: "6cee5e81ee83917806bbde320786a8fb61efebee"
+        tokenizer_json_sha256_16: "0614fe83cadab421"
+        tokenizer_config_json_sha256_16: "9279e942392b742d"
+        config_json_sha256_16: "3a2a26ded679375b"
+        arch: "2880h/24L/131072ctx/bos? [gpt_oss/GptOssForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"
+  - id: "openai/gpt-oss-safeguard-20b"
+    parent: "openai/gpt-oss-20b"
+    note: "official safety-reasoning FT 2025-10-29 — pt21 pair (decision 7 open)"
+    resolved_checkpoints:
+      - id: "openai/gpt-oss-safeguard-20b"
+        revision: "main"
+        commit: "8a11e17b25c973a24099d4016bf2e17dd7ec1574"
+        tokenizer_json_sha256_16: "0614fe83cadab421"
+        tokenizer_config_json_sha256_16: "9279e942392b742d"
+        config_json_sha256_16: "8fc6c94451a1a97b"
+        arch: "2880h/24L/131072ctx/bos? [gpt_oss/GptOssForCausalLM]"
+        verified: "HF metadata hash 2026-08-02"

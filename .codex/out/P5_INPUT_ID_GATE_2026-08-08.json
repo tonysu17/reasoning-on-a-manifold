@@ -1,0 +1,1007 @@
+{
+  "schema_version": "p5-preflight-1",
+  "status": "pass",
+  "alias_policy": "base R1 tokenizer and chat template for every checkpoint role",
+  "checkpoint_roles": [
+    "base_r1",
+    "public_star1",
+    "owned_fullft_safety_s42",
+    "owned_fullft_control_s42"
+  ],
+  "prompt_manifest_sha256": "dbf822499a2f4011d81967a8c2e3d29ca3c718ac506292ee4a537b978259cd59",
+  "tokenizer_sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+  "tokenizer_config_sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5",
+  "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+  "records": [
+    {
+      "prompt_id": "CAUS_000",
+      "prompt_text_sha256": "858bad4cd4242c250ddfa88adc582c24eea74482b1444d23a68a17e30ed1773a",
+      "n_input_ids": 123,
+      "input_ids_sha256": "9ef29b66f467c9a07b6ff85858f97c824caebca5c5d05d8b4ff2771eaff52055"
+    },
+    {
+      "prompt_id": "CAUS_001",
+      "prompt_text_sha256": "508d054f176abb8a91693106fea91b3460bcad5572617af1b843c040a840e550",
+      "n_input_ids": 117,
+      "input_ids_sha256": "0db3e22622eb40491c3b78bcadc45f7bfc2001cd16f8a63d50c07330809fe700"
+    },
+    {
+      "prompt_id": "CREA_000",
+      "prompt_text_sha256": "cbc076b12d705f20d749e4971fc44bc67d908ee823c30e1a978dd065f7d87dc2",
+      "n_input_ids": 91,
+      "input_ids_sha256": "98a749e22774c962b61868f63ea33ab514a1dfb5e9a730ccff99105c969854b7"
+    },
+    {
+      "prompt_id": "CREA_001",
+      "prompt_text_sha256": "81fe27c4d9a250729defeec5e8a5215d584bfd15f52a8c60f064062203c14faf",
+      "n_input_ids": 79,
+      "input_ids_sha256": "de1713a72f9a340be535731326755e639d417f39e1727559735178e1d9af5a36"
+    },
+    {
+      "prompt_id": "LATE_000",
+      "prompt_text_sha256": "f0b92398dd9a8ef143dc60e5d154e1f56195f5f81381cb00c436bb6923c71175",
+      "n_input_ids": 75,
+      "input_ids_sha256": "177842ba3d989e6a618da1a5c42ccb64e7ce1fc27169e1e4ee176afa3ac52847"
+    },
+    {
+      "prompt_id": "LATE_001",
+      "prompt_text_sha256": "9d339ed4c955b9d8edade7daa8ea8ae3866aacaff6b4abdf2f2defa8a4c77467",
+      "n_input_ids": 117,
+      "input_ids_sha256": "4d5369bddaa12d9d1b439864638aac81bcb2886c012592c67bd722e669b2a3aa"
+    },
+    {
+      "prompt_id": "MATH_000",
+      "prompt_text_sha256": "ce994becc3ea9990ef670f31043659476b21438ec39e1ac90c5f1e907d4c2fee",
+      "n_input_ids": 69,
+      "input_ids_sha256": "6cb98fa6057943035941a0835a07062f57cf71631c35a0a5bb2f646aadb4b135"
+    },
+    {
+      "prompt_id": "MATH_001",
+      "prompt_text_sha256": "fe3ee1b5e824458c7f67276fc7f0a7873f32029e15cffcd8a7bac67a92c28bce",
+      "n_input_ids": 97,
+      "input_ids_sha256": "7e2c3085fdf10937d789eaf2e83d53eb869d19562e0f6c68513ac0a060d17856"
+    },
+    {
+      "prompt_id": "PATT_000",
+      "prompt_text_sha256": "940063a52ce27ea614a17d634d482257c3dd4bc0c062203b07c18281467d9106",
+      "n_input_ids": 58,
+      "input_ids_sha256": "e71dcf5fc9cfbcb4516f61c76265aeb940cb43a269cf9a77e5b883bfff843830"
+    },
+    {
+      "prompt_id": "PATT_001",
+      "prompt_text_sha256": "1c7347f79deb2a2402eb3587643e4880d6f10e4efd9050c5dd3b64f1e6221c0f",
+      "n_input_ids": 79,
+      "input_ids_sha256": "ecd0a210a263669012e393562c69b213a7dc0b1abbdc144753edf9f23f4a7297"
+    },
+    {
+      "prompt_id": "PROB_000",
+      "prompt_text_sha256": "01be0980cbb22b37ee539cce86e9488dd4264ab045af228e6ab89a4f6b26d387",
+      "n_input_ids": 99,
+      "input_ids_sha256": "8926a7d79b212de43368f6b0a9cea21c0fd19f65526c38699e28dda400afa499"
+    },
+    {
+      "prompt_id": "PROB_001",
+      "prompt_text_sha256": "b3ff004ecf2c23a6af45e136110bf1ef9d0c5840167c5ad580935ce0044e247b",
+      "n_input_ids": 73,
+      "input_ids_sha256": "5fff52cf0bf6b1cf97c89c7b18c779afda1f46635b2327cd61dada272712e870"
+    },
+    {
+      "prompt_id": "SCIE_000",
+      "prompt_text_sha256": "dc3bd6ff654262f3321d01ced2266bdb90a41b02e98124cd6c3487e3168b9c7c",
+      "n_input_ids": 107,
+      "input_ids_sha256": "b66938c976a195868bd566c279e23fb7c903828aad2eaf47c40cd398218d0895"
+    },
+    {
+      "prompt_id": "SCIE_001",
+      "prompt_text_sha256": "773dfb668a81ebe3cc846f4d6d30834a658bc925c10f8759d4f4ab5c160b31c6",
+      "n_input_ids": 114,
+      "input_ids_sha256": "2f28a1a079469cd9e64628d253c8279f8ee16f85fbc8d8b3505badc0635d7ac0"
+    },
+    {
+      "prompt_id": "SPAT_000",
+      "prompt_text_sha256": "23ae4b446587bcb5677d3fab4c25f5fc7459a9d1a9a496791dba530acacb9d1a",
+      "n_input_ids": 68,
+      "input_ids_sha256": "7d6979d0a570383c84626c69fbdfbb21e4c9709465d6a288e780df7a75317c67"
+    },
+    {
+      "prompt_id": "SPAT_001",
+      "prompt_text_sha256": "334f9b33cf146c7ead42e76d3fe4c6dd800dc4e295a5a1725686fd4d3ad4e150",
+      "n_input_ids": 106,
+      "input_ids_sha256": "40caff03a62a46f4d23215e13defa564b4386873697c28cce21d7f73669c364b"
+    },
+    {
+      "prompt_id": "SYST_000",
+      "prompt_text_sha256": "ac89beabbb36048edb30eae013d9f18a1242d084ba8c53fbaadb7fe194469bd3",
+      "n_input_ids": 135,
+      "input_ids_sha256": "54c8ee0bd410331f6493d84f971a849a2732569938eeb67a628e5abf689b5fbd"
+    },
+    {
+      "prompt_id": "SYST_001",
+      "prompt_text_sha256": "0f6452bc7b02969fa90b95f828975936c9865b9a09d80788fa5ff8bc53656323",
+      "n_input_ids": 139,
+      "input_ids_sha256": "5b2ca6c8a9c74462ce78a1050e6e96236844196e6c1d1574f8f32bf667e28168"
+    },
+    {
+      "prompt_id": "VERB_000",
+      "prompt_text_sha256": "a62c5a7905a54aad8d49a78fa6c727cd4f1f7ebf5b5aa887509c3fc5b0df4490",
+      "n_input_ids": 112,
+      "input_ids_sha256": "53dc14e904d9c56a4cda7d66ebbb88cd3ba364211cefa7ee30acbbabea26d1ce"
+    },
+    {
+      "prompt_id": "VERB_001",
+      "prompt_text_sha256": "03ce7ba7f7ccf134d1e0b6066f9673bf05e7a496cb007ea7de9b89c24e30f398",
+      "n_input_ids": 73,
+      "input_ids_sha256": "27d7ce10d935c2ae15135b304cb1ffb948bab55a4587110aeee73e4b105ba901"
+    },
+    {
+      "prompt_id": "p5sp_cyber_h01",
+      "prompt_text_sha256": "8399e7b834f77d69a1b9f28ea6c174be5618425fcb42ad6421ad02fb97de0fc6",
+      "n_input_ids": 35,
+      "input_ids_sha256": "d819bb500a47a6d18ae02d70e173736f670cfd7ad5817c89e471ae3f51251744"
+    },
+    {
+      "prompt_id": "p5sp_cyber_b01",
+      "prompt_text_sha256": "122dde109d7e85b1581ee0a049953f1f3f5e40a22897698811a8b0eb3379b5f1",
+      "n_input_ids": 33,
+      "input_ids_sha256": "28eb57c5e7201cdf80d0a0b829d357e16fcf1e8788dd443e2541b34c653fdf3c"
+    },
+    {
+      "prompt_id": "p5sp_cyber_h02",
+      "prompt_text_sha256": "ef38fffe61d73b081d8bca936e5cc95fe881e712834eefc564a1c3cb11a54200",
+      "n_input_ids": 29,
+      "input_ids_sha256": "5e78ab15cc714822f6f83c7252564a2f0a06a5d72ccd9025884222b0b06415c9"
+    },
+    {
+      "prompt_id": "p5sp_cyber_b02",
+      "prompt_text_sha256": "4439e57922151714a271dba0903e6d8e0a14b04ad5add360380aa78852174c37",
+      "n_input_ids": 31,
+      "input_ids_sha256": "05297668af453c6bb8c4c833a9eccba0b0b95defa8a9271a419bca69fd1f63f3"
+    },
+    {
+      "prompt_id": "p5sp_fraud_h01",
+      "prompt_text_sha256": "5f9c821324ffd23920e24f3ccc9076f308837238a9102568a40f115ed7b1bf3b",
+      "n_input_ids": 32,
+      "input_ids_sha256": "241d6ebdfdb48118195d305e5fa5e21a22673fb1f8254fe957fa28417b69575b"
+    },
+    {
+      "prompt_id": "p5sp_fraud_b01",
+      "prompt_text_sha256": "5489b2fefa958a640a66d7e3a5b12f089bcfa6d877800c147a763825219b2134",
+      "n_input_ids": 35,
+      "input_ids_sha256": "b5df8a75c4e91d065f466db16b794d81f23710fa9e48e83925829c72f53d51d7"
+    },
+    {
+      "prompt_id": "p5sp_fraud_h02",
+      "prompt_text_sha256": "76bae7c54e59b0ffd5045b0c1b0c08f8fc06b45c33ec0637c0fbdbdb1f5e831d",
+      "n_input_ids": 31,
+      "input_ids_sha256": "cf62f3539b69b0c16f0e1abf9cd5ee12de316dde3a8f744f97b28f0ae9b0d0c9"
+    },
+    {
+      "prompt_id": "p5sp_fraud_b02",
+      "prompt_text_sha256": "d912f71d5a01852037d794c6beab353cf64d92a9fa92cf77b124d8b59390367d",
+      "n_input_ids": 33,
+      "input_ids_sha256": "42e49755d3cd08803f4d85c692e2244e2718454f87d3053ec3ac5aa746b9271d"
+    },
+    {
+      "prompt_id": "p5sp_privacy_h01",
+      "prompt_text_sha256": "e6a18f70664c7e5334b7840056a31816b1044d768d6b9f6a5a2237064542cefe",
+      "n_input_ids": 33,
+      "input_ids_sha256": "9c148301fe7f1baf98119c1bfff6f524b54896946a52952ef0ecc0d8b8e86b65"
+    },
+    {
+      "prompt_id": "p5sp_privacy_b01",
+      "prompt_text_sha256": "1c487dd49c6f55e8dfb8a20a3612a82c45941d16540c71f0ce57c2e791595a5f",
+      "n_input_ids": 30,
+      "input_ids_sha256": "940dd34bfaefd7067354057b63c9a9a0fb987e61de110c285e3c539943bff84c"
+    },
+    {
+      "prompt_id": "p5sp_privacy_h02",
+      "prompt_text_sha256": "4e3bc0b61f52dd1ad5c033d0e8e620b4d36c92ee2dae665da0edf68257b6b682",
+      "n_input_ids": 24,
+      "input_ids_sha256": "a49c154dbe85899e23eef27af7cf8d5462221b985fd17c734c827649db407dc8"
+    },
+    {
+      "prompt_id": "p5sp_privacy_b02",
+      "prompt_text_sha256": "1cc83767ac7e0095905cb38949c085af8d41cf69631fda0cb2d3febf3c5b4614",
+      "n_input_ids": 36,
+      "input_ids_sha256": "22102c80a7062e0960a4e42013bf10f817ba9ea56dd243c2b4b216ecd1d87df7"
+    },
+    {
+      "prompt_id": "p5sp_weapons_h01",
+      "prompt_text_sha256": "43136b434996bf51d733bd20f695cfd850d2f4853b0ebc6b7d393fd5f9d6c644",
+      "n_input_ids": 28,
+      "input_ids_sha256": "b787ab0558f2d5c3deead8ed344a62d2e1955dfabc17a95f37aa1f8c53387453"
+    },
+    {
+      "prompt_id": "p5sp_weapons_b01",
+      "prompt_text_sha256": "d7c52ad9b1192e96ed870fb1e37378e8c1a2d7523a29e69bc33603ee20550619",
+      "n_input_ids": 32,
+      "input_ids_sha256": "53f0ac05ef26d7cac380fa901bd3b9ca4304e65d69e4b4fbb96748c9cc7b384e"
+    },
+    {
+      "prompt_id": "p5sp_weapons_h02",
+      "prompt_text_sha256": "7c5742a678bbf0c0b1361ad8a76da4900d6d18216e1f1b92cfc2563c91d7033f",
+      "n_input_ids": 31,
+      "input_ids_sha256": "748ca8f90dcbc643eed6ca396265f9f34c6618a64b9976acf7a36d9010ad1525"
+    },
+    {
+      "prompt_id": "p5sp_weapons_b02",
+      "prompt_text_sha256": "96ab7003fe70b9b4f8db18bcaefcf3e0e4ede7b37edd62831fba77e7a25a8912",
+      "n_input_ids": 30,
+      "input_ids_sha256": "cbf886cf6950a10d46674b2636768e4f3a37054a4cb981ef1f1831bb8218fcdd"
+    },
+    {
+      "prompt_id": "p5sp_drugs_h01",
+      "prompt_text_sha256": "b1396467a5db4ce8cd7d5dbb04949db92f03d51b20c0e51eac63ec309a1b8212",
+      "n_input_ids": 33,
+      "input_ids_sha256": "acc8858c68d6ee82ebcaf759e91966ca5134e221e7ba72d1a94566d2055cbc63"
+    },
+    {
+      "prompt_id": "p5sp_drugs_b01",
+      "prompt_text_sha256": "36bbc628f90c39acc8fd83761d23a49f09ade675713d199ef81163e968d99bd2",
+      "n_input_ids": 30,
+      "input_ids_sha256": "854799c93c5de549c9123ca5cb8b5be97db5bce800223b02d727b42ba9839bc6"
+    },
+    {
+      "prompt_id": "p5sp_drugs_h02",
+      "prompt_text_sha256": "e6320eed0d11c60a6d93b77b2d5c9274a9320a3fce6254ef21d586c5130365a3",
+      "n_input_ids": 29,
+      "input_ids_sha256": "17bdea14b824852e0a379a406afc6b5f36cdcd3067d03efd7d7f8e9bb55dae8d"
+    },
+    {
+      "prompt_id": "p5sp_drugs_b02",
+      "prompt_text_sha256": "82672486ea61423a25c4397cc4824e243ffb8d6de8d687dd421a5b66b8a2f6b1",
+      "n_input_ids": 31,
+      "input_ids_sha256": "bcc9ff5035dae5bac7ec022048c683daab0e350fc193f83d778f26b918da02d7"
+    },
+    {
+      "prompt_id": "p5sp_violence_h01",
+      "prompt_text_sha256": "6f18503bfd6b70678666b873d8c027ffa24452583c247354d34676ce8a5cd05b",
+      "n_input_ids": 31,
+      "input_ids_sha256": "af89a71cfe60801fe4c71b30a50196ccc5726224b357cf794b3824704996b934"
+    },
+    {
+      "prompt_id": "p5sp_violence_b01",
+      "prompt_text_sha256": "79b1a402ebafdd662d3b2ff1226d8d775b1476cd12aa5f9b999a3bbf39af9995",
+      "n_input_ids": 30,
+      "input_ids_sha256": "2415069f51b8c0c8a23ee7fac487829bc22281c1b9e98e2be36afcafa6c6ce34"
+    },
+    {
+      "prompt_id": "p5sp_violence_h02",
+      "prompt_text_sha256": "847335ab92493c202b3d10554d5ab304e9d357da415b84f83afb5b60a6d6ab53",
+      "n_input_ids": 30,
+      "input_ids_sha256": "92542b9a0ba2df458e6861fa97179dae86a0a092a0929af36d5b018e3b817d16"
+    },
+    {
+      "prompt_id": "p5sp_violence_b02",
+      "prompt_text_sha256": "5e32cb72a05ec11ea51b942d74121019b42286040143d760e815c69a2014ca15",
+      "n_input_ids": 34,
+      "input_ids_sha256": "2ed04d72e5232ef83adba123fd0ecc35451f3e66153ee84f442d20e82034b3a3"
+    }
+  ],
+  "record_manifest_sha256": "0c7c82a95af9329360066d656f5bd386aa8c2102bc02ae8a72faa3ecbf26cdf7",
+  "observed_by_role": {
+    "base_r1": [
+      {
+        "prompt_id": "CAUS_000",
+        "input_ids_sha256": "9ef29b66f467c9a07b6ff85858f97c824caebca5c5d05d8b4ff2771eaff52055"
+      },
+      {
+        "prompt_id": "CAUS_001",
+        "input_ids_sha256": "0db3e22622eb40491c3b78bcadc45f7bfc2001cd16f8a63d50c07330809fe700"
+      },
+      {
+        "prompt_id": "CREA_000",
+        "input_ids_sha256": "98a749e22774c962b61868f63ea33ab514a1dfb5e9a730ccff99105c969854b7"
+      },
+      {
+        "prompt_id": "CREA_001",
+        "input_ids_sha256": "de1713a72f9a340be535731326755e639d417f39e1727559735178e1d9af5a36"
+      },
+      {
+        "prompt_id": "LATE_000",
+        "input_ids_sha256": "177842ba3d989e6a618da1a5c42ccb64e7ce1fc27169e1e4ee176afa3ac52847"
+      },
+      {
+        "prompt_id": "LATE_001",
+        "input_ids_sha256": "4d5369bddaa12d9d1b439864638aac81bcb2886c012592c67bd722e669b2a3aa"
+      },
+      {
+        "prompt_id": "MATH_000",
+        "input_ids_sha256": "6cb98fa6057943035941a0835a07062f57cf71631c35a0a5bb2f646aadb4b135"
+      },
+      {
+        "prompt_id": "MATH_001",
+        "input_ids_sha256": "7e2c3085fdf10937d789eaf2e83d53eb869d19562e0f6c68513ac0a060d17856"
+      },
+      {
+        "prompt_id": "PATT_000",
+        "input_ids_sha256": "e71dcf5fc9cfbcb4516f61c76265aeb940cb43a269cf9a77e5b883bfff843830"
+      },
+      {
+        "prompt_id": "PATT_001",
+        "input_ids_sha256": "ecd0a210a263669012e393562c69b213a7dc0b1abbdc144753edf9f23f4a7297"
+      },
+      {
+        "prompt_id": "PROB_000",
+        "input_ids_sha256": "8926a7d79b212de43368f6b0a9cea21c0fd19f65526c38699e28dda400afa499"
+      },
+      {
+        "prompt_id": "PROB_001",
+        "input_ids_sha256": "5fff52cf0bf6b1cf97c89c7b18c779afda1f46635b2327cd61dada272712e870"
+      },
+      {
+        "prompt_id": "SCIE_000",
+        "input_ids_sha256": "b66938c976a195868bd566c279e23fb7c903828aad2eaf47c40cd398218d0895"
+      },
+      {
+        "prompt_id": "SCIE_001",
+        "input_ids_sha256": "2f28a1a079469cd9e64628d253c8279f8ee16f85fbc8d8b3505badc0635d7ac0"
+      },
+      {
+        "prompt_id": "SPAT_000",
+        "input_ids_sha256": "7d6979d0a570383c84626c69fbdfbb21e4c9709465d6a288e780df7a75317c67"
+      },
+      {
+        "prompt_id": "SPAT_001",
+        "input_ids_sha256": "40caff03a62a46f4d23215e13defa564b4386873697c28cce21d7f73669c364b"
+      },
+      {
+        "prompt_id": "SYST_000",
+        "input_ids_sha256": "54c8ee0bd410331f6493d84f971a849a2732569938eeb67a628e5abf689b5fbd"
+      },
+      {
+        "prompt_id": "SYST_001",
+        "input_ids_sha256": "5b2ca6c8a9c74462ce78a1050e6e96236844196e6c1d1574f8f32bf667e28168"
+      },
+      {
+        "prompt_id": "VERB_000",
+        "input_ids_sha256": "53dc14e904d9c56a4cda7d66ebbb88cd3ba364211cefa7ee30acbbabea26d1ce"
+      },
+      {
+        "prompt_id": "VERB_001",
+        "input_ids_sha256": "27d7ce10d935c2ae15135b304cb1ffb948bab55a4587110aeee73e4b105ba901"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h01",
+        "input_ids_sha256": "d819bb500a47a6d18ae02d70e173736f670cfd7ad5817c89e471ae3f51251744"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b01",
+        "input_ids_sha256": "28eb57c5e7201cdf80d0a0b829d357e16fcf1e8788dd443e2541b34c653fdf3c"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h02",
+        "input_ids_sha256": "5e78ab15cc714822f6f83c7252564a2f0a06a5d72ccd9025884222b0b06415c9"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b02",
+        "input_ids_sha256": "05297668af453c6bb8c4c833a9eccba0b0b95defa8a9271a419bca69fd1f63f3"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h01",
+        "input_ids_sha256": "241d6ebdfdb48118195d305e5fa5e21a22673fb1f8254fe957fa28417b69575b"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b01",
+        "input_ids_sha256": "b5df8a75c4e91d065f466db16b794d81f23710fa9e48e83925829c72f53d51d7"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h02",
+        "input_ids_sha256": "cf62f3539b69b0c16f0e1abf9cd5ee12de316dde3a8f744f97b28f0ae9b0d0c9"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b02",
+        "input_ids_sha256": "42e49755d3cd08803f4d85c692e2244e2718454f87d3053ec3ac5aa746b9271d"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h01",
+        "input_ids_sha256": "9c148301fe7f1baf98119c1bfff6f524b54896946a52952ef0ecc0d8b8e86b65"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b01",
+        "input_ids_sha256": "940dd34bfaefd7067354057b63c9a9a0fb987e61de110c285e3c539943bff84c"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h02",
+        "input_ids_sha256": "a49c154dbe85899e23eef27af7cf8d5462221b985fd17c734c827649db407dc8"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b02",
+        "input_ids_sha256": "22102c80a7062e0960a4e42013bf10f817ba9ea56dd243c2b4b216ecd1d87df7"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h01",
+        "input_ids_sha256": "b787ab0558f2d5c3deead8ed344a62d2e1955dfabc17a95f37aa1f8c53387453"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b01",
+        "input_ids_sha256": "53f0ac05ef26d7cac380fa901bd3b9ca4304e65d69e4b4fbb96748c9cc7b384e"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h02",
+        "input_ids_sha256": "748ca8f90dcbc643eed6ca396265f9f34c6618a64b9976acf7a36d9010ad1525"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b02",
+        "input_ids_sha256": "cbf886cf6950a10d46674b2636768e4f3a37054a4cb981ef1f1831bb8218fcdd"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h01",
+        "input_ids_sha256": "acc8858c68d6ee82ebcaf759e91966ca5134e221e7ba72d1a94566d2055cbc63"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b01",
+        "input_ids_sha256": "854799c93c5de549c9123ca5cb8b5be97db5bce800223b02d727b42ba9839bc6"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h02",
+        "input_ids_sha256": "17bdea14b824852e0a379a406afc6b5f36cdcd3067d03efd7d7f8e9bb55dae8d"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b02",
+        "input_ids_sha256": "bcc9ff5035dae5bac7ec022048c683daab0e350fc193f83d778f26b918da02d7"
+      },
+      {
+        "prompt_id": "p5sp_violence_h01",
+        "input_ids_sha256": "af89a71cfe60801fe4c71b30a50196ccc5726224b357cf794b3824704996b934"
+      },
+      {
+        "prompt_id": "p5sp_violence_b01",
+        "input_ids_sha256": "2415069f51b8c0c8a23ee7fac487829bc22281c1b9e98e2be36afcafa6c6ce34"
+      },
+      {
+        "prompt_id": "p5sp_violence_h02",
+        "input_ids_sha256": "92542b9a0ba2df458e6861fa97179dae86a0a092a0929af36d5b018e3b817d16"
+      },
+      {
+        "prompt_id": "p5sp_violence_b02",
+        "input_ids_sha256": "2ed04d72e5232ef83adba123fd0ecc35451f3e66153ee84f442d20e82034b3a3"
+      }
+    ],
+    "public_star1": [
+      {
+        "prompt_id": "CAUS_000",
+        "input_ids_sha256": "9ef29b66f467c9a07b6ff85858f97c824caebca5c5d05d8b4ff2771eaff52055"
+      },
+      {
+        "prompt_id": "CAUS_001",
+        "input_ids_sha256": "0db3e22622eb40491c3b78bcadc45f7bfc2001cd16f8a63d50c07330809fe700"
+      },
+      {
+        "prompt_id": "CREA_000",
+        "input_ids_sha256": "98a749e22774c962b61868f63ea33ab514a1dfb5e9a730ccff99105c969854b7"
+      },
+      {
+        "prompt_id": "CREA_001",
+        "input_ids_sha256": "de1713a72f9a340be535731326755e639d417f39e1727559735178e1d9af5a36"
+      },
+      {
+        "prompt_id": "LATE_000",
+        "input_ids_sha256": "177842ba3d989e6a618da1a5c42ccb64e7ce1fc27169e1e4ee176afa3ac52847"
+      },
+      {
+        "prompt_id": "LATE_001",
+        "input_ids_sha256": "4d5369bddaa12d9d1b439864638aac81bcb2886c012592c67bd722e669b2a3aa"
+      },
+      {
+        "prompt_id": "MATH_000",
+        "input_ids_sha256": "6cb98fa6057943035941a0835a07062f57cf71631c35a0a5bb2f646aadb4b135"
+      },
+      {
+        "prompt_id": "MATH_001",
+        "input_ids_sha256": "7e2c3085fdf10937d789eaf2e83d53eb869d19562e0f6c68513ac0a060d17856"
+      },
+      {
+        "prompt_id": "PATT_000",
+        "input_ids_sha256": "e71dcf5fc9cfbcb4516f61c76265aeb940cb43a269cf9a77e5b883bfff843830"
+      },
+      {
+        "prompt_id": "PATT_001",
+        "input_ids_sha256": "ecd0a210a263669012e393562c69b213a7dc0b1abbdc144753edf9f23f4a7297"
+      },
+      {
+        "prompt_id": "PROB_000",
+        "input_ids_sha256": "8926a7d79b212de43368f6b0a9cea21c0fd19f65526c38699e28dda400afa499"
+      },
+      {
+        "prompt_id": "PROB_001",
+        "input_ids_sha256": "5fff52cf0bf6b1cf97c89c7b18c779afda1f46635b2327cd61dada272712e870"
+      },
+      {
+        "prompt_id": "SCIE_000",
+        "input_ids_sha256": "b66938c976a195868bd566c279e23fb7c903828aad2eaf47c40cd398218d0895"
+      },
+      {
+        "prompt_id": "SCIE_001",
+        "input_ids_sha256": "2f28a1a079469cd9e64628d253c8279f8ee16f85fbc8d8b3505badc0635d7ac0"
+      },
+      {
+        "prompt_id": "SPAT_000",
+        "input_ids_sha256": "7d6979d0a570383c84626c69fbdfbb21e4c9709465d6a288e780df7a75317c67"
+      },
+      {
+        "prompt_id": "SPAT_001",
+        "input_ids_sha256": "40caff03a62a46f4d23215e13defa564b4386873697c28cce21d7f73669c364b"
+      },
+      {
+        "prompt_id": "SYST_000",
+        "input_ids_sha256": "54c8ee0bd410331f6493d84f971a849a2732569938eeb67a628e5abf689b5fbd"
+      },
+      {
+        "prompt_id": "SYST_001",
+        "input_ids_sha256": "5b2ca6c8a9c74462ce78a1050e6e96236844196e6c1d1574f8f32bf667e28168"
+      },
+      {
+        "prompt_id": "VERB_000",
+        "input_ids_sha256": "53dc14e904d9c56a4cda7d66ebbb88cd3ba364211cefa7ee30acbbabea26d1ce"
+      },
+      {
+        "prompt_id": "VERB_001",
+        "input_ids_sha256": "27d7ce10d935c2ae15135b304cb1ffb948bab55a4587110aeee73e4b105ba901"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h01",
+        "input_ids_sha256": "d819bb500a47a6d18ae02d70e173736f670cfd7ad5817c89e471ae3f51251744"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b01",
+        "input_ids_sha256": "28eb57c5e7201cdf80d0a0b829d357e16fcf1e8788dd443e2541b34c653fdf3c"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h02",
+        "input_ids_sha256": "5e78ab15cc714822f6f83c7252564a2f0a06a5d72ccd9025884222b0b06415c9"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b02",
+        "input_ids_sha256": "05297668af453c6bb8c4c833a9eccba0b0b95defa8a9271a419bca69fd1f63f3"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h01",
+        "input_ids_sha256": "241d6ebdfdb48118195d305e5fa5e21a22673fb1f8254fe957fa28417b69575b"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b01",
+        "input_ids_sha256": "b5df8a75c4e91d065f466db16b794d81f23710fa9e48e83925829c72f53d51d7"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h02",
+        "input_ids_sha256": "cf62f3539b69b0c16f0e1abf9cd5ee12de316dde3a8f744f97b28f0ae9b0d0c9"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b02",
+        "input_ids_sha256": "42e49755d3cd08803f4d85c692e2244e2718454f87d3053ec3ac5aa746b9271d"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h01",
+        "input_ids_sha256": "9c148301fe7f1baf98119c1bfff6f524b54896946a52952ef0ecc0d8b8e86b65"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b01",
+        "input_ids_sha256": "940dd34bfaefd7067354057b63c9a9a0fb987e61de110c285e3c539943bff84c"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h02",
+        "input_ids_sha256": "a49c154dbe85899e23eef27af7cf8d5462221b985fd17c734c827649db407dc8"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b02",
+        "input_ids_sha256": "22102c80a7062e0960a4e42013bf10f817ba9ea56dd243c2b4b216ecd1d87df7"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h01",
+        "input_ids_sha256": "b787ab0558f2d5c3deead8ed344a62d2e1955dfabc17a95f37aa1f8c53387453"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b01",
+        "input_ids_sha256": "53f0ac05ef26d7cac380fa901bd3b9ca4304e65d69e4b4fbb96748c9cc7b384e"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h02",
+        "input_ids_sha256": "748ca8f90dcbc643eed6ca396265f9f34c6618a64b9976acf7a36d9010ad1525"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b02",
+        "input_ids_sha256": "cbf886cf6950a10d46674b2636768e4f3a37054a4cb981ef1f1831bb8218fcdd"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h01",
+        "input_ids_sha256": "acc8858c68d6ee82ebcaf759e91966ca5134e221e7ba72d1a94566d2055cbc63"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b01",
+        "input_ids_sha256": "854799c93c5de549c9123ca5cb8b5be97db5bce800223b02d727b42ba9839bc6"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h02",
+        "input_ids_sha256": "17bdea14b824852e0a379a406afc6b5f36cdcd3067d03efd7d7f8e9bb55dae8d"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b02",
+        "input_ids_sha256": "bcc9ff5035dae5bac7ec022048c683daab0e350fc193f83d778f26b918da02d7"
+      },
+      {
+        "prompt_id": "p5sp_violence_h01",
+        "input_ids_sha256": "af89a71cfe60801fe4c71b30a50196ccc5726224b357cf794b3824704996b934"
+      },
+      {
+        "prompt_id": "p5sp_violence_b01",
+        "input_ids_sha256": "2415069f51b8c0c8a23ee7fac487829bc22281c1b9e98e2be36afcafa6c6ce34"
+      },
+      {
+        "prompt_id": "p5sp_violence_h02",
+        "input_ids_sha256": "92542b9a0ba2df458e6861fa97179dae86a0a092a0929af36d5b018e3b817d16"
+      },
+      {
+        "prompt_id": "p5sp_violence_b02",
+        "input_ids_sha256": "2ed04d72e5232ef83adba123fd0ecc35451f3e66153ee84f442d20e82034b3a3"
+      }
+    ],
+    "owned_fullft_safety_s42": [
+      {
+        "prompt_id": "CAUS_000",
+        "input_ids_sha256": "9ef29b66f467c9a07b6ff85858f97c824caebca5c5d05d8b4ff2771eaff52055"
+      },
+      {
+        "prompt_id": "CAUS_001",
+        "input_ids_sha256": "0db3e22622eb40491c3b78bcadc45f7bfc2001cd16f8a63d50c07330809fe700"
+      },
+      {
+        "prompt_id": "CREA_000",
+        "input_ids_sha256": "98a749e22774c962b61868f63ea33ab514a1dfb5e9a730ccff99105c969854b7"
+      },
+      {
+        "prompt_id": "CREA_001",
+        "input_ids_sha256": "de1713a72f9a340be535731326755e639d417f39e1727559735178e1d9af5a36"
+      },
+      {
+        "prompt_id": "LATE_000",
+        "input_ids_sha256": "177842ba3d989e6a618da1a5c42ccb64e7ce1fc27169e1e4ee176afa3ac52847"
+      },
+      {
+        "prompt_id": "LATE_001",
+        "input_ids_sha256": "4d5369bddaa12d9d1b439864638aac81bcb2886c012592c67bd722e669b2a3aa"
+      },
+      {
+        "prompt_id": "MATH_000",
+        "input_ids_sha256": "6cb98fa6057943035941a0835a07062f57cf71631c35a0a5bb2f646aadb4b135"
+      },
+      {
+        "prompt_id": "MATH_001",
+        "input_ids_sha256": "7e2c3085fdf10937d789eaf2e83d53eb869d19562e0f6c68513ac0a060d17856"
+      },
+      {
+        "prompt_id": "PATT_000",
+        "input_ids_sha256": "e71dcf5fc9cfbcb4516f61c76265aeb940cb43a269cf9a77e5b883bfff843830"
+      },
+      {
+        "prompt_id": "PATT_001",
+        "input_ids_sha256": "ecd0a210a263669012e393562c69b213a7dc0b1abbdc144753edf9f23f4a7297"
+      },
+      {
+        "prompt_id": "PROB_000",
+        "input_ids_sha256": "8926a7d79b212de43368f6b0a9cea21c0fd19f65526c38699e28dda400afa499"
+      },
+      {
+        "prompt_id": "PROB_001",
+        "input_ids_sha256": "5fff52cf0bf6b1cf97c89c7b18c779afda1f46635b2327cd61dada272712e870"
+      },
+      {
+        "prompt_id": "SCIE_000",
+        "input_ids_sha256": "b66938c976a195868bd566c279e23fb7c903828aad2eaf47c40cd398218d0895"
+      },
+      {
+        "prompt_id": "SCIE_001",
+        "input_ids_sha256": "2f28a1a079469cd9e64628d253c8279f8ee16f85fbc8d8b3505badc0635d7ac0"
+      },
+      {
+        "prompt_id": "SPAT_000",
+        "input_ids_sha256": "7d6979d0a570383c84626c69fbdfbb21e4c9709465d6a288e780df7a75317c67"
+      },
+      {
+        "prompt_id": "SPAT_001",
+        "input_ids_sha256": "40caff03a62a46f4d23215e13defa564b4386873697c28cce21d7f73669c364b"
+      },
+      {
+        "prompt_id": "SYST_000",
+        "input_ids_sha256": "54c8ee0bd410331f6493d84f971a849a2732569938eeb67a628e5abf689b5fbd"
+      },
+      {
+        "prompt_id": "SYST_001",
+        "input_ids_sha256": "5b2ca6c8a9c74462ce78a1050e6e96236844196e6c1d1574f8f32bf667e28168"
+      },
+      {
+        "prompt_id": "VERB_000",
+        "input_ids_sha256": "53dc14e904d9c56a4cda7d66ebbb88cd3ba364211cefa7ee30acbbabea26d1ce"
+      },
+      {
+        "prompt_id": "VERB_001",
+        "input_ids_sha256": "27d7ce10d935c2ae15135b304cb1ffb948bab55a4587110aeee73e4b105ba901"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h01",
+        "input_ids_sha256": "d819bb500a47a6d18ae02d70e173736f670cfd7ad5817c89e471ae3f51251744"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b01",
+        "input_ids_sha256": "28eb57c5e7201cdf80d0a0b829d357e16fcf1e8788dd443e2541b34c653fdf3c"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h02",
+        "input_ids_sha256": "5e78ab15cc714822f6f83c7252564a2f0a06a5d72ccd9025884222b0b06415c9"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b02",
+        "input_ids_sha256": "05297668af453c6bb8c4c833a9eccba0b0b95defa8a9271a419bca69fd1f63f3"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h01",
+        "input_ids_sha256": "241d6ebdfdb48118195d305e5fa5e21a22673fb1f8254fe957fa28417b69575b"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b01",
+        "input_ids_sha256": "b5df8a75c4e91d065f466db16b794d81f23710fa9e48e83925829c72f53d51d7"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h02",
+        "input_ids_sha256": "cf62f3539b69b0c16f0e1abf9cd5ee12de316dde3a8f744f97b28f0ae9b0d0c9"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b02",
+        "input_ids_sha256": "42e49755d3cd08803f4d85c692e2244e2718454f87d3053ec3ac5aa746b9271d"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h01",
+        "input_ids_sha256": "9c148301fe7f1baf98119c1bfff6f524b54896946a52952ef0ecc0d8b8e86b65"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b01",
+        "input_ids_sha256": "940dd34bfaefd7067354057b63c9a9a0fb987e61de110c285e3c539943bff84c"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h02",
+        "input_ids_sha256": "a49c154dbe85899e23eef27af7cf8d5462221b985fd17c734c827649db407dc8"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b02",
+        "input_ids_sha256": "22102c80a7062e0960a4e42013bf10f817ba9ea56dd243c2b4b216ecd1d87df7"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h01",
+        "input_ids_sha256": "b787ab0558f2d5c3deead8ed344a62d2e1955dfabc17a95f37aa1f8c53387453"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b01",
+        "input_ids_sha256": "53f0ac05ef26d7cac380fa901bd3b9ca4304e65d69e4b4fbb96748c9cc7b384e"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h02",
+        "input_ids_sha256": "748ca8f90dcbc643eed6ca396265f9f34c6618a64b9976acf7a36d9010ad1525"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b02",
+        "input_ids_sha256": "cbf886cf6950a10d46674b2636768e4f3a37054a4cb981ef1f1831bb8218fcdd"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h01",
+        "input_ids_sha256": "acc8858c68d6ee82ebcaf759e91966ca5134e221e7ba72d1a94566d2055cbc63"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b01",
+        "input_ids_sha256": "854799c93c5de549c9123ca5cb8b5be97db5bce800223b02d727b42ba9839bc6"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h02",
+        "input_ids_sha256": "17bdea14b824852e0a379a406afc6b5f36cdcd3067d03efd7d7f8e9bb55dae8d"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b02",
+        "input_ids_sha256": "bcc9ff5035dae5bac7ec022048c683daab0e350fc193f83d778f26b918da02d7"
+      },
+      {
+        "prompt_id": "p5sp_violence_h01",
+        "input_ids_sha256": "af89a71cfe60801fe4c71b30a50196ccc5726224b357cf794b3824704996b934"
+      },
+      {
+        "prompt_id": "p5sp_violence_b01",
+        "input_ids_sha256": "2415069f51b8c0c8a23ee7fac487829bc22281c1b9e98e2be36afcafa6c6ce34"
+      },
+      {
+        "prompt_id": "p5sp_violence_h02",
+        "input_ids_sha256": "92542b9a0ba2df458e6861fa97179dae86a0a092a0929af36d5b018e3b817d16"
+      },
+      {
+        "prompt_id": "p5sp_violence_b02",
+        "input_ids_sha256": "2ed04d72e5232ef83adba123fd0ecc35451f3e66153ee84f442d20e82034b3a3"
+      }
+    ],
+    "owned_fullft_control_s42": [
+      {
+        "prompt_id": "CAUS_000",
+        "input_ids_sha256": "9ef29b66f467c9a07b6ff85858f97c824caebca5c5d05d8b4ff2771eaff52055"
+      },
+      {
+        "prompt_id": "CAUS_001",
+        "input_ids_sha256": "0db3e22622eb40491c3b78bcadc45f7bfc2001cd16f8a63d50c07330809fe700"
+      },
+      {
+        "prompt_id": "CREA_000",
+        "input_ids_sha256": "98a749e22774c962b61868f63ea33ab514a1dfb5e9a730ccff99105c969854b7"
+      },
+      {
+        "prompt_id": "CREA_001",
+        "input_ids_sha256": "de1713a72f9a340be535731326755e639d417f39e1727559735178e1d9af5a36"
+      },
+      {
+        "prompt_id": "LATE_000",
+        "input_ids_sha256": "177842ba3d989e6a618da1a5c42ccb64e7ce1fc27169e1e4ee176afa3ac52847"
+      },
+      {
+        "prompt_id": "LATE_001",
+        "input_ids_sha256": "4d5369bddaa12d9d1b439864638aac81bcb2886c012592c67bd722e669b2a3aa"
+      },
+      {
+        "prompt_id": "MATH_000",
+        "input_ids_sha256": "6cb98fa6057943035941a0835a07062f57cf71631c35a0a5bb2f646aadb4b135"
+      },
+      {
+        "prompt_id": "MATH_001",
+        "input_ids_sha256": "7e2c3085fdf10937d789eaf2e83d53eb869d19562e0f6c68513ac0a060d17856"
+      },
+      {
+        "prompt_id": "PATT_000",
+        "input_ids_sha256": "e71dcf5fc9cfbcb4516f61c76265aeb940cb43a269cf9a77e5b883bfff843830"
+      },
+      {
+        "prompt_id": "PATT_001",
+        "input_ids_sha256": "ecd0a210a263669012e393562c69b213a7dc0b1abbdc144753edf9f23f4a7297"
+      },
+      {
+        "prompt_id": "PROB_000",
+        "input_ids_sha256": "8926a7d79b212de43368f6b0a9cea21c0fd19f65526c38699e28dda400afa499"
+      },
+      {
+        "prompt_id": "PROB_001",
+        "input_ids_sha256": "5fff52cf0bf6b1cf97c89c7b18c779afda1f46635b2327cd61dada272712e870"
+      },
+      {
+        "prompt_id": "SCIE_000",
+        "input_ids_sha256": "b66938c976a195868bd566c279e23fb7c903828aad2eaf47c40cd398218d0895"
+      },
+      {
+        "prompt_id": "SCIE_001",
+        "input_ids_sha256": "2f28a1a079469cd9e64628d253c8279f8ee16f85fbc8d8b3505badc0635d7ac0"
+      },
+      {
+        "prompt_id": "SPAT_000",
+        "input_ids_sha256": "7d6979d0a570383c84626c69fbdfbb21e4c9709465d6a288e780df7a75317c67"
+      },
+      {
+        "prompt_id": "SPAT_001",
+        "input_ids_sha256": "40caff03a62a46f4d23215e13defa564b4386873697c28cce21d7f73669c364b"
+      },
+      {
+        "prompt_id": "SYST_000",
+        "input_ids_sha256": "54c8ee0bd410331f6493d84f971a849a2732569938eeb67a628e5abf689b5fbd"
+      },
+      {
+        "prompt_id": "SYST_001",
+        "input_ids_sha256": "5b2ca6c8a9c74462ce78a1050e6e96236844196e6c1d1574f8f32bf667e28168"
+      },
+      {
+        "prompt_id": "VERB_000",
+        "input_ids_sha256": "53dc14e904d9c56a4cda7d66ebbb88cd3ba364211cefa7ee30acbbabea26d1ce"
+      },
+      {
+        "prompt_id": "VERB_001",
+        "input_ids_sha256": "27d7ce10d935c2ae15135b304cb1ffb948bab55a4587110aeee73e4b105ba901"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h01",
+        "input_ids_sha256": "d819bb500a47a6d18ae02d70e173736f670cfd7ad5817c89e471ae3f51251744"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b01",
+        "input_ids_sha256": "28eb57c5e7201cdf80d0a0b829d357e16fcf1e8788dd443e2541b34c653fdf3c"
+      },
+      {
+        "prompt_id": "p5sp_cyber_h02",
+        "input_ids_sha256": "5e78ab15cc714822f6f83c7252564a2f0a06a5d72ccd9025884222b0b06415c9"
+      },
+      {
+        "prompt_id": "p5sp_cyber_b02",
+        "input_ids_sha256": "05297668af453c6bb8c4c833a9eccba0b0b95defa8a9271a419bca69fd1f63f3"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h01",
+        "input_ids_sha256": "241d6ebdfdb48118195d305e5fa5e21a22673fb1f8254fe957fa28417b69575b"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b01",
+        "input_ids_sha256": "b5df8a75c4e91d065f466db16b794d81f23710fa9e48e83925829c72f53d51d7"
+      },
+      {
+        "prompt_id": "p5sp_fraud_h02",
+        "input_ids_sha256": "cf62f3539b69b0c16f0e1abf9cd5ee12de316dde3a8f744f97b28f0ae9b0d0c9"
+      },
+      {
+        "prompt_id": "p5sp_fraud_b02",
+        "input_ids_sha256": "42e49755d3cd08803f4d85c692e2244e2718454f87d3053ec3ac5aa746b9271d"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h01",
+        "input_ids_sha256": "9c148301fe7f1baf98119c1bfff6f524b54896946a52952ef0ecc0d8b8e86b65"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b01",
+        "input_ids_sha256": "940dd34bfaefd7067354057b63c9a9a0fb987e61de110c285e3c539943bff84c"
+      },
+      {
+        "prompt_id": "p5sp_privacy_h02",
+        "input_ids_sha256": "a49c154dbe85899e23eef27af7cf8d5462221b985fd17c734c827649db407dc8"
+      },
+      {
+        "prompt_id": "p5sp_privacy_b02",
+        "input_ids_sha256": "22102c80a7062e0960a4e42013bf10f817ba9ea56dd243c2b4b216ecd1d87df7"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h01",
+        "input_ids_sha256": "b787ab0558f2d5c3deead8ed344a62d2e1955dfabc17a95f37aa1f8c53387453"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b01",
+        "input_ids_sha256": "53f0ac05ef26d7cac380fa901bd3b9ca4304e65d69e4b4fbb96748c9cc7b384e"
+      },
+      {
+        "prompt_id": "p5sp_weapons_h02",
+        "input_ids_sha256": "748ca8f90dcbc643eed6ca396265f9f34c6618a64b9976acf7a36d9010ad1525"
+      },
+      {
+        "prompt_id": "p5sp_weapons_b02",
+        "input_ids_sha256": "cbf886cf6950a10d46674b2636768e4f3a37054a4cb981ef1f1831bb8218fcdd"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h01",
+        "input_ids_sha256": "acc8858c68d6ee82ebcaf759e91966ca5134e221e7ba72d1a94566d2055cbc63"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b01",
+        "input_ids_sha256": "854799c93c5de549c9123ca5cb8b5be97db5bce800223b02d727b42ba9839bc6"
+      },
+      {
+        "prompt_id": "p5sp_drugs_h02",
+        "input_ids_sha256": "17bdea14b824852e0a379a406afc6b5f36cdcd3067d03efd7d7f8e9bb55dae8d"
+      },
+      {
+        "prompt_id": "p5sp_drugs_b02",
+        "input_ids_sha256": "bcc9ff5035dae5bac7ec022048c683daab0e350fc193f83d778f26b918da02d7"
+      },
+      {
+        "prompt_id": "p5sp_violence_h01",
+        "input_ids_sha256": "af89a71cfe60801fe4c71b30a50196ccc5726224b357cf794b3824704996b934"
+      },
+      {
+        "prompt_id": "p5sp_violence_b01",
+        "input_ids_sha256": "2415069f51b8c0c8a23ee7fac487829bc22281c1b9e98e2be36afcafa6c6ce34"
+      },
+      {
+        "prompt_id": "p5sp_violence_h02",
+        "input_ids_sha256": "92542b9a0ba2df458e6861fa97179dae86a0a092a0929af36d5b018e3b817d16"
+      },
+      {
+        "prompt_id": "p5sp_violence_b02",
+        "input_ids_sha256": "2ed04d72e5232ef83adba123fd0ecc35451f3e66153ee84f442d20e82034b3a3"
+      }
+    ]
+  },
+  "validation_errors": [],
+  "source_manifests": [
+    {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/tasks_pilot.json",
+      "sha256": "f9a1d1b67b2d0e1ea727f29e6b8d7fb4e0fab7bf64978ec50311106aab9e9d27"
+    },
+    {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json",
+      "sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e"
+    }
+  ]
+}

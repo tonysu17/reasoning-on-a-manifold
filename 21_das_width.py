@@ -1,9 +1,15 @@
 #!/usr/bin/env python
-"""E10.2 — the causal width of the backtracking subspace (featurizer rung three).
+"""E10.2/E10.3 — the causal width of a behaviour's subspace (featurizer rung three).
+
+Originally executed for backtracking at hs[17] (E10.2); Amendment 4 parameterizes
+it over behaviours. For non-backtracking behaviours --layer is REQUIRED and must
+be the grounded layer selected from the main run's controls.json by the sealed
+rule (e10_pick_grounded_layer.py); if no layer grounds, the width probe is
+skipped (that IS the sealed outcome, not a failure to run).
 
 Learns orthonormal k-frames U in R^{d x k} for k in {1,2,4,8,16,32} by the same
 windowed interchange objective as E10.1 (swap = h_b + U U^T (h_s - h_b)), at the
-E10.1 site hs[17], and asks where the transfer-vs-width curve saturates.
+grounded site, and asks where the transfer-vs-width curve saturates.
 
 Pre-registered readings (E10_DAS_PREREG.md Amendment 3):
   - saturation at k=1  -> the causal object is one-dimensional; the E8 manifold
@@ -39,8 +45,9 @@ spec = importlib.util.spec_from_file_location("das", ROOT / "20_das_backtracking
 das = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(das)
 
-OUT = ROOT / "results" / "das" / "R1-1.5B" / "width"
-PAIRS_MAIN = ROOT / "results" / "das" / "R1-1.5B" / "main" / "pairs.json"
+DAS_ROOT = ROOT / "results" / "das" / "R1-1.5B"
+OUT = DAS_ROOT / "width"                       # resolved per behaviour in main()
+PAIRS_MAIN = DAS_ROOT / "main" / "pairs.json"  # resolved per behaviour in main()
 
 
 def log(msg):
@@ -145,9 +152,15 @@ def grounding(model, tok, pairs, layer, U, cfg, device):
 
 
 def main():
+    global OUT, PAIRS_MAIN
     ap = argparse.ArgumentParser()
+    ap.add_argument("--behaviour", default="backtracking", choices=sorted(das.BEHAVIOURS),
+                    help="source behaviour (Amendment 4); resolves pairs + output dirs")
     ap.add_argument("--widths", type=int, nargs="+", default=[1, 2, 4, 8, 16, 32])
-    ap.add_argument("--layer", type=int, default=17)  # hidden_states index (E10.1 site)
+    ap.add_argument("--layer", type=int, default=None,
+                    help="hidden_states index. Default 17 for backtracking (the executed "
+                         "E10.2 site); REQUIRED for other behaviours — pass the grounded "
+                         "layer picked from the main run's controls.json")
     ap.add_argument("--bs", type=int, default=16)
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--lr", type=float, default=1e-2)
@@ -160,6 +173,17 @@ def main():
     ap.add_argument("--skip-ak", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     cfg = ap.parse_args()
+    if cfg.layer is None:
+        if cfg.behaviour == "backtracking":
+            cfg.layer = 17
+        else:
+            ap.error(f"--layer is required for {cfg.behaviour}: pass the grounded layer "
+                     "(e10_pick_grounded_layer.py on the main run's controls.json)")
+    das.SOURCE_LABEL = cfg.behaviour
+    short = das.BEHAVIOURS[cfg.behaviour]["short"]
+    if cfg.behaviour != "backtracking":  # bt keeps the executed E10.2 dirs
+        OUT = DAS_ROOT / f"{short}_width"
+        PAIRS_MAIN = DAS_ROOT / f"{short}_main" / "pairs.json"
     if cfg.smoke:
         cfg.widths, cfg.epochs, cfg.bs, cfg.n_pairs, cfg.ctx, cfg.max_chains = \
             [1, 2], 2, 4, 8, 96, 60
@@ -167,17 +191,19 @@ def main():
 
     device, dtype = das.pick_device()
     torch.set_grad_enabled(True)
-    log(f"device={device} widths={cfg.widths} layer=hs[{cfg.layer}] smoke={cfg.smoke}")
+    log(f"behaviour={cfg.behaviour} device={device} widths={cfg.widths} "
+        f"layer=hs[{cfg.layer}] smoke={cfg.smoke} out={OUT.name}")
     tok, model = das.load_model(device, dtype)
 
-    # backtracking pairs: reuse the E10.1 main pairs verbatim when available
+    # reuse the behaviour's E10.1/E10.3 main pairs verbatim when available
     if PAIRS_MAIN.exists() and not cfg.smoke:
         pairs = json.load(open(PAIRS_MAIN))[:cfg.n_pairs]
-        log(f"reusing E10.1 main pairs ({len(pairs)})")
+        log(f"reusing main pairs from {PAIRS_MAIN.parent.name} ({len(pairs)})")
     else:
         pairs = das.build_pairs(tok, cfg)
 
-    report = {"experiment": "E10.2 causal width", "date": time.strftime("%Y-%m-%d"),
+    report = {"experiment": f"E10.2 causal width — {cfg.behaviour}",
+              "date": time.strftime("%Y-%m-%d"),
               "device": device, "layer_hs": cfg.layer, "n_pairs": len(pairs),
               "config": vars(cfg), "widths": {}}
     for k in cfg.widths:
@@ -205,7 +231,7 @@ def main():
         das.SOURCE_LABEL = "adding-knowledge"
         ak_pairs = das.build_pairs(tok, cfg)
         d_ak, _ = das.train_das(model, tok, ak_pairs, cfg.layer, cfg, device)
-        np.save(OUT / "dir_ak_L17.npy", d_ak.cpu().numpy())
+        np.save(OUT / f"dir_ak_L{cfg.layer}.npy", d_ak.cpu().numpy())
         ak = {"learned": das.eval_direction(model, tok, ak_pairs, cfg.layer, d_ak, cfg, device),
               "controls": das.controls_stage(model, tok, ak_pairs, cfg.layer, d_ak, cfg, device)}
         rand = torch.randn(model.config.hidden_size, device=device)
@@ -217,7 +243,7 @@ def main():
             f"{ak['controls']['coord_auc_source_vs_base']:.3f}")
 
     json.dump(report, open(OUT / "report.json", "w"), indent=2)
-    lines = ["# E10.2 causal width — REPORT", "",
+    lines = [f"# {report['experiment']} — REPORT", "",
              f"Date: {report['date']} · {report['n_pairs']} pairs · site hs[{cfg.layer}]", "",
              "| k | sym Δlogprob | shuffled | random frame | coord AUC | state-dep |",
              "|---|---|---|---|---|---|"]
