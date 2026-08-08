@@ -97,12 +97,13 @@ unblocked now.
 2. Scoring battery — ✓ unblocked now; follow the access rules above (212 calls, Sonnet, <29 s).
 3. Blinded pilot validation — ✓ as stated; pilot rows never become findings.
 4. Powered-design freeze — **two collisions to resolve before freezing**:
-   - **(a) 6,144-token cap vs the shared vanilla artifact.** The shared 100-task vanilla set is
-     sealed at the E8 generation settings (2,048 cap); truncation is an A2 *endpoint* there,
-     not a defect. Options: keep the shared set sealed and add a P5-owned longer-cap generic
-     arm (extra generation, small cost), or propose a pre-generation Phase-2 amendment raising
-     the shared cap (Tony seals; costs an E8-comparability caveat). Send Claude your
-     generation-config requirements (still owed) and put the choice to Tony.
+   - **(a) 6,144-token cap vs the shared vanilla artifact — RESOLVED (Tony, 2026-08-08):
+     the shared 100-task vanilla set STAYS SEALED at the E8 generation settings** (truncation
+     is an A2 endpoint, and E8 comparability is preserved). If your pilot's truncation trigger
+     demands longer generations for the generic stratum, add a **P5-owned long-cap arm**
+     (your generation, your budget line) — it does not touch the shared artifact. Your
+     generation-config requirements are still owed to Claude for the shared set's parser/
+     scorer compatibility check.
    - **(b) The shared vanilla artifact does not exist yet** — Phase-2 generation is gated on
      the P1 scope amendment + spend sign-off. If your powered-design freeze needs it earlier,
      the early option is a stand-alone vanilla slice (~300 generations, ~$3–5 pod) — a Tony
