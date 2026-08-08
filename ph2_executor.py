@@ -181,8 +181,11 @@ def stage_injection_recovery(authorised):
 
 def stage_annotate(authorised):
     raise NotImplementedError(
-        "SPEC: Nova-Pro (non-builder), house all-behaviour schema, missing rows unresolved "
-        "(merge_annotations), resume-safe sharding; Sonnet duplicate on ≤20% diagnostic only.")
+        "SPEC (per Amendment A3): Sonnet 4.5 via the lab proxy (src/annotation.py pipeline), "
+        "house all-behaviour schema, missing rows unresolved (merge_annotations), resume-safe "
+        "sharding, builder-annotator caveat carried into all verdict wording. Proxy calls must "
+        "finish < 29 s (AWS API Gateway hard timeout): keep chunking + modest max_tokens; "
+        "on 504 retry <=3 with backoff and halved output budget.")
 
 
 def stage_analyse(authorised):

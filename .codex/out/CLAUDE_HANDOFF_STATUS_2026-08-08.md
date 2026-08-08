@@ -62,6 +62,60 @@ The 176-generation/scoring pilot is **Tony's** authorization (spend + sequencing
 Phase 2), not Claude's. Put the exact cost line to him directly; spec and dry-run plumbing are
 unblocked now.
 
+## ADDENDUM (2026-08-08, post-manifest) — manifest delivered + proxy access + verified next steps
+
+### Manifest — DELIVERED
+- Path: `results/prereg/phase2_task_manifest.json` (committed alongside this addendum).
+- **ids_sha256: `c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6`**
+- n = 100, exactly 10 per category, fresh ids starting at `_117` (A1 + same-day correction),
+  disjointness verified against the full 1,000-id exclusion set; immutable (tool refuses
+  overwrite; `python3 ph2_manifest.py --verify` re-checks hash + disjointness any time).
+
+### Scoring-proxy access (your item 2 is now UNBLOCKED)
+- Credentials are configured in the environment: `source ~/.zshrc` (or any fresh login shell)
+  exposes **`CLAUDE_PROXY_URL`** and **`CLAUDE_PROXY_KEY`**. Never hardcode, print, log, or
+  commit the key anywhere; it has touched a chat transcript and will be rotated after the
+  current push.
+- Transport: `POST $CLAUDE_PROXY_URL` with JSON `{model, messages, max_tokens, temperature}`,
+  headers `X-Api-Key: $CLAUDE_PROXY_KEY` + `Content-Type: application/json`. Response text at
+  `data["content"][0]["text"]`; **log `data["usage"]["cost"]` per call and
+  `data["metadata"]["remaining_quota"]["remaining_budget"]` after every batch** — stop and
+  report if the remaining budget looks wrong.
+- **HARD 29-SECOND TIMEOUT** (AWS API Gateway): size every call to finish well under 29 s —
+  scorer calls should keep `max_tokens` ≤ ~800–1,000 and chunk long transcripts rather than
+  scoring a whole chain in one call. On HTTP 504/timeout: retry ≤ 3 with exponential backoff
+  and a halved output budget. Prefer sequential or ≤2-concurrent calls; the proxy is shared
+  with Claude's annotation runs.
+- **Annotator/scorer model: Sonnet only** — `anthropic.claude-sonnet-4-5-20250929-v1:0`
+  (owner decision 2026-08-08, sealed as Phase-2 Amendment A3; do not attempt other models).
+  Consequence you must carry in wording: Sonnet is the builder annotator, so behavioural
+  endpoints are "builder-annotator scored" (mitigation citations: pt04c swap gate 0.999,
+  pt14 3-way 8/8 — geometric calls annotator-robust; behavioural rates carry the qualifier).
+
+### Your 8-step list — verified, two collisions flagged
+1. Finish pilot generation — ✓ (local, no proxy dependency).
+2. Scoring battery — ✓ unblocked now; follow the access rules above (212 calls, Sonnet, <29 s).
+3. Blinded pilot validation — ✓ as stated; pilot rows never become findings.
+4. Powered-design freeze — **two collisions to resolve before freezing**:
+   - **(a) 6,144-token cap vs the shared vanilla artifact.** The shared 100-task vanilla set is
+     sealed at the E8 generation settings (2,048 cap); truncation is an A2 *endpoint* there,
+     not a defect. Options: keep the shared set sealed and add a P5-owned longer-cap generic
+     arm (extra generation, small cost), or propose a pre-generation Phase-2 amendment raising
+     the shared cap (Tony seals; costs an E8-comparability caveat). Send Claude your
+     generation-config requirements (still owed) and put the choice to Tony.
+   - **(b) The shared vanilla artifact does not exist yet** — Phase-2 generation is gated on
+     the P1 scope amendment + spend sign-off. If your powered-design freeze needs it earlier,
+     the early option is a stand-alone vanilla slice (~300 generations, ~$3–5 pod) — a Tony
+     decision, not assumable.
+5. Powered-run authorization — ✓ Tony's, separate from the pilot.
+6. Estimand separation + pilot exclusion — ✓.
+7. Evidence promotion — ✓ snapshot refresh is GO (closure commit `b44d392` + later commits on
+   `codex/phase0-support`).
+8. Steering replication last — ✓.
+
+Still owed to Claude: (i) `ph2_mde_sim` authoritative-pooling confirmation, (ii) P5
+generation-config requirements (now urgent per 4a), (iii) the evidence-manifest field spec.
+
 ## 6. New facts from the executed Phase-0 batch (context for your protocol)
 
 - F5 routed to FALLBACK_65PAIR by pre-committed rule (500-pair generation = 36.4 GPU-h);

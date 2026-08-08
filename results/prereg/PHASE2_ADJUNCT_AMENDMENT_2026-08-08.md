@@ -32,9 +32,11 @@ Per task, per model:
   (by task, B = 10,000, seed 20260808). **No significance verdicts, no causal language, no
   objective-level attribution** — STAR1 vs DeepScaleR is never an SFT-vs-RLVR comparison
   (data, recipe, dose, selection, and provenance all differ).
-- Annotation: the same single Nova-Pro pass as the main battery (the house schema labels all
+- Annotation: the same single pass as the main battery (the house schema labels all
   behaviours in one pass, so the adjunct's incremental annotation cost is ≈ 0 beyond the
   already-budgeted envelope — this does not make annotation itself free).
+  *Annotator superseded by Amendment A3 (2026-08-08, owner decision): Sonnet 4.5 via the lab
+  proxy, builder-annotator caveat declared in A3.*
 - Missing/unparseable annotation rows are **unresolved** (never coerced to zero); pairwise
   deletion with per-endpoint missing counts reported.
 - Multiplicity: none claimed (estimation family); if any reader-requested test is later run it

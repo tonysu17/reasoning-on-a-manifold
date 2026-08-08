@@ -165,6 +165,23 @@ suffix + 1, computed dynamically at draw time** (= _117 on current data) and rec
 manifest's `generator.id_start`. Disjointness remains programmatically verified against the
 full exclusion set; nothing else changes.
 
+## AMENDMENT A3 (2026-08-08, sealed before any annotation ran)
+
+**Owner decision (Tony, in chat: "use sonnet as an annotator, do not bother using other
+models").** The §5 annotator clause and A2's annotator line are superseded: **all Phase-2
+behavioural verdicts and the A2 adjunct endpoints are annotated by Sonnet 4.5 via the lab
+proxy** (the corpus annotation pipeline, `src/annotation.py`). The "Nova-Pro non-builder"
+requirement and the ≤20% Sonnet-duplicate diagnostic clause are dropped.
+
+**Declared consequence (carried into all wording):** Sonnet is the builder annotator (the
+behaviour labels, frames, and E8 verdicts derive from Sonnet annotations), so Phase-2
+behavioural verdicts re-acquire the builder-annotator circularity caveat that downgraded E8 to
+"preliminary." Standing mitigations to cite, not overstate: the recipe-direction annotator-swap
+gate (pt04c: Nova-vs-Sonnet direction cos 0.999) and the 3-way specificity replication (pt14,
+8/8 cells across Sonnet/Nova/Qwen3) show the *geometric* calls are annotator-robust; the
+*behavioural-rate* endpoints have no such swap test inside Phase 2 and carry the qualifier
+"builder-annotator scored." No other clause changes.
+
 ## Seal record
 
 Sealed 2026-08-08. Basis: unified plan Phase 2 + amendments A2/A3/A4/A6/A8/A10; codex draft

@@ -1,0 +1,630 @@
+{
+ "amendment": "A1",
+ "seed": 20260808,
+ "n": 100,
+ "id_start": 102,
+ "per_category": {
+  "mathematical_logic": 10,
+  "spatial_reasoning": 10,
+  "verbal_logic": 10,
+  "pattern_recognition": 10,
+  "lateral_thinking": 10,
+  "causal_reasoning": 10,
+  "probabilistic_thinking": 10,
+  "systems_thinking": 10,
+  "creative_problem_solving": 10,
+  "scientific_reasoning": 10
+ },
+ "n_excluded_pool": 1000,
+ "ids_sha256": "c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6",
+ "generator": {
+  "module": "src.task_gen.generate_tasks",
+  "n_per_category": 10,
+  "batch_size": 5,
+  "id_start": 117,
+  "note": "fresh draw per AMENDMENT A1 + same-day correction: id_start = max excluded suffix + 1 (dynamic)"
+ },
+ "git_commit": "b44d39216f62b5ee95bd6fc9e53df3fe10dbbb97",
+ "tasks": [
+  {
+   "id": "MATH_117",
+   "prompt": "Consider the statement: \"For all positive integers n, if n\u00b2 is divisible by 4, then n is divisible by 2.\" Prove this statement using a proof by contrapositive. Then, determine whether the converse of this statement is also true, and either prove it or provide a counterexample.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_118",
+   "prompt": "Let P(x) represent \"x is prime\" and E(x) represent \"x is even\". Express the following statement in predicate logic: \"There exists exactly one number that is both prime and even.\" Then, using the properties of prime numbers, prove whether this statement is true or false in the domain of positive integers.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_119",
+   "prompt": "Consider a set S = {1, 2, 3, 4, 5, 6} and define a relation R on S where (a, b) \u2208 R if and only if a + b is divisible by 3. Determine whether R is an equivalence relation by checking if it satisfies reflexivity, symmetry, and transitivity. If it is an equivalence relation, identify all equivalence classes. If it is not, explain which properties fail and why.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_120",
+   "prompt": "Prove or disprove the following claim using mathematical induction or a counterexample: \"For all integers n \u2265 1, the sum of the first n odd numbers equals n\u00b2. Additionally, prove that the sum of the first n even numbers can be expressed as n(n+1), and explain the relationship between these two formulas using algebraic reasoning.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_121",
+   "prompt": "Consider the logical statement: ((P \u2192 Q) \u2227 (Q \u2192 R) \u2227 \u00acR) \u2192 \u00acP. Using a formal proof method (such as natural deduction, truth tables, or logical equivalences), prove that this statement is a tautology. Then, construct a real-world scenario where P, Q, and R represent meaningful propositions, and explain how this logical structure applies to your scenario through modus tollens reasoning.",
+   "difficulty": "hard",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_122",
+   "prompt": "Consider a function f: \u2115 \u2192 \u2115 defined recursively as follows: f(0) = 1, f(1) = 3, and f(n) = 2f(n-1) - f(n-2) + 4 for all n \u2265 2. Prove that f(n) = 2n\u00b2 + 1 for all non-negative integers n using strong mathematical induction. Your proof must explicitly verify the base cases and demonstrate that the inductive hypothesis leads to the conclusion for n+1.",
+   "difficulty": "hard",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_123",
+   "prompt": "Let A, B, and C be sets. Prove using set-theoretic definitions and logical equivalences that (A \u222a B) - C = (A - C) \u222a (B - C). Your proof should work from the definition that x \u2208 (X - Y) if and only if x \u2208 X and x \u2209 Y, and should show both directions of set equality by demonstrating mutual subset inclusion.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_124",
+   "prompt": "A binary relation R on the set of integers \u2124 is defined by: aRb if and only if 3a + 5b is divisible by 8. Determine whether R is reflexive, symmetric, transitive, or antisymmetric. For each property, either provide a rigorous proof that R satisfies it, or give a specific counterexample showing that R fails to satisfy it. Based on your findings, classify what type of relation R is.",
+   "difficulty": "hard",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_125",
+   "prompt": "Consider the following argument form: \"If it rains, the ground is wet. If the ground is wet, the plants grow. The plants are not growing. Therefore, it is not raining.\" Formalize this argument using propositional logic with appropriate variables, construct a formal proof of its validity using rules of inference (such as modus ponens, modus tollens, hypothetical syllogism, etc.), and identify which specific inference rules you apply at each step.",
+   "difficulty": "moderate",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "MATH_126",
+   "prompt": "Let S be the set of all functions g: {1, 2, 3} \u2192 {1, 2, 3}. Define a relation T on S where (g, h) \u2208 T if and only if g(1) + g(2) + g(3) = h(1) + h(2) + h(3). Prove that T is an equivalence relation by verifying reflexivity, symmetry, and transitivity. Then, determine how many distinct equivalence classes T has, and identify the size of the equivalence class containing the function f where f(1) = f(2) = f(3) = 2.",
+   "difficulty": "hard",
+   "category": "mathematical_logic"
+  },
+  {
+   "id": "SPAT_117",
+   "prompt": "A cube is painted red on all six faces and then cut into 64 smaller cubes of equal size by making cuts parallel to its faces. How many of the smaller cubes have exactly two red faces? Explain your reasoning by considering the position of cubes within the original larger cube.",
+   "difficulty": "moderate",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_118",
+   "prompt": "You are standing at point A in a rectangular room. You walk 5 meters north to point B, then turn 90 degrees clockwise and walk 3 meters to point C, then turn 90 degrees counterclockwise and walk 4 meters to point D, and finally turn 90 degrees clockwise and walk 3 meters to point E. What is the straight-line distance between your starting point A and your final position E? Additionally, describe the direction from A to E using compass directions.",
+   "difficulty": "moderate",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_119",
+   "prompt": "A rectangular piece of paper measuring 20 cm by 30 cm is folded so that one corner touches the opposite edge, creating a crease. If the bottom-left corner is folded to touch the midpoint of the top edge, determine the length of the crease line formed. Describe the geometric relationships you need to establish to solve this problem.",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_120",
+   "prompt": "Four towns A, B, C, and D are located such that: Town B is 60 km directly east of town A. Town C is 80 km from town A at a bearing of 053 degrees (measured clockwise from north). Town D is equidistant from all three towns A, B, and C. Determine the coordinates of town D if town A is placed at the origin, and calculate the radius of the circle passing through all three towns.",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_121",
+   "prompt": "A three-dimensional maze consists of a 4\u00d74\u00d74 grid of cubic rooms. You can only move between adjacent rooms that share a face (not diagonally). Starting from the room at position (1,1,1) and needing to reach position (4,4,4), certain rooms are blocked: all rooms where the sum of coordinates equals 6, and all rooms where any coordinate equals 2. Determine whether a path exists from start to finish, and if so, what is the minimum number of room-to-room moves required?",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_122",
+   "prompt": "A cylindrical water tank with radius 3 meters and height 8 meters is lying on its side (with its circular faces vertical). Water is being poured into it until the water level reaches exactly halfway up the circular face when viewed from the front. If the tank is then rotated 90 degrees so that it stands upright (circular faces horizontal), what will be the height of the water level from the bottom of the tank? Express your answer in terms of the geometry involved.",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_123",
+   "prompt": "In a three-dimensional coordinate system, you have three spheres: Sphere A centered at (0, 0, 0) with radius 5, Sphere B centered at (8, 0, 0) with radius 4, and Sphere C centered at (4, 6, 0) with radius 3. A laser beam travels in a straight line starting from point (0, 0, 10) and must pass through the interior of all three spheres before reaching the xy-plane. Determine whether such a path exists and describe the geometric constraints that must be satisfied.",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_124",
+   "prompt": "An ant is walking on the surface of a regular tetrahedron with edge length 12 cm. The ant starts at vertex P and wants to reach vertex Q (where Q is not adjacent to P) by walking along the surface. The ant must pass through a point M that lies exactly at the midpoint of edge RS (where R and S are the two vertices other than P and Q). What is the shortest path length the ant can take, and which route minimizes this distance?",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_125",
+   "prompt": "A warehouse has a rectangular floor plan of 40 meters by 30 meters with a ceiling height of 6 meters. Five cylindrical support columns are positioned inside, each with a diameter of 1 meter and extending from floor to ceiling. The columns are located at coordinates (10, 10), (30, 10), (20, 15), (10, 25), and (30, 25). A drone needs to fly in a straight line from the point (2, 2, 5) to the point (38, 28, 1). Determine whether this flight path intersects any of the columns, and if so, identify which ones.",
+   "difficulty": "moderate",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "SPAT_126",
+   "prompt": "Two identical equilateral triangular prisms are positioned in space. Prism 1 has its triangular base in the xy-plane with vertices at (0, 0, 0), (6, 0, 0), and (3, 3\u221a3, 0), extending upward to height 10 in the z-direction. Prism 2 has its axis parallel to the x-axis, with one triangular face centered at (8, 2\u221a3, 5) and facing the negative x-direction. If Prism 2 is gradually moved in the negative x-direction (sliding toward Prism 1), at what x-coordinate of its center will the two prisms first make contact? Describe the geometric relationship at the moment of first contact.",
+   "difficulty": "hard",
+   "category": "spatial_reasoning"
+  },
+  {
+   "id": "VERB_117",
+   "prompt": "Consider the following statements:\n1. All philosophers who study ethics also study metaphysics.\n2. Some philosophers who study metaphysics do not study epistemology.\n3. No philosopher who studies logic fails to study epistemology.\n4. All philosophers who study ethics also study logic.\n\nBased on these statements, determine whether the following conclusion is necessarily true, possibly true but not necessarily true, or necessarily false: \"Some philosophers who study ethics do not study epistemology.\" Explain your reasoning step by step.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_118",
+   "prompt": "Analyze the following verbal analogy and complete it with the most logically consistent pair:\n\nCATERPILLAR : BUTTERFLY :: TADPOLE : FROG :: SEED : PLANT :: ? : ?\n\nThe pattern involves biological transformation, but the missing pair must follow a different transformation principle than the previous three pairs while maintaining logical consistency with the overall sequence. Identify what transformation principle the first three pairs share, what principle the fourth pair should follow to create a meaningful progression, and provide the fourth pair with full justification.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_119",
+   "prompt": "Three friends\u2014Alice, Ben, and Clara\u2014make the following statements:\n\nAlice: \"If Ben is telling the truth, then Clara is lying.\"\nBen: \"Either Alice is lying or I am telling the truth, but not both.\"\nClara: \"Alice and I are either both telling the truth or both lying.\"\n\nDetermine who is telling the truth and who is lying. Show your logical reasoning process, considering all possible combinations and eliminating contradictions until you arrive at the only consistent solution.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_120",
+   "prompt": "Consider this sequence of word relationships:\n\nOCEAN is to WATER as LIBRARY is to BOOKS as FOREST is to TREES as ARCHIPELAGO is to ?\n\nThe answer is not simply \"islands.\" Analyze the deeper structural relationship in the pattern. Each term describes a collective entity, but there's a specific logical progression in how these collectives relate to their constituent parts. Identify this progression, explain what distinguishes each step, and determine what word correctly completes the analogy while maintaining the pattern's integrity.",
+   "difficulty": "moderate",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_121",
+   "prompt": "Examine the following premises:\n1. Every student who excels in mathematics also excels in at least one of physics or computer science.\n2. No student who excels in computer science fails to excel in logical reasoning.\n3. Some students who excel in physics do not excel in logical reasoning.\n4. All students who excel in both physics and computer science also excel in mathematics.\n5. Emma excels in physics but does not excel in logical reasoning.\n\nBased solely on these premises, determine: (a) whether Emma must excel in mathematics, (b) whether Emma must excel in computer science, and (c) whether Emma could excel in both mathematics and computer science. Provide a complete logical derivation for each conclusion.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_122",
+   "prompt": "Consider the following statements about a group of musicians:\n1. Every violinist in the orchestra can read sheet music fluently.\n2. No one who can read sheet music fluently struggles with rhythm.\n3. Some members of the orchestra struggle with rhythm.\n4. All cellists in the orchestra are violinists.\n\nBased on these statements, determine: (a) Can there be any cellists in the orchestra? (b) Must there be at least one orchestra member who is neither a violinist nor a cellist? (c) Is it possible that everyone who can read sheet music fluently is a violinist? Provide logical justification for each conclusion.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_123",
+   "prompt": "Four colleagues\u2014Diana, Erik, Fiona, and George\u2014each make one statement about who will receive a promotion:\n\nDiana: \"Either Erik or Fiona will get the promotion, but not both.\"\nErik: \"If I get the promotion, then George will not get it.\"\nFiona: \"Diana and I will both get promotions, or neither of us will.\"\nGeorge: \"Exactly two people will receive promotions.\"\n\nIf exactly three of these four statements are true and exactly one is false, determine who receives the promotion(s). Explain your reasoning process, including how you identify which statement must be false.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_124",
+   "prompt": "Complete the following complex verbal analogy by identifying the underlying relationship pattern:\n\nPENINSULA : LAND : OCEAN :: OASIS : WATER : _____ :: ISLAND : _____ : _____\n\nFirst, analyze the structural relationship in the initial trio (peninsula, land, ocean). Then determine what word completes the oasis relationship, and finally identify the two words that complete the island relationship following the same logical pattern. Explain the consistent rule that governs all three trios.",
+   "difficulty": "moderate",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_125",
+   "prompt": "A linguistics professor presents the following rules about a constructed language:\n1. Any word that contains the letter 'k' must also contain at least one vowel before the 'k'.\n2. Words ending in 'th' cannot contain the letter 'm'.\n3. If a word contains both 'r' and 's', then the 'r' must come before the 's'.\n4. All words with exactly three letters must contain at least one vowel.\n\nEvaluate whether each of the following words could exist in this language: (a) \"krth\", (b) \"moth\", (c) \"ask\", (d) \"spr\". For each word, explain whether it violates any rules, and if it violates multiple rules, identify all violations.",
+   "difficulty": "moderate",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "VERB_126",
+   "prompt": "Consider these premises about a research team:\n1. Every researcher who specializes in neuroscience also has expertise in either statistics or computer programming.\n2. No researcher with expertise in statistics lacks training in experimental design.\n3. Some researchers who have training in experimental design do not specialize in neuroscience.\n4. All researchers who have expertise in computer programming can analyze large datasets.\n5. Dr. Martinez specializes in neuroscience but cannot analyze large datasets.\n\nBased solely on these premises, determine: (a) What can you conclusively deduce about Dr. Martinez's expertise and training? (b) Is it possible that Dr. Martinez has training in experimental design? (c) Must there exist at least one researcher on the team who has training in experimental design but does not have expertise in statistics? Show your logical reasoning for each conclusion.",
+   "difficulty": "hard",
+   "category": "verbal_logic"
+  },
+  {
+   "id": "PATT_117",
+   "prompt": "Consider the following sequence: 2, 12, 36, 80, 150, 252. Each term follows a specific pattern based on its position. Determine the rule governing this sequence and find the next two terms.",
+   "difficulty": "moderate",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_118",
+   "prompt": "A sequence of words follows a hidden pattern: BYTE, MIND, TORN, FIVE, ????. Each word transforms into the next according to a consistent rule involving both the letters and their properties. What is the next word in the sequence?",
+   "difficulty": "hard",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_119",
+   "prompt": "Examine this grid pattern:\nRow 1: 1, 3, 6, 10\nRow 2: 2, 5, 9, 14\nRow 3: 4, 8, 13, 19\nRow 4: 7, 12, 18, ??\nIdentify the underlying pattern that generates both the rows and columns, then determine what number should replace the ?? in Row 4.",
+   "difficulty": "hard",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_120",
+   "prompt": "A sequence contains these elements: 1/2, 2/3, 3/5, 5/8, 8/13, 13/21. Identify the pattern in both the numerators and denominators separately, explain how they relate to each other, and provide the next three terms in the sequence.",
+   "difficulty": "moderate",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_121",
+   "prompt": "Consider this sequence of operations and results: (3, 5) \u2192 34, (2, 7) \u2192 53, (4, 6) \u2192 52, (1, 9) \u2192 90, (5, 4) \u2192 ??. Each pair of numbers is transformed into a result following a consistent mathematical rule. Determine the rule and calculate the result for (5, 4), then verify your rule works for all given examples.",
+   "difficulty": "moderate",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_122",
+   "prompt": "A sequence of symbols follows a transformation rule: \u25c7, \u25c6\u25c7, \u25c6\u25c7\u25c6, \u25c7\u25c6\u25c7\u25c6, \u25c7\u25c6\u25c7\u25c6\u25c7, ??????. Each term is generated by applying a specific operation to the previous term based on counting and alternating properties. Determine what the sixth term should be and explain the underlying pattern that governs the sequence.",
+   "difficulty": "moderate",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_123",
+   "prompt": "Consider a three-dimensional pattern where layers build upon each other. Layer 1 contains the number 4. Layer 2 contains the numbers 7 and 10. Layer 3 contains 13, 16, and 19. Layer 4 contains 22, 25, 28, and 31. Determine what numbers appear in Layer 6, and identify the rule that governs both the quantity of numbers per layer and their values.",
+   "difficulty": "moderate",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_124",
+   "prompt": "A clock-like sequence uses positions 1 through 12. Starting at position 5, a marker moves according to this pattern: after step 1 it's at position 8, after step 2 it's at position 2, after step 3 it's at position 9, after step 4 it's at position 5. The sequence continues following the same rule. Determine the position after step 10, explaining the movement pattern and how it wraps around the clock face.",
+   "difficulty": "hard",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_125",
+   "prompt": "A sequence of three-letter codes follows a hidden alphabetical-numerical pattern: ACE, BDF, CEI, DGN, EIT, ????. Each position in the code (first, second, third letter) follows its own distinct progression rule, and these rules interact with each other. Determine the next code in the sequence and fully explain the pattern governing each letter position.",
+   "difficulty": "hard",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "PATT_126",
+   "prompt": "Examine this pattern of number pairs arranged in a spiral: (1,1), (1,2), (2,2), (2,1), (2,0), (3,0), (3,1), (3,2), (3,3), (4,3), (4,2), (4,1), (4,0), (4,-1). The pairs represent coordinates following a specific spiral rule. Determine the next five coordinate pairs in the sequence and describe the complete rule governing the spiral's direction changes and progression.",
+   "difficulty": "hard",
+   "category": "pattern_recognition"
+  },
+  {
+   "id": "LATE_117",
+   "prompt": "A man walks into a bar and asks the bartender for a glass of water. The bartender pulls out a gun and points it at the man. The man says 'thank you' and walks out satisfied, without ever receiving water. The bartender never intended to harm the man, and the man got what he needed. Explain what happened and why both parties acted rationally.",
+   "difficulty": "moderate",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_118",
+   "prompt": "A woman lives on the 15th floor of an apartment building. Every morning she takes the elevator down to the ground floor to go to work. When she returns in the evening, she takes the elevator to the 10th floor and walks up the remaining 5 floors to her apartment. However, on rainy days, she takes the elevator all the way to the 15th floor. She is physically capable of using the elevator fully every day. Explain her behavior through logical reasoning.",
+   "difficulty": "moderate",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_119",
+   "prompt": "In a room, there are three light switches. Only one of them controls a light bulb in a closed room upstairs. You can flip the switches as many times as you want, but you can only go upstairs to check the bulb once. The room upstairs has no windows and is completely sealed. How can you determine with certainty which switch controls the bulb? Describe your complete strategy and explain the reasoning behind each step.",
+   "difficulty": "moderate",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_120",
+   "prompt": "A prisoner is given a challenge: There are two identical-looking pills on a table. One is a harmless vitamin, and one is deadly poison. The prisoner must take exactly one pill today and one pill tomorrow to survive - taking both vitamins or both poisons will result in death, and not taking pills is not an option. The prisoner has no way to test or distinguish the pills by appearance, smell, or taste. However, the jailer accidentally knocks over the pill container, and both pills fall onto the table mixed with two new identical pills (one vitamin, one poison) from a backup container. Now there are four identical pills, with two vitamins and two poisons, but no way to tell them apart. How can the prisoner guarantee survival?",
+   "difficulty": "hard",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_121",
+   "prompt": "A company has a strict policy: employees must attend at least one meeting per week, but attending more than three meetings per week is prohibited. There are five different recurring meetings (A, B, C, D, E) that each occur once per week. Due to scheduling conflicts and room availability, the following constraints exist: If you attend meeting A, you must attend meeting B. If you attend meeting C, you cannot attend meeting D. Meeting E can only be attended if you attend exactly two other meetings. An employee needs to maximize their meeting attendance within the rules. Determine all possible valid combinations of meetings this employee could attend, and explain your reasoning process for eliminating invalid options and identifying valid ones.",
+   "difficulty": "hard",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_122",
+   "prompt": "A museum curator notices that a priceless ancient vase has been moved exactly 3 inches to the left on its pedestal. Security footage shows no one entered the room during the night, all doors and windows remained locked, and motion sensors detected nothing. The temperature control system functioned normally, and there was no seismic activity. The vase weighs 40 pounds and sits on a level marble pedestal with high friction coating. When the curator checks the next morning, the vase has moved another 3 inches in the same direction. What could explain this movement?",
+   "difficulty": "hard",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_123",
+   "prompt": "A chef prepares identical meals for two customers sitting at adjacent tables. Both meals are served at exactly the same time, at the same temperature, with identical ingredients and portions. The first customer finishes their meal in 8 minutes and reports it was delicious. The second customer takes 25 minutes to finish and complains the food was cold and unappetizing. The restaurant has consistent heating, and no one touched either plate between serving and eating. Both customers are healthy adults with normal taste perception. What explains the dramatic difference in their dining experiences?",
+   "difficulty": "moderate",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_124",
+   "prompt": "A mathematician writes down a sequence of numbers on a blackboard: 8, 5, 4, 9, 1, 7, 6, 3, 2, 0. Her colleague immediately recognizes the pattern and correctly predicts what number would come next if the sequence continued, and why this specific ordering was chosen. The sequence is not based on mathematical operations, prime numbers, or any arithmetic progression. What principle organizes these numbers, and why does this ordering make logical sense once you identify the pattern?",
+   "difficulty": "moderate",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_125",
+   "prompt": "An archaeologist discovers two sealed clay jars buried together in an ancient tomb dated to 1200 BCE. Jar A contains perfectly preserved honey that is still edible. Jar B contains what appears to be grain that has completely decomposed into dust. Both jars were sealed with the same wax technique, buried at the same depth, in the same soil conditions, and experienced identical environmental factors for over 3000 years. The tomb remained undisturbed with stable temperature and humidity. Given that both organic materials started in similar preservation conditions, what properties explain why one substance remained preserved while the other decomposed?",
+   "difficulty": "hard",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "LATE_126",
+   "prompt": "A software company implements a new policy: employees can choose their own working hours and location, with no mandatory meetings or check-ins. Productivity metrics show that 60% of employees become significantly more productive, 30% maintain the same productivity level, and 10% become less productive. Six months later, the company reverses the policy and returns to fixed hours and mandatory office attendance. Surprisingly, overall company productivity increases beyond the levels seen during the flexible policy period, even though 60% of workers had performed better under flexibility. Assuming all measurements are accurate and no employees were fired or hired during this period, what could explain this paradoxical outcome?",
+   "difficulty": "hard",
+   "category": "lateral_thinking"
+  },
+  {
+   "id": "CAUS_117",
+   "prompt": "A pharmaceutical company conducted a clinical trial where patients with chronic pain were given either a new medication or a placebo. The results showed that 70% of patients in the medication group reported reduced pain, compared to 40% in the placebo group. However, the study also revealed that patients in the medication group had more frequent follow-up appointments and received more attention from medical staff. Analyze whether the medication itself caused the pain reduction, or whether other factors might be responsible. What additional information or study design changes would help establish a clearer causal relationship?",
+   "difficulty": "moderate",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_118",
+   "prompt": "In a coastal town, researchers observed that ice cream sales and drowning incidents both increase during the same months of the year. A local newspaper published an article suggesting that eating ice cream before swimming might cause drowning. Evaluate this causal claim by: (1) identifying the logical flaw in the newspaper's reasoning, (2) proposing alternative explanations for the correlation, (3) describing what type of evidence would be needed to establish whether ice cream consumption actually causes drowning, and (4) explaining the difference between correlation and causation using this example.",
+   "difficulty": "moderate",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_119",
+   "prompt": "A factory installed new air filtration systems in January. In the following six months, worker productivity increased by 15% and sick days decreased by 25%. Management attributed these improvements to better air quality. However, during the same period, the company also: introduced flexible work hours, increased salaries by 10%, hired a new motivational manager, and the regional economy improved significantly. Using principles of causal inference, explain how you would determine which factor(s) actually caused the improvements in productivity and health. What confounding variables exist, and what research design could help isolate the true causal effect of the air filtration system?",
+   "difficulty": "hard",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_120",
+   "prompt": "Scientists studying a rare disease noticed that 85% of patients with the disease had been exposed to Chemical X in their workplace. They concluded that Chemical X causes the disease. However, further investigation revealed that: (1) Chemical X is present in 60% of industrial workplaces in the region, (2) only 0.5% of workers exposed to Chemical X develop the disease, (3) the disease also occurs in 0.1% of people never exposed to Chemical X, and (4) workers exposed to Chemical X are also more likely to be exposed to Chemicals Y and Z. Critically analyze the initial causal conclusion. What does the additional data suggest about the causal relationship? What alternative causal mechanisms might explain the disease, and what further studies would help establish causation?",
+   "difficulty": "hard",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_121",
+   "prompt": "A school district implemented a new reading program in 20 of its 40 elementary schools. After one year, students in schools with the new program showed a 12-point average improvement in reading scores, while students in schools without the program showed only a 3-point improvement. However, the 20 schools chosen for the program were selected by principals who volunteered their schools, rather than through random assignment. Additionally, these volunteering schools tended to have more experienced teachers and higher parental involvement rates. Analyze the causal validity of concluding that the reading program caused the improvement. What is the fundamental problem with the study design? Explain how selection bias affects causal inference in this scenario and propose a better experimental design.",
+   "difficulty": "moderate",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_122",
+   "prompt": "A city implemented a congestion pricing policy in its downtown core, charging vehicles a fee to enter during peak hours. Six months later, data showed that average commute times decreased by 15%, public transit ridership increased by 22%, and retail sales in the downtown area dropped by 8%. A neighboring district without congestion pricing saw no significant changes in any of these metrics. However, during the same period, the city also launched a major advertising campaign promoting public transit, gas prices rose by 12% regionally, and two new subway stations opened in the downtown area. Analyze the causal relationships at play and determine which outcomes can be confidently attributed to the congestion pricing policy itself versus other factors. What additional evidence would strengthen or weaken the case for causation?",
+   "difficulty": "hard",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_123",
+   "prompt": "An agricultural region experienced a 40% decline in bee populations over three years. During this same period, farmers increased their use of a particular class of pesticides by 35%, average temperatures rose by 1.2\u00b0C, a parasitic mite species was first detected in the area, and urban development eliminated 18% of wildflower meadows. Beekeepers in organic farms (which don't use synthetic pesticides) also reported colony losses, but only at a 15% rate. A laboratory study showed that the pesticides in question impair bee navigation at high concentrations, but field exposure levels were measured at only 30% of that threshold. Evaluate the potential causal factors for the bee population decline, considering direct effects, indirect effects, synergistic interactions, and confounding variables. Which factor or combination of factors most likely explains the observed pattern?",
+   "difficulty": "hard",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_124",
+   "prompt": "A tech company noticed that software developers who worked from home filed 30% fewer bug reports than those working in the office. Management initially interpreted this as reduced productivity among remote workers. However, further investigation revealed that remote developers also had 25% fewer bugs found in their code during quality assurance testing, spent an average of 90 more minutes per day in \"focused work\" (uninterrupted coding time), and reported 40% higher job satisfaction. Office-based developers spent more time in spontaneous meetings and had more frequent interruptions. Determine the causal chain that best explains these observations. Is the reduced bug reporting a sign of lower productivity, higher code quality, or something else entirely? What role do work environment factors play?",
+   "difficulty": "moderate",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_125",
+   "prompt": "Archaeologists discovered that an ancient civilization's major urban centers were all abandoned within a 50-year period around 1200 BCE. Evidence shows that during this time: (1) tree ring data indicates three consecutive years of severe drought, (2) layers of ash suggest increased warfare and burning of cities, (3) trade goods from distant regions suddenly disappear from the archaeological record, (4) there's evidence of rapid population movement toward coastal areas, and (5) new fortification walls were built around remaining settlements. Some scholars argue drought caused collapse, others blame invasion, and still others point to systems collapse of trade networks. Construct a causal explanation that accounts for all the evidence. How might these factors have interacted? Could one factor have triggered the others, or was the collapse due to independent simultaneous causes?",
+   "difficulty": "hard",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "CAUS_126",
+   "prompt": "A psychology researcher observed that children who played strategic board games for one hour per week showed improved math performance after six months compared to a control group. However, the board game group also had parents who volunteered to facilitate the sessions, creating more parent-school interaction. Additionally, these children spent one hour less per week on television and video games. The control group received no alternative structured activity. When the researcher examined subgroups, children whose parents were highly engaged but who didn't play board games showed some improvement, while children who played board games with minimal parent interaction showed different patterns of improvement in specific math skills (geometry and spatial reasoning) but not others (arithmetic). Analyze the causal pathways and determine what is actually causing the improved math performance. What experimental design would better isolate the true causal factor?",
+   "difficulty": "moderate",
+   "category": "causal_reasoning"
+  },
+  {
+   "id": "PROB_117",
+   "prompt": "A medical test for a rare disease has a 99% accuracy rate (meaning it correctly identifies both positive and negative cases 99% of the time). The disease affects 1 in 10,000 people in the general population. If a randomly selected person tests positive, what is the probability that they actually have the disease? Explain your reasoning step by step.",
+   "difficulty": "moderate",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_118",
+   "prompt": "You are playing a game where you roll a fair six-sided die repeatedly. You win if you roll a 6 before you roll two consecutive odd numbers (1, 3, or 5). What strategy should you follow, and what is the probability that you will win this game? Consider all possible sequences of rolls that lead to winning or losing.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_119",
+   "prompt": "A factory has three machines that produce widgets. Machine A produces 50% of the widgets, Machine B produces 30%, and Machine C produces 20%. The defect rates are 2% for Machine A, 3% for Machine B, and 5% for Machine C. If a randomly selected widget is found to be defective, what is the probability it came from each machine? Show how you would update your beliefs based on this information.",
+   "difficulty": "moderate",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_120",
+   "prompt": "In a tournament, 8 players are ranked by skill from 1 (best) to 8 (worst). In any match, the better player wins with probability 0.7, and the weaker player wins with probability 0.3. The tournament uses single-elimination format with random seeding. What is the probability that the best player (rank 1) wins the tournament? What is the probability that one of the top two players wins? Compare these probabilities to explain whether this format favors the strongest players.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_121",
+   "prompt": "You have two envelopes, one containing twice as much money as the other. You randomly select one envelope and open it to find $100. Someone offers you the chance to switch to the other envelope. A common paradox suggests that the expected value of switching is positive because the other envelope contains either $50 or $200 with equal probability, giving an expected value of $125. Identify what is wrong with this reasoning and determine whether you should switch. Explain the correct probabilistic analysis of this situation.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_122",
+   "prompt": "A weather forecasting model predicts rain with 70% accuracy when it will actually rain, and predicts no rain with 80% accuracy when it will not rain. In your city, it rains on 25% of days throughout the year. One morning, you check the forecast and it predicts rain for today. What is the probability that it will actually rain today? Additionally, if the forecast predicts rain on three consecutive days, and the daily weather events are independent, what is the probability that it rains on at least two of those three days?",
+   "difficulty": "moderate",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_123",
+   "prompt": "A bag contains 5 red marbles, 3 blue marbles, and 2 green marbles. You draw marbles one at a time without replacement. If you draw a red marble, you receive 2 points. If you draw a blue marble, you receive 5 points. If you draw a green marble, you lose 3 points and must stop drawing immediately. If you draw a red or blue marble, you may choose to stop and keep your points, or continue drawing. What is the expected value of points if you follow the optimal strategy of stopping as soon as your expected value from continuing would be negative? Describe the optimal strategy and calculate the maximum expected value.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_124",
+   "prompt": "In a population, 60% of people have gene variant A, and 40% have gene variant B (each person has exactly one variant). A study finds that among people who develop a certain condition, 75% have variant A and 25% have variant B. The overall prevalence of this condition in the population is 8%. A person is randomly selected and tests positive for the condition using a diagnostic test that has a false positive rate of 5% and a false negative rate of 10%. Given that this person tested positive and has gene variant A, what is the probability that they actually have the condition? Show your reasoning through the relevant conditional probabilities.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_125",
+   "prompt": "You are managing a project with four independent tasks, each assigned to a different team member. Based on historical data: Task 1 has a 90% probability of completion on time, Task 2 has 85% probability, Task 3 has 75% probability, and Task 4 has 80% probability. The project succeeds if at least three of the four tasks are completed on time. What is the probability that the project succeeds? Furthermore, if you can allocate additional resources to improve the on-time probability of exactly one task by 15 percentage points, which task should you choose to maximize the project success probability, and what would the new success probability be?",
+   "difficulty": "moderate",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "PROB_126",
+   "prompt": "A casino game involves flipping a biased coin repeatedly. The coin shows heads with probability p = 0.6 and tails with probability 0.4. You start with a bankroll of $100. Each round, you must bet $10. If the coin shows heads, you win $10 (net gain of $10). If it shows tails, you lose your $10 bet. You play until either your bankroll reaches $150 (you win the game) or drops to $0 (you lose the game). Using concepts from random walks and gambler's ruin, estimate the probability that you will reach $150 before going broke. Then determine how many rounds you expect to play on average before the game ends in either outcome.",
+   "difficulty": "hard",
+   "category": "probabilistic_thinking"
+  },
+  {
+   "id": "SYST_117",
+   "prompt": "A city is experiencing severe traffic congestion. The city council proposes three interventions: (1) adding more lanes to major highways, (2) implementing congestion pricing in the downtown core, and (3) investing heavily in public transportation infrastructure. Analyze how each intervention might create feedback loops within the urban transportation system. Consider both intended effects and potential unintended consequences, including induced demand, modal shifts, land use changes, and equity implications. Which intervention or combination is most likely to achieve sustainable long-term congestion reduction, and why?",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_118",
+   "prompt": "A hospital emergency department is facing long wait times. Analysis reveals the following interconnected factors: (1) 40% of patients could be treated at urgent care centers, (2) discharge delays due to lack of available beds in other hospital units, (3) staff burnout leading to slower processing times, (4) ambulance diversions from nearby hospitals increase patient volume, and (5) poor wait time reputation paradoxically attracts patients who assume faster service at off-peak hours. Map the causal relationships between these factors and identify which leverage points would be most effective for intervention. Explain how addressing one factor might amplify or dampen effects on others.",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_119",
+   "prompt": "A fishing community depends on a lake where fish populations are declining. The lake ecosystem includes: predator fish (which locals catch for income), prey fish (which predators eat), aquatic plants (which provide habitat and oxygen), and nutrient levels (affected by agricultural runoff). Local fishermen want to increase their catch quotas, arguing this will boost the economy. Environmental scientists warn that overfishing predators could trigger a trophic cascade. Trace the potential chain of effects if predator fish populations are further reduced. What dynamics might lead to a system collapse versus recovery? What monitoring indicators would signal approaching critical thresholds?",
+   "difficulty": "moderate",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_120",
+   "prompt": "A technology company implements an AI-based performance evaluation system that rates employees monthly and influences promotion decisions. Over time, several patterns emerge: high-performers start optimizing for metrics rather than actual value creation, collaboration decreases as employees compete for ratings, innovation drops because risky projects might lower scores, and managers spend more time contesting ratings than coaching. Meanwhile, the AI system learns from historical data that increasingly reflects these behavioral changes. Analyze the feedback loops in this system. How does the measurement system itself alter what is being measured? What systemic redesign would break these dysfunctional patterns while maintaining accountability?",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_121",
+   "prompt": "A small town's economy depends primarily on a single factory that employs 30% of the workforce. The factory faces declining profitability and is considering automation that would eliminate 60% of its jobs but ensure the factory remains open. Consider the interconnected effects on: local tax revenue, housing prices, retail businesses, school enrollment and funding, crime rates, and remaining workers' wages. Trace how these elements might interact over a 5-year period under two scenarios: (1) automation proceeds, and (2) the factory closes entirely. Identify any potential positive or negative feedback loops that could accelerate decline or enable adaptation. What system-level interventions might increase community resilience regardless of the factory's decision?",
+   "difficulty": "moderate",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_122",
+   "prompt": "A university introduces a policy allowing students to retake any exam once to improve their grade, keeping only the higher score. After implementation, the following patterns emerge: (1) average course grades increase by 15%, (2) initial exam attendance drops by 25%, (3) library usage decreases during regular semester weeks but spikes dramatically before retake periods, (4) students report higher stress levels despite better grades, and (5) employers begin questioning the value of transcripts from this university. Analyze the systemic effects of this policy across multiple stakeholders and time horizons. What feedback loops have been created, and what are the likely long-term consequences for educational quality, student learning behavior, and institutional reputation?",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_123",
+   "prompt": "A national park implements a wolf reintroduction program to control an overpopulated deer herd that has been damaging vegetation. Within five years, the following changes occur: (1) deer populations decrease by 40% in some areas but remain stable in others, (2) riverbank vegetation recovers in certain valleys, changing stream flows, (3) beaver populations increase due to more available trees, creating new wetlands, (4) small mammal populations shift in distribution, (5) tourist visits increase by 60%, and (6) nearby ranchers report more livestock losses. Examine the cascading effects through this ecosystem and the human systems connected to it. What are the interconnected feedback mechanisms, and what unintended consequences might emerge in the next decade?",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_124",
+   "prompt": "A social media platform changes its algorithm to prioritize content that generates longer engagement times rather than simple likes or shares. Over six months, content creators notice: (1) controversial and emotionally charged posts receive more visibility, (2) educational content with quick, clear answers gets less reach, (3) comment sections become more polarized, (4) new users spend 40% more time on the platform but report lower satisfaction, (5) advertising revenue increases but some major brands withdraw due to brand safety concerns. Trace the systemic impacts of this algorithmic change on user behavior, content creation incentives, community dynamics, and platform sustainability. What reinforcing and balancing loops are at play?",
+   "difficulty": "moderate",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_125",
+   "prompt": "A developing country receives substantial foreign aid to build irrigation infrastructure for agriculture. The project successfully increases crop yields by 200% in the first three years. However, by year five: (1) groundwater levels have dropped significantly, (2) farmers have shifted from diverse subsistence crops to water-intensive cash crops for export, (3) local food prices have increased as less food is grown for domestic consumption, (4) rural-to-urban migration has accelerated as some farmers' wells run dry, (5) the economy shows GDP growth but income inequality has widened. Analyze the complex interdependencies between agricultural development, resource management, economic structures, and social stability. What systemic factors were overlooked in the initial intervention design?",
+   "difficulty": "hard",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "SYST_126",
+   "prompt": "A residential neighborhood installs smart thermostats in 80% of homes to reduce energy consumption. The utility company offers lower rates during off-peak hours to incentivize load shifting. After one year: (1) individual household energy bills decrease by an average of 18%, (2) neighborhood peak demand shifts from 6-9 PM to 5-6 PM as everyone programs similar schedules, (3) the local power grid experiences new strain during the shifted peak, (4) the utility responds by installing a larger transformer at significant cost, (5) to recover costs, the utility raises base rates, partially offsetting household savings. Map out the feedback loops between individual optimization, collective behavior, infrastructure capacity, and economic incentives. What principle of systems thinking does this scenario illustrate, and how might the system be redesigned?",
+   "difficulty": "moderate",
+   "category": "systems_thinking"
+  },
+  {
+   "id": "CREA_117",
+   "prompt": "A small island community of 500 people has limited resources and no connection to the mainland's power grid. They want to become energy independent within 5 years. The island receives moderate sunlight year-round, experiences strong coastal winds, has a small river with consistent flow, and generates significant organic waste from agriculture and fishing. Design a comprehensive energy solution that addresses their daily power needs (estimated at 2 MW), considers seasonal variations, includes backup systems, and utilizes at least three different renewable energy sources. Explain how you would prioritize implementation, manage initial costs with limited budget, and ensure system maintenance with local workforce training.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_118",
+   "prompt": "You are tasked with designing a new public park in a dense urban area where space is extremely limited. The available plot is only 30 meters by 40 meters, located between tall buildings that create significant shade for most of the day. The city wants the park to serve multiple purposes: provide green space for relaxation, include a children's play area, accommodate small community events, support local biodiversity, manage stormwater runoff, and be accessible to people with disabilities. Develop a creative design that addresses all these requirements while working within the spatial and environmental constraints. Describe the key features, layout, plant selections, and innovative solutions you would incorporate.",
+   "difficulty": "moderate",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_119",
+   "prompt": "A historic library built in 1890 is facing severe space constraints. The building cannot be physically expanded due to historical preservation laws, yet the collection has grown by 40% in the past decade, and visitor numbers have doubled. The library board wants to maintain the physical book collection (which patrons highly value), increase study spaces, add technology labs, create quiet reading zones, and improve accessibility. The building has three floors, high ceilings, and several large rooms with ornate but fixed architectural features. Propose a comprehensive reorganization strategy that maximizes space efficiency, preserves the historical character, and meets all functional requirements without removing significant portions of the collection.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_120",
+   "prompt": "A mid-sized manufacturing company produces a popular product that generates substantial plastic waste during production\u2014approximately 3 tons per week of mixed plastic scraps that cannot be easily recycled through conventional means. The company wants to achieve zero waste to landfill within two years while maintaining profitability. Local recycling facilities won't accept this type of mixed plastic waste, and disposal costs are rising. Develop an innovative solution that addresses this waste problem. Consider potential partnerships, product redesign, alternative materials, waste transformation processes, circular economy principles, or business model innovations. Explain your approach, implementation phases, and how you would measure success.",
+   "difficulty": "moderate",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_121",
+   "prompt": "A remote rural school district serves 15 small villages spread across a 200-kilometer radius. The district struggles with teacher retention, as qualified teachers are reluctant to relocate to isolated areas. Student performance is below regional averages, internet connectivity is unreliable in most villages, and the annual budget is severely constrained. Traditional solutions like hiring bonuses and online learning platforms have had limited success. Design an innovative educational model that could improve learning outcomes, address the teacher shortage, leverage the unique aspects of rural community life, and work within technological and financial limitations. Your solution should consider curriculum delivery, community involvement, teacher support, student engagement, and long-term sustainability.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_122",
+   "prompt": "A coastal city is experiencing a surge in jellyfish populations that are clogging water intake pipes at the desalination plant, stinging beachgoers, and disrupting the local fishing industry. Traditional methods like nets and chemical treatments have proven ineffective or environmentally harmful. The city council has a limited budget and needs a sustainable solution that addresses the problem without damaging the marine ecosystem. Develop a comprehensive strategy that could reduce the jellyfish population or mitigate its impact on the community.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_123",
+   "prompt": "A software company has 80 employees working in an open-plan office. Recent surveys show that productivity has dropped 25% due to constant noise, interruptions, and lack of private space for focused work. However, the company cannot afford to move to a larger office or undertake major renovations. The CEO also wants to maintain the collaborative culture that the open layout was intended to foster. Design a solution that improves individual productivity and focus while preserving opportunities for collaboration, using minimal financial investment.",
+   "difficulty": "moderate",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_124",
+   "prompt": "A mountain village that relies heavily on winter tourism is facing a crisis: climate change has reduced snowfall by 60% over the past decade, and ski resorts are closing. The village has 2,000 residents, most of whom work in tourism-related jobs. The local government wants to transform the economy to be sustainable year-round without forcing mass relocation. The village has beautiful landscapes, traditional architecture, and is located 3 hours from the nearest major city. Propose a multi-faceted economic transformation plan that could sustain the community.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_125",
+   "prompt": "A university dining hall serves 3,000 meals daily and throws away approximately 400 kilograms of food waste each day, including both preparation scraps and uneaten food from student trays. The university wants to achieve zero food waste within two years while maintaining food quality, variety, and safety standards. Local composting facilities are at capacity, and the dining hall has limited storage space. Develop a comprehensive plan that eliminates or repurposes this waste stream through multiple complementary approaches.",
+   "difficulty": "moderate",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "CREA_126",
+   "prompt": "A city's central train station, built in the 1950s, has become a bottleneck during rush hours, with dangerous overcrowding on platforms and in corridors. The station serves 100,000 commuters daily across 12 platforms. Expanding the physical structure is impossible due to surrounding historic buildings and underground infrastructure. The transit authority needs to reduce crowding and improve safety without reducing service frequency or forcing commuters to use alternative stations that would increase their travel time. Devise a solution that addresses crowd management through operational, technological, or behavioral interventions.",
+   "difficulty": "hard",
+   "category": "creative_problem_solving"
+  },
+  {
+   "id": "SCIE_117",
+   "prompt": "A pharmaceutical company is testing a new drug intended to lower blood pressure. In their clinical trial, 200 patients with hypertension were divided into two groups: 100 received the drug and 100 received a placebo. After 8 weeks, the drug group showed an average blood pressure reduction of 15 mmHg, while the placebo group showed a reduction of 12 mmHg. The company claims their drug is effective. Evaluate this experimental design and the evidence provided. What are the potential flaws in this study? What additional information would you need to determine if the drug is truly effective? What alternative explanations could account for the observed results?",
+   "difficulty": "moderate",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_118",
+   "prompt": "A marine biologist observes that coral reefs in a particular region have experienced significant bleaching over the past decade. Water temperature records show an average increase of 1.5\u00b0C during this period. The biologist hypothesizes that rising water temperatures are causing the coral bleaching. Design a comprehensive experimental approach to test this hypothesis. Include control groups, variables to measure, potential confounding factors, and at least two alternative hypotheses that should be ruled out. Explain how each component of your experimental design addresses these considerations.",
+   "difficulty": "hard",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_119",
+   "prompt": "An agricultural researcher notices that tomato plants grown in Field A consistently produce 30% more fruit than genetically identical plants grown in Field B, despite both fields receiving the same amounts of water, sunlight, and fertilizer. Develop three distinct hypotheses that could explain this difference. For each hypothesis, describe: (1) what specific mechanisms could account for the yield difference, (2) what measurements or observations would support or refute the hypothesis, and (3) what controlled experiment you would design to test it. Consider both biotic and abiotic factors.",
+   "difficulty": "moderate",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_120",
+   "prompt": "A neuroscience laboratory discovers that mice exposed to a specific frequency of sound (40 Hz) for one hour daily show improved performance in memory tasks compared to control mice. However, when they replicate the experiment with rats, they find no significant difference. Analyze this discrepancy and propose a systematic research plan to investigate why the effect appears species-specific. What variables should be examined? What competing explanations exist? Design a series of experiments that would help distinguish between different possible mechanisms (neurological, behavioral, physiological, or methodological artifacts).",
+   "difficulty": "hard",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_121",
+   "prompt": "A geologist studying a mountainous region finds three distinct sedimentary rock layers. The bottom layer contains marine fossils, the middle layer contains fossils of freshwater organisms and shows evidence of volcanic ash, and the top layer contains fossils of terrestrial plants and shows signs of erosion. Construct a geological history of this region based on this evidence. What sequence of environmental changes and geological events most likely occurred? What additional evidence would strengthen or challenge your interpretation? Identify at least two alternative scenarios that could produce the same observed pattern and explain how you would distinguish between them.",
+   "difficulty": "moderate",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_122",
+   "prompt": "A materials scientist develops a new polymer coating that appears to prevent ice formation on aircraft wings during laboratory tests at -20\u00b0C. However, when tested on actual aircraft flying at high altitudes where temperatures reach -50\u00b0C, the coating fails and ice forms normally. The scientist notices that in the lab tests, the cooling process took 2 hours to reach -20\u00b0C, while at high altitude, the temperature drop occurs within 15 minutes. Design a series of experiments to determine whether the coating failure is due to the lower temperature, the rapid cooling rate, or both factors. What controls and measurements would be necessary, and what results would distinguish between these hypotheses?",
+   "difficulty": "hard",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_123",
+   "prompt": "An ecologist studying a forest ecosystem notices that a particular species of ant (Species X) is always found on trees infested with aphids, but never on nearby healthy trees of the same species. Three hypotheses are proposed: (1) the ants are attracted to the sugary honeydew produced by aphids, (2) the ants are actually farming the aphids for food, or (3) both the ants and aphids are independently attracted to trees that are already stressed or weakened. Describe how you would design observations and manipulations to test these three hypotheses against each other, and explain what specific evidence would support or refute each one.",
+   "difficulty": "moderate",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_124",
+   "prompt": "A chemist synthesizing a new organic compound notices that Reaction A produces the desired product with 85% yield when performed in the morning (8 AM - 12 PM) but only 45% yield when performed in the afternoon (2 PM - 6 PM) in the same laboratory using the same equipment and reagents. The reaction requires 4 hours and involves a light-sensitive intermediate. Propose at least three plausible hypotheses that could explain this time-dependent variation in yield, then design a systematic experimental approach to identify the actual cause. What variables should be controlled or monitored?",
+   "difficulty": "moderate",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_125",
+   "prompt": "An astronomer detects unusual periodic dimming of a distant star every 3.7 days, with the brightness dropping by exactly 1.8% for 4 hours each cycle. Additionally, spectroscopic analysis shows a slight redshift during the first half of each dimming event and a slight blueshift during the second half. A colleague suggests this is evidence of an orbiting exoplanet, but the redshift/blueshift pattern seems inconsistent with a simple planetary transit. Develop alternative hypotheses that could explain all the observed phenomena together, evaluate the strengths and weaknesses of each hypothesis, and propose what additional observations or data would help discriminate between them.",
+   "difficulty": "hard",
+   "category": "scientific_reasoning"
+  },
+  {
+   "id": "SCIE_126",
+   "prompt": "A food scientist investigating bacterial contamination in a commercial kitchen finds that stainless steel surface A has 100 times fewer bacteria than identical surface B after both surfaces have been cleaned with the same protocol. Both surfaces are the same age, same steel grade, and cleaned simultaneously by the same person. Surface A is located near the refrigeration unit while surface B is near the cooking range. When the surfaces are swapped in position for one week, surface A (now near the range) still maintains lower bacterial counts than surface B (now near the refrigerator). Formulate hypotheses to explain this position-independent difference, design experiments to test these hypotheses, and explain what evidence would be needed to establish causation rather than mere correlation.",
+   "difficulty": "hard",
+   "category": "scientific_reasoning"
+  }
+ ]
+}
