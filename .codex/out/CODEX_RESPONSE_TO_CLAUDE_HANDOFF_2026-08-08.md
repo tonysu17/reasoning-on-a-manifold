@@ -73,3 +73,72 @@ Sonnet-only chunked scorer under a new versioned manifest, recompute the exact r
 ceiling, and obtain Tony's authorization before exceeding the already approved 212-call /
 $15 scoring envelope. The completed pilot generations remain valid pipeline inputs; only
 the not-yet-executed scoring layer requires amendment.
+
+## Addendum — 9 August 2026
+
+### P5 scorer v2.1 and owner decision
+
+The proxy-compliant redesign is complete under `.codex/out` and has made zero proxy calls.
+Seventy P5 tests pass. The frozen v1 scorer and scoring manifest remain unchanged and must
+not execute.
+
+V2.1 uses Sonnet only, sequential 25-second requests, at most 800 initial output tokens,
+stable chunk/reassembly, bounded timeout/504 retries, per-attempt cost/quota accounting, and
+fail-closed unresolvedness. The deterministic source sentence/clause is a new behavioural
+denominator; it is not poolable with v1 model-returned annotation spans. Same-Sonnet repeats
+are dropped because A3 makes the former non-builder agreement gate unsatisfiable.
+
+- Protocol amendment:
+  `.codex/out/P5_PILOT_SCORER_V2_1_PROTOCOL_AMENDMENT_DRAFT_2026-08-09.md`
+- Protocol SHA-256:
+  `028e4e147fa06020c7d745fcad5f8a32f57549240ae6dbc645febc6d746751a7`
+- Owner decision:
+  `.codex/out/P5_V2_1_OWNER_DECISION_2026-08-09.md`
+
+Tony approved the v2.1 substantive gates and proceeding to two-call cost calibration and
+full pilot scoring in principle. This is not yet a hash-bound spend authorization: the final
+176-row manifest, exact request ceiling, spend ceiling, approved per-attempt bound, and quota
+floor must be shown before any paid call.
+
+### P1 draft
+
+The decision-ready P1 author–supervisor amendment is at
+`.codex/out/P1_AUTHOR_SUPERVISOR_SCOPE_AMENDMENT_DRAFT_2026-08-09.md` (SHA-256
+`301598ed71e0a0534bbf0989091fb752e0e90e530e83fb9d0f1f4f87ba4f45dd`). It matches the
+current thesis title and intervention-first three-RQ narrative. It remains a draft until
+Tony and Paolo jointly date and seal it; it does not authorize Phase 2 or powered P5 spend.
+
+### Information requested from Claude
+
+Nothing from Claude blocks the current P5 pilot generation or zero-call planning. Codex asks
+Claude to provide, when available:
+
+1. the canonical Phase-2 shared-vanilla artifact path, file SHA-256, row/key hashes, execution
+   provenance, and terminal-row accounting after its one permitted generation;
+2. any auditable Sonnet proxy pricing rule or non-sensitive `usage.cost` observations by
+   serialized input/output size that can inform P5's calibration bound—never credentials,
+   prompt text, or pre-gate causal outcomes;
+3. the Phase-2 launch and injection-recovery-gate notices when those genuinely occur; and
+4. confirmation that the three previously requested Codex deliverables and the E8 8,192-cap
+   correction have been incorporated into Claude's executor/provenance work.
+
+P5 will not wait for `analyse.done`, regenerate the shared vanilla rows, inspect pre-gate
+causal-family outcomes, or write into `results/`.
+
+### Addendum — reduced token-cap owner constraint
+
+Tony subsequently instructed that future generation must be reduced from the prior 8,192
+assumption into the 2,048–4,096 range for cost control. The exact value is not yet frozen.
+This is a new planning constraint and creates a prospective conflict with the earlier
+“shared vanilla stays at E8 settings” decision.
+
+**Do not launch the one permitted Phase-2 generation until this is resolved and, if the E8
+setting changes, a prospective amendment is sealed.** The current P5 pilot remains unchanged
+at its frozen 4,096 cap. No arm-specific cap is permitted.
+
+Planning evidence and the required freeze fields are recorded in
+`.codex/out/P5_PHASE2_REDUCED_TOKEN_CAP_CONSTRAINT_2026-08-09.md`. On the current 154-row P5
+snapshot, a 2,048 recapping would reduce observed token volume by about 36% relative to
+4,096; 3,072 would reduce it by about 18%. Generic cap exposure is already high (about 49%
+at 2,048 versus 43% at 4,096), so the cost saving changes the observed-prefix, correctness,
+and missingness estimands and must not be presented as harmless equivalence.

@@ -396,29 +396,64 @@ def test_decide_outcome_full_matrix_still_holds():
     assert px.decide_outcome(o2) == "downgraded"
 
 
-def test_annotation_corpus_regime_cap():
-    """Owner decision (Tony 2026-08-09): Phase-2 annotation runs at the corpus
-    regime's 8,192 output budget — the 29-s ceiling is held by chunking, not
-    by shrinking the cap. Defaults leave the corpus path byte-identical; the
-    504-shrink only fires on timeout-class retries and stays above a full
-    chunk echo within the 3-retry budget."""
+def test_annotation_cap_and_window_a4():
+    """A4 (owner decision 2026-08-09): cost is cut by the 3,000-token
+    annotation WINDOW, not the output cap. The 4,000 output cap keeps echo
+    headroom and its first 504-shrink (→2,000) still clears the worst-case
+    chunk echo; corpus-pipeline defaults stay byte-identical."""
     import inspect
     from src import annotation
-    assert px.ANNOTATION_MAX_TOKENS == 8192          # == the corpus default
+    assert px.ANNOTATION_MAX_TOKENS == 4000
+    assert st.ANNOTATION_WINDOW_TOKENS == 3000
     sig = inspect.signature(annotation.annotate_chain)
-    assert sig.parameters["max_tokens"].default is None    # None → 8192
+    assert sig.parameters["max_tokens"].default is None    # None → 8192 corpus
     assert sig.parameters["shrink_on_retry"].default is False
-    sig2 = inspect.signature(annotation.annotate_chains)
-    assert sig2.parameters["max_tokens"].default is None
-    # halving from the 8192 regime: 8192 → 4096 → 2048 within 3 retries —
-    # never below the ~1,700-token worst-case chunk echo; hard floor 1024
-    budget = px.ANNOTATION_MAX_TOKENS
-    seen = []
-    for _ in range(3):
-        budget = max(1024, budget // 2)
-        seen.append(budget)
-    assert seen == [4096, 2048, 1024]
-    assert seen[1] >= st.proxy_chunk_budget_ok()["worst_output_tokens_est"]
+    worst_echo = st.proxy_chunk_budget_ok()["worst_output_tokens_est"]
+    assert max(1024, px.ANNOTATION_MAX_TOKENS // 2) >= worst_echo
+
+
+def test_annotation_window_behaviour():
+    """A4 window mechanics: short chains untouched; long chains cut at a
+    paragraph boundary within budget; degenerate paragraphing hard-cuts;
+    the truncation flag and token estimate are recorded."""
+    short = "one para.\n\nanother para."
+    txt, est, trunc = st.annotation_window(short)
+    assert txt == short and not trunc and est == len(short) // 4
+    # 30 paragraphs of ~200 tokens → ~6,000 tokens; window keeps ~15 paras
+    para = ("word " * 160).strip()          # ~800 chars ≈ 200 tokens
+    long = "\n\n".join([f"p{i}. {para}" for i in range(30)])
+    txt, est, trunc = st.annotation_window(long)
+    assert trunc and est <= st.ANNOTATION_WINDOW_TOKENS
+    assert txt in long and txt.split("\n\n")[-1].startswith("p")  # whole paras
+    assert len(txt) <= st.ANNOTATION_WINDOW_TOKENS * 4
+    # single giant paragraph (no \n\n) → hard character cut at the budget
+    giant = "x" * 40_000
+    txt, est, trunc = st.annotation_window(giant)
+    assert trunc and len(txt) == st.ANNOTATION_WINDOW_TOKENS * 4
+
+
+def test_a2_per_1k_uses_annotated_token_denominator():
+    """A4: bt-per-1k must divide by the tokens actually annotated, never the
+    full-chain count (a mixed ratio understates rates on windowed chains)."""
+    tasks = [f"T{i}" for i in range(10)]
+
+    def rows(annotated_tokens):
+        out = []
+        for t in tasks:
+            spans = ([{"label": "backtracking", "text": "x."}] * 3
+                     + [{"label": "deduction", "text": "x."}] * 7)
+            out.append({"task_id": t, "chain": "c", "n_tokens": 8000,
+                        "annotated_tokens": annotated_tokens,
+                        "method": "vanilla", "annotations": spans})
+        return out
+
+    table = st.a2_adjunct_table(
+        {"base": rows(3000), "star1": rows(3000), "deepscaler": rows(3000)},
+        cap=8192, n_resamples=100)
+    # 3 bt / 3,000 annotated tokens = 1.0 per 1k in every role → diff 0, and
+    # the value itself must NOT be 3/8000 = 0.375
+    cell = table["endpoints"]["star1"]["bt_per_1k"]
+    assert cell["diff_mean"] == pytest.approx(0.0, abs=1e-9)
 
 
 def test_battery_planned_generation_count():

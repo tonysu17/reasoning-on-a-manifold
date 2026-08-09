@@ -182,6 +182,41 @@ gate (pt04c: Nova-vs-Sonnet direction cos 0.999) and the 3-way specificity repli
 *behavioural-rate* endpoints have no such swap test inside Phase 2 and carry the qualifier
 "builder-annotator scored." No other clause changes.
 
+## AMENDMENT A4 (2026-08-09, sealed before any annotation ran)
+
+**Owner decision (Tony, in chat: annotation cost must come down; window "2-4k tokens").**
+Basis: the §11 annotation line (~$100–250) was Nova-priced; re-costing for the A3 Sonnet-only
+annotator against the corpus chain-length distribution (mean 5,052 tokens; 50% of chains loop
+to the 8,192 generation cap) gives ≈19,300 chunked calls ≈ $582 full-chain — outside the
+sealed envelope.
+
+**Amended rule — annotation measurement window:** all sentence-level behavioural endpoints
+(the Δ_floor sentence fractions, the A2 prevalence endpoints, and backtracking-per-1k) are
+computed over the **paragraph-aligned first ~3,000 generated tokens of each chain**
+(`src/ph2_stages.annotation_window`, 4-chars/token estimate — the chunker's own convention),
+applied uniformly to every arm, model, and the injection-recovery set. Chains shorter than the
+window are annotated in full. Estimated cost ≈ $275.
+
+Declared consequences:
+1. Sentence fractions are **in-window fractions**; the per-1k denominator is the in-window
+   token count (never the full-chain count — a mixed ratio would understate rates).
+2. **Generation is untouched**: the E8 sealed 8,192 cap stands (a reduced generation cap is
+   the memorialised truncation confound, `chains_R1-1.5B_BAD_2048cap.json`, and would break
+   the P5 shared-vanilla contract). Damage gates, boxed correctness, response length, and
+   truncation remain **full-chain**, read from the generation records.
+3. The §6 injection-recovery sensitivity gate runs under the SAME windowed pipeline ("under
+   the executed annotation pipeline"), so achieved power is certified for the windowed
+   estimand — any power lost to the window is caught pre-outcome by the existing gate, with
+   the existing enlargement/downgrade consequences.
+4. The full chains are preserved alongside every annotation row (`chain_full`); the window is
+   recorded per row (`annotation_window_tokens`, `annotation_window_truncated`) and in
+   provenance. A different window value (within 2,000–4,000) requires a dated correction to
+   this amendment BEFORE `stage_annotate` first runs; after that it is fixed.
+5. Operational, not measurement: the per-call output budget is 4,000 tokens with halve-on-504
+   (this ceiling does not affect cost or content; the 29-s proxy limit is held by chunking).
+
+No other clause changes.
+
 ## Seal record
 
 Sealed 2026-08-08. Basis: unified plan Phase 2 + amendments A2/A3/A4/A6/A8/A10; codex draft

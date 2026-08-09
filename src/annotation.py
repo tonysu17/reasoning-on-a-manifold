@@ -238,7 +238,14 @@ def _proxy_call(
         timeout=120,
     )
     resp.raise_for_status()
-    text = _extract_text(resp.json())
+    payload = resp.json()
+    usage = payload.get("usage") or {}
+    if usage:
+        # Auditable per-call cost trail (codex P5 calibration ask, 2026-08-09):
+        # never credentials or prompt text — cost + quota numbers only.
+        logger.info(f"proxy usage: cost={usage.get('cost')} "
+                    f"remaining_quota={usage.get('remaining_quota')}")
+    text = _extract_text(payload)
     if not text:
         raise RuntimeError(f"empty response from model {model}")
     return text

@@ -67,15 +67,15 @@ PROVENANCE_KEYS = [
     "authorised", "amended",
 ]
 
-AMENDED = ["A1", "A2", "A3"]        # sealed amendment lineage (protocol markers)
+AMENDED = ["A1", "A2", "A3", "A4"]  # sealed amendment lineage (protocol markers)
 
-#: Annotation output budget = the corpus regime's 8,192 (owner decision, Tony
-#: 2026-08-09: "Annotation should have the 8192 cap like previously in the
-#: initial annotation regime"). The 29-s proxy ceiling is held by CHUNKING
-#: (src.annotation), not by shrinking this cap; the 504-shrink retry starts
-#: from here and can only fire on timeout-class failures (8192→4096→2048,
-#: floor 1024 — never below a full chunk echo within the 3-retry budget).
-ANNOTATION_MAX_TOKENS = 8192
+#: Annotation output budget (owner decision, Tony 2026-08-09 second revision:
+#: "2-4k tokens"). NOTE this ceiling is NOT the cost lever — billing follows
+#: tokens actually generated (~1.6k/call chunk echo); cost is cut by the A4
+#: annotation WINDOW (src.ph2_stages.ANNOTATION_WINDOW_TOKENS). 4,000 keeps
+#: echo headroom, and the first 504-shrink (→2,000) still clears the ~1,620
+#: worst-case echo. The 29-s proxy ceiling is held by chunking throughout.
+ANNOTATION_MAX_TOKENS = 4000
 
 #: Sonnet is the builder annotator (labels, frames, and E8 verdicts derive from
 #: Sonnet annotations) — every behavioural verdict carries this qualifier (A3).
@@ -848,14 +848,17 @@ def stage_injection_recovery(authorised: bool) -> None:
 # ── stage 7: annotation (local; SPENDS) ──────────────────────────────────────
 
 def stage_annotate(authorised: bool) -> None:
-    """Amendment A3: ALL Phase-2 behavioural verdicts + the A2 adjunct are
-    annotated by Sonnet 4.5 via the lab proxy — the corpus pipeline
-    (src.annotation) at its ORIGINAL settings: 8,192-token output budget
-    (ANNOTATION_MAX_TOKENS, owner decision 2026-08-09), with the 29-s AWS
-    API-Gateway hard timeout held by chunking (verified pre-spend by
-    proxy_chunk_budget_ok); on a 504/timeout-class failure the budget halves
-    for the retry (8192→4096→2048). Sequential (≤2-concurrency proxy etiquette
-    is trivially satisfied); resume-safe per-shard checkpointing after every
+    """Amendment A3 + A4: ALL Phase-2 behavioural verdicts + the A2 adjunct
+    are annotated by Sonnet 4.5 via the lab proxy — the corpus pipeline
+    (src.annotation) — over the A4 ANNOTATION WINDOW: each chain's
+    paragraph-aligned first ~3,000 tokens (owner cost decision 2026-08-09;
+    ~$275 vs ~$582 full-chain), uniform across arms/models. The full chain is
+    preserved on every row (``chain_full``) so damage gates, boxed
+    correctness, length, and truncation stay full-chain downstream. The 29-s
+    AWS API-Gateway hard timeout is held by chunking (verified pre-spend by
+    proxy_chunk_budget_ok); output budget 4,000 with halve-on-504 (→2,000,
+    still above the worst-case echo). Sequential (≤2-concurrency etiquette
+    trivially satisfied); resume-safe per-shard checkpointing after every
     chain; missing/empty rows stay unresolved (merge_annotations) — never
     zero. The builder-annotator caveat travels in provenance and in every
     verdict sentence.
@@ -865,7 +868,9 @@ def stage_annotate(authorised: bool) -> None:
         raise SystemExit("CLAUDE_PROXY_URL/KEY not set (source ~/.zshrc) — "
                          "annotation is proxy-gated.")
     from src.annotation import annotate_chains, ANNOTATION_MODEL
-    from src.ph2_stages import ALL_ROLES, ANNOTATION_DEDUP_KEYS, proxy_chunk_budget_ok
+    from src.ph2_stages import (ALL_ROLES, ANNOTATION_DEDUP_KEYS,
+                                ANNOTATION_WINDOW_TOKENS, annotation_window,
+                                proxy_chunk_budget_ok)
     budget = proxy_chunk_budget_ok()
     if not budget["ok"]:
         raise SystemExit(f"29-s chunk budget violated: {budget}")
@@ -881,7 +886,15 @@ def stage_annotate(authorised: bool) -> None:
         if not src_path.exists():
             print(f"[warn] {src_path.name} absent — skipping shard")
             continue
-        rows = json.loads(src_path.read_text())
+        rows = []
+        n_windowed = 0
+        for r in json.loads(src_path.read_text()):
+            win, est, truncated = annotation_window(r["chain"])
+            n_windowed += int(truncated)
+            rows.append({**r, "chain": win, "chain_full": r["chain"],
+                         "annotated_tokens": est,
+                         "annotation_window_tokens": ANNOTATION_WINDOW_TOKENS,
+                         "annotation_window_truncated": truncated})
         annotated = annotate_chains(
             rows, save_path=dst_path, dedup_keys=ANNOTATION_DEDUP_KEYS,
             model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
@@ -889,6 +902,7 @@ def stage_annotate(authorised: bool) -> None:
         merged = merge_annotations(annotated)
         status[dst_path.name] = {
             "n_rows": len(annotated),
+            "n_windowed": n_windowed,
             "n_unresolved": sum(1 for v in merged.values()
                                 if v["status"] == "unresolved"),
         }
@@ -903,8 +917,10 @@ def stage_annotate(authorised: bool) -> None:
              "caveat": BUILDER_ANNOTATOR_CAVEAT,
              "prompt": "Venhoff appendix-A house schema (src.annotation)",
              "max_tokens": ANNOTATION_MAX_TOKENS,
-             "max_tokens_rationale": "corpus-regime 8192 (owner decision "
-                                     "2026-08-09); 29-s ceiling held by chunking",
+             "annotation_window_tokens": ANNOTATION_WINDOW_TOKENS,
+             "window_rationale": "A4 owner cost decision 2026-08-09: annotate "
+                                 "the paragraph-aligned first ~3k tokens; "
+                                 "generation cap SEALED at 8192, untouched",
              "retry": "<=3, backoff, halve budget on 504/timeout",
              "timeout_rule": "29-s AWS API-Gateway hard limit; chunked calls",
          }},
@@ -1100,10 +1116,15 @@ def stage_analyse(authorised: bool) -> None:
     analysis["verdicts"] = verdicts
 
     # ── 6. A2 adjunct (estimation only) ─────────────────────────────────────
+    # A4: prevalence/per-1k read the WINDOWED annotations (with annotated_tokens
+    # as the per-1k denominator); chain-level endpoints (boxed, rep4, length,
+    # truncation) must see the FULL chain — restore it from chain_full.
     ann_vanilla = {}
     for role in ALL_ROLES:
         _gen, ann = stats_by_role[role]
-        ann_vanilla[role] = [r for r in ann if r["method"] == "vanilla"]
+        ann_vanilla[role] = [
+            {**r, "chain": r.get("chain_full", r["chain"])}
+            for r in ann if r["method"] == "vanilla"]
     analysis["a2_adjunct"] = a2_adjunct_table(ann_vanilla, cap)
 
     _atomic_json(analysis, OUT / "analysis" / "ph2_analysis.json")

@@ -492,6 +492,38 @@ def injection_detection_power(per_task_f0: dict, per_task_fx: dict,
 
 ANNOTATION_DEDUP_KEYS = ("model_role", "behaviour", "method", "alpha", "task_id")
 
+#: AMENDMENT A4 (owner decision, Tony 2026-08-09, cost control): sentence-level
+#: behavioural endpoints are computed over the first ~3,000 generated tokens of
+#: each chain (paragraph-aligned prefix), uniform across arms/models. Cuts the
+#: Sonnet annotation bill ~$582 → ~$275 (half the corpus loops to the 8,192
+#: generation cap, so tails are mostly repetition). Generation itself stays at
+#: the SEALED E8 cap — only what gets ANNOTATED shrinks. Damage gates, boxed
+#: correctness, length and truncation remain full-chain (generation records).
+ANNOTATION_WINDOW_TOKENS = 3000
+
+
+def annotation_window(text: str,
+                      window_tokens: int = ANNOTATION_WINDOW_TOKENS
+                      ) -> tuple[str, int, bool]:
+    """Paragraph-aligned prefix of ~window_tokens (4-chars/token estimate,
+    matching src.annotation's chunker). Returns (prefix, est_tokens_annotated,
+    truncated). Chains within the window pass through unchanged."""
+    budget_chars = int(window_tokens) * 4
+    if len(text) <= budget_chars:
+        return text, len(text) // 4, False
+    out: list[str] = []
+    used = 0
+    for para in text.split("\n\n"):
+        if used + len(para) > budget_chars and out:
+            break
+        out.append(para)
+        used += len(para) + 2
+    prefix = "\n\n".join(out) if out else ""
+    if not prefix or len(prefix) > budget_chars * 1.5:
+        # degenerate paragraphing (one huge block) — hard character cut
+        prefix = text[:budget_chars]
+    return prefix, len(prefix) // 4, True
+
 
 def proxy_chunk_budget_ok(safety_margin_tokens: int = 2300) -> dict:
     """Pre-spend check that the annotation pipeline's chunking keeps every
@@ -707,8 +739,11 @@ def a2_adjunct_table(annotated_vanilla: dict[str, list[dict]],
                 for b in A2_BEHAVIOURS:
                     ep[f"prev_{b}"] = behaviour_fraction(anns, b)
                 n_bt = sum(1 for a in anns if a.get("label") == "backtracking")
-                ep["bt_per_1k"] = (1000.0 * n_bt / r["n_tokens"]
-                                   if r["n_tokens"] else None)
+                # A4: the per-1k denominator must be the tokens actually
+                # ANNOTATED (the window), never the full-chain count — mixing
+                # a windowed numerator with a full denominator understates rates.
+                denom = r.get("annotated_tokens") or r["n_tokens"]
+                ep["bt_per_1k"] = (1000.0 * n_bt / denom) if denom else None
             else:
                 for b in A2_BEHAVIOURS:
                     ep[f"prev_{b}"] = None

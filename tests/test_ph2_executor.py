@@ -140,8 +140,8 @@ def test_provenance_has_all_contract_keys():
     p = px.build_provenance({"authorised": False})
     for k in px.PROVENANCE_KEYS:
         assert k in p
-    # A2/A3 sealed 2026-08-08 — the amendment lineage is now three deep
-    assert p["amended"] == ["A1", "A2", "A3"] and p["authorised"] is False
+    # A2/A3 sealed 2026-08-08, A4 (annotation window) sealed 2026-08-09
+    assert p["amended"] == ["A1", "A2", "A3", "A4"] and p["authorised"] is False
 
 
 def test_provenance_companion_fields_codex_spec():
@@ -163,7 +163,8 @@ def test_provenance_companion_fields_codex_spec():
         assert p["dirty_paths"]
         assert p["provenance_status"] == "unresolved provenance"
     # status dimensions kept separate: markers never carry evidence status
-    assert p["protocol_markers"] == ["amended:A1", "amended:A2", "amended:A3"]
+    assert p["protocol_markers"] == ["amended:A1", "amended:A2", "amended:A3",
+                                     "amended:A4"]
     assert p["empirical_evidence_status"] in (
         "current non-confirmatory", "current resource record", "provisional",
         "exploratory", "prospective/unrun", "superseded (do not cite)")
