@@ -21,6 +21,11 @@ cd "$(dirname "$0")"
 LOG=ph2.log
 exec >>"$LOG" 2>&1
 
+# Persistent-volume HF cache (fresh containers otherwise re-download ~10 GB of
+# checkpoints to container disk every launch) + fragmentation-tolerant alloc.
+export HF_HOME=/workspace/hf
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
 VENV_R1=/workspace/venv-r1/bin/python   # persistent TRL env (torch 2.11 + trl 1.8)
 F5_OUT=results/safety_posttrain/rl/dpo_control_f5
 F5_MERGED=$F5_OUT/merged

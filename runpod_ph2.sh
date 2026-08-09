@@ -21,7 +21,7 @@ REMOTE=/workspace/reasoning-on-manifold
 
 case "${1:-}" in
 setup)
-  ssh "$POD" "command -v rsync >/dev/null || apt-get install -y -q rsync tmux"
+  ssh "$POD" "command -v rsync >/dev/null && command -v tmux >/dev/null || { apt-get update -q && apt-get install -y -q rsync tmux; }"
   ssh "$POD" "mkdir -p $REMOTE"
   rsync -rltz runpod_setup.sh pyproject.toml "$POD:$REMOTE/"
   ssh "$POD" "cd $REMOTE && bash runpod_setup.sh && pip install -q 'transformers==4.49.0'"
