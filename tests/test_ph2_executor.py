@@ -140,4 +140,37 @@ def test_provenance_has_all_contract_keys():
     p = px.build_provenance({"authorised": False})
     for k in px.PROVENANCE_KEYS:
         assert k in p
-    assert p["amended"] == ["A1"] and p["authorised"] is False
+    # A2/A3 sealed 2026-08-08 — the amendment lineage is now three deep
+    assert p["amended"] == ["A1", "A2", "A3"] and p["authorised"] is False
+
+
+def test_provenance_companion_fields_codex_spec():
+    """rom-result-provenance-v1 companions ride alongside the compat keys
+    (EVIDENCE_MANIFEST_AND_CLAIM_FIELD_SPEC_2026-08-08.md §2)."""
+    p = px.build_provenance({"authorised": False}, stage="manifest_verify")
+    assert p["schema_version"] == "rom-result-provenance-v1"
+    assert p["stage"] == "manifest_verify" and p["run_id"]
+    # full hash companions: prereg 64-hex full + 16-hex compat prefix
+    assert len(p["prereg_sha256_full"]) == 64
+    assert p["prereg_sha256"] == p["prereg_sha256_full"][:16]
+    # manifest: compat value == ids digest; file hash is DISTINCT and 64-hex
+    assert p["manifest_sha256"] == p["manifest_ids_sha256"]
+    assert len(p["manifest_file_sha256"]) == 64
+    assert p["manifest_file_sha256"] != p["manifest_ids_sha256"]
+    # dirty state must carry the exact dirty paths (unresolved-provenance rule)
+    assert isinstance(p["dirty_paths"], list)
+    if p["git_dirty"]:
+        assert p["dirty_paths"]
+        assert p["provenance_status"] == "unresolved provenance"
+    # status dimensions kept separate: markers never carry evidence status
+    assert p["protocol_markers"] == ["amended:A1", "amended:A2", "amended:A3"]
+    assert p["empirical_evidence_status"] in (
+        "current non-confirmatory", "current resource record", "provisional",
+        "exploratory", "prospective/unrun", "superseded (do not cite)")
+    assert p["missingness_policy"] == "missing_or_empty_is_unresolved_never_zero"
+    assert p["scientific_unit"] == "task" and p["pairing_key"] == "task_id"
+    # checkpoint identities: all three sealed roles with pinned revisions
+    for role in ("base", "star1", "deepscaler"):
+        assert p["checkpoint_revisions"][role]["revision"]
+    # named seeds, not one ambiguous scalar
+    assert set(p["seeds"]) >= {"run", "bootstrap", "das_builder"}

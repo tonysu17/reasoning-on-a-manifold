@@ -317,6 +317,8 @@ def annotate_chain(
     proxy_url: Optional[str] = None,
     proxy_key: Optional[str] = None,
     model: str = ANNOTATION_MODEL,
+    max_tokens: Optional[int] = None,
+    shrink_on_retry: bool = False,
 ) -> tuple[list[dict], bool]:
     """
     Annotate a single chain.
@@ -324,6 +326,11 @@ def annotate_chain(
     Automatically chunks chains above CHUNK_THRESHOLD_TOKENS to stay within
     the AWS API Gateway 29-second hard timeout.  Chunks are split on paragraph
     boundaries with overlap; overlap spans are discarded at merge time.
+
+    ``max_tokens`` caps the per-call output budget (None → the historical 8192
+    default, byte-identical corpus behaviour). ``shrink_on_retry`` halves that
+    budget (floor 1024) when a retry follows a 504/timeout-class failure — the
+    Phase-2 proxy rule (29-s API-Gateway limit).
 
     Returns:
         (spans, complete)
@@ -339,7 +346,8 @@ def annotate_chain(
 
     if estimated_tokens <= CHUNK_THRESHOLD_TOKENS:
         # Short chain — single request
-        spans = _annotate_single(chain_text, max_retries, proxy_url, proxy_key, model=model)
+        spans = _annotate_single(chain_text, max_retries, proxy_url, proxy_key, model=model,
+                                 max_tokens=max_tokens, shrink_on_retry=shrink_on_retry)
         return spans, bool(spans)
 
     # Long chain — split into chunks and annotate each
@@ -352,7 +360,8 @@ def annotate_chain(
     for i, chunk in enumerate(chunks):
         prefix = _CONTINUATION_PREFIX if i > 0 else ""
         anns = _annotate_single(
-            chunk, max_retries, proxy_url, proxy_key, prefix=prefix, model=model
+            chunk, max_retries, proxy_url, proxy_key, prefix=prefix, model=model,
+            max_tokens=max_tokens, shrink_on_retry=shrink_on_retry,
         )
         if not anns:
             logger.warning(f"  Chunk {i+1}/{len(chunks)} failed — returning partial")
@@ -363,6 +372,11 @@ def annotate_chain(
     return spans, not any_failed
 
 
+#: Substrings identifying a timeout-class transport failure (the AWS
+#: API-Gateway 29-s hard limit surfaces as 504 / 502 or a requests timeout).
+_TIMEOUT_MARKERS = ("504", "502", "timed out", "timeout")
+
+
 def _annotate_single(
     chain_text: str,
     max_retries: int = 3,
@@ -370,19 +384,32 @@ def _annotate_single(
     proxy_key: Optional[str] = None,
     prefix: str = "",
     model: str = ANNOTATION_MODEL,
+    max_tokens: Optional[int] = None,
+    shrink_on_retry: bool = False,
 ) -> list[dict]:
-    """Annotate a single chunk with retries. Returns [] on failure."""
+    """Annotate a single chunk with retries. Returns [] on failure.
+
+    With ``shrink_on_retry``, a 504/timeout-class failure halves the output
+    budget (floor 1024) before the next attempt — the Phase-2 rule for the
+    29-second proxy ceiling. Defaults leave the corpus pipeline unchanged.
+    """
     prompt = _PROMPT_TEMPLATE.format(thinking_process=prefix + chain_text)
+    budget = 8192 if max_tokens is None else int(max_tokens)
 
     for attempt in range(max_retries):
         try:
-            text = _proxy_call(prompt, proxy_url=proxy_url, proxy_key=proxy_key, model=model)
+            text = _proxy_call(prompt, proxy_url=proxy_url, proxy_key=proxy_key,
+                               model=model, max_tokens=budget)
             spans = parse_annotation_response(text)
             if spans:
                 return spans
             logger.warning(f"  Attempt {attempt+1}: parsed 0 spans, retrying")
         except Exception as exc:
             logger.warning(f"  Attempt {attempt+1}/{max_retries} failed: {exc}")
+            if shrink_on_retry and any(m in str(exc).lower() for m in _TIMEOUT_MARKERS):
+                budget = max(1024, budget // 2)
+                logger.warning(f"  timeout-class failure — output budget halved "
+                               f"to {budget} for the next attempt")
             time.sleep(2 ** attempt)
 
     logger.error("  Annotation failed after all retries")
@@ -400,6 +427,8 @@ def annotate_chains(
     kill_after: Optional[int] = None,
     dedup_keys: tuple = ("task_id",),
     model: str = ANNOTATION_MODEL,
+    max_tokens: Optional[int] = None,
+    shrink_on_retry: bool = False,
 ) -> list[dict]:
     """
     Annotate all chains sequentially with checkpointing.
@@ -481,6 +510,8 @@ def annotate_chains(
                 proxy_url=proxy_url,
                 proxy_key=proxy_key,
                 model=model,
+                max_tokens=max_tokens,
+                shrink_on_retry=shrink_on_retry,
             )
         except KeyboardInterrupt:
             # Operator Ctrl-C: save what we have, then let it propagate so the
