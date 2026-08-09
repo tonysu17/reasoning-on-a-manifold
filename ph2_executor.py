@@ -69,6 +69,14 @@ PROVENANCE_KEYS = [
 
 AMENDED = ["A1", "A2", "A3"]        # sealed amendment lineage (protocol markers)
 
+#: Annotation output budget = the corpus regime's 8,192 (owner decision, Tony
+#: 2026-08-09: "Annotation should have the 8192 cap like previously in the
+#: initial annotation regime"). The 29-s proxy ceiling is held by CHUNKING
+#: (src.annotation), not by shrinking this cap; the 504-shrink retry starts
+#: from here and can only fire on timeout-class failures (8192→4096→2048,
+#: floor 1024 — never below a full chunk echo within the 3-retry budget).
+ANNOTATION_MAX_TOKENS = 8192
+
 #: Sonnet is the builder annotator (labels, frames, and E8 verdicts derive from
 #: Sonnet annotations) — every behavioural verdict carries this qualifier (A3).
 BUILDER_ANNOTATOR_CAVEAT = (
@@ -842,13 +850,15 @@ def stage_injection_recovery(authorised: bool) -> None:
 def stage_annotate(authorised: bool) -> None:
     """Amendment A3: ALL Phase-2 behavioural verdicts + the A2 adjunct are
     annotated by Sonnet 4.5 via the lab proxy — the corpus pipeline
-    (src.annotation), whose chunking keeps every call inside the 29-s AWS
-    API-Gateway hard timeout (verified pre-spend by proxy_chunk_budget_ok);
-    output budget is capped at 2,048 tokens and halved once on a 504-class
-    retry. Sequential (≤2-concurrency proxy etiquette is trivially satisfied);
-    resume-safe per-shard checkpointing after every chain; missing/empty rows
-    stay unresolved (merge_annotations) — never zero. The builder-annotator
-    caveat travels in provenance and in every verdict sentence.
+    (src.annotation) at its ORIGINAL settings: 8,192-token output budget
+    (ANNOTATION_MAX_TOKENS, owner decision 2026-08-09), with the 29-s AWS
+    API-Gateway hard timeout held by chunking (verified pre-spend by
+    proxy_chunk_budget_ok); on a 504/timeout-class failure the budget halves
+    for the retry (8192→4096→2048). Sequential (≤2-concurrency proxy etiquette
+    is trivially satisfied); resume-safe per-shard checkpointing after every
+    chain; missing/empty rows stay unresolved (merge_annotations) — never
+    zero. The builder-annotator caveat travels in provenance and in every
+    verdict sentence.
     """
     _authorise_guard("annotate", authorised)
     if not (os.environ.get("CLAUDE_PROXY_URL") and os.environ.get("CLAUDE_PROXY_KEY")):
@@ -874,7 +884,8 @@ def stage_annotate(authorised: bool) -> None:
         rows = json.loads(src_path.read_text())
         annotated = annotate_chains(
             rows, save_path=dst_path, dedup_keys=ANNOTATION_DEDUP_KEYS,
-            model=ANNOTATION_MODEL, max_tokens=2048, shrink_on_retry=True)
+            model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
+            shrink_on_retry=True)
         merged = merge_annotations(annotated)
         status[dst_path.name] = {
             "n_rows": len(annotated),
@@ -891,7 +902,10 @@ def stage_annotate(authorised: bool) -> None:
              "amendment": "A3 (Sonnet-only; Nova clause superseded)",
              "caveat": BUILDER_ANNOTATOR_CAVEAT,
              "prompt": "Venhoff appendix-A house schema (src.annotation)",
-             "max_tokens": 2048, "retry": "<=3, backoff, halve budget on 504",
+             "max_tokens": ANNOTATION_MAX_TOKENS,
+             "max_tokens_rationale": "corpus-regime 8192 (owner decision "
+                                     "2026-08-09); 29-s ceiling held by chunking",
+             "retry": "<=3, backoff, halve budget on 504/timeout",
              "timeout_rule": "29-s AWS API-Gateway hard limit; chunked calls",
          }},
         stage="annotate", input_paths=[p for p, _ in shards if p.exists()]))

@@ -396,21 +396,29 @@ def test_decide_outcome_full_matrix_still_holds():
     assert px.decide_outcome(o2) == "downgraded"
 
 
-def test_annotation_504_shrink_floor():
-    """The Phase-2 proxy rule: output budget halves on timeout-class retries
-    but never below 1024 (and defaults leave the corpus path untouched)."""
+def test_annotation_corpus_regime_cap():
+    """Owner decision (Tony 2026-08-09): Phase-2 annotation runs at the corpus
+    regime's 8,192 output budget — the 29-s ceiling is held by chunking, not
+    by shrinking the cap. Defaults leave the corpus path byte-identical; the
+    504-shrink only fires on timeout-class retries and stays above a full
+    chunk echo within the 3-retry budget."""
     import inspect
     from src import annotation
+    assert px.ANNOTATION_MAX_TOKENS == 8192          # == the corpus default
     sig = inspect.signature(annotation.annotate_chain)
-    assert sig.parameters["max_tokens"].default is None
+    assert sig.parameters["max_tokens"].default is None    # None → 8192
     assert sig.parameters["shrink_on_retry"].default is False
     sig2 = inspect.signature(annotation.annotate_chains)
     assert sig2.parameters["max_tokens"].default is None
-    # the halving arithmetic: 2048 → 1024 → floor
-    budget = 2048
+    # halving from the 8192 regime: 8192 → 4096 → 2048 within 3 retries —
+    # never below the ~1,700-token worst-case chunk echo; hard floor 1024
+    budget = px.ANNOTATION_MAX_TOKENS
+    seen = []
     for _ in range(3):
         budget = max(1024, budget // 2)
-    assert budget == 1024
+        seen.append(budget)
+    assert seen == [4096, 2048, 1024]
+    assert seen[1] >= st.proxy_chunk_budget_ok()["worst_output_tokens_est"]
 
 
 def test_battery_planned_generation_count():
