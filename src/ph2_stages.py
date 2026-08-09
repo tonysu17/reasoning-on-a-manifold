@@ -676,6 +676,11 @@ def load_checkpoint(role: str, local_dir: Optional[Path] = None,
     device = ("cuda" if torch.cuda.is_available()
               else "mps" if torch.backends.mps.is_available() else "cpu")
     model = model.to(device).eval()
+    # Freeze weights (E10 load_model convention): DAS/refit trainings learn only
+    # the frame — without this, backward() allocates grads + activation storage
+    # for all 1.5B params and OOMs a 24 GB card mid-gates.
+    for p in model.parameters():
+        p.requires_grad_(False)
     tok = AutoTokenizer.from_pretrained(CHECKPOINTS["base"]["hf_id"],
                                         revision=CHECKPOINTS["base"]["revision"])
     resolved = {"role": role, "source": src,
