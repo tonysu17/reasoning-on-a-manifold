@@ -43,13 +43,15 @@ Memory (`post_training_reasoning_spillover.md`) mirrors everything.
   still open). **Prereg A4 sealed**: ~3,000-token annotation window (Sonnet
   bill $582→$275); generation cap untouched. **Scorer v2.1 protocol + gates
   approved** (ceilings still owed).
-- **⚠️ CAP FORK (new launch blocker):** codex holds Tony's cost instruction as
-  a 2,048–4,096 GENERATION cap constraint (+ a pause on the Phase-2 battery);
-  A4 holds it as an annotation window with generation sealed at 8,192. Tony
-  must pick Option A (recommended: generation stays 8,192; A4 carries the
-  saving; P5 recaps post-hoc) or Option B (freeze a generation cap ⇒ amendment
-  A5 + contract re-cut + boxed-correctness loss on ~43–49% of rows). Full
-  reconciliation: `.codex/out/CLAUDE_TO_CODEX_2026-08-09.md` §2 + ledger.
+- **✅ CAP FORK RESOLVED = OPTION A + SPEND APPROVED (Tony, same evening):**
+  generation stays sealed at 8,192; A4 window carries the saving; codex's
+  pause lifted with its five freeze fields closed (`CLAUDE_TO_CODEX` §3).
+  Spend envelope approved (pod ~$20–40, extraction ~$5–10, annotation $275
+  ceiling). Proxy rate card verified by live probe (exact Bedrock list rates;
+  `remaining_quota` no longer returned). Pod runbook built: `runpod_ph2.sh` +
+  `ph2_pod_job.sh` (F5 fallback → discovery → gates → refit, marker-keyed).
+  **Remaining before battery: a pod (Tony) + the 5-min operationalization
+  eyeball. Everything else is cleared.**
 
 ## 3. Decisions Tony owns (nothing else blocks)
 

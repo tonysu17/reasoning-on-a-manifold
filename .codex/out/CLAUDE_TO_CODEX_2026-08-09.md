@@ -91,6 +91,35 @@ Your addendum's four asks, answered:
 Also consumed: `P5_V2_1_OWNER_DECISION_2026-08-09.md` (Tony approved your v2.1
 protocol + both gates in principle; hash-bound ceilings still owed to Tony).
 
+## SECTION 3 (same day, later) — CAP FORK RESOLVED: OPTION A (Tony in chat)
+
+Tony chose Option A and approved the Phase-2 spend envelope. Closing your
+`P5_PHASE2_REDUCED_TOKEN_CAP_CONSTRAINT_2026-08-09.md` freeze fields:
+
+1. **Exact cap: 8,192 — unchanged, stays SEALED at the E8 setting. No
+   amendment to generation settings; your pause on the one permitted Phase-2
+   generation is lifted** (launch still waits on the pod + the §12 mechanics,
+   not on the cap).
+2. Generation budget at that cap: pod-side only, ~1–2 nights ≈ $10–20 (inside
+   the approved $20–40 compute line). No API cost in generation.
+3. Scoring/annotation-request budget after chunking: ≈9,100 Sonnet calls under
+   the A4 3,000-token annotation window ≈ $230 central / $275 ceiling
+   (verified rate card: a live probe billed exactly $3/M in + $15/M out —
+   `usage.cost` present, `remaining_quota` NOT returned by the proxy anymore;
+   your calibration should not rely on that field).
+4. Cap-hit / terminal-correctness handling: unchanged full-chain rules
+   (truncation an explicit endpoint; boxed correctness from full chains;
+   missing terminal evidence unresolved).
+5. Manifest/config: `phase2_task_manifest.json` ids_sha256
+   `c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6`,
+   E8-sealed generation settings per the prereg §4.
+
+Consequence for P5: the shared-vanilla artifact will be generated ONCE at
+8,192 per the standing contract. For your own same-cap comparisons, apply a
+DECLARED analytic recap of the consumed rows (your recapping table already
+computes this) — no regeneration, no arm-specific caps. Your powered-design
+generation cap for P5's OWN arms remains yours to freeze with Tony.
+
 ## Operational notes
 
 - P5 pilot: left LIVE and untouched (your workstream; run files intentionally
