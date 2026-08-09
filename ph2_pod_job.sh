@@ -28,7 +28,8 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 VENV_R1=/workspace/venv-r1/bin/python   # persistent TRL env (torch 2.11 + trl 1.8)
 F5_OUT=results/safety_posttrain/rl/dpo_control_f5
-F5_MERGED=$F5_OUT/merged
+# pt10 convention: <out>/ckpt_frac_<f>/[merged] — the run-end checkpoint is frac_1
+F5_MERGED=$F5_OUT/ckpt_frac_1/merged
 
 status() { echo "$1" > PH2_STATUS; echo "[ph2 $(date -u +%H:%M:%S)] status=$1"; }
 die()    { status "FAILED:$1"; touch PH2_DONE.marker; exit 1; }
@@ -44,7 +45,9 @@ USED_G=$(du -s /workspace 2>/dev/null | awk '{print int($1/1048576)}')
 [ -f results/das/R1-1.5B/width/frame_k2.npy ] || die j0-frame
 
 # ── j1: F5 fallback (skipped cleanly if already merged+extracted) ────────────
-if [ ! -d "data/activations/R1-1.5B-dpo-control-f5" ]; then
+# Completion test = the extractor's metadata.json, NEVER bare dir existence —
+# a crashed run creates the dir early and a partial must not masquerade as done.
+if [ ! -f "data/activations/R1-1.5B-dpo-control-f5/metadata.json" ]; then
   status "RUNNING:j1-f5"
   [ -x "$VENV_R1" ] || die j1-venv-r1-missing
   [ -f data/dpo_control.json ] || die j1-pairs-json
@@ -52,10 +55,10 @@ if [ ! -d "data/activations/R1-1.5B-dpo-control-f5" ]; then
     "$VENV_R1" pt10_train_dpo.py --data data/dpo_control.json --epochs 23 \
       --merge --out-dir "$F5_OUT" --seed 42 || die j1-train
   fi
-  python 04_extract_activations.py --model-path "$F5_MERGED" \
+  python 04_extract_activations.py --model-path "$PWD/$F5_MERGED" \
     --short-name R1-1.5B-dpo-control-f5 --tokenizer-alias 1.5b \
     --layers 12 16 || die j1-extract
-  python pt08_surprisal_entropy.py --base 1.5b --post "$F5_MERGED" \
+  python pt08_surprisal_entropy.py --base 1.5b --post "$PWD/$F5_MERGED" \
     --tokenizer-alias 1.5b \
     --out results/safety_posttrain/rl/pt08_R1-1.5B-dpo-control-f5.json \
     || die j1-pt08
