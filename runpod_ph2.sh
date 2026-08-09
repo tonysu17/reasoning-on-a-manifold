@@ -22,6 +22,10 @@ REMOTE=/workspace/reasoning-on-manifold
 case "${1:-}" in
 setup)
   ssh "$POD" "command -v rsync >/dev/null && command -v tmux >/dev/null || { apt-get update -q && apt-get install -y -q rsync tmux; }"
+  # The image's torchvision/torchaudio are compiled for the CONTAINER torch and
+  # leak into venv-r1 (system-site-packages), poisoning transformers imports
+  # ('operator torchvision::nms does not exist') — nothing text-only needs them.
+  ssh "$POD" "pip uninstall -y -q torchvision torchaudio 2>/dev/null || true"
   ssh "$POD" "mkdir -p $REMOTE"
   rsync -rltz runpod_setup.sh pyproject.toml "$POD:$REMOTE/"
   ssh "$POD" "cd $REMOTE && bash runpod_setup.sh && pip install -q 'transformers==4.49.0'"
