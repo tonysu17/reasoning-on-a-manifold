@@ -172,6 +172,20 @@ def validate(
         if report.get("pod_id") != execution["pod_id"]:
             raise ValueError("Pod ID mismatch in report")
         checks["report_identity_and_complete_status"] = True
+        environment = report.get("environment", {})
+        expected_vocab_domains = {
+            "raw_head_domain": 151936,
+            "primary_ranking_domain": VocabSize,
+            "valid_token_id_min": 0,
+            "valid_token_id_max": VocabSize - 1,
+            "stability_null_domain": VocabSize,
+            "excluded_head_padding_rows": 271,
+        }
+        if {
+            key: environment.get(key) for key in expected_vocab_domains
+        } != expected_vocab_domains:
+            raise ValueError("reported model-head/tokenizer rank domains differ")
+        checks["registered_vocabulary_domains_match"] = True
 
         lenses: dict[str, dict[str, dict[str, Any]]] = {}
         for name in LENS_NAMES:

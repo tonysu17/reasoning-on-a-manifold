@@ -231,12 +231,13 @@ def residual_top25(lens_model: Any, residuals: Any) -> tuple[np.ndarray, int]:
     shape = residuals.shape[:-1]
     import torch
 
-    logits = lens_model.unembed(residuals.reshape(-1, residuals.shape[-1]))
-    if logits.shape[-1] != 151665:
-        raise ValueError(f"readout vocab size {logits.shape[-1]} != 151665")
+    full_logits = lens_model.unembed(residuals.reshape(-1, residuals.shape[-1]))
+    logits = scoring.tokenizer_vocabulary_logits(
+        full_logits, head_vocab_size=151936, tokenizer_vocab_size=151665
+    )
     ids, ties = scoring.deterministic_topk_ids(logits, k=25)
     result = ids.reshape(*shape, 25).to(dtype=torch.int32).cpu().numpy()
-    del logits, ids
+    del full_logits, logits, ids
     return result, ties
 
 
@@ -509,6 +510,19 @@ def main() -> int:
         lens_model = from_hf(model, tokenizer, compile=False, force_bos=True)
         if lens_model.d_model != 1536 or lens_model.n_layers != 28:
             raise ValueError("model architecture mismatch")
+        tokenizer_id_values = list(tokenizer.get_vocab().values())
+        tokenizer_ids = set(tokenizer_id_values)
+        if (
+            len(tokenizer) != 151665
+            or len(tokenizer_id_values) != len(tokenizer_ids)
+            or tokenizer_ids != set(range(151665))
+        ):
+            raise ValueError("tokenizer IDs are not the registered contiguous 0..151664")
+        if (
+            model.config.vocab_size != 151936
+            or model.lm_head.weight.shape[0] != 151936
+        ):
+            raise ValueError("model output head is not the registered padded size 151936")
         verify_manifest_token_ids(lens_model, corpus["rows"])
         properties = torch.cuda.get_device_properties(torch.device(args.device))
         observed_versions = {
@@ -529,6 +543,14 @@ def main() -> int:
             "gpu_total_memory_bytes": int(properties.total_memory),
             "model_dtype": str(next(model.parameters()).dtype),
             "model_snapshot": str(snapshot),
+            "raw_head_domain": int(model.lm_head.weight.shape[0]),
+            "primary_ranking_domain": len(tokenizer),
+            "valid_token_id_min": min(tokenizer_ids),
+            "valid_token_id_max": max(tokenizer_ids),
+            "stability_null_domain": len(tokenizer),
+            "excluded_head_padding_rows": int(
+                model.lm_head.weight.shape[0] - len(tokenizer)
+            ),
             "jlens_commit": JLENS_COMMIT,
         }
         report["phases"]["model_and_token_identity"] = {"status": "passed"}

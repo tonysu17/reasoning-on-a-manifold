@@ -38,6 +38,45 @@ class DeterministicTopKTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "NaN or infinity"):
             scoring.deterministic_topk_ids(logits, k=25)
 
+    def test_padded_head_is_restricted_to_tokenizer_ids(self):
+        logits = torch.tensor([[1.0, 4.0, 3.0, 2.0, 100.0, 99.0]])
+        valid = scoring.tokenizer_vocabulary_logits(
+            logits, head_vocab_size=6, tokenizer_vocab_size=4
+        )
+        ids, tied = scoring.deterministic_topk_ids(valid, k=2)
+        self.assertEqual(tied, 0)
+        self.assertEqual(ids.tolist(), [[1, 2]])
+
+    def test_padded_head_requires_exact_size_and_full_finiteness(self):
+        with self.assertRaisesRegex(ValueError, "readout head size"):
+            scoring.tokenizer_vocabulary_logits(
+                torch.zeros(5), head_vocab_size=6, tokenizer_vocab_size=4
+            )
+        logits = torch.zeros(6)
+        logits[-1] = float("nan")
+        with self.assertRaisesRegex(ValueError, "full readout head"):
+            scoring.tokenizer_vocabulary_logits(
+                logits, head_vocab_size=6, tokenizer_vocab_size=4
+            )
+
+    def test_runner_excludes_dominant_padding_and_preserves_highest_valid_id(self):
+        class FakeLensModel:
+            @staticmethod
+            def unembed(residuals):
+                logits = torch.arange(151936, dtype=torch.float32).repeat(
+                    residuals.shape[0], 1
+                )
+                logits[:, 151665:] += 1_000_000
+                return logits
+
+        ids, tied = runner.residual_top25(
+            FakeLensModel(), torch.zeros(1, 1, 3, dtype=torch.float32)
+        )
+        self.assertEqual(tied, 0)
+        self.assertEqual(ids.shape, (1, 1, 25))
+        self.assertEqual(int(ids[0, 0, 0]), 151664)
+        self.assertLess(int(ids.max()), 151665)
+
 
 class StabilityTests(unittest.TestCase):
     def test_jaccard_known_overlap(self):

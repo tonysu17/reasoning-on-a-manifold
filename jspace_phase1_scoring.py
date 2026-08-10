@@ -66,6 +66,27 @@ def deterministic_topk_ids(logits: Any, k: int = K) -> tuple[Any, int]:
     return ids, n_tied
 
 
+def tokenizer_vocabulary_logits(
+    logits: Any, *, head_vocab_size: int, tokenizer_vocab_size: int
+) -> Any:
+    """Restrict a padded model head to the registered tokenizer-ID domain.
+
+    Qwen-family output heads may contain padding rows that are not token IDs.
+    Validate the complete head, including those rows, before returning the
+    contiguous tokenizer prefix used by the registered vocabulary null.
+    """
+    import torch
+
+    if logits.ndim < 1 or logits.shape[-1] != head_vocab_size:
+        observed = logits.shape[-1] if logits.ndim else None
+        raise ValueError(f"readout head size {observed} != {head_vocab_size}")
+    if tokenizer_vocab_size <= 0 or tokenizer_vocab_size > head_vocab_size:
+        raise ValueError("invalid tokenizer/head vocabulary dimensions")
+    if not bool(torch.isfinite(logits).all().item()):
+        raise ValueError("full readout head contains NaN or infinity")
+    return logits[..., :tokenizer_vocab_size]
+
+
 def _intersection_counts(left: np.ndarray, right: np.ndarray) -> np.ndarray:
     left = np.asarray(left)
     right = np.asarray(right)
