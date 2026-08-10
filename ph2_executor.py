@@ -69,6 +69,12 @@ PROVENANCE_KEYS = [
 
 AMENDED = ["A1", "A2", "A3", "A4"]  # sealed amendment lineage (protocol markers)
 
+#: Battery generation batch size — the E8-validated batched-greedy path
+#: (left-padded, attention-masked; batched greedy == batch-1 greedy per
+#: validate_batch.py; OOM self-heals by splitting). Sequential generation
+#: would take days; bs=32 matches the executed E8 run on a 4090.
+BATTERY_BATCH = 32
+
 #: Annotation output budget (owner decision, Tony 2026-08-09 second revision:
 #: "2-4k tokens"). NOTE this ceiling is NOT the cost lever — billing follows
 #: tokens actually generated (~1.6k/call chunk echo); cost is cut by the A4
@@ -742,16 +748,20 @@ def stage_generate_battery(authorised: bool) -> None:
                             model, tok, [{**t, "energy_scale": 1.0}], calib)
                         t["energy_scale"] = (e_active / e_floor) if e_floor > 0 else 1.0
                 engine = frame_clamp_model(model, tok, terms, HS_SITE)
-            for task in todo:
-                gen = engine.generate(task["prompt"], max_new_tokens=cap,
-                                      temperature=0.0, seed=RUN_SEED)
-                gen["mean_abs_displacement"] = engine.mean_abs_displacement()
-                results.append(battery_record(
-                    role, arm["method"], task, gen, arm["sign"], frame_name,
-                    extra={"energy_scale": (terms[0].get("energy_scale", 1.0)
-                                            if terms else None)}))
-                done.add(battery_cell_key(role, arm["method"], task["id"]))
-                _atomic_json(results, out_path)
+            for b0 in range(0, len(todo), BATTERY_BATCH):
+                chunk = todo[b0:b0 + BATTERY_BATCH]
+                gens = engine.generate_batch(
+                    [t["prompt"] for t in chunk], max_new_tokens=cap,
+                    temperature=0.0, seed=RUN_SEED)
+                disp = engine.mean_abs_displacement()   # batch-level diagnostic
+                for task, gen in zip(chunk, gens):
+                    gen["mean_abs_displacement"] = disp
+                    results.append(battery_record(
+                        role, arm["method"], task, gen, arm["sign"], frame_name,
+                        extra={"energy_scale": (terms[0].get("energy_scale", 1.0)
+                                                if terms else None)}))
+                    done.add(battery_cell_key(role, arm["method"], task["id"]))
+                _atomic_json(results, out_path)         # checkpoint per batch
         counts["generated"][role] = len(results)
         del model
 
@@ -828,15 +838,23 @@ def stage_injection_recovery(authorised: bool) -> None:
             {"U": U_base, "c": c_frame, "beta": CLAMP_GAIN, "weight": w["frame"]},
             {"U": U_sham, "c": c_sham, "beta": CLAMP_GAIN, "weight": w["sham"]},
         ], HS_SITE)
+    by_f: dict = {}
     for cell in cells:
-        engine = engines[cell["fraction"]]
-        gen = engine.generate(cell["task"]["prompt"], max_new_tokens=cap,
-                              temperature=0.0, seed=RUN_SEED)
-        gen["mean_abs_displacement"] = engine.mean_abs_displacement()
-        results.append(battery_record(
-            "base", cell["method"], cell["task"], gen, "suppress", "mixed",
-            extra={"fraction": cell["fraction"]}))
-        _atomic_json(results, out_path)
+        by_f.setdefault(cell["fraction"], []).append(cell)
+    for f, group in sorted(by_f.items()):
+        engine = engines[f]
+        for b0 in range(0, len(group), BATTERY_BATCH):
+            chunk = group[b0:b0 + BATTERY_BATCH]
+            gens = engine.generate_batch(
+                [c["task"]["prompt"] for c in chunk], max_new_tokens=cap,
+                temperature=0.0, seed=RUN_SEED)
+            disp = engine.mean_abs_displacement()
+            for cell, gen in zip(chunk, gens):
+                gen["mean_abs_displacement"] = disp
+                results.append(battery_record(
+                    "base", cell["method"], cell["task"], gen, "suppress",
+                    "mixed", extra={"fraction": cell["fraction"]}))
+            _atomic_json(results, out_path)
 
     write_provenance("injection_recovery", build_provenance(
         {"authorised": authorised,
