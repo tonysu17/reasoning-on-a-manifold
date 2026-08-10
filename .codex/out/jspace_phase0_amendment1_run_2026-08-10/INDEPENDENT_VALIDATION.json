@@ -1,0 +1,78 @@
+{
+  "artifact_hashes": {
+    "benchmark_report.json": "34f69ebd05fec136d013c3034c9c2a63c80240a3dcb7f4576c9e6080b8ea69e0",
+    "five_prompt_dim8.json": "2b754f1e8a0e113eb4d2dd98a4339ae13731f2d0681e8c55027d638db4984dd4",
+    "probe_dim8.json": "8b09c7911f722fa91ca34e3474120dd2d045472bdfdd7882a7f4f0262ced34ea"
+  },
+  "checks": {
+    "all_controller_subchecks_true": true,
+    "all_layer_matrices_valid": true,
+    "amended_resource_gate_present_and_true": true,
+    "amendment_marker": true,
+    "controller_complete": true,
+    "controller_gate_pass": true,
+    "coordinate_module_identity": true,
+    "coordinate_tensor_identity": true,
+    "cpu_peak_measurement_primary": true,
+    "exact_output_file_set": true,
+    "five_prompts": true,
+    "full_worker_complete": true,
+    "gpu_headroom_at_least_2gib": true,
+    "manifest_hash_controller": true,
+    "manifest_hash_worker": true,
+    "no_worker_exceptions": true,
+    "only_probe_attempt_dim8": true,
+    "per_prompt_resource_metrics_present": true,
+    "probe_complete": true,
+    "projection_recomputed": true,
+    "prompt_order_and_hashes": true,
+    "repeat_relative_frobenius_le_1e6": true,
+    "selected_dim_batch_8": true
+  },
+  "errors": [],
+  "metrics": {
+    "full_worker_total_wall_seconds": 63.808137498795986,
+    "gpu_headroom_bytes": 19152044032,
+    "per_prompt_peak_cpu_rss_bytes": {
+      "CAUS_000": 2563387392,
+      "CREA_000": 2563387392,
+      "MATH_000": 2291535872,
+      "SCIE_000": 2563387392,
+      "VERB_000": 2563387392
+    },
+    "per_prompt_peak_gpu_reserved_bytes": {
+      "CAUS_000": 6109003776,
+      "CREA_000": 6109003776,
+      "MATH_000": 4871684096,
+      "SCIE_000": 6109003776,
+      "VERB_000": 5815402496
+    },
+    "projected_100_prompt_wall_seconds": 604.3529766052961,
+    "prompt_wall_seconds": {
+      "CAUS_000": 6.077065102756023,
+      "CREA_000": 6.029061242938042,
+      "MATH_000": 6.061953604221344,
+      "SCIE_000": 6.126166149973869,
+      "VERB_000": 5.923402730375528
+    },
+    "repeat_relative_frobenius_max": 0.0,
+    "selected_dim_batch": 8,
+    "worker_peak_cpu_rss_bytes": 2563387392,
+    "worker_peak_gpu_allocated_bytes": 5991404032,
+    "worker_peak_gpu_reserved_bytes": 6109003776
+  },
+  "ok": true,
+  "provenance": {
+    "amendment_sha256": "4e19cfa03115946e9b0d386ddbd066cdbae09ef5a6dae187b634d2ddb651e1b7",
+    "git_commit": null,
+    "git_dirty_paths": [],
+    "jlens_commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "manifest_sha256": "31f12eef6a138cf3415d27a909d76dac27e9dc5ec5cd4833b7f91e7243ce5cfd",
+    "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "runner_sha256": "445fe62cbf74be6e12b7dcc534455c9350cf8b461a3f675a974a859fa2eae298"
+  },
+  "schema_version": "rom-jspace-phase0-independent-validation-v1",
+  "warnings": [
+    "git_commit is null because the network-volume execution bundle is not a git checkout; exact runner, manifest, preregistration, amendment, and J-lens hashes remain recorded"
+  ]
+}

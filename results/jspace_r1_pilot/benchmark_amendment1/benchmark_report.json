@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "dim_batch": 8,
+      "returncode": 0,
+      "status": "complete"
+    }
+  ],
+  "authorised_flag": true,
+  "full_worker_report": "results/jspace_r1_pilot/benchmark_amendment1/five_prompt_dim8.json",
+  "full_worker_returncode": 0,
+  "gate": {
+    "checks": {
+      "all_layer_matrices_valid": true,
+      "coordinate_module_identity": true,
+      "coordinate_tensor_identity": true,
+      "five_prompts": true,
+      "gpu_headroom_at_least_2gib": true,
+      "per_prompt_resource_metrics_recorded": true,
+      "repeat_relative_frobenius_le_1e-6": true,
+      "worker_complete": true
+    },
+    "gpu_headroom_bytes": 19152044032,
+    "pass": true
+  },
+  "manifest_sha256": "31f12eef6a138cf3415d27a909d76dac27e9dc5ec5cd4833b7f91e7243ce5cfd",
+  "prereg_sha256": "fa0011fe80ea03b84656b154b6e799b6d725f0c1fa2d459ed8027103517b67c8",
+  "projected_100_prompt_wall_seconds": 604.3529766052961,
+  "projection_basis": "mean measured Jacobian call time; excludes model load and repeat",
+  "schema_version": "rom-jspace-r1-benchmark-controller-v1",
+  "selected_dim_batch": 8,
+  "status": "complete"
+}
