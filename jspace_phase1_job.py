@@ -123,7 +123,7 @@ def main() -> int:
                     "--jlens-checkout",
                     str(root / "_external/jacobian-lens"),
                     "--cache-dir",
-                    "/workspace/hf",
+                    "/workspace/hf/hub",
                     "--output-root",
                     str(run_root),
                     "--scratch-root",
