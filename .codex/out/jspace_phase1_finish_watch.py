@@ -38,6 +38,10 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def record_key(record: dict[str, Any]) -> str:
+    return str(record.get("validation_attempt_uuid", record["run_uuid"]))
+
+
 def atomic_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
@@ -98,6 +102,27 @@ def load_launch_record(path: Path) -> dict[str, Any]:
     execution = ROOT / record["execution_manifest_relative"]
     if not execution.is_file() or sha256_file(execution) != record["execution_manifest_sha256"]:
         raise HoldPod("local execution manifest missing or hash-mismatched")
+    execution_data = json.loads(execution.read_text())
+    if (
+        execution_data.get("run_uuid") != record["run_uuid"]
+        or execution_data.get("run_output_relative")
+        != record["run_output_relative"]
+    ):
+        raise HoldPod("launch record differs from execution-manifest run identity")
+    recovery = execution_data.get("validation_only")
+    if recovery is not None:
+        runtime_parts = PurePosixPath(recovery["validation_runtime_relative"]).parts
+        if (
+            record.get("validation_attempt_uuid")
+            != recovery.get("validation_attempt_uuid")
+            or record.get("runtime_uuid") != recovery.get("validation_attempt_uuid")
+            or runtime_parts != ("runtime", record.get("runtime_uuid"))
+            or record.get("source_execution_manifest_sha256")
+            != recovery.get("source_execution_manifest_sha256")
+            or record.get("authoritative_attestation")
+            != recovery.get("authoritative_attestation")
+        ):
+            raise HoldPod("launch record differs from validation-continuation identity")
     return record
 
 
@@ -132,7 +157,8 @@ def ssh(record: dict[str, Any], command: str, *, timeout: int = 60) -> str:
 
 
 def remote_snapshot(record: dict[str, Any]) -> dict[str, Any]:
-    runtime = f"{record['remote_root']}/runtime/{record['run_uuid']}"
+    runtime_uuid = record.get("runtime_uuid", record["run_uuid"])
+    runtime = f"{record['remote_root']}/runtime/{runtime_uuid}"
     run_root = f"{record['remote_root']}/{record['run_output_relative']}"
     code = f"""
 import hashlib,json,os,pathlib
@@ -209,6 +235,17 @@ def validate_done_snapshot(record: dict[str, Any], snapshot: dict[str, Any]) -> 
         != snapshot.get("artifact_manifest_sha256")
     ):
         raise HoldPod("DONE identity/integrity envelope is invalid")
+    if record.get("validation_attempt_uuid") is not None and (
+        done.get("validation_attempt_uuid") != record["validation_attempt_uuid"]
+    ):
+        raise HoldPod("DONE validation-attempt identity differs")
+    if record.get("source_execution_manifest_sha256") is not None and (
+        done.get("source_execution_manifest_sha256")
+        != record["source_execution_manifest_sha256"]
+        or done.get("authoritative_attestation")
+        != record.get("authoritative_attestation")
+    ):
+        raise HoldPod("DONE validation-continuation provenance differs")
     if snapshot.get("symlinks"):
         raise HoldPod(f"remote run contains symlinks: {snapshot['symlinks']}")
 
@@ -225,6 +262,43 @@ def validate_manifest_paths(files: dict[str, Any]) -> None:
             raise HoldPod(f"malformed artifact hash: {relative}")
         if not isinstance(metadata["size_bytes"], int) or metadata["size_bytes"] < 0:
             raise HoldPod(f"malformed artifact size: {relative}")
+
+
+def verify_local_terminal_bundle(local_root: Path, receipt: dict[str, Any]) -> None:
+    artifact_path = local_root / "ARTIFACT_MANIFEST.json"
+    done_path = local_root / "DONE.json"
+    if sha256_file(artifact_path) != receipt["artifact_manifest_sha256"]:
+        raise HoldPod("promoted local artifact manifest changed before termination")
+    if sha256_file(done_path) != receipt["done_sha256"]:
+        raise HoldPod("promoted local DONE changed before termination")
+    manifest = json.loads(artifact_path.read_text())
+    files = manifest.get("files", {})
+    validate_manifest_paths(files)
+    for relative, metadata in files.items():
+        path = local_root / relative
+        if (
+            not path.is_file()
+            or path.stat().st_size != metadata["size_bytes"]
+            or sha256_file(path) != metadata["sha256"]
+        ):
+            raise HoldPod(f"promoted local artifact changed before termination: {relative}")
+
+
+def require_gate_consistency(
+    validation: dict[str, Any], report: dict[str, Any], done: dict[str, Any]
+) -> None:
+    recomputed_gate = validation.get("details", {}).get("scientific_gate", {}).get(
+        "pass"
+    )
+    reported_gate = report.get("scientific_gate", {}).get("pass")
+    done_gate = done.get("scientific_gate_pass")
+    if (
+        not isinstance(recomputed_gate, bool)
+        or not isinstance(reported_gate, bool)
+        or not isinstance(done_gate, bool)
+        or not (recomputed_gate == reported_gate == done_gate)
+    ):
+        raise HoldPod("DONE scientific gate differs from local recomputation")
 
 
 def scp_file(record: dict[str, Any], remote_path: str, local_path: Path) -> None:
@@ -257,7 +331,7 @@ def pull_and_verify(
     remote_run = f"{record['remote_root']}/{record['run_output_relative']}"
     staging_parent = ROOT / "results/jspace_r1_pilot"
     staging_parent.mkdir(parents=True, exist_ok=True)
-    staging = staging_parent / f".phase1_staging_{record['run_uuid']}"
+    staging = staging_parent / f".phase1_staging_{record_key(record)}"
     if staging.exists():
         quarantine = staging.with_name(
             staging.name + ".partial." + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
@@ -277,6 +351,18 @@ def pull_and_verify(
         != record["execution_manifest_sha256"]
     ):
         raise HoldPod("artifact manifest identity differs")
+    if record.get("validation_attempt_uuid") is not None and (
+        manifest.get("validation_attempt_uuid")
+        != record["validation_attempt_uuid"]
+    ):
+        raise HoldPod("artifact-manifest validation-attempt identity differs")
+    if record.get("source_execution_manifest_sha256") is not None and (
+        manifest.get("source_execution_manifest_sha256")
+        != record["source_execution_manifest_sha256"]
+        or manifest.get("authoritative_attestation")
+        != record.get("authoritative_attestation")
+    ):
+        raise HoldPod("artifact-manifest validation-continuation provenance differs")
     files = manifest.get("files")
     if not isinstance(files, dict) or not files:
         raise HoldPod("artifact manifest has no files")
@@ -342,6 +428,11 @@ def pull_and_verify(
     validation = json.loads(completed.stdout)
     if validation.get("ok") is not True:
         raise HoldPod("local semantic validator returned ok=false")
+    require_gate_consistency(
+        validation,
+        json.loads((staging / "phase1_report.json").read_text()),
+        before["done"],
+    )
 
     final = ROOT / record["local_output_relative"]
     if final.exists():
@@ -352,6 +443,7 @@ def pull_and_verify(
         "schema_version": "rom-jspace-r1-phase1-sync-verified-v1",
         "verified_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "run_uuid": record["run_uuid"],
+        "validation_attempt_uuid": record.get("validation_attempt_uuid"),
         "pod_id": record["pod_id"],
         "remote_root": remote_run,
         "local_root": str(final),
@@ -361,7 +453,7 @@ def pull_and_verify(
         "done_sha256": before["done_sha256"],
         "local_semantic_validation_ok": True,
     }
-    receipt_path = HERE / f"JSPACE_PHASE1_SYNC_VERIFIED_{record['run_uuid']}.json"
+    receipt_path = HERE / f"JSPACE_PHASE1_SYNC_VERIFIED_{record_key(record)}.json"
     atomic_json(receipt_path, receipt)
     audit("sync_verified", **receipt)
     return final, receipt
@@ -429,10 +521,13 @@ def validate_api_identity(record: dict[str, Any], pod: dict[str, Any] | None) ->
 def terminate_exact_pod(record: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
     # Reconfirm both the remote execution envelope and API endpoint immediately
     # before the one authorised mutation.
+    verify_local_terminal_bundle(Path(receipt["local_root"]), receipt)
     snapshot = remote_snapshot(record)
     validate_done_snapshot(record, snapshot)
     if snapshot["artifact_manifest_sha256"] != receipt["artifact_manifest_sha256"]:
         raise HoldPod("remote manifest differs immediately before termination")
+    if snapshot["done_sha256"] != receipt["done_sha256"]:
+        raise HoldPod("remote DONE differs immediately before termination")
     pod = query_exact_pod(record)
     validate_api_identity(record, pod)
     pod_id = record["pod_id"]
@@ -461,13 +556,14 @@ def terminate_exact_pod(record: dict[str, Any], receipt: dict[str, Any]) -> dict
         "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "pod_id": pod_id,
         "run_uuid": record["run_uuid"],
+        "validation_attempt_uuid": record.get("validation_attempt_uuid"),
         "sync_receipt": receipt,
         "mutation_accepted": True,
         "termination_confirmed": confirmed,
         "terminal_observation": terminal_observation,
         "mutation_response": response,
     }
-    result_path = HERE / f"JSPACE_PHASE1_POD_TERMINATION_{record['run_uuid']}.json"
+    result_path = HERE / f"JSPACE_PHASE1_POD_TERMINATION_{record_key(record)}.json"
     atomic_json(result_path, result)
     if not confirmed:
         raise HoldPod("termination mutation accepted but terminal state was not confirmed")
@@ -476,7 +572,7 @@ def terminate_exact_pod(record: dict[str, Any], receipt: dict[str, Any]) -> dict
 
 
 def one_cycle(record: dict[str, Any]) -> dict[str, Any]:
-    termination_path = HERE / f"JSPACE_PHASE1_POD_TERMINATION_{record['run_uuid']}.json"
+    termination_path = HERE / f"JSPACE_PHASE1_POD_TERMINATION_{record_key(record)}.json"
     if termination_path.is_file():
         result = json.loads(termination_path.read_text())
         if result.get("termination_confirmed") is True:
@@ -521,8 +617,9 @@ def main() -> int:
                     if result["status"] == "synced_verified_terminated":
                         outcome = "passed" if result["scientific_gate_pass"] else "did not pass"
                         notify(
-                            "J-space Phase 1 complete",
-                            f"Results synced and verified; scientific gate {outcome}; Pod terminated.",
+                            "Laptop ready to close",
+                            f"Results synced and verified; scientific gate {outcome}; "
+                            "Pod termination confirmed. You can close the laptop.",
                         )
                     print(json.dumps(result, indent=2, sort_keys=True))
                     return 0
@@ -537,11 +634,14 @@ def main() -> int:
                         "status": "HOLD_POD",
                         "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                         "run_uuid": record.get("run_uuid"),
+                        "validation_attempt_uuid": record.get(
+                            "validation_attempt_uuid"
+                        ),
                         "pod_id": record.get("pod_id"),
                         "message": str(exc),
                     }
                     atomic_json(
-                        HERE / f"JSPACE_PHASE1_HOLD_{record.get('run_uuid','unknown')}.json",
+                        HERE / f"JSPACE_PHASE1_HOLD_{record_key(record)}.json",
                         hold,
                     )
                     audit("hold_pod", **hold)

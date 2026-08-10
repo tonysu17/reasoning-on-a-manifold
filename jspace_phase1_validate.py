@@ -9,7 +9,7 @@ import json
 import math
 import os
 import tempfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import numpy as np
@@ -26,6 +26,19 @@ EVAL_SLUGS = (
     "lens-eval-typo",
     "lens-eval-multihop",
 )
+BASE_REMOTE_VALIDATION_CHECKS = {
+    "fixed_inputs_match_execution_manifest",
+    "required_run_files_present",
+    "report_identity_and_complete_status",
+    "registered_vocabulary_domains_match",
+    "lens_inventory_shapes_dtypes_finite_counts",
+    "merge_and_fp16_recomputed",
+    "stability_null_regenerated_from_seed",
+    "heldout_stability_recomputed",
+    "external_positive_controls_recomputed",
+    "external_nulls_regenerated_in_fixed_rng_order",
+    "overall_scientific_gate_recomputed",
+}
 REQUIRED_RUN_FILES = (
     "RUN_ENVIRONMENT.txt",
     "phase1_runner.log",
@@ -42,6 +55,19 @@ REQUIRED_RUN_FILES = (
     "lenses/merged.fp32.pt",
     "lenses/merged.fp16.pt",
 )
+
+
+def eligible_items_for(eligibility: dict[str, Any], slug: str) -> list[dict[str, Any]]:
+    """Return one evaluation's eligible items in frozen manifest order."""
+    return [
+        item
+        for item in eligibility["evaluations"][slug]["items"]
+        if item["item_eligible"]
+    ]
+
+
+def eligible_item_names_for(eligibility: dict[str, Any], slug: str) -> list[str]:
+    return [item["name"] for item in eligible_items_for(eligibility, slug)]
 
 
 def sha256_file(path: Path) -> str:
@@ -150,6 +176,7 @@ def validate(
     errors: list[str] = []
     checks: dict[str, bool] = {}
     details: dict[str, Any] = {}
+    validation_only: dict[str, Any] | None = None
     try:
         execution = json.loads(execution_manifest.read_text())
         for relative, expected in execution["fixed_inputs_sha256"].items():
@@ -157,6 +184,24 @@ def validate(
             if not path.is_file() or sha256_file(path) != expected:
                 raise ValueError(f"fixed input missing/hash mismatch: {relative}")
         checks["fixed_inputs_match_execution_manifest"] = True
+        validation_only = execution.get("validation_only")
+        if validation_only is not None:
+            for relative, expected in validation_only[
+                "source_artifacts_sha256"
+            ].items():
+                artifact_relative = PurePosixPath(relative)
+                if (
+                    artifact_relative.is_absolute()
+                    or ".." in artifact_relative.parts
+                    or str(artifact_relative) != relative
+                ):
+                    raise ValueError(f"unsafe validation-only artifact path: {relative}")
+                artifact = run_root / Path(*artifact_relative.parts)
+                if not artifact.is_file() or sha256_file(artifact) != expected:
+                    raise ValueError(
+                        f"validation-only source artifact missing/hash mismatch: {relative}"
+                    )
+            checks["validation_only_source_artifacts_immutable"] = True
         for relative in REQUIRED_RUN_FILES:
             if not (run_root / relative).is_file():
                 raise FileNotFoundError(f"missing run artifact: {relative}")
@@ -167,10 +212,22 @@ def validate(
             raise ValueError(f"execution status is {report.get('execution_status')!r}")
         if report.get("run_uuid") != execution["run_uuid"]:
             raise ValueError("run UUID mismatch")
-        if report.get("source_git_commit") != execution["source_git_commit"]:
+        expected_source_commit = (
+            validation_only["source_run_git_commit"]
+            if validation_only is not None
+            else execution["source_git_commit"]
+        )
+        if report.get("source_git_commit") != expected_source_commit:
             raise ValueError("source git commit mismatch")
         if report.get("pod_id") != execution["pod_id"]:
             raise ValueError("Pod ID mismatch in report")
+        expected_report_manifest = (
+            validation_only["source_execution_manifest_sha256"]
+            if validation_only is not None
+            else sha256_file(execution_manifest)
+        )
+        if report.get("execution_manifest_sha256") != expected_report_manifest:
+            raise ValueError("runner report execution-manifest hash mismatch")
         checks["report_identity_and_complete_status"] = True
         environment = report.get("environment", {})
         expected_vocab_domains = {
@@ -325,11 +382,7 @@ def validate(
         external_rng = np.random.Generator(np.random.PCG64(20260812))
         for slug in EVAL_SLUGS:
             key = slug.replace("-", "_")
-            eligible_items = [
-                item
-                for item in eligibility["evaluations"][slug]["items"]
-                if item["item_eligible"]
-            ]
+            eligible_items = eligible_items_for(eligibility, slug)
             n_items = len(eligible_items)
             labels = [
                 [
@@ -386,7 +439,7 @@ def validate(
                 {key: observed[key] for key in protocol_keys},
                 f"external.{slug}",
             )
-            expected_names = [item["name"] for item in eligible_items]
+            expected_names = eligible_item_names_for(eligibility, slug)
             if observed.get("eligible_item_names") != expected_names:
                 raise ValueError(f"external eligible item names differ: {slug}")
             if recomputed["qualifying_success"]:
@@ -423,7 +476,19 @@ def validate(
             relative: sha256_file(run_root / relative) for relative in REQUIRED_RUN_FILES
         }
         if require_remote_attestation:
-            attestation_path = run_root / "INDEPENDENT_VALIDATION.json"
+            attestation_name = (
+                validation_only["authoritative_attestation"]
+                if validation_only is not None
+                else "INDEPENDENT_VALIDATION.json"
+            )
+            attestation_relative = PurePosixPath(attestation_name)
+            if (
+                attestation_relative.is_absolute()
+                or ".." in attestation_relative.parts
+                or str(attestation_relative) != attestation_name
+            ):
+                raise ValueError("unsafe remote attestation path")
+            attestation_path = run_root / Path(*attestation_relative.parts)
             if not attestation_path.is_file():
                 raise FileNotFoundError("remote independent validation attestation missing")
             attestation = json.loads(attestation_path.read_text())
@@ -434,27 +499,14 @@ def validate(
                 != sha256_file(execution_manifest)
             ):
                 raise ValueError("remote attestation execution-manifest hash differs")
-            if (
-                attestation.get("checks", {}).get(
-                    "stability_null_regenerated_from_seed"
-                )
-                is not True
+            expected_remote_checks = set(BASE_REMOTE_VALIDATION_CHECKS)
+            if validation_only is not None:
+                expected_remote_checks.add("validation_only_source_artifacts_immutable")
+            remote_checks = attestation.get("checks", {})
+            if set(remote_checks) != expected_remote_checks or not all(
+                remote_checks.values()
             ):
-                raise ValueError("remote attestation did not regenerate stability null")
-            if (
-                attestation.get("checks", {}).get(
-                    "external_nulls_regenerated_in_fixed_rng_order"
-                )
-                is not True
-            ):
-                raise ValueError("remote attestation did not regenerate external nulls")
-            if (
-                attestation.get("checks", {}).get(
-                    "overall_scientific_gate_recomputed"
-                )
-                is not True
-            ):
-                raise ValueError("remote attestation did not recompute overall gate")
+                raise ValueError("remote attestation check inventory is incomplete")
             attested_hashes = attestation.get("details", {}).get("artifact_sha256")
             if attested_hashes != details["artifact_sha256"]:
                 raise ValueError("remote attestation artifact hashes differ locally")
@@ -469,6 +521,11 @@ def validate(
         "execution_manifest": str(execution_manifest),
         "execution_manifest_sha256": (
             sha256_file(execution_manifest) if execution_manifest.is_file() else None
+        ),
+        "validation_attempt_uuid": (
+            validation_only.get("validation_attempt_uuid")
+            if validation_only is not None
+            else None
         ),
         "checks": checks,
         "details": details,
