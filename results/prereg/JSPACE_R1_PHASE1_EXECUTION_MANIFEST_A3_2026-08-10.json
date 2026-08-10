@@ -1,0 +1,118 @@
+{
+  "schema_version": "rom-jspace-r1-phase1-execution-manifest-v1",
+  "status": "sealed_authorised_pre_execution_relaunch",
+  "sealed_utc": "2026-08-10T22:13:21Z",
+  "authorisation": "Tony explicitly authorised Phase 1 and exact-Pod termination after verified local sync in this task",
+  "run_uuid": "jspace-p1-20260810T221321Z-73a20baaafd1",
+  "supersedes_failed_run_uuid": "jspace-p1-20260810T220624Z-1c2c4230f713",
+  "pod_id": "bghqqjkco3q7r5",
+  "ssh_endpoint": {
+    "host": "213.173.108.144",
+    "port": 19567,
+    "private_port": 22,
+    "type": "tcp"
+  },
+  "source_git_commit": "af2695195ad56c1590b9ad8697966544adc2e302",
+  "corpus_manifest": "results/prereg/jspace_r1_fit_manifest.json",
+  "eligibility_manifest": "results/prereg/jspace_r1_eval_eligibility_manifest.json",
+  "run_output_relative": "runs/jspace-p1-20260810T221321Z-73a20baaafd1",
+  "software_versions": {
+    "numpy": "1.26.3",
+    "python": "3.11.10",
+    "torch": "2.4.1+cu124",
+    "transformers": "5.5.0"
+  },
+  "model": {
+    "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "cache_root": "/workspace/hf/hub",
+    "snapshot": "/workspace/hf/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/snapshots/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562"
+  },
+  "model_files_sha256": {
+    "config.json": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+    "generation_config.json": "72cbec1015da9ed03ad025483005cbf6481403abf947adfd54e504d1a66a2126",
+    "model.safetensors": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+    "tokenizer.json": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+    "tokenizer_config.json": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5"
+  },
+  "jlens": {
+    "repository": "https://github.com/anthropics/jacobian-lens.git",
+    "commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "tracked_checkout_must_be_clean": true
+  },
+  "jlens_files_sha256": {
+    "data/evaluations/README.md": "e061d9cce02a1cc651d58a81927833b760d3cef65bf4995126ecbe372a0ebe07",
+    "data/evaluations/lens-eval-association.json": "d1a98cd4911b594282e74168091c77d849dae18ffe2acb5761074853f327d71c",
+    "data/evaluations/lens-eval-multihop.json": "50b7e4c9255291c0ca2a8e94615be9f44531fa57bb1a844e4f9616056d987416",
+    "data/evaluations/lens-eval-typo.json": "9d05e16b7234a57d0773d120a4e1c4e94fd3bc2235a8125d4200a70e60ab17aa",
+    "jlens/fitting.py": "5be8959db8efc34cee41ed677beba84e21ba3c9e3ccb958bdbc1600c86b5e080",
+    "jlens/hf.py": "228cf078e4586a7b7f61a6f5064403b8960de337afd19256efa56f04d53e3222",
+    "jlens/hooks.py": "c781d6944fd23396d3fc65a04db1f1db807f6f12cd5912cdbd2fb67eb3508081",
+    "jlens/lens.py": "e231e7d3a6c8e8f7791b53705a34342d0bba376a127a82376eaf6ec30ca11808",
+    "jlens/protocol.py": "7217a3bc2c1cd01fed3e6b00c53effbd957effddc49fe073da89cb10d1b1a344",
+    "pyproject.toml": "b498f1977a64df5ebd0d990088e4956874f62ead1adba8d62f2acf36780a52b0",
+    "uv.lock": "981e580531e517be1bd1a3fef98ac12822f40d626ba8f365e59973ff258f36ea"
+  },
+  "estimator": {
+    "source_layers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+    "target_layer": 27,
+    "dim_batch": 8,
+    "max_seq_len": 128,
+    "skip_first": 16,
+    "checkpoint_every": 10,
+    "resume": false,
+    "attention_backend": "eager",
+    "compile": false,
+    "deterministic_algorithms": true,
+    "authoritative_lens": "merged_fp32"
+  },
+  "fixed_inputs_sha256": {
+    ".codex/out/jspace_phase0_amendment1_run_2026-08-10/INDEPENDENT_VALIDATION.json": "a15970a206e525f23bb83df4cefcf5d565f024c2adfb22a36586abad6677584e",
+    ".codex/out/jspace_phase1_finish_watch.py": "c9d023aaf820c978620e612c6187a95bba91000ddd98cb372a2cdb8eb645560d",
+    "jspace_phase1_job.py": "71a016f4c89ee51eb50bad2ecdc513876d106a2cd4728574817629cdc79fe86a",
+    "jspace_phase1_manifest.py": "102715f3c51549a1045b0396ac24d18bf4dc03cfb87c4d65da88d9bd5b33e027",
+    "jspace_phase1_run.py": "e2022bf7ea417dbbcbb80b6bd6b2698fd88ca539a0400ec874eefc18b6083f74",
+    "jspace_phase1_scoring.py": "eeb7a65ae4b6555d2659af02975cf92c8ed217c9c316c82bad11a0d22de68e15",
+    "jspace_phase1_validate.py": "06d77f251d2952cda984153772d0c800d57e53f8fa9a0f40a414ff110ba100a1",
+    "results/jspace_r1_pilot/benchmark_amendment1/benchmark_report.json": "34f69ebd05fec136d013c3034c9c2a63c80240a3dcb7f4576c9e6080b8ea69e0",
+    "results/jspace_r1_pilot/benchmark_amendment1/five_prompt_dim8.json": "2b754f1e8a0e113eb4d2dd98a4339ae13731f2d0681e8c55027d638db4984dd4",
+    "results/jspace_r1_pilot/benchmark_amendment1/probe_dim8.json": "8b09c7911f722fa91ca34e3474120dd2d045472bdfdd7882a7f4f0262ced34ea",
+    "results/prereg/JSPACE_R1_BENCHMARK_AMENDMENT_1_2026-08-10.md": "4e19cfa03115946e9b0d386ddbd066cdbae09ef5a6dae187b634d2ddb651e1b7",
+    "results/prereg/JSPACE_R1_BENCHMARK_MANIFEST_2026-08-10_AMENDMENT1.json": "31f12eef6a138cf3415d27a909d76dac27e9dc5ec5cd4833b7f91e7243ce5cfd",
+    "results/prereg/JSPACE_R1_PHASE1_AMENDMENT_1_2026-08-10.md": "ef9ccda7bf4fc41532f52b052f9cf18411c57deacc82ca8e35bd275135a8bf02",
+    "results/prereg/JSPACE_R1_PHASE1_AMENDMENT_2_2026-08-10.md": "e12bdb91f090fb8b74a6de15a5dd8a0a0eec24e8a5f7a7529f9b744e87e19963",
+    "results/prereg/JSPACE_R1_PHASE1_AMENDMENT_3_2026-08-10.md": "d5aa9c31c66b650c4027a66acc2f0b0d1071dd67bf0ac306002aa7d88c4534a5",
+    "results/prereg/JSPACE_R1_STEERING_PILOT_PREREG_2026-08-10.md": "fa0011fe80ea03b84656b154b6e799b6d725f0c1fa2d459ed8027103517b67c8",
+    "results/prereg/jspace_r1_eval_eligibility_manifest.json": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c",
+    "results/prereg/jspace_r1_fit_manifest.json": "59c8695f4d8bc37e8a6cfb592bba09fc72afaec7f5eca6b415f443cb90defa6e",
+    "tests/test_jspace_phase1_scoring.py": "2dcc92e82dec51a3efd8e5982523829420f8972e229d44a156e1ca6a0d12fd64"
+  },
+  "expected_artifacts": [
+    "RUN_ENVIRONMENT.txt",
+    "phase1_runner.log",
+    "phase1_report.json",
+    "numerical_validation.json",
+    "heldout_stability.json",
+    "heldout_stability_arrays.npz",
+    "external_positive_controls.json",
+    "external_readout_arrays.npz",
+    "lenses/fit_a.fp32.pt",
+    "lenses/fit_a.fp16.pt",
+    "lenses/fit_b.fp32.pt",
+    "lenses/fit_b.fp16.pt",
+    "lenses/merged.fp32.pt",
+    "lenses/merged.fp16.pt",
+    "INDEPENDENT_VALIDATION.json",
+    "ARTIFACT_MANIFEST.json",
+    "DONE.json"
+  ],
+  "termination_policy": {
+    "sync_before_terminate": true,
+    "local_independent_validation_required": true,
+    "exact_pod_id_only": "bghqqjkco3q7r5",
+    "scientific_negative_is_integrity_complete": true,
+    "execution_or_integrity_failure_holds_pod": true,
+    "fallback_terminator": null,
+    "automatic_mutation_retries": 0
+  }
+}
