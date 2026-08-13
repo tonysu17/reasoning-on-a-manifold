@@ -1,0 +1,1210 @@
+{
+  "authorised_flag": true,
+  "coordinate_identity": {
+    "allclose_rtol_1e-5_atol_1e-6": true,
+    "max_abs_difference": 0.0,
+    "same_module_object": true,
+    "same_shape": true
+  },
+  "dim_batch": 8,
+  "exceptions": [],
+  "git_commit": null,
+  "git_dirty_paths": [],
+  "hardware": {
+    "cuda_runtime": "12.4",
+    "device": "cuda:0",
+    "name": "NVIDIA GeForce RTX 4090",
+    "total_memory_bytes": 25261047808
+  },
+  "jlens_commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+  "load_dtype": "torch.bfloat16",
+  "manifest_sha256": "963ecac62da2e7e0223dd11bf942093e8990436ac748484289d0826544428602",
+  "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+  "peak_cpu_rss_bytes": 4907388928,
+  "peak_gpu_allocated_bytes": 5991404032,
+  "peak_gpu_reserved_bytes": 6109003776,
+  "prereg_sha256": "fa0011fe80ea03b84656b154b6e799b6d725f0c1fa2d459ed8027103517b67c8",
+  "prompt_scope": "all",
+  "prompts": [
+    {
+      "backward_calls": 192,
+      "layers": {
+        "0": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "1": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "10": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "11": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "12": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "13": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "14": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "15": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "16": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "17": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "18": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "19": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "2": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "20": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "21": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "22": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "23": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "24": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "25": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "26": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "3": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "4": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "5": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "6": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "7": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "8": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "9": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        }
+      },
+      "prompt_sha256": "ce994becc3ea9990ef670f31043659476b21438ec39e1ac90c5f1e907d4c2fee",
+      "task_id": "MATH_000",
+      "token_count": 65,
+      "valid_positions": 48,
+      "wall_seconds": 6.0546069629490376
+    },
+    {
+      "backward_calls": 192,
+      "layers": {
+        "0": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "1": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "10": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "11": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "12": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "13": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "14": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "15": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "16": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "17": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "18": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "19": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "2": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "20": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "21": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "22": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "23": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "24": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "25": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "26": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "3": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "4": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "5": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "6": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "7": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "8": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "9": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        }
+      },
+      "prompt_sha256": "a62c5a7905a54aad8d49a78fa6c727cd4f1f7ebf5b5aa887509c3fc5b0df4490",
+      "task_id": "VERB_000",
+      "token_count": 108,
+      "valid_positions": 91,
+      "wall_seconds": 5.9408626183867455
+    },
+    {
+      "backward_calls": 192,
+      "layers": {
+        "0": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "1": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "10": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "11": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "12": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "13": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "14": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "15": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "16": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "17": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "18": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "19": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "2": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "20": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "21": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "22": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "23": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "24": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "25": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "26": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "3": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "4": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "5": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "6": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "7": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "8": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "9": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        }
+      },
+      "prompt_sha256": "858bad4cd4242c250ddfa88adc582c24eea74482b1444d23a68a17e30ed1773a",
+      "task_id": "CAUS_000",
+      "token_count": 119,
+      "valid_positions": 102,
+      "wall_seconds": 6.137986809015274
+    },
+    {
+      "backward_calls": 192,
+      "layers": {
+        "0": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "1": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "10": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "11": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "12": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "13": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "14": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "15": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "16": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "17": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "18": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "19": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "2": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "20": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "21": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "22": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "23": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "24": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "25": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "26": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "3": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "4": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "5": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "6": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "7": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "8": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "9": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        }
+      },
+      "prompt_sha256": "cbc076b12d705f20d749e4971fc44bc67d908ee823c30e1a978dd065f7d87dc2",
+      "task_id": "CREA_000",
+      "token_count": 87,
+      "valid_positions": 70,
+      "wall_seconds": 5.98870350793004
+    },
+    {
+      "backward_calls": 192,
+      "layers": {
+        "0": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "1": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "10": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "11": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "12": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "13": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "14": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "15": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "16": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "17": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "18": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "19": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "2": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "20": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "21": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "22": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "23": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "24": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "25": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "26": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "3": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "4": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "5": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "6": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "7": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "8": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        },
+        "9": {
+          "dtype": "torch.float32",
+          "finite": true,
+          "shape": [
+            1536,
+            1536
+          ]
+        }
+      },
+      "prompt_sha256": "dc3bd6ff654262f3321d01ced2266bdb90a41b02e98124cd6c3487e3168b9c7c",
+      "task_id": "SCIE_000",
+      "token_count": 103,
+      "valid_positions": 86,
+      "wall_seconds": 6.158075854182243
+    }
+  ],
+  "repeat_first": {
+    "relative_frobenius": {
+      "max": 0.0,
+      "per_layer": {
+        "0": 0.0,
+        "1": 0.0,
+        "10": 0.0,
+        "11": 0.0,
+        "12": 0.0,
+        "13": 0.0,
+        "14": 0.0,
+        "15": 0.0,
+        "16": 0.0,
+        "17": 0.0,
+        "18": 0.0,
+        "19": 0.0,
+        "2": 0.0,
+        "20": 0.0,
+        "21": 0.0,
+        "22": 0.0,
+        "23": 0.0,
+        "24": 0.0,
+        "25": 0.0,
+        "26": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.0,
+        "9": 0.0
+      }
+    },
+    "task_id": "MATH_000",
+    "wall_seconds": 5.93940307199955
+  },
+  "schema_version": "rom-jspace-r1-benchmark-worker-v1",
+  "software_versions": {
+    "python": "3.11.10 (main, Sep  7 2024, 18:35:41) [GCC 11.4.0]",
+    "torch": "2.4.1+cu124",
+    "transformers": "5.5.0"
+  },
+  "status": "complete",
+  "tokenizer_hashes": {
+    "config.json": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+    "generation_config.json": "72cbec1015da9ed03ad025483005cbf6481403abf947adfd54e504d1a66a2126",
+    "tokenizer.json": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+    "tokenizer_config.json": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5"
+  },
+  "total_wall_seconds": 62.83526309207082
+}

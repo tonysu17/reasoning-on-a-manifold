@@ -292,6 +292,11 @@ def test_dry_run_plan_never_calls_proxy_and_has_exact_accounting(monkeypatch):
     assert document["reliability_status"]["repeat_policy"] == "drop"
     assert accounting["optional_logical_repeat_assignments_current"] > 0
     assert accounting["optional_repeat_additional_initial_requests_current"] > 0
+    if accounting["missing_generation_keys_vs_176"] == 0:
+        assert accounting["full_176_primary_only_initial_requests"] == 490
+        assert accounting["full_176_primary_only_initial_requests"] == accounting[
+            "initial_network_requests_current"
+        ]
     assert accounting["projected_cost_usd"] is None
     assert accounting["fits_original_15_usd_boundary"] == "not_proven"
     assert document["reliability_status"]["inter_annotator_agreement"] == "not_estimable"

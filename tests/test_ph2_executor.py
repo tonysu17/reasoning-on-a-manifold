@@ -10,7 +10,8 @@ import ph2_executor as px  # noqa: E402
 
 # ── decision table (prereg §8) ───────────────────────────────────────────────
 
-BASE = dict(sensitivity_adequate=True, damage_ok=True, gate_pass=False, raw_retained=False,
+BASE = dict(sensitivity_adequate=True, damage_resolved=True, damage_ok=True,
+            gate_pass=False, raw_retained=False,
             corrected_gate_pass=False, corrected_retained=False, refit_pass=False,
             refit_aligned=False, refit_misaligned_beyond_null=False, refit_recovered=False,
             repr_signal_above_null=False)
@@ -54,6 +55,11 @@ def test_damage_stop():
                                 raw_retained=True)) == "damage_stop"
 
 
+def test_unresolved_damage_endpoint_is_inconclusive():
+    assert px.decide_outcome(_o(damage_resolved=False, gate_pass=True,
+                                refit_aligned=True, raw_retained=True)) == "inconclusive"
+
+
 def test_rotated_not_claimed_without_recovery():
     out = px.decide_outcome(_o(refit_pass=True, refit_misaligned_beyond_null=True,
                                repr_signal_above_null=True))
@@ -72,6 +78,12 @@ def test_missing_annotation_is_unresolved_never_zero():
     assert m["B"]["status"] == "unresolved"
     assert m["C"]["status"] == "ok" and m["C"]["label_counts"]["backtracking"] == 1
     assert m["C"]["n_sentences"] == 2
+
+
+def test_partial_nonempty_annotation_is_unresolved_never_zero():
+    rows = [{"task_id": "A", "annotation_complete": False,
+             "annotations": [{"label": "backtracking", "text": "Wait."}]}]
+    assert px.merge_annotations(rows)["A"] == {"status": "unresolved"}
 
 
 # ── manifest: ids, stratification, disjointness, immutability ────────────────

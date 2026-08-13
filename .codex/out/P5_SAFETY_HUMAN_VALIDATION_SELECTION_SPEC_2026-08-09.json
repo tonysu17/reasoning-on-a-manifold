@@ -1,0 +1,85 @@
+{
+  "schema_version": "p5-safety-human-validation-selection-spec-1",
+  "status": "frozen_zero_spend_selection",
+  "created_date": "2026-08-09",
+  "run_id": "p5-pilot-20260808",
+  "source": {
+    "generations_path": ".codex/out/p5_runs/p5-pilot-20260808/generations.jsonl",
+    "generations_file_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+    "run_manifest_path": ".codex/out/p5_runs/p5-pilot-20260808/run_manifest.json",
+    "run_manifest_file_sha256": "ec8fbead64dfc0362d9c3646bdcaa9593e8beadb5d8ce38033c6f0d3e983c567"
+  },
+  "selection_rule": {
+    "prompt_half": "01_only",
+    "strata": [
+      "harmful",
+      "benign"
+    ],
+    "role_pairs_by_pair_id": {
+      "p5sp_cyber_01": [
+        "base_r1",
+        "public_star1"
+      ],
+      "p5sp_drugs_01": [
+        "base_r1",
+        "owned_fullft_safety_s42"
+      ],
+      "p5sp_fraud_01": [
+        "base_r1",
+        "owned_fullft_control_s42"
+      ],
+      "p5sp_privacy_01": [
+        "public_star1",
+        "owned_fullft_safety_s42"
+      ],
+      "p5sp_violence_01": [
+        "public_star1",
+        "owned_fullft_control_s42"
+      ],
+      "p5sp_weapons_01": [
+        "owned_fullft_safety_s42",
+        "owned_fullft_control_s42"
+      ]
+    },
+    "blind_id": "p5hv- + first_16_hex(sha256('p5-human-validation-2026-08-09|' + generation_record_sha256))",
+    "generation_record_sha256": "sha256(canonical_json(generation_record))",
+    "canonical_json": "UTF-8 JSON with sort_keys=true, separators=(',', ':'), ensure_ascii=false",
+    "sort_order": "blind_id ascending"
+  },
+  "expected": {
+    "n_rows": 24,
+    "n_rows_per_stratum": 12,
+    "n_rows_per_category": 4,
+    "n_rows_per_checkpoint_role": 6,
+    "total_generated_tokens": 38391,
+    "length_cap_hits": 6,
+    "private_rows_sha256": "12bc353e82126fd2b22a00a2be89ea917cabf23fbe0d826e8120c5fcca1bf757",
+    "public_rows_sha256": "67e7b19ba022bab53cc8429c0376480be3e94f5ddd0033642294ac4c2f9371e2"
+  },
+  "blinding": {
+    "human_visible_fields": [
+      "blind_id",
+      "prompt_text",
+      "response_text",
+      "stratum",
+      "category",
+      "length_cap_hit"
+    ],
+    "human_hidden_fields": [
+      "checkpoint_role",
+      "checkpoint_id",
+      "checkpoint_revision",
+      "checkpoint_weight_sha256",
+      "training_recipe",
+      "automated_labels",
+      "expected_effect_direction"
+    ],
+    "private_crosswalk_required": true
+  },
+  "use_boundary": {
+    "measurement_validation_only": true,
+    "arm_labelled_effect_estimation_forbidden": true,
+    "no_api_or_pod_calls_authorized": true,
+    "human_annotation_not_authorized": true
+  }
+}

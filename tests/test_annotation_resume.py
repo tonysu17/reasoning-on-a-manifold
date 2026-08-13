@@ -19,6 +19,12 @@ The contract these tests pin down:
 NO real API calls — the proxy is mocked at the ``_proxy_call`` boundary (and in
 one case at ``requests.post``) so the transport, retry, and parse paths are all
 exercised without network access.
+
+These tests pin the TRANSPORT-completeness contract only, so they pass
+``coverage_validation=False`` and their fixtures need not exhaust the chain.
+The orthogonal semantic-coverage contract — a schema-valid response that does
+not cover the annotation region is unresolved, and such rows are retried on
+resume — is pinned in tests/test_annotation_coverage.py.
 """
 
 import json
@@ -33,6 +39,7 @@ from src.annotation import (
     chunk_chain,
     merge_chunk_annotations,
     _annotate_single,
+    _proxy_accounting,
 )
 
 
@@ -43,6 +50,20 @@ GOOD_RESPONSE = (
     '["initializing"]Let me restate the problem.["end-section"]'
     '["deduction"]Therefore x = 2.["end-section"]'
 )
+
+
+def test_proxy_accounting_uses_nested_remaining_budget():
+    payload = {
+        "usage": {"cost": 0.028434},
+        "metadata": {"remaining_quota": {"remaining_budget": 281.0}},
+    }
+    assert _proxy_accounting(payload) == (0.028434, 281.0)
+
+
+def test_proxy_accounting_retains_flat_legacy_fallback():
+    assert _proxy_accounting({
+        "usage": {"cost": 0.01, "remaining_quota": 80.0}
+    }) == (0.01, 80.0)
 
 
 def _phase7_chain(task_id, behaviour, method, alpha, text="Some reasoning. More."):
@@ -91,7 +112,7 @@ def always_good(monkeypatch):
 def test_save_json_is_atomic_and_leaves_no_tmp(tmp_path, always_good):
     out = tmp_path / "annotated.json"
     chains = [_phase7_chain("t1", "backtracking", "single_direction", 8.0)]
-    annotate_chains(chains, save_path=out, dedup_keys=("task_id",))
+    annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=("task_id",))
 
     assert out.exists()
     # No stray .tmp left behind (atomic replace cleaned up).
@@ -119,7 +140,7 @@ def test_phase7_dedup_keys_do_not_collapse_same_task_id(tmp_path, always_good):
         _phase7_chain("t1", "backtracking", "single_direction", 16.0),
     ]
     out = tmp_path / "ann.json"
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
 
     assert len(result) == 4, "Phase-7 key collapsed distinct steered variants!"
     seen = {(r["task_id"], r["behaviour"], r["method"], r["alpha"]) for r in result}
@@ -140,7 +161,7 @@ def test_wrong_key_task_id_only_DOES_collapse(tmp_path, always_good):
         _phase7_chain("t1", "backtracking", "single_direction", 16.0),
     ]
     out = tmp_path / "ann.json"
-    result = annotate_chains(chains, save_path=out, dedup_keys=("task_id",))
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=("task_id",))
     # All four iterate, but the LAST write per key wins / earlier get skipped on
     # the 2nd..4th iterations because the first is appended immediately and its
     # key is in done_ids. Net: fewer than 4 unique keys are stored.
@@ -160,13 +181,13 @@ def test_resume_skips_completed_chains(tmp_path, monkeypatch):
 
     stub1 = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub1)
-    annotate_chains(chains, save_path=out, dedup_keys=key)
+    annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert stub1.calls == 2
 
     # Re-run: everything already complete → proxy must NOT be hit again.
     stub2 = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub2)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert stub2.calls == 0, "resume re-annotated already-complete chains"
     assert len(result) == 2
 
@@ -181,7 +202,7 @@ def test_kill_after_then_resume(tmp_path, monkeypatch):
 
     stub1 = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub1)
-    annotate_chains(chains, save_path=out, dedup_keys=key, kill_after=2)
+    annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key, kill_after=2)
     saved = json.loads(out.read_text())
     assert len(saved) == 2, "kill_after did not stop+save after 2 new chains"
     assert stub1.calls == 2
@@ -189,7 +210,7 @@ def test_kill_after_then_resume(tmp_path, monkeypatch):
     # Resume: only the remaining 3 are annotated.
     stub2 = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub2)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert stub2.calls == 3, "resume re-did work or skipped remaining chains"
     assert len(result) == 5
     assert len({(r["task_id"]) for r in result}) == 5
@@ -221,7 +242,7 @@ def test_proxy_503_does_not_crash_loop_and_saves_progress(tmp_path, monkeypatch)
         return GOOD_RESPONSE
 
     monkeypatch.setattr(ann, "_proxy_call", _ProxyStub(behaviour))
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
 
     assert len(result) == 4, "a failing chain dropped the run's other chains"
     by_task = {r["task_id"]: r for r in result}
@@ -236,7 +257,7 @@ def test_proxy_503_does_not_crash_loop_and_saves_progress(tmp_path, monkeypatch)
     # Resume with credits restored: only the incomplete chain is retried.
     good = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", good)
-    result2 = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result2 = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert good.calls == 1, "resume should retry exactly the 1 failed chain"
     assert all(r["annotation_complete"] for r in result2)
 
@@ -262,7 +283,7 @@ def test_annotate_chain_raise_does_not_crash_loop(tmp_path, monkeypatch):
         return [{"label": "deduction", "text": "ok"}], True
 
     monkeypatch.setattr(ann, "annotate_chain", fake_annotate_chain)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
 
     # The loop survived the raise.
     assert len(result) == 4
@@ -278,7 +299,7 @@ def test_annotate_chain_raise_does_not_crash_loop(tmp_path, monkeypatch):
         return [{"label": "deduction", "text": "ok"}], True
 
     monkeypatch.setattr(ann, "annotate_chain", healthy)
-    result2 = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result2 = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert all(r["annotation_complete"] for r in result2)
     assert len(result2) == 4
 
@@ -297,7 +318,7 @@ def test_missing_chain_key_does_not_crash_loop(tmp_path, always_good):
         _phase7_chain("t2", "backtracking", "single_direction", 8.0),
     ]
     out = tmp_path / "ann.json"
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert len(result) == 3
     by_task = {r["task_id"]: r for r in result}
     assert by_task["t0"]["annotation_complete"] is True
@@ -319,7 +340,7 @@ def test_missing_dedup_key_does_not_crash_loop(tmp_path, always_good):
     ]
     out = tmp_path / "ann.json"
     # Must not raise.
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert len(result) == 2
 
 
@@ -349,7 +370,7 @@ def test_partial_record_is_retried_on_resume(tmp_path, monkeypatch):
     ]
     stub = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
 
     # Only t1 retried (t0 already complete).
     assert stub.calls == 1
@@ -373,7 +394,7 @@ def test_backward_compat_legacy_record_without_complete_flag(tmp_path, monkeypat
     chains = [_phase7_chain("t0", "backtracking", "single_direction", 8.0, "x")]
     stub = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert stub.calls == 0, "legacy complete record was re-annotated"
     assert len(result) == 1
 
@@ -391,7 +412,7 @@ def test_legacy_record_with_empty_annotations_is_retried(tmp_path, monkeypatch):
                             "Reasoning here.")]
     stub = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
     monkeypatch.setattr(ann, "_proxy_call", stub)
-    result = annotate_chains(chains, save_path=out, dedup_keys=key)
+    result = annotate_chains(chains, coverage_validation=False, save_path=out, dedup_keys=key)
     assert stub.calls == 1
     assert len(result) == 1
     assert result[0]["annotation_complete"] is True
@@ -481,6 +502,29 @@ def test_requests_post_anthropic_list_shape_parses(monkeypatch):
     assert [s["label"] for s in spans] == ["initializing", "deduction"]
 
 
+def test_anthropic_multiple_text_blocks_are_joined(monkeypatch):
+    body = {"content": [
+        {"type": "text", "text": '["initializing"]Start.["end-section"]'},
+        {"type": "text", "text": '["deduction"]Finish.["end-section"]'},
+    ]}
+
+    monkeypatch.setattr(
+        ann.requests, "post",
+        lambda *args, **kwargs: _FakeResp(200, json_body=body),
+    )
+    spans = _annotate_single("text", proxy_url="http://x", proxy_key="k")
+    assert [s["label"] for s in spans] == ["initializing", "deduction"]
+
+
+def test_unknown_label_is_never_coerced_to_deduction(monkeypatch):
+    bad = '["mystery-label"]Wait.["end-section"]'
+    stub = _ProxyStub(lambda i, prompt: bad)
+    monkeypatch.setattr(ann, "_proxy_call", stub)
+    spans = _annotate_single("text", max_retries=2)
+    assert spans == []
+    assert stub.calls == 2
+
+
 def test_model_param_threads_through_to_proxy(monkeypatch):
     """A non-default annotator model passed to annotate_chains must reach
     _proxy_call (the lever that breaks builder-scores-own-output circularity).
@@ -494,7 +538,7 @@ def test_model_param_threads_through_to_proxy(monkeypatch):
 
     monkeypatch.setattr(ann, "_proxy_call", fake_proxy)
     chains = [_phase7_chain("t1", "backtracking", "single_direction", 8.0)]
-    annotate_chains(chains, dedup_keys=("task_id",),
+    annotate_chains(chains, coverage_validation=False, dedup_keys=("task_id",),
                     model="eu.anthropic.claude-other-model")
     assert seen["model"] == "eu.anthropic.claude-other-model"
 
@@ -512,27 +556,32 @@ def test_chunk_chain_splits_long_text():
         assert ("Paragraph %d " % i) in joined
 
 
-def test_chunk_chain_overlap_is_dropped_when_paragraph_exceeds_overlap_budget():
-    """FINDING (BUG, documented not fixed): chunk_chain's overlap loop breaks on
-    the FIRST paragraph whose own token-estimate exceeds ``overlap_tokens``, so
-    when individual paragraphs are larger than the overlap budget NO overlap is
-    carried between chunks at all. With the production defaults
-    (CHUNK_OVERLAP_TOKENS=100 ≈ 400 chars) any reasoning paragraph longer than
-    ~400 chars — extremely common — produces ZERO overlap, defeating the
-    seam-artefact protection that merge_chunk_annotations + _CONTINUATION_PREFIX
-    were built around. This test PINS the current behaviour.
-    """
-    # Each paragraph (~11 tokens) is larger than overlap_tokens=10.
+def test_legacy_nonzero_overlap_is_bounded_even_for_large_paragraphs():
+    """Explicit legacy overlap is character-bounded and cannot disappear just
+    because the final paragraph is larger than the overlap budget."""
     paras = ["Paragraph %d content here with several words." % i for i in range(40)]
     chunks = chunk_chain("\n\n".join(paras), target_tokens=50, overlap_tokens=10)
-    overlaps = []
     for a, b in zip(chunks, chunks[1:]):
-        tail_para = a.split("\n\n")[-1]
-        overlaps.append(tail_para in b)
-    assert not any(overlaps), (
-        "overlap unexpectedly present — the chunk_chain overlap bug may have "
-        "been fixed; if so, update merge tests and this assertion deliberately"
-    )
+        assert a[-40:] in b
+        assert ann._estimate_tokens(b) <= 60
+
+
+def test_production_chunking_has_zero_overlap_and_lossless_merge():
+    text = "\n\n".join(f"Paragraph {i}. More reasoning." for i in range(300))
+    chunks = chunk_chain(text)
+    assert len(chunks) > 1
+    assert all(a[-40:] not in b for a, b in zip(chunks, chunks[1:]))
+    annotations = [[{"label": "deduction", "text": f"chunk-{i}"}]
+                   for i in range(len(chunks))]
+    merged = merge_chunk_annotations(chunks, annotations)
+    assert [a["text"] for a in merged] == [f"chunk-{i}" for i in range(len(chunks))]
+
+
+def test_one_huge_paragraph_is_split_below_proxy_input_budget():
+    text = "word " * 5000
+    chunks = chunk_chain(text)
+    assert len(chunks) > 1
+    assert all(ann._estimate_tokens(c) <= ann.CHUNK_TARGET_TOKENS for c in chunks)
 
 
 def test_merge_discards_overlap_spans_from_later_chunks():
@@ -582,14 +631,9 @@ def test_partial_chunk_failure_marks_chain_incomplete(monkeypatch):
     assert spans, "expected partial annotations from the chunks that succeeded"
 
 
-def test_cf18_overlap_dedup_can_delete_genuine_recurrence():
-    """CF-18 documentation test (NOT a fix): merge_chunk_annotations drops a span
-    from chunk N+1 purely because its text also appears verbatim in the overlap
-    tail of chunk N. A genuinely-recurring SHORT sentence (e.g. 'Wait.') that
-    legitimately appears in both the overlap region AND later in chunk N+1 can be
-    silently deleted. This test PINS the current (lossy) behaviour so a future
-    fix is a deliberate, reviewed change.
-    """
+def test_cf18_overlap_dedup_preserves_genuine_recurrence():
+    """Legacy overlap drops its leading duplicate but retains a later genuine
+    recurrence of the same short backtracking sentence."""
     chunk_texts = ["... Wait.", "Wait. Now something else. Wait."]
     chunk_anns = [
         [{"label": "backtracking", "text": "Wait."}],
@@ -601,6 +645,4 @@ def test_cf18_overlap_dedup_can_delete_genuine_recurrence():
     ]
     merged = merge_chunk_annotations(chunk_texts, chunk_anns, overlap_tokens=4)
     texts = [s["text"] for s in merged]
-    # Current behaviour: BOTH "Wait." spans in chunk 1 are dropped (text-in-region
-    # check is not positional), so the genuine recurrence is lost.
-    assert texts.count("Wait.") == 1  # documents the CF-18 over-deletion
+    assert texts.count("Wait.") == 2

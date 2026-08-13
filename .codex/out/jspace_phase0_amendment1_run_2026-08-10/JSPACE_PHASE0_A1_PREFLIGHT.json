@@ -1,0 +1,9 @@
+{
+  "errors": [],
+  "execution_authorised": false,
+  "manifest": "/workspace/jspace-phase0/results/prereg/JSPACE_R1_BENCHMARK_MANIFEST_2026-08-10_AMENDMENT1.json",
+  "manifest_sha256": "31f12eef6a138cf3415d27a909d76dac27e9dc5ec5cd4833b7f91e7243ce5cfd",
+  "n_prompts": 5,
+  "ok": true,
+  "warnings": []
+}

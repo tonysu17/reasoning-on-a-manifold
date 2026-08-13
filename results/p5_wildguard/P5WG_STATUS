@@ -1,0 +1,15 @@
+2026-08-09T20:32:19Z SETUP under job clock: apt + locked wheels
+2026-08-09T20:32:25Z PREFLIGHT (offline, zero-spend)
+2026-08-09T20:36:42Z SETUP under job clock: apt + locked wheels
+2026-08-09T20:36:44Z PREFLIGHT (offline, zero-spend)
+2026-08-09T20:36:45Z STAGE_WEIGHTS (network; pinned revision, verified snapshot)
+2026-08-09T20:48:48Z SETUP under job clock: apt + locked wheels
+2026-08-09T20:48:51Z PREFLIGHT (offline, zero-spend)
+2026-08-09T20:48:51Z STAGE_WEIGHTS (network; pinned revision, verified snapshot)
+2026-08-09T20:51:29Z RUN (offline; local snapshot, BF16-at-construction, batch 1)
+2026-08-09T21:01:48Z SETUP under job clock: apt + locked wheels
+2026-08-09T21:01:50Z PREFLIGHT (offline, zero-spend)
+2026-08-09T21:01:51Z STAGE_WEIGHTS (network; pinned revision, verified snapshot)
+2026-08-09T21:01:58Z RUN (offline; local snapshot, BF16-at-construction, batch 1)
+2026-08-09T21:02:27Z VERIFY (chain + rows + diag linkage; no aggregation)
+2026-08-09T21:02:28Z DONE — waiting for Mac watcher verified pull; terminate from console

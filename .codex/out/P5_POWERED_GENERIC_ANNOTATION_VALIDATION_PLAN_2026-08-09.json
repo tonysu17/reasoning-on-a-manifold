@@ -1,0 +1,123 @@
+{
+  "schema_version": "p5-powered-generic-annotation-validation-plan-1",
+  "status": "prospective_non_executable_phase2_and_spend_gated",
+  "created_date": "2026-08-09",
+  "execution_authorized": false,
+  "api_model_pod_human_calls_authorized": 0,
+  "approved_design_source": {
+    "path": ".codex/out/P5_POWERED_GENERIC_PROTOCOL_APPROVED_DESIGN_2026-08-09.json",
+    "internal_sha256": "0bf279cbac7a7fae51c89642af9b1dd068274a2acb517622b30efa6221664e2a",
+    "file_sha256": "e36d44c20c6bde9dc197d0d2bccb6479c7134b654d8c29175f418a26375e2b6f"
+  },
+  "population": {
+    "tasks": 100,
+    "categories": 10,
+    "roles": [
+      "phase2_base_r1_shared",
+      "phase2_public_star1_shared",
+      "phase2_deepscaler_shared",
+      "p5_owned_fullft_control_s42",
+      "p5_owned_fullft_safety_s42"
+    ],
+    "planned_rows": 500,
+    "shared_phase2_rows": 300,
+    "p5_owned_rows": 200,
+    "independent_scientific_unit": "task/prompt",
+    "checkpoint_rows": "nested repeated observations",
+    "primary_contrast": "p5_owned_fullft_control_s42 versus p5_owned_fullft_safety_s42",
+    "secondary_contrasts": [
+      "phase2_base_r1_shared versus phase2_public_star1_shared",
+      "every contrast involving phase2_deepscaler_shared"
+    ]
+  },
+  "estimand": {
+    "primary_prefix": "first 4096 canonical generated token ids or earlier EOS",
+    "source_unit": "deterministic sentence/clause unit within the frozen prefix",
+    "endpoints": [
+      "backtracking",
+      "uncertainty-estimation",
+      "example-testing",
+      "adding-knowledge"
+    ],
+    "denominator": "number of deterministic source units in that task-checkpoint prefix",
+    "missingness": "missing or malformed annotations remain missing and never enter the denominator as negative labels"
+  },
+  "validation_stage": {
+    "tasks": 20,
+    "tasks_per_category": 2,
+    "roles_per_task": 5,
+    "planned_rows": 100,
+    "selection_rule": "within each frozen category, sort tasks by sha256('p5-generic-validation-2026-08-09|' + stable_task_id) and select the first two",
+    "selection_timing": "after the Phase-2 manifest is hash-bound but before any annotation response is inspected",
+    "reuse_if_passes": "the 100 validation rows remain part of the 500-row study under the identical protocol; they are not regenerated or rescored",
+    "held_out_rows": 400,
+    "held_out_rule": "do not start unless the operational gate passes"
+  },
+  "operational_gate": {
+    "atomic_terminal_persistence": 1.0,
+    "minimum_global_valid_row_rate": 0.98,
+    "minimum_valid_rows": 98,
+    "minimum_per_role_valid_rate": 0.95,
+    "minimum_valid_rows_per_role": 19,
+    "generation_lineage_and_prefix_hash_match": 1.0,
+    "source_reassembly_and_endpoint_recomputation": 1.0,
+    "response_envelope_and_accounting_recorded": 1.0,
+    "missing_is_never_zero": true,
+    "same_sonnet_repeat_is_interannotator_evidence": false,
+    "fail_action": "stop before the 400 held-out rows; preserve missingness; diagnose and propose a new versioned validation rather than silently retrying under a changed protocol"
+  },
+  "transport_and_retry": {
+    "atomic_unit": "one deterministic source-unit chunk",
+    "maximum_total_attempts_per_chunk": 2,
+    "retryable": [
+      "timeout",
+      "HTTP 504",
+      "TLS/SSL transport failure",
+      "documented empty response envelope"
+    ],
+    "non_retryable": [
+      "schema-valid substantive annotation",
+      "parser/schema failure after a non-empty model response",
+      "evidence or source-unit mismatch"
+    ],
+    "retry_identity": "identical model, request bytes, prompt template, source units, output limit, and parser",
+    "raw_response_text_persistence": "hash plus minimum sanitized diagnostic envelope; any retained text must follow the approved data policy"
+  },
+  "phase2_annotation_reuse": {
+    "raw_generation_reuse_required": true,
+    "annotation_reuse_default": "not_assumed",
+    "eligible_only_if_all": [
+      "annotation binds to the exact canonical shared-generation row hash",
+      "annotation binds to the exact P5 4096-token-or-EOS prefix hash",
+      "the complete P5 prefix is annotated rather than only an A4/window subset",
+      "deterministic source-unit segmentation version and source-unit hashes match P5",
+      "six-label ontology and four endpoint derivations match P5",
+      "builder model/revision, prompt template, parser, evidence contract, and missingness contract are hash-bound",
+      "no Phase-2 causal-family outcome is disclosed before its gate permits it"
+    ],
+    "if_ineligible": "reuse the raw generation only and run a separately authorized P5 annotation pass",
+    "never_regenerate_shared_generation": true
+  },
+  "human_audit": {
+    "status": "prospective_not_authorized",
+    "purpose": "annotator-dependence audit, not pipeline repeatability",
+    "recommended_rows": 20,
+    "selection": "four checkpoint-blind rows per role, balanced across categories and chosen before automated labels are opened",
+    "report": [
+      "raw agreement by endpoint",
+      "endpoint prevalence",
+      "Cohen kappa with prevalence caveat",
+      "Gwet AC1",
+      "uncertain and missing rates"
+    ],
+    "boundary": "absence of this audit requires builder-annotator-scored wording"
+  },
+  "required_before_execution": [
+    "Phase-2 manifest, canonical shared-generation, row, shard, and prefix hashes",
+    "P5-owned generation manifest and row hashes",
+    "exact annotation model/revision, prompt, parser, envelope, retry, and evidence hashes",
+    "exact validation task IDs and selection hash",
+    "calibrated request count and hard API cost ceiling",
+    "explicit owner authorization for the exact hash-bound validation stage"
+  ]
+}

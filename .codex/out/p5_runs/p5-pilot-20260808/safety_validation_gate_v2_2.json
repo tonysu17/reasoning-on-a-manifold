@@ -1,0 +1,17 @@
+{
+  "schema_version": "p5-pilot-safety-v2.2-validation-gate-1",
+  "created_at_utc": "2026-08-09T15:47:52Z",
+  "manifest_sha256": "29de70c816a2fd6fbf6fcf786cee2543935332870244e24756de1a93be9c669c",
+  "status": "fail",
+  "effect_values_inspected": false,
+  "planned_validation_chunks": 104,
+  "terminal_validation_chunks": 104,
+  "successful_response_chunks": 90,
+  "complete_parser_and_evidence_chunks": 90,
+  "atomic_terminal_chunk_persistence_rate": 1.0,
+  "complete_parser_and_evidence_rate_among_successful_responses": 1.0,
+  "network_success_rate": 0.8653846153846154,
+  "errors": [
+    "network success rate below gate"
+  ]
+}

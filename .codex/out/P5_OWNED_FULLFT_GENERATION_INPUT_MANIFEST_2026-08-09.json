@@ -1,0 +1,898 @@
+{
+  "boundary": "This manifest freezes inputs only. It performs no generation and grants no permission for model loading, network access, API calls, or pod spend.",
+  "checkpoint_pair": {
+    "control": {
+      "directory_manifest_sha256": "215d3f3bffda1ad10e18103648b8fcceb37e5838d2040847b1932c20fd87165f",
+      "files": [
+        {
+          "name": "chat_template.jinja",
+          "sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "size": 2246
+        },
+        {
+          "name": "config.json",
+          "sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+          "size": 1394
+        },
+        {
+          "name": "generation_config.json",
+          "sha256": "a16cf9c652516066461941f15b39a4863513c78e151cb85996fb95b6d2f16ebe",
+          "size": 181
+        },
+        {
+          "name": "model.safetensors",
+          "sha256": "1b2e5691496e780d577ff3ecd70b8f0e24eaf6dc34fa8e6169df56ed12588d65",
+          "size": 3554214752
+        },
+        {
+          "name": "tokenizer.json",
+          "sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+          "size": 11421907
+        },
+        {
+          "name": "tokenizer_config.json",
+          "sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+          "size": 421
+        },
+        {
+          "name": "training_summary.json",
+          "sha256": "ec7a962d9bf16d4df40e85865ec7dd4283825c5728011d19a98cc780a1aff3e0",
+          "size": 476
+        }
+      ],
+      "path": "checkpoints/pod_fullft/fullft_control_s42"
+    },
+    "model_weights_distinct": true,
+    "safety": {
+      "directory_manifest_sha256": "a6746c3d59b9ac5b19f7558b6edcc547e14b276debc7eec4eb03d554e0aac28e",
+      "files": [
+        {
+          "name": "chat_template.jinja",
+          "sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "size": 2246
+        },
+        {
+          "name": "config.json",
+          "sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+          "size": 1394
+        },
+        {
+          "name": "generation_config.json",
+          "sha256": "a16cf9c652516066461941f15b39a4863513c78e151cb85996fb95b6d2f16ebe",
+          "size": 181
+        },
+        {
+          "name": "model.safetensors",
+          "sha256": "37ebbcac54ce8bc55f5d061f8c0a88b2d826ecb1a342e1a2d11da7d3b4906dc4",
+          "size": 3554214752
+        },
+        {
+          "name": "tokenizer.json",
+          "sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+          "size": 11421907
+        },
+        {
+          "name": "tokenizer_config.json",
+          "sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+          "size": 421
+        },
+        {
+          "name": "training_summary.json",
+          "sha256": "bc285b218c4435c7ed9bce35ee4fed3f3e928eeb635a9d282cdd8caece649eaa",
+          "size": 470
+        }
+      ],
+      "path": "checkpoints/pod_fullft/fullft_safety_s42"
+    },
+    "shared_tokenizer_template_config_sha256": "70deee9e9561a29062449ac58f243c00bf0304c6c238417e1bdc0f3ae31c4d95"
+  },
+  "checkpoint_rows": "paired repeated observations nested within task",
+  "created_date": "2026-08-09",
+  "execution_authorized": false,
+  "expected_terminal_rows": 200,
+  "generation_contract": {
+    "cap_boundary": "P5-owned rows stop at the approved 4096-token analytic boundary. Phase-2 shared rows retain sealed 8192-token raw generation and are reduced to the same 4096-token P5 estimand analytically.",
+    "chat_template": "local checkpoint template, one user message, add_generation_prompt=true",
+    "custom_stop_strings": [],
+    "default_generation_config_override": "checkpoint generation_config defaults to sampling; the runner must explicitly override do_sample=false and must not inherit temperature/top_p",
+    "do_sample": false,
+    "eos_token_id": 151643,
+    "max_new_tokens": 4096,
+    "pad_token_id": 151643,
+    "primary_analytic_prefix_tokens": 4096,
+    "samples_per_task_role": 1,
+    "seed": 20260808,
+    "seed_semantics": "recorded but inert under greedy decoding",
+    "stop_at_think_close": false,
+    "stored_generated_token_ids": "required; exclude a terminal EOS token",
+    "stored_stop_reason": "required exact enum: eos or length; other requires prospective schema amendment",
+    "stored_text": "decode the stored generated IDs once with skip_special_tokens=true",
+    "temperature_argument": "omit when do_sample=false",
+    "temperature_semantics": 0.0
+  },
+  "hard_stops": [
+    "Phase-2 task-manifest file or ordered task-content hash drift",
+    "control/safety task bytes or input IDs differ",
+    "checkpoint, tokenizer, template, or generation-config hash drift",
+    "runner inherits checkpoint sampling defaults",
+    "generated token IDs or exact stop reason absent",
+    "row conflict, overwrite, or missing terminal row",
+    "runner/environment/cost manifest absent",
+    "owner has not authorized the exact runner/manifest/budget hashes"
+  ],
+  "independent_unit": "task/prompt",
+  "internal_sha256": "f24deb92d6fa3c18b201da8c0f1b5406fe5371a2950310f51937a3e1d95c5987",
+  "network_model_api_pod_calls_authorized": 0,
+  "ordered_prompt_inputs": [
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "38e86906ca0a7fecdd3057c520a012e3c4133a4c472048065036ae2d6087bfbe",
+      "n_input_tokens": 68,
+      "prompt_sha256": "f08a47cfa0400d83d562156a396ee1735054353684ef213d776542a3969c8217",
+      "task_id": "MATH_117"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "ba585d5e8988191ad408e3e90d22e0c5821a9668bbfd1039a08594b834cfb274",
+      "n_input_tokens": 70,
+      "prompt_sha256": "ef3f500578d31540a446a35b5623b09b6def53746b47a171692cf724d0f94ed2",
+      "task_id": "MATH_118"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "c8abc13c7028cdeba64a101f5b4e0a1b5f0917238a978f7a7669fdfc637664e3",
+      "n_input_tokens": 100,
+      "prompt_sha256": "0606ee24ee9a64148e79177d773d76d1ba476330d1bc09ae227b2d55d8b4df57",
+      "task_id": "MATH_119"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "da961d999f465611bbe5342033ab04c1f033ddceeaf6b991514da93f584885a0",
+      "n_input_tokens": 76,
+      "prompt_sha256": "f4f5547ce3818f8a76389894a718214560f6b92c58c89bc43fccff3a69f6a0b8",
+      "task_id": "MATH_120"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "826d435546faaedb75cb746b7a43b27274070a9b477560887415fc50b62960ad",
+      "n_input_tokens": 93,
+      "prompt_sha256": "972a9a1c4570d05415101f5ed7446854658a8f1f3d17a888839ab53442c23657",
+      "task_id": "MATH_121"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "bfc92369cf9a24b93deb004c31ae31cd8fce23379624fbfee2a02a722adbfdcc",
+      "n_input_tokens": 111,
+      "prompt_sha256": "af0476d212c11ff0d4e0b2586f4e5c140bea1c0972a8176b63978dbffd543552",
+      "task_id": "MATH_122"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "56cc92f5853a07e5802e494114eee1ab7fe02a896ace44d2618a4ecc63d43918",
+      "n_input_tokens": 91,
+      "prompt_sha256": "1afe11b528a45d5fb7ba95c1d99ee9011fa905bc6b787288813c17e5ebd715d2",
+      "task_id": "MATH_123"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "967596ab6e91b069de30485f4fe6d9777a7135c3a40bb5609fb7c3263c9879c5",
+      "n_input_tokens": 97,
+      "prompt_sha256": "72e1641beda38af5a23687dfad664572295670d170c1d154e763e8d9c6114011",
+      "task_id": "MATH_124"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "d8f167066d35786ae23d06d061270c0378d0704c494a742baa9749a992d8219b",
+      "n_input_tokens": 100,
+      "prompt_sha256": "1aa3e66d58ae4e01bd05159a3371d24c30c05310cbb52eb57a188848f2062e0a",
+      "task_id": "MATH_125"
+    },
+    {
+      "category": "mathematical_logic",
+      "input_ids_sha256": "bea2ac78af8ca52265d5b5d7b4009094018754e6917dfb4d22bc7232841c5b66",
+      "n_input_tokens": 141,
+      "prompt_sha256": "5f71f640c90bf5050ea2f6b54415397d5e8883c2ca691e493ea34c9df44f6696",
+      "task_id": "MATH_126"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "d640992a83f3a9ee030304e57a41771a5b869672a58b68a9047bf520fa4c1154",
+      "n_input_tokens": 61,
+      "prompt_sha256": "0ccdecc0524da22b68e4f1d54c3e333463528b392da7c8e7d4efeb13ece340b0",
+      "task_id": "SPAT_117"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "9981221e5e76d42f16ec9c75daffd56164992ffde763f45e7ebb217bd8596fd2",
+      "n_input_tokens": 108,
+      "prompt_sha256": "7ce6f2e12b4e3ad31f30ca6765cf0ad036c7dec0f5b2acc49332d9d2e7db5934",
+      "task_id": "SPAT_118"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "9b914256710f62e04360191b3af7ab2240d52cf35b0e5a3e2216f6bc7d3fa068",
+      "n_input_tokens": 75,
+      "prompt_sha256": "dccd9d29fa3c4661bfde6756c55c3841e8a0ea7069934f89d4f70b16f7fcbbc3",
+      "task_id": "SPAT_119"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "29319480c7e3d8c7da1750b2e97ed44fb8c1ac66a72eb685db4fe08019ec4f72",
+      "n_input_tokens": 104,
+      "prompt_sha256": "55ea80d5c0dfc04589f468c569db84f740b1490dc7970e50a805efae0f03bff1",
+      "task_id": "SPAT_120"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "d1a65e344d76244f25e756156d0d32724a337d7a6dd94d5770ce36c8f4274fb8",
+      "n_input_tokens": 116,
+      "prompt_sha256": "98e54ba4b73109da830bc93d2c69149ae5d6ef15bd5f3f05a72464e21eb6a688",
+      "task_id": "SPAT_121"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "eb716eaa3d14008ed34106543e31f2bdef5244448ddf7444ed125ac8d72889dc",
+      "n_input_tokens": 101,
+      "prompt_sha256": "280c85e6cb91a619a6913d9ad503a6e51893ae1af49795c69938f6eea0a1082c",
+      "task_id": "SPAT_122"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "2bbcd89b8a884e274fc567fd82550b099dfd3dfcd219096a43e52a89c6a6d613",
+      "n_input_tokens": 125,
+      "prompt_sha256": "262593a03280953aa2d1c9faaedb5d7305051b9006d232411479f4e94dbe63b0",
+      "task_id": "SPAT_123"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "fb54e6a7039e1cbbe730927d8ee65606f8f4f8649d2be20503c7fe7792346ded",
+      "n_input_tokens": 105,
+      "prompt_sha256": "1c303802e412b491407f684e922fe0d152be34c4317a7d64310b7be646ee0ecf",
+      "task_id": "SPAT_124"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "b76b37ba8561fcc679b51fcb5ca0a5fddafb90ce9030fa418edb34bad3a3f918",
+      "n_input_tokens": 155,
+      "prompt_sha256": "4f2cecdd463dd8898f221c672b8697cfc26af5b2c5f6356b39f3ec306982c040",
+      "task_id": "SPAT_125"
+    },
+    {
+      "category": "spatial_reasoning",
+      "input_ids_sha256": "51d895373ef25b94b371810a9e01d3ae0fa90574970ed560243322c3706d69ce",
+      "n_input_tokens": 156,
+      "prompt_sha256": "6dd56fe0dc5b3e3dfee16498927ee8a60dcf7313b38590ea6807e48681f5352a",
+      "task_id": "SPAT_126"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "a5d075542d214f5fdab6fd3f379fee87b7f5cd8f80108c4bebd23dab318bee2e",
+      "n_input_tokens": 107,
+      "prompt_sha256": "0ebbb1729742602e64ca3e2a226deea579704a9cf2f2150cebc0150bb654e8db",
+      "task_id": "VERB_117"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "4cfd8937205aa1e38a1328b9951ac7de40abf7ac0bcf4818ce4c618fddcd0feb",
+      "n_input_tokens": 112,
+      "prompt_sha256": "d7894fd81be8387d5ae07e9b859c7c8b9d391fa8b5a95f7f7922409ff560c4fb",
+      "task_id": "VERB_118"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "c03b6cb0ad4569b25e0896732de33c4033e55268f17e4ae3b20593b3dad663a5",
+      "n_input_tokens": 104,
+      "prompt_sha256": "28e7a7fb004af3027fb349f21cfea0932e1a182c9c75236a37190bc998f6c7d6",
+      "task_id": "VERB_119"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "81c06ae61cf7252023341f8396c223424dee1aae03ab80b8d73d686769b9d0f3",
+      "n_input_tokens": 111,
+      "prompt_sha256": "f4764e9b811adf97eaba6b4154700b2c9ccb2570f4a97446eb7e6f8768f637eb",
+      "task_id": "VERB_120"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "e1d0e09c3cd19c4b4b1832b2770e0b5bddfc2da9e67496998ded08d6ee2ed2df",
+      "n_input_tokens": 150,
+      "prompt_sha256": "49cd121a185ce544bc63fe95061638651bf13d313bdc399d9432818e4b0ad750",
+      "task_id": "VERB_121"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "35933112600ceffffd192d4d3c343ee0d8d83979b0dd1f61be3e9ee1b44106e0",
+      "n_input_tokens": 137,
+      "prompt_sha256": "478fc725b1d15eb95ee610d90b6b48406e75190c177d0ea63b783b48dce21518",
+      "task_id": "VERB_122"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "a217b0d215cdc75b9f1cbe061eec07d54dab8745913f86c40d3bd36c449d71f8",
+      "n_input_tokens": 129,
+      "prompt_sha256": "e20fe82d0afaf5640973ab8125a99c1f63e5f750130726c5086ea8e0fcbffb79",
+      "task_id": "VERB_123"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "f279a26f796e9e5f0357f9f339d993eaa30df9c68c390f631202cc8f0fc45053",
+      "n_input_tokens": 100,
+      "prompt_sha256": "a14b3e56908885acabcc65a90e891189b19b5b6bdedab3ac8ef3d5774838d288",
+      "task_id": "VERB_124"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "86d4ee0bff97d44ae5e8293e679b54d9c86c5ddbfdd68f3ce986a752ef169c33",
+      "n_input_tokens": 157,
+      "prompt_sha256": "0b3a8994fbde6fda9816868fa971a3efd7179418cc566ee74e72fcf6ef882560",
+      "task_id": "VERB_125"
+    },
+    {
+      "category": "verbal_logic",
+      "input_ids_sha256": "809f0dae130d703109381fe9e7beef94a41987ab93f60dd4d9d539f2e8fe25dd",
+      "n_input_tokens": 168,
+      "prompt_sha256": "99c8ae0f831951830b1ddc19c3f54afdc1e60a219bee9734d10343c40dae76c4",
+      "task_id": "VERB_126"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "e21cfa52ced4af5cfc4d7d258834e8ade03a7af60cf0458a40139f10e6b58a58",
+      "n_input_tokens": 59,
+      "prompt_sha256": "88566239c03a7ce7f88cc2685d3bc385945aa1f2a2f91569d970d54d48dd6cef",
+      "task_id": "PATT_117"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "96ea3684e448d848e9059a239e59652dd798d671f0b29abbf662009c66946bc1",
+      "n_input_tokens": 55,
+      "prompt_sha256": "851f242c6e882b4366bea33f5552a1d573985c1f654c2e94c53f41cbd55d5c35",
+      "task_id": "PATT_118"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "a67ded2388a2445e914096791ff395ce8eff633248a0cb1e86243087e55a3b1f",
+      "n_input_tokens": 106,
+      "prompt_sha256": "8176483ae053a877dee5f25e38c7935aea43f6fc02a0ba6e21ebfeba8f5d7b93",
+      "task_id": "PATT_119"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "c5ceaabde935fc402ff7ef0e61424803368ea7c84c0fd855986d301f091694b3",
+      "n_input_tokens": 75,
+      "prompt_sha256": "54746823eea2c9b376bf95f3e3a8ca03e339ca4b16907c48958f2c680f89d4ae",
+      "task_id": "PATT_120"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "72dd9dd10a8e90e513261cec9d805cab07c8e7b8d5e0a3b17041c7e2aa4bcd52",
+      "n_input_tokens": 105,
+      "prompt_sha256": "cdc28fa35109ce2bd79442e75e62d80469c37d697cde7a18d9bd6e43d5cac0e9",
+      "task_id": "PATT_121"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "11f049725673a6a80431e89872b8aa5db903dcc4b40d1f32601e7e964f3fac73",
+      "n_input_tokens": 79,
+      "prompt_sha256": "280a26d2e2ead2da34eee7b69e3e36bdeac8a4c3c1309d4e31b50b7bb98d68ef",
+      "task_id": "PATT_122"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "16b402a69d51db0a3d543f766e596b1d7f17c3735386bb4da487a0b8f77c1127",
+      "n_input_tokens": 104,
+      "prompt_sha256": "30443f9d07745df205de63a3ee7db11acf8f85ed8567cef89ca8d758855a9308",
+      "task_id": "PATT_123"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "21d4e80d706d6f29c43240e74e78461c3bd747ee3bb67dfc3988da92c7711db4",
+      "n_input_tokens": 106,
+      "prompt_sha256": "4a2b04653fd023b7861a2519d93c984dd8fe61439098d7c5c9e78096d78d76f1",
+      "task_id": "PATT_124"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "df5f005433945c650940da28981a82b4a2bd8d35e74a87cd804b2960a19dd81d",
+      "n_input_tokens": 81,
+      "prompt_sha256": "a140d93270f14d6d5e9b60b8d25b1694fbc701991ae70f385f04f7ad2c04c794",
+      "task_id": "PATT_125"
+    },
+    {
+      "category": "pattern_recognition",
+      "input_ids_sha256": "2cd1300f05b8fa01765d7cf928ce1225871d6a5e2dab21bdb8d72015eb26f7b7",
+      "n_input_tokens": 120,
+      "prompt_sha256": "0c301e579566dfc61552caa8899affd8a2f6f1fb765e33a7370cb73db5635a06",
+      "task_id": "PATT_126"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "c00cdfbb66d35d37284d8f462a66be71497d8b754c13fd41b7205fbb5883f2cb",
+      "n_input_tokens": 79,
+      "prompt_sha256": "26cdca977326849f0b7971889d26481f9c5779d5ac2f1a7e532a3d42ac771efe",
+      "task_id": "LATE_117"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "7a844cf4dd6f5c485a3fde5880753e5b93314c7ab70ab3359adc2c4ca0889b27",
+      "n_input_tokens": 106,
+      "prompt_sha256": "0c7c1a3ba38ba454b8131c085340198e13d4dcb19f4972c05adaa2cc1684125d",
+      "task_id": "LATE_118"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "3aee2bf2633cba4b5a1edff4243b5518993276440b90dfe23b3da15cbd860198",
+      "n_input_tokens": 88,
+      "prompt_sha256": "5734968ffc21ef8965b9cade65de2c03d016862a44808f05fdd56e6f8ca16b03",
+      "task_id": "LATE_119"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "8b9dee61f8903d79097be32782cd7d21ebee54c64806ed0204f597c53213cf5f",
+      "n_input_tokens": 156,
+      "prompt_sha256": "9a06af2f12e6177ac0cd08d45c3f3f062c48000df987b49a1d95b1be4c874e64",
+      "task_id": "LATE_120"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "476c572c7c386865b0f2f108015ee9da42953ec120de2463ec3ade026bfe8ead",
+      "n_input_tokens": 146,
+      "prompt_sha256": "7ab5cf10100319966524479ebc0dee2303d78287f9b7dd8bda840d3b5d6c3892",
+      "task_id": "LATE_121"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "04924bb31687c03743b8f7f6f25a899424fe8e1adfc4f866d0259e1d1b3efafd",
+      "n_input_tokens": 114,
+      "prompt_sha256": "bb96b7b2e1003dff6ff0a5d2afc9b2f4f16c04fc734e555fef33a216d6423aaa",
+      "task_id": "LATE_122"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "da7dd0df5d3bd3421bbe785645fd9f5ad3b25939f201bfadccdb8aafac803906",
+      "n_input_tokens": 114,
+      "prompt_sha256": "24b87ab63b27aeb9675f77d267ab690ea60fdb49ede899a8ccd368c09e2db1f1",
+      "task_id": "LATE_123"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "343c852366f739f9f560632ccf88af1348ebd15fd6e0858ed9a75718baf17e54",
+      "n_input_tokens": 114,
+      "prompt_sha256": "b4f71c666869b110c2a8601e4445ab6d4bc5f97591c9b010aad4330a730bd67b",
+      "task_id": "LATE_124"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "225a401f52444bf2f1c106f1887f321de4c8ecad710a9ba734f9c78bfba3ffbe",
+      "n_input_tokens": 128,
+      "prompt_sha256": "43272d787f042ab6b3949a9c3439bf56e4930d7ef7a4eb6d97532694f649688d",
+      "task_id": "LATE_125"
+    },
+    {
+      "category": "lateral_thinking",
+      "input_ids_sha256": "92399754d4f729ceb1c3c806ceda7cce1e2f479d26c32c04fa6b06f569c19be1",
+      "n_input_tokens": 141,
+      "prompt_sha256": "9be294e405d7a68ad3745aa2dd3dc81d60a689c8155092cbb68acd05e75f395d",
+      "task_id": "LATE_126"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "9f39647861919b32e5aa7645c123af77ebcabc4d5b445134b50a16b7dc1ade1b",
+      "n_input_tokens": 116,
+      "prompt_sha256": "4597e5d37e9070388189fdfead3b373d8a16b19eb9e28521587d2963d2b10254",
+      "task_id": "CAUS_117"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "8be50d912e3a9b815b88f57a8f5982c67d150c3193597269962e9843462893cb",
+      "n_input_tokens": 112,
+      "prompt_sha256": "64161700dddb397782cac3c5cec2990a77bfe9ae03fc8bfbf0e9557e4caacd39",
+      "task_id": "CAUS_118"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "e4f16533142c4bb5d471f66681d803b797be141e10ae1536ededadd142a8b529",
+      "n_input_tokens": 130,
+      "prompt_sha256": "203e0831d9d23e698e53053e8b66e3021eb42f33865fda375cf730542656f5e6",
+      "task_id": "CAUS_119"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "d24385579915127792502e620984833288880da090bd9edd07e634bc8c1caf0b",
+      "n_input_tokens": 167,
+      "prompt_sha256": "9c81d8da76088ff9d69ed17aac4994b52fea0dbd5732b62727c84ac57c39dcca",
+      "task_id": "CAUS_120"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "ba5c7cff08fd7dd2083dd2ad06c35d1ff771d1cde354524bb81e8fa5677c5e77",
+      "n_input_tokens": 148,
+      "prompt_sha256": "3529551c0c1df82c5bcc430df6490eab06694fe5cc08b630913f1cdd84c7d3ca",
+      "task_id": "CAUS_121"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "a62247b97d504da54b7fd9365272757ebf90f58a6dc963e56a8275f59b1318bd",
+      "n_input_tokens": 160,
+      "prompt_sha256": "79a05f0693cfaac67452ac99571850a00278cc8f5210d2b6ced0caa1c44be4e0",
+      "task_id": "CAUS_122"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "e8d2df895b32906a256ba04aece57256989bd1ed975a858c27370121ee0fc48c",
+      "n_input_tokens": 179,
+      "prompt_sha256": "7ab552195133119821de8f73b94885eb1f2aaf3c85feb3ac17a2a95dfa5d93c2",
+      "task_id": "CAUS_123"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "a000b23944951bcb6f67a30a706ff5f2c1777cd28e4cfb8982a935faf8c2e92a",
+      "n_input_tokens": 153,
+      "prompt_sha256": "39c4d3437d95b7255029f0c5a6edc1fe59d713d8948aa677a8e90c22e2f3e3b7",
+      "task_id": "CAUS_124"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "8be79e8effe37fe7cbba832b1e0d4e17272542599a27b8f5437cb435e8b8c65d",
+      "n_input_tokens": 172,
+      "prompt_sha256": "e4259aaab5efd8aa4025fc92538d0f5c9e525c57eace0ffbedeab74fec4683a5",
+      "task_id": "CAUS_125"
+    },
+    {
+      "category": "causal_reasoning",
+      "input_ids_sha256": "b29437002da0d5cd31ecc838a50b23fbf27f87b3d4a90fb369bbc9e12ecddcaf",
+      "n_input_tokens": 164,
+      "prompt_sha256": "9131e275f21109a853094df27ea8a651bec63ff759477fb84a885f5b11fee738",
+      "task_id": "CAUS_126"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "041eb4b8ec72714208fa83fa2b33065bf715507fac5b44720180192fbcb8a6b6",
+      "n_input_tokens": 83,
+      "prompt_sha256": "e6c43dd9ff98e38e8eea4b08512f39c56262a9013101465625cfa80faf43459f",
+      "task_id": "PROB_117"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "e99e5bf63d58e5473dbde33ab032830253a7606317ad21aeed2bd18b04c3258f",
+      "n_input_tokens": 76,
+      "prompt_sha256": "0c5d9124bb264bf182019d06375e1c03b2bdc3a19316636f5aabcf05f45cca9c",
+      "task_id": "PROB_118"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "dad9f7c4fff2129cf17326bc05872c3a908be4cf121f2753aa4e271f901f9642",
+      "n_input_tokens": 99,
+      "prompt_sha256": "6e81b1b7e2af167902d234ec47feed98ade93b7e7fb248354c4e204c88532766",
+      "task_id": "PROB_119"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "d4f11a66ccff0c7291ba79d13f14a3b2209aa831ba4454aba8c6a83e7ca9d40e",
+      "n_input_tokens": 111,
+      "prompt_sha256": "6f22a2135b477eb9c5c00295054467b9a62617a3b506b4243a38f1b19e662b6a",
+      "task_id": "PROB_120"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "a17bbd7f5b6a46b35bc4441e74c599fd2ef27e04162764aad1d35f5d77062502",
+      "n_input_tokens": 111,
+      "prompt_sha256": "27380059f0b87fe839d5c3792988781f95737c19fda70fb3c2721cc55c0785f6",
+      "task_id": "PROB_121"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "63b628cc772d7a855037584c86853b633990b59459d81a3380b151bcfb0ae1f1",
+      "n_input_tokens": 117,
+      "prompt_sha256": "03a9a1708163e77a6c8037d3b67057d2a777024220492ef82ad032a9ce8db15a",
+      "task_id": "PROB_122"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "e40bdb341b72b6adb450a1bd333057dec9ac37a5e5c188d9f608f45b51cc4fd3",
+      "n_input_tokens": 143,
+      "prompt_sha256": "4a93b774698b5f5bb7ea3bb4125b53f1230919a92a6e4f5c254fbbf3c4b77a48",
+      "task_id": "PROB_123"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "9740d1cddae91d65c19cf81e5c8f84ced7629c266b069645f70fa2131187270a",
+      "n_input_tokens": 145,
+      "prompt_sha256": "ff3f21a7d4604204de90c6ab376729e8588e792135f6f3e4197db924a8942ea9",
+      "task_id": "PROB_124"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "773573442a30e2babc459a4e9c3c97d8964c07f6d3e90632e48c7ca83a6cdb36",
+      "n_input_tokens": 145,
+      "prompt_sha256": "dc17b442a4250317211a8d658298cba1e5309354fdd330778ca249f3b194291c",
+      "task_id": "PROB_125"
+    },
+    {
+      "category": "probabilistic_thinking",
+      "input_ids_sha256": "015943b1737f898ab94d4af4126dd192d3df5e5a9afcd7f1c3ad52514847e700",
+      "n_input_tokens": 164,
+      "prompt_sha256": "0fa973159e6ad2fc54e876952bdae6b6eaef58c6c8d2b2982f4f26ce8cae0eca",
+      "task_id": "PROB_126"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "44450dac1d017981114e05973411af67cb063289b8974e7140c068473a3312bc",
+      "n_input_tokens": 109,
+      "prompt_sha256": "9e3e90a88071d6ba6ade5f3a0f91d35ff0f1316d5e1d233976ea2a08e8fa065a",
+      "task_id": "SYST_117"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "30a7753105313b7fd420fa9e4872e8dbf2a1da74682e4bdbe1043b19adc90f5c",
+      "n_input_tokens": 135,
+      "prompt_sha256": "380ba32821f1376b12289bf3e3486ce171cb0fa56539de2a13b87ab8230f6433",
+      "task_id": "SYST_118"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "7d7930ed116eb7ddd2130ffc37a8ed1bec8ced5c9387011165efbfe9abd4172c",
+      "n_input_tokens": 123,
+      "prompt_sha256": "06f038d81facb5fa627d1e1dfa16e06e7eaf9b8890ddc0f522cc3b6732aa4b16",
+      "task_id": "SYST_119"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "32296e3f59753daacbd964ff8d4c4bfc0f2f403fabb5720551f93313c1f70d48",
+      "n_input_tokens": 122,
+      "prompt_sha256": "6c029d7e18365c23263d6fdb5679ebea90da512bc7b0a074f1165dc31a402ef4",
+      "task_id": "SYST_120"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "95e20ef86ee19c935e6f4bcdff5692c65d70e78947d9b5f3ef1958ddbb64edfe",
+      "n_input_tokens": 144,
+      "prompt_sha256": "65d874adf5bdaf71210e725dc4ed190f6c7a53098f401bbb47a2d1033bfc800f",
+      "task_id": "SYST_121"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "a00f1d7f46e1abe2f60304c6351c3e3b41a2616f05acb259706d758eedbebd9e",
+      "n_input_tokens": 149,
+      "prompt_sha256": "512b9abb0912e41d3b2214f208ae791b67aa1b1d02e04aa3c642c22d60c314bf",
+      "task_id": "SYST_122"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "a807fa42646eee24f417ec38ed85e56b0351f379c9085ac899f7699d0f802860",
+      "n_input_tokens": 160,
+      "prompt_sha256": "fd056e6f405542bdc0e0cde9bbf6bd1450dfafb182b6a8540215e238bc642ca3",
+      "task_id": "SYST_123"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "563c3ef07e828ccb58d8ec8862cde9e4fed5ada94a0fe57234973ae19dfeafb9",
+      "n_input_tokens": 141,
+      "prompt_sha256": "e329cfcea42806c4f2f9022b494f0de933c0c211f99256ffce6a8fab31422c26",
+      "task_id": "SYST_124"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "1c51d30886438920635ec25b271871ac6b05a981b932f02ede47aaa4d2d3d073",
+      "n_input_tokens": 151,
+      "prompt_sha256": "fb0f8799e438cb320f51ad1c6ed872e12b97fe7ec56727fbc02a6f70ef836ae2",
+      "task_id": "SYST_125"
+    },
+    {
+      "category": "systems_thinking",
+      "input_ids_sha256": "789c8061f19edada14552d1a71b252a1a90a318ed64ed4d413050e2b6b700cb6",
+      "n_input_tokens": 173,
+      "prompt_sha256": "c5dfaddfad4cfd4772b50b679ade69300f29df0c234a03795cc3f5880b5dbe6d",
+      "task_id": "SYST_126"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "be84f2a889cc27fbe7dd9441378e933c3eb51103ebabc1e223e72c9184ff8339",
+      "n_input_tokens": 129,
+      "prompt_sha256": "ef23d5718b6b15ef7c7014298931d4d48fa13e6755e238945b4ede08ee3e9060",
+      "task_id": "CREA_117"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "de1a14c4c6e57636a63840509d4e6a80778f9b339359f5568f30e24a6e5a757a",
+      "n_input_tokens": 134,
+      "prompt_sha256": "2a053f82fb005ce854882fbf105b81bcd65a9d41cc079874a9bc416858763118",
+      "task_id": "CREA_118"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "353724615bf43bac5fdf0b8eebaffde93b2fee3cf3f9c1774ce4370b9848e63b",
+      "n_input_tokens": 139,
+      "prompt_sha256": "a6308b933ac904cfccb7901dd0b0c43a86a38486f0742967cdc2950dcf44ed1c",
+      "task_id": "CREA_119"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "65053cb3a3e173972bd0f619cb874477ff82c9ceeb8188d16cc64dc1ab00411e",
+      "n_input_tokens": 123,
+      "prompt_sha256": "c318b0effeb72bb5f1510866ac6d3ab4c12b63bd0184fb21f023722e61e9a160",
+      "task_id": "CREA_120"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "069933f0a0e2556ee321abdcf517f33ef2b3edd4af14bcf84b02af92cdab70bd",
+      "n_input_tokens": 137,
+      "prompt_sha256": "076c8291b3feca99f6784724f00698ee51b9004fcccb8b45c65145cf3e6a9cc1",
+      "task_id": "CREA_121"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "272232a07a131e1f6f89cfd97597729f41c136c5ee039504e97a0367a733781e",
+      "n_input_tokens": 98,
+      "prompt_sha256": "abb2866d3be4cf745b55d4be04be394270669c5f6809c2ef9a3e3d061212be94",
+      "task_id": "CREA_122"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "38c668dbc12d448989e183f349bdd0cceedcbe77df27daed08f772f912ea908a",
+      "n_input_tokens": 102,
+      "prompt_sha256": "e456b60d5a989a80bb936ca346b9ae48fde784670a85ee5e6ffd4277871b4e40",
+      "task_id": "CREA_123"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "aaff902350834cb2de1b0bed832860e9c07fbfeb7756dfeb1dab6776888862bf",
+      "n_input_tokens": 116,
+      "prompt_sha256": "7d0715daf2f43e6b353b65ffb51117a584085632fd4daf4ae5e5674dfb5204db",
+      "task_id": "CREA_124"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "04b8c3bc17048866b397a7dcdaa68c4341c230a45d212b196fac8994faec5605",
+      "n_input_tokens": 102,
+      "prompt_sha256": "12e917c5c06eb1598730654d78f63e9a3f664c1a96a29a235ae65ac38aac78d9",
+      "task_id": "CREA_125"
+    },
+    {
+      "category": "creative_problem_solving",
+      "input_ids_sha256": "aaa36faab16601414f82f7241b82d286f431420ff8d41eba8985b32cc1c30e26",
+      "n_input_tokens": 121,
+      "prompt_sha256": "214671e10f43fb266375485ea73861f7a70946004cfc8cefc33ceaca9017fb92",
+      "task_id": "CREA_126"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "d98e285c6777b0b50f8dcdeb698627d5118f04b7d96ba16a1c9227ed9bf5b6a1",
+      "n_input_tokens": 141,
+      "prompt_sha256": "9e1d13e27bedf992c6eedb3fe3112d6b4527c6b47cea7c1002a8e10ed507c15e",
+      "task_id": "SCIE_117"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "bf1e225311338ef3c5f77f3f18d0febc6f65f92284c57b8bc489d5e183f69f05",
+      "n_input_tokens": 106,
+      "prompt_sha256": "ef4155ebef1348c0e54f80f35635f7d2fcd3ef82f342dff3024cf418f03899e7",
+      "task_id": "SCIE_118"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "be3bf81a757712aa451f29c709ff04da68936600d79f4e5655c7087d1258d029",
+      "n_input_tokens": 114,
+      "prompt_sha256": "22564a6dad778a9531353fe73c84f06a4d04847dd066f3eaaf901cd919b71ce4",
+      "task_id": "SCIE_119"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "5cd4fc0c812fdad747a5a548355303fe6cae699c23851c4ec3971eb0bad1975f",
+      "n_input_tokens": 111,
+      "prompt_sha256": "97b2c98f26a1cc8a20980e565f06822375a6ccea812a326f93710e46d00e79d2",
+      "task_id": "SCIE_120"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "50b95c26ef81ef8a09ef391f00520a5702896affd35b5b876a650d5b79e4bfd1",
+      "n_input_tokens": 114,
+      "prompt_sha256": "d48712dfd3f06c75b1d24d7c18ab4080e2535419357bcc43b332d754759be1a4",
+      "task_id": "SCIE_121"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "2271beee1f9704f6ef944802c8a2886386cda5487b520e334f98f7ce84318f38",
+      "n_input_tokens": 141,
+      "prompt_sha256": "8d3f661a8f7fc3f3a4d8d66ed5579f0703fb7dd701a4d8c0238a8fe87a5bd375",
+      "task_id": "SCIE_122"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "80ed491b6de4ebe27a611006e009c7f7afe7808478abc37e29f5809851c2e74a",
+      "n_input_tokens": 135,
+      "prompt_sha256": "e373d2bb69b2ca1398aeb51319b8abe6f4387e8a6fbee3026cb32f81ee5e6cbe",
+      "task_id": "SCIE_123"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "8cbce1e3e114ef645c9c790a7e940d8d1071f8d2192d57edeab326b6f481b1d4",
+      "n_input_tokens": 124,
+      "prompt_sha256": "4395c2dab647357bab366ebba44e24249e99f0e5316cae2f4e162f902446739b",
+      "task_id": "SCIE_124"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "f0fa31d034d5edd04a405c623bb7be70ee9a6dd75246a8cfa90c87dc211db5b5",
+      "n_input_tokens": 135,
+      "prompt_sha256": "ecdc0025fa9dcc1efeb075d8d259e358f883228779b3f51adfb32eaab76e222e",
+      "task_id": "SCIE_125"
+    },
+    {
+      "category": "scientific_reasoning",
+      "input_ids_sha256": "ea73de94036d6ff4a2259167773317f44c97459003f99d478ed9cdaaabd7c85e",
+      "n_input_tokens": 147,
+      "prompt_sha256": "c805f5fa8984207bb9fea0ec483263c0fbf54087a9e285ad86da6289187da954",
+      "task_id": "SCIE_126"
+    }
+  ],
+  "ordered_prompt_inputs_sha256": "52c2ebbc87552879e3fc1539bbae1089211cc8293fcba01386d88534be7389c5",
+  "phase2_task_source": {
+    "file_sha256": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333",
+    "ids_sha256": "c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6",
+    "n_tasks": 100,
+    "ordered_task_content_sha256": "3cb2161ca16679b0da3f12a3c5375410835b8b0b5a20a43c0210b0832c7d9717",
+    "path": "results/prereg/phase2_task_manifest.json",
+    "per_category": {
+      "causal_reasoning": 10,
+      "creative_problem_solving": 10,
+      "lateral_thinking": 10,
+      "mathematical_logic": 10,
+      "pattern_recognition": 10,
+      "probabilistic_thinking": 10,
+      "scientific_reasoning": 10,
+      "spatial_reasoning": 10,
+      "systems_thinking": 10,
+      "verbal_logic": 10
+    }
+  },
+  "remaining_before_execution": [
+    "build and test a hash-bound pod runner in Claude's pod lane",
+    "pin environment/container and cumulative duration/cost guards",
+    "dry-plan exact request/row count and expected pod cost",
+    "obtain Tony's explicit authorization for the returned hashes and ceiling"
+  ],
+  "required_terminal_row_fields": [
+    "schema_version",
+    "task_id",
+    "category",
+    "checkpoint_role",
+    "source_task_manifest_file_sha256",
+    "prompt_sha256",
+    "input_ids_sha256",
+    "generation_config_sha256",
+    "generated_token_ids",
+    "n_tokens",
+    "stop_reason",
+    "raw_max_new_tokens",
+    "text",
+    "text_sha256",
+    "checkpoint_directory_manifest_sha256",
+    "tokenizer_config_sha256",
+    "started_utc",
+    "finished_utc",
+    "row_sha256"
+  ],
+  "roles": [
+    "p5_owned_fullft_control_s42",
+    "p5_owned_fullft_safety_s42"
+  ],
+  "schema_version": "p5-owned-fullft-generation-input-manifest-1",
+  "source_preflight": {
+    "code_path": ".codex/out/p5_powered_generic_preflight.py",
+    "code_sha256": "2d3477ba73945867956250362b83aaee468ca62b07006bdf7d53397d00a22dc4",
+    "snapshot_file_sha256": "99ba17b90e8c0ee3ce9b181133c40095eae7533072bb6bc82821fbd3a24059b3",
+    "snapshot_path": ".codex/out/P5_POWERED_GENERIC_PREFLIGHT_READINESS_2026-08-09.json"
+  },
+  "status": "frozen_inputs_non_executable_runner_cost_and_authorisation_absent",
+  "tokenizer_preflight": {
+    "bos_token_id": 151646,
+    "chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+    "eos_token_id": 151643,
+    "loader_contract": "AutoTokenizer local_files_only=true trust_remote_code=false use_fast=true",
+    "model_max_length": 16384,
+    "pad_token_id": 151643,
+    "phase2_base_alias_equivalence": "pending comparison with the final Phase-2 tokenizer/template hashes; mismatch blocks generation",
+    "tokenizer_config_sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+    "tokenizer_json_sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be"
+  }
+}

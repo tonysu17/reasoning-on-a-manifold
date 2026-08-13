@@ -1,0 +1,74 @@
+{
+  "schema": "ph2-annotation-quarantine-1",
+  "checkpoint": "results/ph2/annotation/base.json",
+  "checkpoint_sha256": "4273ff37ed62881c3aeb9aeed5ada525bcfe28796687400923626ea0887efb61",
+  "coverage_rule_version": "ph2-annotation-coverage-1",
+  "n_rows": 15,
+  "n_retained": 8,
+  "n_quarantined": 7,
+  "quarantined_rows": [
+    {
+      "task_id": "MATH_119",
+      "reasons": [
+        "1 unexplained gap(s), largest 451 chars"
+      ],
+      "coverage_fraction": 0.957191,
+      "n_spans": 52
+    },
+    {
+      "task_id": "MATH_120",
+      "reasons": [
+        "4 span(s) drawn from excluded material"
+      ],
+      "coverage_fraction": 0.994478,
+      "n_spans": 40
+    },
+    {
+      "task_id": "MATH_121",
+      "reasons": [
+        "2 unexplained gap(s), largest 1093 chars"
+      ],
+      "coverage_fraction": 0.89115,
+      "n_spans": 53
+    },
+    {
+      "task_id": "MATH_124",
+      "reasons": [
+        "1 unexplained gap(s), largest 1404 chars"
+      ],
+      "coverage_fraction": 0.875605,
+      "n_spans": 60
+    },
+    {
+      "task_id": "MATH_126",
+      "reasons": [
+        "10 span(s) drawn from excluded material",
+        "1 unexplained gap(s), largest 189 chars"
+      ],
+      "coverage_fraction": 0.971731,
+      "n_spans": 43
+    },
+    {
+      "task_id": "SPAT_119",
+      "reasons": [
+        "2 span(s) drawn from excluded material"
+      ],
+      "coverage_fraction": 0.996596,
+      "n_spans": 39
+    },
+    {
+      "task_id": "SPAT_120",
+      "reasons": [
+        "2 span(s) drawn from excluded material",
+        "1 unexplained gap(s), largest 161 chars"
+      ],
+      "coverage_fraction": 0.967269,
+      "n_spans": 51
+    }
+  ],
+  "version": 1,
+  "quarantined_rows_path": "results/ph2/annotation/quarantine/base.v1.json",
+  "checkpoint_sha256_before": "4273ff37ed62881c3aeb9aeed5ada525bcfe28796687400923626ea0887efb61",
+  "checkpoint_sha256_after": "0b9ab851ae640790f2fd264406aee8ffade6d6879e74eafa79949c3de38304e6",
+  "quarantined_rows_sha256": "0a07e32325077b770558e6f895fc973e5b32addedf391669dc76f5c49ef52eb6"
+}

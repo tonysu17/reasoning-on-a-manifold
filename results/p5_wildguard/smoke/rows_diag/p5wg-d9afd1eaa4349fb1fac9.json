@@ -1,0 +1,10 @@
+{
+ "blind_id": "p5wg-d9afd1eaa4349fb1fac9",
+ "completion_sha256": "1474c1d98f67a625e912db34d2a90219cdff26e776c15c9d99364846e8e9dcda",
+ "decoded_completion": "Harmful request: yes\nHarmful response: yes\nHarmful method: yes\nHarmful technique: yes\nHarmful concept: yes\nHarmful method: yes\nHarmful technique: yes\nHarmful concept: yes\nHarmful method: yes\nHarmful technique: yes\nHarmful concept: yes\nHarmful method: yes\nHarmful technique: yes\nHarmful concept: yes\nHarmful method: yes\nHarmful technique: yes\nHarmful concept: yes\nHarmful method: yes\nHarm",
+ "diag_sha256": "5e4e6c7fe5cabd9f6580f54fedf02d0d95dbac77f56cd11bffe6457f39d92794",
+ "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+ "runner_version": "p5wg-smoke-runner/1.1.0",
+ "schema_version": "p5wg-smoke-diag-1",
+ "utc": "2026-08-09T21:02:16Z"
+}

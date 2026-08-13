@@ -1,0 +1,12 @@
+# P5 WildGuard smoke — exact locked artefacts (install: pip install --no-deps --require-hashes -r p5wg_requirements.lock)
+# Wheels only; hashes from PyPI release metadata 2026-08-09. Transitive deps assumed
+# image-provided (numpy/packaging/filelock/pyyaml/requests); staging import-check fails loudly if absent.
+transformers==4.49.0 --hash=sha256:6b4fded1c5fee04d384b1014495b4235a2b53c87503d7d592423c06128cbbe03
+tokenizers==0.21.0 --hash=sha256:e84ca973b3a96894d1707e189c14a774b701596d579ffc7e69debfc036a61a04
+huggingface_hub==0.28.1 --hash=sha256:aa6b9a3ffdae939b72c464dbb0d7f99f56e649b55c3d52406f49e0a5a620c0a7
+safetensors==0.5.2 --hash=sha256:3ab696dfdc060caffb61dbe4066b86419107a24c804a4e373ba59be699ebd8d5
+regex==2024.11.6 --hash=sha256:f2a19f302cd1ce5dd01a9099aaa19cae6173306d1302a43b627f62e21cf18ac0
+tqdm==4.67.1 --hash=sha256:26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2
+wildguard==1.0.1 --hash=sha256:f5a18704ef7ffd818e9bf073aa2242d33aae9fc2dcc9f3273824b07318e4ec0b
+sentencepiece==0.2.0 --hash=sha256:e58b47f933aca74c6a60a79dcb21d5b9e47416256c795c2d58d55cec27f9551d
+protobuf==5.29.3 --hash=sha256:c027e08a08be10b67c06bf2370b99c811c466398c357e615ca88c91c07f0910f

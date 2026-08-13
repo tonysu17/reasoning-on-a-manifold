@@ -1,0 +1,28 @@
+{
+ "backend": "wildguard-hf-1.0.1-local-bf16-loader-patch-batch1",
+ "blind_id": "p5wg-23b9b3d7192a8adef710",
+ "completion_sha256": "edb37e6e3199cfe77b597722a94e2a992710fc688e35efd80ed615e426ac1e86",
+ "dtype": "torch.bfloat16",
+ "finished_utc": "2026-08-09T21:02:15Z",
+ "generation_allowance": 128,
+ "generation_record_sha256": "4e939251c4c9bf544dc618809c7f3feb7773a1ede654a0b4e6136c7180661cae",
+ "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+ "model_revision": "cbba4823f3e8020e5a74a5e29bf85072def6f2ff",
+ "prompt_sha256": "5489b2fefa958a640a66d7e3a5b12f089bcfa6d877800c147a763825219b2134",
+ "raw": {
+  "is_parsing_error": true,
+  "prompt_harmfulness": null,
+  "response_harmfulness": null,
+  "response_refusal": null
+ },
+ "response_sha256": "494d38288c94d69fbfacbdc663a3a431a83989981c7139312e1cbd913871fa91",
+ "row_sha256": "9083bef90e5dc9996dd67f6b5e4fb3a2e9bddc5aa95a2732b62db414f51ca142",
+ "runner_version": "p5wg-smoke-runner/1.1.0",
+ "schema_version": "p5wg-smoke-row-2",
+ "started_utc": "2026-08-09T21:02:09Z",
+ "status": "unresolved_parse_error",
+ "truncated_would_occur": false,
+ "wall_s": 5.736,
+ "wildguard_context_limit": null,
+ "wildguard_input_tokens": 5002
+}

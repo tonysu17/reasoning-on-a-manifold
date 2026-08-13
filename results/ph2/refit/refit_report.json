@@ -1,0 +1,98 @@
+{
+ "star1": {
+  "checkpoint": {
+   "role": "star1",
+   "source": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "revision": "f865d7ac5136370518986a5273f4d731d7a0f254",
+   "hf_id": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "widths": {
+   "1": {
+    "frame_path": "results/ph2/frames/refit_star1_k1.npy",
+    "class_means": {
+     "c_on": [
+      19.668175626652218
+     ],
+     "c_off": [
+      9.304453153493833
+     ]
+    },
+    "alignment_vs_base": null
+   },
+   "2": {
+    "frame_path": "results/ph2/frames/refit_star1_k2.npy",
+    "class_means": {
+     "c_on": [
+      22.583475632649428,
+      16.97198109185149
+     ],
+     "c_off": [
+      10.139314259029897,
+      3.122760567984349
+     ]
+    },
+    "alignment_vs_base": {
+     "alignment_mean_cos": 0.9338098874354223,
+     "null_p95": 0.05513333005195753,
+     "null_p5": 0.013607175430190748,
+     "n_null": 20,
+     "refit_aligned": true,
+     "refit_misaligned_beyond_null": false
+    }
+   }
+  },
+  "complete": true
+ },
+ "deepscaler": {
+  "checkpoint": {
+   "role": "deepscaler",
+   "source": "agentica-org/DeepScaleR-1.5B-Preview",
+   "revision": "e3f524ce413a296b4d388e7560dd5c82c1c56725",
+   "hf_id": "agentica-org/DeepScaleR-1.5B-Preview",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "widths": {
+   "1": {
+    "frame_path": "results/ph2/frames/refit_deepscaler_k1.npy",
+    "class_means": {
+     "c_on": [
+      20.46939337438451
+     ],
+     "c_off": [
+      10.760698843018224
+     ]
+    },
+    "alignment_vs_base": null
+   },
+   "2": {
+    "frame_path": "results/ph2/frames/refit_deepscaler_k2.npy",
+    "class_means": {
+     "c_on": [
+      31.08743245242795,
+      -14.492622436948821
+     ],
+     "c_off": [
+      13.561141775627112,
+      -8.793085841683451
+     ]
+    },
+    "alignment_vs_base": {
+     "alignment_mean_cos": 0.7873528896358872,
+     "null_p95": 0.05148848593612346,
+     "null_p5": 0.017166173930262173,
+     "n_null": 20,
+     "refit_aligned": true,
+     "refit_misaligned_beyond_null": false
+    }
+   }
+  },
+  "complete": true
+ }
+}

@@ -1,0 +1,321 @@
+{
+  "licensed_consequence": "stop_before_Phase_2_the_fitted_lens_did_not_pass_the_prespecified_validity_gate",
+  "method": {
+    "cumulative_estimand": "same_item_fraction_after_unioning_top25_sets_from_layer_0_through_layer_l",
+    "interpretation_boundary": "posthoc_descriptive_only_does_not_reclassify_phase1_or_license_phase2",
+    "per_layer_estimand": "mean_over_items_of_within_item_fraction_of_eligible_labels_in_layer_top25",
+    "rank_domain": "top25_only_rank_26_means_greater_than_25",
+    "registered_all_layers_estimand": "same_item_fraction_after_unioning_all_27_layer_top25_sets_not_a_layer_average"
+  },
+  "registered_external_gate": {
+    "n_qualifying": 1,
+    "pass": false,
+    "qualifying_evaluations": [
+      "lens-eval-typo"
+    ],
+    "required": 2
+  },
+  "registered_scientific_gate": {
+    "external_positive_controls": false,
+    "heldout_stability": true,
+    "numerical_serialization": true,
+    "pass": false
+  },
+  "run_uuid": "jspace-p1-20260810T224338Z-996077031021",
+  "schema_version": "rom-jspace-r1-phase1-posthoc-failure-map-v1",
+  "scientific_gate_pass": false,
+  "source_integrity_valid_complete": true,
+  "source_sha256": {
+    "ARTIFACT_MANIFEST.json": "4664395bc660b510634d02382dbe6e01caa0a41d86801887547d0a6513782977",
+    "DONE.json": "9a3362a84ab067bef7cea279ee2aacb241d46c703f14ad17df6494322d5ad326",
+    "eligibility_manifest": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c",
+    "external_positive_controls.json": "f86e83dbaae81cbe748e81d6684f63cd6c106c0911820fc9a768c27156de7ed2",
+    "external_readout_arrays.npz": "02ee47f173b034db744758ac915460d1bd7ed5c347bd4022ca97dd95760c6289",
+    "phase1_report.json": "004145b129f289972e740ad23e20084eb0a9109ef0d89383645f3fc269fc35d9",
+    "validation_attempts/jspace-p1v-20260810T231952Z-6ad3de6f3754/INDEPENDENT_VALIDATION.json": "032fdd87f5d66083a854e9e16e782f8089021dc1eed9bee704cef2cbadd72fa7"
+  },
+  "status": "exploratory_posthoc_non_gating",
+  "suite_summaries": {
+    "lens-eval-association": {
+      "lenses": {
+        "fit_a": {
+          "all_layers_union_pass_at25": 0.030612244897959183,
+          "l17_pass_at25": 0.01020408163265306,
+          "n_items_with_any_hit_all_layers": 3,
+          "n_items_with_any_hit_l17": 1,
+          "peak_layer": 5,
+          "peak_layer_pass_at25": 0.01020408163265306
+        },
+        "fit_b": {
+          "all_layers_union_pass_at25": 0.061224489795918366,
+          "l17_pass_at25": 0.01020408163265306,
+          "n_items_with_any_hit_all_layers": 6,
+          "n_items_with_any_hit_l17": 1,
+          "peak_layer": 7,
+          "peak_layer_pass_at25": 0.02040816326530612
+        },
+        "logit": {
+          "all_layers_union_pass_at25": 0.01020408163265306,
+          "l17_pass_at25": 0.01020408163265306,
+          "n_items_with_any_hit_all_layers": 1,
+          "n_items_with_any_hit_l17": 1,
+          "peak_layer": 17,
+          "peak_layer_pass_at25": 0.01020408163265306
+        },
+        "merged": {
+          "all_layers_union_pass_at25": 0.04081632653061224,
+          "l17_pass_at25": 0.01020408163265306,
+          "n_items_with_any_hit_all_layers": 4,
+          "n_items_with_any_hit_l17": 1,
+          "peak_layer": 7,
+          "peak_layer_pass_at25": 0.02040816326530612
+        }
+      },
+      "merged_hit_rank_summary": {
+        "maximum": 24,
+        "median": 10.0,
+        "minimum": 3,
+        "n_label_layer_hits": 8
+      },
+      "merged_l17_hit_rank_summary": {
+        "maximum": 3,
+        "median": 3.0,
+        "minimum": 3,
+        "n_label_hits": 1
+      },
+      "merged_minus_logit_by_layer": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01020408163265306,
+        0.0,
+        0.02040816326530612,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01020408163265306,
+        0.01020408163265306,
+        0.01020408163265306,
+        0.01020408163265306,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "n_items": 98,
+      "n_labels": 98,
+      "registered_checks": {
+        "fit_ab_all_difference_at_most_0.10": true,
+        "fit_ab_l17_difference_at_most_0.10": true,
+        "merged_all_above_p95": false,
+        "merged_all_p_at_most_0.05": false,
+        "merged_l17_above_p95": false,
+        "merged_l17_p_at_most_0.05": false
+      },
+      "registered_gate": false,
+      "registered_permutation": {
+        "all_layers_empirical_upper_p": 0.11788211788211789,
+        "all_layers_p95_higher": 0.04081632653061224,
+        "l17_empirical_upper_p": 0.36363636363636365,
+        "l17_p95_higher": 0.02040816326530612,
+        "n": 1000
+      }
+    },
+    "lens-eval-multihop": {
+      "lenses": {
+        "fit_a": {
+          "all_layers_union_pass_at25": 0.18518518518518517,
+          "l17_pass_at25": 0.0,
+          "n_items_with_any_hit_all_layers": 15,
+          "n_items_with_any_hit_l17": 0,
+          "peak_layer": 25,
+          "peak_layer_pass_at25": 0.13580246913580246
+        },
+        "fit_b": {
+          "all_layers_union_pass_at25": 0.19753086419753085,
+          "l17_pass_at25": 0.0,
+          "n_items_with_any_hit_all_layers": 16,
+          "n_items_with_any_hit_l17": 0,
+          "peak_layer": 25,
+          "peak_layer_pass_at25": 0.13580246913580246
+        },
+        "logit": {
+          "all_layers_union_pass_at25": 0.1728395061728395,
+          "l17_pass_at25": 0.0,
+          "n_items_with_any_hit_all_layers": 14,
+          "n_items_with_any_hit_l17": 0,
+          "peak_layer": 26,
+          "peak_layer_pass_at25": 0.08641975308641975
+        },
+        "merged": {
+          "all_layers_union_pass_at25": 0.18518518518518517,
+          "l17_pass_at25": 0.0,
+          "n_items_with_any_hit_all_layers": 15,
+          "n_items_with_any_hit_l17": 0,
+          "peak_layer": 25,
+          "peak_layer_pass_at25": 0.13580246913580246
+        }
+      },
+      "merged_hit_rank_summary": {
+        "maximum": 25,
+        "median": 6.0,
+        "minimum": 1,
+        "n_label_layer_hits": 37
+      },
+      "merged_l17_hit_rank_summary": null,
+      "merged_minus_logit_by_layer": [
+        0.0,
+        0.012345679012345678,
+        0.0,
+        0.0,
+        -0.012345679012345678,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.012345679012345678,
+        0.0,
+        0.0,
+        0.04938271604938271,
+        0.06172839506172839,
+        0.037037037037037035
+      ],
+      "n_items": 81,
+      "n_labels": 82,
+      "registered_checks": {
+        "fit_ab_all_difference_at_most_0.10": true,
+        "fit_ab_l17_difference_at_most_0.10": true,
+        "merged_all_above_p95": true,
+        "merged_all_p_at_most_0.05": true,
+        "merged_l17_above_p95": false,
+        "merged_l17_p_at_most_0.05": false
+      },
+      "registered_gate": false,
+      "registered_permutation": {
+        "all_layers_empirical_upper_p": 0.000999000999000999,
+        "all_layers_p95_higher": 0.08641975308641975,
+        "l17_empirical_upper_p": 1.0,
+        "l17_p95_higher": 0.0,
+        "n": 1000
+      }
+    },
+    "lens-eval-typo": {
+      "lenses": {
+        "fit_a": {
+          "all_layers_union_pass_at25": 0.8958333333333334,
+          "l17_pass_at25": 0.625,
+          "n_items_with_any_hit_all_layers": 86,
+          "n_items_with_any_hit_l17": 60,
+          "peak_layer": 10,
+          "peak_layer_pass_at25": 0.8020833333333334
+        },
+        "fit_b": {
+          "all_layers_union_pass_at25": 0.8958333333333334,
+          "l17_pass_at25": 0.6666666666666666,
+          "n_items_with_any_hit_all_layers": 86,
+          "n_items_with_any_hit_l17": 64,
+          "peak_layer": 10,
+          "peak_layer_pass_at25": 0.7916666666666666
+        },
+        "logit": {
+          "all_layers_union_pass_at25": 0.5520833333333334,
+          "l17_pass_at25": 0.14583333333333334,
+          "n_items_with_any_hit_all_layers": 53,
+          "n_items_with_any_hit_l17": 14,
+          "peak_layer": 24,
+          "peak_layer_pass_at25": 0.2604166666666667
+        },
+        "merged": {
+          "all_layers_union_pass_at25": 0.8958333333333334,
+          "l17_pass_at25": 0.6458333333333334,
+          "n_items_with_any_hit_all_layers": 86,
+          "n_items_with_any_hit_l17": 62,
+          "peak_layer": 10,
+          "peak_layer_pass_at25": 0.8020833333333334
+        }
+      },
+      "merged_hit_rank_summary": {
+        "maximum": 25,
+        "median": 2.0,
+        "minimum": 1,
+        "n_label_layer_hits": 1414
+      },
+      "merged_l17_hit_rank_summary": {
+        "maximum": 25,
+        "median": 2.0,
+        "minimum": 1,
+        "n_label_hits": 62
+      },
+      "merged_minus_logit_by_layer": [
+        0.03125,
+        0.0,
+        0.25,
+        0.33333333333333337,
+        0.44791666666666663,
+        0.5104166666666667,
+        0.5,
+        0.5208333333333334,
+        0.53125,
+        0.5625,
+        0.6458333333333334,
+        0.625,
+        0.5833333333333334,
+        0.6458333333333334,
+        0.6145833333333334,
+        0.5416666666666667,
+        0.5416666666666666,
+        0.5,
+        0.59375,
+        0.5625,
+        0.5208333333333334,
+        0.53125,
+        0.2916666666666667,
+        0.07291666666666666,
+        0.01041666666666663,
+        0.041666666666666685,
+        -0.020833333333333343
+      ],
+      "n_items": 96,
+      "n_labels": 96,
+      "registered_checks": {
+        "fit_ab_all_difference_at_most_0.10": true,
+        "fit_ab_l17_difference_at_most_0.10": true,
+        "merged_all_above_p95": true,
+        "merged_all_p_at_most_0.05": true,
+        "merged_l17_above_p95": true,
+        "merged_l17_p_at_most_0.05": true
+      },
+      "registered_gate": true,
+      "registered_permutation": {
+        "all_layers_empirical_upper_p": 0.000999000999000999,
+        "all_layers_p95_higher": 0.0625,
+        "l17_empirical_upper_p": 0.000999000999000999,
+        "l17_p95_higher": 0.020833333333333332,
+        "n": 1000
+      }
+    }
+  },
+  "validation_attempt_uuid": "jspace-p1v-20260810T231952Z-6ad3de6f3754"
+}

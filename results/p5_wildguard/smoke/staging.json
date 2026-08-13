@@ -1,0 +1,87 @@
+{
+ "binding": {
+  "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+  "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+  "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+  "manifest_internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4",
+  "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+  "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+  "runner_version": "p5wg-smoke-runner/1.1.0",
+  "safety_prompt_manifest_sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+  "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6"
+ },
+ "body": {
+  "environment": {
+   "cuda": "12.4",
+   "driver": "550.127.05",
+   "fingerprint_sha256": "4d7aa6f22ea9b78a132d41b7c5b5ab6bdc26e9a62af0eb3349c0d1ac5bafaa00",
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "huggingface_hub": "0.28.1",
+   "platform": "linux",
+   "python": "3.11.10",
+   "runner_version": "p5wg-smoke-runner/1.1.0",
+   "runpod_image_tag": null,
+   "safetensors": "0.5.2",
+   "tokenizers": "0.21.0",
+   "torch": "2.4.1+cu124",
+   "tqdm": "4.67.1",
+   "transformers": "4.49.0",
+   "wildguard": "present"
+  },
+  "local_snapshot_manifest": [
+   {
+    "rfilename": "added_tokens.json",
+    "sha256": "b08fce55158c8613b7cf76607aabea21c7fa6eef446df82ed8fe492e655e532a",
+    "size": 18292
+   },
+   {
+    "rfilename": "config.json",
+    "sha256": "435bfa5311de2d3e228250ba40e772d522c6626fb4198b1277c11d7831bf9c61",
+    "size": 649
+   },
+   {
+    "rfilename": "generation_config.json",
+    "sha256": "4127781befe845491ad87abfe0b3325a20247bccebe1414f187fba838d64190c",
+    "size": 116
+   },
+   {
+    "rfilename": "model-00001-of-00002.safetensors",
+    "sha256": "093f6d42cd8153a552c5fc03ece1dc04855c152f791201603deefb4818821bc0",
+    "size": 9949281344
+   },
+   {
+    "rfilename": "model-00002-of-00002.safetensors",
+    "sha256": "99c175a413115200d30910546c898baf3a1c664f5131e5bb717d4b4d542181a5",
+    "size": 4546815992
+   },
+   {
+    "rfilename": "model.safetensors.index.json",
+    "sha256": "c521c2843f01d7b03a8588873f74d11311d4106a61737183d4463c803dbbc809",
+    "size": 25125
+   },
+   {
+    "rfilename": "special_tokens_map.json",
+    "sha256": "51779d91c18d1c6a732af2892daf4914c55706d9f935781a5994f82a060b6054",
+    "size": 16201
+   },
+   {
+    "rfilename": "tokenizer.model",
+    "sha256": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+    "size": 587404
+   },
+   {
+    "rfilename": "tokenizer_config.json",
+    "sha256": "3b3b775aa8a0399c3df3c8f447aa98ac17eadc9a7deb04eed755e5a29af67bc1",
+    "size": 152968
+   }
+  ],
+  "local_snapshot_manifest_sha256": "25afc54c890f565e7d26458e86dc9623ee559769cbc30dafbb1ee870f27c1e83",
+  "local_snapshot_path": "/root/.cache/huggingface/hub/models--allenai--wildguard/snapshots/cbba4823f3e8020e5a74a5e29bf85072def6f2ff",
+  "ok": true,
+  "vllm_stub_sha256": "f0ea3581df23241156faa892527e91817d9574d5313c5a7079ec66802e12b63a"
+ },
+ "predecessor_sha256": "e2f612b9e227d333f8aca9825409415ee00e5c0d9547da04ff2da95c7d67cd61",
+ "report_sha256": "9163bad795f98223d9ce3cab2554f422d8907c9493bde5976f2dff0f80c2663c",
+ "stage": "staging",
+ "utc": "2026-08-09T21:01:58Z"
+}

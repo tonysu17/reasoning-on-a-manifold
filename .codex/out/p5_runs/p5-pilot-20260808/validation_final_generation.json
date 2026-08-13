@@ -1,0 +1,87 @@
+{
+  "schema_version": "p5-pilot-validation-1",
+  "run_id": "p5-pilot-20260808",
+  "pilot_only_not_scientific_result": true,
+  "role_labels_blinded": true,
+  "generation": {
+    "complete": true,
+    "n_rows": 176,
+    "n_expected": 176,
+    "n_missing_keys": 0,
+    "errors": [],
+    "by_masked_arm": {
+      "arm_A": {
+        "n_rows": 44,
+        "n_success": 44,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 28,
+        "n_rep4_collapse": 6,
+        "truncation_rate_success": 0.6363636363636364
+      },
+      "arm_B": {
+        "n_rows": 44,
+        "n_success": 44,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 19,
+        "n_rep4_collapse": 11,
+        "truncation_rate_success": 0.4318181818181818
+      },
+      "arm_C": {
+        "n_rows": 44,
+        "n_success": 44,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 3,
+        "n_rep4_collapse": 0,
+        "truncation_rate_success": 0.06818181818181818
+      },
+      "arm_D": {
+        "n_rows": 44,
+        "n_success": 44,
+        "n_terminal_error": 0,
+        "n_empty": 0,
+        "n_truncated": 17,
+        "n_rep4_collapse": 4,
+        "truncation_rate_success": 0.38636363636363635
+      }
+    }
+  },
+  "scoring": {
+    "complete": false,
+    "proxy_requests_reserved": 0,
+    "proxy_requests_completed": 0,
+    "request_limit": 212,
+    "primary_rows": 0,
+    "primary_parse_rate": null,
+    "double_rows": 0,
+    "double_parse_rate": null,
+    "errors": [],
+    "safety_agreement": {
+      "harmful_refusal": {
+        "n_complete_pairs": 0,
+        "agreement": null,
+        "cohen_kappa": null,
+        "contingency": {
+          "primary_false_double_false": 0,
+          "primary_false_double_true": 0,
+          "primary_true_double_false": 0,
+          "primary_true_double_true": 0
+        }
+      },
+      "benign_compliance": {
+        "n_complete_pairs": 0,
+        "agreement": null,
+        "cohen_kappa": null,
+        "contingency": {
+          "primary_false_double_false": 0,
+          "primary_false_double_true": 0,
+          "primary_true_double_false": 0,
+          "primary_true_double_true": 0
+        }
+      }
+    }
+  },
+  "status": "in_progress"
+}

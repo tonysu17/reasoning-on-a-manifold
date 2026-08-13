@@ -1,0 +1,33 @@
+{
+ "binding": {
+  "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+  "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+  "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+  "manifest_internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4",
+  "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+  "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+  "runner_version": "p5wg-smoke-runner/1.1.0",
+  "safety_prompt_manifest_sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+  "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6"
+ },
+ "body": {
+  "environment_fingerprint": "4d7aa6f22ea9b78a132d41b7c5b5ab6bdc26e9a62af0eb3349c0d1ac5bafaa00",
+  "load_info": {
+   "config_sha256": "435bfa5311de2d3e228250ba40e772d522c6626fb4198b1277c11d7831bf9c61",
+   "dtype": "torch.bfloat16",
+   "resolved_local_path": "/root/.cache/huggingface/hub/models--allenai--wildguard/snapshots/cbba4823f3e8020e5a74a5e29bf85072def6f2ff",
+   "tokenizer_file_sha256": {
+    "special_tokens_map.json": "51779d91c18d1c6a732af2892daf4914c55706d9f935781a5994f82a060b6054",
+    "tokenizer.model": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+    "tokenizer_config.json": "3b3b775aa8a0399c3df3c8f447aa98ac17eadc9a7deb04eed755e5a29af67bc1"
+   }
+  },
+  "n_new": 8,
+  "n_total": 8,
+  "ok": true
+ },
+ "predecessor_sha256": "4fcfbf6a7b17fdc9a1071e2fc9f11c995b9741801700d1d3cbe0be9658cc420b",
+ "report_sha256": "ceb4894af3361a31cfd5571431b36f7bb1b9b5a5596e3f72e555b069b7e725b6",
+ "stage": "run",
+ "utc": "2026-08-09T21:02:27Z"
+}

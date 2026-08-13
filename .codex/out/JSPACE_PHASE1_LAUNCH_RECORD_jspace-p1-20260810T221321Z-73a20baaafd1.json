@@ -1,0 +1,29 @@
+{
+  "schema_version": "rom-jspace-r1-phase1-launch-record-v1",
+  "created_utc": "2026-08-10T22:18:04Z",
+  "run_uuid": "jspace-p1-20260810T221321Z-73a20baaafd1",
+  "pod_id": "bghqqjkco3q7r5",
+  "ssh_host": "213.173.108.144",
+  "ssh_port": 19567,
+  "ssh_identity": "~/.ssh/id_ed25519",
+  "remote_root": "/workspace/jspace-phase1",
+  "run_output_relative": "runs/jspace-p1-20260810T221321Z-73a20baaafd1",
+  "local_output_relative": "results/jspace_r1_pilot/phase1/jspace-p1-20260810T221321Z-73a20baaafd1",
+  "execution_manifest_relative": "results/prereg/JSPACE_R1_PHASE1_EXECUTION_MANIFEST_A3_2026-08-10.json",
+  "execution_manifest_sha256": "ecfc0ab62608ea3f3977224deedc12ae4335b8b2711fbd79033465df75b9ede3",
+  "source_code_commit": "af2695195ad56c1590b9ad8697966544adc2e302",
+  "prelaunch_seal_commit": "564b2db4b0eb925636000ed904310a70f432b0b4",
+  "supersedes_failed_run_uuid": "jspace-p1-20260810T220624Z-1c2c4230f713",
+  "authorised_actions": [
+    "run_phase1_only",
+    "sync_to_fresh_local_staging_after_integrity_valid_DONE",
+    "independently_validate_locally",
+    "terminate_exact_literal_pod_after_verified_promotion"
+  ],
+  "explicitly_not_authorised": [
+    "phase2_decomposition",
+    "causal_intervention",
+    "fallback_pod_stop_or_process_kill",
+    "termination_before_verified_local_sync"
+  ]
+}

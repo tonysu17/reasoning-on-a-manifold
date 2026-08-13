@@ -1,0 +1,80 @@
+{
+ "base": {
+  "checkpoint": {
+   "role": "base",
+   "source": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+   "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "n_pairs": 400,
+  "mean_l2_hs17": 112.05541229248047,
+  "whitening_std_path": "base_whitening_std.npy",
+  "class_means_base_frame": {
+   "c_on": [
+    27.90507800556606,
+    -13.461744141231934
+   ],
+   "c_off": [
+    9.523037027587888,
+    -10.752197320075474
+   ]
+  },
+  "norm_gain_vs_base": 1.0
+ },
+ "star1": {
+  "checkpoint": {
+   "role": "star1",
+   "source": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "revision": "f865d7ac5136370518986a5273f4d731d7a0f254",
+   "hf_id": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "n_pairs": 400,
+  "mean_l2_hs17": 113.92737579345703,
+  "whitening_std_path": "star1_whitening_std.npy",
+  "class_means_base_frame": {
+   "c_on": [
+    28.019360507091598,
+    -13.628740729655755
+   ],
+   "c_off": [
+    9.406765107718385,
+    -10.94099467667587
+   ]
+  },
+  "norm_gain_vs_base": 1.016705685047601
+ },
+ "deepscaler": {
+  "checkpoint": {
+   "role": "deepscaler",
+   "source": "agentica-org/DeepScaleR-1.5B-Preview",
+   "revision": "e3f524ce413a296b4d388e7560dd5c82c1c56725",
+   "hf_id": "agentica-org/DeepScaleR-1.5B-Preview",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "n_pairs": 400,
+  "mean_l2_hs17": 111.40396118164062,
+  "whitening_std_path": "deepscaler_whitening_std.npy",
+  "class_means_base_frame": {
+   "c_on": [
+    29.313430013036935,
+    -13.315634368283131
+   ],
+   "c_off": [
+    10.63212067503925,
+    -10.68744947472898
+   ]
+  },
+  "norm_gain_vs_base": 0.9941864346828987
+ }
+}

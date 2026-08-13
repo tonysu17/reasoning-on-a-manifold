@@ -1,0 +1,190 @@
+{
+ "schema_version": "p5wg-smoke-manifest-2",
+ "prepared_utc": "2026-08-09",
+ "prepared_by": "Claude (pod lane), per P5_WILDGUARD_SMOKE_TO_CLAUDE_2026-08-09.md",
+ "governing_docs": {
+  "smoke_handoff": {
+   "path": ".codex/out/P5_WILDGUARD_SMOKE_TO_CLAUDE_2026-08-09.md",
+   "sha256": "ad7408249c0cc5f8a800fbf750ac71b86386c67e1172b9d6a81729d055051296"
+  },
+  "dry_protocol": {
+   "path": ".codex/out/p5_wildguard_local_protocol.py",
+   "sha256": "42c8f6630cfaaf16908577f2de7b01e5c3684fb5bc394db18a01d28b7107af57"
+  },
+  "codex_review": {
+   "path": ".codex/out/CODEX_TO_CLAUDE_P5WG_SMOKE_REVIEW_2026-08-09.md",
+   "sha256": "380b0827e106054a53d610371da796b99fd881638fe9edefb08e4266999f8881"
+  }
+ },
+ "binding": {
+  "runner_path": "p5wg_smoke_runner.py",
+  "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+  "wrapper_path": "runpod_p5wg_smoke.sh",
+  "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6",
+  "deps_lock_path": "p5wg_requirements.lock",
+  "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+  "rule": "Tony authorizes the exact (runner_sha256, manifest file sha256) pair; the manifest additionally pins wrapper and deps-lock hashes; any edit to any bound file voids authorization."
+ },
+ "authorization": {
+  "status": "authorised",
+  "authorised_by": "Tony (chat, 2026-08-09): 'yes' to the v1.1.1 pair (runner f699c2d9..., manifest 976f216b...) incl. autonomous relaunch->pull->verify->terminate chain",
+  "authorised_pair": {
+   "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+   "pre_flip_manifest_sha256": "976f216bb641bd035fc6564acf2a14ca47422952a1fd9cc966579572f3994741",
+   "note": "this authorised revision's own file sha256 is the launch-valid second half"
+  },
+  "note": "v1.1.1 lock-only fix (sentencepiece+protobuf) after launch-3 tokenizer crash."
+ },
+ "frozen_inputs": {
+  "generations": {
+   "path": ".codex/out/p5_runs/p5-pilot-20260808/generations.jsonl",
+   "sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01"
+  },
+  "safety_prompt_manifest": {
+   "path": ".codex/out/P5_SAFETY_PILOT_MANIFEST_2026-08-08.json",
+   "sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e"
+  }
+ },
+ "smoke": {
+  "n_rows": 8,
+  "strata": {
+   "harmful": 4,
+   "benign": 4
+  },
+  "private_role_counts": [
+   2,
+   2,
+   2,
+   2
+  ],
+  "token_min": 265,
+  "token_max": 4096,
+  "length_cap_hits": 4,
+  "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+  "blind_ids": [
+   "p5wg-08fdaa94c11f1eb259d8",
+   "p5wg-155724cb372c8159aed2",
+   "p5wg-1c2c9949502f39c4d0c1",
+   "p5wg-23b9b3d7192a8adef710",
+   "p5wg-3ac285567303733178d2",
+   "p5wg-56197137c5e1df411979",
+   "p5wg-d9afd1eaa4349fb1fac9",
+   "p5wg-f68fb262aacd92318a81"
+  ]
+ },
+ "model": {
+  "model_id": "allenai/wildguard",
+  "model_revision": "cbba4823f3e8020e5a74a5e29bf85072def6f2ff",
+  "revision_last_modified": "2025-07-27T17:13:05.000Z",
+  "license_from_official_model_card": "apache-2.0",
+  "allow_patterns": [
+   "added_tokens.json",
+   "config.json",
+   "generation_config.json",
+   "model-00001-of-00002.safetensors",
+   "model-00002-of-00002.safetensors",
+   "model.safetensors.index.json",
+   "special_tokens_map.json",
+   "tokenizer.model",
+   "tokenizer_config.json"
+  ],
+  "excluded_duplicates": [
+   "pytorch_model-*.bin (duplicate fp32 weights, ~13.5 GiB saved)",
+   "README.md",
+   ".gitattributes"
+  ],
+  "snapshot_files": [
+   {
+    "rfilename": "added_tokens.json",
+    "size": 18292,
+    "sha256": null
+   },
+   {
+    "rfilename": "config.json",
+    "size": 649,
+    "sha256": null
+   },
+   {
+    "rfilename": "generation_config.json",
+    "size": 116,
+    "sha256": null
+   },
+   {
+    "rfilename": "model-00001-of-00002.safetensors",
+    "size": 9949281344,
+    "sha256": "093f6d42cd8153a552c5fc03ece1dc04855c152f791201603deefb4818821bc0"
+   },
+   {
+    "rfilename": "model-00002-of-00002.safetensors",
+    "size": 4546815992,
+    "sha256": "99c175a413115200d30910546c898baf3a1c664f5131e5bb717d4b4d542181a5"
+   },
+   {
+    "rfilename": "model.safetensors.index.json",
+    "size": 25125,
+    "sha256": null
+   },
+   {
+    "rfilename": "special_tokens_map.json",
+    "size": 16201,
+    "sha256": null
+   },
+   {
+    "rfilename": "tokenizer.model",
+    "size": 587404,
+    "sha256": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89"
+   },
+   {
+    "rfilename": "tokenizer_config.json",
+    "size": 152968,
+    "sha256": null
+   }
+  ],
+  "pinned_snapshot_manifest_sha256": "101bab45242a88ef4e86c0ed511cc5dfde1c29c7b07c2f0dc8bb983f0a05de6d",
+  "expected_download_bytes": 14496898091,
+  "note_small_files": "non-LFS files carry no upstream sha256; integrity = revision pin + size check + sha256 recorded at staging into local_snapshot_manifest"
+ },
+ "wildguard_package": {
+  "pypi_name": "wildguard",
+  "version": "1.0.1",
+  "wheel": "wildguard-1.0.1-py3-none-any.whl",
+  "wheel_sha256": "f5a18704ef7ffd818e9bf073aa2242d33aae9fc2dcc9f3273824b07318e4ec0b",
+  "sdist_sha256": "7d15f4b1aaa6b1896b581e0605fa199f8b337ef2a6ef13fc2f9ea3fcde433cd7",
+  "github_head_commit": "495b9dc837be594c6c5665b0f7f56169baf0d5be",
+  "install": "pip install --no-deps --require-hashes (wheel only)",
+  "vllm_disposition": "official code imports vllm at module top level even for the HF backend; satisfied by an inert stub (source embedded + hashed in the runner) so ONLY WildGuardHF can run; vllm is never installed",
+  "backend": "WildGuardHF via official wildguard==1.0.1 with a PATCHED module-level loader: model+tokenizer from the verified local snapshot, local_files_only=True, torch_dtype=bfloat16 AT CONSTRUCTION (upstream would re-resolve allenai/wildguard in FP32); batch_size 1; post-load refusals on non-BF16 params or out-of-snapshot resolution. NOT byte-identical upstream execution; classifier prompt format, generation path, raw fields, and parser are upstream-official and unmodified."
+ },
+ "environment": {
+  "pod": "RunPod RTX 4090 24GB, official PyTorch template (GPU_GUIDE.md convention)",
+  "deps": "ONLY hash-locked wheels from p5wg_requirements.lock (pip --no-deps --require-hashes); v1.1.1 lock adds sentencepiece 0.2.0 + protobuf 5.29.3 (slow-tokenizer requirements missing from the image — launch-3 crash); remaining transitive deps assumed image-provided, staging import-check fails loudly if absent",
+  "offline_after_staging": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 for run/verify",
+  "immutable_identifier": "environment fingerprint = sha256 over canonical report (image tag, python, torch, cuda, driver, transformers, tokenizers, safetensors, wildguard, GPU) recorded at staging; echoed in run report + provenance; RunPod templates expose no digest, so the fingerprint is the frozen identifier"
+ },
+ "estimates": {
+  "expected_vram_gb": "~15-17 peak (14.5 BF16 weights + <=4.3k-token context, batch 1)",
+  "expected_wall_time_min": "13-22 total under the single job clock (setup+locked wheels 3-6, download 2-6, load 1-2, 8 classifications 2-4, verify+pull <2)",
+  "pod_type": "RTX 4090 24GB secure cloud (<=$0.69/hr) or community (<=$0.35/hr)"
+ },
+ "guards": {
+  "max_job_duration_s": 2700,
+  "assumed_rate_usd_per_hour": 0.69,
+  "hard_cost_ceiling_usd": 1.0,
+  "clock": "SINGLE cumulative job clock: wrapper writes JOB_START before apt/pip; every stage and every wrapper timeout derives from it, so setup + staging + inference + verification share one 2,700 s budget; missing/garbled/future JOB_START refuses",
+  "enforcement": "runner checks cumulative elapsed+cost at stage entry, post-download, post-verify, post-load, and before every row; trip -> SMOKE_FAILED.marker + exit 3",
+  "residual_operator_boundary": "the runner bounds JOB runtime, not billed pod lifetime: the pod bills until console termination after the Mac watcher's verified pull (house rule: no on-pod self-kill); this residual is an operator responsibility and is stated here rather than claimed as automatic"
+ },
+ "output": {
+  "out_dir": "results/p5_wildguard/smoke/",
+  "row_schema_version": "p5wg-smoke-row-2",
+  "rows": "rows/<blind_id>.json — keys: schema_version, blind_id, generation_record_sha256, prompt_sha256, response_sha256, raw{prompt_harmfulness, response_harmfulness, response_refusal, is_parsing_error}, status(parsed|parsed_partial_na|unresolved_parse_error|unresolved_input_too_long), model_revision, backend, dtype, runner_version, manifest_file_sha256, wildguard_input_tokens, wildguard_context_limit, generation_allowance, truncated_would_occur, completion_sha256, started_utc, finished_utc, wall_s, row_sha256",
+  "diagnostics": "rows_diag/<blind_id>.json (schema p5wg-smoke-diag-1): exact decoded classifier completion captured PRE-PARSE, linked from the public row by completion_sha256; arm-blind; diagnostic evidence only, no endpoint may be derived from it; parse-error completions are captured so parse failures are diagnosable",
+  "truncation_policy": "before classification the exact official formatted input is tokenized with truncation DISABLED; untruncated WildGuard-token count, tokenizer limit, and the 128-token generation allowance are recorded per row; an over-limit input persists as unresolved_input_too_long and is NEVER silently classified truncated",
+  "reports": "chained self-hashed stage reports preflight.json -> staging.json -> run.json -> verify.json (each carries runner/wrapper/lock/manifest/frozen-input hashes + predecessor report hash) + provenance.json + SMOKE_DONE.marker",
+  "raw_field_semantics": "official WildGuard labels preserved verbatim incl. per-field N/A->None (parsed_partial_na); is_parsing_error=true -> all three labels null (missing, never coerced); non-refusal/compliance NOT mapped to substantive harmful facilitation or benign on-task compliance (codex bounded_endpoint_view owns any licensed mapping)",
+  "identity_boundary": "no checkpoint/training identity in classifier inputs, rows, or diagnostics (asserted on identity tokens)",
+  "arm_effects": "NOT computed anywhere in the runner",
+  "resume_integrity": "resume/verify re-derive every row's invariants (item hashes, model revision, backend, runner version, manifest hash) from the CURRENT frozen inputs; stale/foreign/stray/duplicate rows are refused even when self-hash-consistent"
+ },
+ "internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4"
+}

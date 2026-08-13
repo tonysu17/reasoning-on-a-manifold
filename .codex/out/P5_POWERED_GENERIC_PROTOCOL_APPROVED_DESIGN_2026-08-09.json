@@ -1,0 +1,292 @@
+{
+  "analysis": {
+    "arm_labelled_pilot_effects_used_for_design": false,
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20260808,
+    "categories": 10,
+    "missingness": "complete pairs per endpoint/contrast; no imputation; report planned tasks, complete pairs, task/checkpoint missingness, and reasons",
+    "multiple_testing": "Holm familywise correction across four endpoints in one primary contrast",
+    "primary_contrast": "owned matched full-FT control seed 42 versus owned full-FT safety seed 42",
+    "primary_estimator": "mean task-level paired difference separately within each predeclared contrast family",
+    "secondary_contrasts": "public STAR1 versus base R1 and every DeepScaleR contrast; estimates and intervals without equal power claim",
+    "standard_error": "task-clustered paired bootstrap, category-stratified; checkpoint rows never resampled independently",
+    "truncation": "report EOS/cap/prefix support by task and checkpoint; cap-hit is observed truncation, not failure"
+  },
+  "analytic_prefix_decision": {
+    "eos_rule": "earlier EOS ends the prefix",
+    "full_completion_analysis": "secondary sensitivity only and separately labelled for cap/EOS support",
+    "if_6144_or_8192_chosen": "current pilot variance does not directly transfer; run a new arm-blinded pipeline/variance pilot or use bounded worst-case sizing",
+    "no_parser_side_clipping_before_raw_artifact_hash": true,
+    "primary_prefix_generated_tokens": 4096,
+    "raw_phase2_generation_contract": "unchanged sealed E8/Option-A raw generation; P5 prefix is analytic only",
+    "recommendation_reason": "matches the pilot estimand and its blinded variance inputs; all roles may preserve longer raw generations, but primary behavioural annotation would stop at the first 4,096 generated token IDs or earlier EOS",
+    "recommended_choice": 4096,
+    "required_definition": "prefix over canonical generated token IDs before EOS under the common base-tokenizer alias; decode the prefix once, retain byte/token hashes, and form deterministic source units only within that prefix",
+    "status": "owner_approved_design_choice"
+  },
+  "checkpoint_structure": {
+    "candidate_roles": [
+      "Phase-2 base R1 shared vanilla",
+      "Phase-2 public STAR1 shared vanilla",
+      "Phase-2 DeepScaleR shared vanilla",
+      "P5-owned matched full-FT control seed 42",
+      "P5-owned full-FT safety seed 42"
+    ],
+    "deepscaler_status": "secondary observational",
+    "independent_unit": "task/prompt",
+    "owned_role_generation_authorized": false,
+    "owned_roles_must_match_phase2_task_bytes_tokenizer_template_and_decoding": true,
+    "primary_contrast_families": [
+      "P5-owned matched full-FT control seed 42 versus full-FT safety seed 42"
+    ],
+    "repeated_observations_nested_within_task": true,
+    "secondary_contrasts": [
+      "Phase-2 base R1 versus public STAR1",
+      "every comparison involving DeepScaleR"
+    ]
+  },
+  "created_at_utc": "2026-08-09T00:00:00Z",
+  "document_sha256": "0bf279cbac7a7fae51c89642af9b1dd068274a2acb517622b30efa6221664e2a",
+  "execution_authorized": false,
+  "generic_annotation_validation": {
+    "disjoint_validation_manifest_sha256": null,
+    "independent_annotator_agreement_claim": false,
+    "minimum_atomic_terminal_persistence": 1.0,
+    "minimum_row_parse_rate": 0.98,
+    "missing_stays_missing": true,
+    "prompt_template_sha256": null,
+    "response_envelope_schema_sha256": null,
+    "same_sonnet_repeats": "not a reliability measure and absent unless separately authorized for stability only",
+    "scorer_version_sha256": null
+  },
+  "hard_stops": [
+    "Phase-2 shared artefact absent, corrupt, or provenance-incomplete",
+    "analytic prefix not selected and hashed",
+    "task bytes/input IDs differ across roles",
+    "generic disjoint validation below 98% parse or 100% terminal persistence",
+    "sample-size choice absent or exceeds available tasks without a prospective manifest expansion",
+    "any attempt to treat checkpoint rows as independent tasks or missing endpoints as zero"
+  ],
+  "owner_approval": {
+    "approved_in_chat_date": "2026-08-09",
+    "recommendation_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_GENERIC_OWNER_DECISION_RECOMMENDATION_2026-08-09.md",
+    "recommendation_sha256": "8a6ab535ce3c0f3dc5d0ee755f8e1ecbe16b968eb36370511aa4bccb5952255e",
+    "scope": "design choices only; no generation, annotation, model inference, API, pod, or human-annotation spend"
+  },
+  "owner_decisions": {
+    "analytic_prefix": 4096,
+    "deepscaler": "secondary observational",
+    "planning_alpha_per_endpoint": 0.0125,
+    "power": 0.8,
+    "smallest_absolute_effect": 0.05,
+    "status": "resolved_for_design",
+    "task_maximum": 100
+  },
+  "phase2_shared_vanilla_condition": {
+    "contract_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PHASE2_SHARED_VANILLA_CONTRACT_2026-08-08.md",
+    "contract_sha256": "391461ca66ef60015d4790a4226ffdb839edd9fdc2ba14fa8be2947acf1184a2",
+    "expected_shared_roles": [
+      "base_r1",
+      "public_star1",
+      "deepscaler"
+    ],
+    "expected_tasks": 100,
+    "expected_terminal_rows": 300,
+    "pre_generation_hash_gate_required": true,
+    "read_only_no_regeneration": true,
+    "required_canonical_artifact_sha256": null,
+    "required_phase2_internal_ids_sha256": null,
+    "required_phase2_manifest_file_sha256": null,
+    "required_phase2_manifest_path": null
+  },
+  "primary_endpoints": {
+    "denominator": "source units in the frozen prefix for that task-checkpoint row",
+    "estimand": "fraction of deterministic source sentence/clause units within the frozen analytic prefix assigned each behaviour label",
+    "names": [
+      "backtracking",
+      "uncertainty-estimation",
+      "example-testing",
+      "adding-knowledge"
+    ],
+    "non_poolability": "v2.1 deterministic source-unit denominator is not pooled with superseded v1 model-generated segmentation"
+  },
+  "proxy_model_or_pod_calls_authorized": 0,
+  "remaining_blockers": [
+    "Phase-2 canonical shared-vanilla manifest, internal-ID, artefact/shard, and row hashes",
+    "P5-owned checkpoint-row generation manifest, exact cost, and owner spend authorization",
+    "generic annotation/scorer validation at the frozen operational gate",
+    "analysis and output manifests bound to final shared-row and analytic-prefix hashes"
+  ],
+  "required_hashes_before_execution": [
+    "Phase-2 canonical shared-vanilla manifest/file/internal IDs and every admitted row/shard",
+    "final ordered 100-task manifest and prompt-text/input-ID hashes",
+    "analytic-prefix definition and per-row prefix hashes",
+    "owned checkpoint weights/configs and exact matched generation configuration",
+    "generic scorer code/tests/prompt/envelope/parser hashes",
+    "analysis code, endpoint family, contrast family, bootstrap seed, and multiplicity plan",
+    "generation/scoring request counts, calibrated spend ceilings, retry limits, and quota floor"
+  ],
+  "sample_size_freeze": {
+    "all_primary_cells_fit_selected_tasks": true,
+    "freeze_rule": "maximum conservative required N across the four endpoints in the single primary owned full-FT safety-versus-control contrast; arm-blinded unsigned paired variance only",
+    "maximum_current_phase2_tasks": 100,
+    "maximum_primary_required_tasks": 80,
+    "must_be_multiple_of_categories": 10,
+    "primary_required_category_balanced_tasks": {
+      "adding-knowledge": 50,
+      "backtracking": 80,
+      "example-testing": 50,
+      "uncertainty-estimation": 60
+    },
+    "secondary_power_boundary": "100 tasks is not claimed to power every five-point public-STAR1/base or DeepScaleR cell",
+    "selected_absolute_effect": 0.05,
+    "selected_alpha_strategy": {
+      "analysis": "Holm familywise correction across four primary endpoints",
+      "planning": "Bonferroni bound across four primary endpoints",
+      "planning_two_sided_alpha_per_endpoint": 0.0125
+    },
+    "selected_power": 0.8,
+    "selected_tasks": 100,
+    "source_grid": {
+      "eight_test_bonferroni_bound": {
+        "0.8": {
+          "0.02": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 1840,
+            "minimum_across_four_endpoints_and_two_contrast_families": 110
+          },
+          "0.03": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 820,
+            "minimum_across_four_endpoints_and_two_contrast_families": 50
+          },
+          "0.05": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 300,
+            "minimum_across_four_endpoints_and_two_contrast_families": 20
+          },
+          "0.075": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 140,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          },
+          "0.1": {
+            "all_cells_fit_current_manifest": true,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 80,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          }
+        },
+        "0.9": {
+          "0.02": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 2320,
+            "minimum_across_four_endpoints_and_two_contrast_families": 140
+          },
+          "0.03": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 1030,
+            "minimum_across_four_endpoints_and_two_contrast_families": 70
+          },
+          "0.05": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 380,
+            "minimum_across_four_endpoints_and_two_contrast_families": 30
+          },
+          "0.075": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 170,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          },
+          "0.1": {
+            "all_cells_fit_current_manifest": true,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 100,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          }
+        }
+      },
+      "nominal_two_sided": {
+        "0.8": {
+          "0.02": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 1130,
+            "minimum_across_four_endpoints_and_two_contrast_families": 70
+          },
+          "0.03": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 510,
+            "minimum_across_four_endpoints_and_two_contrast_families": 30
+          },
+          "0.05": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 190,
+            "minimum_across_four_endpoints_and_two_contrast_families": 20
+          },
+          "0.075": {
+            "all_cells_fit_current_manifest": true,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 90,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          },
+          "0.1": {
+            "all_cells_fit_current_manifest": true,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 50,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          }
+        },
+        "0.9": {
+          "0.02": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 1510,
+            "minimum_across_four_endpoints_and_two_contrast_families": 90
+          },
+          "0.03": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 680,
+            "minimum_across_four_endpoints_and_two_contrast_families": 40
+          },
+          "0.05": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 250,
+            "minimum_across_four_endpoints_and_two_contrast_families": 20
+          },
+          "0.075": {
+            "all_cells_fit_current_manifest": false,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 110,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          },
+          "0.1": {
+            "all_cells_fit_current_manifest": true,
+            "current_final_manifest_task_cap": 100,
+            "maximum_across_four_endpoints_and_two_contrast_families": 70,
+            "minimum_across_four_endpoints_and_two_contrast_families": 10
+          }
+        }
+      }
+    }
+  },
+  "schema_version": "p5-powered-generic-protocol-approved-design-1",
+  "source_generic_qa": {
+    "annotations_sha256": "f171cdb86306cae6bbcd9208a1ce60c237676e9eed10f1575695083ae23f8113",
+    "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+    "internal_sha256": "f8e7df25da19fe514581edf3b4f94a3684ed97a1ba07c79e673021a18638374f"
+  },
+  "status": "approved_design_non_executable_phase2_and_spend_gated"
+}

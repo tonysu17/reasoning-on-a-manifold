@@ -155,6 +155,16 @@ def test_damage_gate_thresholds():
     assert st.damage_gate(mild, ok, ok)["damage_ok"]
 
 
+def test_damage_gate_does_not_substitute_boxed_presence_for_correctness():
+    no_key = [{"looped": False, "truncated": False,
+               "boxed_present": True, "boxed_correct": None}]
+    gate = st.damage_gate(no_key, no_key, no_key)
+    assert gate["damage_ok"]
+    assert not gate["damage_resolved"]
+    assert gate["boxed_drop"] is None
+    assert gate["reasons"] == ["boxed exact-match unavailable: no answer key"]
+
+
 # ── attenuation guards + primary test ────────────────────────────────────────
 
 def test_attenuation_guard():
@@ -314,6 +324,18 @@ def test_annotation_dedup_keys_separate_cells():
 
 # ── A2 adjunct table (estimation only) ───────────────────────────────────────
 
+#: A row that passed semantic coverage validation under the current rule.
+#: Post-2026-08-11 every annotated Phase-2 row carries such a verdict; rows
+#: without one are unresolved by construction (see
+#: tests/test_annotation_coverage.py), so these estimation fixtures must state
+#: it explicitly rather than relying on the old spans-are-enough semantics.
+def _covered(**row):
+    from src.annotation_coverage import COVERAGE_RULE_VERSION
+    return {**row, "annotation_complete": True,
+            "annotation_coverage": {"rule_version": COVERAGE_RULE_VERSION,
+                                    "complete": True}}
+
+
 def test_a2_adjunct_paired_estimation():
     tasks = [f"T{i}" for i in range(30)]
 
@@ -323,8 +345,9 @@ def test_a2_adjunct_paired_estimation():
             n_bt = round(bt_frac * 10)
             spans = ([{"label": "backtracking", "text": "x."}] * n_bt
                      + [{"label": "deduction", "text": "x."}] * (10 - n_bt))
-            out.append({"task_id": t, "chain": r"ok \boxed{1}", "n_tokens": n_tokens,
-                        "method": "vanilla", "annotations": spans})
+            out.append(_covered(task_id=t, chain=r"ok \boxed{1}",
+                                n_tokens=n_tokens, method="vanilla",
+                                annotations=spans))
         return out
 
     table = st.a2_adjunct_table(
@@ -350,8 +373,8 @@ def test_a2_adjunct_unresolved_counted_not_zeroed():
         for i, t in enumerate(tasks):
             anns = None if (missing_first and i == 0) else \
                 [{"label": "deduction", "text": "x."}] * 10
-            out.append({"task_id": t, "chain": "c", "n_tokens": 100,
-                        "method": "vanilla", "annotations": anns})
+            out.append(_covered(task_id=t, chain="c", n_tokens=100,
+                                method="vanilla", annotations=anns))
         return out
 
     table = st.a2_adjunct_table(
@@ -359,6 +382,23 @@ def test_a2_adjunct_unresolved_counted_not_zeroed():
         cap=8192, n_resamples=100)
     cell = table["endpoints"]["star1"]["prev_backtracking"]
     assert cell["n"] == 9 and cell["n_unresolved"] == 1
+
+
+def test_a2_adjunct_partial_nonempty_annotation_is_unresolved():
+    def row(role, complete=True):
+        return [{"task_id": "T0", "chain": "c", "n_tokens": 100,
+                 "model_role": role, "method": "vanilla",
+                 "annotations": [{"label": "backtracking", "text": "Wait."}],
+                 "annotation_complete": complete}]
+
+    table = st.a2_adjunct_table(
+        {"base": row("base"), "star1": row("star1", complete=False),
+         "deepscaler": row("deepscaler")},
+        cap=8192, n_resamples=10,
+    )
+    cell = table["endpoints"]["star1"]["prev_backtracking"]
+    assert cell["status"] == "insufficient"
+    assert cell["n"] == 0 and cell["n_unresolved"] == 1
 
 
 # ── executor wiring: refusal, aliasing, verdict assembly ─────────────────────
@@ -397,19 +437,40 @@ def test_decide_outcome_full_matrix_still_holds():
 
 
 def test_annotation_cap_and_window_a4():
-    """A4 (owner decision 2026-08-09): cost is cut by the 3,000-token
-    annotation WINDOW, not the output cap. The 4,000 output cap keeps echo
-    headroom and its first 504-shrink (→2,000) still clears the worst-case
-    chunk echo; corpus-pipeline defaults stay byte-identical."""
+    """A4's 3,000-token annotation WINDOW is unchanged (no dated amendment
+    touches it). The output cap, however, is no longer a mere echo-headroom
+    number: after the 2026-08-11 stop it is the lever that makes the $0.05
+    per-call ceiling provable, so it is pinned against the frozen rate card
+    rather than against an expected echo length. Corpus-pipeline defaults stay
+    byte-identical."""
     import inspect
     from src import annotation
-    assert px.ANNOTATION_MAX_TOKENS == 4000
-    assert st.ANNOTATION_WINDOW_TOKENS == 3000
+    from src.annotation_budget import AnnotationRateCard
+
+    assert st.ANNOTATION_WINDOW_TOKENS == 3000          # A4 untouched
+    assert px.ANNOTATION_MAX_TOKENS == 2400             # supersedes 2,800/4,000
+
     sig = inspect.signature(annotation.annotate_chain)
     assert sig.parameters["max_tokens"].default is None    # None → 8192 corpus
     assert sig.parameters["shrink_on_retry"].default is False
+
+    # The cap must clear the worst-case echo (so responses are not truncated)
+    # AND keep the theoretical maximum charge inside authorisation.
     worst_echo = st.proxy_chunk_budget_ok()["worst_output_tokens_est"]
-    assert max(1024, px.ANNOTATION_MAX_TOKENS // 2) >= worst_echo
+    assert px.ANNOTATION_MAX_TOKENS >= worst_echo
+    card = AnnotationRateCard(input_usd_per_mtok=3.0, output_usd_per_mtok=15.0,
+                              tokens_per_char_upper=0.4)
+    worst_cost = card.worst_case_cost_usd(annotation.max_prompt_chars(),
+                                          px.ANNOTATION_MAX_TOKENS)
+    assert worst_cost <= 0.05
+    # And the char-class-aware per-call bound holds even for a prompt that is
+    # 20% rare symbols (3 tok/char) — the live $0.0475 lesson.
+    mixed = ("a" * int(annotation.max_prompt_chars() * 0.8)
+             + "◆" * (annotation.max_prompt_chars()
+                      - int(annotation.max_prompt_chars() * 0.8)))
+    assert card.call_cost_upper_usd(mixed, px.ANNOTATION_MAX_TOKENS) <= 0.05
+    # The superseded value provably could not have held that ceiling.
+    assert card.worst_case_cost_usd(annotation.max_prompt_chars(), 4000) > 0.05
 
 
 def test_annotation_window_behaviour():
@@ -442,9 +503,9 @@ def test_a2_per_1k_uses_annotated_token_denominator():
         for t in tasks:
             spans = ([{"label": "backtracking", "text": "x."}] * 3
                      + [{"label": "deduction", "text": "x."}] * 7)
-            out.append({"task_id": t, "chain": "c", "n_tokens": 8000,
-                        "annotated_tokens": annotated_tokens,
-                        "method": "vanilla", "annotations": spans})
+            out.append(_covered(task_id=t, chain="c", n_tokens=8000,
+                                annotated_tokens=annotated_tokens,
+                                method="vanilla", annotations=spans))
         return out
 
     table = st.a2_adjunct_table(
@@ -492,7 +553,7 @@ def _mk_role_files(root: Path, role: str, tasks, bt_by_method: dict,
             rec = st.battery_record(
                 role, m, {"id": t},
                 {"chain": r"x. " * 30 + r"\boxed{7}", "n_tokens": n_tokens},
-                sign=None, frame_name=None)
+                sign=None, frame_name=None, extra={"expected_answer": "7"})
             gen.append(rec)
             ann.append({**rec, "annotations": _spans(f(i))})
     (root / "battery").mkdir(parents=True, exist_ok=True)

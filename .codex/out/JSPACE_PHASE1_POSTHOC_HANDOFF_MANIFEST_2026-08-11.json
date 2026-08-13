@@ -1,0 +1,64 @@
+{
+  "schema_version": "rom-jspace-r1-phase1-posthoc-handoff-v1",
+  "date": "2026-08-11",
+  "status": "complete_exploratory_posthoc_non_gating",
+  "source_run_uuid": "jspace-p1-20260810T224338Z-996077031021",
+  "validation_attempt_uuid": "jspace-p1v-20260810T231952Z-6ad3de6f3754",
+  "scientific_gate_pass": false,
+  "phase2_licensed": false,
+  "registered_outcome": "the fitted lens did not pass the prespecified validity gate",
+  "execution_scope": {
+    "cpu_only_posthoc_diagnostic_completed": true,
+    "new_gpu_experiment_launched": false,
+    "model_fit_or_readout_regenerated": false,
+    "registered_result_reclassified": false
+  },
+  "implementation": {
+    "script": {
+      "path": ".codex/out/jspace_phase1_posthoc_failure_map.py",
+      "sha256": "4a80c658dabcd4ffac9013207c37e9dca28347a0e03779a9e3829b5fe8be93cf"
+    },
+    "tests": {
+      "path": "tests/test_jspace_phase1_posthoc_failure_map.py",
+      "sha256": "c3151f96c69b6f226ab970e9cbcb1df3fb554cb18eb94510ff766817065cfd36",
+      "passed": 8,
+      "failed": 0
+    },
+    "deterministic_replay_byte_identical": true
+  },
+  "diagnostic": {
+    "directory": ".codex/out/jspace_phase1_posthoc_failure_map_2026-08-11",
+    "manifest": {
+      "path": ".codex/out/jspace_phase1_posthoc_failure_map_2026-08-11/DIAGNOSTIC_MANIFEST.json",
+      "sha256": "551bb913ed118e0cf51f7e12f5cdd2151e96027b8d2570ee7e3d8415f834e902"
+    },
+    "report": {
+      "path": ".codex/out/jspace_phase1_posthoc_failure_map_2026-08-11/REPORT.md",
+      "sha256": "298f98a18d2389fc1ca421bdaf6deaa94693558608d1a5bc5a099bffdd497169"
+    },
+    "figure": {
+      "path": ".codex/out/jspace_phase1_posthoc_failure_map_2026-08-11/jspace_phase1_layerwise_pass25.png",
+      "sha256": "db2aa8594dc52ddcee0c9db81b491a797e898dddbe149189485abc4631d8c4a3"
+    },
+    "layer_rows": 324,
+    "censored_rank_rows": 29808
+  },
+  "thesis_integration": {
+    "memo": {
+      "path": ".codex/out/JSPACE_PHASE1_THESIS_INTEGRATION_MEMO_2026-08-11.md",
+      "sha256": "f7e2c375b1c328ef5201d3ae611afb3caa21a1f8f6285f762ca0a5ca56c166ad"
+    },
+    "final_thesis_disposition": "cut_analysis_only",
+    "disposition_decided_on": "2026-08-11",
+    "authoritative_thesis_sources_edited": false,
+    "generated_pdf_pages_unchanged": 62,
+    "application_gate_applicable": false,
+    "application_gate_status": "superseded_by_explicit_cut_decision",
+    "thesis_action_required": false
+  },
+  "independent_reviews": {
+    "code_data_integrity": "GO",
+    "literature_and_hedge_preservation": "GO",
+    "gpu_diagnostic": "HOLD_until_separate_protocol_is_sealed"
+  }
+}

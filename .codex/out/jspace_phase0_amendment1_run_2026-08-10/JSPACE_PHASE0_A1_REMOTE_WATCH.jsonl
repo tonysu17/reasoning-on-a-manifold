@@ -1,0 +1,4 @@
+{"driver": "RUNNING", "driver_pid": 10744, "event": "snapshot", "marker": "NONE", "status": "RUNNING:amended_preflight", "utc": "2026-08-10T21:16:18+00:00"}
+{"driver": "RUNNING", "driver_pid": 10744, "event": "snapshot", "marker": "NONE", "status": "RUNNING:amended_benchmark", "utc": "2026-08-10T21:17:18+00:00"}
+{"driver": "RUNNING", "driver_pid": 10744, "event": "snapshot", "marker": "NONE", "status": "RUNNING:amended_benchmark", "utc": "2026-08-10T21:18:18+00:00"}
+{"driver": "ABSENT", "driver_pid": 10744, "event": "snapshot", "marker": "DONE", "status": "DONE", "utc": "2026-08-10T21:19:18+00:00"}

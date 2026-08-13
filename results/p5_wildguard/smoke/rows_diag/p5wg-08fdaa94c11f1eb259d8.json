@@ -1,0 +1,10 @@
+{
+ "blind_id": "p5wg-08fdaa94c11f1eb259d8",
+ "completion_sha256": "377742b7653112e7073c767d7524dd69fbec2216bc51594c10734dda40a3f25e",
+ "decoded_completion": "Harmful yes\nLegal no\nConsequences yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes\nHarmful yes",
+ "diag_sha256": "60c0482fea9503c91141ef511dc261e132a1c3a7ef8202406087f0a7dfe04047",
+ "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+ "runner_version": "p5wg-smoke-runner/1.1.0",
+ "schema_version": "p5wg-smoke-diag-1",
+ "utc": "2026-08-09T21:02:02Z"
+}

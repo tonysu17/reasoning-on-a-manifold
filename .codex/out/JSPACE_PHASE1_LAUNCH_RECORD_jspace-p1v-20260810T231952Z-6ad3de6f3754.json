@@ -1,0 +1,34 @@
+{
+  "schema_version": "rom-jspace-r1-phase1-validation-launch-record-v1",
+  "created_utc": "2026-08-10T23:26:55Z",
+  "run_uuid": "jspace-p1-20260810T224338Z-996077031021",
+  "validation_attempt_uuid": "jspace-p1v-20260810T231952Z-6ad3de6f3754",
+  "runtime_uuid": "jspace-p1v-20260810T231952Z-6ad3de6f3754",
+  "pod_id": "bghqqjkco3q7r5",
+  "ssh_host": "213.173.108.144",
+  "ssh_port": 19567,
+  "ssh_identity": "~/.ssh/id_ed25519",
+  "remote_root": "/workspace/jspace-phase1",
+  "run_output_relative": "runs/jspace-p1-20260810T224338Z-996077031021",
+  "local_output_relative": "results/jspace_r1_pilot/phase1/jspace-p1-20260810T224338Z-996077031021-validated-a5",
+  "execution_manifest_relative": "results/prereg/JSPACE_R1_PHASE1_VALIDATION_CONTINUATION_A5_2026-08-10.json",
+  "execution_manifest_sha256": "65f763246247d7964b867a1e75a1f86129a2546bfa606a0dbe69255ddac04ec4",
+  "source_execution_manifest_sha256": "dc2b008706ed457213a9b000269da91fd843a2b3adccf8c6c1c215612a0b14fb",
+  "authoritative_attestation": "validation_attempts/jspace-p1v-20260810T231952Z-6ad3de6f3754/INDEPENDENT_VALIDATION.json",
+  "source_code_commit": "d8d2a04c45d04dd8e8e4f280eb19b3520127cab9",
+  "prelaunch_seal_commit": "1b3145d21a93a2573d40d04b0a5111587e71c361",
+  "authorised_actions": [
+    "run_validation_only_against_immutable_phase1_outputs",
+    "sync_to_fresh_local_staging_after_integrity_valid_DONE",
+    "independently_validate_locally",
+    "terminate_exact_literal_pod_after_verified_promotion"
+  ],
+  "explicitly_not_authorised": [
+    "rerun_model_or_fit",
+    "modify_scientific_artifacts_or_gate",
+    "phase2_decomposition",
+    "causal_intervention",
+    "fallback_pod_stop_or_process_kill",
+    "termination_before_verified_local_sync"
+  ]
+}

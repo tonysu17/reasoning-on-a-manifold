@@ -1,0 +1,106 @@
+{
+  "schema_version": "rom-jspace-r1-benchmark-manifest-v1",
+  "status": "sealed_specification_unrun",
+  "sealed_date": "2026-08-10",
+  "execution_authorised": false,
+  "scientific_use": "none_compute_calibration_only",
+  "model": {
+    "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "load_dtype": "bfloat16",
+    "d_model": 1536,
+    "n_layers": 28
+  },
+  "jlens": {
+    "repository": "https://github.com/anthropics/jacobian-lens.git",
+    "commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "files_sha256": {
+      "jlens/fitting.py": "5be8959db8efc34cee41ed677beba84e21ba3c9e3ccb958bdbc1600c86b5e080",
+      "jlens/lens.py": "e231e7d3a6c8e8f7791b53705a34342d0bba376a127a82376eaf6ec30ca11808",
+      "jlens/hf.py": "228cf078e4586a7b7f61a6f5064403b8960de337afd19256efa56f04d53e3222",
+      "pyproject.toml": "b498f1977a64df5ebd0d990088e4956874f62ead1adba8d62f2acf36780a52b0",
+      "uv.lock": "981e580531e517be1bd1a3fef98ac12822f40d626ba8f365e59973ff258f36ea"
+    }
+  },
+  "estimator": {
+    "source_layers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+    "target_layer": 27,
+    "max_seq_len": 128,
+    "skip_first": 16,
+    "dim_batch_attempt_order": [8, 4, 2, 1],
+    "jacobian_accumulation_dtype": "float32_cpu",
+    "attention_backend": "eager",
+    "compile": false,
+    "deterministic_algorithms": true,
+    "seed": 20260810,
+    "prompt_format": "raw_text_no_chat_template"
+  },
+  "fixed_inputs": {
+    "data/tasks_final.json": "a4ba180d5722e016c95945867ca6fbcf7abb48640f4b8d0c9e6111c572051b1d",
+    "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+    "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+    "results/eval/R1-1.5B__E1/eval_task_ids.json": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd"
+  },
+  "prompts": [
+    {
+      "task_id": "MATH_000",
+      "category": "mathematical_logic",
+      "utf8_bytes": 292,
+      "prompt_sha256": "ce994becc3ea9990ef670f31043659476b21438ec39e1ac90c5f1e907d4c2fee",
+      "prompt": "Consider the statement: \"If a natural number n is divisible by 6, then n is divisible by 2 and n is divisible by 3.\" Prove this statement using formal logic. Then, determine whether the converse of this statement is true, and provide a rigorous proof or counterexample to justify your answer."
+    },
+    {
+      "task_id": "VERB_000",
+      "category": "verbal_logic",
+      "utf8_bytes": 595,
+      "prompt_sha256": "a62c5a7905a54aad8d49a78fa6c727cd4f1f7ebf5b5aa887509c3fc5b0df4490",
+      "prompt": "Consider the following statements:\n1. All philosophers who study ethics are concerned with morality.\n2. Some philosophers who are concerned with morality write about justice.\n3. No philosopher who writes about justice ignores political theory.\n4. Socrates is a philosopher who studies ethics.\n5. Anyone who does not ignore political theory must consider the role of the state.\n\nBased on these statements, determine what can be logically concluded about Socrates. Identify which conclusions are necessarily true, which are possibly true, and which cannot be determined from the given information."
+    },
+    {
+      "task_id": "CAUS_000",
+      "category": "causal_reasoning",
+      "utf8_bytes": 598,
+      "prompt_sha256": "858bad4cd4242c250ddfa88adc582c24eea74482b1444d23a68a17e30ed1773a",
+      "prompt": "A small coastal town has experienced a 40% decline in its fishing industry over the past decade. During the same period, the town built a new marina for recreational boats, average water temperatures increased by 2°C, a pharmaceutical factory opened 15 miles upstream on the connected river, and the town's population grew by 25%. The local fishermen report catching fewer fish per trip, and marine biologists have noted changes in fish migration patterns. What is the most likely primary cause of the fishing industry's decline, and what reasoning supports this conclusion over the other factors?"
+    },
+    {
+      "task_id": "CREA_000",
+      "category": "creative_problem_solving",
+      "utf8_bytes": 485,
+      "prompt_sha256": "cbc076b12d705f20d749e4971fc44bc67d908ee823c30e1a978dd065f7d87dc2",
+      "prompt": "A small island community has limited electricity that only runs for 6 hours per day. The community needs to support: a medical clinic requiring consistent refrigeration for vaccines, a school with 50 students, a water purification system, and a fish processing facility that provides the main income. Design a comprehensive solution that addresses all these needs while working within the 6-hour electricity constraint. Consider both technological and social/organizational approaches."
+    },
+    {
+      "task_id": "SCIE_000",
+      "category": "scientific_reasoning",
+      "utf8_bytes": 565,
+      "prompt_sha256": "dc3bd6ff654262f3321d01ced2266bdb90a41b02e98124cd6c3487e3168b9c7c",
+      "prompt": "A botanist observes that plants in a greenhouse grow taller on the east side than the west side. The greenhouse has uniform temperature, soil, and watering systems. However, the east side receives morning sunlight while the west side receives afternoon sunlight. Design a controlled experiment to determine whether the time of day when sunlight is received affects plant growth, or if there might be other confounding variables. Specify your control group, experimental groups, variables to measure, and how you would rule out at least two alternative explanations."
+    }
+  ],
+  "required_report_fields": [
+    "git_commit",
+    "git_dirty_paths",
+    "prereg_sha256",
+    "manifest_sha256",
+    "model_revision",
+    "tokenizer_hashes",
+    "jlens_commit",
+    "hardware",
+    "software_versions",
+    "load_dtype",
+    "dim_batch",
+    "per_prompt_token_count",
+    "per_prompt_valid_positions",
+    "per_prompt_backward_calls",
+    "per_prompt_wall_seconds",
+    "per_prompt_peak_gpu_allocated_bytes",
+    "per_prompt_peak_gpu_reserved_bytes",
+    "per_prompt_peak_cpu_rss_bytes",
+    "per_layer_shape_dtype_finite",
+    "exceptions",
+    "projected_100_prompt_wall_seconds",
+    "gate_status"
+  ],
+  "output_root": "results/jspace_r1_pilot/benchmark"
+}

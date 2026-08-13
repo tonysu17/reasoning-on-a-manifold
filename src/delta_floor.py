@@ -48,6 +48,7 @@ import numpy as np
 
 # Reuse the project's BCa machinery + Holm so the headline and the existing
 # matched-effect path share one statistical core (no re-derivation).
+from src.annotation_coverage import row_coverage_excludes
 from src.steering_analysis import (
     BootstrapResult,
     _bca_interval,
@@ -113,8 +114,10 @@ def per_task_fraction(
     Missing or empty re-annotations are skipped (they become "unresolved" pairs
     downstream — never silently scored 0, which would flatter destructive arms).
     """
-    ann_index = {(r["task_id"], r["behaviour"], r["method"], r["alpha"]):
-                 r.get("annotations", []) for r in annotated_steered}
+    ann_index = {
+        (r["task_id"], r["behaviour"], r["method"], r["alpha"]): r
+        for r in annotated_steered
+    }
     acc: dict = defaultdict(list)
     for r in steered_results:
         if r["method"] != method:
@@ -123,7 +126,18 @@ def per_task_fraction(
             continue
         if not _alpha_eq(r["alpha"], alpha):
             continue
-        anns = ann_index.get((r["task_id"], r["behaviour"], r["method"], r["alpha"]))
+        ann_row = ann_index.get(
+            (r["task_id"], r["behaviour"], r["method"], r["alpha"])
+        )
+        if not ann_row or ann_row.get("annotation_complete") is False:
+            continue
+        # Coverage gate (2026-08-13): a row whose spans do not exhaust the
+        # annotation region has a discretionary denominator and is unresolved
+        # for estimation, exactly like a transport failure. Legacy records
+        # without a coverage verdict (E8/Phase-7 corpora) are unaffected.
+        if row_coverage_excludes(ann_row):
+            continue
+        anns = ann_row.get("annotations")
         if not anns:  # None (missing) or [] (empty) → skip
             continue
         acc[_base_task(r)].append(behaviour_fraction(anns, behaviour))

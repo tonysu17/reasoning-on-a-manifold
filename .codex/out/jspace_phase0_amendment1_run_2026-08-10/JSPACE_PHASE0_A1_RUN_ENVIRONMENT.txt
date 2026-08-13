@@ -1,0 +1,11 @@
+UTC_START=2026-08-10T21:16:18Z
+NVIDIA GeForce RTX 4090, GPU-ca3d7adb-6da1-392a-1af9-aa5b303a0035, 570.195.03, 24564 MiB
+Python 3.11.10
+torch=2.4.1+cu124
+transformers=5.5.0
+huggingface_hub=1.27.0
+581d398613e5602a5af361e1c34d3a92ea82ba8e
+2f5f03cf0c799e73240de1417b7f3023f4b01064fda454912c56b3f724ed0ac1  /workspace/jspace-phase0/jspace_pilot_preflight.py
+445fe62cbf74be6e12b7dcc534455c9350cf8b461a3f675a974a859fa2eae298  /workspace/jspace-phase0/jspace_pilot_benchmark.py
+31f12eef6a138cf3415d27a909d76dac27e9dc5ec5cd4833b7f91e7243ce5cfd  /workspace/jspace-phase0/results/prereg/JSPACE_R1_BENCHMARK_MANIFEST_2026-08-10_AMENDMENT1.json
+4e19cfa03115946e9b0d386ddbd066cdbae09ef5a6dae187b634d2ddb651e1b7  /workspace/jspace-phase0/results/prereg/JSPACE_R1_BENCHMARK_AMENDMENT_1_2026-08-10.md

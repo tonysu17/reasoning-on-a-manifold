@@ -19,20 +19,19 @@ sealed preregistration or launch generation
 
 ## Live P5 pilot evidence for the choice
 
-The planning snapshot contained 154 successful 4,096-capped generations, zero terminal
+The completed pilot contained 176 successful 4,096-capped generations, zero terminal
 errors. Re-capping the observed decoded token counts gives:
 
 | Candidate cap | Rows that would reach cap | Rate | Observed-token reduction versus 4,096 |
 |---:|---:|---:|---:|
-| 2,048 | 58 / 154 | 37.7% | 36.1% |
-| 3,072 | 53 / 154 | 34.4% | 17.9% |
-| 4,096 | 53 / 154 | 34.4% | 0% |
+| 2,048 | 73 / 176 | 41.5% | 37.3% |
+| 3,072 | 67 / 176 | 38.1% | 18.5% |
+| 4,096 | 67 / 176 | 38.1% | 0% |
 
 For the generic stratum specifically, the cap-exposure rates are 39/80 (48.8%) at 2,048
-and 34/80 (42.5%) at both 3,072 and 4,096 in this snapshot. Harmful/benign safety rows have
-19/74 (25.7%) exposure at 4,096 and 19/74 (25.7%) at 3,072; 2,048 raises this to 19/74 in
-this particular snapshot as well. These are pipeline-planning quantities, not checkpoint
-effects or thesis results.
+and 34/80 (42.5%) at both 3,072 and 4,096. Across harmful and benign safety rows, exposure
+is 34/96 (35.4%) at both 3,072 and 4,096 and 34/96 (35.4%) at 2,048 in this completed pilot.
+These are pipeline-planning quantities, not checkpoint effects or thesis results.
 
 The 3,072 option reduces token volume without reducing the number of exposed rows relative
 to 4,096 because current chain lengths are strongly split between early EOS and the 4,096
@@ -60,4 +59,3 @@ Before powered or Phase-2 generation, freeze exactly one value in `{2048, 3072, 
 3. the cap-hit and terminal-correctness handling rules;
 4. the Phase-2 preregistration amendment status; and
 5. the exact manifest/config hash.
-

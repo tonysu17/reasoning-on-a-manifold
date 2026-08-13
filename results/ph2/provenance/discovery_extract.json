@@ -1,0 +1,104 @@
+{
+ "git_commit": null,
+ "git_dirty": false,
+ "prereg_sha256": "f27af80200420cb2",
+ "manifest_sha256": "c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6",
+ "checkpoint_revisions": {
+  "base": {
+   "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562"
+  },
+  "star1": {
+   "hf_id": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "revision": "f865d7ac5136370518986a5273f4d731d7a0f254"
+  },
+  "deepscaler": {
+   "hf_id": "agentica-org/DeepScaleR-1.5B-Preview",
+   "revision": "e3f524ce413a296b4d388e7560dd5c82c1c56725"
+  }
+ },
+ "tokenizer_gate": null,
+ "frame_source": {
+  "path": "results/das/R1-1.5B/width/frame_k2.npy",
+  "sha256": "f7d63b0b388cdb7a9fdc2de91bf108909919b2dbc834a23c6f0e5d11c216e572",
+  "builder": "21_das_width.py (E10.2 sealed recipe)",
+  "behaviour": "backtracking",
+  "width": 2,
+  "hs_site": 17,
+  "hs_neighbours": [
+   16,
+   18
+  ],
+  "layer_convention": "hs[K] = output of model.model.layers[K-1]; steering/extraction 'layer L' = hs[L+1]; DAS resid_pre 'layer L' = hs[L]"
+ },
+ "counts": {
+  "base": 400,
+  "star1": 400,
+  "deepscaler": 400
+ },
+ "seeds": {
+  "run": 20260808,
+  "bootstrap": 20260808,
+  "manifest_draw": 20260808,
+  "das_builder": 0
+ },
+ "annotator": null,
+ "achieved_mde": null,
+ "authorised": false,
+ "amended": [
+  "A1",
+  "A2",
+  "A3",
+  "A4"
+ ],
+ "schema_version": "rom-result-provenance-v1",
+ "run_id": "ph2-20260809-143352",
+ "stage": "discovery_extract",
+ "dirty_paths": [],
+ "preregistration_path": "results/prereg/PHASE2_TRANSPORT_PREREG_2026-08-08.md",
+ "prereg_sha256_full": "f27af80200420cb217ecc4dc76fee7c68c8b8619504988d5b63622506768515c",
+ "adjunct_prereg_sha256_full": "2dd6ca7b699b32d5f88c3a87a8c5bb8f24f073c86905390e5858a4f2784cadd4",
+ "manifest_path": "results/prereg/phase2_task_manifest.json",
+ "manifest_ids_sha256": "c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6",
+ "manifest_file_sha256": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333",
+ "input_manifest": {
+  "results/das/R1-1.5B/main/pairs.json": "b04c81302ce7ff19bef25bdda67fc3c70f68e3cf35ec5c278f862c6cda115679",
+  "results/das/R1-1.5B/width/frame_k2.npy": "f7d63b0b388cdb7a9fdc2de91bf108909919b2dbc834a23c6f0e5d11c216e572"
+ },
+ "scientific_unit": "task",
+ "observation_unit": "generated response (sentence rows nested)",
+ "pairing_key": "task_id",
+ "missingness_policy": "missing_or_empty_is_unresolved_never_zero",
+ "argv": [
+  "ph2_executor.py",
+  "--stage",
+  "discovery_extract"
+ ],
+ "utc_start": "2026-08-09T14:33:52Z",
+ "host": {
+  "hostname": "da197763ff66",
+  "system": "Linux",
+  "machine": "x86_64",
+  "cpus": 48
+ },
+ "python_version": "3.11.10",
+ "package_versions": {
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "torch": "2.4.1+cu124",
+  "transformers": "4.49.0"
+ },
+ "empirical_evidence_status": "current resource record",
+ "provenance_status": "unresolved provenance",
+ "provenance_unresolved_reasons": [
+  "git_commit unavailable"
+ ],
+ "protocol_markers": [
+  "amended:A1",
+  "amended:A2",
+  "amended:A3",
+  "amended:A4"
+ ],
+ "authorisation_record": null,
+ "utc_end": "2026-08-09T14:33:52Z"
+}

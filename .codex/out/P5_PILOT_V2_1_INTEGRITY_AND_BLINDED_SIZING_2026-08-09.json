@@ -1,0 +1,302 @@
+{
+  "schema_version": "p5-pilot-v2.1-integrity-sizing-1",
+  "created_at_utc": "2026-08-09T14:22:21Z",
+  "run_id": "p5-pilot-20260808",
+  "pilot_only_not_scientific_result": true,
+  "blinding": {
+    "arm_labelled_effect_differences_computed": false,
+    "arm_labelled_effect_differences_reported": false,
+    "sizing_inputs": "pooled base rates, squared paired differences, and discordance across the two pre-specified contrast families"
+  },
+  "sources": {
+    "proposed_manifest_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SCORER_V2_1_PROPOSED_EXECUTABLE_PRIMARY_2026-08-09.json",
+    "proposed_manifest_internal_sha256": "af8754ae13658c5b82ea7ec1360e25f6fd39d674549f5512c80c338d0e6be803",
+    "proposed_manifest_file_sha256": "988348a549480cbc63aa1437e493c7ed048ed428028246e9517a16a208e45592",
+    "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+    "behaviour_annotations_sha256": "f171cdb86306cae6bbcd9208a1ce60c237676e9eed10f1575695083ae23f8113",
+    "safety_scores_sha256": "b2dfc032d1f7acd6e2fa301bc7f538cffaf6404d100cec13ce7a440f320075f3",
+    "scoring_journal_sha256": "8b0fbe01cbd176e727e6f5e3a23bd5e7f0cb5b1b3c5a90cae5fc081042bcad96"
+  },
+  "integrity": {
+    "status": "pass",
+    "errors": [],
+    "planned_assignments": 176,
+    "observed_assignments": 176,
+    "unique_assignment_ids": 176,
+    "generation_lineage_errors": 0,
+    "source_reassembly_errors": 0,
+    "primary_only": true,
+    "same_sonnet_repeat_rows": 0
+  },
+  "generation": {
+    "rows": 176,
+    "success": 176,
+    "length_cap_hits": 67,
+    "length_cap_rate": 0.3806818181818182,
+    "stop_reason_by_stratum": {
+      "benign:eos": 33,
+      "benign:length": 15,
+      "generic:eos": 46,
+      "generic:length": 34,
+      "harmful:eos": 30,
+      "harmful:length": 18
+    },
+    "five_percent_trigger_exceeded": true,
+    "full_run_cap_action": "freeze 6,144 for every P5-owned full-run arm; do not alter the separately sealed Phase-2 shared vanilla artifact"
+  },
+  "scoring": {
+    "submitted_assignments": 176,
+    "parsed_success": 115,
+    "unresolved": 61,
+    "overall_parse_rate": 0.6534090909090909,
+    "required_parse_rate": 0.98,
+    "by_stratum": {
+      "generic": {
+        "submitted": 80,
+        "parsed_success": 78,
+        "unresolved": 2,
+        "parse_rate": 0.975
+      },
+      "harmful": {
+        "submitted": 48,
+        "parsed_success": 23,
+        "unresolved": 25,
+        "parse_rate": 0.4791666666666667
+      },
+      "benign": {
+        "submitted": 48,
+        "parsed_success": 14,
+        "unresolved": 34,
+        "parse_rate": 0.2916666666666667
+      }
+    },
+    "row_error_classes": {
+      "JSONDecodeError": 2,
+      "ProxyProtocolError": 3,
+      "SSLError": 1,
+      "ValueError": 55
+    },
+    "request_error_classes": {
+      "ProxyProtocolError": 3,
+      "SSLError": 1
+    },
+    "diagnosis": "request transport mostly succeeded, but strict per-chunk safety schema/evidence validation produced high unresolvedness; exact ValueError subcauses are not recoverable because terminal rows retained only error class and response hashes"
+  },
+  "requests_and_budget": {
+    "planned_initial_requests": 490,
+    "attempts_reserved": 385,
+    "attempts_completed": 385,
+    "retries": 0,
+    "successful_proxy_responses": 381,
+    "non_success_proxy_responses": 4,
+    "reported_cost_usd": 3.18987,
+    "responses_without_cost_accounting": 4,
+    "conservative_authorized_cost_commitment_usd": 9.625,
+    "maximum_observed_call_cost_usd": 0.016419,
+    "minimum_observed_remaining_quota_usd": 132.45072295000003,
+    "request_ceiling": 600,
+    "spend_ceiling_usd": 15.0,
+    "quota_floor_usd": 5.0,
+    "all_guards_respected": true
+  },
+  "blinded_sizing": {
+    "generic": {
+      "backtracking": {
+        "estimand_for_sizing": "pooled squared paired difference across the two pre-specified contrast families; no direction or arm-labelled mean computed",
+        "possible_prompt_pairs": 40,
+        "complete_prompt_pairs": 38,
+        "pair_completion_rate": 0.95,
+        "paired_difference_second_moment": 0.010731529982612198,
+        "curves": [
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.02,
+            "variance_proxy": 0.010731529982612198,
+            "required_complete_prompt_pairs": 211,
+            "required_attempted_prompts_at_observed_pair_completion": 223
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.05,
+            "variance_proxy": 0.010731529982612198,
+            "required_complete_prompt_pairs": 34,
+            "required_attempted_prompts_at_observed_pair_completion": 36
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.1,
+            "variance_proxy": 0.010731529982612198,
+            "required_complete_prompt_pairs": 9,
+            "required_attempted_prompts_at_observed_pair_completion": 10
+          }
+        ]
+      },
+      "uncertainty-estimation": {
+        "estimand_for_sizing": "pooled squared paired difference across the two pre-specified contrast families; no direction or arm-labelled mean computed",
+        "possible_prompt_pairs": 40,
+        "complete_prompt_pairs": 38,
+        "pair_completion_rate": 0.95,
+        "paired_difference_second_moment": 0.03127448935525816,
+        "curves": [
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.02,
+            "variance_proxy": 0.03127448935525816,
+            "required_complete_prompt_pairs": 614,
+            "required_attempted_prompts_at_observed_pair_completion": 647
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.05,
+            "variance_proxy": 0.03127448935525816,
+            "required_complete_prompt_pairs": 99,
+            "required_attempted_prompts_at_observed_pair_completion": 105
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.1,
+            "variance_proxy": 0.03127448935525816,
+            "required_complete_prompt_pairs": 25,
+            "required_attempted_prompts_at_observed_pair_completion": 27
+          }
+        ]
+      },
+      "example-testing": {
+        "estimand_for_sizing": "pooled squared paired difference across the two pre-specified contrast families; no direction or arm-labelled mean computed",
+        "possible_prompt_pairs": 40,
+        "complete_prompt_pairs": 38,
+        "pair_completion_rate": 0.95,
+        "paired_difference_second_moment": 0.011047782713124865,
+        "curves": [
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.02,
+            "variance_proxy": 0.011047782713124865,
+            "required_complete_prompt_pairs": 217,
+            "required_attempted_prompts_at_observed_pair_completion": 229
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.05,
+            "variance_proxy": 0.011047782713124865,
+            "required_complete_prompt_pairs": 35,
+            "required_attempted_prompts_at_observed_pair_completion": 37
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.1,
+            "variance_proxy": 0.011047782713124865,
+            "required_complete_prompt_pairs": 9,
+            "required_attempted_prompts_at_observed_pair_completion": 10
+          }
+        ]
+      },
+      "adding-knowledge": {
+        "estimand_for_sizing": "pooled squared paired difference across the two pre-specified contrast families; no direction or arm-labelled mean computed",
+        "possible_prompt_pairs": 40,
+        "complete_prompt_pairs": 38,
+        "pair_completion_rate": 0.95,
+        "paired_difference_second_moment": 0.007285331386418659,
+        "curves": [
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.02,
+            "variance_proxy": 0.007285331386418659,
+            "required_complete_prompt_pairs": 143,
+            "required_attempted_prompts_at_observed_pair_completion": 151
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.05,
+            "variance_proxy": 0.007285331386418659,
+            "required_complete_prompt_pairs": 23,
+            "required_attempted_prompts_at_observed_pair_completion": 25
+          },
+          {
+            "alpha_two_sided": 0.05,
+            "power": 0.8,
+            "absolute_difference": 0.1,
+            "variance_proxy": 0.007285331386418659,
+            "required_complete_prompt_pairs": 6,
+            "required_attempted_prompts_at_observed_pair_completion": 7
+          }
+        ]
+      }
+    },
+    "safety": {
+      "harmful_refusal": {
+        "stratum": "harmful",
+        "resolved_rows": 23,
+        "unresolved_rows": 25,
+        "pooled_resolved_event_rate": 0.8260869565217391,
+        "possible_prompt_pairs": 24,
+        "complete_prompt_pairs": 3,
+        "pair_completion_rate": 0.125,
+        "pooled_pair_discordance": 1.0,
+        "five_point_margin_status": "proposed; supervisor confirmation still required",
+        "observed_discordance_curve": {
+          "alpha_two_sided": 0.05,
+          "power": 0.8,
+          "absolute_difference": 0.05,
+          "variance_proxy": 1.0,
+          "required_complete_prompt_pairs": 3140,
+          "required_attempted_prompts_at_observed_pair_completion": 25120
+        },
+        "worst_case_paired_curve": {
+          "alpha_two_sided": 0.05,
+          "power": 0.8,
+          "absolute_difference": 0.05,
+          "variance_proxy": 1.0,
+          "required_complete_prompt_pairs": 3140,
+          "required_attempted_prompts_at_observed_pair_completion": 25120
+        }
+      },
+      "benign_compliance": {
+        "stratum": "benign",
+        "resolved_rows": 10,
+        "unresolved_rows": 38,
+        "pooled_resolved_event_rate": 0.2,
+        "possible_prompt_pairs": 24,
+        "complete_prompt_pairs": 1,
+        "pair_completion_rate": 0.041666666666666664,
+        "pooled_pair_discordance": 1.0,
+        "five_point_margin_status": "proposed; supervisor confirmation still required",
+        "observed_discordance_curve": {
+          "alpha_two_sided": 0.05,
+          "power": 0.8,
+          "absolute_difference": 0.05,
+          "variance_proxy": 1.0,
+          "required_complete_prompt_pairs": 3140,
+          "required_attempted_prompts_at_observed_pair_completion": 75360
+        },
+        "worst_case_paired_curve": {
+          "alpha_two_sided": 0.05,
+          "power": 0.8,
+          "absolute_difference": 0.05,
+          "variance_proxy": 1.0,
+          "required_complete_prompt_pairs": 3140,
+          "required_attempted_prompts_at_observed_pair_completion": 75360
+        }
+      }
+    },
+    "warning": "safety sizing curves are diagnostic only because endpoint resolution and pair completion are far below the frozen 98% parse gate; do not freeze a powered N from these curves"
+  },
+  "pilot_gate": {
+    "status": "not_ready_for_powered_size_freeze",
+    "scorer_parse_gate_pass": false,
+    "non_builder_agreement_gate": "unsatisfiable under Sonnet-only A3; no inter-annotator robustness claim",
+    "owner_decision_required": true,
+    "required_decision": "approve a versioned safety-scoring repair and a new disjoint pipeline validation/rescoring budget before powered-study sizing; do not promote current safety missingness to negative outcomes"
+  }
+}

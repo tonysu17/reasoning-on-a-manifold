@@ -1,0 +1,192 @@
+{
+ "base": {
+  "checkpoint": {
+   "role": "base",
+   "source": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+   "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "sites": {},
+  "n_sham": 1,
+  "n_randorth": 20,
+  "complete": true
+ },
+ "star1": {
+  "checkpoint": {
+   "role": "star1",
+   "source": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "revision": "f865d7ac5136370518986a5273f4d731d7a0f254",
+   "hf_id": "UCSC-VLAA/STAR1-R1-Distill-1.5B",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "sites": {
+   "hs16": {
+    "transported": {
+     "coord_auc": 0.87813125,
+     "real_induce": 0.6653997337818146,
+     "base_donor_null_induce": 0.1423875778913498,
+     "state_dependence": 0.5230121558904648
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.8866503124999999,
+     "null_p95_state_dependence": 0.524101991251111,
+     "transported_coord_auc": 0.87813125,
+     "transported_state_dependence": 0.5230121558904648,
+     "pass_coord_auc": false,
+     "pass_state_dependence": false,
+     "gate_pass": false,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   },
+   "hs17": {
+    "transported": {
+     "coord_auc": 0.8873312500000001,
+     "real_induce": 0.7770231461524963,
+     "base_donor_null_induce": 0.16669984877109528,
+     "state_dependence": 0.610323297381401
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.8929059375,
+     "null_p95_state_dependence": 0.5917948260456323,
+     "transported_coord_auc": 0.8873312500000001,
+     "transported_state_dependence": 0.610323297381401,
+     "pass_coord_auc": false,
+     "pass_state_dependence": true,
+     "gate_pass": false,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   },
+   "hs18": {
+    "transported": {
+     "coord_auc": 0.8907687500000001,
+     "real_induce": 0.7143689548969269,
+     "base_donor_null_induce": 0.15141596138477326,
+     "state_dependence": 0.5629529935121536
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.894693125,
+     "null_p95_state_dependence": 0.5654000719785691,
+     "transported_coord_auc": 0.8907687500000001,
+     "transported_state_dependence": 0.5629529935121536,
+     "pass_coord_auc": false,
+     "pass_state_dependence": false,
+     "gate_pass": false,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   }
+  },
+  "gate_pass": false,
+  "n_sham": 20,
+  "n_randorth": 20,
+  "complete": true
+ },
+ "deepscaler": {
+  "checkpoint": {
+   "role": "deepscaler",
+   "source": "agentica-org/DeepScaleR-1.5B-Preview",
+   "revision": "e3f524ce413a296b4d388e7560dd5c82c1c56725",
+   "hf_id": "agentica-org/DeepScaleR-1.5B-Preview",
+   "local": false,
+   "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "dtype": "float16",
+   "device": "cuda"
+  },
+  "sites": {
+   "hs16": {
+    "transported": {
+     "coord_auc": 0.8793562500000001,
+     "real_induce": 0.6412355613708496,
+     "base_donor_null_induce": 0.1408889502286911,
+     "state_dependence": 0.5003466111421585
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.876406875,
+     "null_p95_state_dependence": 0.47018938739597793,
+     "transported_coord_auc": 0.8793562500000001,
+     "transported_state_dependence": 0.5003466111421585,
+     "pass_coord_auc": true,
+     "pass_state_dependence": true,
+     "gate_pass": true,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   },
+   "hs17": {
+    "transported": {
+     "coord_auc": 0.8864625000000002,
+     "real_induce": 0.7456374406814575,
+     "base_donor_null_induce": 0.1554558953642845,
+     "state_dependence": 0.590181545317173
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.8849706250000001,
+     "null_p95_state_dependence": 0.5107401124686003,
+     "transported_coord_auc": 0.8864625000000002,
+     "transported_state_dependence": 0.590181545317173,
+     "pass_coord_auc": true,
+     "pass_state_dependence": true,
+     "gate_pass": true,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   },
+   "hs18": {
+    "transported": {
+     "coord_auc": 0.8892687499999998,
+     "real_induce": 0.6860813903808594,
+     "base_donor_null_induce": 0.1481510779261589,
+     "state_dependence": 0.5379303124547005
+    },
+    "verdict": {
+     "n_null": 40,
+     "quantile": 0.95,
+     "null_p95_coord_auc": 0.8854075,
+     "null_p95_state_dependence": 0.5019238831251859,
+     "transported_coord_auc": 0.8892687499999998,
+     "transported_state_dependence": 0.5379303124547005,
+     "pass_coord_auc": true,
+     "pass_state_dependence": true,
+     "gate_pass": true,
+     "base_absolute_thresholds_continuity": {
+      "coord_auc": 0.65,
+      "state_dependence": 2.0
+     }
+    }
+   }
+  },
+  "gate_pass": true,
+  "n_sham": 20,
+  "n_randorth": 20,
+  "complete": true
+ }
+}

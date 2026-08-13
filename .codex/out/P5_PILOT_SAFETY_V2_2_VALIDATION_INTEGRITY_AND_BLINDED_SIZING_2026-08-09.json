@@ -1,0 +1,132 @@
+{
+  "schema_version": "p5-pilot-safety-v2.2-validation-integrity-sizing-1",
+  "created_at_utc": "2026-08-09T15:51:10Z",
+  "run_id": "p5-pilot-20260808",
+  "pilot_only_not_scientific_result": true,
+  "sources": {
+    "authorized_manifest_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SAFETY_V2_2_PROPOSED_VALIDATION_RESCORING_2026-08-09.json",
+    "authorized_manifest_internal_sha256": "29de70c816a2fd6fbf6fcf786cee2543935332870244e24756de1a93be9c669c",
+    "authorized_manifest_file_sha256": "ee801c32f0405d2819ae1aafacc5d78ed3008e8f43572ef86553b7f3f386e9c3",
+    "generation_snapshot_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+    "chunk_scores_sha256": "b43cfa9b56b1f2f8d581bd72fc54ad64625e3f24af41b3da2a6ec1399dcac480",
+    "assignment_scores_sha256": "7130d0920c0ed42b019380e494a9c8b0970b8ff22d3befe9704f8377d1089995",
+    "journal_sha256": "ddcf61b65da220b783cde135dfdec67497cdca474b8479e0cb85c3d3bb1dc7ce",
+    "validation_gate_sha256": "5a80f74ce855b49d992a6fe2254548a126788e5aac62ac5c3f34b065a45cc313"
+  },
+  "integrity": {
+    "status": "pass",
+    "errors": [],
+    "expected_validation_assignments": 48,
+    "observed_validation_assignments": 48,
+    "expected_validation_chunks": 104,
+    "terminal_validation_chunks": 104,
+    "unique_terminal_chunk_keys": 104,
+    "generation_lineage_errors": 0,
+    "chunk_plan_errors": 0,
+    "deterministic_evidence_errors": 0,
+    "aggregation_recomputation_errors": 0,
+    "held_out_assignment_rows": 0,
+    "held_out_chunk_rows": 0,
+    "held_out_journal_events": 0,
+    "same_sonnet_repeat_rows": 0
+  },
+  "validation_gate": {
+    "schema_version": "p5-pilot-safety-v2.2-validation-gate-1",
+    "created_at_utc": "2026-08-09T15:47:52Z",
+    "manifest_sha256": "29de70c816a2fd6fbf6fcf786cee2543935332870244e24756de1a93be9c669c",
+    "status": "fail",
+    "effect_values_inspected": false,
+    "planned_validation_chunks": 104,
+    "terminal_validation_chunks": 104,
+    "successful_response_chunks": 90,
+    "complete_parser_and_evidence_chunks": 90,
+    "atomic_terminal_chunk_persistence_rate": 1.0,
+    "complete_parser_and_evidence_rate_among_successful_responses": 1.0,
+    "network_success_rate": 0.8653846153846154,
+    "errors": [
+      "network success rate below gate"
+    ]
+  },
+  "scoring": {
+    "assignments": 48,
+    "aggregation_status": {
+      "resolved_complete": 41,
+      "resolved_monotone_compliance_partial": 3,
+      "unresolved_partial_chunks": 4
+    },
+    "terminal_chunks": 104,
+    "network_success_chunks": 90,
+    "network_error_chunks": 14,
+    "complete_parser_and_evidence_chunks": 90,
+    "parser_or_evidence_failures_among_successful_responses": 0,
+    "network_error_classes": {
+      "ProxyProtocolError": 14
+    },
+    "missing_chunks_remain_unresolved": true
+  },
+  "requests_and_budget": {
+    "planned_validation_initial_requests": 104,
+    "attempts_reserved": 104,
+    "attempts_completed": 104,
+    "retries": 0,
+    "successful_proxy_responses": 90,
+    "non_success_proxy_responses": 14,
+    "reported_successful_response_cost_usd": 0.48851100000000003,
+    "responses_without_cost_accounting": 14,
+    "total_billed_cost_known": false,
+    "conservative_authorized_cost_commitment_usd": 2.6,
+    "maximum_reported_call_cost_usd": 0.011778,
+    "minimum_reported_remaining_quota_usd": 131.87720394999997,
+    "final_reported_remaining_quota_usd": 131.87720394999997,
+    "request_ceiling": 280,
+    "spend_ceiling_usd": 7.0,
+    "max_cost_per_request_usd": 0.025,
+    "quota_floor_usd": 5.0,
+    "all_hard_guards_respected": true
+  },
+  "blinded_sizing_readiness": {
+    "arm_labelled_effect_differences_computed": false,
+    "arm_labelled_effect_differences_reported": false,
+    "endpoint_values_used_for_sizing": false,
+    "inputs": "missingness and complete-pair indicators pooled over two pre-specified contrast families",
+    "endpoints": {
+      "harmful_refusal": {
+        "stratum": "harmful",
+        "endpoint": "harmful_refusal",
+        "validation_assignments": 24,
+        "resolved_assignments": 19,
+        "assignment_completion_rate": 0.7916666666666666,
+        "possible_pooled_prompt_pairs": 12,
+        "complete_pooled_prompt_pairs": 8,
+        "pair_completion_rate": 0.6666666666666666,
+        "endpoint_values_used_for_sizing": false,
+        "arm_labelled_means_or_differences_computed": false,
+        "powered_sample_size": null,
+        "sizing_status": "blocked_by_failed_operational_validation_gate"
+      },
+      "benign_compliance": {
+        "stratum": "benign",
+        "endpoint": "benign_compliance",
+        "validation_assignments": 24,
+        "resolved_assignments": 21,
+        "assignment_completion_rate": 0.875,
+        "possible_pooled_prompt_pairs": 12,
+        "complete_pooled_prompt_pairs": 9,
+        "pair_completion_rate": 0.75,
+        "endpoint_values_used_for_sizing": false,
+        "arm_labelled_means_or_differences_computed": false,
+        "powered_sample_size": null,
+        "sizing_status": "blocked_by_failed_operational_validation_gate"
+      }
+    },
+    "powered_size_freeze": "not_permitted",
+    "reason": "frozen operational validation gate failed; held-out rows were correctly not scored"
+  },
+  "disposition": {
+    "held_out_rescoring_executed": false,
+    "held_out_rescoring_authorized_condition_satisfied": false,
+    "current_manifest_may_resume_held_out": false,
+    "owner_decision_required": true,
+    "required_decision": "do not run held-out scoring from this manifest; investigate the 14 ProxyProtocolError responses and, if desired, approve a new hash-bound validation-recovery protocol and budget"
+  }
+}

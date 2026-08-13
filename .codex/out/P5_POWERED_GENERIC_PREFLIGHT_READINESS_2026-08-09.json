@@ -1,0 +1,752 @@
+{
+  "blockers": [
+    "Phase-2 status is 'FAILED:j3-gates', not a completed state",
+    "canonical eligible 300-row Phase-2 shared-vanilla input absent",
+    "P5-owned 200-row generation artefact and immutable run manifest absent",
+    "generic annotation validation has not passed its frozen gate",
+    "powered annotation/generation spend has not been hash-bound or authorised"
+  ],
+  "boundary": "This snapshot binds existing inputs only. It cannot launch generation, annotation, inference, API calls, pod work, or human annotation.",
+  "execution_authorized": false,
+  "fixed_p5_sources": {
+    ".codex/out/P5_4096_ANALYTIC_PREFIX_CONTRACT_2026-08-09.md": "3403bca6b48a57639ea98edfb3a16671973f67a589821673abb636774097a06a",
+    ".codex/out/P5_PHASE2_SHARED_VANILLA_CONTRACT_2026-08-08.md": "391461ca66ef60015d4790a4226ffdb839edd9fdc2ba14fa8be2947acf1184a2",
+    ".codex/out/P5_POWERED_GENERIC_PROTOCOL_APPROVED_DESIGN_2026-08-09.json": "e36d44c20c6bde9dc197d0d2bccb6479c7134b654d8c29175f418a26375e2b6f",
+    ".codex/out/p5_analytic_prefix.py": "ac21e8885f10a77956b285f8a65d0240bfc9e54ff40836442cfe48213c9b9731"
+  },
+  "internal_sha256": "2a5e18912b78315083f076b0a2c301fb2faa798319bf0b89850328af08f828db",
+  "network_model_api_pod_calls_made": 0,
+  "owned_checkpoint_pair": {
+    "control": {
+      "directory_manifest_sha256": "215d3f3bffda1ad10e18103648b8fcceb37e5838d2040847b1932c20fd87165f",
+      "files": [
+        {
+          "name": "chat_template.jinja",
+          "sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "size": 2246
+        },
+        {
+          "name": "config.json",
+          "sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+          "size": 1394
+        },
+        {
+          "name": "generation_config.json",
+          "sha256": "a16cf9c652516066461941f15b39a4863513c78e151cb85996fb95b6d2f16ebe",
+          "size": 181
+        },
+        {
+          "name": "model.safetensors",
+          "sha256": "1b2e5691496e780d577ff3ecd70b8f0e24eaf6dc34fa8e6169df56ed12588d65",
+          "size": 3554214752
+        },
+        {
+          "name": "tokenizer.json",
+          "sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+          "size": 11421907
+        },
+        {
+          "name": "tokenizer_config.json",
+          "sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+          "size": 421
+        },
+        {
+          "name": "training_summary.json",
+          "sha256": "ec7a962d9bf16d4df40e85865ec7dd4283825c5728011d19a98cc780a1aff3e0",
+          "size": 476
+        }
+      ],
+      "path": "checkpoints/pod_fullft/fullft_control_s42"
+    },
+    "model_weights_distinct": true,
+    "safety": {
+      "directory_manifest_sha256": "a6746c3d59b9ac5b19f7558b6edcc547e14b276debc7eec4eb03d554e0aac28e",
+      "files": [
+        {
+          "name": "chat_template.jinja",
+          "sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "size": 2246
+        },
+        {
+          "name": "config.json",
+          "sha256": "bf0a187eef510cecf2843de7e5b2ca887a69d19d250871d68c1c76e95cb8c310",
+          "size": 1394
+        },
+        {
+          "name": "generation_config.json",
+          "sha256": "a16cf9c652516066461941f15b39a4863513c78e151cb85996fb95b6d2f16ebe",
+          "size": 181
+        },
+        {
+          "name": "model.safetensors",
+          "sha256": "37ebbcac54ce8bc55f5d061f8c0a88b2d826ecb1a342e1a2d11da7d3b4906dc4",
+          "size": 3554214752
+        },
+        {
+          "name": "tokenizer.json",
+          "sha256": "f624f8136bc57382156e7595e8ea404a66fbce12e3181b933ec2459bda3a71be",
+          "size": 11421907
+        },
+        {
+          "name": "tokenizer_config.json",
+          "sha256": "8fe0cfd79c4359136c5e2b8d2ce21de8796c1f3e1ee4be6c3fbfd59fc9a4e99c",
+          "size": 421
+        },
+        {
+          "name": "training_summary.json",
+          "sha256": "bc285b218c4435c7ed9bce35ee4fed3f3e928eeb635a9d282cdd8caece649eaa",
+          "size": 470
+        }
+      ],
+      "path": "checkpoints/pod_fullft/fullft_safety_s42"
+    },
+    "shared_tokenizer_template_config_sha256": "70deee9e9561a29062449ac58f243c00bf0304c6c238417e1bdc0f3ae31c4d95"
+  },
+  "phase2_shared_vanilla": {
+    "canonical_artifact_candidates_present": [],
+    "decoded_text_retokenization_permitted": false,
+    "requires_original_generated_token_ids": true,
+    "role_shards": {
+      "base": {
+        "path": "results/ph2/battery/base.json",
+        "status": "absent"
+      },
+      "deepscaler": {
+        "path": "results/ph2/battery/deepscaler.json",
+        "status": "absent"
+      },
+      "star1": {
+        "path": "results/ph2/battery/star1.json",
+        "status": "absent"
+      }
+    },
+    "status": "blocked"
+  },
+  "phase2_status": "FAILED:j3-gates",
+  "phase2_task_manifest": {
+    "actual_dynamic_id_start": 117,
+    "file_sha256": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333",
+    "ids_sha256": "c7fefd59557f95a35f621787c2ab2c19f149ff96847e504c8295ee0f182c96d6",
+    "n_tasks": 100,
+    "ordered_task_content_sha256": "3cb2161ca16679b0da3f12a3c5375410835b8b0b5a20a43c0210b0832c7d9717",
+    "path": "results/prereg/phase2_task_manifest.json",
+    "per_category": {
+      "causal_reasoning": 10,
+      "creative_problem_solving": 10,
+      "lateral_thinking": 10,
+      "mathematical_logic": 10,
+      "pattern_recognition": 10,
+      "probabilistic_thinking": 10,
+      "scientific_reasoning": 10,
+      "spatial_reasoning": 10,
+      "systems_thinking": 10,
+      "verbal_logic": 10
+    },
+    "static_id_start_floor": 102,
+    "task_rows": [
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "f08a47cfa0400d83d562156a396ee1735054353684ef213d776542a3969c8217",
+        "prompt_utf8_bytes": 278,
+        "task_id": "MATH_117"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "ef3f500578d31540a446a35b5623b09b6def53746b47a171692cf724d0f94ed2",
+        "prompt_utf8_bytes": 305,
+        "task_id": "MATH_118"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "0606ee24ee9a64148e79177d773d76d1ba476330d1bc09ae227b2d55d8b4df57",
+        "prompt_utf8_bytes": 362,
+        "task_id": "MATH_119"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "f4f5547ce3818f8a76389894a718214560f6b92c58c89bc43fccff3a69f6a0b8",
+        "prompt_utf8_bytes": 333,
+        "task_id": "MATH_120"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "972a9a1c4570d05415101f5ed7446854658a8f1f3d17a888839ab53442c23657",
+        "prompt_utf8_bytes": 400,
+        "task_id": "MATH_121"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "af0476d212c11ff0d4e0b2586f4e5c140bea1c0972a8176b63978dbffd543552",
+        "prompt_utf8_bytes": 359,
+        "task_id": "MATH_122"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "1afe11b528a45d5fb7ba95c1d99ee9011fa905bc6b787288813c17e5ebd715d2",
+        "prompt_utf8_bytes": 317,
+        "task_id": "MATH_123"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "72e1641beda38af5a23687dfad664572295670d170c1d154e763e8d9c6114011",
+        "prompt_utf8_bytes": 385,
+        "task_id": "MATH_124"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "1aa3e66d58ae4e01bd05159a3371d24c30c05310cbb52eb57a188848f2062e0a",
+        "prompt_utf8_bytes": 449,
+        "task_id": "MATH_125"
+      },
+      {
+        "category": "mathematical_logic",
+        "prompt_sha256": "5f71f640c90bf5050ea2f6b54415397d5e8883c2ca691e493ea34c9df44f6696",
+        "prompt_utf8_bytes": 419,
+        "task_id": "MATH_126"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "0ccdecc0524da22b68e4f1d54c3e333463528b392da7c8e7d4efeb13ece340b0",
+        "prompt_utf8_bytes": 276,
+        "task_id": "SPAT_117"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "7ce6f2e12b4e3ad31f30ca6765cf0ad036c7dec0f5b2acc49332d9d2e7db5934",
+        "prompt_utf8_bytes": 450,
+        "task_id": "SPAT_118"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "dccd9d29fa3c4661bfde6756c55c3841e8a0ea7069934f89d4f70b16f7fcbbc3",
+        "prompt_utf8_bytes": 333,
+        "task_id": "SPAT_119"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "55ea80d5c0dfc04589f468c569db84f740b1490dc7970e50a805efae0f03bff1",
+        "prompt_utf8_bytes": 377,
+        "task_id": "SPAT_120"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "98e54ba4b73109da830bc93d2c69149ae5d6ef15bd5f3f05a72464e21eb6a688",
+        "prompt_utf8_bytes": 471,
+        "task_id": "SPAT_121"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "280c85e6cb91a619a6913d9ad503a6e51893ae1af49795c69938f6eea0a1082c",
+        "prompt_utf8_bytes": 468,
+        "task_id": "SPAT_122"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "262593a03280953aa2d1c9faaedb5d7305051b9006d232411479f4e94dbe63b0",
+        "prompt_utf8_bytes": 464,
+        "task_id": "SPAT_123"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "1c303802e412b491407f684e922fe0d152be34c4317a7d64310b7be646ee0ecf",
+        "prompt_utf8_bytes": 427,
+        "task_id": "SPAT_124"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "4f2cecdd463dd8898f221c672b8697cfc26af5b2c5f6356b39f3ec306982c040",
+        "prompt_utf8_bytes": 508,
+        "task_id": "SPAT_125"
+      },
+      {
+        "category": "spatial_reasoning",
+        "prompt_sha256": "6dd56fe0dc5b3e3dfee16498927ee8a60dcf7313b38590ea6807e48681f5352a",
+        "prompt_utf8_bytes": 584,
+        "task_id": "SPAT_126"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "0ebbb1729742602e64ca3e2a226deea579704a9cf2f2150cebc0150bb654e8db",
+        "prompt_utf8_bytes": 540,
+        "task_id": "VERB_117"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "d7894fd81be8387d5ae07e9b859c7c8b9d391fa8b5a95f7f7922409ff560c4fb",
+        "prompt_utf8_bytes": 577,
+        "task_id": "VERB_118"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "28e7a7fb004af3027fb349f21cfea0932e1a182c9c75236a37190bc998f6c7d6",
+        "prompt_utf8_bytes": 480,
+        "task_id": "VERB_119"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "f4764e9b811adf97eaba6b4154700b2c9ccb2570f4a97446eb7e6f8768f637eb",
+        "prompt_utf8_bytes": 536,
+        "task_id": "VERB_120"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "49cd121a185ce544bc63fe95061638651bf13d313bdc399d9432818e4b0ad750",
+        "prompt_utf8_bytes": 717,
+        "task_id": "VERB_121"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "478fc725b1d15eb95ee610d90b6b48406e75190c177d0ea63b783b48dce21518",
+        "prompt_utf8_bytes": 610,
+        "task_id": "VERB_122"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "e20fe82d0afaf5640973ab8125a99c1f63e5f750130726c5086ea8e0fcbffb79",
+        "prompt_utf8_bytes": 573,
+        "task_id": "VERB_123"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "a14b3e56908885acabcc65a90e891189b19b5b6bdedab3ac8ef3d5774838d288",
+        "prompt_utf8_bytes": 490,
+        "task_id": "VERB_124"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "0b3a8994fbde6fda9816868fa971a3efd7179418cc566ee74e72fcf6ef882560",
+        "prompt_utf8_bytes": 619,
+        "task_id": "VERB_125"
+      },
+      {
+        "category": "verbal_logic",
+        "prompt_sha256": "99c8ae0f831951830b1ddc19c3f54afdc1e60a219bee9734d10343c40dae76c4",
+        "prompt_utf8_bytes": 902,
+        "task_id": "VERB_126"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "88566239c03a7ce7f88cc2685d3bc385945aa1f2a2f91569d970d54d48dd6cef",
+        "prompt_utf8_bytes": 189,
+        "task_id": "PATT_117"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "851f242c6e882b4366bea33f5552a1d573985c1f654c2e94c53f41cbd55d5c35",
+        "prompt_utf8_bytes": 229,
+        "task_id": "PATT_118"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "8176483ae053a877dee5f25e38c7935aea43f6fc02a0ba6e21ebfeba8f5d7b93",
+        "prompt_utf8_bytes": 238,
+        "task_id": "PATT_119"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "54746823eea2c9b376bf95f3e3a8ca03e339ca4b16907c48958f2c680f89d4ae",
+        "prompt_utf8_bytes": 230,
+        "task_id": "PATT_120"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "cdc28fa35109ce2bd79442e75e62d80469c37d697cde7a18d9bd6e43d5cac0e9",
+        "prompt_utf8_bytes": 324,
+        "task_id": "PATT_121"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "280a26d2e2ead2da34eee7b69e3e36bdeac8a4c3c1309d4e31b50b7bb98d68ef",
+        "prompt_utf8_bytes": 340,
+        "task_id": "PATT_122"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "30443f9d07745df205de63a3ee7db11acf8f85ed8567cef89ca8d758855a9308",
+        "prompt_utf8_bytes": 346,
+        "task_id": "PATT_123"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "4a2b04653fd023b7861a2519d93c984dd8fe61439098d7c5c9e78096d78d76f1",
+        "prompt_utf8_bytes": 406,
+        "task_id": "PATT_124"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "a140d93270f14d6d5e9b60b8d25b1694fbc701991ae70f385f04f7ad2c04c794",
+        "prompt_utf8_bytes": 355,
+        "task_id": "PATT_125"
+      },
+      {
+        "category": "pattern_recognition",
+        "prompt_sha256": "0c301e579566dfc61552caa8899affd8a2f6f1fb765e33a7370cb73db5635a06",
+        "prompt_utf8_bytes": 369,
+        "task_id": "PATT_126"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "26cdca977326849f0b7971889d26481f9c5779d5ac2f1a7e532a3d42ac771efe",
+        "prompt_utf8_bytes": 342,
+        "task_id": "LATE_117"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "0c7c1a3ba38ba454b8131c085340198e13d4dcb19f4972c05adaa2cc1684125d",
+        "prompt_utf8_bytes": 453,
+        "task_id": "LATE_118"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "5734968ffc21ef8965b9cade65de2c03d016862a44808f05fdd56e6f8ca16b03",
+        "prompt_utf8_bytes": 418,
+        "task_id": "LATE_119"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "9a06af2f12e6177ac0cd08d45c3f3f062c48000df987b49a1d95b1be4c874e64",
+        "prompt_utf8_bytes": 732,
+        "task_id": "LATE_120"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "7ab5cf10100319966524479ebc0dee2303d78287f9b7dd8bda840d3b5d6c3892",
+        "prompt_utf8_bytes": 750,
+        "task_id": "LATE_121"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "bb96b7b2e1003dff6ff0a5d2afc9b2f4f16c04fc734e555fef33a216d6423aaa",
+        "prompt_utf8_bytes": 568,
+        "task_id": "LATE_122"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "24b87ab63b27aeb9675f77d267ab690ea60fdb49ede899a8ccd368c09e2db1f1",
+        "prompt_utf8_bytes": 600,
+        "task_id": "LATE_123"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "b4f71c666869b110c2a8601e4445ab6d4bc5f97591c9b010aad4330a730bd67b",
+        "prompt_utf8_bytes": 483,
+        "task_id": "LATE_124"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "43272d787f042ab6b3949a9c3439bf56e4930d7ef7a4eb6d97532694f649688d",
+        "prompt_utf8_bytes": 656,
+        "task_id": "LATE_125"
+      },
+      {
+        "category": "lateral_thinking",
+        "prompt_sha256": "9be294e405d7a68ad3745aa2dd3dc81d60a689c8155092cbb68acd05e75f395d",
+        "prompt_utf8_bytes": 732,
+        "task_id": "LATE_126"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "4597e5d37e9070388189fdfead3b373d8a16b19eb9e28521587d2963d2b10254",
+        "prompt_utf8_bytes": 634,
+        "task_id": "CAUS_117"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "64161700dddb397782cac3c5cec2990a77bfe9ae03fc8bfbf0e9557e4caacd39",
+        "prompt_utf8_bytes": 607,
+        "task_id": "CAUS_118"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "203e0831d9d23e698e53053e8b66e3021eb42f33865fda375cf730542656f5e6",
+        "prompt_utf8_bytes": 691,
+        "task_id": "CAUS_119"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "9c81d8da76088ff9d69ed17aac4994b52fea0dbd5732b62727c84ac57c39dcca",
+        "prompt_utf8_bytes": 777,
+        "task_id": "CAUS_120"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "3529551c0c1df82c5bcc430df6490eab06694fe5cc08b630913f1cdd84c7d3ca",
+        "prompt_utf8_bytes": 805,
+        "task_id": "CAUS_121"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "79a05f0693cfaac67452ac99571850a00278cc8f5210d2b6ced0caa1c44be4e0",
+        "prompt_utf8_bytes": 834,
+        "task_id": "CAUS_122"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "7ab552195133119821de8f73b94885eb1f2aaf3c85feb3ac17a2a95dfa5d93c2",
+        "prompt_utf8_bytes": 882,
+        "task_id": "CAUS_123"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "39c4d3437d95b7255029f0c5a6edc1fe59d713d8948aa677a8e90c22e2f3e3b7",
+        "prompt_utf8_bytes": 807,
+        "task_id": "CAUS_124"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "e4259aaab5efd8aa4025fc92538d0f5c9e525c57eace0ffbedeab74fec4683a5",
+        "prompt_utf8_bytes": 888,
+        "task_id": "CAUS_125"
+      },
+      {
+        "category": "causal_reasoning",
+        "prompt_sha256": "9131e275f21109a853094df27ea8a651bec63ff759477fb84a885f5b11fee738",
+        "prompt_utf8_bytes": 969,
+        "task_id": "CAUS_126"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "e6c43dd9ff98e38e8eea4b08512f39c56262a9013101465625cfa80faf43459f",
+        "prompt_utf8_bytes": 351,
+        "task_id": "PROB_117"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "0c5d9124bb264bf182019d06375e1c03b2bdc3a19316636f5aabcf05f45cca9c",
+        "prompt_utf8_bytes": 315,
+        "task_id": "PROB_118"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "6e81b1b7e2af167902d234ec47feed98ade93b7e7fb248354c4e204c88532766",
+        "prompt_utf8_bytes": 393,
+        "task_id": "PROB_119"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "6f22a2135b477eb9c5c00295054467b9a62617a3b506b4243a38f1b19e662b6a",
+        "prompt_utf8_bytes": 475,
+        "task_id": "PROB_120"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "27380059f0b87fe839d5c3792988781f95737c19fda70fb3c2721cc55c0785f6",
+        "prompt_utf8_bytes": 528,
+        "task_id": "PROB_121"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "03a9a1708163e77a6c8037d3b67057d2a777024220492ef82ad032a9ce8db15a",
+        "prompt_utf8_bytes": 526,
+        "task_id": "PROB_122"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "4a93b774698b5f5bb7ea3bb4125b53f1230919a92a6e4f5c254fbbf3c4b77a48",
+        "prompt_utf8_bytes": 618,
+        "task_id": "PROB_123"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "ff3f21a7d4604204de90c6ab376729e8588e792135f6f3e4197db924a8942ea9",
+        "prompt_utf8_bytes": 648,
+        "task_id": "PROB_124"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "dc17b442a4250317211a8d658298cba1e5309354fdd330778ca249f3b194291c",
+        "prompt_utf8_bytes": 649,
+        "task_id": "PROB_125"
+      },
+      {
+        "category": "probabilistic_thinking",
+        "prompt_sha256": "0fa973159e6ad2fc54e876952bdae6b6eaef58c6c8d2b2982f4f26ce8cae0eca",
+        "prompt_utf8_bytes": 626,
+        "task_id": "PROB_126"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "9e3e90a88071d6ba6ade5f3a0f91d35ff0f1316d5e1d233976ea2a08e8fa065a",
+        "prompt_utf8_bytes": 626,
+        "task_id": "SYST_117"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "380ba32821f1376b12289bf3e3486ce171cb0fa56539de2a13b87ab8230f6433",
+        "prompt_utf8_bytes": 692,
+        "task_id": "SYST_118"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "06f038d81facb5fa627d1e1dfa16e06e7eaf9b8890ddc0f522cc3b6732aa4b16",
+        "prompt_utf8_bytes": 693,
+        "task_id": "SYST_119"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "6c029d7e18365c23263d6fdb5679ebea90da512bc7b0a074f1165dc31a402ef4",
+        "prompt_utf8_bytes": 751,
+        "task_id": "SYST_120"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "65d874adf5bdaf71210e725dc4ed190f6c7a53098f401bbb47a2d1033bfc800f",
+        "prompt_utf8_bytes": 770,
+        "task_id": "SYST_121"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "512b9abb0912e41d3b2214f208ae791b67aa1b1d02e04aa3c642c22d60c314bf",
+        "prompt_utf8_bytes": 779,
+        "task_id": "SYST_122"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "fd056e6f405542bdc0e0cde9bbf6bd1450dfafb182b6a8540215e238bc642ca3",
+        "prompt_utf8_bytes": 767,
+        "task_id": "SYST_123"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "e329cfcea42806c4f2f9022b494f0de933c0c211f99256ffce6a8fab31422c26",
+        "prompt_utf8_bytes": 744,
+        "task_id": "SYST_124"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "fb0f8799e438cb320f51ad1c6ed872e12b97fe7ec56727fbc02a6f70ef836ae2",
+        "prompt_utf8_bytes": 798,
+        "task_id": "SYST_125"
+      },
+      {
+        "category": "systems_thinking",
+        "prompt_sha256": "c5dfaddfad4cfd4772b50b679ade69300f29df0c234a03795cc3f5880b5dbe6d",
+        "prompt_utf8_bytes": 857,
+        "task_id": "SYST_126"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "ef23d5718b6b15ef7c7014298931d4d48fa13e6755e238945b4ede08ee3e9060",
+        "prompt_utf8_bytes": 728,
+        "task_id": "CREA_117"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "2a053f82fb005ce854882fbf105b81bcd65a9d41cc079874a9bc416858763118",
+        "prompt_utf8_bytes": 722,
+        "task_id": "CREA_118"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "a6308b933ac904cfccb7901dd0b0c43a86a38486f0742967cdc2950dcf44ed1c",
+        "prompt_utf8_bytes": 760,
+        "task_id": "CREA_119"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "c318b0effeb72bb5f1510866ac6d3ab4c12b63bd0184fb21f023722e61e9a160",
+        "prompt_utf8_bytes": 754,
+        "task_id": "CREA_120"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "076c8291b3feca99f6784724f00698ee51b9004fcccb8b45c65145cf3e6a9cc1",
+        "prompt_utf8_bytes": 812,
+        "task_id": "CREA_121"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "abb2866d3be4cf745b55d4be04be394270669c5f6809c2ef9a3e3d061212be94",
+        "prompt_utf8_bytes": 551,
+        "task_id": "CREA_122"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "e456b60d5a989a80bb936ca346b9ae48fde784670a85ee5e6ffd4277871b4e40",
+        "prompt_utf8_bytes": 551,
+        "task_id": "CREA_123"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "7d0715daf2f43e6b353b65ffb51117a584085632fd4daf4ae5e5674dfb5204db",
+        "prompt_utf8_bytes": 563,
+        "task_id": "CREA_124"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "12e917c5c06eb1598730654d78f63e9a3f664c1a96a29a235ae65ac38aac78d9",
+        "prompt_utf8_bytes": 528,
+        "task_id": "CREA_125"
+      },
+      {
+        "category": "creative_problem_solving",
+        "prompt_sha256": "214671e10f43fb266375485ea73861f7a70946004cfc8cefc33ceaca9017fb92",
+        "prompt_utf8_bytes": 638,
+        "task_id": "CREA_126"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "9e1d13e27bedf992c6eedb3fe3112d6b4527c6b47cea7c1002a8e10ed507c15e",
+        "prompt_utf8_bytes": 663,
+        "task_id": "SCIE_117"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "ef4155ebef1348c0e54f80f35635f7d2fcd3ef82f342dff3024cf418f03899e7",
+        "prompt_utf8_bytes": 600,
+        "task_id": "SCIE_118"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "22564a6dad778a9531353fe73c84f06a4d04847dd066f3eaaf901cd919b71ce4",
+        "prompt_utf8_bytes": 595,
+        "task_id": "SCIE_119"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "97b2c98f26a1cc8a20980e565f06822375a6ccea812a326f93710e46d00e79d2",
+        "prompt_utf8_bytes": 632,
+        "task_id": "SCIE_120"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "d48712dfd3f06c75b1d24d7c18ab4080e2535419357bcc43b332d754759be1a4",
+        "prompt_utf8_bytes": 678,
+        "task_id": "SCIE_121"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "8d3f661a8f7fc3f3a4d8d66ed5579f0703fb7dd701a4d8c0238a8fe87a5bd375",
+        "prompt_utf8_bytes": 707,
+        "task_id": "SCIE_122"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "e373d2bb69b2ca1398aeb51319b8abe6f4387e8a6fbee3026cb32f81ee5e6cbe",
+        "prompt_utf8_bytes": 640,
+        "task_id": "SCIE_123"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "4395c2dab647357bab366ebba44e24249e99f0e5316cae2f4e162f902446739b",
+        "prompt_utf8_bytes": 590,
+        "task_id": "SCIE_124"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "ecdc0025fa9dcc1efeb075d8d259e358f883228779b3f51adfb32eaab76e222e",
+        "prompt_utf8_bytes": 684,
+        "task_id": "SCIE_125"
+      },
+      {
+        "category": "scientific_reasoning",
+        "prompt_sha256": "c805f5fa8984207bb9fea0ec483263c0fbf54087a9e285ad86da6289187da954",
+        "prompt_utf8_bytes": 800,
+        "task_id": "SCIE_126"
+      }
+    ]
+  },
+  "schema_version": "p5-powered-generic-preflight-readiness-1",
+  "snapshot_date": "2026-08-09",
+  "status": "blocked_non_executable"
+}

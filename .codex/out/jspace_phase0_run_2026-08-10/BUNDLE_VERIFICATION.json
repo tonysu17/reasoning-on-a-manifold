@@ -1,0 +1,60 @@
+{
+  "environment": {
+    "cuda_available": true,
+    "cuda_runtime": "12.4",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "huggingface_hub": "1.27.0",
+    "python": "3.11.10 (main, Sep  7 2024, 18:35:41) [GCC 11.4.0]",
+    "torch": "2.4.1+cu124",
+    "transformers": "5.5.0"
+  },
+  "errors": [],
+  "jlens_commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+  "model": {
+    "file_hashes": {
+      "config.json": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+      "generation_config.json": "72cbec1015da9ed03ad025483005cbf6481403abf947adfd54e504d1a66a2126",
+      "model.safetensors": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+      "tokenizer.json": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+      "tokenizer_config.json": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5"
+    },
+    "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "ref_main": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "snapshot": "/workspace/hf/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/snapshots/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562"
+  },
+  "network_volume": true,
+  "ok": true,
+  "preflight": {
+    "errors": [],
+    "execution_authorised": false,
+    "manifest": "/workspace/jspace-phase0/results/prereg/JSPACE_R1_BENCHMARK_MANIFEST_2026-08-10.json",
+    "manifest_sha256": "963ecac62da2e7e0223dd11bf942093e8990436ac748484289d0826544428602",
+    "n_prompts": 5,
+    "ok": true,
+    "warnings": []
+  },
+  "required_bundle_file_count": 17,
+  "required_bundle_hashes": {
+    "ENVIRONMENT_FREEZE.txt": "1fb1320c1ce18dd940a181c0c9302468422c238ea48cf8bf4da9e61cb0b06688",
+    "_external/jacobian-lens/jlens/fitting.py": "5be8959db8efc34cee41ed677beba84e21ba3c9e3ccb958bdbc1600c86b5e080",
+    "_external/jacobian-lens/jlens/hf.py": "228cf078e4586a7b7f61a6f5064403b8960de337afd19256efa56f04d53e3222",
+    "_external/jacobian-lens/jlens/lens.py": "e231e7d3a6c8e8f7791b53705a34342d0bba376a127a82376eaf6ec30ca11808",
+    "_external/jacobian-lens/pyproject.toml": "b498f1977a64df5ebd0d990088e4956874f62ead1adba8d62f2acf36780a52b0",
+    "_external/jacobian-lens/uv.lock": "981e580531e517be1bd1a3fef98ac12822f40d626ba8f365e59973ff258f36ea",
+    "data/tasks_final.json": "a4ba180d5722e016c95945867ca6fbcf7abb48640f4b8d0c9e6111c572051b1d",
+    "jspace_phase0_bundle_verify.py": "677ae530b965dd235666caf979fcc198ad53df2ce695d10fc490d86a905ae73d",
+    "jspace_phase0_pod_job.sh": "abf73452868bcb22660f28cb0e43806ac42e25160ab543a212aae7fe601dba2b",
+    "jspace_phase0_watch.py": "8cb7c436c14229d800f6ee2aab5309b3da3a03539b4979a7474645664efcba8a",
+    "jspace_pilot_benchmark.py": "021ee703b10061232d0179638b2e698c1f3578a1f15a580476d22ead80134b7a",
+    "jspace_pilot_preflight.py": "2f5f03cf0c799e73240de1417b7f3023f4b01064fda454912c56b3f724ed0ac1",
+    "results/eval/R1-1.5B__E1/eval_task_ids.json": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd",
+    "results/prereg/JSPACE_R1_BENCHMARK_MANIFEST_2026-08-10.json": "963ecac62da2e7e0223dd11bf942093e8990436ac748484289d0826544428602",
+    "results/prereg/JSPACE_R1_STEERING_PILOT_PREREG_2026-08-10.md": "fa0011fe80ea03b84656b154b6e799b6d725f0c1fa2d459ed8027103517b67c8",
+    "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+    "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886"
+  },
+  "root": "/workspace/jspace-phase0",
+  "schema_version": "rom-jspace-phase0-bundle-verification-v1",
+  "sealed_output_absent": true
+}

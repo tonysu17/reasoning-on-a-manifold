@@ -137,6 +137,14 @@ def test_per_task_fraction_skips_missing_and_empty():
     assert set(fr) == {"t2"}
 
 
+def test_per_task_fraction_skips_partial_nonempty_annotation():
+    s, a = _records("backtracking", "single_direction", 1.0, [0.2, 0.4])
+    a[0]["annotation_complete"] = False
+    assert a[0]["annotations"]  # partial payload exists but is not admissible
+    fr = per_task_fraction(s, a, "backtracking", "single_direction", 1.0)
+    assert set(fr) == {"t1"}
+
+
 def test_per_task_fraction_alpha_filter():
     s, a = _records("backtracking", "single_direction", 1.0, [0.5])
     s2, a2 = _records("backtracking", "single_direction", 0.5, [0.1], prefix="u")
@@ -510,3 +518,35 @@ def test_delta_floor_cell_missing_vanilla_still_computes():
 def test_noise_band_rejects_nan():
     with pytest.raises(ValueError):
         noise_band_fraction_rms([0.1, float("nan")], [0.2, 0.3])
+
+
+def test_per_task_fraction_excludes_coverage_incomplete_rows():
+    """2026-08-13: a schema-valid row whose coverage verdict is incomplete (or
+    stale) is unresolved for estimation; legacy rows without any verdict keep
+    their historical inclusion."""
+    from src.annotation_coverage import COVERAGE_RULE_VERSION
+    from src.delta_floor import per_task_fraction
+
+    def gen_row(tid):
+        return {"task_id": tid, "behaviour": "backtracking",
+                "method": "transported_raw_suppress", "alpha": 1.0}
+
+    spans = [{"label": "backtracking", "text": "Wait."},
+             {"label": "deduction", "text": "So."}]
+    ann = [
+        {**gen_row("T_ok"), "annotations": spans, "annotation_complete": True,
+         "annotation_coverage": {"rule_version": COVERAGE_RULE_VERSION,
+                                 "complete": True}},
+        {**gen_row("T_gap"), "annotations": spans, "annotation_complete": True,
+         "annotation_coverage": {"rule_version": COVERAGE_RULE_VERSION,
+                                 "complete": False}},
+        {**gen_row("T_stale"), "annotations": spans, "annotation_complete": True,
+         "annotation_coverage": {"rule_version": "some-old-rule",
+                                 "complete": True}},
+        {**gen_row("T_legacy"), "annotations": spans, "annotation_complete": True},
+    ]
+    gen = [gen_row(t) for t in ("T_ok", "T_gap", "T_stale", "T_legacy")]
+    fr = per_task_fraction(gen, ann, "backtracking",
+                           "transported_raw_suppress", 1.0)
+    assert set(fr) == {"T_ok", "T_legacy"}, fr
+    assert fr["T_ok"] == 0.5

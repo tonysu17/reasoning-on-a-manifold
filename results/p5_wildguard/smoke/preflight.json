@@ -1,0 +1,22 @@
+{
+ "binding": {
+  "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+  "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+  "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+  "manifest_internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4",
+  "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+  "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+  "runner_version": "p5wg-smoke-runner/1.1.0",
+  "safety_prompt_manifest_sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+  "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6"
+ },
+ "body": {
+  "n_items": 8,
+  "ok": true,
+  "spend": null
+ },
+ "predecessor_sha256": null,
+ "report_sha256": "4dc1cb7412ddd4060c2cc78fef20eb32014354646431bfa080fb0b092dc9782e",
+ "stage": "preflight",
+ "utc": "2026-08-09T21:01:51Z"
+}

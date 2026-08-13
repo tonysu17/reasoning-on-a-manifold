@@ -1,0 +1,107 @@
+{
+  "amendment": "A5R5: coverage rule -2 (unicode fold + continuation-prefix strip)",
+  "annotation_window_tokens": 3000,
+  "bound_artifacts": [
+    {
+      "path": "ph2_executor.py",
+      "sha256": "8240292c496b7c44252c2d1686372e30a03c8794a1c173e5c99b26d518cfeb7e"
+    },
+    {
+      "path": "results/prereg/PHASE2_ADJUNCT_AMENDMENT_2026-08-08.md",
+      "sha256": "2dd6ca7b699b32d5f88c3a87a8c5bb8f24f073c86905390e5858a4f2784cadd4"
+    },
+    {
+      "path": "results/prereg/PHASE2_TRANSPORT_PREREG_2026-08-08.md",
+      "sha256": "f27af80200420cb217ecc4dc76fee7c68c8b8619504988d5b63622506768515c"
+    },
+    {
+      "path": "results/prereg/phase2_task_manifest.json",
+      "sha256": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333"
+    },
+    {
+      "path": "src/annotation.py",
+      "sha256": "88e98b89d885027ec3676e5da194d6cbada4289cd4c3b86613a4a1c49023d1e9"
+    },
+    {
+      "path": "src/annotation_budget.py",
+      "sha256": "1b6bc8a9f38914b0ededd0c6777f75bd2f985ca352465479ec90ff005d9f7f7e"
+    },
+    {
+      "path": "src/annotation_coverage.py",
+      "sha256": "680223628d6eea42db62ffd90282637af2f7f2ced288d09084c0aff07408255d"
+    },
+    {
+      "path": "src/annotation_quarantine.py",
+      "sha256": "8052424c855410bf6b6b3266d545beeeb08ec5df8ca319a1658201214ce64db5"
+    },
+    {
+      "path": "src/delta_floor.py",
+      "sha256": "cfca50999526506286e60b4c19121c19bedac45bc285cd6811f5b0bb719556b4"
+    },
+    {
+      "path": "src/ph2_stages.py",
+      "sha256": "49e6255e7631db2b4ba068b6cbca1ae39b7a3ea08fe0d3dd8d55fcd226e63320"
+    }
+  ],
+  "coverage_rule_version": "ph2-annotation-coverage-2",
+  "guards": {
+    "approved_spend_ceiling_usd": 275.0,
+    "global_retry_capacity": 1063,
+    "max_attempts_per_scope": 3,
+    "max_cost_per_attempt_usd": 0.05,
+    "max_output_tokens": 2800,
+    "max_prompt_chars": 4263,
+    "max_total_attempts": 11695,
+    "planned_initial_requests": 10632,
+    "prior_committed_spend_usd": 5.055819,
+    "remaining_quota_floor_usd": 5.0
+  },
+  "manifest_internal_sha256": "62bf04cf9c970f8c433e44af0adf715c0f20b31920a95e54c402c5a09ea0a9f4",
+  "model": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "prior_attempts": {
+    "v1": {
+      "annotation_rows_committed": 0,
+      "disposition": "fail-closed telemetry-parser diagnostic; archived read-only",
+      "manifest_file_sha256": "bd8adb31047317a9594ae09fde7cc8ce89db4ef0e50d674499bbf2428e6ef3ac",
+      "reported_cost_usd": 0.028434
+    },
+    "v2": {
+      "annotation_rows_committed": 15,
+      "checkpoint_sha256": "4273ff37ed62881c3aeb9aeed5ada525bcfe28796687400923626ea0887efb61",
+      "coverage_complete_rows": 8,
+      "coverage_incomplete_rows": 7,
+      "dangling_charged_usd": 0.1,
+      "dangling_reservations": 2,
+      "disposition": "stopped on a per-call cost breach ($0.055686 > $0.05); checkpoint and journal retained read-only as audit evidence",
+      "journal_sha256": "e41c7df0aa218e8faa22f315accf923b1fb3b3c487c04ee62b978adbbcbf9f38",
+      "outcomes": 45,
+      "reported_cost_usd": 1.052535,
+      "reservations": 47
+    }
+  },
+  "rate_card": {
+    "input_usd_per_mtok": 3.0,
+    "output_usd_per_mtok": 15.0,
+    "tokens_per_char_upper": 0.4
+  },
+  "schema": "ph2-annotation-attempt-guard-2",
+  "source_artifacts": [
+    {
+      "path": "results/ph2/battery/base.json",
+      "sha256": "fab5a0d1366a8158b77c2260147a8daa2928827d3752be784e452759d6983832"
+    },
+    {
+      "path": "results/ph2/battery/deepscaler.json",
+      "sha256": "a9112feed4a0f4a8e4b7cc426749aca524f6f365c55c11fe43a2cdd511484658"
+    },
+    {
+      "path": "results/ph2/battery/star1.json",
+      "sha256": "32b88bf0ea605b880502588bc8827cde444a3f0e8bff6127f6f8b11a2a7f7492"
+    },
+    {
+      "path": "results/ph2/injection/base_injection.json",
+      "sha256": "9b1474cd4b1f1b931cf2ca4f333223863e03583407cfd3b76ad315f8424d425e"
+    }
+  ],
+  "status": "authorised"
+}

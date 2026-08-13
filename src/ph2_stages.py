@@ -346,15 +346,19 @@ def damage_gate(active: Sequence[dict], floor: Sequence[dict],
 
     def boxed_rate(rows):
         vals = [r["boxed_correct"] for r in rows if r.get("boxed_correct") is not None]
-        if not vals:  # no ground-truth answers → fall back to boxed-present
-            vals = [r["boxed_present"] for r in rows if "boxed_present" in r]
         return float(np.mean([bool(v) for v in vals])) if vals else None
 
     out = {"loop_excess": None, "trunc_excess": None, "boxed_drop": None,
-           "damage_ok": True, "reasons": []}
+           "damage_ok": True, "damage_resolved": True, "reasons": []}
     la, lf = rate(active, "looped"), rate(floor, "looped")
     ta, tf = rate(active, "truncated"), rate(floor, "truncated")
     ba, bv = boxed_rate(active), boxed_rate(vanilla)
+    if ba is None or bv is None:
+        # Boxed presence is not mathematical correctness.  When the frozen
+        # manifest has no expected-answer key, preserve this endpoint as
+        # unavailable rather than silently substituting a different estimand.
+        out["damage_resolved"] = False
+        out["reasons"].append("boxed exact-match unavailable: no answer key")
     if la is not None and lf is not None:
         out["loop_excess"] = la - lf
         if out["loop_excess"] > DAMAGE_REP4_EXCESS:
@@ -500,6 +504,15 @@ ANNOTATION_DEDUP_KEYS = ("model_role", "behaviour", "method", "alpha", "task_id"
 #: the SEALED E8 cap — only what gets ANNOTATED shrinks. Damage gates, boxed
 #: correctness, length and truncation remain full-chain (generation records).
 ANNOTATION_WINDOW_TOKENS = 3000
+
+#: DRAFT AMENDMENT A5 (2026-08-11, pending owner approval): the behavioural
+#: annotation region ends at the first ``</think>``. Post-think text is the
+#: model's user-facing response, not reasoning, and the 2026-08-11 QA found the
+#: annotator including it in 4 of 9 eligible rows and omitting it in 5 — a
+#: row-by-row discretion that moves the estimand. The A4 ~3,000-token window is
+#: UNCHANGED; A5 only fixes which part of that window is in scope. Full chains
+#: remain on every row (``chain_full``) for the full-chain damage endpoints.
+ANNOTATION_INCLUDE_POST_THINK = False
 
 
 def annotation_window(text: str,
@@ -728,11 +741,25 @@ def a2_adjunct_table(annotated_vanilla: dict[str, list[dict]],
     from src.evaluation import behaviour_fraction
     from src.delta_floor import paired_bootstrap_mean
 
+    from src.annotation_coverage import COVERAGE_RULE_VERSION, row_is_coverage_complete
+
+    n_coverage_incomplete = {role: 0 for role in annotated_vanilla}
+
     def per_task(role):
         rows = {}
         for r in annotated_vanilla.get(role, []):
             tid = r["task_id"]
-            anns = r.get("annotations") or None
+            anns = (r.get("annotations") or None)
+            if r.get("annotation_complete") is False:
+                anns = None
+            # A schema-valid row whose spans do not exhaust the annotation
+            # region is UNRESOLVED, not complete: its behaviour fractions have a
+            # discretionary denominator. Such rows are pairwise-deleted from the
+            # behavioural endpoints (below) and counted in provenance, exactly
+            # like a transport failure.
+            elif anns and not row_is_coverage_complete(r):
+                n_coverage_incomplete[role] = n_coverage_incomplete.get(role, 0) + 1
+                anns = None
             st = chain_stats(r["chain"], r["n_tokens"], cap,
                              r.get("expected_answer"))
             ep = {"length": float(r["n_tokens"]),
@@ -747,7 +774,11 @@ def a2_adjunct_table(annotated_vanilla: dict[str, list[dict]],
                 # A4: the per-1k denominator must be the tokens actually
                 # ANNOTATED (the window), never the full-chain count — mixing
                 # a windowed numerator with a full denominator understates rates.
-                denom = r.get("annotated_tokens") or r["n_tokens"]
+                # A5: prefer the tokens in the ANNOTATION REGION (post-think
+                # text excluded); fall back to the A4 window, then the full
+                # chain, so pre-A5 records keep their historical denominator.
+                denom = (r.get("annotated_region_tokens")
+                         or r.get("annotated_tokens") or r["n_tokens"])
                 ep["bt_per_1k"] = (1000.0 * n_bt / denom) if denom else None
             else:
                 for b in A2_BEHAVIOURS:
@@ -780,6 +811,11 @@ def a2_adjunct_table(annotated_vanilla: dict[str, list[dict]],
                          "ci_high": boot.ci_high, "n": boot.n_tasks,
                          "n_unresolved": n_unresolved}
         table["endpoints"][role] = cells
+    # Coverage-incomplete rows are excluded pairwise above; their count travels
+    # with the table so a reader can see how much of the behavioural evidence
+    # was withheld rather than silently averaged in.
+    table["n_coverage_incomplete"] = dict(n_coverage_incomplete)
+    table["coverage_rule_version"] = COVERAGE_RULE_VERSION
     return table
 
 

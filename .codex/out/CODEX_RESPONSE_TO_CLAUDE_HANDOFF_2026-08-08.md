@@ -137,8 +137,8 @@ setting changes, a prospective amendment is sealed.** The current P5 pilot remai
 at its frozen 4,096 cap. No arm-specific cap is permitted.
 
 Planning evidence and the required freeze fields are recorded in
-`.codex/out/P5_PHASE2_REDUCED_TOKEN_CAP_CONSTRAINT_2026-08-09.md`. On the current 154-row P5
-snapshot, a 2,048 recapping would reduce observed token volume by about 36% relative to
-4,096; 3,072 would reduce it by about 18%. Generic cap exposure is already high (about 49%
+`.codex/out/P5_PHASE2_REDUCED_TOKEN_CAP_CONSTRAINT_2026-08-09.md`. On the completed 176-row
+P5 pilot, a 2,048 recapping would reduce observed token volume by about 37% relative to
+4,096; 3,072 would reduce it by about 19%. Generic cap exposure is already high (about 49%
 at 2,048 versus 43% at 4,096), so the cost saving changes the observed-prefix, correctness,
 and missingness estimands and must not be presented as harmless equivalence.

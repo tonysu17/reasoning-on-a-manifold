@@ -1,0 +1,181 @@
+{
+  "closure": {
+    "held_out_status": "not_executed_closed",
+    "long_endpoint_recovery_status": "prohibited_by_schema_and_accounting_incompatibility",
+    "missingness_rule": "all failed/missing chunks and endpoints remain missing or unresolved; no zero, negative, or refusal imputation",
+    "owner_decision_required": false,
+    "reopening_rule": "requires a new versioned protocol, documented response envelope and accounting, disjoint validation, hard spend guards, and new owner authorization",
+    "same_sonnet_repeats_status": "not_authorized_not_executed",
+    "scientific_use": "none; safety pipeline outputs do not support arm comparisons",
+    "v2_2_1_recovery_status": "superseded_unexecuted_closed"
+  },
+  "created_at_utc": "2026-08-09T17:32:49Z",
+  "diagnostics": {
+    "diagnostic_outputs_enter_annotations_or_gates": false,
+    "long_endpoint": {
+      "accounting_parseable": false,
+      "attempts": 1,
+      "conclusion": "returned an incompatible choices-style envelope; underlying text and exact cost were not retained or recovered",
+      "http_status_class": "2xx",
+      "observed_cost_usd": null,
+      "outcome": "empty_scorer_text_without_filter_marker",
+      "top_level_keys": [
+        "choices",
+        "created",
+        "id",
+        "model",
+        "object",
+        "usage"
+      ]
+    },
+    "standard_endpoint": {
+      "attempts": 1,
+      "conclusion": "successful billed proxy wrapper prospectively reproduced an empty content array without an explicit filter marker",
+      "content_container_count": 0,
+      "content_container_type": "array",
+      "filter_marker_present": false,
+      "http_status_class": "2xx",
+      "observed_cost_usd": 0.005966999999999999,
+      "outcome": "empty_scorer_text_without_filter_marker"
+    }
+  },
+  "document_sha256": "619a4ca99ebec29fd740ab445895c33a25c1f56643463daab54ba2320e185013",
+  "postexecution_handoff_integrity": {
+    "affected_historical_tests": [
+      "test_approved_endpoint_is_exactly_hash_bound_and_not_returned",
+      "test_request_and_target_are_identical_to_completed_standard_diagnostic",
+      "test_transport_changes_only_endpoint_and_remains_one_attempt",
+      "test_long_call_is_one_attempt_sanitized_and_uses_identical_body",
+      "test_timeout_stops_without_retry",
+      "test_planning_and_authorization_builders_make_no_call"
+    ],
+    "current_corrected_handoff_sha256": "30e7319c13aec105d2cd5d06955130c96a4b137371a3cc41b5ee2fbe1fd7d012",
+    "disposition": "preserve both the corrected handoff and every execution-bound artifact; do not restore the stale handoff or edit/recreate the frozen runner, manifest, or tests",
+    "executed_runner_manifest_output_and_journal_mutated": false,
+    "execution_bound_precomparison_handoff_sha256": "abd617419d4fc0b481576c8366ba9a98429c64577d39d3dd6f56b7805090dfdd",
+    "historical_tests_fail_closed_as_designed": true,
+    "reason_for_change": "post-execution correction records that the long endpoint returned an incompatible choices-style envelope and must not be treated as a drop-in proxy replacement"
+  },
+  "proxy_model_or_pod_calls_made_by_closure": 0,
+  "schema_version": "p5-zero-spend-closure-generic-1-safety-disposition",
+  "scope": "P5 Sonnet safety scoring path only; generic pilot closure is separate",
+  "sources": {
+    "P5_PHASE2_SHARED_VANILLA_CONTRACT_2026-08-08.md": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PHASE2_SHARED_VANILLA_CONTRACT_2026-08-08.md",
+      "sha256": "391461ca66ef60015d4790a4226ffdb839edd9fdc2ba14fa8be2947acf1184a2"
+    },
+    "P5_PILOT_SAFETY_V2_2_1_PROPOSED_EMPTY_TEXT_RECOVERY_2026-08-09.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SAFETY_V2_2_1_PROPOSED_EMPTY_TEXT_RECOVERY_2026-08-09.json",
+      "sha256": "c4263d449a0f0687bc56729a4158ff3d3c620b0834810e4261b81d298fbe84e9"
+    },
+    "P5_PILOT_SAFETY_V2_2_PROPOSED_VALIDATION_RESCORING_2026-08-09.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SAFETY_V2_2_PROPOSED_VALIDATION_RESCORING_2026-08-09.json",
+      "sha256": "ee801c32f0405d2819ae1aafacc5d78ed3008e8f43572ef86553b7f3f386e9c3"
+    },
+    "P5_PILOT_SCORER_V2_1_PROPOSED_EXECUTABLE_PRIMARY_2026-08-09.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SCORER_V2_1_PROPOSED_EXECUTABLE_PRIMARY_2026-08-09.json",
+      "sha256": "988348a549480cbc63aa1437e493c7ed048ed428028246e9517a16a208e45592"
+    },
+    "behaviour_annotations_v2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/behaviour_annotations_v2.jsonl",
+      "sha256": "f171cdb86306cae6bbcd9208a1ce60c237676e9eed10f1575695083ae23f8113"
+    },
+    "closure_builder": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_zero_spend_closure_generic.py",
+      "sha256": "195dc8ac9e0be249a7be7740e5edf974d0c274de19755182ccb667a10db20374"
+    },
+    "closure_tests": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/test_p5_zero_spend_closure_generic.py",
+      "sha256": "d9f6e392bd40764cdb8383dabbe1cacd78bd3b0632c8a1d37ef8f83faf30585d"
+    },
+    "corrected_long_endpoint_handoff": {
+      "execution_bound_precomparison_sha256": "abd617419d4fc0b481576c8366ba9a98429c64577d39d3dd6f56b7805090dfdd",
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/CLAUDE_LONG_REQUEST_ENDPOINT_HANDOFF_2026-08-09.md",
+      "sha256": "30e7319c13aec105d2cd5d06955130c96a4b137371a3cc41b5ee2fbe1fd7d012"
+    },
+    "generations.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/generations.jsonl",
+      "sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01"
+    },
+    "safety_chunk_scores_v2_2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_chunk_scores_v2_2.jsonl",
+      "sha256": "b43cfa9b56b1f2f8d581bd72fc54ad64625e3f24af41b3da2a6ec1399dcac480"
+    },
+    "safety_scores_v2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_scores_v2.jsonl",
+      "sha256": "b2dfc032d1f7acd6e2fa301bc7f538cffaf6404d100cec13ce7a440f320075f3"
+    },
+    "safety_scores_v2_2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_scores_v2_2.jsonl",
+      "sha256": "7130d0920c0ed42b019380e494a9c8b0970b8ff22d3befe9704f8377d1089995"
+    },
+    "safety_v2_2_long_endpoint_shape_diagnostic.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_v2_2_long_endpoint_shape_diagnostic.json",
+      "sha256": "87e6e8eb95d51553193d624f928bb29cd56a0106a64efa7ef45a02f76f5dbbc0"
+    },
+    "safety_v2_2_long_endpoint_shape_diagnostic_journal.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_v2_2_long_endpoint_shape_diagnostic_journal.jsonl",
+      "sha256": "d837534f3ee0201054ce032841c9cc6de6ec4851160cd3b979077fba2726921f"
+    },
+    "safety_v2_2_one_call_shape_diagnostic.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_v2_2_one_call_shape_diagnostic.json",
+      "sha256": "57b1ec877a71d3f8ae23ff97ae23763dec7d4def6f06f2f27ec4b3dd68eed759"
+    },
+    "safety_v2_2_one_call_shape_diagnostic_journal.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_v2_2_one_call_shape_diagnostic_journal.jsonl",
+      "sha256": "0def32e7143db9be09781493aaf41a3f88dc52c52622143c646c43a2dd07ca77"
+    },
+    "safety_validation_gate_v2_2.json": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/safety_validation_gate_v2_2.json",
+      "sha256": "5a80f74ce855b49d992a6fe2254548a126788e5aac62ac5c3f34b065a45cc313"
+    },
+    "scoring_call_journal_v2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/scoring_call_journal_v2.jsonl",
+      "sha256": "8b0fbe01cbd176e727e6f5e3a23bd5e7f0cb5b1b3c5a90cae5fc081042bcad96"
+    },
+    "scoring_call_journal_v2_2.jsonl": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/scoring_call_journal_v2_2.jsonl",
+      "sha256": "ddcf61b65da220b783cde135dfdec67497cdca474b8479e0cb85c3d3bb1dc7ce"
+    }
+  },
+  "status": "immutable_closed_no_further_sonnet_safety_scoring",
+  "v2_1": {
+    "authorized_manifest_file_sha256": "988348a549480cbc63aa1437e493c7ed048ed428028246e9517a16a208e45592",
+    "authorized_manifest_internal_sha256": "af8754ae13658c5b82ea7ec1360e25f6fd39d674549f5512c80c338d0e6be803",
+    "disposition": "pipeline reliability gate failed; unresolved safety rows are not negative labels",
+    "error_classes": {
+      "JSONDecodeError": 1,
+      "ProxyProtocolError": 3,
+      "ValueError": 55
+    },
+    "evidence_status": "current resource record of pipeline failure; not a scientific endpoint result",
+    "parsed_success": 37,
+    "planned_safety_assignments": 96,
+    "terminal_safety_assignments": 96,
+    "unresolved": 59
+  },
+  "v2_2_validation": {
+    "assignment_aggregation_status": {
+      "resolved_complete": 41,
+      "resolved_monotone_compliance_partial": 3,
+      "unresolved_partial_chunks": 4
+    },
+    "authorized_manifest_file_sha256": "ee801c32f0405d2819ae1aafacc5d78ed3008e8f43572ef86553b7f3f386e9c3",
+    "authorized_manifest_internal_sha256": "29de70c816a2fd6fbf6fcf786cee2543935332870244e24756de1a93be9c669c",
+    "evidence_status": "current resource record of failed disjoint pipeline validation",
+    "gate_status": "fail",
+    "interpretation": "deterministic parser/evidence validation succeeded for every usable network response, but the predeclared proxy/network gate failed",
+    "network_error_chunks": 14,
+    "network_error_classes": {
+      "ProxyProtocolError": 14
+    },
+    "network_success_chunks": 90,
+    "network_success_rate": 0.8653846153846154,
+    "parser_evidence_complete_chunks": 90,
+    "parser_evidence_rate_among_network_success": 1.0,
+    "required_network_success_rate": 0.98,
+    "terminal_chunk_persistence": 1.0,
+    "validation_assignments": 48,
+    "validation_chunks": 104
+  }
+}

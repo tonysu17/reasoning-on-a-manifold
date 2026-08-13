@@ -75,13 +75,18 @@ AMENDED = ["A1", "A2", "A3", "A4"]  # sealed amendment lineage (protocol markers
 #: would take days; bs=32 matches the executed E8 run on a 4090.
 BATTERY_BATCH = 32
 
-#: Annotation output budget (owner decision, Tony 2026-08-09 second revision:
-#: "2-4k tokens"). NOTE this ceiling is NOT the cost lever — billing follows
-#: tokens actually generated (~1.6k/call chunk echo); cost is cut by the A4
-#: annotation WINDOW (src.ph2_stages.ANNOTATION_WINDOW_TOKENS). 4,000 keeps
-#: echo headroom, and the first 504-shrink (→2,000) still clears the ~1,620
-#: worst-case echo. The 29-s proxy ceiling is held by chunking throughout.
-ANNOTATION_MAX_TOKENS = 4000
+#: Annotation output budget. SUPERSEDES the 2026-08-09 value of 4,000, which
+#: was chosen from an *expected* ~1.6k-token echo and therefore never bounded a
+#: call at the authorised $0.05: at the frozen rate card the 4,000-token
+#: allowance alone prices at $0.060, and the run duly stopped on an observed
+#: $0.055686. Billing follows tokens actually generated, but AUTHORISATION must
+#: follow the theoretical maximum, so the allowance itself is now the lever.
+#: 2400 (from 2800, 2026-08-11 R6): live symbol-dense calls hit $0.0475,
+#: proving flat-rate input pricing is not an upper bound; the per-call check
+#: is now char-class-aware and the allowance drops for static headroom. (See
+#: correction, .codex/out/PH2_ANNOTATION_COVERAGE_AND_COST_CORRECTION_2026-08-11.md);
+#: src.annotation_budget refuses before network I/O if that ever fails to hold.
+ANNOTATION_MAX_TOKENS = 2400
 
 #: Sonnet is the builder annotator (labels, frames, and E8 verdicts derive from
 #: Sonnet annotations) — every behavioural verdict carries this qualifier (A3).
@@ -97,8 +102,8 @@ BUILDER_ANNOTATOR_CAVEAT = (
 def decide_outcome(o: dict) -> str:
     """Five-outcome hierarchy. `o` carries booleans produced by the analyse stage:
 
-    sensitivity_adequate, damage_ok, gate_pass (target-null grounding gate on transported
-    frame), raw_retained (uncorrected effect excludes attenuation >= sealed margin),
+    sensitivity_adequate, damage_resolved, damage_ok, gate_pass (target-null grounding gate
+    on transported frame), raw_retained (uncorrected effect excludes attenuation >= sealed margin),
     corrected_gate_pass / corrected_retained (predeclared norm/gain/whitening arms),
     refit_pass, refit_aligned (within null-calibrated bound), refit_misaligned_beyond_null,
     refit_recovered, repr_signal_above_null.
@@ -108,6 +113,8 @@ def decide_outcome(o: dict) -> str:
     """
     if not o.get("sensitivity_adequate", False):
         return "downgraded"          # report bound / "not disabled" language only
+    if not o.get("damage_resolved", True):
+        return "inconclusive"        # required damage endpoint was not identifiable
     if not o.get("damage_ok", True):
         return "damage_stop"         # damage gate: no primary interpretation for this arm
     if o.get("gate_pass") and o.get("refit_aligned") and o.get("raw_retained"):
@@ -139,7 +146,7 @@ def merge_annotations(rows: list[dict]) -> dict[str, dict]:
     for r in rows:
         tid = r["task_id"]
         ann = r.get("annotations")
-        if not ann:
+        if r.get("annotation_complete") is False or not ann:
             out[tid] = {"status": "unresolved"}
             continue
         n_all = len(ann)
@@ -885,8 +892,21 @@ def stage_annotate(authorised: bool) -> None:
     if not (os.environ.get("CLAUDE_PROXY_URL") and os.environ.get("CLAUDE_PROXY_KEY")):
         raise SystemExit("CLAUDE_PROXY_URL/KEY not set (source ~/.zshrc) — "
                          "annotation is proxy-gated.")
-    from src.annotation import annotate_chains, ANNOTATION_MODEL
+    guard_manifest_raw = os.environ.get("PH2_ANNOTATION_GUARD_MANIFEST")
+    guard_manifest_sha = os.environ.get("PH2_ANNOTATION_GUARD_MANIFEST_SHA256")
+    if not (guard_manifest_raw and guard_manifest_sha):
+        raise SystemExit(
+            "PH2_ANNOTATION_GUARD_MANIFEST and "
+            "PH2_ANNOTATION_GUARD_MANIFEST_SHA256 are required; refusing all "
+            "annotation API calls."
+        )
+    from src.annotation import (ANNOTATION_MODEL, annotate_chains,
+                                annotation_initial_request_count, max_prompt_chars)
+    from src.annotation_budget import (AnnotationAttemptGuard,
+                                       AnnotationAttemptLimitError)
+    from src.annotation_coverage import COVERAGE_RULE_VERSION, region_source_text
     from src.ph2_stages import (ALL_ROLES, ANNOTATION_DEDUP_KEYS,
+                                ANNOTATION_INCLUDE_POST_THINK,
                                 ANNOTATION_WINDOW_TOKENS, annotation_window,
                                 proxy_chunk_budget_ok)
     budget = proxy_chunk_budget_ok()
@@ -899,11 +919,48 @@ def stage_annotate(authorised: bool) -> None:
               for role in ALL_ROLES]
     shards.append((OUT / "injection" / "base_injection.json",
                    ann_dir / "base_injection.json"))
-    status: dict = {}
+    guard_manifest = Path(guard_manifest_raw)
+    if not guard_manifest.is_absolute():
+        guard_manifest = ROOT / guard_manifest
+    try:
+        bound_paths = (
+            "ph2_executor.py",
+            "src/annotation.py",
+            "src/annotation_budget.py",
+            "src/annotation_coverage.py",
+            "src/annotation_quarantine.py",
+            "src/ph2_stages.py",
+            "src/delta_floor.py",
+            "results/prereg/PHASE2_TRANSPORT_PREREG_2026-08-08.md",
+            "results/prereg/PHASE2_ADJUNCT_AMENDMENT_2026-08-08.md",
+            "results/prereg/phase2_task_manifest.json",
+        )
+        attempt_guard = AnnotationAttemptGuard.from_manifest(
+            guard_manifest,
+            guard_manifest_sha,
+            ann_dir / "api_attempt_journal.jsonl",
+            root=ROOT,
+            expected_model=ANNOTATION_MODEL,
+            expected_annotation_window_tokens=ANNOTATION_WINDOW_TOKENS,
+            expected_bound_paths=bound_paths,
+            expected_max_output_tokens=ANNOTATION_MAX_TOKENS,
+            expected_max_prompt_chars=max_prompt_chars(),
+            expected_coverage_rule_version=COVERAGE_RULE_VERSION,
+        )
+    except AnnotationAttemptLimitError as exc:
+        raise SystemExit(f"annotation attempt guard refused execution: {exc}") from exc
+
+    # Materialize and count the complete deterministic plan before the first
+    # possible proxy call. Its source paths and initial-call count must be
+    # byte/hash bound by the separately authorised manifest.
+    prepared_shards = []
+    observed_source_paths = []
+    observed_initial_requests = 0
     for src_path, dst_path in shards:
         if not src_path.exists():
             print(f"[warn] {src_path.name} absent — skipping shard")
             continue
+        observed_source_paths.append(str(src_path.relative_to(ROOT)))
         rows = []
         n_windowed = 0
         for r in json.loads(src_path.read_text()):
@@ -913,18 +970,51 @@ def stage_annotate(authorised: bool) -> None:
                          "annotated_tokens": est,
                          "annotation_window_tokens": ANNOTATION_WINDOW_TOKENS,
                          "annotation_window_truncated": truncated})
+            # Count the REGION, not the window: the region is what is actually
+            # sent (A5), so this keeps the attempt ceiling tight rather than
+            # reserving headroom for text that is never requested.
+            observed_initial_requests += annotation_initial_request_count(
+                region_source_text(win,
+                                   include_post_think=ANNOTATION_INCLUDE_POST_THINK))
+        prepared_shards.append((src_path, dst_path, rows, n_windowed))
+    if tuple(sorted(observed_source_paths)) != attempt_guard.policy.source_paths:
+        raise SystemExit(
+            "annotation attempt guard source-set mismatch; refusing all API calls"
+        )
+    try:
+        attempt_guard.assert_planned_initial_requests(observed_initial_requests)
+    except AnnotationAttemptLimitError as exc:
+        raise SystemExit(f"annotation attempt guard refused execution: {exc}") from exc
+
+    status: dict = {}
+    for src_path, dst_path, rows, n_windowed in prepared_shards:
         annotated = annotate_chains(
             rows, save_path=dst_path, dedup_keys=ANNOTATION_DEDUP_KEYS,
             model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
-            shrink_on_retry=True)
-        merged = merge_annotations(annotated)
+            shrink_on_retry=True, max_retries=3,
+            attempt_guard=attempt_guard,
+            coverage_validation=True,
+            include_post_think=ANNOTATION_INCLUDE_POST_THINK)
         status[dst_path.name] = {
             "n_rows": len(annotated),
             "n_windowed": n_windowed,
-            "n_unresolved": sum(1 for v in merged.values()
-                                if v["status"] == "unresolved"),
+            "n_unresolved": sum(
+                1 for r in annotated
+                if r.get("annotation_complete") is False
+                or not r.get("annotations")
+            ),
+            # Schema-valid rows whose spans do not exhaust the annotation
+            # region: unresolved for the behavioural endpoints, reported here
+            # so the count is never invisible.
+            "n_coverage_incomplete": sum(
+                1 for r in annotated
+                if r.get("annotations")
+                and not r.get("annotation_coverage_complete", False)
+            ),
+            "coverage_rule_version": COVERAGE_RULE_VERSION,
         }
     _atomic_json(status, ann_dir / "annotation_status.json")
+    attempt_summary = attempt_guard.summary()
 
     write_provenance("annotate", build_provenance(
         {"authorised": authorised, "counts": status,
@@ -936,10 +1026,17 @@ def stage_annotate(authorised: bool) -> None:
              "prompt": "Venhoff appendix-A house schema (src.annotation)",
              "max_tokens": ANNOTATION_MAX_TOKENS,
              "annotation_window_tokens": ANNOTATION_WINDOW_TOKENS,
+             "coverage_rule_version": COVERAGE_RULE_VERSION,
+             "annotation_region_rule": (
+                 "draft A5 2026-08-11: region ends at the first </think>; "
+                 "trailing **Final Answer** block excluded; A4 ~3,000-token "
+                 "window unchanged"),
+             "include_post_think": ANNOTATION_INCLUDE_POST_THINK,
              "window_rationale": "A4 owner cost decision 2026-08-09: annotate "
                                  "the paragraph-aligned first ~3k tokens; "
                                  "generation cap SEALED at 8192, untouched",
              "retry": "<=3, backoff, halve budget on 504/timeout",
+             "attempt_guard": attempt_summary,
              "timeout_rule": "29-s AWS API-Gateway hard limit; chunked calls",
          }},
         stage="annotate", input_paths=[p for p, _ in shards if p.exists()]))
@@ -1113,6 +1210,9 @@ def stage_analyse(authorised: bool) -> None:
                           or _passes("transported_whitened_suppress"))
         o = {
             "sensitivity_adequate": sensitivity["sensitivity_adequate"],
+            "damage_resolved": bool(damage.get(role, {})
+                                    .get("transported_raw_suppress", {})
+                                    .get("damage_resolved", False)),
             "damage_ok": bool(damage.get(role, {})
                               .get("transported_raw_suppress", {})
                               .get("damage_ok", True)),

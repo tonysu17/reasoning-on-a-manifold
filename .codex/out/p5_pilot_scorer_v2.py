@@ -764,7 +764,13 @@ def build_dry_run_manifest(run_root: Path, *, repeat_policy: str = "drop") -> di
             "projected_cost_usd": None,
             "fits_original_15_usd_boundary": "not_proven",
             "cost_blocker": "no proxy calls were made and the handoff provides no auditable per-call Sonnet price or request cost bound",
-            "full_176_primary_only_initial_requests": "not_exactly_estimable_until_all generation texts exist",
+            "full_176_primary_only_initial_requests": (
+                initial_requests
+                if repeat_policy == "drop"
+                and len(rows) == expected_generation_keys
+                and len(primary) == expected_generation_keys
+                else "not_exactly_estimable_until_all generation texts exist"
+            ),
             "full_run_minimum_initial_requests": initial_requests
             + max(0, expected_generation_keys - len(rows))
             + (
@@ -772,7 +778,13 @@ def build_dry_run_manifest(run_root: Path, *, repeat_policy: str = "drop") -> di
                 if repeat_policy == "include_optional"
                 else 0
             ),
-            "full_run_minimum_assumptions": "all remaining generation keys succeed with non-empty text and require at least one chunk; this is a lower bound, not a budget estimate",
+            "full_run_minimum_assumptions": (
+                "none; all 176 successful generation texts are present and the 490-request primary-only count is exact"
+                if repeat_policy == "drop"
+                and len(rows) == expected_generation_keys
+                and len(primary) == expected_generation_keys
+                else "all remaining generation keys succeed with non-empty text and require at least one chunk; this is a lower bound, not a budget estimate"
+            ),
             "by_pass_and_stratum": by_pass_stratum,
         },
         "logical_assignments": logical,
@@ -784,6 +796,7 @@ def build_dry_run_manifest(run_root: Path, *, repeat_policy: str = "drop") -> di
 
 def markdown_report(document: dict[str, Any]) -> str:
     count = document["dry_run_accounting"]
+    final_complete = count["missing_generation_keys_vs_176"] == 0
     breakdown = count["by_pass_and_stratum"]
     primary_requests = sum(
         row["initial_network_requests"]
@@ -813,9 +826,17 @@ def markdown_report(document: dict[str, Any]) -> str:
             f"  - Optional same-annotator repeat requests, not included when dropped: {repeat_requests}",
             f"- Worst case with three retries per initial request: {count['worst_case_network_requests_current']}",
             f"- Difference from the old 212-request interpretation: {count['initial_requests_minus_original_212_limit']:+d}",
-            f"- Full-success-grid lower bound from this snapshot: {count['full_run_minimum_initial_requests']} initial requests",
+            (
+                f"- Exact full-176 primary-only count: {count['full_176_primary_only_initial_requests']} initial requests"
+                if final_complete
+                else f"- Full-success-grid lower bound from this snapshot: {count['full_run_minimum_initial_requests']} initial requests"
+            ),
             "",
-            "The final exact full-run request count is not available until every generation text exists; the lower bound assumes each remaining output is non-empty and needs at least one chunk. Cost is also not estimable from the handoff: no proxy call was made, and there is no auditable per-request Sonnet cost bound. Therefore compatibility with the prior $15 authorization is **not proven**.",
+            (
+                f"All 176 generation texts are present, so the primary-only initial request count is exactly {count['full_176_primary_only_initial_requests']}. Cost is still not estimable from the handoff: no proxy call was made, and there is no auditable per-request Sonnet cost bound. Therefore compatibility with the prior $15 authorization is **not proven**."
+                if final_complete
+                else "The final exact full-run request count is not available until every generation text exists; the lower bound assumes each remaining output is non-empty and needs at least one chunk. Cost is also not estimable from the handoff: no proxy call was made, and there is no auditable per-request Sonnet cost bound. Therefore compatibility with the prior $15 authorization is **not proven**."
+            ),
             "",
             "## Reliability/status replacement",
             "",

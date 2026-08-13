@@ -1,0 +1,54 @@
+{
+ "binding": {
+  "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+  "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+  "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+  "manifest_internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4",
+  "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+  "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+  "runner_version": "p5wg-smoke-runner/1.1.0",
+  "safety_prompt_manifest_sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+  "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6"
+ },
+ "body": {
+  "provenance": {
+   "arm_effects_computed": false,
+   "binding": {
+    "deps_lock_sha256": "cd660b8c9377581cb853930ced3e721c3847b75b235d6c2a7c4f3dfec51726bc",
+    "generations_sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+    "manifest_file_sha256": "4078d84798662b8343f14174c171147336a46602e329411fd2690d9f280a2dff",
+    "manifest_internal_sha256": "31de8695645e9cba1072131040619faeb1a9a7be483dea843c8d16d4cbdba3d4",
+    "public_items_sha256": "24a33f952943a3edab4fefc7e553cbf7ed6964ae28137a58c64c7140aa44f95e",
+    "runner_sha256": "f699c2d9683b95849661d599053c8bfbd701d061b6647f452815abe9b52cb224",
+    "runner_version": "p5wg-smoke-runner/1.1.0",
+    "safety_prompt_manifest_sha256": "21b89770f1848d335c3523d50b02208a9e525d307ab4cc192f609f22a4b4350e",
+    "wrapper_sha256": "20855a11601f2431e93f6245a31d2573f9db17cc066e46763c24c4be88fa75b6"
+   },
+   "boundary_note": "job runtime bounded by the shared JOB_START clock; billed pod lifetime ends at console termination after the verified pull (operator boundary)",
+   "environment_fingerprint": "4d7aa6f22ea9b78a132d41b7c5b5ab6bdc26e9a62af0eb3349c0d1ac5bafaa00",
+   "git_commit": null,
+   "git_dirty": false,
+   "job_elapsed_s": 40.3,
+   "local_snapshot_manifest_sha256": "25afc54c890f565e7d26458e86dc9623ee559769cbc30dafbb1ee870f27c1e83",
+   "manifest_path": "/workspace/reasoning-on-manifold/results/p5_wildguard/P5WG_SMOKE_MANIFEST_2026-08-09.json",
+   "model_revision": "cbba4823f3e8020e5a74a5e29bf85072def6f2ff",
+   "n_rows": 8,
+   "runner_version": "p5wg-smoke-runner/1.1.0",
+   "statuses": {
+    "p5wg-08fdaa94c11f1eb259d8": "unresolved_parse_error",
+    "p5wg-155724cb372c8159aed2": "parsed",
+    "p5wg-1c2c9949502f39c4d0c1": "parsed",
+    "p5wg-23b9b3d7192a8adef710": "unresolved_parse_error",
+    "p5wg-3ac285567303733178d2": "parsed",
+    "p5wg-56197137c5e1df411979": "parsed",
+    "p5wg-d9afd1eaa4349fb1fac9": "parsed",
+    "p5wg-f68fb262aacd92318a81": "parsed"
+   },
+   "utc": "2026-08-09T21:02:28Z"
+  }
+ },
+ "predecessor_sha256": "0a9f905c7925afa5d1b7ddfa4aa9dbfe1da38a68a43ba295d08330256002d837",
+ "report_sha256": "608ff641dbed7af2225cb4053a0e97942ec0ab485ac790b7d309664d942282bd",
+ "stage": "verify",
+ "utc": "2026-08-09T21:02:28Z"
+}

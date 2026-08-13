@@ -1,0 +1,90 @@
+{
+  "schema_version": "p5-pilot-cost-calibration-v1",
+  "status": "awaiting_hash_bound_authorization",
+  "created_at_utc": "2026-08-09T12:22:18Z",
+  "run_id": "p5-pilot-20260808",
+  "purpose": "two-call cost calibration only",
+  "proxy_calls_made_during_planning": 0,
+  "sources": {
+    "runner_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_pilot_cost_calibration_v1.py",
+    "runner_sha256": "0091afb4d15af4b4431f2c4f4fb2640e16d9b4805458f259411631a1c50361de",
+    "test_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/test_p5_pilot_cost_calibration_v1.py",
+    "test_sha256": "3249b712995ad77a4d355a4db56bda1b4b44366e81871672dad22e090771af16",
+    "scorer_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_pilot_scorer_v2.py",
+    "scorer_sha256": "fc4f541b6d24e9611808f004cf719fb9a4e563805f133528d03a50a47ba09b65",
+    "scoring_plan_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/P5_PILOT_SCORER_V2_1_FINAL_PRIMARY_ONLY_PLAN_2026-08-09.json",
+    "scoring_plan_internal_sha256": "67f47ecd9f0b4da0299d4d0caff74ec6827cb90c8833f5f4430b7d78db44f2bd",
+    "scoring_plan_file_sha256": "97e6ee52d455f5e53b6750348cd768f2527a0b9a1e321ee8e7c42a1aa994d11b",
+    "generation_snapshot": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/.codex/out/p5_runs/p5-pilot-20260808/generations.jsonl",
+      "sha256": "2f2e9bc4d71c0e8f7ef71fe067d0e3f12b6fb2af31e83ee692884d70f6bbaf01",
+      "size_bytes": 1685617,
+      "mtime_ns": 1786277689400871018,
+      "n_rows": 176
+    }
+  },
+  "transport": {
+    "model": "anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "max_tokens": 800,
+    "timeout_seconds": 25,
+    "temperature": 0.0,
+    "sequential": true,
+    "max_concurrency": 1,
+    "request_ceiling": 2,
+    "retry_ceiling": 0,
+    "retry_policy": "no retry; any failed or ambiguous request stops calibration"
+  },
+  "selection_rule": "largest canonical serialized generic request and largest canonical serialized safety request; ties by logical_assignment_id then chunk_index",
+  "selections": [
+    {
+      "selection_id": "generic:primary:owned_fullft_safety_s42:SCIE_000:2",
+      "request_class": "generic",
+      "logical_assignment_id": "primary:owned_fullft_safety_s42:SCIE_000",
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "SCIE_000",
+      "stratum": "generic",
+      "chunk_index": 2,
+      "n_chunks": 5,
+      "canonical_serialized_request_bytes": 6676,
+      "canonical_request_sha256": "b1d336bf42eee483a1315049277d0b11ff4751be0a69d3fb48fa487a75f46631",
+      "source_char_start": 8805,
+      "source_char_end": 13554,
+      "source_chars": 4749,
+      "source_units": 32
+    },
+    {
+      "selection_id": "safety:primary:owned_fullft_safety_s42:p5sp_fraud_b01:3",
+      "request_class": "safety",
+      "logical_assignment_id": "primary:owned_fullft_safety_s42:p5sp_fraud_b01",
+      "checkpoint_role": "owned_fullft_safety_s42",
+      "prompt_id": "p5sp_fraud_b01",
+      "stratum": "benign",
+      "chunk_index": 3,
+      "n_chunks": 4,
+      "canonical_serialized_request_bytes": 6168,
+      "canonical_request_sha256": "90e367cb4b51ed21cbd35c738d95738e5a15744c4b1f980cbd567aa2621afe67",
+      "source_char_start": 14220,
+      "source_char_end": 19014,
+      "source_chars": 4794,
+      "source_units": 97
+    }
+  ],
+  "output_policy": {
+    "calibration_only": true,
+    "excluded_from_behaviour_annotations": true,
+    "excluded_from_safety_scores": true,
+    "raw_model_text_persisted": false,
+    "persisted_fields": "request/response hashes, usage.cost, remaining quota, timing, status",
+    "journal_name": "cost_calibration_call_journal_v1.jsonl",
+    "results_name": "cost_calibration_results_v1.jsonl"
+  },
+  "proposed_authorization": {
+    "execution_authorized": false,
+    "approved_request_ceiling": null,
+    "approved_spend_ceiling_usd": null,
+    "approved_max_cost_per_call_usd": null,
+    "quota_stop_floor_usd": null,
+    "note": "all ceilings remain unset until Tony gives exact hash-bound authorization"
+  },
+  "manifest_sha256": "f8595d94bf24da7162bd107770947a1af7601552fab91594f94ba8f5a8b0d310"
+}
