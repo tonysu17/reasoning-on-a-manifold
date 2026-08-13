@@ -1,0 +1,774 @@
+{
+  "gate": "C",
+  "definition": "F3 capability control passing on existing 1.5B activations + F2 engine de-confounding merged",
+  "model": "R1-1.5B",
+  "seed": 42,
+  "difficulty_operationalisation": {
+    "source": "data/tasks_final.json authored difficulty grade",
+    "scalar_map": {
+      "moderate": 0.0,
+      "hard": 1.0
+    },
+    "model_independent": true,
+    "candidate": "rated difficulty grade (authoring-time)"
+  },
+  "thresholds": {
+    "retention_min": 0.5,
+    "alignment_max": 0.5
+  },
+  "primary_layer": 16,
+  "layers_available": [
+    0,
+    27
+  ],
+  "confounded_fails_correctly": true,
+  "confounded_failure_signatures": {
+    "failure_sig1_separation_collapsed": true,
+    "failure_sig2_axis_collinear": true
+  },
+  "orthogonal_passes_correctly": true,
+  "GATE_C_PASS": true,
+  "f2_merged": {
+    "verdict": true,
+    "module": "src/safety/fingerprint.py",
+    "commit": "02fad06",
+    "evidence": "de-confounded fingerprint engine (grouped held-out Cohen's d, permutation null, bootstrap CI, fractional-depth layer selection) is an ancestor of HEAD"
+  },
+  "per_layer": {
+    "11": {
+      "layer": 11,
+      "n": {
+        "confounded_harmful": 6410,
+        "confounded_harmless": 3857,
+        "cap_source_hard": 3434,
+        "cap_source_easy": 2395,
+        "orthogonal_matched_pairs": 3000
+      },
+      "control_confounded_must_fail": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.4445677994847768,
+          "auroc": 0.6186996352034533,
+          "dom_norm": 4.533396251648959,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.0,
+          "auroc": 0.5,
+          "dom_norm": 1.2522962531986893e-13,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.4445677994847768,
+          "auroc": 0.6186996352034533,
+          "dom_norm": 4.533396251648959,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "refusal_capability_alignment": 1.0,
+        "retention": 0.0,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": false,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "control_orthogonal_must_pass": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2734051268937028,
+          "auroc": 0.8162207777777778,
+          "dom_norm": 9.384516481647976,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 1.280592207438939,
+          "auroc": 0.8180887777777778,
+          "dom_norm": 9.36599599465003,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6960724075037474,
+          "auroc": 0.6730569778087965,
+          "dom_norm": 4.51257274890434,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.0628,
+        "retention": 1.0056,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_cross_behaviour": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.4445677994847768,
+          "auroc": 0.6186996352034533,
+          "dom_norm": 4.533396251648959,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.4514452668085912,
+          "auroc": 0.6205302513370953,
+          "dom_norm": 4.2843500860224015,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6960724075037474,
+          "auroc": 0.6730569778087965,
+          "dom_norm": 4.51257274890434,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.3269,
+        "retention": 1.0155,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_behaviour_independent": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.244669701181021,
+          "auroc": 0.8146661508964311,
+          "dom_norm": 8.920732790581521,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.7483904147212134,
+          "auroc": 0.7031828229290303,
+          "dom_norm": 2.9476858437764393,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "difficulty_baseline": {
+          "cohens_d": 1.343365911846623,
+          "auroc": 0.8318923445615957,
+          "dom_norm": 10.043836605752647,
+          "n_harmful": 5367,
+          "n_harmless": 8234
+        },
+        "refusal_capability_alignment": 0.9438,
+        "retention": 0.6013,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "axis_diffuseness": {
+        "difficulty_axis_cross_half_cos": 0.5089,
+        "difficulty_axis_cross_behaviour_cos": 0.3269,
+        "behaviour_axis_cross_half_cos": 0.9438
+      },
+      "f2_heldout_liveness": {
+        "cohens_d_mean": 1.2389699427519356,
+        "auroc_mean": 0.807374474441019,
+        "cohens_d_folds": [
+          1.3033,
+          1.3913,
+          1.3278,
+          1.1939,
+          0.9785
+        ],
+        "n_folds_used": 5
+      }
+    },
+    "13": {
+      "layer": 13,
+      "n": {
+        "confounded_harmful": 6410,
+        "confounded_harmless": 3857,
+        "cap_source_hard": 3434,
+        "cap_source_easy": 2395,
+        "orthogonal_matched_pairs": 3000
+      },
+      "control_confounded_must_fail": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.41246998475834135,
+          "auroc": 0.612926150439847,
+          "dom_norm": 5.256692680076073,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.0,
+          "auroc": 0.5,
+          "dom_norm": 1.352383879914314e-13,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.41246998475834135,
+          "auroc": 0.612926150439847,
+          "dom_norm": 5.256692680076073,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "refusal_capability_alignment": 1.0,
+        "retention": 0.0,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": false,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "control_orthogonal_must_pass": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2866404560810092,
+          "auroc": 0.817782,
+          "dom_norm": 10.871754824271191,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 1.2938850577061836,
+          "auroc": 0.8196572222222223,
+          "dom_norm": 10.85611463067245,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6211337589310028,
+          "auroc": 0.6570642585565201,
+          "dom_norm": 5.213778042779418,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.0536,
+        "retention": 1.0056,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_cross_behaviour": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.41246998475834135,
+          "auroc": 0.612926150439847,
+          "dom_norm": 5.256692680076073,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.42308913038709073,
+          "auroc": 0.6143713822185244,
+          "dom_norm": 4.886020775795586,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6211337589310028,
+          "auroc": 0.6570642585565201,
+          "dom_norm": 5.213778042779418,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.3689,
+        "retention": 1.0257,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_behaviour_independent": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2499686904323684,
+          "auroc": 0.8157010711042129,
+          "dom_norm": 10.2914667744629,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.6902941826019974,
+          "auroc": 0.6891355002090311,
+          "dom_norm": 3.257395231837987,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "difficulty_baseline": {
+          "cohens_d": 1.3463571851246652,
+          "auroc": 0.8322818731532523,
+          "dom_norm": 11.55212403600279,
+          "n_harmful": 5367,
+          "n_harmless": 8234
+        },
+        "refusal_capability_alignment": 0.9486,
+        "retention": 0.5522,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "axis_diffuseness": {
+        "difficulty_axis_cross_half_cos": 0.5389,
+        "difficulty_axis_cross_behaviour_cos": 0.3689,
+        "behaviour_axis_cross_half_cos": 0.9486
+      },
+      "f2_heldout_liveness": {
+        "cohens_d_mean": 1.2567410335041291,
+        "auroc_mean": 0.8105104462296545,
+        "cohens_d_folds": [
+          1.3131,
+          1.4181,
+          1.3445,
+          1.2259,
+          0.982
+        ],
+        "n_folds_used": 5
+      }
+    },
+    "16": {
+      "layer": 16,
+      "n": {
+        "confounded_harmful": 6410,
+        "confounded_harmless": 3857,
+        "cap_source_hard": 3434,
+        "cap_source_easy": 2395,
+        "orthogonal_matched_pairs": 3000
+      },
+      "control_confounded_must_fail": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.39548995618310895,
+          "auroc": 0.6090628421610808,
+          "dom_norm": 6.73400162244712,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.0,
+          "auroc": 0.5,
+          "dom_norm": 1.9430151721725794e-13,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.39548995618310895,
+          "auroc": 0.6090628421610808,
+          "dom_norm": 6.73400162244712,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "refusal_capability_alignment": 1.0,
+        "retention": 0.0,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": false,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "control_orthogonal_must_pass": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.3008800371573206,
+          "auroc": 0.8206826666666667,
+          "dom_norm": 13.580981511117892,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 1.3010025403194567,
+          "auroc": 0.8209783333333334,
+          "dom_norm": 13.575042241297853,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.5877171671733648,
+          "auroc": 0.6521504833769635,
+          "dom_norm": 6.778368232707377,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.0296,
+        "retention": 1.0001,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_cross_behaviour": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.39548995618310895,
+          "auroc": 0.6090628421610808,
+          "dom_norm": 6.73400162244712,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.4007153625413851,
+          "auroc": 0.6089260080644345,
+          "dom_norm": 6.028750574346377,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.5877171671733648,
+          "auroc": 0.6521504833769635,
+          "dom_norm": 6.778368232707377,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.4455,
+        "retention": 1.0132,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_behaviour_independent": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2662489685792053,
+          "auroc": 0.8177723531136024,
+          "dom_norm": 12.875971792613093,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.7059321683047574,
+          "auroc": 0.692229160559915,
+          "dom_norm": 4.163369346006645,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "difficulty_baseline": {
+          "cohens_d": 1.3526768879612026,
+          "auroc": 0.8341467407200934,
+          "dom_norm": 14.403737947354648,
+          "n_harmful": 5367,
+          "n_harmless": 8234
+        },
+        "refusal_capability_alignment": 0.9463,
+        "retention": 0.5575,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "axis_diffuseness": {
+        "difficulty_axis_cross_half_cos": 0.5424,
+        "difficulty_axis_cross_behaviour_cos": 0.4455,
+        "behaviour_axis_cross_half_cos": 0.9463
+      },
+      "f2_heldout_liveness": {
+        "cohens_d_mean": 1.2699224722164295,
+        "auroc_mean": 0.8132267304462497,
+        "cohens_d_folds": [
+          1.2881,
+          1.4355,
+          1.3566,
+          1.2545,
+          1.0149
+        ],
+        "n_folds_used": 5
+      }
+    },
+    "19": {
+      "layer": 19,
+      "n": {
+        "confounded_harmful": 6410,
+        "confounded_harmless": 3857,
+        "cap_source_hard": 3434,
+        "cap_source_easy": 2395,
+        "orthogonal_matched_pairs": 3000
+      },
+      "control_confounded_must_fail": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.3829619405371803,
+          "auroc": 0.6051022979472459,
+          "dom_norm": 9.971186087753972,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.0,
+          "auroc": 0.5,
+          "dom_norm": 2.5440562055440436e-13,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.3829619405371803,
+          "auroc": 0.6051022979472459,
+          "dom_norm": 9.971186087753972,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "refusal_capability_alignment": 1.0,
+        "retention": 0.0,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": false,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "control_orthogonal_must_pass": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2501695530796664,
+          "auroc": 0.8114981111111111,
+          "dom_norm": 21.148668435534844,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 1.2427622639830564,
+          "auroc": 0.8102354444444444,
+          "dom_norm": 21.120016324399792,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.5872950669205443,
+          "auroc": 0.6526036454805987,
+          "dom_norm": 10.474698079844364,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.052,
+        "retention": 0.9941,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_cross_behaviour": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.3829619405371803,
+          "auroc": 0.6051022979472459,
+          "dom_norm": 9.971186087753972,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.38610073771229364,
+          "auroc": 0.6038399700364473,
+          "dom_norm": 9.001736735863963,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.5872950669205443,
+          "auroc": 0.6526036454805987,
+          "dom_norm": 10.474698079844364,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.4301,
+        "retention": 1.0082,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_behaviour_independent": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2229971453698683,
+          "auroc": 0.808150314988251,
+          "dom_norm": 20.094834289250905,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.662618649553965,
+          "auroc": 0.6851451204451642,
+          "dom_norm": 6.268722180299178,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "difficulty_baseline": {
+          "cohens_d": 1.308659405016079,
+          "auroc": 0.8284821704114951,
+          "dom_norm": 22.480681260736063,
+          "n_harmful": 5367,
+          "n_harmless": 8234
+        },
+        "refusal_capability_alignment": 0.9501,
+        "retention": 0.5418,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "axis_diffuseness": {
+        "difficulty_axis_cross_half_cos": 0.5428,
+        "difficulty_axis_cross_behaviour_cos": 0.4301,
+        "behaviour_axis_cross_half_cos": 0.9501
+      },
+      "f2_heldout_liveness": {
+        "cohens_d_mean": 1.2235850199839196,
+        "auroc_mean": 0.80523500820875,
+        "cohens_d_folds": [
+          1.223,
+          1.3693,
+          1.2981,
+          1.2119,
+          1.0157
+        ],
+        "n_folds_used": 5
+      }
+    },
+    "22": {
+      "layer": 22,
+      "n": {
+        "confounded_harmful": 6410,
+        "confounded_harmless": 3857,
+        "cap_source_hard": 3434,
+        "cap_source_easy": 2395,
+        "orthogonal_matched_pairs": 3000
+      },
+      "control_confounded_must_fail": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.458651577421621,
+          "auroc": 0.6254487151225743,
+          "dom_norm": 15.9711668378068,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.0,
+          "auroc": 0.5,
+          "dom_norm": 8.195314172386829e-13,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.458651577421621,
+          "auroc": 0.6254487151225743,
+          "dom_norm": 15.9711668378068,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "refusal_capability_alignment": 1.0,
+        "retention": 0.0,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": false,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "control_orthogonal_must_pass": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2556782207514388,
+          "auroc": 0.8133971111111111,
+          "dom_norm": 31.615544595225003,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 1.2533764328604318,
+          "auroc": 0.8130683333333333,
+          "dom_norm": 31.594127753781425,
+          "n_harmful": 3000,
+          "n_harmless": 3000
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6843951492171564,
+          "auroc": 0.6787389521219099,
+          "dom_norm": 16.919727392312367,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.0368,
+        "retention": 0.9982,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_cross_behaviour": {
+        "separation_uncontrolled": {
+          "cohens_d": 0.458651577421621,
+          "auroc": 0.6254487151225743,
+          "dom_norm": 15.9711668378068,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.45497482469199263,
+          "auroc": 0.6221906236892463,
+          "dom_norm": 14.53645104757282,
+          "n_harmful": 6410,
+          "n_harmless": 3857
+        },
+        "difficulty_baseline": {
+          "cohens_d": 0.6843951492171564,
+          "auroc": 0.6787389521219099,
+          "dom_norm": 16.919727392312367,
+          "n_harmful": 3434,
+          "n_harmless": 2395
+        },
+        "refusal_capability_alignment": 0.4142,
+        "retention": 0.992,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": true,
+        "passed": true
+      },
+      "diagnostic_confound_behaviour_independent": {
+        "separation_uncontrolled": {
+          "cohens_d": 1.2319971001958427,
+          "auroc": 0.809794356640702,
+          "dom_norm": 30.095000170315043,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "separation_capability_controlled": {
+          "cohens_d": 0.7892854227406666,
+          "auroc": 0.7163306391546493,
+          "dom_norm": 10.57695926787255,
+          "n_harmful": 4900,
+          "n_harmless": 8494
+        },
+        "difficulty_baseline": {
+          "cohens_d": 1.3261478758887875,
+          "auroc": 0.8335694626962901,
+          "dom_norm": 33.684639103502704,
+          "n_harmful": 5367,
+          "n_harmless": 8234
+        },
+        "refusal_capability_alignment": 0.9362,
+        "retention": 0.6407,
+        "retention_min": 0.5,
+        "alignment_max": 0.5,
+        "survives_partialling": true,
+        "axis_distinct_from_capability": false,
+        "passed": false
+      },
+      "axis_diffuseness": {
+        "difficulty_axis_cross_half_cos": 0.4971,
+        "difficulty_axis_cross_behaviour_cos": 0.4142,
+        "behaviour_axis_cross_half_cos": 0.9362
+      },
+      "f2_heldout_liveness": {
+        "cohens_d_mean": 1.223707503912148,
+        "auroc_mean": 0.8062851591722213,
+        "cohens_d_folds": [
+          1.2651,
+          1.3398,
+          1.2473,
+          1.2401,
+          1.0262
+        ],
+        "n_folds_used": 5
+      }
+    }
+  }
+}

@@ -100,7 +100,19 @@ def load_model(
         else:
             device_map = {"": "cpu"}
 
+    # gpt-oss MXFP4 MoE: accelerate device_map dispatch leaves dequantized experts on
+    # CPU (grouped_mm device mismatch -> empty/garbage generation), and a post-load
+    # .to() is a no-op under accelerate hooks. Load WITHOUT dispatch, then .to(cuda)
+    # moves every weight (verified: produces correct harmony analysis channel).
+    force_full_gpu = ("gpt-oss" in str(model_id).lower()) and torch.cuda.is_available()
+    if force_full_gpu:
+        device_map = None
+
     quant_cfg = None
+    if force_full_gpu:  # gpt-oss MXFP4: dequantize packed experts to bf16 (Ampere has no
+        # native MXFP4 kernel; without this the experts load as random -> garbage output)
+        from transformers import Mxfp4Config
+        quant_cfg = Mxfp4Config(dequantize=True)
     if use_4bit:
         quant_cfg = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -129,6 +141,12 @@ def load_model(
         **extra,
     )
     model.eval()
+
+    # gpt-oss MXFP4 MoE: accelerate's device_map dispatch can leave dequantized
+    # expert weights on CPU (-> grouped_mm device mismatch -> garbage output).
+    # Force full single-GPU placement when anything landed off-device.
+    if force_full_gpu or (torch.cuda.is_available() and any(p.device.type != "cuda" for p in model.parameters())):
+        model = model.to("cuda:0")
 
     n_params = sum(p.numel() for p in model.parameters()) / 1e9
     device = next(model.parameters()).device
