@@ -1,0 +1,56 @@
+{
+ "results": {
+  "AS-cot_label": {
+   "n": 98,
+   "primary_hits": 6,
+   "primary_rate": 0.061224489795918366,
+   "substring_hits": 11,
+   "substring_rate": 0.11224489795918367
+  },
+  "AS-imm_label": {
+   "n": 98,
+   "primary_hits": 0,
+   "primary_rate": 0.0,
+   "substring_hits": 0,
+   "substring_rate": 0.0
+  },
+  "MH-cot_bridge": {
+   "n": 81,
+   "primary_hits": 58,
+   "primary_rate": 0.7160493827160493,
+   "substring_hits": 60,
+   "substring_rate": 0.7407407407407407
+  },
+  "MH-cot_target": {
+   "n": 81,
+   "primary_hits": 50,
+   "primary_rate": 0.6172839506172839,
+   "substring_hits": 56,
+   "substring_rate": 0.691358024691358
+  },
+  "MH-imm_target": {
+   "n": 81,
+   "primary_hits": 8,
+   "primary_rate": 0.09876543209876543,
+   "substring_hits": 14,
+   "substring_rate": 0.1728395061728395
+  },
+  "TY-imm_label": {
+   "n": 96,
+   "primary_hits": 8,
+   "primary_rate": 0.08333333333333333,
+   "substring_hits": 13,
+   "substring_rate": 0.13541666666666666
+  }
+ },
+ "thresholds": {
+  "outside": 0.2,
+  "within": 0.5
+ },
+ "verdicts": {
+  "association_competence_band": "outside_competence",
+  "externalization_signature": true,
+  "multihop_competence_band": "within_competence",
+  "typo_descriptive_rate": 0.08333333333333333
+ }
+}

@@ -61,6 +61,11 @@ sealed diagnostic protocol. **No scientific endpoint was touched tonight.**
 **T3. Execute (order: D2/D3 on Spark while D1 runs local overnight if preferred)**
    - Verify Spark reachability first; pull 7B model + 7B lens there.
    - All runs ≈ $0 (local + Spark). Log per-run manifests under `results/jspace_r1_pilot/diagnostics/`.
+   - **D1 COMPLETE 2026-08-16 23:16 local (52.7 min, MPS), run `d1-20260816T212205Z-ccdae99be0fd`:**
+     multihop **within competence** (CoT 0.617) with **externalization signature TRUE**
+     (immediate 0.099, CoT bridge-verbalization 0.716); association **outside competence**
+     (CoT 0.061, immediate 0.000); typo descriptive 0.083 (meta-task caveat). Accounts (b) assoc
+     + (c) multihop supported. Remaining tomorrow: D2 (Spark, gates D3 reading), D3, D4, D5.
 
 **T4. Decision memo + fork (with Tony)** — failure-attribution table from D1–D5, then pick:
    - **A** rescue decomposition on 1.5B: CoT-domain lens (train-split chains only) + site-level

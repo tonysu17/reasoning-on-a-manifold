@@ -1,0 +1,46 @@
+{
+ "decoding": "greedy",
+ "device": "mps",
+ "dtype": "bfloat16",
+ "eligibility_manifest_sha256": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c",
+ "env": {
+  "platform": "macOS-15.5-arm64-arm-64bit-Mach-O",
+  "python": "3.13.12",
+  "torch": "2.13.0",
+  "transformers": "5.15.0"
+ },
+ "eval_file_sha256_at_fetch": {
+  "lens-eval-association.json": "d1a98cd4911b594282e74168091c77d849dae18ffe2acb5761074853f327d71c",
+  "lens-eval-multihop.json": "50b7e4c9255291c0ca2a8e94615be9f44531fa57bb1a844e4f9616056d987416",
+  "lens-eval-typo.json": "9d05e16b7234a57d0773d120a4e1c4e94fd3bc2235a8125d4200a70e60ab17aa"
+ },
+ "finished_utc": "2026-08-16T22:16:06+00:00",
+ "git_commit": "a2647f944bea121da27267315d5f9f6a06d740f5",
+ "max_new_tokens": {
+  "AS-cot": 512,
+  "AS-imm": 4,
+  "MH-cot": 512,
+  "MH-imm": 8,
+  "TY-imm": 4
+ },
+ "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+ "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+ "populations": {
+  "association": 98,
+  "multihop": 81,
+  "typo": 96
+ },
+ "protocol": "results/prereg/JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md",
+ "run_uuid": "d1-20260816T212205Z-ccdae99be0fd",
+ "schema_version": "rom-jspace-d1-competence-audit-v1",
+ "seal_commit": "752dee7",
+ "seed": 20260816,
+ "started_utc": null,
+ "wall_seconds": 3162.2,
+ "wrappers": {
+  "AS_cot": "Read this passage and name, in one word, the unstated concept it points to: \"{prompt}\"",
+  "AS_imm_suffix": "\nThe single word that best describes what is left unstated here is \"",
+  "MH_cot": "Complete this sentence with the correct final word or number: \"{prompt}\"",
+  "TY_imm_suffix": "\nThe misspelled word in the sentence above, spelled correctly, is \""
+ }
+}
