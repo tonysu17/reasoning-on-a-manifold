@@ -1,0 +1,122 @@
+{
+  "backtracking|single_direction": {
+    "n": 49,
+    "pp": -5.52,
+    "rel_pct": -50.7,
+    "bca_lo_pp": -8.47,
+    "bca_hi_pp": -2.94,
+    "excludes_zero": true,
+    "B": 10000,
+    "seed": 42
+  },
+  "backtracking|manifold_k3": {
+    "n": 49,
+    "pp": -3.81,
+    "rel_pct": -35.0,
+    "bca_lo_pp": -7.01,
+    "bca_hi_pp": 0.55,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "backtracking|manifold_k5": {
+    "n": 48,
+    "pp": -5.74,
+    "rel_pct": -52.1,
+    "bca_lo_pp": -8.95,
+    "bca_hi_pp": -2.79,
+    "excludes_zero": true,
+    "B": 10000,
+    "seed": 42
+  },
+  "uncertainty-estimation|single_direction": {
+    "n": 49,
+    "pp": -2.49,
+    "rel_pct": -11.6,
+    "bca_lo_pp": -7.62,
+    "bca_hi_pp": 2.22,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "uncertainty-estimation|manifold_k3": {
+    "n": 47,
+    "pp": 0.01,
+    "rel_pct": 0.0,
+    "bca_lo_pp": -5.81,
+    "bca_hi_pp": 6.58,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "uncertainty-estimation|manifold_k5": {
+    "n": 49,
+    "pp": 2.05,
+    "rel_pct": 9.5,
+    "bca_lo_pp": -3.55,
+    "bca_hi_pp": 7.93,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "example-testing|single_direction": {
+    "n": 49,
+    "pp": -4.45,
+    "rel_pct": -47.3,
+    "bca_lo_pp": -8.98,
+    "bca_hi_pp": -1.64,
+    "excludes_zero": true,
+    "B": 10000,
+    "seed": 42
+  },
+  "example-testing|manifold_k3": {
+    "n": 49,
+    "pp": -1.01,
+    "rel_pct": -10.8,
+    "bca_lo_pp": -4.63,
+    "bca_hi_pp": 2.04,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "example-testing|manifold_k5": {
+    "n": 49,
+    "pp": -1.35,
+    "rel_pct": -14.3,
+    "bca_lo_pp": -4.88,
+    "bca_hi_pp": 2.75,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "adding-knowledge|single_direction": {
+    "n": 48,
+    "pp": -0.1,
+    "rel_pct": -1.6,
+    "bca_lo_pp": -2.45,
+    "bca_hi_pp": 2.3,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "adding-knowledge|manifold_k3": {
+    "n": 49,
+    "pp": -0.89,
+    "rel_pct": -14.2,
+    "bca_lo_pp": -3.03,
+    "bca_hi_pp": 0.95,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  },
+  "adding-knowledge|manifold_k5": {
+    "n": 48,
+    "pp": 1.27,
+    "rel_pct": 19.8,
+    "bca_lo_pp": -1.22,
+    "bca_hi_pp": 3.87,
+    "excludes_zero": false,
+    "B": 10000,
+    "seed": 42
+  }
+}
