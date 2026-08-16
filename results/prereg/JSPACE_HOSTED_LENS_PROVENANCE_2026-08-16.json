@@ -1,0 +1,105 @@
+{
+ "fit_recipe_shared_fields": {
+  "config": "wikitext-103-raw-v1",
+  "dataset": "Salesforce/wikitext",
+  "dtype": "bfloat16",
+  "early_stop": "stop_at_delta 0.002",
+  "max_seq_len": 128,
+  "requested_n_prompts": 1000,
+  "split": "train"
+ },
+ "local_downloads_data_jlens_hosted": {
+  "gemma-3-1b_config.yaml": "ccc8853746880125cc06656f719c5dd29827afb88ddcc84bc8c2f20f367f354b",
+  "gemma-3-1b_convergence.csv": "aca301a60d21fd9e2589b5b444a605274d0aa04584b975e6e0dc32431da68ed7",
+  "gemma-3-1b_jacobian_lens.pt": "39f61074bfdb7c896b5027612a21e9648ca348d6516f0fbdbca6e5690c8b1ab1",
+  "gpt-oss-20b_config.yaml": "0afeee43e404954131825a54847124d13b613d1fb02579118fd634061acffc43",
+  "gpt-oss-20b_convergence.csv": "7af3f198ab3d16eda545c72b75e5ed4c3e4800a2e8e514875ab83b2fd4ca5641",
+  "qwen2.5-7b-it_config.yaml": "2efd98e3925ceaeb3314ab397fe4a463e61c69027f1a8fc61f7e52acec35ee92",
+  "qwen2.5-7b-it_convergence.csv": "f5ca3ab65694ccf589b3abc1bf9300fa227531de6cf8172b2941a9af1bb50826",
+  "qwen3-1.7b_config.yaml": "73d3d397503637d0afccc54daa53ae4a4abfe3803a5b054c92ebd3a4ce9a2680",
+  "qwen3-1.7b_convergence.csv": "bb1738f25f3ca15842924eed2de52c994fa371c817e2ec0e596281dbd7a04d9b",
+  "qwen3-1.7b_jacobian_lens.pt": "6fcc79011bd921ffd87612255e2e99950a124fa519470ee44ebaf161c39be9d6"
+ },
+ "models": {
+  "gemma-3-1b": {
+   "files": {
+    "config.yaml": {
+     "size": 2529
+    },
+    "gemma-3-1b-pt_convergence.csv": {
+     "size": 19945
+    },
+    "gemma-3-1b-pt_jacobian_lens.pt": {
+     "sha256_lfs_oid": "39f61074bfdb7c896b5027612a21e9648ca348d6516f0fbdbca6e5690c8b1ab1",
+     "size": 66363652
+    }
+   },
+   "final_identity_distance": 0.780745,
+   "fit_generated": "2026-06-11T23:19:07.144631+00:00",
+   "hf_model_name": "google/gemma-3-1b-pt",
+   "prompts_fitted": 467,
+   "repo_path": "gemma-3-1b/jlens/Salesforce-wikitext"
+  },
+  "gpt-oss-20b": {
+   "files": {
+    "config.yaml": {
+     "size": 2526
+    },
+    "gpt-oss-20b_convergence.csv": {
+     "size": 19516
+    },
+    "gpt-oss-20b_jacobian_lens.pt": {
+     "sha256_lfs_oid": "2a8abf062eae4b6d39618b1237ad6945db437affd8c2122a09689114571553be",
+     "size": 381550248
+    }
+   },
+   "final_identity_distance": 0.938991,
+   "fit_generated": "2026-06-13T04:29:16.867352+00:00",
+   "hf_model_name": "openai/gpt-oss-20b",
+   "prompts_fitted": 457,
+   "repo_path": "gpt-oss-20b/jlens/Salesforce-wikitext"
+  },
+  "qwen2.5-7b-it": {
+   "files": {
+    "Qwen2.5-7B-Instruct_convergence.csv": {
+     "size": 20720
+    },
+    "Qwen2.5-7B-Instruct_jacobian_lens.pt": {
+     "sha256_lfs_oid": "3b3ab44cd67c2ad1f26e9f66eb269db31289b6328585b0459a47e6d3814cba29",
+     "size": 693642220
+    },
+    "config.yaml": {
+     "size": 2550
+    }
+   },
+   "final_identity_distance": 0.578094,
+   "fit_generated": "2026-06-12T06:32:13.104228+00:00",
+   "hf_model_name": "Qwen/Qwen2.5-7B-Instruct",
+   "prompts_fitted": 485,
+   "repo_path": "qwen2.5-7b-it/jlens/Salesforce-wikitext"
+  },
+  "qwen3-1.7b": {
+   "files": {
+    "Qwen3-1.7B_convergence.csv": {
+     "size": 19902
+    },
+    "Qwen3-1.7B_jacobian_lens.pt": {
+     "sha256_lfs_oid": "6fcc79011bd921ffd87612255e2e99950a124fa519470ee44ebaf161c39be9d6",
+     "size": 226501315
+    },
+    "config.yaml": {
+     "size": 2513
+    }
+   },
+   "final_identity_distance": 0.52469,
+   "fit_generated": "2026-06-11T23:36:57.843490+00:00",
+   "hf_model_name": "Qwen/Qwen3-1.7B",
+   "prompts_fitted": 466,
+   "repo_path": "qwen3-1.7b/jlens/Salesforce-wikitext"
+  }
+ },
+ "retrieved_utc": "2026-08-16T21:00:46+00:00",
+ "schema_version": "rom-jspace-hosted-lens-provenance-v1",
+ "source_repo": "neuronpedia/jacobian-lens (HuggingFace)",
+ "upstream_code": "anthropics/jacobian-lens (Apache-2.0); fits by Neuronpedia run-all-fit-lens.py"
+}
