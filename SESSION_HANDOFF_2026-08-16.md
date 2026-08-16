@@ -23,8 +23,9 @@ sealed diagnostic protocol. **No scientific endpoint was touched tonight.**
    1.5–2B models only; 7B work goes to DGX Spark. R1-1.5B cached locally, generates **11.9 tok/s** (bf16,
    greedy, MPS). D1 CoT arm ≈ ≤2.5 h local worst case, or ~30 min on Spark. Base model
    `Qwen/Qwen2.5-Math-1.5B` is also already cached (future base-vs-distill contrast).
-5. **Blocker found**: `google/gemma-3-1b-pt` is **gated (manual)** — Tony must accept the license on HF and
-   have `HF_TOKEN` set before D3's gemma cell. `Qwen/Qwen3-1.7B` is ungated → D3 can start there regardless.
+5. **Blocker RESOLVED same evening**: `google/gemma-3-1b-pt` license accepted by Tony; HF login configured
+   locally (`Tonysu172003`); weights pulled (2.04 GB, snapshot `fcf18a2a`); MPS load + lens dimension match
+   verified (d_model 1152 ✓, source layers 0–24). D3 can run both cells (qwen3-1.7b ungated as before).
 
 ## TO-DO — 2026-08-17
 
@@ -77,8 +78,7 @@ sealed diagnostic protocol. **No scientific endpoint was touched tonight.**
   prevalence endpoint — bigger thesis blocker than anything J-space; don't let diagnostics displace it.
 - Thesis reframe plan (2026-08-12, T0–T5, ~57 h) remains the authoritative schedule; J-space work is
   post-charter exploratory and should stay ≤ half a day unless a fork decision says otherwise.
-- Tony tonight (optional, 2 min): accept `google/gemma-3-1b-pt` license on HF + confirm `HF_TOKEN` locally
-  → unblocks D3's gemma cell.
+- ~~Tony tonight: accept gemma license~~ DONE 2026-08-16 evening — D3 fully unblocked.
 
 ## Artefact index (tonight)
 - `results/prereg/JSPACE_HOSTED_LENS_PROVENANCE_2026-08-16.json` (uncommitted)
