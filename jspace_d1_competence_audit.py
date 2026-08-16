@@ -163,8 +163,8 @@ def main():
         if task["mode"] == "raw":
             return tok(task["input_text"], return_tensors="pt")
         msgs = [{"role": "user", "content": task["input_text"]}]
-        ids = tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt")
-        return {"input_ids": ids}
+        return tok.apply_chat_template(msgs, add_generation_prompt=True,
+                                       return_tensors="pt", return_dict=True)
 
     # pre-flight: render everything, 1-token generate one task per arm (engineering check)
     for t in tasks:
