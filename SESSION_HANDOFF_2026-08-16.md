@@ -39,7 +39,8 @@ sealed diagnostic protocol. **No scientific endpoint was touched tonight.**
      steering site, which multihop's real-but-late signal could not satisfy).
    - Commit tonight's provenance JSON alongside.
 
-**T2. Seal `results/prereg/JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-17.md` (~1–1.5 h draft + Tony review)**
+**T2. Seal `results/prereg/JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md` — DRAFTED 2026-08-16 evening,
+   awaiting Tony's review/seal; execution blocked until seal commit exists.**
    Diagnostic-only, non-gating, cannot reclassify Phase 1; no thesis-claim license. Contents:
    - **D1 competence audit** (R1-1.5B, all eligible items from `jspace_r1_eval_eligibility_manifest.json`):
      two arms — free-CoT (greedy, max_new_tokens fixed, e.g. 384) vs forced-immediate (single forward /
