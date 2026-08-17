@@ -274,8 +274,31 @@ matched-ids; **qwenmath matched-TEXT only** — DeepSeek modified the tokenizer,
 - **R1-score:** each arm re-scores its own generations (on-policy E-1/PR; CF-M cross-check).
 - Sealed P-R1.1–P-R1.6 + kill criteria in the prereg; confounds CF-M/N/L/O registered there.
 
+## 12. J-lens instrument validation & failure-attribution diagnostics  `[Phase-1 STOPPED at gate 2026-08-10; D1–D5 EXECUTED 2026-08-16→17 — see RESULTS_LEDGER §B6]`  `jspace_phase1_*.py`, `jspace_d1_competence_audit.py`, `jspace_diag_common.py`, `jspace_d2d3_readout.py`, `jspace_d4_prompt_specific.py`, `jspace_d5_precision.py`
+
+- **Instrument:** corpus-averaged Jacobian lens (Gurnee et al. 2026; pinned `anthropics/jacobian-lens`
+  @ `581d398`). J-space = sparsity-bounded nonnegative cones over token-indexed writeout directions —
+  **never merge with corr-dim / PR / PCA estimands** (binding wording rule, as M3/M5).
+- **Staged validity design:** numerical/merge/serialization → held-out split-half stability →
+  external criterion validity (3 released suites, pass@25 vs label-permutation null, all-layer AND
+  steering-site L17). Failure of the external gate stops all downstream causal stages; licensed wording
+  = "the fitted lens did not pass the prespecified validity gate."
+- **Failure-attribution protocol (sealed `752dee7` + amendments 1–3):** six accounts × five probes —
+  behavioural competence with CoT-vs-immediate arms (externalization signature), hosted-lens scorer
+  positive control, small-end cross-model ladder, prompt-specific (incl. exact position-local)
+  vs averaged Jacobian, FP32 margins. Deterministic string/rank scoring only (no LLM judge — avoids
+  annotator circularity). **Lesson codified:** validity gates anchored at a pre-committed layer couple
+  instrument validity to site validity; and prompt-only readout evals presuppose silent intermediates —
+  a CoT-externalizing distill fails them for reasons D1's two-arm audit separates cleanly.
+- Key methodological artefacts: `results/prereg/JSPACE_R1_STEERING_PILOT_PREREG_2026-08-10.md` (staged
+  pilot), `JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md` (+A1–A3), `JSPACE_BASE_CONTROL_SHEET_2026-08-17.md`,
+  `results/jspace_r1_pilot/diagnostics/DECISION_MEMO.md`, hosted-lens provenance
+  `JSPACE_HOSTED_LENS_PROVENANCE_2026-08-16.json`.
+
 ---
 ### Change log
+- 2026-08-17: §12 added — J-lens validation + D1–D5 failure-attribution apparatus; Phase-2
+  decomposition shelved (option D, Tony); base-control cell sealed + launched.
 - 2026-07-11: §10 added — entropy-ladder instruments (creativity–entropy R0); prereg sealed before
   computation (`R0_ENTROPY_LADDER_PREREG.md`); programme doc `creativity_entropy_extension.md`
   drafted in parent dir (proposal only — thesis untouched).
