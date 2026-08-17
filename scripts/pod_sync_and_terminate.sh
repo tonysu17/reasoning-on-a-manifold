@@ -141,24 +141,55 @@ say "artifacts installed; staging copy retained at $STAGE"
 if [ "$DRY_RUN" = "1" ]; then
   say "DRY RUN: all gates passed; NOT terminating."; exit 0
 fi
-if [ -z "${RUNPOD_API_KEY:-}" ] || [ -z "$POD_ID" ]; then
-  say "DATA IS SAFE LOCALLY AND VERIFIED, but no terminate mechanism available"
-  say "  (need RUNPOD_API_KEY in env and --pod-id). STOP THE POD MANUALLY in the console."
+
+# Credential handling: the key is read from a file the OPERATOR creates
+# (default ~/.runpod_env, mode 600). It is never passed on a command line,
+# never placed in a URL, and never echoed to any log.
+KEY_FILE="${RUNPOD_ENV_FILE:-$HOME/.runpod_env}"
+if [ -z "${RUNPOD_API_KEY:-}" ] && [ -f "$KEY_FILE" ]; then
+  # shellcheck disable=SC1090
+  set -a; . "$KEY_FILE"; set +a
+fi
+if [ -z "${RUNPOD_API_KEY:-}" ]; then
+  say "DATA IS SAFE LOCALLY AND VERIFIED, but no API key found ($KEY_FILE absent/empty)."
+  say "  POD LEFT RUNNING — stop it in the RunPod console."
   exit 0
 fi
+
+api() {  # api <graphql-query-json>  -- Bearer header, key never in the URL
+  curl -s --max-time 30 https://api.runpod.io/graphql \
+    -H "Authorization: Bearer ${RUNPOD_API_KEY}" \
+    -H 'Content-Type: application/json' -d "$1"
+}
+
+if [ -z "$POD_ID" ]; then
+  say "no --pod-id given; discovering pod by public IP/port"
+  pods=$(api '{"query":"query { myself { pods { id name desiredStatus runtime { ports { ip publicPort } } } } }"}')
+  POD_ID=$(printf '%s' "$pods" | python3 -c "
+import json,sys
+try: d=json.load(sys.stdin)
+except Exception: sys.exit(0)
+for p in (d.get('data',{}).get('myself',{}) or {}).get('pods',[]) or []:
+    rt=p.get('runtime') or {}
+    for prt in rt.get('ports') or []:
+        if prt.get('ip')=='$HOST' and str(prt.get('publicPort'))=='$PORT':
+            print(p['id']); sys.exit(0)
+" 2>/dev/null)
+  [ -n "$POD_ID" ] || { say "could not discover pod id — DATA IS SAFE; stop the pod manually."; exit 0; }
+  say "discovered pod id: $POD_ID"
+fi
+
 say "all gates passed — terminating pod $POD_ID"
-resp=$(curl -s --max-time 30 "https://api.runpod.io/graphql?api_key=$RUNPOD_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d "{\"query\":\"mutation { podTerminate(input: {podId: \\\"$POD_ID\\\"}) { id } }\"}")
+resp=$(api "{\"query\":\"mutation { podTerminate(input: {podId: \\\"$POD_ID\\\"}) { id } }\"}")
 say "terminate response: $resp"
-if printf '%s' "$resp" | grep -qi 'error'; then
-  say "TERMINATION MAY HAVE FAILED — data is safe; stop the pod manually in the console."
+if printf '%s' "$resp" | grep -qi '"errors"'; then
+  say "TERMINATION FAILED — data is safe locally; stop the pod manually in the console."
   exit 1
 fi
-sleep 15
+sleep 20
 if $SSH 'true' 2>/dev/null; then
   say "WARNING: pod still reachable after terminate call — verify in the console."
-else
-  say "pod unreachable (expected after termination). Done."
+  exit 1
 fi
+say "pod unreachable (expected after termination). Billing stopped. Done."
 exit 0
