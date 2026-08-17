@@ -125,6 +125,20 @@ workspace-format), so its value has **decreased**; recommendation against fundin
 than before. Option D (shelve + appendix) remains the recommendation, with the appendix stating the
 corrected synthesis above rather than the relocation story.
 
+
+### Re-analysis 2026-08-17 late (descriptive, post-hoc)
+
+- **Selective, not uniform, loss.** Item-level overlap (base 33 hit-items, distill 15, overlap 10):
+  the distill retains/gains letter-position, symbol, and calendar-arithmetic bridges while losing 23
+  items dominated by factual-knowledge bridges (chemistry Z-numbers, etymology, seasonal facts) —
+  the surface↔knowledge split mirrors typo-strong/association-dead.
+- **Workspace-format gradient with scale (Qwen family):** J-minus-logit union on multihop
+  −0.056 (Math-1.5B) → +0.037 (Qwen3-1.7B) → +0.093 (7B-it): a cached pre-output form of the bridge
+  emerges with scale even though location stays answer-adjacent; gemma-3-1b breaks the ordering
+  (−0.173 despite the only genuine mid-stack band L13–20) ⇒ family-internal, descriptive only.
+- **Mid-stack absence extends to 7B-it** (L10–18 all 0.000) — the naive "bigger model has a mid-stack
+  workspace for these items" is already answered in the negative within available cells.
+
 ## Costs
 
 Pod: one RTX 4090 community instance, ~1.6 h wall including the quota failure and rerun (≈ **$1.1**).
