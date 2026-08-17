@@ -1,0 +1,1589 @@
+{
+ "arms": {
+  "local": {
+   "amendment": "AMENDMENT 3",
+   "layer_summary": {
+    "17": {
+     "local_rank_median": 26.0,
+     "merged_median": 26.0,
+     "n": 81,
+     "n_merged_better": 0,
+     "n_merged_in_top25": 0,
+     "n_prompt_specific_better": 0,
+     "n_prompt_specific_in_top25": 0,
+     "n_tied": 81
+    },
+    "25": {
+     "local_rank_median": 26.0,
+     "merged_median": 26.0,
+     "n": 81,
+     "n_merged_better": 10,
+     "n_merged_in_top25": 11,
+     "n_prompt_specific_better": 3,
+     "n_prompt_specific_in_top25": 6,
+     "n_tied": 68
+    }
+   },
+   "n_items": 81,
+   "per_item": [
+    {
+     "bridge_labels": [
+      7400
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 2
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 1
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "pred-valentines-prevmonth",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      1899
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 2
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "dual-photosynthesis-opposite",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      1378
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "rhyme-shoe-doubled",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 37,
+     "n_valid_positions": 1,
+     "name": "nhop-guitar-planet",
+     "seq_len": 37
+    },
+    {
+     "bridge_labels": [
+      9237
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "planet-3-moons",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      5616
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "greatwall-ocean",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      2326,
+      4843
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 36,
+     "n_valid_positions": 1,
+     "name": "nhop-primary-planet",
+     "seq_len": 36
+    },
+    {
+     "bridge_labels": [
+      62037
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "violin-strings",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      23552
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "chem-photosynthesis-Z",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      21048
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "mars-color",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      15948
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "amazon-language",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      5768
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 13,
+     "n_valid_positions": 1,
+     "name": "etym-caesar-monthnum",
+     "seq_len": 13
+    },
+    {
+     "bridge_labels": [
+      34619
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "chem-bones-Z",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 39,
+     "n_valid_positions": 1,
+     "name": "nhop-volleyball-planet",
+     "seq_len": 39
+    },
+    {
+     "bridge_labels": [
+      2326
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "rhyme-tree-squared",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      6058
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "month-1-godof",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      37942
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "func-filters-count",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      10074
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "christmas-season",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      12499
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "chem-organic-Z",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      5616
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 4
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "super-populous-capital",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      1495
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "inv-roots-opposite",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      4236
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 7
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "rhyme-hive-plusone",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      4746
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 20,
+     "n_valid_positions": 1,
+     "name": "func-pumps-chambers",
+     "seq_len": 20
+    },
+    {
+     "bridge_labels": [
+      6058
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "etym-janus-monthnum",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      8359
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "super-largest-country-capital",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      5768
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "holiday-independence-monthnum",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      17788
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 20,
+     "n_valid_positions": 1,
+     "name": "rhyme-spoon-orbit",
+     "seq_len": 20
+    },
+    {
+     "bridge_labels": [
+      23285
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "atomic-29-symbol",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      15344
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "colosseum-currency",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      5470
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "month-3-godof",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      451
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "letterpos-nitrogen-symbol",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      11722
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 22,
+     "n_valid_positions": 1,
+     "name": "rhyme-chair-flag",
+     "seq_len": 22
+    },
+    {
+     "bridge_labels": [
+      7400
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 13
+     },
+     "n_prompt_tokens": 12,
+     "n_valid_positions": 1,
+     "name": "holiday-valentines-monthnum",
+     "seq_len": 12
+    },
+    {
+     "bridge_labels": [
+      5470
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "etym-wargod-month",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      4545
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 5
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 1
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "dbl-obituary-antonym",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 14,
+     "n_valid_positions": 1,
+     "name": "double-dice-faces",
+     "seq_len": 14
+    },
+    {
+     "bridge_labels": [
+      705
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "inv-balloon-opposite",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      3729
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 9
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "dual-stars-visible-opposite",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      14630
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "osu-rival-mascot",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 38,
+     "n_valid_positions": 1,
+     "name": "nhop-insect-element",
+     "seq_len": 38
+    },
+    {
+     "bridge_labels": [
+      5768
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 5
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "month-7-namedafter",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      3217
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 12,
+     "n_valid_positions": 1,
+     "name": "birthstone-emerald-month",
+     "seq_len": 12
+    },
+    {
+     "bridge_labels": [
+      5616
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "paper-continent",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      6623
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "atomic-79-symbol",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      16355
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "spaceneedle-border",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      19240
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "basketball-players",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      46547
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "super-smallest-continent",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      472
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 9
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "letterpos-water-symbol",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      10984
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "inv-sunrise-opposite",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      3040
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 22,
+     "n_valid_positions": 1,
+     "name": "rhyme-door-doubled",
+     "seq_len": 22
+    },
+    {
+     "bridge_labels": [
+      20148
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "topeka-west",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      46403
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 22,
+     "n_valid_positions": 1,
+     "name": "chem-atmosphere-Z",
+     "seq_len": 22
+    },
+    {
+     "bridge_labels": [
+      6527
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 13
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 6
+     },
+     "n_prompt_tokens": 13,
+     "n_valid_positions": 1,
+     "name": "succ-halloween-nextmonth",
+     "seq_len": 13
+    },
+    {
+     "bridge_labels": [
+      15948
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 20,
+     "n_valid_positions": 1,
+     "name": "carnival-ocean",
+     "seq_len": 20
+    },
+    {
+     "bridge_labels": [
+      23285
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "atomic-29-flame",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      3040
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 37,
+     "n_valid_positions": 1,
+     "name": "nhop-compass-planet",
+     "seq_len": 37
+    },
+    {
+     "bridge_labels": [
+      9625
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "louvre-language",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      17689
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 20,
+     "n_valid_positions": 1,
+     "name": "rhyme-rain-neighbor",
+     "seq_len": 20
+    },
+    {
+     "bridge_labels": [
+      50752
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 21,
+     "n_valid_positions": 1,
+     "name": "atomic-80-state",
+     "seq_len": 21
+    },
+    {
+     "bridge_labels": [
+      6527
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 13,
+     "n_valid_positions": 1,
+     "name": "firstletter-halloween-month",
+     "seq_len": 13
+    },
+    {
+     "bridge_labels": [
+      9625
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "firstletter-paris-country",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      6747
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "tajmahal-continent",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      5616
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 1,
+     "name": "firstletter-greatwall-country",
+     "seq_len": 19
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 38,
+     "n_valid_positions": 1,
+     "name": "nhop-cube-element",
+     "seq_len": 38
+    },
+    {
+     "bridge_labels": [
+      4236
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 34,
+     "n_valid_positions": 1,
+     "name": "nhop-rings-planet",
+     "seq_len": 34
+    },
+    {
+     "bridge_labels": [
+      4236
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "roman-rings-olympic",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      6602
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 27,
+     "n_valid_positions": 1,
+     "name": "etym-frigg-position",
+     "seq_len": 27
+    },
+    {
+     "bridge_labels": [
+      34354
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "spider-legs",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "rhyme-fix-halved",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      6527
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 10,
+     "n_valid_positions": 1,
+     "name": "holiday-halloween-monthnum",
+     "seq_len": 10
+    },
+    {
+     "bridge_labels": [
+      11001
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "atomic-26-symbol",
+     "seq_len": 17
+    },
+    {
+     "bridge_labels": [
+      23968
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "super-largest-island-nation",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      5616
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 18
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "firstletter-populous-country",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      356
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "letterpos-carbon-symbol",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      6652
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 11,
+     "n_valid_positions": 1,
+     "name": "holiday-christmas-monthnum",
+     "seq_len": 11
+    },
+    {
+     "bridge_labels": [
+      49153
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "etym-saturn-position",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      506
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 16,
+     "n_valid_positions": 1,
+     "name": "letterpos-oxygen-symbol",
+     "seq_len": 16
+    },
+    {
+     "bridge_labels": [
+      1550
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 9
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 11
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "dbl-altitude-antonym",
+     "seq_len": 18
+    },
+    {
+     "bridge_labels": [
+      4116
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 3
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "dbl-armistice-antonym",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      7400
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 15,
+     "n_valid_positions": 1,
+     "name": "firstletter-valentines-month",
+     "seq_len": 15
+    },
+    {
+     "bridge_labels": [
+      9806
+     ],
+     "local_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 17,
+     "n_valid_positions": 1,
+     "name": "inv-antarctica-opposite",
+     "seq_len": 17
+    }
+   ],
+   "skip_first_rule": "seq_len - 2 (single position; one token before the Phase-1 readout position \u2014 the released mask cannot include the final position)"
+  },
+  "skip16": {
+   "amendment": "AMENDMENT 2",
+   "caveat": "four items rest on 1-3 valid positions (A2); n_valid_positions is shown beside every rank and conclusions lean on the 19-22-position items",
+   "layer_summary": {
+    "17": {
+     "merged_median": 26.0,
+     "n": 8,
+     "n_merged_better": 0,
+     "n_merged_in_top25": 0,
+     "n_prompt_specific_better": 0,
+     "n_prompt_specific_in_top25": 0,
+     "n_tied": 8,
+     "skip16_rank_median": 26.0
+    },
+    "25": {
+     "merged_median": 26.0,
+     "n": 8,
+     "n_merged_better": 0,
+     "n_merged_in_top25": 0,
+     "n_prompt_specific_better": 0,
+     "n_prompt_specific_in_top25": 0,
+     "n_tied": 8,
+     "skip16_rank_median": 26.0
+    }
+   },
+   "n_fitted": 8,
+   "n_selected": 8,
+   "per_item": [
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 37,
+     "n_valid_positions": 20,
+     "name": "nhop-guitar-planet",
+     "seq_len": 37,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      9237
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "planet-3-moons",
+     "seq_len": 18,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      2326,
+      4843
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 36,
+     "n_valid_positions": 19,
+     "name": "nhop-primary-planet",
+     "seq_len": 36,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      4743
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 39,
+     "n_valid_positions": 22,
+     "name": "nhop-volleyball-planet",
+     "seq_len": 39,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      37942
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "func-filters-count",
+     "seq_len": 18,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      12499
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 18,
+     "n_valid_positions": 1,
+     "name": "chem-organic-Z",
+     "seq_len": 18,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      4746
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 20,
+     "n_valid_positions": 3,
+     "name": "func-pumps-chambers",
+     "seq_len": 20,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    },
+    {
+     "bridge_labels": [
+      6058
+     ],
+     "merged_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "n_prompt_tokens": 19,
+     "n_valid_positions": 2,
+     "name": "etym-janus-monthnum",
+     "seq_len": 19,
+     "skip16_rank": {
+      "17": 26,
+      "25": 26
+     },
+     "status": "fitted"
+    }
+   ],
+   "selection_mode": "amended",
+   "skip_first": 16
+  }
+ },
+ "interpretation": "descriptive only; no threshold. Registered directions: averaging-destroys (account d) => prompt-specific ranks materially better than merged (esp. L25); never-existed => both poor. A3 asymmetry: the local map is exact, so poor local ranks are strong evidence AGAINST (d)."
+}

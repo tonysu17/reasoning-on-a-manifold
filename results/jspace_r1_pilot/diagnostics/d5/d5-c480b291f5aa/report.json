@@ -1,0 +1,46 @@
+{
+ "results": {
+  "lens-eval-association": {
+   "items_with_any_hit_bf16": 4,
+   "items_with_any_hit_delta": -1,
+   "items_with_any_hit_fp32": 3,
+   "label_layer_hits_gained_in_fp32": 6,
+   "label_layer_hits_lost_in_fp32": 4,
+   "n_items": 98,
+   "top25_sets_identical": false,
+   "union_delta": -0.010204081632653059,
+   "union_pass_at_25_bf16": 0.04081632653061224,
+   "union_pass_at_25_fp32": 0.030612244897959183
+  },
+  "lens-eval-multihop": {
+   "items_with_any_hit_bf16": 15,
+   "items_with_any_hit_delta": 1,
+   "items_with_any_hit_fp32": 16,
+   "label_layer_hits_gained_in_fp32": 6,
+   "label_layer_hits_lost_in_fp32": 5,
+   "n_items": 81,
+   "top25_sets_identical": false,
+   "union_delta": 0.012345679012345678,
+   "union_pass_at_25_bf16": 0.18518518518518517,
+   "union_pass_at_25_fp32": 0.19753086419753085
+  },
+  "lens-eval-typo": {
+   "items_with_any_hit_bf16": 86,
+   "items_with_any_hit_delta": 1,
+   "items_with_any_hit_fp32": 87,
+   "label_layer_hits_gained_in_fp32": 110,
+   "label_layer_hits_lost_in_fp32": 57,
+   "n_items": 96,
+   "top25_sets_identical": false,
+   "union_delta": 0.01041666666666663,
+   "union_pass_at_25_bf16": 0.8958333333333334,
+   "union_pass_at_25_fp32": 0.90625
+  }
+ },
+ "verdict": {
+  "association_item_delta": -1,
+  "consequence": "account (e) precision artefact REJECTED as an explanation of the association failure",
+  "registered_expectation": "association union changes by at most +/-1 item",
+  "registered_expectation_met": true
+ }
+}

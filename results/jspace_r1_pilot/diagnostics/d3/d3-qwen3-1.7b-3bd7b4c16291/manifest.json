@@ -1,0 +1,111 @@
+{
+ "amendment": "JSPACE_DIAG_AMENDMENT_1_2026-08-17.md",
+ "boundary_ties": {
+  "lens-eval-association": {
+   "lens": 1249,
+   "logit": 828
+  },
+  "lens-eval-multihop": {
+   "lens": 965,
+   "logit": 907
+  },
+  "lens-eval-typo": {
+   "lens": 1347,
+   "logit": 1057
+  }
+ },
+ "cell_label": "qwen3-1.7b",
+ "eligibility_counts": {
+  "lens-eval-association": {
+   "below_minimum_eligible_flag": false,
+   "n_eligible_items": 98,
+   "n_eligible_labels": 98,
+   "n_source_items": 102
+  },
+  "lens-eval-multihop": {
+   "below_minimum_eligible_flag": false,
+   "n_eligible_items": 81,
+   "n_eligible_labels": 82,
+   "n_source_items": 93
+  },
+  "lens-eval-typo": {
+   "below_minimum_eligible_flag": false,
+   "n_eligible_items": 96,
+   "n_eligible_labels": 96,
+   "n_source_items": 96
+  }
+ },
+ "env": {
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_memory_bytes": 25261047808,
+  "numpy": "2.4.6",
+  "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+  "python": "3.11.10",
+  "torch": "2.6.0+cu124",
+  "transformers": "5.15.0"
+ },
+ "eval_file_sha256_at_fetch": {
+  "lens-eval-association.json": "d1a98cd4911b594282e74168091c77d849dae18ffe2acb5761074853f327d71c",
+  "lens-eval-multihop.json": "50b7e4c9255291c0ca2a8e94615be9f44531fa57bb1a844e4f9616056d987416",
+  "lens-eval-typo.json": "9d05e16b7234a57d0773d120a4e1c4e94fd3bc2235a8125d4200a70e60ab17aa"
+ },
+ "finished_utc": "2026-08-17T11:54:57+00:00",
+ "git_commit": "2d3a4c393f2da20cbe58c41759057d2465fbae08",
+ "lens_d_model": 2048,
+ "lens_n_prompts": 466,
+ "lens_sha256": "6fcc79011bd921ffd87612255e2e99950a124fa519470ee44ebaf161c39be9d6",
+ "lens_source": "neuronpedia/jacobian-lens::qwen3-1.7b/jlens/Salesforce-wikitext/Qwen3-1.7B_jacobian_lens.pt",
+ "lens_source_layers": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26
+ ],
+ "max_seq_len": 128,
+ "model": "Qwen/Qwen3-1.7B",
+ "model_dtype": "bfloat16",
+ "model_n_layers": 28,
+ "model_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+ "n_permutations": 1000,
+ "permutation_seed": 20260817,
+ "protocol": "results/prereg/JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md",
+ "readout_position": "final_prompt_token",
+ "run_uuid": "d3-qwen3-1.7b-3bd7b4c16291",
+ "schema_version": "rom-jspace-d3-hosted-readout-v1",
+ "scoring_module_sha256": "6f610e61dc13fb2adceb6d86151467cdf8c5cd4366522da39f9f3de1bc45d426",
+ "seal_commit": "752dee7",
+ "stage": "d3",
+ "tokenizer_add_bos_token": false,
+ "vocabulary_domain": {
+  "head_rows_excluded": 267,
+  "head_vocab_size": 151936,
+  "scored_vocab_size": 151669,
+  "tokenizer_ids_beyond_head": 0,
+  "tokenizer_len": 151669
+ },
+ "wall_seconds": 37.4
+}

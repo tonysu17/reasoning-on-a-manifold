@@ -1,0 +1,56 @@
+{
+ "amendments": [
+  "JSPACE_DIAG_AMENDMENT_1_2026-08-17.md",
+  "JSPACE_DIAG_AMENDMENT_2_2026-08-17.md",
+  "JSPACE_DIAG_AMENDMENT_3_2026-08-17.md"
+ ],
+ "arms": [
+  "skip16",
+  "local"
+ ],
+ "attn_implementation": "eager",
+ "dim_batch": 8,
+ "eligibility_manifest_sha256": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c",
+ "env": {
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_memory_bytes": 25261047808,
+  "numpy": "2.4.6",
+  "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+  "python": "3.11.10",
+  "torch": "2.6.0+cu124",
+  "transformers": "5.15.0"
+ },
+ "finished_utc": "2026-08-17T11:36:20+00:00",
+ "git_commit": "2d3a4c393f2da20cbe58c41759057d2465fbae08",
+ "layers": [
+  17,
+  25
+ ],
+ "merged_lens_sha256": "6b5f1043b3c3fa3fcd8d4d69919772a2d763c145f996477bf715fe4b9b89f672",
+ "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+ "model_dtype": "bfloat16",
+ "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+ "protocol": "results/prereg/JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md",
+ "run_uuid": "d4-195b5eb7f2d2",
+ "schema_version": "rom-jspace-d4-prompt-specific-v2",
+ "seal_commit": "752dee7",
+ "skip16_selected_item_names": [
+  "nhop-guitar-planet",
+  "planet-3-moons",
+  "nhop-primary-planet",
+  "nhop-volleyball-planet",
+  "func-filters-count",
+  "chem-organic-Z",
+  "func-pumps-chambers",
+  "etym-janus-monthnum"
+ ],
+ "vocabulary_domain": {
+  "head_rows_excluded": 271,
+  "head_vocab_size": 151936,
+  "scored_vocab_size": 151665,
+  "tokenizer_ids_beyond_head": 0,
+  "tokenizer_len": 151665
+ },
+ "wall_seconds": 135.3
+}
