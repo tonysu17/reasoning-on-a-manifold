@@ -68,6 +68,63 @@ paragraph earns thesis space. A remains available but should be argued on its na
 recommends against C/A spending before the Ph2 missingness sensitivity analysis (still the larger
 outstanding blocker) is done. Tony decides.
 
+## ADDENDUM 2026-08-17 evening — base-control cell executed (run `d3-qwen2.5-math-1.5b-base-2008de267117`)
+
+Self-fit 100-prompt WikiText lens on **Qwen2.5-Math-1.5B** (R1-Distill-1.5B's own base), sealed sheet
+`JSPACE_BASE_CONTROL_SHEET_2026-08-17.md`; 7.3 h fit + 4 min scoring, local M4, $0. Matched comparison:
+identical scored vocabulary domain (151,665; 271 padding rows excluded) and identical eligible-item
+counts (98/81/96) as the Phase-1 distill run; both lenses converged normally and near-identically
+(mean_rel_change 0.026 @ n=50 distill vs 0.025 base, both inside the hosted-lens band).
+
+| Endpoint | **Base** Qwen2.5-Math-1.5B | **Distill** R1-Distill-1.5B |
+|---|---:|---:|
+| multihop any-layer union | **0.4074** (p=.001, qualifies) | 0.1852 (p=.001) |
+| multihop **at L17** | **0.0000** | **0.0000** |
+| multihop peak layer | L23 (0.321) | L25 (0.136) |
+| multihop logit-lens comparator | **0.4630** (> J-lens) | 0.1728 (< J-lens by .012) |
+| association union | 0.0102 (p=.84, fails) | 0.0408 (p=.118, fails) |
+| typo union / L17 | 0.8750 / 0.7396 | 0.8958 / 0.6458 |
+| typo logit comparator | 0.6354 (J-lens +0.240) | 0.5521 (J-lens +0.344) |
+
+**Registered matrix verdict (by the letter):** the base qualifies on multihop ⇒ the sheet's
+"distillation-recipe-specific" branch is the licensed reading of the *union* endpoint.
+
+**But the mechanism is NOT the branch's narrative, and this must be stated wherever the cell is cited.**
+Three facts qualify it:
+
+1. **Neither model carries the bridge at mid-stack.** Base L17 = 0.0000, identical to the distill.
+   The base never had a mid-stack verbalizable workspace for these bridges either — so the Phase-1 L17
+   failure **predates distillation** and cannot be attributed to it.
+2. **What differs is late-layer bridge resolution, and only there.** The base's entire multihop signal
+   lives at L20–L26 (peak L23), like the distill's L21–L26 (peak L25) — but 2.2× more of it.
+3. **The base's late signal is not workspace-format.** Its logit-lens comparator (0.463) *exceeds* the
+   J-lens (0.407): the bridge appears as proto-output, already rotated into the output basis, not as a
+   cached pre-output intermediate. Contrast typo, where the J-lens beats the logit lens by +0.24 (base)
+   and +0.34 (distill) — that is what a genuine cached intermediate looks like in this instrument.
+
+**Corrected synthesis.** The earlier speculative "distillation relocated composition out of the silent
+workspace into the token channel" is **not supported as stated** and should not be written that way:
+there was no mid-stack workspace in the base to relocate from. The supported statement is narrower:
+*at 1.5B, neither the math-base nor its CoT distill exposes bridge entities to Jacobian-lens readout at
+mid-stack; both resolve bridges only in answer-adjacent layers and in proto-output form; and the
+distillation step roughly halved how often that late resolution happens (0.407 → 0.185).* This is
+consistent with D1's behavioural finding (the distill composes out loud: CoT 0.617 vs silent 0.099)
+without requiring the workspace-relocation mechanism.
+
+**Association:** base 0.0102 at chance (p=.84), distill 0.0408 at chance (p=.118) — both fail; the
+association deficit is inherited from the math-narrow base, not created by distillation, as expected.
+
+**Typo:** base 0.875 / distill 0.896, both with large J-lens advantages ⇒ the base lens is a working
+instrument, so the multihop/association readings are not fit-quality artefacts. This is the cell's
+internal positive control and it passes.
+
+**Consequence for the fork.** The recipe-contrast paragraph (option B's motivation) survives but shrinks:
+it is a claim about *late-layer bridge availability*, not about a workspace. The 7B pair would now
+re-test a smaller and murkier effect (an amount-of-late-resolution difference whose readout is not even
+workspace-format), so its value has **decreased**; recommendation against funding it stands, more firmly
+than before. Option D (shelve + appendix) remains the recommendation, with the appendix stating the
+corrected synthesis above rather than the relocation story.
+
 ## Costs
 
 Pod: one RTX 4090 community instance, ~1.6 h wall including the quota failure and rerun (≈ **$1.1**).

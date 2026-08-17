@@ -1,0 +1,156 @@
+{
+ "results": {
+  "lens-eval-association": {
+   "any_layer_union_pass_at_25": 0.01020408163265306,
+   "beats_p95": false,
+   "below_minimum_eligible_flag": false,
+   "layer_profile_pass_at_25": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.01020408163265306,
+    0.01020408163265306,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "logit_lens_comparator": {
+    "any_layer_union_pass_at_25": 0.0
+   },
+   "n_eligible_items": 98,
+   "n_eligible_labels": 98,
+   "p_at_most_0.05": false,
+   "peak_layer": 15,
+   "peak_layer_pass_at_25": 0.01020408163265306,
+   "permutation": {
+    "empirical_upper_p": 0.8371628371628371,
+    "n": 1000,
+    "p95_higher": 0.030612244897959183
+   },
+   "qualifies_instrument_level": false
+  },
+  "lens-eval-multihop": {
+   "any_layer_union_pass_at_25": 0.4074074074074074,
+   "beats_p95": true,
+   "below_minimum_eligible_flag": false,
+   "layer_profile_pass_at_25": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.012345679012345678,
+    0.024691358024691357,
+    0.012345679012345678,
+    0.012345679012345678,
+    0.0,
+    0.0,
+    0.0,
+    0.07407407407407407,
+    0.25925925925925924,
+    0.24691358024691357,
+    0.32098765432098764,
+    0.30864197530864196,
+    0.30864197530864196,
+    0.2222222222222222
+   ],
+   "logit_lens_comparator": {
+    "any_layer_union_pass_at_25": 0.46296296296296297
+   },
+   "n_eligible_items": 81,
+   "n_eligible_labels": 82,
+   "p_at_most_0.05": true,
+   "peak_layer": 23,
+   "peak_layer_pass_at_25": 0.32098765432098764,
+   "permutation": {
+    "empirical_upper_p": 0.000999000999000999,
+    "n": 1000,
+    "p95_higher": 0.09876543209876543
+   },
+   "qualifies_instrument_level": true
+  },
+  "lens-eval-typo": {
+   "any_layer_union_pass_at_25": 0.875,
+   "beats_p95": true,
+   "below_minimum_eligible_flag": false,
+   "layer_profile_pass_at_25": [
+    0.020833333333333332,
+    0.020833333333333332,
+    0.3333333333333333,
+    0.3854166666666667,
+    0.3645833333333333,
+    0.375,
+    0.46875,
+    0.4791666666666667,
+    0.6041666666666666,
+    0.59375,
+    0.65625,
+    0.6875,
+    0.6979166666666666,
+    0.6354166666666666,
+    0.625,
+    0.5729166666666666,
+    0.4583333333333333,
+    0.7395833333333334,
+    0.7291666666666666,
+    0.75,
+    0.53125,
+    0.4479166666666667,
+    0.28125,
+    0.20833333333333334,
+    0.15625,
+    0.10416666666666667,
+    0.020833333333333332
+   ],
+   "logit_lens_comparator": {
+    "any_layer_union_pass_at_25": 0.6354166666666666
+   },
+   "n_eligible_items": 96,
+   "n_eligible_labels": 96,
+   "p_at_most_0.05": true,
+   "peak_layer": 19,
+   "peak_layer_pass_at_25": 0.75,
+   "permutation": {
+    "empirical_upper_p": 0.000999000999000999,
+    "n": 1000,
+    "p95_higher": 0.0625
+   },
+   "qualifies_instrument_level": true
+  }
+ },
+ "verdict": {
+  "n_qualifying_suites": 2,
+  "note": "descriptive; interpretation conditional on D2 pass. Question: does this ~1-2B model clear the instrument-level bar on association or multihop?",
+  "qualifying_suites": [
+   "lens-eval-typo",
+   "lens-eval-multihop"
+  ]
+ }
+}
