@@ -107,8 +107,9 @@ run_stage D3-gemma-3-1b python jspace_d2d3_readout.py --stage d3 \
   --lens-file gemma-3-1b/jlens/Salesforce-wikitext/gemma-3-1b-pt_jacobian_lens.pt \
   --label gemma-3-1b
 
-# ---------- D4: prompt-specific vs averaged Jacobian ----------
-run_stage D4 python jspace_d4_prompt_specific.py --merged-lens "$ART/merged.fp32.pt"
+# ---------- D4: prompt-specific vs averaged Jacobian (AMENDMENT 2: length-eligible) ----------
+run_stage D4 python jspace_d4_prompt_specific.py --merged-lens "$ART/merged.fp32.pt" \
+  --selection amended
 
 # ---------- D5: FP32 vs BF16 readout margins ----------
 run_stage D5 python jspace_d5_precision.py --merged-lens "$ART/merged.fp32.pt" \

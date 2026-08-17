@@ -1,10 +1,9 @@
-# AMENDMENT 2 (DRAFT — NOT SEALED) — D4 item selection under the skip-16 rule
+# AMENDMENT 2 — D4 item selection under the skip-16 rule
 
-**Date drafted:** 2026-08-17, **before D4 executes.** **Amends:** §6 of
+**Date:** 2026-08-17, recorded **before D4 executes.** **Amends:** §6 of
 `JSPACE_R1_DIAGNOSTIC_PROTOCOL_2026-08-16.md` (seal `752dee7`).
-**Status: awaiting Tony's decision. Until sealed, D4 runs the SEALED selection** (the runner
-defaults to `--selection sealed`; the amended path refuses to run unless a sealed copy of this file
-exists at `JSPACE_DIAG_AMENDMENT_2_2026-08-17.md`).
+**Status: SEALED** by Tony in-session 2026-08-17 ("seal amendment 2"), option 1 below.
+D4 runs with `--selection amended`.
 
 ## Problem (discovered before execution, from prompt lengths only)
 
@@ -48,13 +47,26 @@ label eligibility already sealed in Phase 1. It is declared before D4 runs.
 longer, multi-clause ("nhop-…") constructions; D4's conclusion about averaging is therefore bounded to
 prompts long enough for a single-prompt Jacobian, and does not generalise to the 48 short items.
 
-## Options for Tony
+## Options presented to Tony (option 1 adopted)
 
-1. **Seal this amendment** → D4 runs 8 length-eligible items (`--selection amended`). Recommended:
-   same pod time, materially more evidence, bias stated.
-2. **Decline** → D4 runs the sealed 8, reports 3 fitted and 5 `insufficient_valid_positions`, and the
-   memo records D4 as under-powered for account (d).
-3. **Drop D4** → account (d) stays untested; D1 already explains the multihop miss by another route.
+1. **Seal this amendment** → D4 runs 8 length-eligible items (`--selection amended`). **ADOPTED.**
+2. Decline → D4 runs the sealed 8, reporting 3 fitted and 5 `insufficient_valid_positions`.
+3. Drop D4 → account (d) untested.
 
-To adopt option 1: approve, and this file is committed as
-`JSPACE_DIAG_AMENDMENT_2_2026-08-17.md` (dropping the DRAFT suffix) before D4 runs.
+## Resulting selection (fixed at seal time, before any computation)
+
+| # | sha256 prefix | item | R1 tokens | valid positions |
+|---|---|---|---:|---:|
+| 1 | 0aca9bf9 | nhop-guitar-planet | 37 | 20 |
+| 2 | 0fbe027e | planet-3-moons | 18 | 1 |
+| 3 | 101f0d39 | nhop-primary-planet | 36 | 19 |
+| 4 | 1df04539 | nhop-volleyball-planet | 39 | 22 |
+| 5 | 244d4be9 | func-filters-count | 18 | 1 |
+| 6 | 320281ea | chem-organic-Z | 18 | 1 |
+| 7 | 36e49b5b | func-pumps-chambers | 20 | 3 |
+| 8 | 38ecc63a | etym-janus-monthnum | 19 | 2 |
+
+**Additional caveat to carry into the report:** four of the eight rest on 1–3 valid positions, so their
+"prompt-specific" Jacobian averages over very few token positions and is correspondingly noisy. The
+per-item `n_valid_positions` is recorded by the runner and must be shown beside every rank; conclusions
+about account (d) lean on the three 19–22-position items.
