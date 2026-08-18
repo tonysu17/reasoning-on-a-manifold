@@ -44,6 +44,9 @@ def main() -> int:
     ap.add_argument("--lens-file", default=None, help="path inside the HF repo")
     ap.add_argument("--outroot", default="results/jspace_r1_pilot/diagnostics")
     ap.add_argument("--label", default=None, help="short cell name, e.g. qwen3-1.7b")
+    ap.add_argument("--expected-layers", type=int, default=None)
+    ap.add_argument("--expected-d-model", type=int, default=None)
+    ap.add_argument("--expected-head-vocab", type=int, default=None)
     args = ap.parse_args()
 
     import jlens
@@ -73,6 +76,17 @@ def main() -> int:
                                               dtype=torch.bfloat16).to(device)
     lens_model = jlens.from_hf(hf, tok)          # force_bos=True, as Phase 1
     source_layers = list(lens.source_layers)
+
+    if args.expected_layers is not None:
+        assert lens_model.n_layers == args.expected_layers, (
+            f"expected {args.expected_layers} layers, got {lens_model.n_layers}")
+    if args.expected_d_model is not None:
+        assert lens_model.d_model == args.expected_d_model, (
+            f"expected d_model={args.expected_d_model}, got {lens_model.d_model}")
+    if args.expected_head_vocab is not None:
+        head_vocab = int(lens_model._lm_head.weight.shape[0])
+        assert head_vocab == args.expected_head_vocab, (
+            f"expected head vocab={args.expected_head_vocab}, got {head_vocab}")
 
     if lens.d_model != lens_model.d_model:
         raise ValueError(f"lens d_model {lens.d_model} != model {lens_model.d_model}")
@@ -153,12 +167,22 @@ def main() -> int:
         "permutation_seed": C.PERM_SEED, "n_permutations": C.N_PERM,
         "eval_file_sha256_at_fetch": suite_hashes, "boundary_ties": ties_total,
         "scoring_module_sha256": C.sha256_file("jspace_phase1_scoring.py"),
+        "readout_script_sha256": C.sha256_file("jspace_d2d3_readout.py"),
+        "common_module_sha256": C.sha256_file("jspace_diag_common.py"),
+        "jlens_commit": C.JLENS_COMMIT,
         "eligibility_counts": {s: {k: v for k, v in elig[s].items() if k != "items"}
                                for s in C.SUITES},
+        "execution_run_id": os.environ.get("ROM_RUN_ID", ""),
+        "execution_protocol_amendment": os.environ.get("ROM_PROTOCOL_AMENDMENT"),
         "env": C.environment(), "git_commit": C.git_head(),
         "finished_utc": C.utc_now(), "wall_seconds": round(time.time() - t0, 1),
     }
     report = {"results": results, "verdict": verdict}
+
+    # Retain exact per-model item order and token eligibility.  Pairwise
+    # item-overlap analyses must not assume two tokenizers share token IDs.
+    json.dump(elig, open(os.path.join(outdir, "eligibility.json"), "w"),
+              indent=1, sort_keys=True)
 
     md = [f"# {args.stage.upper()} — {label}", "",
           f"Run `{run_uuid}`; sealed protocol §{'4' if args.stage=='d2' else '5'}; "

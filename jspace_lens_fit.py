@@ -31,6 +31,9 @@ def main() -> int:
     ap.add_argument("--out-dir", default="data/jlens_local")
     ap.add_argument("--out-name", default=None, help="basename; default derived from model id")
     ap.add_argument("--save-dtype", default="fp16", choices=["fp16", "fp32"])
+    ap.add_argument("--expected-layers", type=int, default=None)
+    ap.add_argument("--expected-d-model", type=int, default=None)
+    ap.add_argument("--expected-head-vocab", type=int, default=None)
     args = ap.parse_args()
 
     import jlens
@@ -56,6 +59,16 @@ def main() -> int:
         args.model, revision=args.revision, dtype=torch.bfloat16,
         attn_implementation="eager").to(device)
     lens_model = jlens.from_hf(hf, tok)
+    if args.expected_layers is not None:
+        assert lens_model.n_layers == args.expected_layers, (
+            f"expected {args.expected_layers} layers, got {lens_model.n_layers}")
+    if args.expected_d_model is not None:
+        assert lens_model.d_model == args.expected_d_model, (
+            f"expected d_model={args.expected_d_model}, got {lens_model.d_model}")
+    if args.expected_head_vocab is not None:
+        head_vocab = int(lens_model._lm_head.weight.shape[0])
+        assert head_vocab == args.expected_head_vocab, (
+            f"expected head vocab={args.expected_head_vocab}, got {head_vocab}")
     print(f"[fit:{name}] {args.model}@{args.revision[:8]} on {device}; "
           f"n_layers={lens_model.n_layers} d_model={lens_model.d_model}", flush=True)
 
@@ -89,6 +102,11 @@ def main() -> int:
         "skip_first": 16, "save_dtype": args.save_dtype,
         "fit_manifest_sha256": FIT_MANIFEST_SHA,
         "lens_path": out_lens, "lens_sha256": sha,
+        "fit_script_sha256": C.sha256_file("jspace_lens_fit.py"),
+        "common_module_sha256": C.sha256_file("jspace_diag_common.py"),
+        "jlens_commit": C.JLENS_COMMIT,
+        "execution_run_id": os.environ.get("ROM_RUN_ID", ""),
+        "protocol_amendment": os.environ.get("ROM_PROTOCOL_AMENDMENT"),
         "env": C.environment(), "git_commit": C.git_head(),
         "finished_utc": C.utc_now(), "wall_seconds": round(time.time() - t0, 1),
     }

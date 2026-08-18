@@ -44,8 +44,11 @@ def sha256_file(path: str) -> str:
 
 
 def git_head() -> str:
-    return subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
+    head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
                           text=True).stdout.strip()
+    # Lightweight pod payloads intentionally omit .git.  The launcher binds
+    # the payload to its clean source commit through ROM_GIT_COMMIT.
+    return head or os.environ.get("ROM_GIT_COMMIT", "")
 
 
 def utc_now() -> str:
