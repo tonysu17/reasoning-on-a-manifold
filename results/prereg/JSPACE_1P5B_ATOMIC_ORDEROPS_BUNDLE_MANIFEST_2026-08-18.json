@@ -1,0 +1,71 @@
+{
+  "schema_version": "rom-jspace-1p5b-seal-bundle-v1",
+  "date": "2026-08-18",
+  "status": "sealed_when_containing_commit_exists",
+  "source_parent_commit": "fa3a59ab3817b705ff8af3e7bbeae3d56202dbe1",
+  "seal_definition": "the first commit containing this manifest and every byte-hashed file below; the manifest itself is bound by that commit and is intentionally not self-hashed",
+  "result_blind_declaration": "No model-bearing stage was executed and no order-operations model output was inspected before this manifest was created.",
+  "model_free_checks": {
+    "pytest_command": ".venv-jlens/bin/python -m pytest -q -p no:cacheprovider tests/test_jspace_1p5b_atomic_orderops.py",
+    "pytest_result": "57 passed",
+    "compile_result": "pass",
+    "preflight_result": "pass; model_loaded=false; model_forward_performed=false; A0=81, O1 extraction=54/annotation-valid=53/primary=50, typo=96, boundary-shortcut differences=6"
+  },
+  "files": {
+    "results/prereg/JSPACE_1P5B_ATOMIC_ORDEROPS_PREREG_2026-08-18.md": {
+      "role": "protocol",
+      "sha256": "b80df788ce7ed855787ab7f2ae947392e8be5ee9064b6dbd3426211e1c40da63",
+      "size_bytes": 39448
+    },
+    "results/prereg/JSPACE_1P5B_ATOMIC_ORDEROPS_INPUTS_2026-08-18.json": {
+      "role": "machine-readable input lock",
+      "sha256": "fc284a3992b4223a9e32d1a6fe44cdd6354cf14270e17d40c09a785473030bb6",
+      "size_bytes": 23359
+    },
+    "results/prereg/JSPACE_ATOMIC_MULTIHOP_81_TASKS_2026-08-18.json": {
+      "role": "frozen atomic task",
+      "sha256": "44951afb2e454a4d3e3ce114c9a40c9cb0cec1ab990b89e82e7ecaba79e81497",
+      "size_bytes": 67525
+    },
+    "results/prereg/jspace_1p5b_atomic_orderops_requirements_lock.txt": {
+      "role": "runtime and test requirements",
+      "sha256": "42054d29d85081a8b7e497938b0ce1864b04687865539d453c3b4d0321605e25",
+      "size_bytes": 762
+    },
+    "jspace_1p5b_atomic_orderops.py": {
+      "role": "runner and analysis implementation",
+      "sha256": "f184e1a4294849a6f6baa8377bb7447f2205b88e65b467fe7b99c779422151b3",
+      "size_bytes": 266731
+    },
+    "tests/test_jspace_1p5b_atomic_orderops.py": {
+      "role": "model-free tests",
+      "sha256": "8974d5b635c7c869764e38570119e310510a434e872f15223a3fe15d5166090b",
+      "size_bytes": 33660
+    },
+    "jspace_phase1_scoring.py": {
+      "role": "shared deterministic top-k scorer",
+      "sha256": "6f610e61dc13fb2adceb6d86151467cdf8c5cd4366522da39f9f3de1bc45d426",
+      "size_bytes": 15231
+    },
+    "results/prereg/jspace_r1_eval_eligibility_manifest.json": {
+      "role": "frozen Phase-1 eligibility source",
+      "sha256": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c",
+      "size_bytes": 370293
+    },
+    "results/prereg/jspace_r1_fit_manifest.json": {
+      "role": "lens-fit provenance",
+      "sha256": "59c8695f4d8bc37e8a6cfb592bba09fc72afaec7f5eca6b415f443cb90defa6e",
+      "size_bytes": 761050
+    },
+    "results/jspace_r1_pilot/diagnostics/d3/d3-qwen2.5-math-1.5b-base-2008de267117/base_fit_meta.json": {
+      "role": "Math-base lens-fit provenance",
+      "sha256": "de70815f15e26616afd3353b9d445da2524390dbad268d6c431c5152d3e2493f",
+      "size_bytes": 1066
+    },
+    "results/prereg/JSPACE_R1_PHASE1_VALIDATION_CONTINUATION_A5_2026-08-10.json": {
+      "role": "R1-distill validated-lens provenance",
+      "sha256": "65f763246247d7964b867a1e75a1f86129a2546bfa606a0dbe69255ddac04ec4",
+      "size_bytes": 8123
+    }
+  }
+}

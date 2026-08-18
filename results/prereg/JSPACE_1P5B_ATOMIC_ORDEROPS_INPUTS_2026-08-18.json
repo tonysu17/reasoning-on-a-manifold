@@ -1,0 +1,362 @@
+{
+  "schema_version": "rom-jspace-1p5b-atomic-orderops-input-lock-v1",
+  "status": "sealed_when_complete_bundle_commit_exists_no_model_outputs_before_commit",
+  "date": "2026-08-18",
+  "user_authorization": "yes go ahead",
+  "protocol": "results/prereg/JSPACE_1P5B_ATOMIC_ORDEROPS_PREREG_2026-08-18.md",
+  "jlens": {
+    "repository": "https://github.com/anthropics/jacobian-lens.git",
+    "commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "raw_base": "https://raw.githubusercontent.com/anthropics/jacobian-lens/581d398613e5602a5af361e1c34d3a92ea82ba8e/data/evaluations"
+  },
+  "models": {
+    "math_base": {
+      "id": "Qwen/Qwen2.5-Math-1.5B",
+      "revision": "4a83ca6e4526a4f2da3aa259ec36c259f66b2ab2",
+      "dtype": "bfloat16",
+      "expected_n_layers": 28,
+      "expected_d_model": 1536,
+      "config_sha256": "81d1dc3c9d4797466a24bfc140776894d15ac4ccce58a0220462b2106f2f4831",
+      "tokenizer_json_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config_sha256": "a668be4b083078aca7c38853dd929184e81534d72525a9c1ddb84ea6fd1de6f8",
+      "generation_config_sha256": "8c970692323e3ea0e9b8b0a4dca79388d31226e41f83c9fd6014804280ebf6e8",
+      "model_safetensors_sha256": "f7aa8d665ab44d3b461bed742fe93cdcedc15d2e31e50dc372c126e6f720857b",
+      "expected_head_vocab_size": 151936,
+      "expected_tokenizer_len": 151665,
+      "tokenizer_special_ids": [151643, 151644, 151645, 151646, 151647, 151648, 151649, 151650, 151651, 151652, 151653, 151654, 151655, 151656],
+      "fit_compatible_bos": null
+    },
+    "r1_distill": {
+      "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "dtype": "bfloat16",
+      "expected_n_layers": 28,
+      "expected_d_model": 1536,
+      "config_sha256": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+      "tokenizer_json_sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773",
+      "tokenizer_config_sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5",
+      "generation_config_sha256": "72cbec1015da9ed03ad025483005cbf6481403abf947adfd54e504d1a66a2126",
+      "model_safetensors_sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+      "expected_head_vocab_size": 151936,
+      "expected_tokenizer_len": 151665,
+      "tokenizer_special_ids": [151646, 151643],
+      "fit_compatible_bos": 151646
+    }
+  },
+  "hf_snapshot_contract": {
+    "global_preflight_scope": "before the first model forward in any stage, verify both complete checkpoint snapshots together",
+    "required_files_per_checkpoint": [
+      "config.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "generation_config.json",
+      "model.safetensors"
+    ],
+    "hash_authority": "the five per-checkpoint SHA256 fields in models.math_base and models.r1_distill",
+    "cache_location": "resolved cache root must be strictly outside the dedicated clean sealed checkout: neither equal to it, contained by it, nor its ancestor",
+    "path_policy": "every required snapshot, lens, task, code, test, and requirements path must resolve to an ordinary regular file and the required path itself must not be a symbolic link",
+    "verification_points": [
+      "global sealed preflight before any forward",
+      "immediately before each tokenizer load",
+      "immediately before each model load"
+    ],
+    "tokenizer_loading": "eligibility, boundaries, behaviour, and model stages load only the already-verified local tokenizer files with local_files_only semantics; no second unverified tokenizer resolution",
+    "ordinary_prefix_identity_gate": "before model work, for all 55 order-ops prompt/target pairs require identical add_special_tokens=false causal-prefix IDs and identical boundary offsets across the two verified tokenizers; apply the distill fit-compatible BOS only after this check"
+  },
+  "lenses": {
+    "math_base": {
+      "path": "data/jlens_local/qwen2.5-math-1.5b_wikitext100.pt",
+      "sha256": "ce4f034dd4eabc8d814913b4ed476aa1f9ea3f44e27ed92a408200aa7a1417c8",
+      "bytes": 127411048,
+      "n_prompts": 100,
+      "source_layers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    },
+    "r1_distill": {
+      "path": "data/jlens_local/r1-distill-qwen-1.5b_wikitext100_merged.fp32.pt",
+      "sha256": "6b5f1043b3c3fa3fcd8d4d69919772a2d763c145f996477bf715fe4b9b89f672",
+      "bytes": 254812153,
+      "n_prompts": 100,
+      "source_layers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    }
+  },
+  "task_files": {
+    "order_ops": {
+      "filename": "lens-eval-order-ops.json",
+      "sha256": "b203206d16ff628152cc86f3838604e06cb54776f3e14fa1c34f150db8bc7560",
+      "n_items": 55,
+      "intermediates_per_item": 2,
+      "non_lexically_present_task_n_before_annotation_audit": 52,
+      "annotation_valid_primary_n_before_token_eligibility": 51,
+      "anticipated_common_eligible_primary_n": 50,
+      "anticipated_token_eligible_extraction_n": 54,
+      "anticipated_annotation_valid_official_sensitivity_n": 53,
+      "label_null_population": "the fixed, fully complete 50-item annotation-valid non-lexically-present primary; all 50 items in the observed statistic and every null draw; unresolved technical failure stops the stage",
+      "label_null_decision": "99,999 PCG64 draws; method=higher q95; require observed strictly greater than q95 and +1 upper p=(1+count[null>=observed])/100000 <=0.05",
+      "numeric_common_token_exclusions": {
+        "mult-div-left": ["24", "twenty-four"]
+      },
+      "numeric_prompt_copy_exclusions": {
+        "nested-sub-add-mult": "5",
+        "add-add-add": "3",
+        "square-mult": "4"
+      },
+      "annotation_exclusions": {
+        "mult-div-mult": "numeric partial 12 is followed by division, not the supplied multiplication label; source bytes retained, rank extraction retained, excluded from every O1 readout-analysis denominator while the separate target-answer behavioural audit remains all 55"
+      },
+      "operation_prompt_present_n": 55,
+      "operation_annotation_valid_analysis_n_before_token_eligibility": 54,
+      "operation_endpoint_role": "context_surface_positive_control_only"
+    },
+    "multihop": {
+      "filename": "lens-eval-multihop.json",
+      "sha256": "50b7e4c9255291c0ca2a8e94615be9f44531fa57bb1a844e4f9616056d987416",
+      "n_source_items": 93,
+      "n_atomic_items": 81
+    },
+    "typo": {
+      "filename": "lens-eval-typo.json",
+      "sha256": "9d05e16b7234a57d0773d120a4e1c4e94fd3bc2235a8125d4200a70e60ab17aa",
+      "n_common_eligible_items": 96
+    },
+    "evaluation_readme": {
+      "filename": "README.md",
+      "sha256": "e061d9cce02a1cc651d58a81927833b760d3cef65bf4995126ecbe372a0ebe07"
+    },
+    "phase1_eligibility": {
+      "path": "results/prereg/jspace_r1_eval_eligibility_manifest.json",
+      "sha256": "a193ce15ff18d1852a870703dba104763a01b06740c99ec8fd955e3a15927f7c"
+    },
+    "atomic_tasks": {
+      "path": "results/prereg/JSPACE_ATOMIC_MULTIHOP_81_TASKS_2026-08-18.json",
+      "sha256": "44951afb2e454a4d3e3ce114c9a40c9cb0cec1ab990b89e82e7ecaba79e81497",
+      "n_items": 81,
+      "stable_only_sensitivity_n": 60
+    }
+  },
+  "order_ops_synonyms": {
+    "numeric_rule": "decimal digits plus lowercase English cardinal for integers 0-999, no 'and', tens hyphenated",
+    "addition": ["+", "plus", "add", "addition"],
+    "subtraction": ["-", "minus", "subtract", "subtraction"],
+    "multiplication": ["*", "×", "times", "multiply", "multiplication"],
+    "division": ["/", "÷", "divide", "division"],
+    "mod": ["%", "mod", "modulo", "remainder"],
+    "squared": ["^2", "**2", "square", "squared"]
+  },
+  "readout": {
+    "position": "joint_tokenization_target_start_minus_one_causal_prefix",
+    "boundary_locator": "tokenize exact prompt+target without specials and offsets; find first token overlapping target character interval; forward only ID prefix through predecessor; prepend only the checkpoint-specific fit_compatible_bos when non-null",
+    "boundary_preflight": {
+      "n_items": 55,
+      "max_joint_tokens_including_distill_bos": 27,
+      "causal_prefix_ids_identical_across_registered_tokenizers": true,
+      "boundary_offsets_identical_across_registered_tokenizers": true,
+      "prompt_alone_shortcut_differs_n": 6,
+      "prompt_alone_shortcut_differs_items": [
+        "word-add-mult",
+        "word-mult-sub",
+        "word-parens",
+        "word-sub-mult",
+        "word-add-add",
+        "word-div-sub"
+      ]
+    },
+    "max_seq_len": 128,
+    "source_layers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+    "bands": {
+      "early": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "middle": [9, 10, 11, 12, 13, 14, 15, 16, 17],
+      "late": [18, 19, 20, 21, 22, 23, 24, 25, 26]
+    },
+    "k": 25,
+    "primary_score_name": "middle-band layer persistence@25",
+    "primary_score_definition": "mean over source layers 9..17 of indicator that the frozen synonym-family rank is <=25",
+    "rank_tie_break": "descending_logit_then_ascending_token_id",
+    "variant_prefix": "one_leading_ascii_space",
+    "ranked_vocabulary": "tokenizer ID prefix 0..151664 including special IDs; padded head rows excluded",
+    "label_eligibility": "single token, ID in ranked vocabulary, special IDs excluded",
+    "primary_precision": "BF16 model forward; FP32 residual and J; D5-style deep-copied FP32 final norm and LM head",
+    "precision_sensitivity": "ordinary BF16 final norm and LM head top-25"
+  },
+  "orderops_pair_pattern_vocabulary": {
+    "assay_inconclusive": "assay-inconclusive",
+    "transport_specific_recurrence": "material-recurrence-transport-specific",
+    "recurrence_without_established_transport_specificity": "material-recurrence-transport-specificity-not-established",
+    "practical_equivalence": "practical-equivalence",
+    "otherwise": "indeterminate",
+    "hedge_rule": "failure of the DiD material-recurrence criterion does not establish that a qualifying J recurrence is transport-nonspecific"
+  },
+  "behaviour": {
+    "tokenization": "add_special_tokens=false; no manual BOS for either checkpoint; readout-only distill BOS is not used",
+    "eos_token_id": 151643,
+    "pad_token_id": 151643,
+    "stored_continuation": "generated token IDs only, with a terminal EOS ID removed before decoding",
+    "atomic_wrapper": "Question: {question}\nGive only the shortest correct answer; do not explain.\nAnswer:",
+    "atomic_and_direct_max_new_tokens": 16,
+    "atomic_and_direct_stop": "first of EOS, first LF in the incrementally decoded continuation, or token cap; score only text before LF",
+    "orderops_cot_wrapper": "Solve this arithmetic problem step by step and end with the final answer: \"{prompt}\"",
+    "orderops_cot_max_new_tokens": 128,
+    "orderops_cot_stop": "first of EOS or token cap; newline does not stop",
+    "target_alias_rule": "numeric target gets decimal and canonical cardinal forms; nonnumeric target gets casefolded source form only",
+    "cot_primary_matcher": "CRLF-to-LF; final nonempty line; Unicode NFKC; whitespace collapse; trim enclosing quotes and terminal punctuation; casefold; escaped alias under Unicode (?<!\\w)alias(?!\\w) boundaries",
+    "cot_sensitivity_matcher": "same bounded matcher over the entire normalized continuation",
+    "teacher_forced_logprob": "exact raw prompt+target, add_special_tokens=false and no manual BOS; offset-overlap target tokens; report sum and mean"
+  },
+  "typo_control": {
+    "readout": "exact raw prompt; add_special_tokens=false; fit-compatible BOS none for math_base and 151646 for r1_distill; final prompt token; O1 source layers, vocabulary, exact ranks, and D5 FP32 path",
+    "required_paired_complete_n": 96,
+    "observed_statistic": "per checkpoint mean any-source-layer J-Lens top-25 union over frozen typo label family",
+    "null": "permute whole 96 typo families among prompts, synchronized across checkpoints and layers, preserving duplicates; 99,999 PCG64 draws; method=higher q95; +1 upper p",
+    "integrity_threshold": "each checkpoint union >=0.75, strictly above null q95, and upper p<=0.05"
+  },
+  "provenance": {
+    "requirements_lock": {
+      "path": "results/prereg/jspace_1p5b_atomic_orderops_requirements_lock.txt",
+      "sha256": "42054d29d85081a8b7e497938b0ce1864b04687865539d453c3b4d0321605e25"
+    },
+    "runtime_versions": {
+      "python": "3.13.12",
+      "torch": "2.13.0",
+      "transformers": "5.15.0",
+      "numpy": "2.5.2",
+      "tokenizers": "0.22.2"
+    },
+    "pure_test_receipt": {
+      "selection": "the sealed tests/test_jspace_1p5b_atomic_orderops.py pure-code test file",
+      "stable_fields": [
+        "test_file_sha256",
+        "fixed_selection",
+        "collected_count",
+        "passed_count",
+        "status"
+      ],
+      "forbidden_volatile_fields": [
+        "duration",
+        "temporary_path",
+        "progress_text",
+        "raw_stdout",
+        "raw_stderr"
+      ],
+      "resume_rule": "byte-identical stable receipt required; volatile pytest timing or presentation cannot affect equality"
+    },
+    "shared_scorer": {
+      "path": "jspace_phase1_scoring.py",
+      "sha256": "6f610e61dc13fb2adceb6d86151467cdf8c5cd4366522da39f9f3de1bc45d426"
+    },
+    "derivation_manifest_scope": {
+      "direct_inputs": "protocol, input lock, requirements lock, bundle manifest and every file it names (including fit-provenance records), frozen task and upstream evaluation files, runner, pure tests, jspace_phase1_scoring.py, both lenses, every file named by hf_snapshot_contract.required_files_per_checkpoint for both checkpoints, every campaign-authority file, the selected arm's STAGE_SELECTED.json, and RANKS_COMPLETE as a direct input to O1 analysis",
+      "outputs": "every final evidence payload and stage manifest before the completion marker",
+      "completion_binding": "the completion marker hashes the validated derivation manifest, stage manifest, and every final evidence payload; it is not recursively included inside the derivation manifest"
+    },
+    "shared_fit_manifest": {
+      "path": "results/prereg/jspace_r1_fit_manifest.json",
+      "sha256": "59c8695f4d8bc37e8a6cfb592bba09fc72afaec7f5eca6b415f443cb90defa6e"
+    },
+    "math_base_fit_meta": {
+      "path": "results/jspace_r1_pilot/diagnostics/d3/d3-qwen2.5-math-1.5b-base-2008de267117/base_fit_meta.json",
+      "sha256": "de70815f15e26616afd3353b9d445da2524390dbad268d6c431c5152d3e2493f"
+    },
+    "distill_validated_bundle": {
+      "durable_source": "/Users/tonysu/.codex/jspace_phase1_watch_root/results/jspace_r1_pilot/phase1/jspace-p1-20260810T224338Z-996077031021-validated-a5",
+      "artifact_manifest_sha256": "4664395bc660b510634d02382dbe6e01caa0a41d86801887547d0a6513782977",
+      "phase1_report_sha256": "004145b129f289972e740ad23e20084eb0a9109ef0d89383645f3fc269fc35d9",
+      "validation_continuation_path": "results/prereg/JSPACE_R1_PHASE1_VALIDATION_CONTINUATION_A5_2026-08-10.json",
+      "validation_continuation_sha256": "65f763246247d7964b867a1e75a1f86129a2546bfa606a0dbe69255ddac04ec4"
+    },
+    "bundle_manifest": "results/prereg/JSPACE_1P5B_ATOMIC_ORDEROPS_BUNDLE_MANIFEST_2026-08-18.json"
+  },
+  "randomness": {
+    "generation_seed": 20260818,
+    "atomic_swap_seed": 20260818,
+    "atomic_bootstrap_seed": 20260819,
+    "orderops_swap_seed": 20260820,
+    "orderops_bootstrap_seed": 20260821,
+    "orderops_label_null_seed": 20260822,
+    "typo_label_null_seed": 20260823,
+    "n_permutations": 99999,
+    "n_bootstrap": 20000
+  },
+  "a0_supportive_bootstrap": {
+    "seed": 20260819,
+    "draws": 20000,
+    "unit": "paired resampling of the full 81-item index vector",
+    "state_cells": [
+      "both",
+      "hop1_only",
+      "hop2_only",
+      "neither"
+    ],
+    "state_cell_outputs": "for each cell, checkpoint-specific proportions and paired distill-minus-base proportion difference, each with percentile 95% interval",
+    "common_known_gate": "run only when observed count with K_math_base=K_r1_distill=1 is at least 20",
+    "common_known_outputs": "checkpoint-specific composed-success rates and paired distill-minus-base risk difference, each with percentile 95% interval",
+    "derived_subset_rule": "inside every draw recompute the common-known mask over resampled draw positions from the H1/H2 outcomes, retaining duplicate sampled items; never reuse observed membership",
+    "empty_draw_rule": "if any of the fixed 20,000 draws has an empty recomputed common-known set, withhold the conditional interval and report the failure; do not redraw, delete, or impute"
+  },
+  "execution_fingerprint": {
+    "freeze_scope": "one campaign authority and fingerprint is frozen before either A0 or O1 forwards; both stages, both checkpoint cells, every partial, and the sole permitted resume must byte-match it",
+    "fields": [
+      "backend",
+      "physical_device_name",
+      "device_index",
+      "platform",
+      "torch_version",
+      "accelerator_runtime_version",
+      "accelerator_compute_capability",
+      "requested_dtype",
+      "observed_model_dtype",
+      "bf16_execution_supported",
+      "bf16_support_basis",
+      "bf16_probe_digest"
+    ],
+    "backend_domain": [
+      "cuda",
+      "mps"
+    ],
+    "dtype": "bfloat16 model forward; FP32 residual/Jacobian transport and D5 readout where registered",
+    "bf16_probe": "deterministic BF16 allocation and arithmetic probe with a stable result digest; CUDA additionally requires torch.cuda.is_bf16_supported(); MPS additionally requires a built and available backend on macOS 14+; CPU execution is forbidden; this is an operational execution-support gate rather than a hardware-native-unit claim",
+    "mismatch_rule": "stop; never combine cells or resume partials across a fingerprint mismatch"
+  },
+  "campaign_authority": {
+    "creation": "the sealed campaign CLI stage writes one immutable UUID directory containing seal.json, preflight.json, campaign_manifest.json, and CAMPAIGN_READY plus an immutable parent-level CAMPAIGN_SELECTED.json before any model forward; a second sibling authority is forbidden",
+    "path_binding": "canonical campaign UUID and resolved path are stored in the manifest, ready marker, selection pointer, and run reference; copying or relocating the directory fails validation",
+    "stage_binding": "atomic and orderops each require the same uniquely selected explicit --campaign-dir, byte-compare a fresh sealed preflight with that authority, and bind its hashes into run identity, every partial, and derivation manifests",
+    "analysis_binding": "analysis revalidates the rank run's retained campaign reference and includes CAMPAIGN_SELECTED.json and every selected-authority file as direct derivation inputs"
+  },
+  "stage_selection_authority": {
+    "creation": "the first fresh atomic or orderops invocation creates exactly one UUID run directory and one sibling STAGE_SELECTED.json before any model forward",
+    "binding": "the pointer binds the stage, canonical run ID and path, seal, preflight, campaign authority, and campaign selection; it is included in run identity, every partial through the execution binding, and every stage derivation",
+    "uniqueness": "the stage parent must contain exactly the pointer and selected run; a second fresh invocation is forbidden, and later access is limited to verification, deterministic O1 analysis, or the sole technical resume of that exact selected run"
+  },
+  "completeness_and_retry": {
+    "atomic_required": "81/81 items with H1, H2, M and continuity for both checkpoints",
+    "orderops_readout_required": "rank extraction on 54/54 common-token-eligible rows for both checkpoints; all analysis summaries exclude mult-div-mult's mismatched paired annotation; frozen 50-item annotation-valid subset is primary",
+    "orderops_behavior_required": "55/55 Direct, CoT, and teacher-forced items for both checkpoints",
+    "typo_required": "96/96 items for both checkpoints",
+    "technical_retry": "one explicit byte-identical resume, allowed only after a valid atomically written stage_exception record; retain original exception and resume event; no second resume; otherwise stop without scientific report",
+    "stage_exception_required_fields": [
+      "stage",
+      "seal_commit",
+      "configuration_digest",
+      "completed_prefix_digest",
+      "execution_fingerprint_digest",
+      "exception_type",
+      "traceback_sha256",
+      "timestamp"
+    ],
+    "nonresumable_cases": "ordinary interruption, orphan partial, missing or invalid stage_exception, already-consumed resume event, or any seal/input/config/preflight/device mismatch",
+    "partial_payload_validation": "before loading and before promotion require exact schema/stage version; seal, input, configuration, preflight, execution-fingerprint and completed-prefix digests; ordered item/model/method/layer/label identifiers; exact expected array names, shapes, dtypes and counts; finite score domains; ranks in vocabulary bounds; top-25 cardinality, bounds and within-row uniqueness; complete behavioural record fields; and canonical-payload SHA256",
+    "partial_prefix_definition": "non-recursive SHA256 over the run-specific execution binding (including run UUID/path and campaign authority), ordered completed semantic identifiers, and canonical payload SHA256; prevents transplantation between otherwise identical runs",
+    "final_payload_validation": "producer and analysis consumer independently re-read and apply the full partial-payload structural checks plus manifest-recorded file SHA256; filename or marker presence alone is insufficient",
+    "completion_protocol": "atomically promote and revalidate final payloads, then atomically write and validate stage and derivation manifests, then atomically write a completion marker binding their SHA256 and every final evidence SHA256, and only then remove the incomplete marker; O1 rank extraction and O1 analysis use separate explicit output namespaces in their shared directory, rank excludes later analysis-owned report.json/REPORT.md/derivation_manifest.json, analysis binds exactly report.json and REPORT.md and consumes RANKS_COMPLETE directly, and both authorities must remain independently revalidatable",
+    "completion_recovery": "both markers may coexist after a crash and count as complete only after all completion bindings revalidate; absent a valid completion marker, preserve unbound final-looking files as recovery evidence and idempotently rerun deterministic finalization/analysis; a valid complete stage is immutable and repeated invocation only verifies it",
+    "token_cap": "completed but incorrect behavioural outcome",
+    "missing_case_analysis": "none; no complete-case deletion, denominator adaptation, or imputation"
+  },
+  "preseal_leakage_audit": {
+    "order_ops_model_outputs_found": false,
+    "scope": "local filenames and repository text searched before seal; task definitions and provenance only were inspected"
+  },
+  "seal_commit": {
+    "definition": "the first git commit containing the complete protocol, input lock, frozen atomic task file, requirements lock, bundle manifest, runner, and tests",
+    "execution_must_record_exact_commit": true
+  }
+}
