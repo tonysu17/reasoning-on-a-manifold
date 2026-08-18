@@ -60,6 +60,7 @@ tar czf - \
   results/prereg/jspace_7b_requirements_lock.txt \
   results/prereg/jspace_r1_fit_manifest.json \
   results/prereg/JSPACE_7B_PAIR_AMENDMENT_1_2026-08-18.md \
+  results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md \
   results/prereg/JSPACE_7B_PAIR_SHEET_2026-08-17.md \
 | $SSH 'mkdir -p /root/reasoning-on-manifold && cd /root/reasoning-on-manifold && tar xzf - 2>/dev/null; du -sh /root/reasoning-on-manifold'
 $SSH "printf '%s\n' '$SOURCE_COMMIT' > /root/reasoning-on-manifold/.source_commit; printf '%s\n' '$RUN_ID' > /root/reasoning-on-manifold/.run_id; cd /root/reasoning-on-manifold; find . -type f ! -name PAYLOAD_MANIFEST.sha256 -print0 | sort -z | xargs -0 sha256sum > /root/PAYLOAD_MANIFEST.sha256; mv /root/PAYLOAD_MANIFEST.sha256 ."
@@ -70,7 +71,7 @@ $SSH 'cat > /root/boot.sh <<"EOF"
 exec >> /root/bootstrap.log 2>&1
 export ROM_GIT_COMMIT="$(cat /root/reasoning-on-manifold/.source_commit)"
 export ROM_RUN_ID="$(cat /root/reasoning-on-manifold/.run_id)"
-export ROM_PROTOCOL_AMENDMENT="results/prereg/JSPACE_7B_PAIR_AMENDMENT_1_2026-08-18.md"
+export ROM_PROTOCOL_AMENDMENT="results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md"
 echo "[$(date -u +%H:%M:%S)] boot: payload pre-staged, starting job"
 exec bash /root/reasoning-on-manifold/runpod_jspace_7b_pair.sh
 EOF

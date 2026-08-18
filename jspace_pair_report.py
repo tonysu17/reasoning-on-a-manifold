@@ -146,7 +146,7 @@ def main() -> int:
             "qualifies": c["lens-eval-typo"]["qualifies_instrument_level"]}
         for k, c in (("math-7b-base", base), ("r1-distill-7b", dist))}
     e["protocol_amendment"] = (
-        "results/prereg/JSPACE_7B_PAIR_AMENDMENT_1_2026-08-18.md")
+        "results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md")
     e["execution_run_id"] = execution_run_id
 
     outdir = os.path.join(DIAG, "pair7b")

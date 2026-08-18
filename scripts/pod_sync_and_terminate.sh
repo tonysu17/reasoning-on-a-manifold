@@ -152,7 +152,7 @@ for label in ("math-7b-base", "r1-distill-7b"):
         print(f"FAIL: {label} manifest commit {manifest.get('git_commit')} != {source_commit}"); ok = False
     if manifest.get("execution_run_id") != run_id:
         print(f"FAIL: {label} manifest run id mismatch"); ok = False
-    if manifest.get("execution_protocol_amendment") != "results/prereg/JSPACE_7B_PAIR_AMENDMENT_1_2026-08-18.md":
+    if manifest.get("execution_protocol_amendment") != "results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md":
         print(f"FAIL: {label} missing execution amendment"); ok = False
     elig_path = os.path.join(bundle, "eligibility.json")
     if not os.path.exists(elig_path):
@@ -184,7 +184,7 @@ for label in ("math-7b-base", "r1-distill-7b"):
             print(f"FAIL: {label} fit commit mismatch"); ok = False
         if fit_meta.get("execution_run_id") != run_id:
             print(f"FAIL: {label} fit run id mismatch"); ok = False
-        if fit_meta.get("protocol_amendment") != "results/prereg/JSPACE_7B_PAIR_AMENDMENT_1_2026-08-18.md":
+        if fit_meta.get("protocol_amendment") != "results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md":
             print(f"FAIL: {label} fit amendment mismatch"); ok = False
     suites = d.get("results", {})
     need = {"lens-eval-association", "lens-eval-typo", "lens-eval-multihop"}
