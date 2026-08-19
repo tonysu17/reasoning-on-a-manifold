@@ -1,0 +1,20 @@
+[07:58:33] watching 202.181.159.219:14263 for run_id=jspace7b-20260818T075715Z-fa3a59ab and marker 'ALL 7B PAIR STAGES COMPLETE run_id=jspace7b-20260818T075715Z-fa3a59ab'
+[10:58:54] completion marker found
+[10:58:54] verifying all four stage-success markers
+[10:58:56] building remote checksum manifest
+[10:59:08] remote files to sync: 37
+[10:59:08] syncing to /Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/logs/pod_sync_20260818T075832Z_staging
+
+sent 492 bytes  received 1153781 bytes  11542730000 bytes/sec
+total size is 1423473  speedup is 1.23
+Number of files: 26
+Number of files transferred: 20
+Total file size: 1423473 B
+Total transferred file size: 1423473 B
+Unmatched data: 1423473 B
+Matched data: 0 B
+File list size: 732 B
+Total sent: 496 B
+Total received: 1153717 B
+[12:33:02] ABORT: rsync of lenses failed
+[12:33:02] POD LEFT RUNNING (by design). Investigate, then stop it yourself.

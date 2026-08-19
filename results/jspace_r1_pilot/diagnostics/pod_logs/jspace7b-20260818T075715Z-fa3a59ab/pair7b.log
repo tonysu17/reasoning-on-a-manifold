@@ -1,0 +1,333 @@
+[07:57:26] === setup ===
+[07:57:30] container disk free: 100G
+[07:57:30] payload source commit fa3a59ab3817b705ff8af3e7bbeae3d56202dbe1; run_id=jspace7b-20260818T075715Z-fa3a59ab
+[07:58:38] === FIT math-7b-base START ===
+2026-08-18 07:58:40,712 HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-08-18 07:58:40,841 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-18 07:58:40,842 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-18 07:58:40,852 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/config.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:40,861 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/config.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:40,999 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:58:41,007 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,016 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,154 HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-Math-7B/tree/b101308fe89651ea5ce025f25317fea6fc07e96e/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-18 07:58:41,287 HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-Math-7B/tree/b101308fe89651ea5ce025f25317fea6fc07e96e?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,414 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/vocab.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:58:41,420 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/vocab.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,428 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/vocab.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,596 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/merges.txt "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:58:41,603 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/merges.txt "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,612 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/merges.txt "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,803 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:58:41,810 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:41,819 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:42,074 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-08-18 07:58:42,211 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-08-18 07:58:42,340 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-08-18 07:58:42,755 HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-Math-7B "HTTP/1.1 200 OK"
+2026-08-18 07:58:42,977 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/model.safetensors "HTTP/1.1 404 Not Found"
+2026-08-18 07:58:43,108 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:58:43,115 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:43,121 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-08-18 07:58:43,257 HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-Math-7B/tree/b101308fe89651ea5ce025f25317fea6fc07e96e?recursive=true&expand=false "HTTP/1.1 200 OK"
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:26<01:18, 26.27s/it]Fetching 4 files:  50%|█████     | 2/4 [00:26<00:22, 11.20s/it]Fetching 4 files:  75%|███████▌  | 3/4 [00:28<00:07,  7.03s/it]Fetching 4 files: 100%|██████████| 4/4 [00:31<00:00,  5.19s/it]Fetching 4 files: 100%|██████████| 4/4 [00:31<00:00,  7.84s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 9378.46it/s]
+2026-08-18 07:59:14,932 HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-Math-7B/resolve/b101308fe89651ea5ce025f25317fea6fc07e96e/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 07:59:14,937 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/generation_config.json "HTTP/1.1 200 OK"
+2026-08-18 07:59:14,945 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-Math-7B/b101308fe89651ea5ce025f25317fea6fc07e96e/generation_config.json "HTTP/1.1 200 OK"
+[fit:math-7b-base] Qwen/Qwen2.5-Math-7B@b101308f on cuda; n_layers=28 d_model=3584
+2026-08-18 07:59:16,803 fit: n_layers=28 d_model=3584, fitting 27 source layers (target=L27) on 100 prompts
+/root/venv-jlens/lib/python3.11/site-packages/torch/autograd/graph.py:823: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:180.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+2026-08-18 08:00:03,478   prompt 1/100  seq_len=128 n_valid=111  46s  max||J||/sqrt(d)=3.022  max_d_mean=nan
+2026-08-18 08:00:52,579   prompt 2/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.851  max_d_mean=6.28e-01
+2026-08-18 08:01:41,985   prompt 3/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.645  max_d_mean=5.86e-01
+2026-08-18 08:02:30,266   prompt 4/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.088  max_d_mean=4.94e-01
+2026-08-18 08:03:19,079   prompt 5/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.693  max_d_mean=4.62e-01
+2026-08-18 08:04:07,871   prompt 6/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.303  max_d_mean=3.41e-01
+2026-08-18 08:04:57,073   prompt 7/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.901  max_d_mean=2.10e-01
+2026-08-18 08:05:45,680   prompt 8/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.618  max_d_mean=2.53e-01
+2026-08-18 08:06:34,466   prompt 9/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=8.205  max_d_mean=4.78e-01
+2026-08-18 08:07:24,087   prompt 10/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.820  max_d_mean=1.49e-01
+2026-08-18 08:08:13,886   prompt 11/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.614  max_d_mean=1.27e-01
+2026-08-18 08:09:02,973   prompt 12/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.286  max_d_mean=1.40e-01
+2026-08-18 08:09:52,475   prompt 13/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.363  max_d_mean=1.71e-01
+2026-08-18 08:10:42,166   prompt 14/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.914  max_d_mean=1.45e-01
+2026-08-18 08:11:30,869   prompt 15/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.200  max_d_mean=9.06e-02
+2026-08-18 08:12:20,772   prompt 16/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.969  max_d_mean=1.02e-01
+2026-08-18 08:13:09,974   prompt 17/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.425  max_d_mean=7.92e-02
+2026-08-18 08:13:58,870   prompt 18/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.411  max_d_mean=1.09e-01
+2026-08-18 08:14:48,186   prompt 19/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.050  max_d_mean=9.91e-02
+2026-08-18 08:15:37,771   prompt 20/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.930  max_d_mean=8.51e-02
+2026-08-18 08:16:26,680   prompt 21/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.970  max_d_mean=8.01e-02
+2026-08-18 08:17:16,165   prompt 22/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.373  max_d_mean=1.17e-01
+2026-08-18 08:18:05,382   prompt 23/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.538  max_d_mean=1.16e-01
+2026-08-18 08:18:53,772   prompt 24/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.470  max_d_mean=8.05e-02
+2026-08-18 08:19:42,883   prompt 25/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=5.737  max_d_mean=1.36e-01
+2026-08-18 08:20:31,474   prompt 26/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.374  max_d_mean=7.69e-02
+2026-08-18 08:21:20,672   prompt 27/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.571  max_d_mean=5.50e-02
+2026-08-18 08:22:10,480   prompt 28/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.346  max_d_mean=6.89e-02
+2026-08-18 08:23:00,084   prompt 29/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.996  max_d_mean=8.00e-02
+2026-08-18 08:23:49,184   prompt 30/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.262  max_d_mean=6.71e-02
+2026-08-18 08:24:37,774   prompt 31/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.825  max_d_mean=5.48e-02
+2026-08-18 08:25:27,285   prompt 32/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.896  max_d_mean=5.61e-02
+2026-08-18 08:26:16,580   prompt 33/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=6.468  max_d_mean=1.26e-01
+2026-08-18 08:27:05,384   prompt 34/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.423  max_d_mean=4.46e-02
+2026-08-18 08:27:54,581   prompt 35/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.836  max_d_mean=8.32e-02
+2026-08-18 08:28:44,074   prompt 36/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=6.214  max_d_mean=1.06e-01
+2026-08-18 08:29:33,187   prompt 37/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.237  max_d_mean=6.81e-02
+2026-08-18 08:30:22,881   prompt 38/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.280  max_d_mean=6.63e-02
+2026-08-18 08:31:13,069   prompt 39/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=3.146  max_d_mean=4.67e-02
+2026-08-18 08:32:03,076   prompt 40/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=6.492  max_d_mean=9.83e-02
+2026-08-18 08:32:52,575   prompt 41/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.069  max_d_mean=6.06e-02
+2026-08-18 08:33:42,576   prompt 42/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.369  max_d_mean=3.32e-02
+2026-08-18 08:34:31,570   prompt 43/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.921  max_d_mean=3.78e-02
+2026-08-18 08:35:20,976   prompt 44/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.188  max_d_mean=4.17e-02
+2026-08-18 08:36:09,278   prompt 45/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=5.234  max_d_mean=7.54e-02
+2026-08-18 08:36:57,667   prompt 46/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.350  max_d_mean=2.91e-02
+2026-08-18 08:37:47,275   prompt 47/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.280  max_d_mean=3.93e-02
+2026-08-18 08:38:36,378   prompt 48/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.462  max_d_mean=4.29e-02
+2026-08-18 08:39:25,875   prompt 49/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.914  max_d_mean=6.52e-02
+2026-08-18 08:40:14,282   prompt 50/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.589  max_d_mean=4.21e-02
+2026-08-18 08:41:03,974   prompt 51/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.861  max_d_mean=4.45e-02
+2026-08-18 08:41:52,683   prompt 52/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.209  max_d_mean=4.66e-02
+2026-08-18 08:42:41,476   prompt 53/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.352  max_d_mean=3.93e-02
+2026-08-18 08:43:30,979   prompt 54/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.059  max_d_mean=3.46e-02
+2026-08-18 08:44:20,972   prompt 55/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=7.094  max_d_mean=7.90e-02
+2026-08-18 08:45:09,982   prompt 56/100  seq_len=127 n_valid=110  49s  max||J||/sqrt(d)=3.788  max_d_mean=4.01e-02
+2026-08-18 08:45:59,383   prompt 57/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.785  max_d_mean=2.85e-02
+2026-08-18 08:46:48,184   prompt 58/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=5.755  max_d_mean=6.07e-02
+2026-08-18 08:47:37,383   prompt 59/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.634  max_d_mean=2.59e-02
+2026-08-18 08:48:26,284   prompt 60/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.075  max_d_mean=4.05e-02
+2026-08-18 08:49:15,282   prompt 61/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.303  max_d_mean=3.27e-02
+2026-08-18 08:50:04,068   prompt 62/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.678  max_d_mean=3.53e-02
+2026-08-18 08:50:52,775   prompt 63/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.188  max_d_mean=3.00e-02
+2026-08-18 08:51:41,574   prompt 64/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.904  max_d_mean=3.70e-02
+2026-08-18 08:52:30,772   prompt 65/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.604  max_d_mean=2.57e-02
+2026-08-18 08:53:19,573   prompt 66/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.504  max_d_mean=4.09e-02
+2026-08-18 08:54:08,184   prompt 67/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.287  max_d_mean=3.01e-02
+2026-08-18 08:54:57,368   prompt 68/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.334  max_d_mean=3.99e-02
+2026-08-18 08:55:46,368   prompt 69/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.760  max_d_mean=2.30e-02
+2026-08-18 08:56:35,776   prompt 70/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.917  max_d_mean=2.50e-02
+2026-08-18 08:57:24,682   prompt 71/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.177  max_d_mean=1.79e-02
+2026-08-18 08:58:14,474   prompt 72/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.493  max_d_mean=2.90e-02
+2026-08-18 08:59:03,479   prompt 73/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.126  max_d_mean=2.62e-02
+2026-08-18 08:59:53,170   prompt 74/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.290  max_d_mean=1.96e-02
+2026-08-18 09:00:42,469   prompt 75/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=5.599  max_d_mean=4.64e-02
+2026-08-18 09:01:30,888   prompt 76/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.057  max_d_mean=2.49e-02
+2026-08-18 09:02:20,482   prompt 77/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.650  max_d_mean=2.09e-02
+2026-08-18 09:03:10,266   prompt 78/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.587  max_d_mean=1.99e-02
+2026-08-18 09:03:59,074   prompt 79/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.546  max_d_mean=2.70e-02
+2026-08-18 09:04:48,469   prompt 80/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.271  max_d_mean=2.65e-02
+2026-08-18 09:05:37,872   prompt 81/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.872  max_d_mean=2.86e-02
+2026-08-18 09:06:26,483   prompt 82/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.265  max_d_mean=2.49e-02
+2026-08-18 09:07:16,072   prompt 83/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.569  max_d_mean=2.62e-02
+2026-08-18 09:08:06,178   prompt 84/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=3.594  max_d_mean=2.56e-02
+2026-08-18 09:08:55,573   prompt 85/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.095  max_d_mean=2.18e-02
+2026-08-18 09:09:45,369   prompt 86/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.550  max_d_mean=2.54e-02
+2026-08-18 09:10:34,182   prompt 87/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.466  max_d_mean=1.63e-02
+2026-08-18 09:11:22,981   prompt 88/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.918  max_d_mean=2.84e-02
+2026-08-18 09:12:11,671   prompt 89/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=4.869  max_d_mean=3.42e-02
+2026-08-18 09:13:01,068   prompt 90/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.621  max_d_mean=3.12e-02
+2026-08-18 09:13:50,387   prompt 91/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.731  max_d_mean=2.53e-02
+2026-08-18 09:14:40,373   prompt 92/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.755  max_d_mean=1.87e-02
+2026-08-18 09:15:29,879   prompt 93/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.283  max_d_mean=2.13e-02
+2026-08-18 09:16:18,881   prompt 94/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.267  max_d_mean=3.02e-02
+2026-08-18 09:17:07,784   prompt 95/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.083  max_d_mean=2.02e-02
+2026-08-18 09:17:57,084   prompt 96/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=6.878  max_d_mean=4.64e-02
+2026-08-18 09:18:46,279   prompt 97/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.936  max_d_mean=1.94e-02
+2026-08-18 09:19:34,674   prompt 98/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.197  max_d_mean=1.99e-02
+2026-08-18 09:20:23,685   prompt 99/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=4.911  max_d_mean=3.11e-02
+2026-08-18 09:21:12,885   prompt 100/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=6.029  max_d_mean=3.91e-02
+2026-08-18 09:21:14,165 fit: done, 100 prompts
+[fit:math-7b-base] DONE lens=/root/lenses/math-7b-base_wikitext100.pt sha256=686ab0df2f403b22fe33c4f3f4183c524c9b010d28e369541cc3d56b9803a31e dim_batch=8 wall=4956.0s
+[09:21:16] === FIT math-7b-base DONE in 4958s ===
+[09:21:16] === SCORE math-7b-base START ===
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 8044.48it/s]
+[d3:math-7b-base] lens-eval-association 25/98
+[d3:math-7b-base] lens-eval-association 50/98
+[d3:math-7b-base] lens-eval-association 75/98
+[d3:math-7b-base] lens-eval-association: union=0.0102 p95=0.0102 p=0.1808 qualifies=False
+[d3:math-7b-base] lens-eval-typo 25/96
+[d3:math-7b-base] lens-eval-typo 50/96
+[d3:math-7b-base] lens-eval-typo 75/96
+[d3:math-7b-base] lens-eval-typo: union=0.7812 p95=0.0521 p=0.0010 qualifies=True
+[d3:math-7b-base] lens-eval-multihop 25/81
+[d3:math-7b-base] lens-eval-multihop 50/81
+[d3:math-7b-base] lens-eval-multihop 75/81
+[d3:math-7b-base] lens-eval-multihop: union=0.6420 p95=0.1296 p=0.0010 qualifies=True
+[d3:math-7b-base] DONE d3-math-7b-base-1c070326af0b -> results/jspace_r1_pilot/diagnostics/d3/d3-math-7b-base-1c070326af0b
+{
+ "n_qualifying_suites": 2,
+ "qualifying_suites": [
+  "lens-eval-typo",
+  "lens-eval-multihop"
+ ],
+ "note": "descriptive; interpretation conditional on D2 pass. Question: does this ~1-2B model clear the instrument-level bar on association or multihop?"
+}
+[09:21:43] === SCORE math-7b-base DONE in 27s ===
+[09:21:43] cache wiped for Qwen/Qwen2.5-Math-7B; disk free now 92G
+[09:21:43] === FIT r1-distill-7b START ===
+2026-08-18 09:21:46,221 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 09:21:46,233 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/config.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:46,247 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/config.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:46,393 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-18 09:21:46,394 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-18 09:21:46,405 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:46,418 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:46,765 HTTP Request: GET https://huggingface.co/api/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/tree/916b56a44061fd5cd7d6a8fb632557ed4f724f60/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:47,011 HTTP Request: GET https://huggingface.co/api/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/tree/916b56a44061fd5cd7d6a8fb632557ed4f724f60?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-18 09:21:47,176 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 09:21:47,188 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:47,200 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:47,681 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/tokenizer.model "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:47,816 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:47,946 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:48,084 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:48,836 HTTP Request: GET https://huggingface.co/api/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B "HTTP/1.1 200 OK"
+2026-08-18 09:21:49,078 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/model.safetensors "HTTP/1.1 404 Not Found"
+2026-08-18 09:21:49,208 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 09:21:49,219 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:49,231 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-08-18 09:21:49,621 HTTP Request: GET https://huggingface.co/api/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/tree/916b56a44061fd5cd7d6a8fb632557ed4f724f60?recursive=true&expand=false "HTTP/1.1 200 OK"
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [02:19<02:19, 139.46s/it]Fetching 2 files: 100%|██████████| 2/2 [02:22<00:00, 59.30s/it] Fetching 2 files: 100%|██████████| 2/2 [02:22<00:00, 71.32s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 6237.17it/s]
+2026-08-18 09:24:12,754 HTTP Request: HEAD https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/resolve/916b56a44061fd5cd7d6a8fb632557ed4f724f60/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-18 09:24:12,765 HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/generation_config.json "HTTP/1.1 200 OK"
+2026-08-18 09:24:12,774 HTTP Request: GET https://huggingface.co/api/resolve-cache/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/916b56a44061fd5cd7d6a8fb632557ed4f724f60/generation_config.json "HTTP/1.1 200 OK"
+[fit:r1-distill-7b] deepseek-ai/DeepSeek-R1-Distill-Qwen-7B@916b56a4 on cuda; n_layers=28 d_model=3584
+2026-08-18 09:24:14,733 fit: n_layers=28 d_model=3584, fitting 27 source layers (target=L27) on 100 prompts
+/root/venv-jlens/lib/python3.11/site-packages/torch/autograd/graph.py:823: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:180.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+2026-08-18 09:25:01,974   prompt 1/100  seq_len=128 n_valid=111  47s  max||J||/sqrt(d)=2.301  max_d_mean=nan
+2026-08-18 09:25:52,679   prompt 2/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.956  max_d_mean=6.65e-01
+2026-08-18 09:26:42,072   prompt 3/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=6.630  max_d_mean=1.04e+00
+2026-08-18 09:27:31,770   prompt 4/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.275  max_d_mean=3.11e-01
+2026-08-18 09:28:20,586   prompt 5/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=7.308  max_d_mean=6.25e-01
+2026-08-18 09:29:13,665   prompt 6/100  seq_len=128 n_valid=111  53s  max||J||/sqrt(d)=2.852  max_d_mean=2.49e-01
+2026-08-18 09:30:02,583   prompt 7/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.122  max_d_mean=1.90e-01
+2026-08-18 09:30:51,677   prompt 8/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.348  max_d_mean=1.83e-01
+2026-08-18 09:31:40,966   prompt 9/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.212  max_d_mean=1.38e-01
+2026-08-18 09:32:31,083   prompt 10/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.387  max_d_mean=1.50e-01
+2026-08-18 09:33:19,675   prompt 11/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.011  max_d_mean=1.10e-01
+2026-08-18 09:34:09,084   prompt 12/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.373  max_d_mean=1.25e-01
+2026-08-18 09:34:57,989   prompt 13/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.818  max_d_mean=1.19e-01
+2026-08-18 09:35:47,778   prompt 14/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.657  max_d_mean=1.10e-01
+2026-08-18 09:36:36,868   prompt 15/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=1.804  max_d_mean=7.94e-02
+2026-08-18 09:37:25,683   prompt 16/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.108  max_d_mean=8.49e-02
+2026-08-18 09:38:14,175   prompt 17/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=1.923  max_d_mean=7.31e-02
+2026-08-18 09:39:03,680   prompt 18/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.161  max_d_mean=7.91e-02
+2026-08-18 09:39:52,174   prompt 19/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.046  max_d_mean=7.18e-02
+2026-08-18 09:40:41,466   prompt 20/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.110  max_d_mean=6.79e-02
+2026-08-18 09:41:31,579   prompt 21/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.429  max_d_mean=7.84e-02
+2026-08-18 09:42:20,875   prompt 22/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.090  max_d_mean=9.17e-02
+2026-08-18 09:43:10,482   prompt 23/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.691  max_d_mean=7.74e-02
+2026-08-18 09:43:59,575   prompt 24/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.897  max_d_mean=7.54e-02
+2026-08-18 09:44:49,377   prompt 25/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.996  max_d_mean=8.27e-02
+2026-08-18 09:45:38,474   prompt 26/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.552  max_d_mean=6.24e-02
+2026-08-18 09:46:27,874   prompt 27/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.003  max_d_mean=4.64e-02
+2026-08-18 09:47:17,981   prompt 28/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.354  max_d_mean=5.42e-02
+2026-08-18 09:48:07,665   prompt 29/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.544  max_d_mean=5.56e-02
+2026-08-18 09:48:56,583   prompt 30/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.287  max_d_mean=4.94e-02
+2026-08-18 09:49:45,579   prompt 31/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.429  max_d_mean=5.38e-02
+2026-08-18 09:50:34,779   prompt 32/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=1.908  max_d_mean=4.16e-02
+2026-08-18 09:51:24,679   prompt 33/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.236  max_d_mean=6.75e-02
+2026-08-18 09:52:13,776   prompt 34/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.389  max_d_mean=4.64e-02
+2026-08-18 09:53:02,878   prompt 35/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.906  max_d_mean=5.47e-02
+2026-08-18 09:53:52,872   prompt 36/100  seq_len=128 n_valid=111  50s  max||J||/sqrt(d)=2.230  max_d_mean=4.03e-02
+2026-08-18 09:54:41,582   prompt 37/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.408  max_d_mean=4.26e-02
+2026-08-18 09:55:31,583   prompt 38/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.308  max_d_mean=3.96e-02
+2026-08-18 09:56:21,478   prompt 39/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.120  max_d_mean=3.50e-02
+2026-08-18 09:57:10,678   prompt 40/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.450  max_d_mean=3.83e-02
+2026-08-18 09:57:59,674   prompt 41/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.689  max_d_mean=6.12e-02
+2026-08-18 09:58:48,875   prompt 42/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.224  max_d_mean=3.34e-02
+2026-08-18 09:59:37,784   prompt 43/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.373  max_d_mean=3.52e-02
+2026-08-18 10:00:26,784   prompt 44/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.457  max_d_mean=3.63e-02
+2026-08-18 10:01:16,568   prompt 45/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.212  max_d_mean=4.63e-02
+2026-08-18 10:02:05,385   prompt 46/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.232  max_d_mean=3.09e-02
+2026-08-18 10:02:54,675   prompt 47/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.838  max_d_mean=3.95e-02
+2026-08-18 10:03:44,269   prompt 48/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.027  max_d_mean=4.15e-02
+2026-08-18 10:04:32,874   prompt 49/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.512  max_d_mean=4.74e-02
+2026-08-18 10:05:22,079   prompt 50/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.089  max_d_mean=2.71e-02
+2026-08-18 10:06:11,174   prompt 51/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.206  max_d_mean=2.92e-02
+2026-08-18 10:07:00,283   prompt 52/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.830  max_d_mean=3.53e-02
+2026-08-18 10:07:49,170   prompt 53/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.431  max_d_mean=3.00e-02
+2026-08-18 10:08:38,274   prompt 54/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.635  max_d_mean=4.73e-02
+2026-08-18 10:09:27,566   prompt 55/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.138  max_d_mean=2.58e-02
+2026-08-18 10:10:16,384   prompt 56/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.346  max_d_mean=2.63e-02
+2026-08-18 10:11:04,784   prompt 57/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=1.906  max_d_mean=2.16e-02
+2026-08-18 10:11:53,678   prompt 58/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.624  max_d_mean=2.82e-02
+2026-08-18 10:12:42,774   prompt 59/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=1.928  max_d_mean=2.05e-02
+2026-08-18 10:13:31,684   prompt 60/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.290  max_d_mean=2.40e-02
+2026-08-18 10:14:20,589   prompt 61/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.259  max_d_mean=2.36e-02
+2026-08-18 10:15:09,569   prompt 62/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.302  max_d_mean=2.42e-02
+2026-08-18 10:15:58,486   prompt 63/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.342  max_d_mean=2.46e-02
+2026-08-18 10:16:47,383   prompt 64/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.536  max_d_mean=2.54e-02
+2026-08-18 10:17:36,187   prompt 65/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.015  max_d_mean=2.06e-02
+2026-08-18 10:18:24,975   prompt 66/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.714  max_d_mean=2.71e-02
+2026-08-18 10:19:13,884   prompt 67/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.210  max_d_mean=3.31e-02
+2026-08-18 10:20:03,082   prompt 68/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.483  max_d_mean=2.32e-02
+2026-08-18 10:20:52,575   prompt 69/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.172  max_d_mean=2.01e-02
+2026-08-18 10:21:41,682   prompt 70/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.333  max_d_mean=2.37e-02
+2026-08-18 10:22:30,480   prompt 71/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=1.722  max_d_mean=1.51e-02
+2026-08-18 10:23:19,586   prompt 72/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.325  max_d_mean=2.14e-02
+2026-08-18 10:24:08,487   prompt 73/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.423  max_d_mean=2.19e-02
+2026-08-18 10:24:58,169   prompt 74/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.202  max_d_mean=1.92e-02
+2026-08-18 10:25:47,480   prompt 75/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=3.441  max_d_mean=3.13e-02
+2026-08-18 10:26:36,665   prompt 76/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=1.980  max_d_mean=1.82e-02
+2026-08-18 10:27:25,584   prompt 77/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.086  max_d_mean=1.81e-02
+2026-08-18 10:28:14,775   prompt 78/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.164  max_d_mean=1.87e-02
+2026-08-18 10:29:04,169   prompt 79/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.107  max_d_mean=1.76e-02
+2026-08-18 10:29:53,871   prompt 80/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.256  max_d_mean=1.96e-02
+2026-08-18 10:30:43,080   prompt 81/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.640  max_d_mean=2.15e-02
+2026-08-18 10:31:32,569   prompt 82/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.361  max_d_mean=1.88e-02
+2026-08-18 10:32:21,769   prompt 83/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.973  max_d_mean=2.31e-02
+2026-08-18 10:33:10,873   prompt 84/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.659  max_d_mean=2.21e-02
+2026-08-18 10:34:00,667   prompt 85/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.554  max_d_mean=1.94e-02
+2026-08-18 10:34:50,475   prompt 86/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.345  max_d_mean=1.77e-02
+2026-08-18 10:35:39,883   prompt 87/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.321  max_d_mean=1.84e-02
+2026-08-18 10:36:28,976   prompt 88/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.015  max_d_mean=1.44e-02
+2026-08-18 10:37:17,679   prompt 89/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.766  max_d_mean=2.11e-02
+2026-08-18 10:38:06,080   prompt 90/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=3.666  max_d_mean=2.83e-02
+2026-08-18 10:38:55,169   prompt 91/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.974  max_d_mean=2.15e-02
+2026-08-18 10:39:44,378   prompt 92/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.389  max_d_mean=1.76e-02
+2026-08-18 10:40:33,480   prompt 93/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.940  max_d_mean=2.13e-02
+2026-08-18 10:41:23,268   prompt 94/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.017  max_d_mean=1.40e-02
+2026-08-18 10:42:13,065   prompt 95/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=1.783  max_d_mean=1.25e-02
+2026-08-18 10:43:01,583   prompt 96/100  seq_len=128 n_valid=111  48s  max||J||/sqrt(d)=2.805  max_d_mean=1.95e-02
+2026-08-18 10:43:50,773   prompt 97/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.078  max_d_mean=1.50e-02
+2026-08-18 10:44:39,871   prompt 98/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.041  max_d_mean=1.34e-02
+2026-08-18 10:45:29,469   prompt 99/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.433  max_d_mean=1.63e-02
+2026-08-18 10:46:19,281   prompt 100/100  seq_len=128 n_valid=111  49s  max||J||/sqrt(d)=2.213  max_d_mean=1.51e-02
+2026-08-18 10:46:20,580 fit: done, 100 prompts
+[fit:r1-distill-7b] DONE lens=/root/lenses/r1-distill-7b_wikitext100.pt sha256=8ecce094d474b57efa9092ad37dc5362baef41e3d90b9d479ac4f3bfa0f1508a dim_batch=8 wall=5077.1s
+[10:46:22] === FIT r1-distill-7b DONE in 5079s ===
+[10:46:22] === SCORE r1-distill-7b START ===
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 5618.64it/s]
+[d3:r1-distill-7b] lens-eval-association 25/98
+[d3:r1-distill-7b] lens-eval-association 50/98
+[d3:r1-distill-7b] lens-eval-association 75/98
+[d3:r1-distill-7b] lens-eval-association: union=0.0000 p95=0.0000 p=1.0000 qualifies=False
+[d3:r1-distill-7b] lens-eval-typo 25/96
+[d3:r1-distill-7b] lens-eval-typo 50/96
+[d3:r1-distill-7b] lens-eval-typo 75/96
+[d3:r1-distill-7b] lens-eval-typo: union=0.8125 p95=0.0417 p=0.0010 qualifies=True
+[d3:r1-distill-7b] lens-eval-multihop 25/81
+[d3:r1-distill-7b] lens-eval-multihop 50/81
+[d3:r1-distill-7b] lens-eval-multihop 75/81
+[d3:r1-distill-7b] lens-eval-multihop: union=0.0988 p95=0.0247 p=0.0010 qualifies=True
+[d3:r1-distill-7b] DONE d3-r1-distill-7b-429801a55af0 -> results/jspace_r1_pilot/diagnostics/d3/d3-r1-distill-7b-429801a55af0
+{
+ "n_qualifying_suites": 2,
+ "qualifying_suites": [
+  "lens-eval-typo",
+  "lens-eval-multihop"
+ ],
+ "note": "descriptive; interpretation conditional on D2 pass. Question: does this ~1-2B model clear the instrument-level bar on association or multihop?"
+}
+[10:46:49] === SCORE r1-distill-7b DONE in 27s ===
+[10:46:49] cache wiped for deepseek-ai/DeepSeek-R1-Distill-Qwen-7B; disk free now 90G
+[10:46:49] === packaging ===
+[10:49:08] ALL 7B PAIR STAGES COMPLETE run_id=jspace7b-20260818T075715Z-fa3a59ab — pull the tarball then STOP THE POD

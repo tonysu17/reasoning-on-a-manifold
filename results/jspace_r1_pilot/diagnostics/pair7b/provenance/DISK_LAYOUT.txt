@@ -1,0 +1,11 @@
+Filesystem     1G-blocks  Used Available Use% Mounted on
+overlay             100G    7G       94G   7% /
+tmpfs                 1G    0G        1G   0% /dev
+shm                  88G    0G       88G   0% /dev/shm
+/dev/sdc2          1759G   30G     1640G   2% /usr/bin/nvidia-smi
+/dev/md0           3576G  778G     2798G  22% /etc/hosts
+tmpfs                 1G    1G        0G 100% /run/nvidia-ctk-hook22d99fb5-14fe-4e7d-81a1-406ca63432b1
+tmpfs               756G    0G      756G   0% /proc/acpi
+tmpfs               756G    0G      756G   0% /proc/scsi
+tmpfs               756G    0G      756G   0% /sys/devices/virtual/powercap
+tmpfs               756G    0G      756G   0% /sys/firmware
