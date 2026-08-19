@@ -1,0 +1,4791 @@
+{
+ "lens-eval-association": {
+  "below_minimum_eligible_flag": false,
+  "items": [
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "grief",
+      "scored_form": " grief",
+      "token_ids": [
+       37284
+      ]
+     }
+    ],
+    "name": "grief",
+    "prompt": "She kept his coffee mug on the counter, washed it every morning and put it back, though no one had used it in eleven months.",
+    "scored_token_ids": [
+     37284
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "pregnant",
+      "scored_form": " pregnant",
+      "token_ids": [
+       20280
+      ]
+     }
+    ],
+    "name": "pregnant",
+    "prompt": "She turned down the wine with a small smile and kept one hand on the table edge, not quite touching her stomach.",
+    "scored_token_ids": [
+     20280
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "lie",
+      "scored_form": " lie",
+      "token_ids": [
+       10246
+      ]
+     }
+    ],
+    "name": "lie",
+    "prompt": "He couldn't meet her eyes when she asked, and the answer came out a half-second too fast.",
+    "scored_token_ids": [
+     10246
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "poverty",
+      "scored_form": " poverty",
+      "token_ids": [
+       19005
+      ]
+     }
+    ],
+    "name": "poverty",
+    "prompt": "She did the math twice before the cashier scanned the last item, and put the cereal back without explaining.",
+    "scored_token_ids": [
+     19005
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "proposal",
+      "scored_form": " proposal",
+      "token_ids": [
+       13734
+      ]
+     }
+    ],
+    "name": "proposal",
+    "prompt": "He touched his jacket pocket for the fourth time that evening, rehearsing the words again while the waiter cleared the plates.",
+    "scored_token_ids": [
+     13734
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "fired",
+      "scored_form": " fired",
+      "token_ids": [
+       13895
+      ]
+     }
+    ],
+    "name": "fired",
+    "prompt": "The box on his desk wasn't the one he came in with, and through the glass wall he could see HR waiting by the elevator.",
+    "scored_token_ids": [
+     13895
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "divorce",
+      "scored_form": " divorce",
+      "token_ids": [
+       24532
+      ]
+     }
+    ],
+    "name": "divorce",
+    "prompt": "She signed on the line her lawyer pointed to, slid the pen across the table, and didn't wait for him to pick it up.",
+    "scored_token_ids": [
+     24532
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "relief",
+      "scored_form": " relief",
+      "token_ids": [
+       15957
+      ]
+     }
+    ],
+    "name": "relief",
+    "prompt": "She read the line twice before she let herself breathe, and the paper shook a little as she set it down.",
+    "scored_token_ids": [
+     15957
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Pennsylvania",
+      "scored_form": " Pennsylvania",
+      "token_ids": [
+       19771
+      ]
+     }
+    ],
+    "name": "pennsylvania",
+    "prompt": "The scrapple was already on the table when he came down, and through the window the hex sign on the neighbor's barn caught the early light.",
+    "scored_token_ids": [
+     19771
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "prohibition",
+      "scored_form": " prohibition",
+      "token_ids": [
+       49867
+      ]
+     }
+    ],
+    "name": "prohibition",
+    "prompt": "She tapped her cigarette holder against the bar while the gramophone crackled, and somewhere behind the bookcase the real party was just getting loud.",
+    "scored_token_ids": [
+     49867
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "NASA",
+      "scored_form": " NASA",
+      "token_ids": [
+       21431
+      ]
+     }
+    ],
+    "name": "nasa",
+    "prompt": "The countdown hit zero and the rumble under her seat became a roar that pressed her flat, the blue curve of the world falling away through the tiny window.",
+    "scored_token_ids": [
+     21431
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Einstein",
+      "scored_form": " Einstein",
+      "token_ids": [
+       54052
+      ]
+     }
+    ],
+    "name": "einstein",
+    "prompt": "He closed his eyes on the tram and let the buildings blur, chasing the beam of light in his head the way other men chased trains.",
+    "scored_token_ids": [
+     54052
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Darwin",
+      "scored_form": " Darwin",
+      "token_ids": [
+       44380
+      ]
+     }
+    ],
+    "name": "darwin",
+    "prompt": "He reread the letter and felt twenty years of notes collapse \u2014 someone else had seen it too, and written it down first.",
+    "scored_token_ids": [
+     44380
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Beatles",
+      "scored_form": " Beatles",
+      "token_ids": [
+       54857
+      ]
+     }
+    ],
+    "name": "beatles",
+    "prompt": "They crossed in single file, one of them barefoot, while the photographer counted to three and the traffic waited.",
+    "scored_token_ids": [
+     54857
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Lincoln",
+      "scored_form": " Lincoln",
+      "token_ids": [
+       24379
+      ]
+     }
+    ],
+    "name": "lincoln",
+    "prompt": "He folded the two pages back into his coat \u2014 the other man had spoken for two hours, and he would need about two minutes.",
+    "scored_token_ids": [
+     24379
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Obama",
+      "scored_form": " Obama",
+      "token_ids": [
+       7105
+      ]
+     }
+    ],
+    "name": "obama",
+    "prompt": "The portraits on the wall had all been one color, and the desk was smaller than he'd expected when he sat down that first January morning.",
+    "scored_token_ids": [
+     7105
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Olympics",
+      "scored_form": " Olympics",
+      "token_ids": [
+       31963
+      ]
+     }
+    ],
+    "name": "olympics",
+    "prompt": "The anthem played and she touched the cold metal at her neck, four years compressed into a minute on the top step.",
+    "scored_token_ids": [
+     31963
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Churchill",
+      "scored_form": " Churchill",
+      "token_ids": [
+       57174
+      ]
+     }
+    ],
+    "name": "churchill",
+    "prompt": "He lit another cigar in the war room and leaned into the microphone, knowing the sirens above ground were doing half his work for him.",
+    "scored_token_ids": [
+     57174
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Newton",
+      "scored_form": " Newton",
+      "token_ids": [
+       20668
+      ]
+     }
+    ],
+    "name": "newton",
+    "prompt": "He watched the white light split into seven on the far wall and reached for a fresh page before the sun moved.",
+    "scored_token_ids": [
+     20668
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Mozart",
+      "scored_form": " Mozart",
+      "token_ids": [
+       94669
+      ]
+     }
+    ],
+    "name": "mozart",
+    "prompt": "The boy's feet didn't reach the pedals, but the emperor stopped talking when the first chord landed.",
+    "scored_token_ids": [
+     94669
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Berlin",
+      "scored_form": " Berlin",
+      "token_ids": [
+       19846
+      ]
+     }
+    ],
+    "name": "berlin",
+    "prompt": "The hammers rang on the concrete all night, and by morning the gap was wide enough to reach her brother's hand on the other side for the first time in twenty-eight years.",
+    "scored_token_ids": [
+     19846
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Armstrong",
+      "scored_form": " Armstrong",
+      "token_ids": [
+       44866
+      ]
+     }
+    ],
+    "name": "armstrong",
+    "prompt": "His boot sank an inch into the gray dust and the flag behind him wouldn't hang right with nothing there to move it.",
+    "scored_token_ids": [
+     44866
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Wright",
+      "scored_form": " Wright",
+      "token_ids": [
+       26741
+      ]
+     }
+    ],
+    "name": "wright",
+    "prompt": "Twelve seconds, his brother shouted from the dune, and the machine was already back on the sand \u2014 but for twelve seconds it hadn't been.",
+    "scored_token_ids": [
+     26741
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Gandhi",
+      "scored_form": " Gandhi",
+      "token_ids": [
+       47894
+      ]
+     }
+    ],
+    "name": "gandhi",
+    "prompt": "He reached the sea after three weeks on foot and bent to lift a handful of what the law said he could not make.",
+    "scored_token_ids": [
+     47894
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Edison",
+      "scored_form": " Edison",
+      "token_ids": [
+       73776
+      ]
+     }
+    ],
+    "name": "edison",
+    "prompt": "Filament nine hundred and something \u2014 he'd stopped counting the exact number \u2014 and this one held its glow past the first minute.",
+    "scored_token_ids": [
+     73776
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "CIA",
+      "scored_form": " CIA",
+      "token_ids": [
+       21474
+      ]
+     }
+    ],
+    "name": "cia",
+    "prompt": "He'd used three names in as many cities and the folder on the table had more black bars than words, and none of them were his either.",
+    "scored_token_ids": [
+     21474
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Vatican",
+      "scored_form": " Vatican",
+      "token_ids": [
+       46547
+      ]
+     }
+    ],
+    "name": "vatican",
+    "prompt": "The doors had been sealed for two days when the smoke finally changed color, and the crowd in the square knew before the bells did.",
+    "scored_token_ids": [
+     46547
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Hollywood",
+      "scored_form": " Hollywood",
+      "token_ids": [
+       17236
+      ]
+     }
+    ],
+    "name": "hollywood",
+    "prompt": "He'd pitched the same story in five rooms that week and watched the same polite smile close around it, and the valet still brought the wrong car.",
+    "scored_token_ids": [
+     17236
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Pentagon",
+      "scored_form": " Pentagon",
+      "token_ids": [
+       34536
+      ]
+     }
+    ],
+    "name": "pentagon",
+    "prompt": "The building had five sides and she'd walked the inside of all of them that morning, and the badge at her neck still didn't open the door she needed.",
+    "scored_token_ids": [
+     34536
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "UNESCO",
+      "scored_form": " UNESCO",
+      "token_ids": [
+       80776
+      ]
+     }
+    ],
+    "name": "unesco",
+    "prompt": "The emblem had been Julian Huxley's idea, or near enough, and now it hung beside a thousand temple gates and a thousand ruins the world had agreed to keep.",
+    "scored_token_ids": [
+     80776
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "anger",
+      "scored_form": " anger",
+      "token_ids": [
+       19234
+      ]
+     }
+    ],
+    "name": "anger",
+    "prompt": "\"It's fine,\" she said, and set the cup down so carefully it didn't make a sound.",
+    "scored_token_ids": [
+     19234
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "frustrated",
+      "scored_form": " frustrated",
+      "token_ids": [
+       32530
+      ]
+     }
+    ],
+    "name": "frustrated",
+    "prompt": "He explained it a third time, slower, and watched her eyes go to the clock again.",
+    "scored_token_ids": [
+     32530
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "lonely",
+      "scored_form": " lonely",
+      "token_ids": [
+       39566
+      ]
+     }
+    ],
+    "name": "lonely",
+    "prompt": "He cooked for two out of habit and scraped the second plate into the bin before sitting down.",
+    "scored_token_ids": [
+     39566
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "shame",
+      "scored_form": " shame",
+      "token_ids": [
+       20973
+      ]
+     }
+    ],
+    "name": "shame",
+    "prompt": "She paid in cash and didn't meet the clerk's eyes, the small bag tucked inside her coat before she reached the door.",
+    "scored_token_ids": [
+     20973
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "noir",
+      "scored_form": " noir",
+      "token_ids": [
+       55562
+      ]
+     }
+    ],
+    "name": "noir",
+    "prompt": "The neon bled through the blinds in stripes across the desk, and the dame in the doorway had a problem and a cigarette and no intention of telling him which was which.",
+    "scored_token_ids": [
+     55562
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "horror",
+      "scored_form": " horror",
+      "token_ids": [
+       21452
+      ]
+     }
+    ],
+    "name": "horror",
+    "prompt": "The phone line had been cut sometime after midnight, and now the scratching in the walls had moved from the attic to just behind the bedroom door.",
+    "scored_token_ids": [
+     21452
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "fairy",
+      "scored_form": " fairy",
+      "token_ids": [
+       44486
+      ]
+     }
+    ],
+    "name": "fairy",
+    "prompt": "The youngest of three set out with nothing but a crust of bread and a promise, and the woods grew darker the deeper she went.",
+    "scored_token_ids": [
+     44486
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "siblings",
+      "scored_form": " siblings",
+      "token_ids": [
+       36683
+      ]
+     }
+    ],
+    "name": "siblings",
+    "prompt": "She used the nickname nobody else knew and he rolled his eyes the same way he had at the dinner table twenty years ago.",
+    "scored_token_ids": [
+     36683
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "rivals",
+      "scored_form": " rivals",
+      "token_ids": [
+       34838
+      ]
+     }
+    ],
+    "name": "rivals",
+    "prompt": "They shook hands for the cameras and held it a beat too long, each waiting for the other to let go first.",
+    "scored_token_ids": [
+     34838
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "mother",
+      "scored_form": " mother",
+      "token_ids": [
+       6554
+      ]
+     }
+    ],
+    "name": "mother",
+    "prompt": "She pressed the back of her hand to his forehead before she said hello, and he let her, the way he had since before he could remember.",
+    "scored_token_ids": [
+     6554
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "boss",
+      "scored_form": " boss",
+      "token_ids": [
+       13392
+      ]
+     }
+    ],
+    "name": "boss",
+    "prompt": "She kept typing while he stood in her doorway, and he waited, because the meeting didn't start until she closed the laptop.",
+    "scored_token_ids": [
+     13392
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "neighbors",
+      "scored_form": " neighbors",
+      "token_ids": [
+       18709
+      ]
+     }
+    ],
+    "name": "neighbors",
+    "prompt": "She knew what time his car left and what night the bins went out, and had waved at him for six years without learning either of his names.",
+    "scored_token_ids": [
+     18709
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "teacher",
+      "scored_form": " teacher",
+      "token_ids": [
+       11079
+      ]
+     }
+    ],
+    "name": "teacher",
+    "prompt": "She circled the same mistake in the same red ink she'd used on the last thirty, and reached for the next one on the pile.",
+    "scored_token_ids": [
+     11079
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "underwater",
+      "scored_form": " underwater",
+      "token_ids": [
+       45374
+      ]
+     }
+    ],
+    "name": "underwater",
+    "prompt": "Every sound reached her a half-second late and muffled, and the pressure behind her eyes grew with each meter down.",
+    "scored_token_ids": [
+     45374
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "desert",
+      "scored_form": " desert",
+      "token_ids": [
+       23603
+      ]
+     }
+    ],
+    "name": "desert",
+    "prompt": "The horizon shook in the heat and his shadow had shrunk to a puddle at his feet; the last of the water was three swallows, maybe four.",
+    "scored_token_ids": [
+     23603
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "chess",
+      "scored_form": " chess",
+      "token_ids": [
+       32719
+      ]
+     }
+    ],
+    "name": "chess",
+    "prompt": "Neither of them had spoken in forty minutes when she finally moved the knight, and he tapped the clock without looking up.",
+    "scored_token_ids": [
+     32719
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "poker",
+      "scored_form": " poker",
+      "token_ids": [
+       20814
+      ]
+     }
+    ],
+    "name": "poker",
+    "prompt": "He pushed the last of his chips to the center and kept his face the way it had been for the last three hands \u2014 which was the problem.",
+    "scored_token_ids": [
+     20814
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "interview",
+      "scored_form": " interview",
+      "token_ids": [
+       7128
+      ]
+     }
+    ],
+    "name": "interview",
+    "prompt": "The question hung there and he realized the pause had already gone on too long; across the table, a pen hovered over a page he couldn't read.",
+    "scored_token_ids": [
+     7128
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "dawn",
+      "scored_form": " dawn",
+      "token_ids": [
+       38393
+      ]
+     }
+    ],
+    "name": "dawn",
+    "prompt": "The first bird started before the sky did, and the cold had that thin quality that wouldn't last another hour.",
+    "scored_token_ids": [
+     38393
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "winter",
+      "scored_form": " winter",
+      "token_ids": [
+       12406
+      ]
+     }
+    ],
+    "name": "winter",
+    "prompt": "The light was already failing by four and the radiators clanked awake one by one through the building.",
+    "scored_token_ids": [
+     12406
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "death",
+      "scored_form": " death",
+      "token_ids": [
+       4545
+      ]
+     }
+    ],
+    "name": "death-h",
+    "prompt": "The flowers on the table had been changed twice already, and the black dress still hung on the closet door where she'd put it out the night before the service.",
+    "scored_token_ids": [
+     4545
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "war",
+      "scored_form": " war",
+      "token_ids": [
+       4116
+      ]
+     }
+    ],
+    "name": "war-h",
+    "prompt": "The letters stopped coming after the telegram, and she kept the ration book in the drawer where his photograph used to be.",
+    "scored_token_ids": [
+     4116
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "love",
+      "scored_form": " love",
+      "token_ids": [
+       2948
+      ]
+     }
+    ],
+    "name": "love-h",
+    "prompt": "They'd reached the point where silences didn't need filling, and her hand found his across the table without either of them looking.",
+    "scored_token_ids": [
+     2948
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "home",
+      "scored_form": " home",
+      "token_ids": [
+       2114
+      ]
+     }
+    ],
+    "name": "home-h",
+    "prompt": "The smell hit him before the door was fully open \u2014 something his mother had made a thousand times, and he was seven years old again for exactly as long as it lasted.",
+    "scored_token_ids": [
+     2114
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "school",
+      "scored_form": " school",
+      "token_ids": [
+       2906
+      ]
+     }
+    ],
+    "name": "school-h",
+    "prompt": "The bell rang and thirty chairs scraped at once, but she stayed at her desk, still staring at the red marks on page three.",
+    "scored_token_ids": [
+     2906
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "church",
+      "scored_form": " church",
+      "token_ids": [
+       8817
+      ]
+     }
+    ],
+    "name": "church-h",
+    "prompt": "The organ held the last note longer than anyone expected, and she kept her head bowed until the echo had completely died.",
+    "scored_token_ids": [
+     8817
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "office",
+      "scored_form": " office",
+      "token_ids": [
+       5163
+      ]
+     }
+    ],
+    "name": "office-h",
+    "prompt": "The coffee in the break room had been sitting since nine, and the clock above the copier ticked louder than anyone's typing.",
+    "scored_token_ids": [
+     5163
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "court",
+      "scored_form": " court",
+      "token_ids": [
+       5473
+      ]
+     }
+    ],
+    "name": "court-h",
+    "prompt": "The gavel came down twice and she felt her lawyer's hand on her arm, but she couldn't read the verdict in his face.",
+    "scored_token_ids": [
+     5473
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "park",
+      "scored_form": " park",
+      "token_ids": [
+       6118
+      ]
+     }
+    ],
+    "name": "park-h",
+    "prompt": "The bench had been there longer than she had, and the brass plaque said it had been someone's favorite spot before it was hers.",
+    "scored_token_ids": [
+     6118
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "city",
+      "scored_form": " city",
+      "token_ids": [
+       3283
+      ]
+     }
+    ],
+    "name": "city-h",
+    "prompt": "The noise never stopped, just changed shape \u2014 sirens into traffic into construction into the 3 a.m. garbage truck she'd learned to sleep through.",
+    "scored_token_ids": [
+     3283
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "town",
+      "scored_form": " town",
+      "token_ids": [
+       6290
+      ]
+     }
+    ],
+    "name": "town-h",
+    "prompt": "Everyone knew which house had the dog that barked and which porch light meant someone was still up, and the new family hadn't figured out yet that the curtains were optional.",
+    "scored_token_ids": [
+     6290
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "field",
+      "scored_form": " field",
+      "token_ids": [
+       2070
+      ]
+     }
+    ],
+    "name": "field-h",
+    "prompt": "The stalks went past her shoulders and the path behind her had already closed, but the farmhouse roof was still visible if she stood on her toes.",
+    "scored_token_ids": [
+     2070
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "store",
+      "scored_form": " store",
+      "token_ids": [
+       3553
+      ]
+     }
+    ],
+    "name": "store-h",
+    "prompt": "The cart had a wheel that pulled left, and by aisle six she'd given up fighting it and just let it lead.",
+    "scored_token_ids": [
+     3553
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "art",
+      "scored_form": " art",
+      "token_ids": [
+       1947
+      ]
+     }
+    ],
+    "name": "art-h",
+    "prompt": "She stepped back three paces, tilted her head, then stepped forward and scraped the whole left corner back to canvas.",
+    "scored_token_ids": [
+     1947
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "music",
+      "scored_form": " music",
+      "token_ids": [
+       4627
+      ]
+     }
+    ],
+    "name": "music-h",
+    "prompt": "The conductor's hand hung in the air one extra beat, and in the silence before it fell, two thousand people held their breath.",
+    "scored_token_ids": [
+     4627
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "math",
+      "scored_form": " math",
+      "token_ids": [
+       6888
+      ]
+     }
+    ],
+    "name": "math-h",
+    "prompt": "He filled the third board, capped the marker, and stood back \u2014 somewhere in those six hundred symbols was either the proof or the mistake.",
+    "scored_token_ids": [
+     6888
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "science",
+      "scored_form": " science",
+      "token_ids": [
+       8038
+      ]
+     }
+    ],
+    "name": "science-h",
+    "prompt": "The result came back the same the fourth time, and she stared at the readout until it stopped meaning anything, because if it was right, the textbook was wrong.",
+    "scored_token_ids": [
+     8038
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "history",
+      "scored_form": " history",
+      "token_ids": [
+       3840
+      ]
+     }
+    ],
+    "name": "history-h",
+    "prompt": "He ran his fingers over the names carved into the stone, each one a boy his grandfather had mentioned once and never again.",
+    "scored_token_ids": [
+     3840
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "law",
+      "scored_form": " law",
+      "token_ids": [
+       2329
+      ]
+     }
+    ],
+    "name": "law-h",
+    "prompt": "She read the clause a third time, initialed where the tab pointed, and tried not to think about what 4(b) would mean if anyone ever invoked it.",
+    "scored_token_ids": [
+     2329
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "film",
+      "scored_form": " film",
+      "token_ids": [
+       4531
+      ]
+     }
+    ],
+    "name": "film-h",
+    "prompt": "The lights went down and the logo came up, and for two hours the whole room forgot it had bodies.",
+    "scored_token_ids": [
+     4531
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "code",
+      "scored_form": " code",
+      "token_ids": [
+       2038
+      ]
+     }
+    ],
+    "name": "code-h",
+    "prompt": "The test went green on the forty-third run, and she immediately distrusted it \u2014 green after forty-two reds meant she'd fixed the wrong thing.",
+    "scored_token_ids": [
+     2038
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "news",
+      "scored_form": " news",
+      "token_ids": [
+       3669
+      ]
+     }
+    ],
+    "name": "news-h",
+    "prompt": "The anchor's voice cracked on the second sentence, and by the third you could hear papers shuffling off-camera as someone handed her an update.",
+    "scored_token_ids": [
+     3669
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "night",
+      "scored_form": " night",
+      "token_ids": [
+       3729
+      ]
+     }
+    ],
+    "name": "night-h",
+    "prompt": "The last porch light on the street clicked off, and the dark filled in so completely that the fence three feet away might as well have been a mile.",
+    "scored_token_ids": [
+     3729
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "past",
+      "scored_form": " past",
+      "token_ids": [
+       3267
+      ]
+     }
+    ],
+    "name": "past-h",
+    "prompt": "The photograph was from before color, and she had to squint to see her own face under all those years.",
+    "scored_token_ids": [
+     3267
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "future",
+      "scored_form": " future",
+      "token_ids": [
+       3853
+      ]
+     }
+    ],
+    "name": "future-h",
+    "prompt": "The child asked what she wanted to be, and she answered with the certainty of someone who had never yet been told no.",
+    "scored_token_ids": [
+     3853
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "race",
+      "scored_form": " race",
+      "token_ids": [
+       6957
+      ]
+     }
+    ],
+    "name": "race-h",
+    "prompt": "The tape was fifty meters away and his lungs were already done, but the footsteps behind him were getting louder and that was all that mattered.",
+    "scored_token_ids": [
+     6957
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "game",
+      "scored_form": " game",
+      "token_ids": [
+       1809
+      ]
+     }
+    ],
+    "name": "game-h",
+    "prompt": "She moved the piece, looked up, and waited \u2014 and in his face she saw exactly the three moves he hadn't seen coming.",
+    "scored_token_ids": [
+     1809
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "test",
+      "scored_form": " test",
+      "token_ids": [
+       1273
+      ]
+     }
+    ],
+    "name": "test-h",
+    "prompt": "She filled in the last bubble, checked the clock, and decided that whatever she didn't know by now, thirty more seconds wasn't going to fix.",
+    "scored_token_ids": [
+     1273
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "search",
+      "scored_form": " search",
+      "token_ids": [
+       2711
+      ]
+     }
+    ],
+    "name": "search-h",
+    "prompt": "They'd walked the same grid four times since sunrise, and the dog kept pulling toward the creek that wasn't on anyone's map.",
+    "scored_token_ids": [
+     2711
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "free",
+      "scored_form": " free",
+      "token_ids": [
+       1910
+      ]
+     }
+    ],
+    "name": "free-h",
+    "prompt": "The gate buzzed and the first thing he noticed was how big the sky looked without a fence cutting it in half.",
+    "scored_token_ids": [
+     1910
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "found",
+      "scored_form": " found",
+      "token_ids": [
+       1730
+      ]
+     }
+    ],
+    "name": "found-h",
+    "prompt": "The dog came back muddy with something in its mouth, and she knew before she'd unwrapped it that this was what three weeks of posters had been for.",
+    "scored_token_ids": [
+     1730
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "king",
+      "scored_form": " king",
+      "token_ids": [
+       11477
+      ]
+     }
+    ],
+    "name": "king-h",
+    "prompt": "He sat where his father had sat, and his grandfather before that, and felt the weight of every eye in the hall waiting for the word that would become command.",
+    "scored_token_ids": [
+     11477
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "father",
+      "scored_form": " father",
+      "token_ids": [
+       6981
+      ]
+     }
+    ],
+    "name": "father-h",
+    "prompt": "He showed her how to hold the wrench the way his own old man had shown him, and didn't mention that this was the third time this month she'd asked.",
+    "scored_token_ids": [
+     6981
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "child",
+      "scored_form": " child",
+      "token_ids": [
+       1682
+      ]
+     }
+    ],
+    "name": "child-h",
+    "prompt": "The crayon drawings on the fridge had started with houses and suns and now included something that was either a dragon or a truck \u2014 she'd learned not to ask which.",
+    "scored_token_ids": [
+     1682
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "water",
+      "scored_form": " water",
+      "token_ids": [
+       3015
+      ]
+     }
+    ],
+    "name": "water-h",
+    "prompt": "She held her breath without meaning to and counted the bubbles rising past the mask, each one a second she wasn't getting back.",
+    "scored_token_ids": [
+     3015
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "space",
+      "scored_form": " space",
+      "token_ids": [
+       3550
+      ]
+     }
+    ],
+    "name": "space-h",
+    "prompt": "He let go of the handrail and for the first time in his life, there was no direction that counted as down.",
+    "scored_token_ids": [
+     3550
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "air",
+      "scored_form": " air",
+      "token_ids": [
+       3720
+      ]
+     }
+    ],
+    "name": "air-h",
+    "prompt": "The tank gauge dropped past the red line and every breath became a calculation \u2014 how many more before the surface, and whether that math worked out.",
+    "scored_token_ids": [
+     3720
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "light",
+      "scored_form": " light",
+      "token_ids": [
+       3100
+      ]
+     }
+    ],
+    "name": "light-h",
+    "prompt": "He'd been in the tunnel long enough to forget what color looked like, and when the far end finally brightened, his eyes watered before he could tell if it was real.",
+    "scored_token_ids": [
+     3100
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "France",
+      "scored_form": " France",
+      "token_ids": [
+       9625
+      ]
+     }
+    ],
+    "name": "france-h",
+    "prompt": "The waiter corrected her pronunciation without looking up from the pad, and she felt every flat American syllable she'd ever spoken stack up behind her.",
+    "scored_token_ids": [
+     9625
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "china-h",
+    "prompt": "The characters on every sign meant nothing to him, and the crowd moved with a rhythm he kept half a beat behind, a billion people who all knew something he didn't.",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "London",
+      "scored_form": " London",
+      "token_ids": [
+       7148
+      ]
+     }
+    ],
+    "name": "london-h",
+    "prompt": "She'd learned to carry the umbrella even when the forecast said clear, and to call the elevator something else entirely.",
+    "scored_token_ids": [
+     7148
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "book",
+      "scored_form": " book",
+      "token_ids": [
+       2311
+      ]
+     }
+    ],
+    "name": "book-h",
+    "prompt": "She dog-eared the page, set it facedown on the arm of the chair, and told herself just one more chapter three chapters ago.",
+    "scored_token_ids": [
+     2311
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "time",
+      "scored_form": " time",
+      "token_ids": [
+       882
+      ]
+     }
+    ],
+    "name": "time-h",
+    "prompt": "She caught her reflection in the shop window and for a second didn't recognize the face \u2014 not older exactly, just further along than she'd noticed getting.",
+    "scored_token_ids": [
+     882
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "caf\u00e9",
+      "scored_form": " caf\u00e9",
+      "token_ids": [
+       51950
+      ]
+     }
+    ],
+    "name": "fr-cafe",
+    "prompt": "Le gar\u00e7on posa la tasse sans un mot et repartit, et elle resta une heure \u00e0 regarder la rue par la vitre, le carnet ouvert mais vide.",
+    "scored_token_ids": [
+     51950
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "K\u00f6nig",
+      "scored_form": " K\u00f6nig",
+      "token_ids": [
+       141775
+      ]
+     }
+    ],
+    "name": "de-konig",
+    "prompt": "Er sa\u00df, wo sein Vater gesessen hatte, und sp\u00fcrte das Gewicht jedes Blickes im Saal, der auf das Wort wartete, das zum Befehl w\u00fcrde.",
+    "scored_token_ids": [
+     141775
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "d\u00eda",
+      "scored_form": " d\u00eda",
+      "token_ids": [
+       34863
+      ]
+     }
+    ],
+    "name": "es-dia",
+    "prompt": "El primer p\u00e1jaro empez\u00f3 antes que el cielo, y el fr\u00edo ten\u00eda esa cualidad fina que no durar\u00eda otra hora.",
+    "scored_token_ids": [
+     34863
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "\u00e1gua",
+      "scored_form": " \u00e1gua",
+      "token_ids": [
+       132461
+      ]
+     }
+    ],
+    "name": "pt-agua",
+    "prompt": "Ela prendeu a respira\u00e7\u00e3o sem querer e contou as bolhas subindo pela m\u00e1scara, cada uma um segundo que n\u00e3o voltava.",
+    "scored_token_ids": [
+     132461
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "m\u00fasica",
+      "scored_form": " m\u00fasica",
+      "token_ids": [
+       70345
+      ]
+     }
+    ],
+    "name": "es-musica",
+    "prompt": "La mano del director qued\u00f3 suspendida un instante de m\u00e1s, y en el silencio antes de caer, dos mil personas contuvieron el aliento.",
+    "scored_token_ids": [
+     70345
+    ]
+   }
+  ],
+  "n_eligible_items": 98,
+  "n_eligible_labels": 98,
+  "n_source_items": 102
+ },
+ "lens-eval-multihop": {
+  "below_minimum_eligible_flag": false,
+  "items": [
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Brazil",
+      "scored_form": " Brazil",
+      "token_ids": [
+       15948
+      ]
+     }
+    ],
+    "name": "carnival-ocean",
+    "prompt": "Fact: The ocean on the coast of the country where Carnival is most famously celebrated is the ",
+    "scored_token_ids": [
+     15948
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Brazil",
+      "scored_form": " Brazil",
+      "token_ids": [
+       15948
+      ]
+     }
+    ],
+    "name": "amazon-language",
+    "prompt": "Fact: The language spoken in the country where the Amazon River ends is ",
+    "scored_token_ids": [
+     15948
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Mars",
+      "scored_form": " Mars",
+      "token_ids": [
+       21048
+      ]
+     }
+    ],
+    "name": "mars-color",
+    "prompt": "Fact: The color of the planet fourth from the Sun is ",
+    "scored_token_ids": [
+     21048
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "spider",
+      "scored_form": " spider",
+      "token_ids": [
+       34354
+      ]
+     }
+    ],
+    "name": "spider-legs",
+    "prompt": "Fact: The number of legs on the animal that spins webs is ",
+    "scored_token_ids": [
+     34354
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "basketball",
+      "scored_form": " basketball",
+      "token_ids": [
+       19240
+      ]
+     }
+    ],
+    "name": "basketball-players",
+    "prompt": "Fact: The number of players per side in the sport invented in Springfield, Massachusetts is ",
+    "scored_token_ids": [
+     19240
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "paper-continent",
+    "prompt": "Fact: The continent where the country that invented paper is located is ",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Christmas",
+      "scored_form": " Christmas",
+      "token_ids": [
+       10074
+      ]
+     }
+    ],
+    "name": "christmas-season",
+    "prompt": "Fact: The season when the holiday with a decorated tree occurs is ",
+    "scored_token_ids": [
+     10074
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Michigan",
+      "scored_form": " Michigan",
+      "token_ids": [
+       14630
+      ]
+     }
+    ],
+    "name": "osu-rival-mascot",
+    "prompt": "Fact: The mascot of the college football rival of Ohio State is a ",
+    "scored_token_ids": [
+     14630
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Kansas",
+      "scored_form": " Kansas",
+      "token_ids": [
+       20148
+      ]
+     }
+    ],
+    "name": "topeka-west",
+    "prompt": "Fact: The state west of the state with Topeka as its capital is ",
+    "scored_token_ids": [
+     20148
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "gold",
+      "scored_form": " gold",
+      "token_ids": [
+       6623
+      ]
+     }
+    ],
+    "name": "atomic-79-symbol",
+    "prompt": "Fact: The chemical symbol for the element with atomic number 79 is ",
+    "scored_token_ids": [
+     6623
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "iron",
+      "scored_form": " iron",
+      "token_ids": [
+       11001
+      ]
+     }
+    ],
+    "name": "atomic-26-symbol",
+    "prompt": "Fact: The chemical symbol for the element with atomic number 26 is ",
+    "scored_token_ids": [
+     11001
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "copper",
+      "scored_form": " copper",
+      "token_ids": [
+       23285
+      ]
+     }
+    ],
+    "name": "atomic-29-symbol",
+    "prompt": "Fact: The chemical symbol for the element with atomic number 29 is ",
+    "scored_token_ids": [
+     23285
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "mercury",
+      "scored_form": " mercury",
+      "token_ids": [
+       50752
+      ]
+     }
+    ],
+    "name": "atomic-80-state",
+    "prompt": "Fact: The state of matter at room temperature of the element with atomic number 80 is ",
+    "scored_token_ids": [
+     50752
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "copper",
+      "scored_form": " copper",
+      "token_ids": [
+       23285
+      ]
+     }
+    ],
+    "name": "atomic-29-flame",
+    "prompt": "Fact: The flame color produced by burning the element with atomic number 29 is ",
+    "scored_token_ids": [
+     23285
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Earth",
+      "scored_form": " Earth",
+      "token_ids": [
+       9237
+      ]
+     }
+    ],
+    "name": "planet-3-moons",
+    "prompt": "Fact: The number of natural moons orbiting the planet third from the Sun is ",
+    "scored_token_ids": [
+     9237
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "March",
+      "scored_form": " March",
+      "token_ids": [
+       5470
+      ]
+     }
+    ],
+    "name": "month-3-godof",
+    "prompt": "Fact: The third month of the year is named after the Roman god of ",
+    "scored_token_ids": [
+     5470
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Seattle",
+      "scored_form": " Seattle",
+      "token_ids": [
+       16355
+      ]
+     }
+    ],
+    "name": "spaceneedle-border",
+    "prompt": "Fact: The US state where the Space Needle is located shares its northern border with ",
+    "scored_token_ids": [
+     16355
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Spain",
+      "scored_form": " Spain",
+      "token_ids": [
+       17689
+      ]
+     }
+    ],
+    "name": "rhyme-rain-neighbor",
+    "prompt": "Fact: The European country whose name rhymes with 'rain' shares its western border with ",
+    "scored_token_ids": [
+     17689
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "four",
+      "scored_form": " four",
+      "token_ids": [
+       3040
+      ]
+     }
+    ],
+    "name": "rhyme-door-doubled",
+    "prompt": "Fact: Take the number whose name rhymes with the word door. Doubling it gives the number ",
+    "scored_token_ids": [
+     3040
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "bear",
+      "scored_form": " bear",
+      "token_ids": [
+       11722
+      ]
+     }
+    ],
+    "name": "rhyme-chair-flag",
+    "prompt": "Fact: The large mammal whose name rhymes with 'chair' appears on the state flag of ",
+    "scored_token_ids": [
+     11722
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "moon",
+      "scored_form": " moon",
+      "token_ids": [
+       17788
+      ]
+     }
+    ],
+    "name": "rhyme-spoon-orbit",
+    "prompt": "Fact: The celestial body whose name rhymes with 'spoon' orbits the planet called ",
+    "scored_token_ids": [
+     17788
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "March",
+      "scored_form": " March",
+      "token_ids": [
+       5470
+      ]
+     }
+    ],
+    "name": "etym-wargod-month",
+    "prompt": "Fact: The month named after the Roman god of war is month number ",
+    "scored_token_ids": [
+     5470
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Friday",
+      "scored_form": " Friday",
+      "token_ids": [
+       6602
+      ]
+     }
+    ],
+    "name": "etym-frigg-position",
+    "prompt": "Fact: Counting Monday as day 1, the day of the week named after the Norse goddess Frigg is day number ",
+    "scored_token_ids": [
+     6602
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Saturn",
+      "scored_form": " Saturn",
+      "token_ids": [
+       49153
+      ]
+     }
+    ],
+    "name": "etym-saturn-position",
+    "prompt": "Fact: The planet named after the Roman god of agriculture and time is planet number ",
+    "scored_token_ids": [
+     49153
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "oxygen",
+      "scored_form": " oxygen",
+      "token_ids": [
+       23552
+      ]
+     }
+    ],
+    "name": "chem-photosynthesis-Z",
+    "prompt": "Fact: The atomic number of the gas that plants release during photosynthesis is ",
+    "scored_token_ids": [
+     23552
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "nitrogen",
+      "scored_form": " nitrogen",
+      "token_ids": [
+       46403
+      ]
+     }
+    ],
+    "name": "chem-atmosphere-Z",
+    "prompt": "Fact: The atomic number of the gas that makes up about 78 percent of the atmosphere is ",
+    "scored_token_ids": [
+     46403
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "carbon",
+      "scored_form": " carbon",
+      "token_ids": [
+       12499
+      ]
+     }
+    ],
+    "name": "chem-organic-Z",
+    "prompt": "Fact: The atomic number of the element present in all organic compounds by definition is ",
+    "scored_token_ids": [
+     12499
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "calcium",
+      "scored_form": " calcium",
+      "token_ids": [
+       34619
+      ]
+     }
+    ],
+    "name": "chem-bones-Z",
+    "prompt": "Fact: The atomic number of the metal most abundant in human bones is ",
+    "scored_token_ids": [
+     34619
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "heart",
+      "scored_form": " heart",
+      "token_ids": [
+       4746
+      ]
+     }
+    ],
+    "name": "func-pumps-chambers",
+    "prompt": "Fact: In humans, the organ that pumps blood through the body has this many chambers: ",
+    "scored_token_ids": [
+     4746
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "kidney",
+      "scored_form": " kidney",
+      "token_ids": [
+       37942
+      ]
+     }
+    ],
+    "name": "func-filters-count",
+    "prompt": "Fact: In humans, the number of organs that filter blood to make urine is ",
+    "scored_token_ids": [
+     37942
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "May",
+      "scored_form": " May",
+      "token_ids": [
+       3217
+      ]
+     }
+    ],
+    "name": "birthstone-emerald-month",
+    "prompt": "Fact: Emerald is the birthstone for month number ",
+    "scored_token_ids": [
+     3217
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "violin",
+      "scored_form": " violin",
+      "token_ids": [
+       62037
+      ]
+     }
+    ],
+    "name": "violin-strings",
+    "prompt": "Fact: The number of strings on the instrument that fiddlers play is ",
+    "scored_token_ids": [
+     62037
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "3",
+      "scored_form": " 3",
+      "token_ids": [
+       220,
+       18
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "three",
+      "scored_form": " three",
+      "token_ids": [
+       2326
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "third",
+      "scored_form": " third",
+      "token_ids": [
+       4843
+      ]
+     }
+    ],
+    "name": "nhop-primary-planet",
+    "prompt": "Count the legs on a spider. The planet at that position from the Sun is Neptune. Count the primary colors of light. The planet at that position from the Sun is ",
+    "scored_token_ids": [
+     2326,
+     4843
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "5",
+      "scored_form": " 5",
+      "token_ids": [
+       220,
+       20
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "five",
+      "scored_form": " five",
+      "token_ids": [
+       4236
+      ]
+     }
+    ],
+    "name": "nhop-rings-planet",
+    "prompt": "Count the legs on a spider. The planet at that position from the Sun is Neptune. Count the Olympic rings. The planet at that position from the Sun is ",
+    "scored_token_ids": [
+     4236
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "6",
+      "scored_form": " 6",
+      "token_ids": [
+       220,
+       21
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "nhop-guitar-planet",
+    "prompt": "Count the legs on a spider. The planet at that position from the Sun is Neptune. Count the strings on a standard guitar. The planet at that position from the Sun is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "4",
+      "scored_form": " 4",
+      "token_ids": [
+       220,
+       19
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "four",
+      "scored_form": " four",
+      "token_ids": [
+       3040
+      ]
+     }
+    ],
+    "name": "nhop-compass-planet",
+    "prompt": "Count the legs on a spider. The planet at that position from the Sun is Neptune. Count the cardinal directions on a compass. The planet at that position from the Sun is ",
+    "scored_token_ids": [
+     3040
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "6",
+      "scored_form": " 6",
+      "token_ids": [
+       220,
+       21
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "nhop-volleyball-planet",
+    "prompt": "Count the legs on a spider. The planet at that position from the Sun is Neptune. Count the players on a volleyball court per team. The planet at that position from the Sun is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "6",
+      "scored_form": " 6",
+      "token_ids": [
+       220,
+       21
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "nhop-cube-element",
+    "prompt": "Count the items in a dozen. The element at that position on the periodic table is magnesium. Count the faces on a cube. The element at that position on the periodic table is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "6",
+      "scored_form": " 6",
+      "token_ids": [
+       220,
+       21
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "nhop-insect-element",
+    "prompt": "Count the items in a dozen. The element at that position on the periodic table is magnesium. Count the legs on an insect. The element at that position on the periodic table is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Russia",
+      "scored_form": " Russia",
+      "token_ids": [
+       8359
+      ]
+     }
+    ],
+    "name": "super-largest-country-capital",
+    "prompt": "Fact: The capital city of the largest country by area is ",
+    "scored_token_ids": [
+     8359
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Vatican",
+      "scored_form": " Vatican",
+      "token_ids": [
+       46547
+      ]
+     }
+    ],
+    "name": "super-smallest-continent",
+    "prompt": "Fact: The smallest country in the world is located on the continent of ",
+    "scored_token_ids": [
+     46547
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "super-populous-capital",
+    "prompt": "Fact: The capital city of the most populous country in the world is ",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Indonesia",
+      "scored_form": " Indonesia",
+      "token_ids": [
+       23968
+      ]
+     }
+    ],
+    "name": "super-largest-island-nation",
+    "prompt": "Fact: The country that is the largest island nation by area has its capital at ",
+    "scored_token_ids": [
+     23968
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "Italy",
+      "scored_form": " Italy",
+      "token_ids": [
+       15344
+      ]
+     }
+    ],
+    "name": "colosseum-currency",
+    "prompt": "Fact: The currency used in the country where the Colosseum stands is the ",
+    "scored_token_ids": [
+     15344
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "greatwall-ocean",
+    "prompt": "Fact: The ocean east of the country that built the Great Wall is the ",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "July",
+      "scored_form": " July",
+      "token_ids": [
+       5768
+      ]
+     }
+    ],
+    "name": "holiday-independence-monthnum",
+    "prompt": "Fact: The US Independence Day holiday is celebrated in month number ",
+    "scored_token_ids": [
+     5768
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "December",
+      "scored_form": " December",
+      "token_ids": [
+       6652
+      ]
+     }
+    ],
+    "name": "holiday-christmas-monthnum",
+    "prompt": "Fact: Christmas Day is celebrated in month number ",
+    "scored_token_ids": [
+     6652
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "October",
+      "scored_form": " October",
+      "token_ids": [
+       6527
+      ]
+     }
+    ],
+    "name": "holiday-halloween-monthnum",
+    "prompt": "Fact: Halloween is celebrated in month number ",
+    "scored_token_ids": [
+     6527
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "February",
+      "scored_form": " February",
+      "token_ids": [
+       7400
+      ]
+     }
+    ],
+    "name": "holiday-valentines-monthnum",
+    "prompt": "Fact: Valentine's Day is celebrated in month number ",
+    "scored_token_ids": [
+     7400
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "January",
+      "scored_form": " January",
+      "token_ids": [
+       6058
+      ]
+     }
+    ],
+    "name": "month-1-godof",
+    "prompt": "Fact: The first month of the year is named after the Roman god of ",
+    "scored_token_ids": [
+     6058
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "January",
+      "scored_form": " January",
+      "token_ids": [
+       6058
+      ]
+     }
+    ],
+    "name": "etym-janus-monthnum",
+    "prompt": "Fact: The month named after the two-faced Roman god of doorways is month number ",
+    "scored_token_ids": [
+     6058
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "July",
+      "scored_form": " July",
+      "token_ids": [
+       5768
+      ]
+     }
+    ],
+    "name": "month-7-namedafter",
+    "prompt": "Fact: The seventh month of the year is named after the Roman leader Julius ",
+    "scored_token_ids": [
+     5768
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "July",
+      "scored_form": " July",
+      "token_ids": [
+       5768
+      ]
+     }
+    ],
+    "name": "etym-caesar-monthnum",
+    "prompt": "Fact: The month named after Julius Caesar is month number ",
+    "scored_token_ids": [
+     5768
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "east",
+      "scored_form": " east",
+      "token_ids": [
+       10984
+      ]
+     }
+    ],
+    "name": "inv-sunrise-opposite",
+    "prompt": "Fact: The cardinal direction opposite to the one where the sun rises is ",
+    "scored_token_ids": [
+     10984
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "up",
+      "scored_form": " up",
+      "token_ids": [
+       705
+      ]
+     }
+    ],
+    "name": "inv-balloon-opposite",
+    "prompt": "Fact: The direction opposite to the one a helium balloon floats toward is \"",
+    "scored_token_ids": [
+     705
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "down",
+      "scored_form": " down",
+      "token_ids": [
+       1495
+      ]
+     }
+    ],
+    "name": "inv-roots-opposite",
+    "prompt": "Fact: The direction opposite to the one tree roots grow is \"",
+    "scored_token_ids": [
+     1495
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "south",
+      "scored_form": " south",
+      "token_ids": [
+       9806
+      ]
+     }
+    ],
+    "name": "inv-antarctica-opposite",
+    "prompt": "Fact: The cardinal direction opposite to where Antarctica lies from the equator is ",
+    "scored_token_ids": [
+     9806
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "three",
+      "scored_form": " three",
+      "token_ids": [
+       2326
+      ]
+     }
+    ],
+    "name": "rhyme-tree-squared",
+    "prompt": "Fact: The square of the number whose name rhymes with tree is ",
+    "scored_token_ids": [
+     2326
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "five",
+      "scored_form": " five",
+      "token_ids": [
+       4236
+      ]
+     }
+    ],
+    "name": "rhyme-hive-plusone",
+    "prompt": "Fact: One more than the number whose name rhymes with hive is ",
+    "scored_token_ids": [
+     4236
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "rhyme-fix-halved",
+    "prompt": "Fact: Half of the number whose name rhymes with fix is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "two",
+      "scored_form": " two",
+      "token_ids": [
+       1378
+      ]
+     }
+    ],
+    "name": "rhyme-shoe-doubled",
+    "prompt": "Fact: Double the number whose name rhymes with shoe is ",
+    "scored_token_ids": [
+     1378
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "India",
+      "scored_form": " India",
+      "token_ids": [
+       6747
+      ]
+     }
+    ],
+    "name": "tajmahal-continent",
+    "prompt": "Fact: The continent where the country that built the Taj Mahal is located is ",
+    "scored_token_ids": [
+     6747
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "France",
+      "scored_form": " France",
+      "token_ids": [
+       9625
+      ]
+     }
+    ],
+    "name": "louvre-language",
+    "prompt": "Fact: The primary language spoken in the country where the Louvre museum is located is ",
+    "scored_token_ids": [
+     9625
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "October",
+      "scored_form": " October",
+      "token_ids": [
+       6527
+      ]
+     }
+    ],
+    "name": "firstletter-halloween-month",
+    "prompt": "Fact: The first letter of the month containing Halloween is \"",
+    "scored_token_ids": [
+     6527
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "February",
+      "scored_form": " February",
+      "token_ids": [
+       7400
+      ]
+     }
+    ],
+    "name": "firstletter-valentines-month",
+    "prompt": "Fact: The first letter of the month containing Valentine's Day is \"",
+    "scored_token_ids": [
+     7400
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "firstletter-populous-country",
+    "prompt": "Fact: The first letter of the name of the world's most populous country is ",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "France",
+      "scored_form": " France",
+      "token_ids": [
+       9625
+      ]
+     }
+    ],
+    "name": "firstletter-paris-country",
+    "prompt": "Fact: The first letter of the name of the country whose capital is Paris is ",
+    "scored_token_ids": [
+     9625
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "China",
+      "scored_form": " China",
+      "token_ids": [
+       5616
+      ]
+     }
+    ],
+    "name": "firstletter-greatwall-country",
+    "prompt": "Fact: The first letter of the name of the country that built the Great Wall is ",
+    "scored_token_ids": [
+     5616
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "October",
+      "scored_form": " October",
+      "token_ids": [
+       6527
+      ]
+     }
+    ],
+    "name": "succ-halloween-nextmonth",
+    "prompt": "Fact: The month immediately after the one containing Halloween is ",
+    "scored_token_ids": [
+     6527
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "February",
+      "scored_form": " February",
+      "token_ids": [
+       7400
+      ]
+     }
+    ],
+    "name": "pred-valentines-prevmonth",
+    "prompt": "Fact: The month immediately before the one containing Valentine's Day is \"",
+    "scored_token_ids": [
+     7400
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "night",
+      "scored_form": " night",
+      "token_ids": [
+       3729
+      ]
+     }
+    ],
+    "name": "dual-stars-visible-opposite",
+    "prompt": "Fact: The opposite of the time of day when stars are visible is \"",
+    "scored_token_ids": [
+     3729
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "day",
+      "scored_form": " day",
+      "token_ids": [
+       1899
+      ]
+     }
+    ],
+    "name": "dual-photosynthesis-opposite",
+    "prompt": "Fact: The opposite of the time of day when plants photosynthesize is \"",
+    "scored_token_ids": [
+     1899
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "5",
+      "scored_form": " 5",
+      "token_ids": [
+       220,
+       20
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "five",
+      "scored_form": " five",
+      "token_ids": [
+       4236
+      ]
+     }
+    ],
+    "name": "roman-rings-olympic",
+    "prompt": "Fact: Written as a Roman numeral, the number of Olympic rings is ",
+    "scored_token_ids": [
+     4236
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": false,
+      "label": "6",
+      "scored_form": " 6",
+      "token_ids": [
+       220,
+       21
+      ]
+     },
+     {
+      "eligible": true,
+      "label": "six",
+      "scored_form": " six",
+      "token_ids": [
+       4743
+      ]
+     }
+    ],
+    "name": "double-dice-faces",
+    "prompt": "Fact: Double the number of faces on a standard die is ",
+    "scored_token_ids": [
+     4743
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "H",
+      "scored_form": " H",
+      "token_ids": [
+       472
+      ]
+     }
+    ],
+    "name": "letterpos-water-symbol",
+    "prompt": "Fact: The position in the alphabet of the chemical symbol for hydrogen is ",
+    "scored_token_ids": [
+     472
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "O",
+      "scored_form": " O",
+      "token_ids": [
+       506
+      ]
+     }
+    ],
+    "name": "letterpos-oxygen-symbol",
+    "prompt": "Fact: The position in the alphabet of the chemical symbol for oxygen is ",
+    "scored_token_ids": [
+     506
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "C",
+      "scored_form": " C",
+      "token_ids": [
+       356
+      ]
+     }
+    ],
+    "name": "letterpos-carbon-symbol",
+    "prompt": "Fact: The position in the alphabet of the chemical symbol for carbon is ",
+    "scored_token_ids": [
+     356
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "N",
+      "scored_form": " N",
+      "token_ids": [
+       451
+      ]
+     }
+    ],
+    "name": "letterpos-nitrogen-symbol",
+    "prompt": "Fact: The position in the alphabet of the chemical symbol for nitrogen is ",
+    "scored_token_ids": [
+     451
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "war",
+      "scored_form": " war",
+      "token_ids": [
+       4116
+      ]
+     }
+    ],
+    "name": "dbl-armistice-antonym",
+    "prompt": "Fact: The antonym of what an armistice ends is \"",
+    "scored_token_ids": [
+     4116
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "death",
+      "scored_form": " death",
+      "token_ids": [
+       4545
+      ]
+     }
+    ],
+    "name": "dbl-obituary-antonym",
+    "prompt": "Fact: The antonym of what an obituary announces is \"",
+    "scored_token_ids": [
+     4545
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "high",
+      "scored_form": " high",
+      "token_ids": [
+       1550
+      ]
+     }
+    ],
+    "name": "dbl-altitude-antonym",
+    "prompt": "Fact: The antonym of how you would describe an airplane's cruising altitude is \"",
+    "scored_token_ids": [
+     1550
+    ]
+   }
+  ],
+  "n_eligible_items": 81,
+  "n_eligible_labels": 82,
+  "n_source_items": 93
+ },
+ "lens-eval-typo": {
+  "below_minimum_eligible_flag": false,
+  "items": [
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "language",
+      "scored_form": " language",
+      "token_ids": [
+       4128
+      ]
+     }
+    ],
+    "name": "typo-language",
+    "prompt": "The course required that every student learn a second langauge",
+    "scored_token_ids": [
+     4128
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "government",
+      "scored_form": " government",
+      "token_ids": [
+       3033
+      ]
+     }
+    ],
+    "name": "typo-government",
+    "prompt": "The new policy was announced last week by the federal goverment",
+    "scored_token_ids": [
+     3033
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "across",
+      "scored_form": " across",
+      "token_ids": [
+       3941
+      ]
+     }
+    ],
+    "name": "typo-across",
+    "prompt": "She picked up her bag and walked slowly accross",
+    "scored_token_ids": [
+     3941
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "search",
+      "scored_form": " search",
+      "token_ids": [
+       2711
+      ]
+     }
+    ],
+    "name": "typo-search",
+    "prompt": "She typed the name into the box and clicked serach",
+    "scored_token_ids": [
+     2711
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "address",
+      "scored_form": " address",
+      "token_ids": [
+       2621
+      ]
+     }
+    ],
+    "name": "typo-address",
+    "prompt": "Please write your full name and your current adress",
+    "scored_token_ids": [
+     2621
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "because",
+      "scored_form": " because",
+      "token_ids": [
+       1576
+      ]
+     }
+    ],
+    "name": "typo-because",
+    "prompt": "He said he was going to be late becuase",
+    "scored_token_ids": [
+     1576
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "until",
+      "scored_form": " until",
+      "token_ids": [
+       3080
+      ]
+     }
+    ],
+    "name": "typo-until",
+    "prompt": "The library will stay open every night untill",
+    "scored_token_ids": [
+     3080
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "people",
+      "scored_form": " people",
+      "token_ids": [
+       1251
+      ]
+     }
+    ],
+    "name": "typo-people",
+    "prompt": "The stadium was packed with nearly forty thousand poeple",
+    "scored_token_ids": [
+     1251
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "something",
+      "scored_form": " something",
+      "token_ids": [
+       2494
+      ]
+     }
+    ],
+    "name": "typo-something",
+    "prompt": "He paused at the door as if he had forgotten somthing",
+    "scored_token_ids": [
+     2494
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "business",
+      "scored_form": " business",
+      "token_ids": [
+       2562
+      ]
+     }
+    ],
+    "name": "typo-business",
+    "prompt": "After college she moved to the city and started her own buisness",
+    "scored_token_ids": [
+     2562
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "different",
+      "scored_form": " different",
+      "token_ids": [
+       2155
+      ]
+     }
+    ],
+    "name": "typo-different",
+    "prompt": "The second draft of the essay took a completely diferent",
+    "scored_token_ids": [
+     2155
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "really",
+      "scored_form": " really",
+      "token_ids": [
+       2167
+      ]
+     }
+    ],
+    "name": "typo-really",
+    "prompt": "Even after reading it twice she was not realy",
+    "scored_token_ids": [
+     2167
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "field",
+      "scored_form": " field",
+      "token_ids": [
+       2070
+      ]
+     }
+    ],
+    "name": "typo-field",
+    "prompt": "The players jogged out onto the freshly mowed feild",
+    "scored_token_ids": [
+     2070
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "review",
+      "scored_form": " review",
+      "token_ids": [
+       3395
+      ]
+     }
+    ],
+    "name": "typo-review",
+    "prompt": "The editor asked her to write a short reveiw",
+    "scored_token_ids": [
+     3395
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "height",
+      "scored_form": " height",
+      "token_ids": [
+       2608
+      ]
+     }
+    ],
+    "name": "typo-height",
+    "prompt": "He was surprised by the building's enormous hieght",
+    "scored_token_ids": [
+     2608
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "science",
+      "scored_form": " science",
+      "token_ids": [
+       8038
+      ]
+     }
+    ],
+    "name": "typo-science",
+    "prompt": "Her favorite subject in school was always sceince",
+    "scored_token_ids": [
+     8038
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "library",
+      "scored_form": " library",
+      "token_ids": [
+       6733
+      ]
+     }
+    ],
+    "name": "typo-library",
+    "prompt": "She returned the overdue books to the local libary",
+    "scored_token_ids": [
+     6733
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "February",
+      "scored_form": " February",
+      "token_ids": [
+       7400
+      ]
+     }
+    ],
+    "name": "typo-February",
+    "prompt": "Her birthday falls on the last day of Febuary",
+    "scored_token_ids": [
+     7400
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "together",
+      "scored_form": " together",
+      "token_ids": [
+       3786
+      ]
+     }
+    ],
+    "name": "typo-together",
+    "prompt": "The family finally sat down to eat togther",
+    "scored_token_ids": [
+     3786
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "account",
+      "scored_form": " account",
+      "token_ids": [
+       2692
+      ]
+     }
+    ],
+    "name": "typo-account",
+    "prompt": "She could not remember the password for her bank acount",
+    "scored_token_ids": [
+     2692
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "function",
+      "scored_form": " function",
+      "token_ids": [
+       729
+      ]
+     }
+    ],
+    "name": "typo-function",
+    "prompt": "The programmer wrote a small helper funtion",
+    "scored_token_ids": [
+     729
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "against",
+      "scored_form": " against",
+      "token_ids": [
+       2348
+      ]
+     }
+    ],
+    "name": "typo-against",
+    "prompt": "The final vote was nine to two aganst",
+    "scored_token_ids": [
+     2348
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "around",
+      "scored_form": " around",
+      "token_ids": [
+       2163
+      ]
+     }
+    ],
+    "name": "typo-around",
+    "prompt": "They walked slowly all the way aroud",
+    "scored_token_ids": [
+     2163
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "important",
+      "scored_form": " important",
+      "token_ids": [
+       2989
+      ]
+     }
+    ],
+    "name": "typo-important",
+    "prompt": "The first page contained the most importnt",
+    "scored_token_ids": [
+     2989
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "building",
+      "scored_form": " building",
+      "token_ids": [
+       4752
+      ]
+     }
+    ],
+    "name": "typo-building",
+    "prompt": "The fire alarm rang throughout the entire bulding",
+    "scored_token_ids": [
+     4752
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "without",
+      "scored_form": " without",
+      "token_ids": [
+       2041
+      ]
+     }
+    ],
+    "name": "typo-without",
+    "prompt": "He left the house in a hurry and withot",
+    "scored_token_ids": [
+     2041
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "another",
+      "scored_form": " another",
+      "token_ids": [
+       2441
+      ]
+     }
+    ],
+    "name": "typo-another",
+    "prompt": "She reached into the bag and pulled out anther",
+    "scored_token_ids": [
+     2441
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "between",
+      "scored_form": " between",
+      "token_ids": [
+       1948
+      ]
+     }
+    ],
+    "name": "typo-between",
+    "prompt": "The cat squeezed itself into the gap betwen",
+    "scored_token_ids": [
+     1948
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "several",
+      "scored_form": " several",
+      "token_ids": [
+       3807
+      ]
+     }
+    ],
+    "name": "typo-several",
+    "prompt": "The delay lasted for sevral",
+    "scored_token_ids": [
+     3807
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "special",
+      "scored_form": " special",
+      "token_ids": [
+       3281
+      ]
+     }
+    ],
+    "name": "typo-special",
+    "prompt": "The chef prepared a dish for the specal",
+    "scored_token_ids": [
+     3281
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "country",
+      "scored_form": " country",
+      "token_ids": [
+       3146
+      ]
+     }
+    ],
+    "name": "typo-country",
+    "prompt": "She had never traveled outside of her own contry",
+    "scored_token_ids": [
+     3146
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "company",
+      "scored_form": " company",
+      "token_ids": [
+       2813
+      ]
+     }
+    ],
+    "name": "typo-company",
+    "prompt": "He worked at the same software compny",
+    "scored_token_ids": [
+     2813
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "already",
+      "scored_form": " already",
+      "token_ids": [
+       2669
+      ]
+     }
+    ],
+    "name": "typo-already",
+    "prompt": "By noon the tickets were alredy",
+    "scored_token_ids": [
+     2669
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "which",
+      "scored_form": " which",
+      "token_ids": [
+       892
+      ]
+     }
+    ],
+    "name": "typo-which",
+    "prompt": "She could not decide whhich",
+    "scored_token_ids": [
+     892
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "running",
+      "scored_form": " running",
+      "token_ids": [
+       4303
+      ]
+     }
+    ],
+    "name": "typo-running",
+    "prompt": "The water in the sink was still runing",
+    "scored_token_ids": [
+     4303
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "college",
+      "scored_form": " college",
+      "token_ids": [
+       7770
+      ]
+     }
+    ],
+    "name": "typo-college",
+    "prompt": "After high school she applied to colege",
+    "scored_token_ids": [
+     7770
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "million",
+      "scored_form": " million",
+      "token_ids": [
+       3526
+      ]
+     }
+    ],
+    "name": "typo-million",
+    "prompt": "The painting sold for over ten milion",
+    "scored_token_ids": [
+     3526
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "village",
+      "scored_form": " village",
+      "token_ids": [
+       14126
+      ]
+     }
+    ],
+    "name": "typo-village",
+    "prompt": "They stayed in a small fishing vilage",
+    "scored_token_ids": [
+     14126
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "message",
+      "scored_form": " message",
+      "token_ids": [
+       1943
+      ]
+     }
+    ],
+    "name": "typo-message",
+    "prompt": "He checked his phone and saw a new mesage",
+    "scored_token_ids": [
+     1943
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "success",
+      "scored_form": " success",
+      "token_ids": [
+       2393
+      ]
+     }
+    ],
+    "name": "typo-success",
+    "prompt": "The party was considered a great succes",
+    "scored_token_ids": [
+     2393
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "change",
+      "scored_form": " change",
+      "token_ids": [
+       2297
+      ]
+     }
+    ],
+    "name": "typo-change",
+    "prompt": "She reached into her pocket for some loose chagne",
+    "scored_token_ids": [
+     2297
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "length",
+      "scored_form": " length",
+      "token_ids": [
+       3084
+      ]
+     }
+    ],
+    "name": "typo-length",
+    "prompt": "She measured the table's exact lentgh",
+    "scored_token_ids": [
+     3084
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "always",
+      "scored_form": " always",
+      "token_ids": [
+       2677
+      ]
+     }
+    ],
+    "name": "typo-always",
+    "prompt": "She said she would alwyas",
+    "scored_token_ids": [
+     2677
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "island",
+      "scored_form": " island",
+      "token_ids": [
+       12922
+      ]
+     }
+    ],
+    "name": "typo-island",
+    "prompt": "The ferry took them out to the small isalnd",
+    "scored_token_ids": [
+     12922
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "single",
+      "scored_form": " single",
+      "token_ids": [
+       3175
+      ]
+     }
+    ],
+    "name": "typo-single",
+    "prompt": "She did not want to waste a sinlge",
+    "scored_token_ids": [
+     3175
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "little",
+      "scored_form": " little",
+      "token_ids": [
+       2632
+      ]
+     }
+    ],
+    "name": "typo-little",
+    "prompt": "He poured himself a litle",
+    "scored_token_ids": [
+     2632
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "already",
+      "scored_form": " already",
+      "token_ids": [
+       2669
+      ]
+     }
+    ],
+    "name": "typo-already2",
+    "prompt": "By the time she arrived the food was allready",
+    "scored_token_ids": [
+     2669
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "although",
+      "scored_form": " although",
+      "token_ids": [
+       7892
+      ]
+     }
+    ],
+    "name": "typo-although",
+    "prompt": "She agreed to help even allthough",
+    "scored_token_ids": [
+     7892
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "again",
+      "scored_form": " again",
+      "token_ids": [
+       1549
+      ]
+     }
+    ],
+    "name": "typo-again",
+    "prompt": "He promised he would never do it agian",
+    "scored_token_ids": [
+     1549
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "program",
+      "scored_form": " program",
+      "token_ids": [
+       2025
+      ]
+     }
+    ],
+    "name": "typo-program",
+    "prompt": "She enrolled in the graduate programm",
+    "scored_token_ids": [
+     2025
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "model",
+      "scored_form": " model",
+      "token_ids": [
+       1614
+      ]
+     }
+    ],
+    "name": "typo-model",
+    "prompt": "The engineer built a scale moddel",
+    "scored_token_ids": [
+     1614
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "family",
+      "scored_form": " family",
+      "token_ids": [
+       2997
+      ]
+     }
+    ],
+    "name": "typo-family",
+    "prompt": "He spent the holidays with his entire familly",
+    "scored_token_ids": [
+     2997
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "future",
+      "scored_form": " future",
+      "token_ids": [
+       3853
+      ]
+     }
+    ],
+    "name": "typo-future",
+    "prompt": "Nobody could predict what lay in the futture",
+    "scored_token_ids": [
+     3853
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "level",
+      "scored_form": " level",
+      "token_ids": [
+       2188
+      ]
+     }
+    ],
+    "name": "typo-level",
+    "prompt": "The water rose to a dangerous levell",
+    "scored_token_ids": [
+     2188
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "local",
+      "scored_form": " local",
+      "token_ids": [
+       2205
+      ]
+     }
+    ],
+    "name": "typo-local",
+    "prompt": "She bought vegetables at the locall",
+    "scored_token_ids": [
+     2205
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "order",
+      "scored_form": " order",
+      "token_ids": [
+       1973
+      ]
+     }
+    ],
+    "name": "typo-order",
+    "prompt": "He placed the same lunch ordder",
+    "scored_token_ids": [
+     1973
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "power",
+      "scored_form": " power",
+      "token_ids": [
+       2355
+      ]
+     }
+    ],
+    "name": "typo-power",
+    "prompt": "The storm knocked out the powwer",
+    "scored_token_ids": [
+     2355
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "study",
+      "scored_form": " study",
+      "token_ids": [
+       3920
+      ]
+     }
+    ],
+    "name": "typo-study",
+    "prompt": "She stayed up all night to studdy",
+    "scored_token_ids": [
+     3920
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "write",
+      "scored_form": " write",
+      "token_ids": [
+       3270
+      ]
+     }
+    ],
+    "name": "typo-write",
+    "prompt": "The teacher asked them to writte",
+    "scored_token_ids": [
+     3270
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "young",
+      "scored_form": " young",
+      "token_ids": [
+       3908
+      ]
+     }
+    ],
+    "name": "typo-young",
+    "prompt": "She started playing piano when she was very younng",
+    "scored_token_ids": [
+     3908
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "human",
+      "scored_form": " human",
+      "token_ids": [
+       3738
+      ]
+     }
+    ],
+    "name": "typo-human",
+    "prompt": "The discovery changed the course of humman",
+    "scored_token_ids": [
+     3738
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "major",
+      "scored_form": " major",
+      "token_ids": [
+       3598
+      ]
+     }
+    ],
+    "name": "typo-major",
+    "prompt": "The bridge repair was a majjor",
+    "scored_token_ids": [
+     3598
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "often",
+      "scored_form": " often",
+      "token_ids": [
+       3545
+      ]
+     }
+    ],
+    "name": "typo-often",
+    "prompt": "She said she did not visit very offten",
+    "scored_token_ids": [
+     3545
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "present",
+      "scored_form": " present",
+      "token_ids": [
+       3042
+      ]
+     }
+    ],
+    "name": "typo-present",
+    "prompt": "He unwrapped the birthday pressent",
+    "scored_token_ids": [
+     3042
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "product",
+      "scored_form": " product",
+      "token_ids": [
+       1985
+      ]
+     }
+    ],
+    "name": "typo-product",
+    "prompt": "The company released its newest prodduct",
+    "scored_token_ids": [
+     1985
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "project",
+      "scored_form": " project",
+      "token_ids": [
+       2390
+      ]
+     }
+    ],
+    "name": "typo-project",
+    "prompt": "She spent three months on the projject",
+    "scored_token_ids": [
+     2390
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "support",
+      "scored_form": " support",
+      "token_ids": [
+       1824
+      ]
+     }
+    ],
+    "name": "typo-support",
+    "prompt": "He called the help line for technical suport",
+    "scored_token_ids": [
+     1824
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "division",
+      "scored_form": " division",
+      "token_ids": [
+       12804
+      ]
+     }
+    ],
+    "name": "typo-division",
+    "prompt": "The company announced a new sales divission",
+    "scored_token_ids": [
+     12804
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "original",
+      "scored_form": " original",
+      "token_ids": [
+       4024
+      ]
+     }
+    ],
+    "name": "typo-original",
+    "prompt": "The museum displayed the orignal",
+    "scored_token_ids": [
+     4024
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "position",
+      "scored_form": " position",
+      "token_ids": [
+       2309
+      ]
+     }
+    ],
+    "name": "typo-position",
+    "prompt": "She accepted the new possition",
+    "scored_token_ids": [
+     2309
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "material",
+      "scored_form": " material",
+      "token_ids": [
+       3684
+      ]
+     }
+    ],
+    "name": "typo-material",
+    "prompt": "The dress was made of a soft matterial",
+    "scored_token_ids": [
+     3684
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "property",
+      "scored_form": " property",
+      "token_ids": [
+       3343
+      ]
+     }
+    ],
+    "name": "typo-property",
+    "prompt": "He inherited the family propperty",
+    "scored_token_ids": [
+     3343
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "security",
+      "scored_form": " security",
+      "token_ids": [
+       4763
+      ]
+     }
+    ],
+    "name": "typo-security",
+    "prompt": "The building hired extra securrity",
+    "scored_token_ids": [
+     4763
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "training",
+      "scored_form": " training",
+      "token_ids": [
+       4862
+      ]
+     }
+    ],
+    "name": "typo-training",
+    "prompt": "The new employees completed their trainning",
+    "scored_token_ids": [
+     4862
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "football",
+      "scored_form": " football",
+      "token_ids": [
+       8964
+      ]
+     }
+    ],
+    "name": "typo-football",
+    "prompt": "Every Sunday he watched footbal",
+    "scored_token_ids": [
+     8964
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "course",
+      "scored_form": " course",
+      "token_ids": [
+       3308
+      ]
+     }
+    ],
+    "name": "typo-course",
+    "prompt": "She signed up for the evening coruse",
+    "scored_token_ids": [
+     3308
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "house",
+      "scored_form": " house",
+      "token_ids": [
+       3753
+      ]
+     }
+    ],
+    "name": "typo-house",
+    "prompt": "They moved into the new hosue",
+    "scored_token_ids": [
+     3753
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "great",
+      "scored_form": " great",
+      "token_ids": [
+       2244
+      ]
+     }
+    ],
+    "name": "typo-great",
+    "prompt": "The view from the top was graet",
+    "scored_token_ids": [
+     2244
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "light",
+      "scored_form": " light",
+      "token_ids": [
+       3100
+      ]
+     }
+    ],
+    "name": "typo-light",
+    "prompt": "She switched off the bedroom ligth",
+    "scored_token_ids": [
+     3100
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "night",
+      "scored_form": " night",
+      "token_ids": [
+       3729
+      ]
+     }
+    ],
+    "name": "typo-night",
+    "prompt": "He worked late into the nigth",
+    "scored_token_ids": [
+     3729
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "right",
+      "scored_form": " right",
+      "token_ids": [
+       1290
+      ]
+     }
+    ],
+    "name": "typo-right",
+    "prompt": "She turned at the corner and went rigth",
+    "scored_token_ids": [
+     1290
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "control",
+      "scored_form": " control",
+      "token_ids": [
+       2524
+      ]
+     }
+    ],
+    "name": "typo-control",
+    "prompt": "The pilot fought hard to regain contorl",
+    "scored_token_ids": [
+     2524
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "would",
+      "scored_form": " would",
+      "token_ids": [
+       1035
+      ]
+     }
+    ],
+    "name": "typo-would",
+    "prompt": "He asked whether she still woudl",
+    "scored_token_ids": [
+     1035
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "world",
+      "scored_form": " world",
+      "token_ids": [
+       1879
+      ]
+     }
+    ],
+    "name": "typo-world",
+    "prompt": "He wanted to travel all over the wolrd",
+    "scored_token_ids": [
+     1879
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "water",
+      "scored_form": " water",
+      "token_ids": [
+       3015
+      ]
+     }
+    ],
+    "name": "typo-water",
+    "prompt": "She poured a glass of cold watre",
+    "scored_token_ids": [
+     3015
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "market",
+      "scored_form": " market",
+      "token_ids": [
+       3081
+      ]
+     }
+    ],
+    "name": "typo-market",
+    "prompt": "Every Saturday they visited the farmers makret",
+    "scored_token_ids": [
+     3081
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "person",
+      "scored_form": " person",
+      "token_ids": [
+       1697
+      ]
+     }
+    ],
+    "name": "typo-person",
+    "prompt": "She was the last perosn",
+    "scored_token_ids": [
+     1697
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "number",
+      "scored_form": " number",
+      "token_ids": [
+       1372
+      ]
+     }
+    ],
+    "name": "typo-number",
+    "prompt": "He wrote down her phone numbr",
+    "scored_token_ids": [
+     1372
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "within",
+      "scored_form": " within",
+      "token_ids": [
+       2878
+      ]
+     }
+    ],
+    "name": "typo-within",
+    "prompt": "The package should arrive wihtin",
+    "scored_token_ids": [
+     2878
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "second",
+      "scored_form": " second",
+      "token_ids": [
+       2086
+      ]
+     }
+    ],
+    "name": "typo-second",
+    "prompt": "He finished the race in secnod",
+    "scored_token_ids": [
+     2086
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "source",
+      "scored_form": " source",
+      "token_ids": [
+       2530
+      ]
+     }
+    ],
+    "name": "typo-source",
+    "prompt": "The reporter refused to name her soruce",
+    "scored_token_ids": [
+     2530
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "action",
+      "scored_form": " action",
+      "token_ids": [
+       1917
+      ]
+     }
+    ],
+    "name": "typo-action",
+    "prompt": "He decided to take immediate aciton",
+    "scored_token_ids": [
+     1917
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "since",
+      "scored_form": " since",
+      "token_ids": [
+       2474
+      ]
+     }
+    ],
+    "name": "typo-since",
+    "prompt": "She had not seen him sicne",
+    "scored_token_ids": [
+     2474
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "first",
+      "scored_form": " first",
+      "token_ids": [
+       1156
+      ]
+     }
+    ],
+    "name": "typo-first",
+    "prompt": "She was the one who arrived frist",
+    "scored_token_ids": [
+     1156
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "those",
+      "scored_form": " those",
+      "token_ids": [
+       1846
+      ]
+     }
+    ],
+    "name": "typo-those",
+    "prompt": "He pointed across the room and said he wanted thsoe",
+    "scored_token_ids": [
+     1846
+    ]
+   },
+   {
+    "labels": [
+     {
+      "eligible": true,
+      "label": "short",
+      "scored_form": " short",
+      "token_ids": [
+       2805
+      ]
+     }
+    ],
+    "name": "typo-short",
+    "prompt": "The meeting was kept shrot",
+    "scored_token_ids": [
+     2805
+    ]
+   }
+  ],
+  "n_eligible_items": 96,
+  "n_eligible_labels": 96,
+  "n_source_items": 96
+ }
+}

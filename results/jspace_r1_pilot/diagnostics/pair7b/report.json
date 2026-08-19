@@ -1,0 +1,109 @@
+{
+ "E1_reduction_replicates": {
+  "base_union": 0.6419753086419753,
+  "comparison_1p5b": {
+   "base": 0.4074,
+   "distill": 0.1852,
+   "ratio": 0.4545900834560629
+  },
+  "distill_union": 0.09876543209876543,
+  "ratio": 0.15384615384615385,
+  "supported": true
+ },
+ "E2_location_late_band": {
+  "math-7b-base": {
+   "late_max": 0.49382716049382713,
+   "mid_max": 0.04938271604938271
+  },
+  "protocol_note": "The sealed sheet registered a directional expectation, not a numerical threshold. Report both continuous maxima; no Boolean operationalises 'confined to late' or 'approximately zero'.",
+  "r1-distill-7b": {
+   "late_max": 0.09876543209876543,
+   "mid_max": 0.0
+  }
+ },
+ "E3_format_delta": {
+  "distill_7b_delta": 0.012345679012345678,
+  "math_7b_delta": 0.07407407407407407,
+  "protocol_note": "The sealed sheet registered competing directions, not categorical thresholds; report the continuous deltas.",
+  "reference": {
+   "math_1p5b": -0.056,
+   "qwen2p5_7b_it": 0.09259259259259256,
+   "qwen3_1p7b": 0.037
+  }
+ },
+ "E4_association": {
+  "distill_7b_union": 0.0,
+  "general_7b_it_reference": 0.061224489795918366,
+  "math_7b_p": 0.18081918081918083,
+  "math_7b_qualifies": false,
+  "math_7b_union": 0.01020408163265306
+ },
+ "E5_selectivity": {
+  "base_hit_items_common_eligible": 52,
+  "base_only_eligible_items": [],
+  "common_eligible_items": 81,
+  "distill_hit_items_common_eligible": 8,
+  "distill_only_eligible_items": [],
+  "gained_in_distill": [],
+  "lost_in_distill": [
+   "atomic-26-symbol",
+   "atomic-29-symbol",
+   "atomic-79-symbol",
+   "basketball-players",
+   "birthstone-emerald-month",
+   "chem-bones-Z",
+   "chem-organic-Z",
+   "chem-photosynthesis-Z",
+   "christmas-season",
+   "double-dice-faces",
+   "etym-caesar-monthnum",
+   "etym-frigg-position",
+   "etym-janus-monthnum",
+   "etym-saturn-position",
+   "etym-wargod-month",
+   "firstletter-paris-country",
+   "func-filters-count",
+   "func-pumps-chambers",
+   "holiday-christmas-monthnum",
+   "holiday-halloween-monthnum",
+   "holiday-independence-monthnum",
+   "holiday-valentines-monthnum",
+   "inv-antarctica-opposite",
+   "inv-balloon-opposite",
+   "inv-roots-opposite",
+   "inv-sunrise-opposite",
+   "letterpos-carbon-symbol",
+   "letterpos-nitrogen-symbol",
+   "letterpos-oxygen-symbol",
+   "letterpos-water-symbol",
+   "mars-color",
+   "month-1-godof",
+   "month-3-godof",
+   "month-7-namedafter",
+   "planet-3-moons",
+   "rhyme-door-doubled",
+   "rhyme-fix-halved",
+   "rhyme-hive-plusone",
+   "rhyme-shoe-doubled",
+   "rhyme-spoon-orbit",
+   "roman-rings-olympic",
+   "spider-legs",
+   "succ-halloween-nextmonth",
+   "topeka-west"
+  ],
+  "note": "common-eligible item names only; qualitative post-hoc reading; no inferential weight",
+  "overlap": 8
+ },
+ "execution_run_id": "jspace7b-20260818T075715Z-fa3a59ab",
+ "protocol_amendment": "results/prereg/JSPACE_7B_PAIR_AMENDMENT_2_2026-08-18.md",
+ "typo_internal_control": {
+  "math-7b-base": {
+   "qualifies": true,
+   "union": 0.78125
+  },
+  "r1-distill-7b": {
+   "qualifies": true,
+   "union": 0.8125
+  }
+ }
+}
