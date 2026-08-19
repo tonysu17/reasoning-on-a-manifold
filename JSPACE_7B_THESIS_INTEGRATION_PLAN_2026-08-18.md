@@ -1,7 +1,8 @@
 # J-space 7B thesis-integration implementation plan
 
 **Date:** 2026-08-18  
-**Status:** PLANNED — NOT EXECUTED  
+**Status:** EXECUTED 2026-08-19 except Stage 7 (claim-ledger addendum, awaiting
+scope approval) — see completion log  
 **Purpose:** preserve, correct, provenance-bind, and incorporate the completed
 7B matched-pair J-space result without changing its scientific estimands or
 overstating its interpretation.  
@@ -448,15 +449,15 @@ Recommended logical thesis commits:
 
 | Stage | Status | Analysis commit | Thesis commit | Acceptance evidence | Notes |
 |---|---|---|---|---|---|
-| 1. Preserve v1 | pending | — | — | — | — |
-| 2. Reporting v2 | pending | — | — | — | — |
-| 3. Small provenance | pending | — | — | — | — |
-| 4. Memo and ledger | pending | — | — | — | — |
-| 5. Analysis clean commit | pending | — | — | — | — |
-| 6. Evidence snapshot | pending | — | — | — | — |
-| 7. Claim-ledger addendum | pending | — | — | — | scope approval required |
-| 8. Thesis prose | pending | — | — | — | — |
-| 9. Build and commits | pending | — | — | — | — |
+| 1. Preserve v1 | **done 2026-08-19** | `2f23a2f` | — | 37/37 remote-manifest hashes verified pre-commit; 5 preservation hashes match; 24 files, no `.pt`, no unrelated paths | — |
+| 2. Reporting v2 | **done 2026-08-19** | `6103588` (evaluator) + `0a6893f` (outputs) | — | rerun byte-identical (3/3 hashes); 23/23 primary values equal v1; references exact-precision only (1.5B ratio 0.45459→0.454545); E2 no Boolean; E5 retained/lost/gained named; v1 byte-identical | `jspace_pair_report_v2.py`; `REPORTING_ADDENDUM_2026-08-18.md` |
+| 3. Small provenance | **done 2026-08-19** | `0a6893f` | — | 11 files copied byte-for-byte into `pair7b/provenance/`, all match remote manifest; fit metas bind revision/fit-manifest/jlens-commit/git-commit/dim_batch/n_prompts/lens hash; credential scan clean; run logs force-added | no lens weights/checkpoints |
+| 4. Memo and ledger | **done 2026-08-19** | `6865b44` | — | memo 2026-08-19 addendum (E1–E5 + typo, E2 mixed, E5 not cleanly supported, confounded association account, D4 bounded + seq_len−2 note, A0/O1 noted, historical text preserved); ledger B6 rows 7B/A0/O1 + base-control/D4/synthesis corrections + §B Venhoff row; no 7B dollar figure | — |
+| 5. Analysis clean commit | **done 2026-08-19** | `6865b44` | — | worktree at HEAD porcelain-clean (Tony's in-flight `venhoff_official_pca_alignment` files remain untracked in the main tree, excluded from all commits) | snapshot taken from temp worktree |
+| 6. Evidence snapshot | **done 2026-08-19** | `6865b44` | `cdeb3f5` | hardened script refuses dirty sources (full porcelain), validates before replacement, temp-dir build + hash verify, atomic swap, non-zero on missing; both negative tests aborted with old snapshot intact; 154 files; MANIFEST names full commit, dirty=false | — |
+| 7. Claim-ledger addendum | **pending — scope approval required** | — | — | — | awaiting Tony (decision 2 in `thesis/SESSION_HANDOFF_2026-08-19.md` §9) |
+| 8. Thesis prose | **done 2026-08-19** | — | `db42060` (chronology) + `f791ee7` (J-Lens replacement) | stale-phrase audit clean; safety = one compact bounded paragraph; appendix corrected + 7B rows (dagger markers verified against v2); 7B absent from abstract/conclusion; stale prose never committed | — |
+| 9. Build and commits | **done 2026-08-19** | — | `f791ee7` | `tectonic ucl_msc.tex` clean; final-pass log zero undefined refs, zero missing characters (glyph fixed); **68 physical pages, page-neutral vs pre-rewrite worktree — no compensating cut**; `git diff --check` clean; no generated files committed | baseline was 68pp uncommitted / 63pp committed |
 
 ## Stop conditions
 
