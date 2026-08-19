@@ -198,6 +198,7 @@ def annotation_region(
     *,
     include_post_think: bool = False,
     exclude_final_answer_suffix: bool = True,
+    exclude_degenerate_repetition: bool = True,
 ) -> AnnotationRegion:
     """Return the deterministic annotation region of ``window_text``.
 
@@ -219,6 +220,7 @@ def annotation_region(
         window_text,
         include_post_think=include_post_think,
         exclude_final_answer_suffix=exclude_final_answer_suffix,
+        exclude_degenerate_repetition=exclude_degenerate_repetition,
     )
     # The scored region is DERIVED from the request slice, so the two agree by
     # construction — all cuts happen once, in raw space, in _raw_region. (An
@@ -243,6 +245,7 @@ def region_source_text(
     *,
     include_post_think: bool = False,
     exclude_final_answer_suffix: bool = True,
+    exclude_degenerate_repetition: bool = True,
 ) -> str:
     """The annotation region as a slice of the ORIGINAL text.
 
@@ -259,6 +262,7 @@ def region_source_text(
         window_text,
         include_post_think=include_post_think,
         exclude_final_answer_suffix=exclude_final_answer_suffix,
+        exclude_degenerate_repetition=exclude_degenerate_repetition,
     )
     return region
 
@@ -268,6 +272,7 @@ def _raw_region(
     *,
     include_post_think: bool,
     exclude_final_answer_suffix: bool,
+    exclude_degenerate_repetition: bool,
 ) -> tuple[str, list[tuple[str, str]]]:
     """All region cuts, applied once, in raw space.
 
@@ -282,10 +287,11 @@ def _raw_region(
         if marker >= 0:
             exclusions.append(("post_think_response", window_text[marker:cut]))
             cut = marker
-    degen = degenerate_cut(window_text[:cut])
-    if degen is not None:
-        exclusions.append(("degenerate_repetition", window_text[degen:cut]))
-        cut = degen
+    if exclude_degenerate_repetition:
+        degen = degenerate_cut(window_text[:cut])
+        if degen is not None:
+            exclusions.append(("degenerate_repetition", window_text[degen:cut]))
+            cut = degen
     if exclude_final_answer_suffix:
         matches = list(_FINAL_ANSWER_RE.finditer(window_text, 0, cut))
         if matches:
@@ -355,6 +361,7 @@ def validate_coverage(
     *,
     include_post_think: bool = False,
     exclude_final_answer_suffix: bool = True,
+    exclude_degenerate_repetition: bool = True,
     min_material_gap_chars: int = MIN_MATERIAL_GAP_CHARS,
 ) -> CoverageReport:
     """Check that ``spans`` exhaust the annotation region of ``window_text``.
@@ -374,6 +381,7 @@ def validate_coverage(
         window_text,
         include_post_think=include_post_think,
         exclude_final_answer_suffix=exclude_final_answer_suffix,
+        exclude_degenerate_repetition=exclude_degenerate_repetition,
     )
     text = region.text
     cursor = 0

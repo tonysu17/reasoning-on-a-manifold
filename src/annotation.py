@@ -652,6 +652,9 @@ def annotate_chains(
     attempt_guard: Optional[AnnotationAttemptGuard] = None,
     coverage_validation: bool = True,
     include_post_think: bool = False,
+    exclude_final_answer_suffix: bool = True,
+    exclude_degenerate_repetition: bool = True,
+    strict_resume_scope: bool = False,
 ) -> list[dict]:
     """
     Annotate all chains sequentially with checkpointing.
@@ -671,6 +674,9 @@ def annotate_chains(
                      steered chains per task_id (one per behaviour, method,
                      alpha) — pass ("task_id", "behaviour", "method", "alpha")
                      so each steered variant is annotated separately.
+        strict_resume_scope: if True, a coverage-complete checkpoint is skipped
+                     only when its saved region policy and request SHA match the
+                     current request exactly.  A stale row is re-annotated.
 
     Returns list of dicts: original chain fields + "annotations" +
     "annotation_complete" (True iff all chunks succeeded).
@@ -701,9 +707,51 @@ def annotate_chains(
     # existed carry no verdict, so they are eligible for reannotation instead of
     # being skipped as complete — this is what makes the five known defective
     # rows resumable rather than silently trusted.
+    def _request_sha(record: dict) -> Optional[str]:
+        try:
+            request_text = region_source_text(
+                record["chain"],
+                include_post_think=include_post_think,
+                exclude_final_answer_suffix=exclude_final_answer_suffix,
+                exclude_degenerate_repetition=exclude_degenerate_repetition,
+            )
+        except (KeyError, TypeError):
+            return None
+        if (
+            include_post_think is False
+            and exclude_final_answer_suffix is True
+            and exclude_degenerate_repetition is True
+            and strict_resume_scope is False
+        ):
+            # Preserve the historical default digest byte-for-byte so this
+            # opt-in bridge feature does not unseal or re-request any existing
+            # thesis annotation failures.
+            payload = f"{ANNOTATION_PROMPT_VERSION}|{request_text}"
+        else:
+            payload = (
+                f"{ANNOTATION_PROMPT_VERSION}|"
+                f"include_post_think={include_post_think}|"
+                f"exclude_final_answer_suffix={exclude_final_answer_suffix}|"
+                f"exclude_degenerate_repetition={exclude_degenerate_repetition}|"
+                f"{request_text}"
+            )
+        return hashlib.sha256(payload.encode()).hexdigest()
+
     def _is_complete(record: dict) -> bool:
         if coverage_validation:
-            return row_is_coverage_complete(record)
+            if not row_is_coverage_complete(record):
+                return False
+            if strict_resume_scope:
+                expected_policy = {
+                    "include_post_think": bool(include_post_think),
+                    "exclude_final_answer_suffix": bool(exclude_final_answer_suffix),
+                    "exclude_degenerate_repetition": bool(exclude_degenerate_repetition),
+                }
+                if record.get("annotation_region_policy") != expected_policy:
+                    return False
+                if record.get("annotation_request_sha256") != _request_sha(record):
+                    return False
+            return True
         if "annotation_complete" in record:
             return bool(record["annotation_complete"])
         return bool(record.get("annotations"))  # legacy: non-empty → assume complete
@@ -716,7 +764,20 @@ def annotate_chains(
     # record can never match a fully-formed key, so it is simply re-processed.
     def _chain_key(c: dict) -> tuple:
         return tuple(c.get(k) for k in dedup_keys)
-    done_ids = {_chain_key(a) for a in annotated if _is_complete(a)}
+    incoming_by_key = {_chain_key(chain): chain for chain in chains}
+    done_ids = set()
+    for prior_record in annotated:
+        if not _is_complete(prior_record):
+            continue
+        key = _chain_key(prior_record)
+        incoming = incoming_by_key.get(key)
+        if incoming is None:
+            continue
+        if strict_resume_scope and (
+            prior_record.get("annotation_request_sha256") != _request_sha(incoming)
+        ):
+            continue
+        done_ids.add(key)
 
     # Coverage-failure memory. The proxy is NOT perfectly deterministic at
     # temperature 0 (observed 2026-08-11: repeated identical pilot requests
@@ -742,7 +803,10 @@ def annotate_chains(
     }
 
     # Remove partial-completion records so they will be re-processed.
-    annotated = [a for a in annotated if _is_complete(a)]
+    annotated = [
+        a for a in annotated
+        if _chain_key(a) in done_ids and _is_complete(a)
+    ]
 
     # Always iterate all chains; rely on done_ids to skip fully-completed ones.
     new_count = 0
@@ -770,16 +834,18 @@ def annotate_chains(
             # silently annotated as an empty string and marked complete.
             request_text = (
                 region_source_text(chain["chain"],
-                                   include_post_think=include_post_think)
+                                   include_post_think=include_post_think,
+                                   exclude_final_answer_suffix=exclude_final_answer_suffix,
+                                   exclude_degenerate_repetition=exclude_degenerate_repetition)
                 if coverage_validation else chain["chain"]
             )
             # The digest binds the prompt version too: amending the prompt
             # invalidates every seal, so rows that failed under the old prompt
             # are re-requested rather than staying sealed against a request
             # that no longer exists.
-            request_sha = hashlib.sha256(
-                f"{ANNOTATION_PROMPT_VERSION}|{request_text}".encode()
-            ).hexdigest()
+            request_sha = _request_sha(chain)
+            if request_sha is None:  # indexed request_text above normally raises first
+                raise KeyError("chain")
             prior = sealed_failures.get(_chain_key(chain))
             if prior is not None and prior["annotation_request_sha256"] == request_sha:
                 attempts = int(prior.get("annotation_coverage_attempts", 1))
@@ -832,19 +898,25 @@ def annotate_chains(
         if coverage_validation:
             record["annotation_coverage_attempts"] = coverage_attempts
             try:
-                record["annotation_request_sha256"] = hashlib.sha256(
-                    (ANNOTATION_PROMPT_VERSION + "|" + region_source_text(
-                        chain["chain"], include_post_think=include_post_think))
-                    .encode()).hexdigest()
+                record["annotation_request_sha256"] = _request_sha(chain)
             except KeyError:
                 pass  # malformed record (no "chain"): incomplete, always retried
             region = annotation_region(chain.get("chain", ""),
-                                       include_post_think=include_post_think)
+                                       include_post_think=include_post_think,
+                                       exclude_final_answer_suffix=exclude_final_answer_suffix,
+                                       exclude_degenerate_repetition=exclude_degenerate_repetition)
             report = validate_coverage(chain.get("chain", ""), anns,
-                                       include_post_think=include_post_think)
+                                       include_post_think=include_post_think,
+                                       exclude_final_answer_suffix=exclude_final_answer_suffix,
+                                       exclude_degenerate_repetition=exclude_degenerate_repetition)
             record["annotation_coverage"] = report.to_dict()
             record["annotation_coverage_complete"] = bool(complete and report.complete)
             record["annotation_coverage_rule_version"] = COVERAGE_RULE_VERSION
+            record["annotation_region_policy"] = {
+                "include_post_think": bool(include_post_think),
+                "exclude_final_answer_suffix": bool(exclude_final_answer_suffix),
+                "exclude_degenerate_repetition": bool(exclude_degenerate_repetition),
+            }
             # Per-1k denominators must count only what was actually in scope.
             record["annotated_region_tokens"] = region.estimated_tokens
             if not report.complete:

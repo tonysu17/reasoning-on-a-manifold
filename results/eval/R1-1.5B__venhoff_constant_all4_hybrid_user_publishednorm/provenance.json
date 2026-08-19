@@ -1,0 +1,375 @@
+{
+  "git_commit": "fa3a59ab3817b705ff8af3e7bbeae3d56202dbe1",
+  "git_dirty": true,
+  "seed": 42,
+  "args": {
+    "behaviours": "['backtracking', 'uncertainty-estimation', 'example-testing', 'adding-knowledge']",
+    "max_eval_tasks": null,
+    "max_new_tokens": 1000,
+    "alpha": 1.0,
+    "vectors_dir": "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid",
+    "scale_convention": "published-norm",
+    "released_mean_vectors": null,
+    "allow_unverified_released_vectors": false,
+    "out_dir": null,
+    "baseline_source_dir": "results/eval/R1-1.5B__venhoff_constant_all4_user_publishednorm",
+    "dtype": "bfloat16",
+    "model_path": null,
+    "use_4bit": false
+  },
+  "run_contract": {
+    "model": {
+      "public_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "local_snapshot": "/Users/tonysu/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/snapshots/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "model_weight_sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945"
+    },
+    "dtype": "bfloat16",
+    "use_4bit": false,
+    "behaviours": [
+      "backtracking",
+      "uncertainty-estimation",
+      "example-testing",
+      "adding-knowledge"
+    ],
+    "layers": {
+      "backtracking": 17,
+      "uncertainty-estimation": 18,
+      "example-testing": 15,
+      "adding-knowledge": 18
+    },
+    "operator": "h <- h - alpha * v",
+    "mode": "constant_subtract",
+    "alpha": 1.0,
+    "max_new_tokens": 1000,
+    "temperature": 0.0,
+    "annotation": "not_run_by_this_runner",
+    "arms": [
+      "shared vanilla baseline",
+      "venhoff_constant_subtract"
+    ],
+    "vector_source": {
+      "kind": "user_direction_published_norm",
+      "description": "repository hybrid exact-layer unit directions: the current E1 directions are retained exactly for backtracking/example-testing, while uncertainty-estimation/adding-knowledge use the separately reconstructed mixed-vintage L18 directions",
+      "vectors_dir": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid",
+      "metadata": {
+        "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/metadata.json",
+        "sha256": "ea627bdcc8bc6f27115d3ee670a9527a9117a6109672ab3adb48c3dc40407005",
+        "build_provenance": {
+          "builder": "build_venhoff_bridge_hybrid_vectors.py",
+          "builder_sha256": "dfffb32c83465c804d000553f3daaae616394e6d4f97c44bab11774e9ab715b1",
+          "claim_boundary": "Backtracking and example-testing hold the current E1 directions fixed while changing operator/write dose. Uncertainty-estimation and adding-knowledge use reconstructed L18 directions and are a mixed-vintage sensitivity, not the same isolation.",
+          "construction": "byte-for-byte composition of existing unit-vector artefacts; no directions recomputed",
+          "input_sha256": {
+            "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+            "results/steering_vectors/R1-1.5B__E1_pooled/example-testing_single.npy": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+            "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+            "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/adding-knowledge_single.npy": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b",
+            "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+            "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/uncertainty-estimation_single.npy": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6"
+          },
+          "layers": {
+            "adding-knowledge": 18,
+            "backtracking": 17,
+            "example-testing": 15,
+            "uncertainty-estimation": 18
+          },
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+          "provenance_status": "hybrid: exact hashed composition, with unresolved source provenance retained for the E1 backtracking/example-testing leg",
+          "source_contracts": {
+            "current_E1_pooled": {
+              "behaviours": [
+                "backtracking",
+                "example-testing"
+              ],
+              "copy_contract": "exact .npy bytes and float32 values; no direction recomputation",
+              "metadata": "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json",
+              "metadata_sha256": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+              "provenance_status": "unresolved provenance — E1 metadata records git_commit: null and does not hash or uniquely establish its activation inputs",
+              "source_git_commit": null,
+              "source_git_dirty": false
+            },
+            "reconstructed_exact_layer": {
+              "behaviours": [
+                "uncertainty-estimation",
+                "adding-knowledge"
+              ],
+              "copy_contract": "exact .npy bytes and float32 values from the reconstructed asset; no further direction recomputation",
+              "limitation": "Bridge/sensitivity asset only. This is not a clean uniform six-label re-extraction and carries no claim that the target and inert-label rows share one extraction window convention.",
+              "metadata": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json",
+              "metadata_sha256": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+              "provenance_status": "input files and hashes recorded by source asset",
+              "source_contract_status": "mixed clip-window vintages"
+            }
+          }
+        },
+        "provenance_status": "hybrid: exact hashed composition, with unresolved source provenance retained for the E1 backtracking/example-testing leg"
+      },
+      "unit_vectors": {
+        "backtracking": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/backtracking_single.npy",
+          "sha256": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+          "derived_scaled_vector_sha256": "cd6007612fde90c36e91c5daac7cf47375d916b8046394a4d0271b5d3b2dba18"
+        },
+        "uncertainty-estimation": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/uncertainty-estimation_single.npy",
+          "sha256": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6",
+          "derived_scaled_vector_sha256": "3e65be515a7d2b62022299b9515ac44484178c4c39c556a35875160cc9229bb7"
+        },
+        "example-testing": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/example-testing_single.npy",
+          "sha256": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+          "derived_scaled_vector_sha256": "6497216ed8c3ffe714ab067b5c95de3362ede295ff5b46f0a773a74954984766"
+        },
+        "adding-knowledge": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/adding-knowledge_single.npy",
+          "sha256": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b",
+          "derived_scaled_vector_sha256": "5c4aaa1d5a1ccf612f9f5b245db6c751daaf29afdd18768b5e8b921fefc3d939"
+        }
+      },
+      "scale": {
+        "convention": "published-norm",
+        "description": "released Venhoff Qwen-1.5B vector norm applied to the user direction",
+        "values": {
+          "backtracking": 70.868286132812,
+          "uncertainty-estimation": 79.720710754395,
+          "example-testing": 56.323959350586,
+          "adding-knowledge": 79.720710754395
+        },
+        "source": {
+          "repository": "https://github.com/cvenhoff/steering-thinking-llms",
+          "repository_commit_audited": "93259bc3410c99293351df41141cd16b4110422a",
+          "vector_file_commit": "8c8f0a2d2ee41b1173877d488e0ae8565b4de2cc",
+          "mean_vector_file_sha256": "bbf7bcac3758df3236d485c41dcf3033a53fd6333a4abd555290e8ef71419412"
+        }
+      }
+    },
+    "evaluation_split": "last 5 per category",
+    "evaluation_ids_source": {
+      "path": "results/eval/R1-1.5B__E1/eval_task_ids.json",
+      "sha256": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd"
+    },
+    "tasks_source": {
+      "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/tasks_final.json",
+      "sha256": "a4ba180d5722e016c95945867ca6fbcf7abb48640f4b8d0c9e6111c572051b1d"
+    },
+    "evaluation_task_ids": [
+      "CAUS_097",
+      "CAUS_098",
+      "CAUS_099",
+      "CAUS_100",
+      "CAUS_101",
+      "CREA_095",
+      "CREA_096",
+      "CREA_097",
+      "CREA_098",
+      "CREA_099",
+      "LATE_095",
+      "LATE_096",
+      "LATE_097",
+      "LATE_098",
+      "LATE_099",
+      "MATH_102",
+      "MATH_103",
+      "MATH_104",
+      "MATH_105",
+      "MATH_106",
+      "PATT_106",
+      "PATT_107",
+      "PATT_108",
+      "PATT_109",
+      "PATT_110",
+      "PROB_111",
+      "PROB_112",
+      "PROB_113",
+      "PROB_114",
+      "PROB_115",
+      "SCIE_101",
+      "SCIE_102",
+      "SCIE_103",
+      "SCIE_104",
+      "SCIE_105",
+      "SPAT_112",
+      "SPAT_113",
+      "SPAT_114",
+      "SPAT_115",
+      "SPAT_116",
+      "SYST_096",
+      "SYST_097",
+      "SYST_098",
+      "SYST_099",
+      "SYST_100",
+      "VERB_101",
+      "VERB_102",
+      "VERB_103",
+      "VERB_104",
+      "VERB_105"
+    ],
+    "baseline_reuse": {
+      "mode": "validated_shared_vanilla_copy",
+      "source_dir": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/eval/R1-1.5B__venhoff_constant_all4_user_publishednorm",
+      "source_files": {
+        "provenance": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/eval/R1-1.5B__venhoff_constant_all4_user_publishednorm/provenance.json",
+          "sha256": "2b3c8fc2f87bba9639f0682fba5f1b55747abd27a4e06ad91c6a117a8e96dbe6",
+          "bytes": 14433
+        },
+        "steering_results": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/eval/R1-1.5B__venhoff_constant_all4_user_publishednorm/steering_results.json",
+          "sha256": "99eaeb9b4dfa03446baaaaf3545be3f04448a69ad5cca9f05b6435b982ebb8d1",
+          "bytes": 618621
+        },
+        "eval_task_ids": {
+          "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/eval/R1-1.5B__venhoff_constant_all4_user_publishednorm/eval_task_ids.json",
+          "sha256": "49ced0a62415c59349ad3f84b878df0b4b638b93fa90f337b8407532c9b61e46",
+          "bytes": 1265
+        }
+      },
+      "source_run_contract_sha256": "293a87f9d2ec743039b44f0e5004d7b70ed73fd956987920469091a255f505be",
+      "source_record_count": 54,
+      "selected_shared_vanilla_count": 50,
+      "selected_task_ids": [
+        "CAUS_097",
+        "CAUS_098",
+        "CAUS_099",
+        "CAUS_100",
+        "CAUS_101",
+        "CREA_095",
+        "CREA_096",
+        "CREA_097",
+        "CREA_098",
+        "CREA_099",
+        "LATE_095",
+        "LATE_096",
+        "LATE_097",
+        "LATE_098",
+        "LATE_099",
+        "MATH_102",
+        "MATH_103",
+        "MATH_104",
+        "MATH_105",
+        "MATH_106",
+        "PATT_106",
+        "PATT_107",
+        "PATT_108",
+        "PATT_109",
+        "PATT_110",
+        "PROB_111",
+        "PROB_112",
+        "PROB_113",
+        "PROB_114",
+        "PROB_115",
+        "SCIE_101",
+        "SCIE_102",
+        "SCIE_103",
+        "SCIE_104",
+        "SCIE_105",
+        "SPAT_112",
+        "SPAT_113",
+        "SPAT_114",
+        "SPAT_115",
+        "SPAT_116",
+        "SYST_096",
+        "SYST_097",
+        "SYST_098",
+        "SYST_099",
+        "SYST_100",
+        "VERB_101",
+        "VERB_102",
+        "VERB_103",
+        "VERB_104",
+        "VERB_105"
+      ],
+      "selected_source_records_sha256": "c1892b2873d8d79688e2e3362c8f3ccd66dbc15ae4d969bbd2fd081ea5a2412e",
+      "selected_source_record_sha256s": [
+        "0d3dbaf3c58c89efa2a643a46907ead189f36fa463330c2dbe84b1ae03b9ac89",
+        "47d30268ef1fbb0fad5a88915da31336ae8ccf4799909f1cbb454553ee465fb3",
+        "328743fcae3d0352cd3a4d990557b91761d0317ed6af65d9df6cdfbcb71909a7",
+        "b001652f374945ecbf4c2a84090b48586bf0363625f804e7f65d9df9ae966514",
+        "20145764ca3b98518ddb31b8738d97de2c6dacf950d6a6e8a5fb06377d1672f3",
+        "baed4ce880632bd3f8e0a03fc6bdcea5fcc554652ee0ab073b5456c3fd0cccd6",
+        "9def3f0031ff016e3a4f586eee2955cd2fbb5a5b503d4c1383fa164cb87c245b",
+        "942613e2eff5c5065006e97a0fc90a69e533a1c4dd39e35c31a0ddbe34209bd0",
+        "5e67153586885a21c66f036253c7faad59e4a07f5a926a6d303ee499bfd3973a",
+        "ac2ead3caae9229189ca151f7752a51ee669b08350d91fd1dc84a6603ddd0b9d",
+        "731625b28d5672e8c181eb81353f591f4c4038d9521a95770772c04483bb555f",
+        "51309dace19d71ba5ded07826a88f7b77485973f9fc58ad8e721027c2194fe30",
+        "9fea4c2f55c81c3b8d275a1c2eeecd420a6c8c94e3c346afa7d8745abb56ee27",
+        "af26ecb03b244dcc4e6097015845afb6eea2f480a47b723d94d2676b03f90876",
+        "169c32ff8a9760111a6e58eac0826dc18478919c379f0073d03e1b9b93c0ab73",
+        "14768f8e9b01dc4a8df0a41ce7ac0bad860019d98a4291f6dc817e5df3f19f67",
+        "9f0bff2b8359709894a6c301989fbbce986440900a8973faab347abc990c2bcf",
+        "856726dd75a4c99e0440906a6b5c60f2baebed1d49bd7ae6e0419c223f43d282",
+        "a314f64f16302aca1334dea30d87ecf678811705dbe2acb3634136a468a97eb0",
+        "7a5786ddd5d9fce555d430ea65f6bd4238ca11c79248ebc22b7eb936fe223d7c",
+        "b54af7d77f15e7d6e68b2102e1a1df55ee36fb652e63ae769f18c69312a26f9a",
+        "08e6ad6fc3b5a9031ac5ce02329f3462c2b6e919b99a9615b4c19b594649f234",
+        "776dad56160ac51b1b2511120139b32d92b21ec5d114993800dd7fc2aecdabc0",
+        "b97026a99544ed7c64a23a7270d5f93469bbf40d69e0c51ef466f9f0db8b5004",
+        "d38f817bc6aae353b032d7ec0371216305e3fc2b136bd577c5220c3752e5ac63",
+        "92bbf220f2a679ff36fd2666f2b61b0415987adcc069fc113107aa5e901875f0",
+        "a2556f6e6cdd5357a3e87901272105b881d401d2f3390c5d6b37ec14181f1059",
+        "d4128451e84fe19a1fa0ad546a1b6c069f9f402d3b7a3d0a947f4e05d502afa1",
+        "3050d07b63f6115acee3e78e8a98bb49fa7b0cf3a6e09a8745b0661a9807732a",
+        "17602e7b9652a840c33ff3b07ea75d9681ec6810d96ef0d3a5743c40e2834af4",
+        "e21938700d810029ee5005572a61847939600faef86d311abdf4b3cdbed75c54",
+        "2d65171eec69c9316667ff2bdfceea9e9437f950da355809a8934e37b32f73ad",
+        "db953711eb8a08a579784bdd19158d852681029a15ee5d2af3541412e45d262f",
+        "d6ee6b0738342e6e8b5c2270c93f0585214457e17e9eb632009d8a7cd1366ba4",
+        "a8be419049b2e7ac65d6d5295c18d9337ddb1d0a566ef68fb8dfbe4d86c2744d",
+        "d31e7600fdb499237e23ff06c82df0c6ca0fc147c9638b7abea66b2601ca3792",
+        "68c381eed4af16c21ba03744f1665a332ba5fc4d27a334c45586081305263962",
+        "867599977a0660611989a630757dddb3f1af9427e4adf18cf21561b4beb8aa0e",
+        "306c76da1370df4434da3a5f66d36efd6d1f40f892f8a2ada7ca67bfece08705",
+        "4dd2af9ca8541201df5de4bc4f1c27906884a9ea68f7a9f3d5da26941faff307",
+        "5d3eb384d3d31431fae79ec96e7b7c2ee65601d329767e51f9e9c9db63778b1b",
+        "2a2f7a0cd72184c84e4e47e4a824e2e08c805cc63dcda1fd02fe0aeb39aab85a",
+        "4657716b7adb45d293c20d55f3b2b02505a0dee65b6497582e4f97ff02d947f5",
+        "cff97b6d72102b6001f7cfc1b230f88977928c34a92f4868334fd298851c688a",
+        "bb913c2578c878291259f1ef96b779202f209efdcd5e73d564010d0780557773",
+        "1a48e354f575eedd6e81cea51d8c6baa0940b0641678d780defc1fcae91911e9",
+        "38c8781db793c24cb0792a0e0364ac8d1941e05248421f8828cb162b50f09d25",
+        "5fa1b1def0aa09d9af9abba114b99410e2488564b412e392d303d8500158f6f7",
+        "a684a63d0bcf5201d735ecb80c0c2fd54425f886aa222aef2350d18452968831",
+        "ded1a893795d62339a01014ef8bdf2bd741946e77ba301ed6c91aa0948db3d88"
+      ],
+      "ignored_nonbaseline_count": 4,
+      "ignored_nonbaseline_arms": {
+        "backtracking::venhoff_constant_subtract::alpha=1.0": 4
+      },
+      "foreign_arms_used": false,
+      "validated_protocol": {
+        "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+        "model_weight_sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+        "dtype": "bfloat16",
+        "use_4bit": false,
+        "max_new_tokens": 1000,
+        "decoding": "greedy",
+        "temperature": 0.0,
+        "evaluation_ids_source_sha256": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd",
+        "tasks_source_sha256": "a4ba180d5722e016c95945867ca6fbcf7abb48640f4b8d0c9e6111c572051b1d",
+        "prompt_format": {
+          "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+          "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+          "tokenizer_files": {
+            "tokenizer.json": {
+              "path": "/Users/tonysu/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/blobs/a34650995da6939a945c330eadb0687147ac3ef8",
+              "sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773"
+            },
+            "tokenizer_config.json": {
+              "path": "/Users/tonysu/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/blobs/9967ff32d94b21c94dc7e2b3bcbea295a46cde50",
+              "sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5"
+            }
+          },
+          "runtime_chat_template_sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "formatter_source": {
+            "path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/src/model_adapters.py",
+            "sha256": "3e3074747f9dc5e218866e92f57d75abdd72a9f403c724e5e8824f6f23c42a99"
+          },
+          "formatted_prompts_sha256": "27623274b1ec8c824e758a25b62fce1b6c246501a15b140672093c63ad81ae43"
+        }
+      }
+    }
+  },
+  "run_contract_sha256": "0bd4f64b79927d106d50ef5864518a8461582eb31dbf2a1cf8d5df8205b2b1d4"
+}

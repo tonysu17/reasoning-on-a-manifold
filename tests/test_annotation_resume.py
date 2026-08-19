@@ -418,6 +418,53 @@ def test_legacy_record_with_empty_annotations_is_retried(tmp_path, monkeypatch):
     assert result[0]["annotation_complete"] is True
 
 
+def test_strict_resume_scope_reannotates_stale_complete_checkpoint(
+    tmp_path, monkeypatch
+):
+    """Bridge mode must not skip a complete row from a different request."""
+    out = tmp_path / "ann.json"
+    chain_text = "Let me restate the problem.Therefore x = 2."
+    chain = _phase7_chain(
+        "t0", "backtracking", "single_direction", 8.0, chain_text
+    )
+    stale = {
+        **chain,
+        "annotations": [
+            {"label": "deduction", "text": chain_text},
+        ],
+        "annotation_complete": True,
+        "annotation_coverage": {
+            "rule_version": ann.COVERAGE_RULE_VERSION,
+            "complete": True,
+        },
+        "annotation_coverage_complete": True,
+        "annotation_coverage_rule_version": ann.COVERAGE_RULE_VERSION,
+        "annotation_region_policy": {
+            "include_post_think": False,
+            "exclude_final_answer_suffix": False,
+            "exclude_degenerate_repetition": False,
+        },
+        "annotation_request_sha256": "0" * 64,
+    }
+    out.write_text(json.dumps([stale]))
+    stub = _ProxyStub(lambda i, prompt: GOOD_RESPONSE)
+    monkeypatch.setattr(ann, "_proxy_call", stub)
+
+    result = annotate_chains(
+        [chain],
+        save_path=out,
+        dedup_keys=("task_id",),
+        coverage_validation=True,
+        include_post_think=False,
+        exclude_final_answer_suffix=False,
+        exclude_degenerate_repetition=False,
+        strict_resume_scope=True,
+    )
+    assert stub.calls == 1
+    assert result[0]["annotation_request_sha256"] != "0" * 64
+    assert result[0]["annotation_coverage_complete"] is True
+
+
 # ── 7. env-var absence handling at the transport boundary ─────────────────────
 
 def test_proxy_call_missing_env_raises_keyerror(monkeypatch):

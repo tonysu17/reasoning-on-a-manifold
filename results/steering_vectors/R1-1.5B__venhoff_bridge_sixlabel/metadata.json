@@ -1,0 +1,334 @@
+{
+  "_provenance": {
+    "builder": "build_venhoff_bridge_sixlabel_vectors.py",
+    "git_commit": "fa3a59ab3817b705ff8af3e7bbeae3d56202dbe1",
+    "git_dirty": true,
+    "holdout": {
+      "implementation": "exact manifest ids removed through each source's matching row_index.json; split not recomputed",
+      "manifest": "results/eval/R1-1.5B__E1/eval_task_ids.json",
+      "manifest_sha256": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd",
+      "n_task_ids": 50,
+      "rule_as_recorded": "last 5 per category",
+      "task_ids": [
+        "CAUS_097",
+        "CAUS_098",
+        "CAUS_099",
+        "CAUS_100",
+        "CAUS_101",
+        "CREA_095",
+        "CREA_096",
+        "CREA_097",
+        "CREA_098",
+        "CREA_099",
+        "LATE_095",
+        "LATE_096",
+        "LATE_097",
+        "LATE_098",
+        "LATE_099",
+        "MATH_102",
+        "MATH_103",
+        "MATH_104",
+        "MATH_105",
+        "MATH_106",
+        "PATT_106",
+        "PATT_107",
+        "PATT_108",
+        "PATT_109",
+        "PATT_110",
+        "PROB_111",
+        "PROB_112",
+        "PROB_113",
+        "PROB_114",
+        "PROB_115",
+        "SCIE_101",
+        "SCIE_102",
+        "SCIE_103",
+        "SCIE_104",
+        "SCIE_105",
+        "SPAT_112",
+        "SPAT_113",
+        "SPAT_114",
+        "SPAT_115",
+        "SPAT_116",
+        "SYST_096",
+        "SYST_097",
+        "SYST_098",
+        "SYST_099",
+        "SYST_100",
+        "VERB_101",
+        "VERB_102",
+        "VERB_103",
+        "VERB_104",
+        "VERB_105"
+      ]
+    },
+    "input_sha256": {
+      "data/activations/R1-1.5B/adding-knowledge_layer15.npy": "5433ce0d3da76c151c4fec8f3ab0bae5406e1d4afb51921045b145a492a624f3",
+      "data/activations/R1-1.5B/adding-knowledge_layer17.npy": "f4a6dbe4a9ad95c7f584b744fe5ea5aacd4d12b703f8c19cf3d1d1821b31c6cd",
+      "data/activations/R1-1.5B/adding-knowledge_layer18.npy": "b35d4e41c11ec214d24bb3266a9b0ba64fdb5abbf8b5ed5ab27ea0ca8c3cd879",
+      "data/activations/R1-1.5B/backtracking_layer15.npy": "cbb3385f33fba05d362c49719a83dbf8637a6ca894bfb67ab54a2639dce95804",
+      "data/activations/R1-1.5B/backtracking_layer17.npy": "37a0a82a0bca96c85e0d91862f30fcb0b0c9bcb7255aa4f2a510655f7cf2847d",
+      "data/activations/R1-1.5B/backtracking_layer18.npy": "e120a3f49321e0f5e7ec6e862b4d715a9ec5b7117d0d8da64b3707c9e78f2a49",
+      "data/activations/R1-1.5B/example-testing_layer15.npy": "5baabcc9edf3abc0985263a22b30e4ab827c68e83c75620025cb14ff1215e39d",
+      "data/activations/R1-1.5B/example-testing_layer17.npy": "1dad5968083a1f4ba1bbaff3c7decc61e59bec355b19313f4c219c99ef8a4c9e",
+      "data/activations/R1-1.5B/example-testing_layer18.npy": "840b2718ec05762e37bf8ba61ea77fedb0285ec299903136d4e46c6cf2b96cdd",
+      "data/activations/R1-1.5B/metadata.json": "23220c350f165399e6a4b522af0fe3248b8912db2fc707f65ce044cfcaa4dfd1",
+      "data/activations/R1-1.5B/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer15.npy": "d3b9c029837ad533e1d1be0b691c5b9aefeed6e0a15a8692c68620bffa4d12d9",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer17.npy": "0519637da893b60033f761241059061d2c7576a0d6c0c234fd2da6d379c12d5e",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer18.npy": "c0fc25383155fea97b3815bee0e2b83029d44670c0668f768a486f64604b8990",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer15.npy": "0769b25984ae9051b894cff765a00f9e7bb5c32519bc49b201b619a36e007582",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer17.npy": "d89e5cfba8b0caf0fc2b88a4bb78f7f040d6528b29617aa06b142e11e00b1377",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer18.npy": "b0554b25f080bd18337f20bb50526068b84c7d415886e8518491bd28cb0b7b1d",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer15.npy": "52c9b4517e294bc0bc662049781c5f88fa45402b929f97363be03f24f56d17fe",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer17.npy": "f68d0f5337d802ce3f458129889bf04d16f842ba58d45861057ca63a87a48c12",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer18.npy": "0794fa2a1b72aa82f76612c7767f15c5bec7d48bdcafa244cca13aceff643ae3",
+      "data/activations/_volume_R1-1.5B_6label_archive/metadata.json": "96e70605497fbf946894e91d7e30bb41340bbeb745c7cdd5c9341b565650d655",
+      "data/activations/_volume_R1-1.5B_6label_archive/row_index.json": "d5a267d272ee7cab2cabed9aca2151a4700162a8aba7ac8c6b25b2831475af0b",
+      "results/eval/R1-1.5B__E1/eval_task_ids.json": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd"
+    },
+    "layers": {
+      "adding-knowledge": 18,
+      "backtracking": 17,
+      "example-testing": 15,
+      "uncertainty-estimation": 18
+    },
+    "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "normalization": "L2 unit norm; no Venhoff magnitude scaling applied here",
+    "reference_verification_not_used_in_construction": {
+      "backtracking": {
+        "cosine": 0.9994558691978455,
+        "one_minus_cosine": 0.000544130802154541,
+        "reference": "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy",
+        "reference_sha256": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+        "same_layer": true
+      },
+      "example-testing": {
+        "cosine": 0.9994627833366394,
+        "one_minus_cosine": 0.0005372166633605957,
+        "reference": "results/steering_vectors/R1-1.5B__E1_pooled/example-testing_single.npy",
+        "reference_sha256": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+        "same_layer": true
+      }
+    },
+    "source_contract": {
+      "archived_inert_labels": {
+        "clip_window_to_sentence_end": true,
+        "labels": [
+          "deduction",
+          "initializing"
+        ],
+        "root": "data/activations/_volume_R1-1.5B_6label_archive",
+        "row_index": "data/activations/_volume_R1-1.5B_6label_archive/row_index.json"
+      },
+      "shared_fields_checked": {
+        "n_execution": [
+          10,
+          10
+        ],
+        "n_preceding": [
+          1,
+          1
+        ],
+        "pooling": [
+          "mean",
+          "mean"
+        ],
+        "sentence_matching": [
+          "occurrence_aware_v1",
+          "occurrence_aware_v1"
+        ]
+      },
+      "status": "mixed clip-window vintages",
+      "target_labels": {
+        "clip_window_to_sentence_end": false,
+        "labels": [
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "root": "data/activations/R1-1.5B",
+        "row_index": "data/activations/R1-1.5B/row_index.json"
+      },
+      "warning": "Bridge/sensitivity asset only. This is not a clean uniform six-label re-extraction and carries no claim that the target and inert-label rows share one extraction window convention."
+    },
+    "vector_definition": "unit(mean(target rows) - mean(concatenated rows from the other five labels)); direction-equivalent after unit normalization to mean(target) - frequency-weighted mean(overall six labels)"
+  },
+  "adding-knowledge": {
+    "auto_k": null,
+    "counts_by_label": {
+      "adding-knowledge": {
+        "excluded": 310,
+        "raw": 5027,
+        "retained": 4717
+      },
+      "backtracking": {
+        "excluded": 669,
+        "raw": 10267,
+        "retained": 9598
+      },
+      "deduction": {
+        "excluded": 1706,
+        "raw": 34848,
+        "retained": 33142
+      },
+      "example-testing": {
+        "excluded": 364,
+        "raw": 5829,
+        "retained": 5465
+      },
+      "initializing": {
+        "excluded": 283,
+        "raw": 4863,
+        "retained": 4580
+      },
+      "uncertainty-estimation": {
+        "excluded": 1018,
+        "raw": 16728,
+        "retained": 15710
+      }
+    },
+    "k_values": [],
+    "layer": 18,
+    "n_excluded": 310,
+    "n_off": 68495,
+    "n_on": 4717,
+    "raw_difference_norm": 18.792224884033203,
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/adding-knowledge_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b"
+  },
+  "backtracking": {
+    "auto_k": null,
+    "counts_by_label": {
+      "adding-knowledge": {
+        "excluded": 310,
+        "raw": 5027,
+        "retained": 4717
+      },
+      "backtracking": {
+        "excluded": 669,
+        "raw": 10267,
+        "retained": 9598
+      },
+      "deduction": {
+        "excluded": 1706,
+        "raw": 34848,
+        "retained": 33142
+      },
+      "example-testing": {
+        "excluded": 364,
+        "raw": 5829,
+        "retained": 5465
+      },
+      "initializing": {
+        "excluded": 283,
+        "raw": 4863,
+        "retained": 4580
+      },
+      "uncertainty-estimation": {
+        "excluded": 1018,
+        "raw": 16728,
+        "retained": 15710
+      }
+    },
+    "k_values": [],
+    "layer": 17,
+    "n_excluded": 669,
+    "n_off": 63614,
+    "n_on": 9598,
+    "raw_difference_norm": 20.554588317871094,
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/backtracking_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "28867c51ce7020d07bcdb3def570a63e0e16ff14b36174d7bf40af75e1b92e27"
+  },
+  "example-testing": {
+    "auto_k": null,
+    "counts_by_label": {
+      "adding-knowledge": {
+        "excluded": 310,
+        "raw": 5027,
+        "retained": 4717
+      },
+      "backtracking": {
+        "excluded": 669,
+        "raw": 10267,
+        "retained": 9598
+      },
+      "deduction": {
+        "excluded": 1706,
+        "raw": 34848,
+        "retained": 33142
+      },
+      "example-testing": {
+        "excluded": 364,
+        "raw": 5829,
+        "retained": 5465
+      },
+      "initializing": {
+        "excluded": 283,
+        "raw": 4863,
+        "retained": 4580
+      },
+      "uncertainty-estimation": {
+        "excluded": 1018,
+        "raw": 16728,
+        "retained": 15710
+      }
+    },
+    "k_values": [],
+    "layer": 15,
+    "n_excluded": 364,
+    "n_off": 67747,
+    "n_on": 5465,
+    "raw_difference_norm": 14.507848739624023,
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/example-testing_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "a57e0169a9e17b0527d3d5e4d4a4956f22e5fba6731d233c21ce73d31c785e43"
+  },
+  "uncertainty-estimation": {
+    "auto_k": null,
+    "counts_by_label": {
+      "adding-knowledge": {
+        "excluded": 310,
+        "raw": 5027,
+        "retained": 4717
+      },
+      "backtracking": {
+        "excluded": 669,
+        "raw": 10267,
+        "retained": 9598
+      },
+      "deduction": {
+        "excluded": 1706,
+        "raw": 34848,
+        "retained": 33142
+      },
+      "example-testing": {
+        "excluded": 364,
+        "raw": 5829,
+        "retained": 5465
+      },
+      "initializing": {
+        "excluded": 283,
+        "raw": 4863,
+        "retained": 4580
+      },
+      "uncertainty-estimation": {
+        "excluded": 1018,
+        "raw": 16728,
+        "retained": 15710
+      }
+    },
+    "k_values": [],
+    "layer": 18,
+    "n_excluded": 1018,
+    "n_off": 57502,
+    "n_on": 15710,
+    "raw_difference_norm": 23.237598419189453,
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/uncertainty-estimation_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6"
+  }
+}

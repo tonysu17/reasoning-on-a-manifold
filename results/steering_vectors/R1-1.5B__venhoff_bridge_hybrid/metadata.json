@@ -1,0 +1,118 @@
+{
+  "_provenance": {
+    "builder": "build_venhoff_bridge_hybrid_vectors.py",
+    "builder_sha256": "dfffb32c83465c804d000553f3daaae616394e6d4f97c44bab11774e9ab715b1",
+    "claim_boundary": "Backtracking and example-testing hold the current E1 directions fixed while changing operator/write dose. Uncertainty-estimation and adding-knowledge use reconstructed L18 directions and are a mixed-vintage sensitivity, not the same isolation.",
+    "construction": "byte-for-byte composition of existing unit-vector artefacts; no directions recomputed",
+    "input_sha256": {
+      "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+      "results/steering_vectors/R1-1.5B__E1_pooled/example-testing_single.npy": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+      "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/adding-knowledge_single.npy": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/uncertainty-estimation_single.npy": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6"
+    },
+    "layers": {
+      "adding-knowledge": 18,
+      "backtracking": 17,
+      "example-testing": 15,
+      "uncertainty-estimation": 18
+    },
+    "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "provenance_status": "hybrid: exact hashed composition, with unresolved source provenance retained for the E1 backtracking/example-testing leg",
+    "source_contracts": {
+      "current_E1_pooled": {
+        "behaviours": [
+          "backtracking",
+          "example-testing"
+        ],
+        "copy_contract": "exact .npy bytes and float32 values; no direction recomputation",
+        "metadata": "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json",
+        "metadata_sha256": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+        "provenance_status": "unresolved provenance \u2014 E1 metadata records git_commit: null and does not hash or uniquely establish its activation inputs",
+        "source_git_commit": null,
+        "source_git_dirty": false
+      },
+      "reconstructed_exact_layer": {
+        "behaviours": [
+          "uncertainty-estimation",
+          "adding-knowledge"
+        ],
+        "copy_contract": "exact .npy bytes and float32 values from the reconstructed asset; no further direction recomputation",
+        "limitation": "Bridge/sensitivity asset only. This is not a clean uniform six-label re-extraction and carries no claim that the target and inert-label rows share one extraction window convention.",
+        "metadata": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json",
+        "metadata_sha256": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+        "provenance_status": "input files and hashes recorded by source asset",
+        "source_contract_status": "mixed clip-window vintages"
+      }
+    }
+  },
+  "adding-knowledge": {
+    "array_equal_to_source": true,
+    "byte_identical_to_source": true,
+    "interpretation": "Exact-layer six-label reconstruction from mixed clip-window vintages; this arm does not isolate only operator/write dose relative to the thesis E1 direction.",
+    "layer": 18,
+    "n_excluded": 310,
+    "n_off": 68495,
+    "n_on": 4717,
+    "source_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/adding-knowledge_single.npy",
+    "source_kind": "reconstructed_exact_layer_six_label_direction",
+    "source_metadata": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json",
+    "source_metadata_sha256": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+    "source_sha256": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b",
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/adding-knowledge_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b"
+  },
+  "backtracking": {
+    "array_equal_to_source": true,
+    "byte_identical_to_source": true,
+    "interpretation": "Exact current thesis E1 direction; changing the operator and write dose can be isolated while holding this direction fixed.",
+    "layer": 17,
+    "n_excluded": 669,
+    "n_off": 63614,
+    "n_on": 9598,
+    "source_file": "results/steering_vectors/R1-1.5B__E1_pooled/backtracking_single.npy",
+    "source_kind": "exact_current_E1_pooled_single_direction",
+    "source_metadata": "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json",
+    "source_metadata_sha256": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+    "source_sha256": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/backtracking_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca"
+  },
+  "example-testing": {
+    "array_equal_to_source": true,
+    "byte_identical_to_source": true,
+    "interpretation": "Exact current thesis E1 direction; changing the operator and write dose can be isolated while holding this direction fixed.",
+    "layer": 15,
+    "n_excluded": 364,
+    "n_off": 67747,
+    "n_on": 5465,
+    "source_file": "results/steering_vectors/R1-1.5B__E1_pooled/example-testing_single.npy",
+    "source_kind": "exact_current_E1_pooled_single_direction",
+    "source_metadata": "results/steering_vectors/R1-1.5B__E1_pooled/metadata.json",
+    "source_metadata_sha256": "0f756b9cbe1ec8f470625000784bdae1a07338987e01e2fcb1f7268e0eddd886",
+    "source_sha256": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/example-testing_single.npy",
+    "vector_norm": 0.9999999403953552,
+    "vector_sha256": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb"
+  },
+  "uncertainty-estimation": {
+    "array_equal_to_source": true,
+    "byte_identical_to_source": true,
+    "interpretation": "Exact-layer six-label reconstruction from mixed clip-window vintages; this arm does not isolate only operator/write dose relative to the thesis E1 direction.",
+    "layer": 18,
+    "n_excluded": 1018,
+    "n_off": 57502,
+    "n_on": 15710,
+    "source_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/uncertainty-estimation_single.npy",
+    "source_kind": "reconstructed_exact_layer_six_label_direction",
+    "source_metadata": "results/steering_vectors/R1-1.5B__venhoff_bridge_sixlabel/metadata.json",
+    "source_metadata_sha256": "b5e1bcad30b7741cc71a799c7b00a66ebc649c0e349ac15827403aa80fb89196",
+    "source_sha256": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6",
+    "vector_file": "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/uncertainty-estimation_single.npy",
+    "vector_norm": 1.0,
+    "vector_sha256": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6"
+  }
+}

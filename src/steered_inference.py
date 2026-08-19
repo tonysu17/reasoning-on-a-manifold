@@ -7,6 +7,17 @@ autoregressive generation, implementing Huang et al. Equation 3:
     h' = h − α · (r^T h) · r      [subtract mode — reduce the behaviour]
     h' = h + α · (r^T h) · r      [add mode     — amplify the behaviour]
 
+It also exposes an explicitly separate constant-offset operator for protocol
+bridges to Venhoff et al.:
+
+    h' = h − α · s · r            [constant_subtract]
+    h' = h + α · s · r            [constant_add]
+
+Here ``s`` is ``energy_scale``.  Unlike the projective operators, the constant
+offset is independent of the current activation.  Keeping distinct mode names
+prevents a Venhoff-style intervention from being silently conflated with the
+thesis's projective ablation.
+
 (The hook applies to every position, prompt prefill included, matching Huang;
 vectors from src/steering.py are unit-norm, so α is the full scale knob.)
 
@@ -267,6 +278,9 @@ class SteeredModel:
         #: delivered |αᵀh| matches the behaviour arm's mean projection energy
         #: (a random unit r has smaller |r·h| than a behaviour-aligned one, so
         #: this rescales it UP to inject equal energy). See energy_matched_scale.
+        #: In ``constant_{subtract,add}`` mode it is the fixed vector dose ``s``
+        #: in h' = h ± alpha*s*r.  A unit ``r`` plus ``s=||v||`` therefore
+        #: applies the full constant vector ``v`` at every hooked position.
         self.energy_scale = float(energy_scale)
         self._hook_handle = None
         #: Running accumulators for the mean |rᵀh| this vector saw during the
@@ -283,6 +297,7 @@ class SteeredModel:
         device = next(model.parameters()).device
         dtype = next(model.parameters()).dtype
         self._r = torch.tensor(vector, dtype=torch.float32).to(device)
+        self._r_norm = float(torch.linalg.vector_norm(self._r).item())
 
     def _hook_fn(self, module, input, output):
         import torch
@@ -291,9 +306,14 @@ class SteeredModel:
         # would silently index the first BATCH element — handle both shapes.
         is_tuple = isinstance(output, tuple)
         hidden = output[0] if is_tuple else output
-        h = hidden.float()             # (batch, seq, hidden)
         r = self._r                    # (hidden,)
-        proj = torch.einsum("bsd,d->bs", h, r).unsqueeze(-1)   # (batch, seq, 1)
+        # Projection diagnostics stay in fp32.  The constant-offset write below
+        # deliberately does NOT use this fp32 copy: Venhoff casts the fully
+        # scaled vector to the layer dtype and directly adds/subtracts it from
+        # the layer output (bf16 in the published runs).
+        proj = torch.einsum(
+            "bsd,d->bs", hidden.float(), r
+        ).unsqueeze(-1)   # (batch, seq, 1)
         # Record the per-position projection energy |rᵀh| (pre-scale) so the
         # energy-matched control can be calibrated against the behaviour arm.
         self._abs_proj_sum += float(proj.abs().sum().item())
@@ -303,6 +323,23 @@ class SteeredModel:
             # hidden state through untouched. Used to calibrate the energy-
             # matched control against the behaviour arm on identical activations.
             return output
+        if self.mode in ("constant_subtract", "constant_add"):
+            # Venhoff-compatible direct constant write.  Scale in fp32 first,
+            # then cast the COMPLETE vector to the residual dtype before the
+            # arithmetic.  This matches ``layer.output -= vector.to(dtype)`` and
+            # ensures the result is wholly independent of the current h.
+            sign = -1.0 if self.mode == "constant_subtract" else 1.0
+            fixed = (
+                sign * self.alpha * self.energy_scale * r
+            ).to(device=hidden.device, dtype=hidden.dtype)
+            edited = hidden + fixed.view(1, 1, -1)
+            n_positions = int(hidden.shape[0] * hidden.shape[1])
+            fixed_norm = float(torch.linalg.vector_norm(fixed.float()).item())
+            self._disp_sum += fixed_norm * n_positions
+            self._disp_count += n_positions
+            return ((edited,) + output[1:]) if is_tuple else edited
+
+        h = hidden.float()             # (batch, seq, hidden)
         if self.mode == "clamp":
             # Move the r-coordinate a fraction β toward the class-mean value: the
             # data-bounded intervention (interchange-swap analogue). β=1 is a full
@@ -310,18 +347,32 @@ class SteeredModel:
             coord_delta = self.clamp_gain * (self.clamp_value - proj)  # (b, s, 1)
         elif self.mode == "subtract":
             coord_delta = -(self.alpha * self.energy_scale) * proj
-        else:  # "add"
+        elif self.mode == "add":
             coord_delta = (self.alpha * self.energy_scale) * proj
-        self._disp_sum += float(coord_delta.abs().sum().item())
+        else:
+            raise ValueError(
+                "mode must be one of 'measure', 'clamp', 'subtract', 'add', "
+                "'constant_subtract', or 'constant_add'; "
+                f"got {self.mode!r}"
+            )
+        # L2 norm of the residual-stream edit at each position.  Existing
+        # projective/manifold vectors are unit norm, so this is numerically the
+        # same diagnostic they recorded before.  Including ||r|| makes it honest
+        # for an externally supplied full-norm constant vector as well.
+        self._disp_sum += float(coord_delta.abs().sum().item()) * self._r_norm
         self._disp_count += int(coord_delta.numel())
         h = h + coord_delta * r.view(1, 1, -1)
         h = h.to(hidden.dtype)
         return ((h,) + output[1:]) if is_tuple else h
 
     def mean_abs_displacement(self) -> Optional[float]:
-        """Mean realized |Δ(rᵀh)| the intervention delivered during the last
-        generate() (None if unused). The matching variable for clamp-vs-
-        projective comparisons (E10 P2)."""
+        """Mean realized residual-stream L2 edit per hooked position.
+
+        For the unit directions used by the projective and clamp experiments,
+        this equals the prior ``|Δ(rᵀh)|`` diagnostic.  For a constant-offset
+        arm it is ``|alpha * energy_scale| * ||r||`` and therefore reports the
+        actual norm of the fixed write.  Returns None if the hook was unused.
+        """
         if self._disp_count == 0:
             return None
         return self._disp_sum / self._disp_count
@@ -353,8 +404,9 @@ class SteeredModel:
         deterministic). Mirrors ``src.chain_gen.generate_chain``'s seed handling.
 
         Returns:
-            {instruction, chain, n_tokens, alpha, mode, layer, energy_scale,
-             mean_abs_proj, temperature, seed}
+            {instruction, prompt, chain, full_text, n_tokens, alpha, mode, layer, energy_scale,
+             vector_norm, mean_abs_proj, mean_abs_displacement, temperature,
+             seed}
         """
         import torch
         from src.chain_gen import format_prompt, _seed_torch
@@ -391,13 +443,17 @@ class SteeredModel:
         chain = self.tokenizer.decode(new_ids, skip_special_tokens=True)
         return {
             "instruction": instruction,
+            "prompt": prompt,
             "chain": chain,
+            "full_text": prompt + chain,
             "n_tokens": len(new_ids),
             "alpha": self.alpha,
             "mode": self.mode,
             "layer": self.layer,
             "energy_scale": self.energy_scale,
+            "vector_norm": self._r_norm,
             "mean_abs_proj": self.mean_abs_projection(),
+            "mean_abs_displacement": self.mean_abs_displacement(),
             "temperature": float(temperature),
             "seed": int(seed),
         }
@@ -517,7 +573,9 @@ class SteeredModel:
                 "mode": self.mode,
                 "layer": self.layer,
                 "energy_scale": self.energy_scale,
+                "vector_norm": self._r_norm,
                 "mean_abs_proj": batch_proj,
+                "mean_abs_displacement": self.mean_abs_displacement(),
                 "temperature": float(temperature),
                 "seed": int(seed),
             })

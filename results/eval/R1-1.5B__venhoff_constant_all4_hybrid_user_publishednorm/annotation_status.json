@@ -1,0 +1,39 @@
+{
+  "planned_records": 250,
+  "checkpoint_records": 250,
+  "complete_scored_candidates": 193,
+  "unresolved_records": 57,
+  "unresolved_by_reason": {
+    "annotation_incomplete": 6,
+    "coverage_incomplete": 51
+  },
+  "missing_is_zero": false,
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "budget": {
+    "manifest_file_sha256": "8098bc126f6620a27cdc6523c26029f1b2dc5d79698aca964b443b5cd21b0e5f",
+    "journal_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/eval/_annotation_spend_ledgers/venhoff_fixed_bridge_usd15.jsonl",
+    "attempts_reserved": 560,
+    "initial_attempts_reserved": 426,
+    "retry_attempts_reserved": 134,
+    "scopes_attempted": 426,
+    "max_scope_attempts_observed": 2,
+    "max_total_attempts": 852,
+    "max_attempts_per_scope": 2,
+    "planned_initial_requests": 426,
+    "global_retry_capacity": 426,
+    "approved_spend_ceiling_usd": 15.0,
+    "max_cost_per_attempt_usd": 0.05,
+    "remaining_quota_floor_usd": 0.0,
+    "max_output_tokens": 2800,
+    "max_prompt_chars": 4341,
+    "worst_case_attempt_cost_usd": 0.047211,
+    "coverage_rule_version": "ph2-annotation-coverage-4",
+    "prior_committed_spend_usd": 0.0,
+    "reported_cost_usd": 6.558912000000005,
+    "committed_cost_usd": 6.708912000000005,
+    "last_remaining_quota_usd": 51.30311095000004,
+    "response_telemetry_missing": false
+  },
+  "manifest_sha256": "8098bc126f6620a27cdc6523c26029f1b2dc5d79698aca964b443b5cd21b0e5f",
+  "stage_complete": false
+}

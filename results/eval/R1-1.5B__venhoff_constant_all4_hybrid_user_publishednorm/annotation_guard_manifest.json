@@ -1,0 +1,93 @@
+{
+  "schema": "ph2-annotation-attempt-guard-2",
+  "status": "authorised",
+  "model": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "annotation_window_tokens": 1000,
+  "guards": {
+    "planned_initial_requests": 426,
+    "global_retry_capacity": 426,
+    "max_total_attempts": 852,
+    "max_attempts_per_scope": 2,
+    "approved_spend_ceiling_usd": 15.0,
+    "max_cost_per_attempt_usd": 0.05,
+    "remaining_quota_floor_usd": 0.0,
+    "max_output_tokens": 2800,
+    "max_prompt_chars": 4341,
+    "prior_committed_spend_usd": 0.0
+  },
+  "rate_card": {
+    "input_usd_per_mtok": 3.0,
+    "output_usd_per_mtok": 15.0,
+    "tokens_per_char_upper": 0.4
+  },
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "source_artifacts": [
+    {
+      "path": "results/eval/R1-1.5B__venhoff_constant_all4_hybrid_user_publishednorm/steering_results.json",
+      "sha256": "cfcbf7dfb63f452c0b12c387e4820f22596019c525b1283306254044d5f95e0a"
+    },
+    {
+      "path": "results/eval/R1-1.5B__venhoff_constant_all4_hybrid_user_publishednorm/provenance.json",
+      "sha256": "beaec148b98f6d5ec33abb62f0f642b705e598694f8017d70f6802a1fa799be8"
+    },
+    {
+      "path": "results/eval/R1-1.5B__venhoff_constant_all4_hybrid_user_publishednorm/eval_task_ids.json",
+      "sha256": "bc11ed1405e2a8bb9dc4ce007bfcfa9321d4b0deee6cd76ed4d10d7e5637ab84"
+    },
+    {
+      "path": "results/eval/R1-1.5B__venhoff_constant_all4_hybrid_user_publishednorm/annotation_plan.json",
+      "sha256": "d7ca3720941e376298a5c9c964ffccd8b83260121d0e0918ac2973c9aeb81a03"
+    }
+  ],
+  "bound_artifacts": [
+    {
+      "path": "07g_annotate_venhoff_bridge.py",
+      "sha256": "ba06f906810b2f42b23ca2d25e2b6ed4d11e120009fa524b54f57c7a525514ae"
+    },
+    {
+      "path": "src/venhoff_bridge_eval.py",
+      "sha256": "6bc95af7eeb5c2567a2c7e23544f2bdafad26c8f1b7f11520b61b81f9b47c166"
+    },
+    {
+      "path": "src/annotation.py",
+      "sha256": "4e425f57e0ad5312ada1882fe4cdae4b77164ef56964906cc7f415154b1eda1f"
+    },
+    {
+      "path": "src/annotation_budget.py",
+      "sha256": "a7f1e5e96124776071d6a2bce0d043cece25fc2ca3262e79ba3c4f109694973b"
+    },
+    {
+      "path": "src/annotation_coverage.py",
+      "sha256": "affd89cba2eced10cf7585ce188167f11c771440715a4de2f67fccd51ea87ae1"
+    },
+    {
+      "path": "src/text_offsets.py",
+      "sha256": "4af77eb57d373b705437eed2b350b31de57c13694e0038f9622e6a1ddc6405e9"
+    }
+  ],
+  "cost_estimate": {
+    "method": "source echo 1.0x--1.6x plus ~650 input tokens/request",
+    "estimated_low_usd": 4.7033,
+    "estimated_high_usd": 6.6395,
+    "hard_ceiling_usd": 15.0,
+    "note": "planning range only; the attempt journal enforces the hard ceiling from reported cost and conservative unresolved-attempt commitments"
+  },
+  "scientific_contract": {
+    "records": 250,
+    "shared_baseline_records": 50,
+    "steered_records": 200,
+    "primary_estimand": "target-labelled Qwen tokens / tokens labelled as any of the four steered behaviours, before </think>",
+    "annotation_region_policy": {
+      "include_post_think": false,
+      "exclude_final_answer_suffix": false,
+      "exclude_degenerate_repetition": false
+    },
+    "sensitivities": [
+      "released first-find/silent-skip alignment arithmetic",
+      "target-labelled Qwen tokens / all six labelled Qwen tokens",
+      "target-labelled spans / all six annotated spans"
+    ],
+    "missingness": "unresolved; never scored as zero",
+    "baseline_annotation_convention": "50 shared baseline generations annotated once; unlike the released loop, no fourfold stochastic baseline re-annotation"
+  }
+}

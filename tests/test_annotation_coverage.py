@@ -55,6 +55,18 @@ def test_short_trailing_final_answer_block_is_excluded():
     assert [e.kind for e in region.exclusions] == ["final_answer_suffix"]
 
 
+def test_final_answer_cut_can_be_disabled_for_exact_venhoff_region():
+    chain = "I deduce X. **Final Answer** This is still pre-close reasoning.</think> answer"
+    raw = region_source_text(chain, exclude_final_answer_suffix=False)
+    assert "**Final Answer** This is still pre-close reasoning." in raw
+    report = validate_coverage(
+        chain,
+        [span("deduction", "I deduce X. **Final Answer** This is still pre-close reasoning.")],
+        exclude_final_answer_suffix=False,
+    )
+    assert report.complete, report.reasons
+
+
 def test_an_oversized_final_answer_block_stays_in_scope():
     """The exclusion fails safe: too-long trailing text is never deleted.
 
@@ -113,6 +125,20 @@ def test_degenerate_cycling_is_truncated_after_five_occurrences():
     assert "degenerate_repetition" in kinds
     # The request the annotator sees is truncated identically.
     assert normalise(region_source_text(chain)) == region.text
+
+
+def test_degenerate_cut_can_be_disabled_for_exact_venhoff_region():
+    loop = "Wait, no, 40 divided by 2 is 20."
+    chain = "Let me compute. " + " ".join([loop] * 8) + " </think> answer"
+    raw = region_source_text(chain, exclude_degenerate_repetition=False)
+    assert raw.count("40 divided by 2") == 8
+    spans = [span("deduction", "Let me compute.")] + [
+        span("backtracking", loop) for _ in range(8)
+    ]
+    report = validate_coverage(
+        chain, spans, exclude_degenerate_repetition=False
+    )
+    assert report.complete, report.reasons
 
 
 def test_four_adjacent_repeats_stay_in_scope():

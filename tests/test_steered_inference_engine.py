@@ -199,6 +199,67 @@ def test_hook_energy_scale_multiplies_delta():
     assert torch.allclose(out[..., 0], torch.tensor([[3.0]]), atol=1e-6)
 
 
+def test_hook_constant_subtract_applies_same_vector_at_every_position():
+    """Venhoff's write is h <- h - alpha*scale*r, independent of r^T h.
+
+    Deliberately give the three positions positive, negative, and zero
+    projections onto r. A projective ablation would produce three different
+    deltas (and no delta at the zero-projection position); the constant-vector
+    intervention must deliver the same delta to all three.
+    """
+    m = StubModel(hidden=4)
+    r = np.array([1.0, 0.0, 0.0, 0.0])
+    sm = SteeredModel(
+        m, StubTokenizer(), r, layer=0, alpha=0.5,
+        mode="constant_subtract", energy_scale=2.0,
+    )
+    h = torch.tensor([[[3.0, 1.0, 1.0, 1.0],
+                       [-2.0, 5.0, 0.0, 0.0],
+                       [0.0, 7.0, 8.0, 9.0]]])
+    out = sm._hook_fn(None, None, h.clone())
+
+    expected = h.clone()
+    expected[..., 0] -= 1.0  # alpha * energy_scale = 0.5 * 2.0
+    assert torch.allclose(out, expected, atol=1e-6)
+    assert sm._disp_count == 3
+    assert sm.mean_abs_displacement() == pytest.approx(1.0)
+
+
+def test_hook_constant_subtract_preserves_tuple_extras_and_layer_dtype():
+    """The new operator must retain the existing hook's ABI and dtype contract."""
+    m = StubModel(hidden=3)
+    r = np.array([0.0, 1.0, 0.0])
+    sm = SteeredModel(
+        m, StubTokenizer(), r, layer=0, alpha=0.25,
+        mode="constant_subtract", energy_scale=2.0,
+    )
+    h = torch.tensor([[[4.0, 2.0, 8.0]]], dtype=torch.float16)
+    extra = object()
+    out = sm._hook_fn(None, None, (h.clone(), extra))
+
+    assert isinstance(out, tuple) and out[1] is extra
+    assert out[0].dtype == torch.float16
+    assert torch.allclose(
+        out[0].float(), torch.tensor([[[4.0, 1.5, 8.0]]]), atol=1e-3,
+    )
+
+
+def test_hook_constant_subtract_alpha_zero_is_identity():
+    """The shared-baseline limit of the fixed operator must be exactly inert."""
+    m = StubModel(hidden=4)
+    r = _unit(4, 91)
+    sm = SteeredModel(
+        m, StubTokenizer(), r, layer=0, alpha=0.0,
+        mode="constant_subtract", energy_scale=70.868286,
+    )
+    h = torch.randn(2, 3, 4, dtype=torch.bfloat16)
+    out = sm._hook_fn(None, None, h.clone())
+
+    assert torch.equal(out, h)
+    assert sm._disp_count == 6
+    assert sm.mean_abs_displacement() == 0.0
+
+
 def test_measure_mode_does_not_perturb_but_records_energy():
     m = StubModel(hidden=4)
     r = np.array([1.0, 0.0, 0.0, 0.0])
