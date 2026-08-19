@@ -15,7 +15,7 @@ disk quota — stubs discarded, tracebacks preserved in `pod_logs/`; rerun clean
 | (a) scorer/recipe defect | D2 | **REJECTED** | Hosted 7B lens through our unmodified scorer qualifies **3/3 suites** (assoc 0.0612, typo 0.4583, multihop 0.6173; all p=0.001) |
 | (b) association outside model competence | D1 | **CONFIRMED** | R1-1.5B association: 0.000 immediate, **0.061 with free CoT** (n=98) — no latent to read out |
 | (c) multihop capacity only via externalized CoT | D1 (+D3) | **CONFIRMED** | CoT 0.617 vs silent 0.099; bridge verbalized in CoT on **0.716** of items; non-distilled 1–2B models show the silent readout R1 lacks |
-| (d) corpus-averaging destroyed local signal | D4 | **REJECTED** | The **exact** position-local Jacobian is equally blind: L17 = 0/81 in top-25 for local, skip16, and merged alike (81/81 censored ties); at L25 merged (11/81) slightly *beats* local (6/81). Nothing existed for averaging to destroy (A3's pre-registered asymmetry) |
+| (d) corpus-averaging destroyed local signal | D4 | **REJECTED** *(bounded — see 2026-08-19 addendum)* | The **exact** position-local Jacobian is equally blind: L17 = 0/81 in top-25 for local, skip16, and merged alike (81/81 censored ties); at L25 merged (11/81) slightly *beats* local (6/81). ~~Nothing existed for averaging to destroy~~ *[withdrawn as overbroad 2026-08-19: licensed only for the tested R1-1.5B multihop endpoint at the tested position/layers — see addendum]* (A3's pre-registered asymmetry) |
 | (e) BF16/FP32 precision artefact | D5 | **REJECTED** | Association any-hit items 4→3 under FP32 readout (within registered ±1); typo boundary churn (110 gained/57 lost of 1414 hits) is margin wiggle with no directional effect |
 | (f) generic ~1–2B-scale absence | D3 | **REJECTED for multihop; mostly rejected for association** | qwen3-1.7b qualifies on **all three** suites (multihop 0.5432; assoc 0.0306 p=0.018; typo 0.5938); gemma-3-1b qualifies 2/3 (multihop 0.3704; assoc exactly 0.0000) |
 
@@ -138,6 +138,77 @@ corrected synthesis above rather than the relocation story.
   (−0.173 despite the only genuine mid-stack band L13–20) ⇒ family-internal, descriptive only.
 - **Mid-stack absence extends to 7B-it** (L10–18 all 0.000) — the naive "bigger model has a mid-stack
   workspace for these items" is already answered in the negative within available cells.
+
+## ADDENDUM 2026-08-19 — 7B matched pair executed (run of 2026-08-18); corrections and bounds
+
+Everything above this addendum is preserved as the historical record; where this addendum
+disagrees with an earlier sentence, this addendum controls. The earlier recommendation against
+funding the 7B pair stands as historical; Tony funded and ran it under seal
+(`JSPACE_7B_PAIR_SHEET_2026-08-17.md`, Amendments 1–2). Phase 1's registered outcome is unchanged
+verbatim (*the fitted lens did not pass the prespecified validity gate*); Phase 2 remains
+prospective/unrun, later shelved — the 7B pair reclassifies neither.
+
+**Run identity.** `jspace7b-20260818T075715Z-fa3a59ab`, source commit `fa3a59ab`, status
+`SUCCEEDED` 2026-08-18T10:46:49Z; all 37 remote-manifest hashes verified locally. Protocol marker
+**amended**; evidence status **exploratory**; thesis disposition **retained–bounded**. Primary
+report: `pair7b/report.json` (v1, preserved) and `pair7b/report_v2.json` (reporting/provenance
+correction; identical estimands; see `pair7b/REPORTING_ADDENDUM_2026-08-18.md`).
+
+**E1–E5 and controls** (denominators: multihop 81, association 98, typo 96):
+
+| Endpoint | Qwen2.5-Math-7B | R1-Distill-Qwen-7B | Disposition |
+|---|---:|---:|---|
+| Multihop any-layer union pass@25 | 52/81 = .642 | 8/81 = .099 | E1 registered directional inequality held |
+| Mid-band max (L10–L18) | .049 at L13 | .000 | E2 **mixed**; no registered Boolean threshold |
+| Late-band max (L19–L26) | .494 at L24 | .099 at L24/L25 | Both late-dominated |
+| J-minus-logit multihop union | +.074 | +.012 | E3 descriptively consistent with the format account |
+| Association union | 1/98 = .010, p=.181, nonqualifying | 0/98, nonqualifying | E4 current non-confirmatory |
+| Typo union | .781, qualifies | .813, qualifies | Both positive controls pass |
+
+- **E1** `supported: true` records only the registered directional inequality
+  (distill union < base union). Each cell's permutation p tests token labels *within* that cell;
+  **no paired base-versus-distill model-difference test was run**, and one checkpoint per condition
+  establishes nothing about seed robustness.
+- **E2 is mixed, not categorical.** Math-7B is *not* mid-stack-free: it has a sparse L12–L17 run
+  (.012–.049, max .049 at L13) before the late rise; the distill is 0 throughout L10–L18. Both
+  models' multihop signal is predominantly late/output-adjacent.
+- **E5 was not cleanly supported.** All 8 distill hit-items are contained in the base's 52
+  (0 gained, 44 lost). The retained items are descriptively letter/antonym/calendar-flavoured,
+  but the registered item-category selectivity expectation did not cleanly reproduce; the earlier
+  post-hoc 1.5B surface↔knowledge split (re-analysis of 2026-08-17, above) must therefore be
+  cited as 1.5B-descriptive only, not as a replicated pattern.
+- **Association account, corrected.** The earlier "scale-flavoured residue" ordering
+  (gemma-1B .000 → qwen3-1.7B .031 → 7B-IT .061) must not be read as a scale account: the cells
+  differ simultaneously in recipe (pretrain-only, instruct, math continued-pretraining), family,
+  corpus breadth, and lens fit size, and at matched 7B scale the math-continued base (.010,
+  nonqualifying) sits *below* the general instruct model (.061). The licensed statement is a
+  **confounded scale/recipe/breadth comparison** with no unique ordering variable.
+
+**D4, bounded.** On R1-Distill-1.5B multihop at the tested prompt position, the position-local,
+skip-16/windowed, and corpus-merged estimators each produced 0/81 top-25 hits at L17; at L25 the
+merged estimator produced 11/81 and the local estimator 6/81. D4 therefore did not support
+averaging loss as the explanation of the registered L17 failure. It does not establish that
+prompt-specific signal is absent at other positions, layers, tasks, representations, or models,
+or that averaging cannot matter elsewhere. Note the exact local map was evaluated at
+`seq_len − 2` — one token before the Phase-1 final-prompt-token readout (the released mask cannot
+include the final position); the two are not position-identical.
+
+**Related 1.5B follow-ups (separate estimands — never pool with the 7B pair).** The atomic-hop
+audit A0 (`followups/atomic_orderops/atomic/.../REPORT.md`) found a material direct
+constituent-fact competence difference between the 1.5B checkpoints (both-hops-exact .333 base vs
+.074 distill; ΔK=.259, Holm p=2×10⁻⁵) with the registered composition pattern **indeterminate**
+(conditional gate under-populated, 6 < 20). The order-of-operations assay O1
+(`followups/atomic_orderops/orderops/.../REPORT.md`) failed its assay-presence and
+behavioural-competence gates and is **assay-inconclusive**. Neither rescues a mechanism narrative.
+
+**Combined licensed statement.** On the tested suites, the checkpoint pairs differ in
+predominantly late token-indexed readout, and the 1.5B pair also differs substantially in direct
+atomic-hop competence; a separate symbolic middle-band assay did not validate. These results do
+not identify a causal effect of distillation, do not establish a lost or relocated workspace, and
+do not measure reasoning ability in general.
+
+**Cost.** No billing artefact was captured for the 7B pod; do not cite a dollar figure. Wall
+clock from launch to SUCCEEDED was ≈2.8 h (07:57–10:46 UTC).
 
 ## Costs
 

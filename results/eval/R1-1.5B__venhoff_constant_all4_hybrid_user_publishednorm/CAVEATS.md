@@ -48,6 +48,14 @@ it is not evidence of useful or selective control.
    validated 50-row shared baseline plus four ignored steered rows; it is a
    superseded partial artefact, **not** a second completed result.
 
+8. **Raw generation output not under version control.** `steering_results.json`
+   (the raw 250-row generation record) is excluded by the repository's standing
+   rule `results/**/steering_results.json`; it is retained locally and
+   hash-bound in `venhoff_bridge_report.json` → `sources.generation`
+   (sha256 `cfcbf7dfb63f452c0b12c387e4820f22596019c525b1283306254044d5f95e0a`).
+   The annotated chains (`annotated_venhoff_bridge.json`) and scored records
+   are committed.
+
 Primary artefact: `venhoff_bridge_report.json` (schema, complete-case
 estimates, BCa intervals, worst-case bounds, missingness accounting, source and
 analysis-code hashes).
