@@ -127,3 +127,10 @@ results/safety/p3_forgery/activations/
 # Dependency locks (p5wg_requirements.lock) stay tracked; these are not those.
 .codex/out/*.pid
 .codex/out/*.lock
+
+# PT-B1 identity-gate reference tensor: large, deterministic from gitignored
+# data/activations + committed code; sha256 bound in reference_meta.json and
+# provenance. Pod-side extraction scratch is pod-only.
+results/ptb1/identity_gate/reference.npz
+results/ptb1/identity_gate/extract_*/
+PTB1_SOURCE_COMMIT.txt
