@@ -85,3 +85,35 @@ and one non-effect, and both are binding on how PT-B1 is cited:
    treated the base level as environment-matched.
 
 No other section of the pre-registration is modified.
+
+## Addendum (same day, after the training-stack correction)
+
+The 0/3 stop above was observed under transformers **5.15.0**. Training then
+failed independently because `src/safety_posttrain/sft.py` passes
+`TrainingArguments` kwargs that transformers 5.x rejects, establishing that
+the July recipe was trained under the **4.x** family; the environment was
+corrected to transformers 4.57.6 / peft 0.17.1 on torch 2.6.0 for fidelity to
+the recipe, not to influence this gate.
+
+Re-running the identical preflight under that corrected environment gives a
+materially different picture:
+
+| Environment | exact reproductions | identical leading chars |
+|---|---:|---|
+| transformers 5.15.0 | 0/3 | 514, 429, 345 |
+| transformers 4.57.6 | **1/3** | **2,268 / 2,077 / 2,540** |
+
+Two consequences, both recorded rather than argued:
+
+1. **Amendment 2 is not load-bearing for this run.** Under the corrected
+   environment the *original* Amendment-1 rule passes on its own terms: 1/3
+   exact reproductions falls in its "1–2/3 ⇒ proceed with env-divergence
+   disclosure" band, not its 0/3 STOP band. The replacement gate is retained
+   as the operative rule (it is the better-targeted test), but this run would
+   have proceeded under the sealed rule it replaced, which removes the
+   post-hoc concern this amendment was written to disclose.
+2. **The environment confound is smaller than stated above, not absent.** One
+   probe reproduces byte-identically and the others share >2,000 identical
+   leading characters, so the PT-B1 generation environment is close to — but
+   still not byte-equivalent with — the July Phase-2 battery. The
+   base-referenced downgrade in the section above therefore stands as written.
