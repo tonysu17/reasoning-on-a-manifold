@@ -210,3 +210,51 @@ def test_spend_ceiling_message_is_never_skippable_even_if_it_mentions_per_call()
     hybrid = ("next annotation call could exceed the spend ceiling; "
               "exceeds the authorised per-call maximum")
     assert X._is_per_call_skippable(AnnotationCostLimitError(hybrid)) is False
+
+
+def test_annotate_never_hands_a_single_row_to_the_writer(tmp_path, monkeypatch):
+    """Regression: passing one row at a time truncates the shard file.
+
+    annotate_chains saves the row set it is handed, so it must always receive
+    the full remaining set; a cost breach retires one chain and re-enters.
+    """
+    import ptb1_executor as M
+    from src.annotation_budget import AnnotationCostLimitError
+
+    seen_batch_sizes = []
+    store = {}
+
+    def fake_annotate_chains(rows, save_path=None, **kw):
+        seen_batch_sizes.append(len(rows))
+        # the second chain is unaffordable, every time
+        for r in rows:
+            if r["task_id"] == "T1":
+                Path(save_path).write_text(json.dumps(list(store.values())))
+                raise AnnotationCostLimitError(
+                    "reported call cost exceeded the approved per-call maximum")
+            store[r["task_id"]] = {**r, "annotations": [{"label": "other"}]}
+        Path(save_path).write_text(json.dumps(list(store.values())))
+        return list(store.values())
+
+    rows = [{"task_id": f"T{i}", "chain": "x", "n_tokens": 5} for i in range(4)]
+    dst = tmp_path / "arm.json"
+    skipped, already = [], set()
+
+    remaining = [r for r in rows if ("arm", r["task_id"]) not in already]
+    while remaining:
+        try:
+            fake_annotate_chains(remaining, save_path=dst)
+            break
+        except AnnotationCostLimitError as exc:
+            assert M._is_per_call_skippable(exc)
+            done = {r["task_id"] for r in json.loads(dst.read_text())
+                    if r.get("annotations")}
+            failed = next(r for r in remaining if r["task_id"] not in done)
+            skipped.append(failed["task_id"])
+            remaining = [r for r in remaining
+                         if r["task_id"] != failed["task_id"]]
+
+    assert skipped == ["T1"]
+    assert min(seen_batch_sizes) > 1, "writer must never receive a single row"
+    final = json.loads(dst.read_text())
+    assert {r["task_id"] for r in final} == {"T0", "T2", "T3"}

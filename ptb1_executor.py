@@ -380,34 +380,47 @@ def stage_annotate(authorised: bool) -> None:
 
     for src_path, dst_path, rows, n_windowed in prepared:
         arm = dst_path.stem
-        annotated = []
-        for row in rows:
-            if (arm, row["task_id"]) in already_skipped:
-                continue
+        # annotate_chains writes back exactly the row set it was handed (it
+        # seeds from the checkpoint but saves its own result list), so it must
+        # ALWAYS receive the shard's FULL remaining row set — never one row at
+        # a time, which would truncate the file to that single row.
+        # A cost breach therefore aborts the shard; we identify the offending
+        # chain from the checkpoint, retire it, and re-enter with it removed.
+        # Completed chains persist across re-entry via the checkpoint.
+        remaining = [r for r in rows
+                     if (arm, r["task_id"]) not in already_skipped]
+        while remaining:
             try:
-                # One chain per call: annotate_chains loads, backs up and
-                # MERGES into save_path, so per-chain invocation is resume-safe
-                # and cannot lose earlier work. This granularity is what lets a
-                # single unaffordable chain be retired without killing the run.
-                annotated = annotate_chains(
-                    [row], save_path=dst_path,
+                annotate_chains(
+                    remaining, save_path=dst_path,
                     dedup_keys=ANNOTATION_DEDUP_KEYS,
                     model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
                     shrink_on_retry=True, max_retries=3,
                     attempt_guard=attempt_guard, coverage_validation=True,
                     include_post_think=ANNOTATION_INCLUDE_POST_THINK)
+                break
             except AnnotationCostLimitError as exc:
                 if not _is_per_call_skippable(exc):
                     raise            # ceiling / quota breaches stay FATAL
-                skipped.append({"arm": arm, "task_id": row["task_id"],
+                done_ids = set()
+                if dst_path.exists():
+                    done_ids = {r["task_id"]
+                                for r in json.loads(dst_path.read_text())
+                                if r.get("annotations")}
+                failed = next((r for r in remaining
+                               if r["task_id"] not in done_ids), None)
+                if failed is None:
+                    raise    # cannot identify the offender; never loop blindly
+                skipped.append({"arm": arm, "task_id": failed["task_id"],
                                 "reason": str(exc),
-                                "n_tokens": row.get("n_tokens")})
-                already_skipped.add((arm, row["task_id"]))
+                                "n_tokens": failed.get("n_tokens")})
+                already_skipped.add((arm, failed["task_id"]))
                 _atomic_json(skipped, skip_path)
-                print(f"[skip] {arm}/{row['task_id']}: {exc}", flush=True)
-                continue
-        if dst_path.exists():
-            annotated = json.loads(dst_path.read_text())
+                print(f"[skip] {arm}/{failed['task_id']}: {exc}", flush=True)
+                remaining = [r for r in remaining
+                             if r["task_id"] != failed["task_id"]]
+        annotated = (json.loads(dst_path.read_text())
+                     if dst_path.exists() else [])
         status[dst_path.name] = {
             "n_rows": len(annotated), "n_windowed": n_windowed,
             "n_unresolved": sum(1 for r in annotated
