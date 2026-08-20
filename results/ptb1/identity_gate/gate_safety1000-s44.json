@@ -1,0 +1,52 @@
+{
+ "arm": "safety1000-s44",
+ "baseline": "same-environment (PTB1_AMENDMENT_3_2026-08-20.md)",
+ "cos_opposite_recipe": {
+  "12": 0.28613996505737305,
+  "16": 0.19204412400722504
+ },
+ "cos_same_seed": {
+  "12": 0.9894612431526184,
+  "16": 0.9903846979141235
+ },
+ "direction_norms": {
+  "12": {
+   "environment_drift_diagnostic": 1.3404107093811035,
+   "new_same_env": 0.23789876699447632,
+   "stored": 0.23062363266944885
+  },
+  "16": {
+   "environment_drift_diagnostic": 1.8356128931045532,
+   "new_same_env": 0.2975115180015564,
+   "stored": 0.2824503481388092
+  }
+ },
+ "extracted_npy_sha256": {
+  "adding-knowledge_layer12.npy": "98cd9b34af911b93a3c4344dc82bb7912348839a889f015b3c06cb579010d06a",
+  "adding-knowledge_layer16.npy": "9f51ce78c9e4503295ce63e1a9b6b747f9b783304701daf2d1f76217b6538720",
+  "backtracking_layer12.npy": "9c4223bde6b47acbdd2b55593f53c7a8da5567d453938037af9108a98a98d939",
+  "backtracking_layer16.npy": "e2a3f7c919f0833839de9f4bbcf0d24eabbf25b8a36b1a2bed28bc6fbe34f322",
+  "example-testing_layer12.npy": "d8fdcb7daf09180e3f60e7f9645a31794303ad2ff07f600b987f706188c0ad62",
+  "example-testing_layer16.npy": "3458c2e4b88508dfd19b9af552e5808fef0a2ddf2bb18a8ea4914d9059ff66be",
+  "uncertainty-estimation_layer12.npy": "cada727dc6abad5d826e78f93a44935fc19bb5091f8e406d7b44447aba2dea74",
+  "uncertainty-estimation_layer16.npy": "37e2bc6f57716763be16b49993c5e379d2c07ed773796cc7353d0595c8218d81"
+ },
+ "n_rows_compared": 5570,
+ "n_rows_reference": 5570,
+ "reference_npz_sha256": "23da56537ba0f13e3e6c0e32e5338cec000f7a85f70dcd4f500840513ba1ba52",
+ "resolved_checkpoint": {
+  "device": "cuda",
+  "dtype": "float16",
+  "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "local": true,
+  "revision": null,
+  "role": "base",
+  "source": "/root/ptb1/checkpoints/ptb1_safety1000-s44/dose_1000/merged",
+  "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+ },
+ "row_coverage": 1.0,
+ "verdict": {
+  "reason": null,
+  "verdict": "PASS"
+ }
+}

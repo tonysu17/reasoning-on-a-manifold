@@ -1,0 +1,52 @@
+{
+ "arm": "safety1000-s43",
+ "baseline": "same-environment (PTB1_AMENDMENT_3_2026-08-20.md)",
+ "cos_opposite_recipe": {
+  "12": 0.2936383783817291,
+  "16": 0.17955753207206726
+ },
+ "cos_same_seed": {
+  "12": 0.9926847219467163,
+  "16": 0.9911134839057922
+ },
+ "direction_norms": {
+  "12": {
+   "environment_drift_diagnostic": 1.3404107093811035,
+   "new_same_env": 0.22342438995838165,
+   "stored": 0.23093940317630768
+  },
+  "16": {
+   "environment_drift_diagnostic": 1.8356128931045532,
+   "new_same_env": 0.28618475794792175,
+   "stored": 0.2879847288131714
+  }
+ },
+ "extracted_npy_sha256": {
+  "adding-knowledge_layer12.npy": "3128f4e3c3b36f5b2e074b3d62a9fd7ddcb48e3d0d4f19563449806200ae58b6",
+  "adding-knowledge_layer16.npy": "e398c761214c33751b7b1da016f0b3fb97751dbbd9fda7f9dec0638d214a4364",
+  "backtracking_layer12.npy": "b8873430d528888c6ac04817b95134ba1bdc7ebdcee6dc3d127863c716b39b1d",
+  "backtracking_layer16.npy": "18d5848ef015843b1d38ae19a5ed063424798c610cc292e89076f027e3859802",
+  "example-testing_layer12.npy": "667b5cc7b76ba750bf70ef7f88175af897f57fb96bbb523f43313a6e2c1a00e2",
+  "example-testing_layer16.npy": "e121a91c5bba2b96e9dd15c4455ee996ec8bb4695b0094d71a0af0e630eab248",
+  "uncertainty-estimation_layer12.npy": "9b26276e9d2ccec1e8082fab1f8355f4dc07068545ef5bfcd5fb1ddebcb2cdd1",
+  "uncertainty-estimation_layer16.npy": "a7901a5a089aaa5c75eda955fcb29cb9ac98eddf237861d9d1c98f03b6d8e7fe"
+ },
+ "n_rows_compared": 5570,
+ "n_rows_reference": 5570,
+ "reference_npz_sha256": "23da56537ba0f13e3e6c0e32e5338cec000f7a85f70dcd4f500840513ba1ba52",
+ "resolved_checkpoint": {
+  "device": "cuda",
+  "dtype": "float16",
+  "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "local": true,
+  "revision": null,
+  "role": "base",
+  "source": "/root/ptb1/checkpoints/ptb1_safety1000-s43/dose_1000/merged",
+  "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+ },
+ "row_coverage": 1.0,
+ "verdict": {
+  "reason": null,
+  "verdict": "PASS"
+ }
+}

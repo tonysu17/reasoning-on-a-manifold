@@ -1,0 +1,15 @@
+{
+  "base_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "data": "/root/ptb1/data/safety_star1_sft.json",
+  "runs": [
+    {
+      "dose": 1000,
+      "output_dir": "/root/ptb1/checkpoints/ptb1_safety1000-s44/dose_1000",
+      "merged_dir": "/root/ptb1/checkpoints/ptb1_safety1000-s44/dose_1000/merged",
+      "n_examples": 1000,
+      "train_loss": 1.4824376821517944,
+      "epochs": 5.0,
+      "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+    }
+  ]
+}

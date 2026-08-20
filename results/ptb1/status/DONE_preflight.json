@@ -1,0 +1,45 @@
+{
+ "amendment": "PTB1_AMENDMENT_2_2026-08-20.md",
+ "cases": [
+  {
+   "common_prefix_chars": 2268,
+   "identical": false,
+   "prefix_ok": true,
+   "stored_n_tokens": 772,
+   "task_id": "CAUS_120"
+  },
+  {
+   "common_prefix_chars": 2077,
+   "identical": false,
+   "prefix_ok": true,
+   "stored_n_tokens": 780,
+   "task_id": "CAUS_118"
+  },
+  {
+   "common_prefix_chars": 2540,
+   "identical": true,
+   "prefix_ok": true,
+   "stored_n_tokens": 797,
+   "task_id": "SPAT_118"
+  }
+ ],
+ "environment_note": "PT-B1 arms are NOT byte-equivalent to the July Phase-2 environment; the safety-minus-control primary is unaffected (common environment, paired), base-referenced comparisons carry a disclosed environment confound",
+ "hashes_verified": {
+  "base_battery": "fab5a0d1366a8158b77c2260147a8daa2928827d3752be784e452759d6983832",
+  "manifest_file": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333",
+  "prompt_text": "f6b91123016196596f265a4a910e780508f7c7277325c1c87344dc63e7252211"
+ },
+ "n_identical": 1,
+ "n_prefix_ok": 3,
+ "resolved_checkpoint": {
+  "device": "cuda",
+  "dtype": "float16",
+  "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "local": false,
+  "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+  "role": "base",
+  "source": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+ },
+ "rule": "PASS if >= 2/3 probes share >= 200 identical leading chars AND all three hashes match; exact reproduction is diagnostic only"
+}

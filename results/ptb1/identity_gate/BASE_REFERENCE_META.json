@@ -1,0 +1,14 @@
+{
+ "amendment": "PTB1_AMENDMENT_3_2026-08-20.md",
+ "purpose": "same-environment G1/G2 baseline",
+ "resolved_checkpoint": {
+  "device": "cuda",
+  "dtype": "float16",
+  "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "local": false,
+  "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+  "role": "base",
+  "source": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "tokenizer": "base-alias:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "adapter_sha256": {
+  "adapter_config.json": "b49349258b0324f051c67db12e9279de4ca0b4943a9ce329c3873ef15a74b0aa",
+  "adapter_model.safetensors": "ef518a4d00b2cb1afb5df6641eff8cad9235f27b55995b6c5b70bdd1656ecde1",
+  "training_summary.json": "725073031ace7a4d1f577bb09c7eab04b6359c7c2f0414bb44cf5db0551dffab"
+ },
+ "arm": "safety1000-s44",
+ "data": "data/safety_star1_sft.json",
+ "seed": 44,
+ "train_args": [
+  "--dose",
+  "all",
+  "--merge",
+  "--epochs",
+  "5",
+  "--lr",
+  "1e-5",
+  "--batch-size",
+  "4",
+  "--grad-accum",
+  "32",
+  "--max-len",
+  "4096"
+ ]
+}

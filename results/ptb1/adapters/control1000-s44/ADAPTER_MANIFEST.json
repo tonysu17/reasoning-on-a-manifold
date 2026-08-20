@@ -1,0 +1,25 @@
+{
+ "adapter_sha256": {
+  "adapter_config.json": "7b09cb3cb8fe50a1a1c5d071f242c6ce3c9c5eab1226241d68456d7317526835",
+  "adapter_model.safetensors": "89c2ff3c87dce63494cba98ce5ac9e9b76f0edc5c341035bb0456e97196c76ad",
+  "training_summary.json": "3e333980fa86111d24d2e961d96d9123930ddf410acd006aa05312efa71853e9"
+ },
+ "arm": "control1000-s44",
+ "data": "data/control_generic_sft.json",
+ "seed": 44,
+ "train_args": [
+  "--dose",
+  "all",
+  "--merge",
+  "--epochs",
+  "5",
+  "--lr",
+  "1e-5",
+  "--batch-size",
+  "4",
+  "--grad-accum",
+  "32",
+  "--max-len",
+  "4096"
+ ]
+}

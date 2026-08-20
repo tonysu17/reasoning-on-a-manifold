@@ -1,0 +1,36 @@
+{
+ "amendments": [
+  {
+   "path": "results/prereg/PTB1_AMENDMENT_1_2026-08-20.md",
+   "sha256": "9b9abd71b5d50586b78cb0986c7f532ed833e1b724d016167c755c3f415d86b4"
+  }
+ ],
+ "authorised": true,
+ "cos_same_seed": {
+  "12": 0.9894612431526184,
+  "16": 0.9903846979141235
+ },
+ "gate": {
+  "reason": null,
+  "verdict": "PASS"
+ },
+ "generated_utc": "2026-08-20T11:28:05.175539+00:00",
+ "generation_config": {
+  "do_sample": false,
+  "max_new_tokens": 8192,
+  "protocol": "E8 sealed settings",
+  "samples_per_cell": 1,
+  "seed": 20260808,
+  "temperature": 0.0
+ },
+ "git_commit": "16ed290cd0366e992d0c6383e66283de794cfdce",
+ "git_dirty": null,
+ "inputs_sha256": {},
+ "prereg": {
+  "path": "results/prereg/PTB1_SAFETY_CONTROL_BEHAVIOUR_PREREG_2026-08-20.md",
+  "sha256": "2eacb8351061bb2eab94292e129445957f708ac048f3f5228f61663907577daf"
+ },
+ "schema_version": "rom-result-provenance-v1",
+ "seed": 20260820,
+ "stage": "ptb1-arm_safety1000-s44"
+}
