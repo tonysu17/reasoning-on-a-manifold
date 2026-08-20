@@ -15,7 +15,19 @@ rm -f PTB1_ALL_DONE.marker PTB1_JOB_FAILED.marker
 fail(){ echo "JOB FAILED: $1 ($(date -u +%FT%TZ))"; touch PTB1_JOB_FAILED.marker; rm -f PTB1_JOB_RUNNING; exit 1; }
 
 PY="${PYBIN:-python3}"
-$PY -m pip install --no-cache-dir -q "transformers==5.15.0" peft accelerate sentencepiece protobuf || fail "pip install"
+# Pin the FULL torch family, not just transformers. RunPod PyTorch images ship
+# torch 2.4.1, on which transformers 5.15.0 dies (its tensor-parallel module
+# dereferences torch behind a version guard). Upgrading torch alone then leaves
+# torchvision/torchaudio built against the old ABI, whose C++ ops fail to
+# resolve and surface as a MISLEADING "Could not import BloomPreTrainedModel"
+# from transformers' lazy loader. These versions reproduce the committed 7B pod
+# environment (pair7b/provenance/PIP_FREEZE.txt).
+$PY -m pip install --no-cache-dir -q \
+    "torch==2.6.0" "torchvision==0.21.0" "torchaudio==2.6.0" \
+    --index-url https://download.pytorch.org/whl/cu124 || fail "pip install torch family"
+$PY -m pip install --no-cache-dir -q \
+    "transformers==5.15.0" "peft==0.20.0" "accelerate==1.14.0" \
+    sentencepiece protobuf || fail "pip install"
 $PY - <<'EOF' || exit 1
 import torch, transformers, peft
 print("torch", torch.__version__, "cuda", torch.cuda.is_available())
