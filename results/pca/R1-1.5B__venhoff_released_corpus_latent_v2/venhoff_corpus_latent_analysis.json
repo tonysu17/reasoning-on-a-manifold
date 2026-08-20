@@ -1,0 +1,1487 @@
+{
+  "api_cost_usd": 0.0,
+  "definitions": {
+    "captured_squared_norm": "E_k = ||U_k u||^2 for unit direction u",
+    "d_eff70_variance_threshold_dimension": "smallest PCA component count reaching 70% cumulative variance",
+    "fixed_top10_variance_concentration": "fraction of total variance captured by the first ten PCs",
+    "participation_ratio": "(sum eigenvalues)^2 / sum(eigenvalues^2)",
+    "retained_norm": "R_k = ||U_k u|| = sqrt(E_k)"
+  },
+  "occurrence_aware_alignment_sensitivity": {
+    "adding-knowledge": {
+      "official_venhoff": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.7030037344933473,
+            "retained_norm": 0.8384531796667881,
+            "subspace_angle_degrees": 33.02286212528734
+          },
+          "3": {
+            "captured_squared_norm": 0.30178492847255584,
+            "retained_norm": 0.5493495503525564,
+            "subspace_angle_degrees": 56.67759915686489
+          },
+          "5": {
+            "captured_squared_norm": 0.6313389455239051,
+            "retained_norm": 0.7945684020422062,
+            "subspace_angle_degrees": 37.38549087692884
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      },
+      "thesis_hybrid": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.6809171185777687,
+            "retained_norm": 0.8251770225701687,
+            "subspace_angle_degrees": 34.393557194143455
+          },
+          "3": {
+            "captured_squared_norm": 0.49210300839369386,
+            "retained_norm": 0.7015005405512486,
+            "subspace_angle_degrees": 45.452483103199235
+          },
+          "5": {
+            "captured_squared_norm": 0.5934295463840588,
+            "retained_norm": 0.7703437845430173,
+            "subspace_angle_degrees": 39.6152295524693
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      }
+    },
+    "backtracking": {
+      "official_venhoff": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.8668296275030647,
+            "retained_norm": 0.9310368561464496,
+            "subspace_angle_degrees": 21.402977004158632
+          },
+          "3": {
+            "captured_squared_norm": 0.5210145024909352,
+            "retained_norm": 0.7218133432480555,
+            "subspace_angle_degrees": 43.79560293910204
+          },
+          "5": {
+            "captured_squared_norm": 0.8275866267441221,
+            "retained_norm": 0.9097178830517305,
+            "subspace_angle_degrees": 24.533605871543244
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      },
+      "thesis_hybrid": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.660014363788429,
+            "retained_norm": 0.8124126807161672,
+            "subspace_angle_degrees": 35.667668892307454
+          },
+          "3": {
+            "captured_squared_norm": 0.5005407012695988,
+            "retained_norm": 0.7074890114126147,
+            "subspace_angle_degrees": 44.96902009323648
+          },
+          "5": {
+            "captured_squared_norm": 0.6218106981493599,
+            "retained_norm": 0.7885497436112447,
+            "subspace_angle_degrees": 37.949811415357665
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      }
+    },
+    "example-testing": {
+      "official_venhoff": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.49332916195435056,
+            "retained_norm": 0.702373947377286,
+            "subspace_angle_degrees": 45.38222220568216
+          },
+          "3": {
+            "captured_squared_norm": 0.006493065873341278,
+            "retained_norm": 0.08057956237993154,
+            "subspace_angle_degrees": 85.37812023318958
+          },
+          "5": {
+            "captured_squared_norm": 0.39397180165162393,
+            "retained_norm": 0.627671730804904,
+            "subspace_angle_degrees": 51.1214448131262
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      },
+      "thesis_hybrid": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.6933496722441506,
+            "retained_norm": 0.8326762109272431,
+            "subspace_angle_degrees": 33.625360882195196
+          },
+          "3": {
+            "captured_squared_norm": 0.34114033518636133,
+            "retained_norm": 0.5840722003197562,
+            "subspace_angle_degrees": 54.262527771748665
+          },
+          "5": {
+            "captured_squared_norm": 0.5752835749441614,
+            "retained_norm": 0.7584745051378862,
+            "subspace_angle_degrees": 40.67010242756301
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      }
+    },
+    "uncertainty-estimation": {
+      "official_venhoff": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.9178866108855368,
+            "retained_norm": 0.9580639910181036,
+            "subspace_angle_degrees": 16.651781312356956
+          },
+          "3": {
+            "captured_squared_norm": 0.6864265299940098,
+            "retained_norm": 0.8285086179358726,
+            "subspace_angle_degrees": 34.054159575793584
+          },
+          "5": {
+            "captured_squared_norm": 0.8878345636541403,
+            "retained_norm": 0.9422497352900346,
+            "subspace_angle_degrees": 19.5671312968754
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      },
+      "thesis_hybrid": {
+        "by_k": {
+          "10": {
+            "captured_squared_norm": 0.7837623481558311,
+            "retained_norm": 0.8853035344760751,
+            "subspace_angle_degrees": 27.71110247597163
+          },
+          "3": {
+            "captured_squared_norm": 0.494108896526748,
+            "retained_norm": 0.7029287990449303,
+            "subspace_angle_degrees": 45.33754317564587
+          },
+          "5": {
+            "captured_squared_norm": 0.7355872965231374,
+            "retained_norm": 0.8576638598676858,
+            "subspace_angle_degrees": 30.944715521935432
+          }
+        },
+        "random_isotropic_expected_captured_squared_norm": {
+          "10": 0.006510416666666667,
+          "3": 0.001953125,
+          "5": 0.0032552083333333335
+        }
+      }
+    }
+  },
+  "pca_cloud_metrics": {
+    "occurrence_aware": {
+      "15": {
+        "component_file": "occurrence_aware_components_layer15.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2007,
+          "backtracking": 794,
+          "deduction": 7120,
+          "example-testing": 788,
+          "initializing": 656,
+          "uncertainty-estimation": 1999
+        },
+        "cumulative_variance": {
+          "10": 0.39602208341440553,
+          "3": 0.22336604272249946,
+          "5": 0.2923925993298212
+        },
+        "d_eff70_variance_threshold_dimension": 74,
+        "eigenvalue_file": "occurrence_aware_eigenvalues_layer15.npy",
+        "fixed_top10_variance_concentration": 0.39602208341440553,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "occurrence_aware_mean_layer15.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13364,
+        "participation_ratio": 40.77393290107641,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 3125.205395747687,
+        "unit": "span row nested within released response/chain"
+      },
+      "17": {
+        "component_file": "occurrence_aware_components_layer17.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2007,
+          "backtracking": 794,
+          "deduction": 7120,
+          "example-testing": 788,
+          "initializing": 656,
+          "uncertainty-estimation": 1999
+        },
+        "cumulative_variance": {
+          "10": 0.390135798316378,
+          "3": 0.21817616385970656,
+          "5": 0.2873858886150218
+        },
+        "d_eff70_variance_threshold_dimension": 78,
+        "eigenvalue_file": "occurrence_aware_eigenvalues_layer17.npy",
+        "fixed_top10_variance_concentration": 0.390135798316378,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "occurrence_aware_mean_layer17.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13364,
+        "participation_ratio": 42.84035799811163,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 4526.514481525969,
+        "unit": "span row nested within released response/chain"
+      },
+      "18": {
+        "component_file": "occurrence_aware_components_layer18.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2007,
+          "backtracking": 794,
+          "deduction": 7120,
+          "example-testing": 788,
+          "initializing": 656,
+          "uncertainty-estimation": 1999
+        },
+        "cumulative_variance": {
+          "10": 0.3919891057914968,
+          "3": 0.21872204119011485,
+          "5": 0.2884576051298602
+        },
+        "d_eff70_variance_threshold_dimension": 78,
+        "eigenvalue_file": "occurrence_aware_eigenvalues_layer18.npy",
+        "fixed_top10_variance_concentration": 0.3919891057914968,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "occurrence_aware_mean_layer18.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13364,
+        "participation_ratio": 42.831663893026274,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 5753.927408109756,
+        "unit": "span row nested within released response/chain"
+      }
+    },
+    "released": {
+      "15": {
+        "component_file": "released_components_layer15.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2004,
+          "backtracking": 790,
+          "deduction": 7104,
+          "example-testing": 784,
+          "initializing": 655,
+          "uncertainty-estimation": 1994
+        },
+        "cumulative_variance": {
+          "10": 0.39157322955451906,
+          "3": 0.21909134075297343,
+          "5": 0.2898820211154866
+        },
+        "d_eff70_variance_threshold_dimension": 75,
+        "eigenvalue_file": "released_eigenvalues_layer15.npy",
+        "fixed_top10_variance_concentration": 0.39157322955451906,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "released_mean_layer15.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13331,
+        "participation_ratio": 41.227963162550935,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 3080.0845589435185,
+        "unit": "span row nested within released response/chain"
+      },
+      "17": {
+        "component_file": "released_components_layer17.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2004,
+          "backtracking": 790,
+          "deduction": 7104,
+          "example-testing": 784,
+          "initializing": 655,
+          "uncertainty-estimation": 1994
+        },
+        "cumulative_variance": {
+          "10": 0.38480401792972263,
+          "3": 0.21323002977632355,
+          "5": 0.2843620340889305
+        },
+        "d_eff70_variance_threshold_dimension": 80,
+        "eigenvalue_file": "released_eigenvalues_layer17.npy",
+        "fixed_top10_variance_concentration": 0.38480401792972263,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "released_mean_layer17.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13331,
+        "participation_ratio": 43.50775598936289,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 4460.590932524221,
+        "unit": "span row nested within released response/chain"
+      },
+      "18": {
+        "component_file": "released_components_layer18.npy",
+        "counts_by_label": {
+          "adding-knowledge": 2004,
+          "backtracking": 790,
+          "deduction": 7104,
+          "example-testing": 784,
+          "initializing": 655,
+          "uncertainty-estimation": 1994
+        },
+        "cumulative_variance": {
+          "10": 0.387370362404709,
+          "3": 0.21486113493071787,
+          "5": 0.2867507543156958
+        },
+        "d_eff70_variance_threshold_dimension": 80,
+        "eigenvalue_file": "released_eigenvalues_layer18.npy",
+        "fixed_top10_variance_concentration": 0.387370362404709,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "released_mean_layer18.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 13331,
+        "participation_ratio": 43.45663642791251,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "total_variance": 5650.979600413659,
+        "unit": "span row nested within released response/chain"
+      }
+    },
+    "thesis_mixed_vintage": {
+      "15": {
+        "component_file": "thesis_mixed_vintage_components_layer15.npy",
+        "counts_by_label": {
+          "adding-knowledge": 4717,
+          "backtracking": 9598,
+          "deduction": 33142,
+          "example-testing": 5465,
+          "initializing": 4580,
+          "uncertainty-estimation": 15710
+        },
+        "cumulative_variance": {
+          "10": 0.4589140911106497,
+          "3": 0.29283058663513084,
+          "5": 0.3615026407782843
+        },
+        "d_eff70_variance_threshold_dimension": 54,
+        "eigenvalue_file": "thesis_mixed_vintage_eigenvalues_layer15.npy",
+        "fixed_top10_variance_concentration": 0.4589140911106497,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "thesis_mixed_vintage_mean_layer15.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 73212,
+        "participation_ratio": 24.04066455495449,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "source_contract": "held-out 50 task IDs; current unclipped target-label rows plus archived sentence-clipped initializing/deduction rows",
+        "total_variance": 2906.671811397718,
+        "unit": "span row nested within thesis response/chain"
+      },
+      "17": {
+        "component_file": "thesis_mixed_vintage_components_layer17.npy",
+        "counts_by_label": {
+          "adding-knowledge": 4717,
+          "backtracking": 9598,
+          "deduction": 33142,
+          "example-testing": 5465,
+          "initializing": 4580,
+          "uncertainty-estimation": 15710
+        },
+        "cumulative_variance": {
+          "10": 0.4509899573035011,
+          "3": 0.2859379341862539,
+          "5": 0.353580261187563
+        },
+        "d_eff70_variance_threshold_dimension": 58,
+        "eigenvalue_file": "thesis_mixed_vintage_eigenvalues_layer17.npy",
+        "fixed_top10_variance_concentration": 0.4509899573035011,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "thesis_mixed_vintage_mean_layer17.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 73212,
+        "participation_ratio": 25.905580168528942,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "source_contract": "held-out 50 task IDs; current unclipped target-label rows plus archived sentence-clipped initializing/deduction rows",
+        "total_variance": 4140.799075362684,
+        "unit": "span row nested within thesis response/chain"
+      },
+      "18": {
+        "component_file": "thesis_mixed_vintage_components_layer18.npy",
+        "counts_by_label": {
+          "adding-knowledge": 4717,
+          "backtracking": 9598,
+          "deduction": 33142,
+          "example-testing": 5465,
+          "initializing": 4580,
+          "uncertainty-estimation": 15710
+        },
+        "cumulative_variance": {
+          "10": 0.4573080326717393,
+          "3": 0.28693175148336636,
+          "5": 0.35830314998629015
+        },
+        "d_eff70_variance_threshold_dimension": 55,
+        "eigenvalue_file": "thesis_mixed_vintage_eigenvalues_layer18.npy",
+        "fixed_top10_variance_concentration": 0.4573080326717393,
+        "hidden_dim": 1536,
+        "labels": [
+          "initializing",
+          "deduction",
+          "adding-knowledge",
+          "example-testing",
+          "uncertainty-estimation",
+          "backtracking"
+        ],
+        "mean_file": "thesis_mixed_vintage_mean_layer18.npy",
+        "n_positive_eigenvalues": 1536,
+        "n_rows": 73212,
+        "participation_ratio": 25.31042802436233,
+        "pca_method": "mean-centred row-pooled exact covariance eigendecomposition",
+        "source_contract": "held-out 50 task IDs; current unclipped target-label rows plus archived sentence-clipped initializing/deduction rows",
+        "total_variance": 5430.992983427899,
+        "unit": "span row nested within thesis response/chain"
+      }
+    }
+  },
+  "pca_metric_deltas_venhoff_minus_thesis": {
+    "occurrence_aware": {
+      "15": {
+        "venhoff_minus_thesis_d_eff70": 20,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.06289200769624415,
+        "venhoff_minus_thesis_participation_ratio": 16.733268346121918
+      },
+      "17": {
+        "venhoff_minus_thesis_d_eff70": 20,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.0608541589871231,
+        "venhoff_minus_thesis_participation_ratio": 16.934777829582686
+      },
+      "18": {
+        "venhoff_minus_thesis_d_eff70": 23,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.06531892688024249,
+        "venhoff_minus_thesis_participation_ratio": 17.521235868663943
+      }
+    },
+    "released": {
+      "15": {
+        "venhoff_minus_thesis_d_eff70": 21,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.06734086155613062,
+        "venhoff_minus_thesis_participation_ratio": 17.187298607596446
+      },
+      "17": {
+        "venhoff_minus_thesis_d_eff70": 22,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.06618593937377848,
+        "venhoff_minus_thesis_participation_ratio": 17.60217582083395
+      },
+      "18": {
+        "venhoff_minus_thesis_d_eff70": 25,
+        "venhoff_minus_thesis_fixed_top10_variance_concentration": -0.0699376702670303,
+        "venhoff_minus_thesis_participation_ratio": 18.146208403550176
+      }
+    }
+  },
+  "provenance": {
+    "analysis_repo_git_commit": "b9babc3b46bde8538d052df5dc49b4435934074d",
+    "analysis_repo_git_dirty": true,
+    "builder": "venhoff_corpus_latent_analysis.py",
+    "builder_sha256": "ea5e8a5cfb10308089ecc706e5e401bfb61a107c02679641d77c60c23a6f3bdb",
+    "extraction_metadata_sha256": "302a4e7f039b9f0804ac0286e74bb92e8f7af84fb33382e27a243b7f9a2cb3e9",
+    "extraction_root": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18",
+    "hybrid_direction_root": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid",
+    "input_sha256": {
+      "/Users/tonysu/steering-thinking-llms/environment.yaml": "5a99d903c03e6fe82924f37fd78aa9fef73462e7e7340357e66ee7be874de611",
+      "/Users/tonysu/steering-thinking-llms/train-steering-vectors/results/vars/mean_vectors_deepseek-r1-distill-qwen-1.5b.pt": "bbf7bcac3758df3236d485c41dcf3033a53fd6333a4abd555290e8ef71419412",
+      "/Users/tonysu/steering-thinking-llms/train-steering-vectors/train_vectors.py": "b901cf8cff3d12e7057806d7535dde31a714691ad7ea18c2bebc741c8db0180a",
+      "/Users/tonysu/steering-thinking-llms/utils/utils.py": "eeb8e63a6daec5d4d7dba82f6b25eef5bda551ac1bd24f29e574f20dc61a9779",
+      "data/activations/R1-1.5B/adding-knowledge_layer15.npy": "5433ce0d3da76c151c4fec8f3ab0bae5406e1d4afb51921045b145a492a624f3",
+      "data/activations/R1-1.5B/adding-knowledge_layer17.npy": "f4a6dbe4a9ad95c7f584b744fe5ea5aacd4d12b703f8c19cf3d1d1821b31c6cd",
+      "data/activations/R1-1.5B/adding-knowledge_layer18.npy": "b35d4e41c11ec214d24bb3266a9b0ba64fdb5abbf8b5ed5ab27ea0ca8c3cd879",
+      "data/activations/R1-1.5B/backtracking_layer15.npy": "cbb3385f33fba05d362c49719a83dbf8637a6ca894bfb67ab54a2639dce95804",
+      "data/activations/R1-1.5B/backtracking_layer17.npy": "37a0a82a0bca96c85e0d91862f30fcb0b0c9bcb7255aa4f2a510655f7cf2847d",
+      "data/activations/R1-1.5B/backtracking_layer18.npy": "e120a3f49321e0f5e7ec6e862b4d715a9ec5b7117d0d8da64b3707c9e78f2a49",
+      "data/activations/R1-1.5B/example-testing_layer15.npy": "5baabcc9edf3abc0985263a22b30e4ab827c68e83c75620025cb14ff1215e39d",
+      "data/activations/R1-1.5B/example-testing_layer17.npy": "1dad5968083a1f4ba1bbaff3c7decc61e59bec355b19313f4c219c99ef8a4c9e",
+      "data/activations/R1-1.5B/example-testing_layer18.npy": "840b2718ec05762e37bf8ba61ea77fedb0285ec299903136d4e46c6cf2b96cdd",
+      "data/activations/R1-1.5B/metadata.json": "23220c350f165399e6a4b522af0fe3248b8912db2fc707f65ce044cfcaa4dfd1",
+      "data/activations/R1-1.5B/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer15.npy": "d3b9c029837ad533e1d1be0b691c5b9aefeed6e0a15a8692c68620bffa4d12d9",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer17.npy": "0519637da893b60033f761241059061d2c7576a0d6c0c234fd2da6d379c12d5e",
+      "data/activations/R1-1.5B/uncertainty-estimation_layer18.npy": "c0fc25383155fea97b3815bee0e2b83029d44670c0668f768a486f64604b8990",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/adding-knowledge_layer15.npy": "d21a6f7adcbb6444aa14ba279ce0af8230d43ff4be1743b06df5e921f21d5b8e",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/adding-knowledge_layer17.npy": "02f494bafe9848c253e4430573de779e92342e3ec22477a17db5d9e244614b01",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/adding-knowledge_layer18.npy": "1f711e4c8979349251077c40d967c1f86a1066fa2a40b66156ed029f68d51367",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/backtracking_layer15.npy": "2d99d62f8f2e287afb6002f34590899d211765e144e20e1ac81542bc18d7a703",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/backtracking_layer17.npy": "ebaa582b3045a924e953220527f5d6a4bb3461e01afc3d407ab0f0d3f5840777",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/backtracking_layer18.npy": "623f533abb01a0718c752d9bb8cb8562779defc5d39757499a778eb4472d3087",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/deduction_layer15.npy": "74a1330e5127f59a468c4997dd3c4470163d94aa5222bcb339df02a7254f2487",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/deduction_layer17.npy": "dcbe12211bf6be7bd33f6f468e07845552e046d7e43677d5746d0ec310dd2987",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/deduction_layer18.npy": "b5e17c6472d5753dabc770bd9ea739270086a7fd9c6b96ef1a26086466b2278b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/example-testing_layer15.npy": "87be3f0eb7574618d9c816eea8360597ffc2c390092ed4f9aa14071350b8ce5d",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/example-testing_layer17.npy": "6da990d424244d7b9bb8ace968020e1633c05fb654961e801f6ca7ca16596fb8",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/example-testing_layer18.npy": "ed8fffefe25d957ec65b95201337f5067c9407ad23ed6aa537bfb5f56f955299",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/initializing_layer15.npy": "62ffb9a9ef1a7a3fab69e58b777989231835259576cee64c309e5efd244ca342",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/initializing_layer17.npy": "1951d8b62c45cac396baba1396ae34e608b13101296fe206c6bc67a408030e43",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/initializing_layer18.npy": "dd23ed3340bb89cc602aec023c1b54e1a419c0fd3588a0bde8ac6e112df0cc2f",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/uncertainty-estimation_layer15.npy": "c0579da852a42b0dbc4fd47d9ec3bf16a35949ceb5640e876a30802e6869183b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/uncertainty-estimation_layer17.npy": "4a6b6fe8b5206d2e1c6073a56a3097675cca9e41abd21c4d9e4fa8c3939809f4",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/occurrence_aware/uncertainty-estimation_layer18.npy": "d38148b1b286811e92d200533d1013a96e7f366d1f0ea78076e233f25f7eb569",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/adding-knowledge_layer15.npy": "cce39618747eb79db44821337e96950caee698d2ed7e7fe221962c6dc2831f74",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/adding-knowledge_layer17.npy": "17574148dd8d44e77a597f116295d20acff4aee226fe1a53206233dbded926bd",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/adding-knowledge_layer18.npy": "9cb1d9634cd00143d60e15f3bd181eb11afb1e30b0f1d9e7d785df31c12dfe18",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/backtracking_layer15.npy": "79fb5d07d4d66b6bd7072465904e313d7a8a8d5af3d0ba0e5a56e6a8c02a4f62",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/backtracking_layer17.npy": "764760609fd3f07e72e65fa8fc9bf621b4b010143096454c6d28100ac73f3902",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/backtracking_layer18.npy": "2cd708e811b0584fe8becf76f71ecaf51ff32e6cdcfbefdc625756a0bfe55148",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/deduction_layer15.npy": "af5bf9688ab1034c5c48bc0df090fe024764216391e9a487cd0795bf38c9a650",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/deduction_layer17.npy": "bf54926cb972e63303c22e403cd8f25605246f7b1f1b92f67566f80d84ded073",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/deduction_layer18.npy": "965ca304b16904fe39c85fe3d645bb3c8eac34d731e557c966b3ce74c4e7769e",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/example-testing_layer15.npy": "5a2ee9261d617da54995e2ba8c6586b237d50b4c8fb753292b30dfa4b72d5a0b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/example-testing_layer17.npy": "9f0938cf76f6b5ad881225495cb44f1d20e3c994621e86dbb274c93ad3d02790",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/example-testing_layer18.npy": "69c8cb6c5066aa01511d0a7b119d0e4a7d7c36eed104e55466c584a743a1bc90",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/initializing_layer15.npy": "1990c57f878a8dbd50548755cdb25b24eac3f9d005e444673b7df3af00651324",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/initializing_layer17.npy": "77f3be0145719e75797297c2bd7f0bc279464070d1118e06fc524ea287c33194",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/initializing_layer18.npy": "714c401955a29c5a1b21ee20c30f666cc3d556b42703ce20a2c9cc363bc9ff60",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/overall_layer15.npy": "e2b6f63e6e974d39cd612f5cd4d5a848d90d848d12fd410d72285c31575a1382",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/overall_layer17.npy": "080a273f5fedddf6c577c91b52ad2b74aebda7246de40d6da80ec9a088246c81",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/overall_layer18.npy": "2b02bd488dd81632a546512f4f2c904274b7e72bb651c16926561491e3fdb15b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/summarizing_layer15.npy": "023eff7d5ac54ce5f7991539817fd2667b4a3030210af38a0a67bc821ec0c37b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/summarizing_layer17.npy": "426c7b284b5371e3f1f6d440b9849b1f7b08be77831f0aa7da833dec4461b258",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/summarizing_layer18.npy": "4187f4f66354e8521bcde680e15ce0d3605b735eddec813bbc04b66117ac7afa",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/uncertainty-estimation_layer15.npy": "9d4c5144ffa5e343ff7e33b0a2ebcb3507c3fece54b465a92d15a6c9c221e31e",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/uncertainty-estimation_layer17.npy": "b72d9921495f84f5ddee8dd7e60261544adf7ec8fa4ca5d91a091919d686446b",
+      "data/activations/Venhoff-R1-1.5B__released500_l15-l17-l18/released/uncertainty-estimation_layer18.npy": "edb810a5affaed79d8d8a3d5961af21872d2e54589f77372e7e21fc44788bf4a",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer15.npy": "0769b25984ae9051b894cff765a00f9e7bb5c32519bc49b201b619a36e007582",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer17.npy": "d89e5cfba8b0caf0fc2b88a4bb78f7f040d6528b29617aa06b142e11e00b1377",
+      "data/activations/_volume_R1-1.5B_6label_archive/deduction_layer18.npy": "b0554b25f080bd18337f20bb50526068b84c7d415886e8518491bd28cb0b7b1d",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer15.npy": "52c9b4517e294bc0bc662049781c5f88fa45402b929f97363be03f24f56d17fe",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer17.npy": "f68d0f5337d802ce3f458129889bf04d16f842ba58d45861057ca63a87a48c12",
+      "data/activations/_volume_R1-1.5B_6label_archive/initializing_layer18.npy": "0794fa2a1b72aa82f76612c7767f15c5bec7d48bdcafa244cca13aceff643ae3",
+      "data/activations/_volume_R1-1.5B_6label_archive/metadata.json": "96e70605497fbf946894e91d7e30bb41340bbeb745c7cdd5c9341b565650d655",
+      "data/activations/_volume_R1-1.5B_6label_archive/row_index.json": "d5a267d272ee7cab2cabed9aca2151a4700162a8aba7ac8c6b25b2831475af0b",
+      "results/eval/R1-1.5B__E1/eval_task_ids.json": "c8f2d921e4f8506c68b488442ed51f05e6a14dbac638c66fc41569d7bbd37bcd",
+      "results/pca/R1-1.5B__venhoff_official_direction_alignment/pooled_components_layer15.npy": "46d96932ca45d705b3b6e1ca00dd62c5a82735cdeeb021ea8ba7cf244e73c409",
+      "results/pca/R1-1.5B__venhoff_official_direction_alignment/pooled_components_layer17.npy": "e213a4f067a457e361fd624cc90e0dd585414aaed0122cab7ef7d141caa2300f",
+      "results/pca/R1-1.5B__venhoff_official_direction_alignment/pooled_components_layer18.npy": "8046d61d553c9d8a312470905cd4d941ce1aa18291bc8744a5d76c610b7b4812",
+      "results/pca/R1-1.5B__venhoff_official_direction_alignment/venhoff_official_pca_alignment.json": "3f675d076d080fb65550e4428147020abd6f434f9544e3e3dba6de38df0f8640",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/adding-knowledge_single.npy": "b57a6301a392994008615fc55d4e39a899e4864e76520c25fba5cbbfdd800a5b",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/backtracking_single.npy": "10b12bdd2e90afafee4198e13156d30e585cde41f29993dca2ca91d7c221b2ca",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/example-testing_single.npy": "e943cd417ff650df5eea05366fae33fe7bdf355de9213310770138168a43a3bb",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/metadata.json": "ea627bdcc8bc6f27115d3ee670a9527a9117a6109672ab3adb48c3dc40407005",
+      "results/steering_vectors/R1-1.5B__venhoff_bridge_hybrid/uncertainty-estimation_single.npy": "1462474e842167ed00b3cf89ab537f5dc7066273dc9503d320bf186986b371c6"
+    },
+    "model_config_sha256": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41",
+    "model_revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "model_weight_blob": "/Users/tonysu/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-1.5B/blobs/58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945",
+    "model_weight_file_size_bytes": 3554214621,
+    "official_means_sha256": "bbf7bcac3758df3236d485c41dcf3033a53fd6333a4abd555290e8ef71419412",
+    "official_repository_commit": "93259bc3410c99293351df41141cd16b4110422a",
+    "output_sha256": {
+      "occurrence_aware_components_layer15.npy": "c4eeabb33894cf28c6446516abca466363162746a82b2a4d18df3494abd2b98d",
+      "occurrence_aware_components_layer17.npy": "664802be1a5d3d8e86cc8afbbd1851453cfdf1116460287846169aba21f88332",
+      "occurrence_aware_components_layer18.npy": "270a4b47645d045f12bd8b263cd99f0e5f9124012f88888da0d543e9759e9ea2",
+      "occurrence_aware_eigenvalues_layer15.npy": "ca69c87fe04fff4dce984e3e286e3203b46d101621d138f2893b4636c129ac39",
+      "occurrence_aware_eigenvalues_layer17.npy": "106d230c594a8b6236cb75f6569d10f57a3fa7504042fb16b6b75ab810295555",
+      "occurrence_aware_eigenvalues_layer18.npy": "9aa2e9a6018ae3a7e6f3bf4e2d5df10110e7b3d046cea3a5adaf6c13258bca7b",
+      "occurrence_aware_mean_layer15.npy": "bae4bda29b0103c87927a788b8c194769ab11986663ecc6e338886412079639b",
+      "occurrence_aware_mean_layer17.npy": "37def2c6c0f0672a9e6ec0310607a21671552fdcef97aadeddeeecd6fe38f0e4",
+      "occurrence_aware_mean_layer18.npy": "f383794e2a1cf869bc620415bd90af9c445adcbde1a02d742e0584a1da2ce165",
+      "released_components_layer15.npy": "fee221aa08c65762ba2f44464674f0fe55e81b81beb8e3bcfe5f2a4b699184d4",
+      "released_components_layer17.npy": "950b75a171e343c77162e84bc2382b09f0e1a85508724d27c753ee9198cf43ed",
+      "released_components_layer18.npy": "7169cb48df6fb6a7cd47d5982770e36165068716b8b0e45d1c51a0f8bff51676",
+      "released_eigenvalues_layer15.npy": "5ff72bd3c6abde396e39b538ed979e0ff510592aaf7e7f5b7b5a3dfbac6fc87f",
+      "released_eigenvalues_layer17.npy": "16f17777fa7b2e3c0fe1023658b3cf949b1a3ef70ce1724e375ce0efed3f464a",
+      "released_eigenvalues_layer18.npy": "9a85c98a08e22bdfeba9c2ea4ef768c35c2d9740996e48282acc2ccb793b4c3e",
+      "released_mean_layer15.npy": "a26bc6cdf1dc88e7fef83fb2ec7ffc3908e1427747c1951318dd343ea23b1210",
+      "released_mean_layer17.npy": "b66cbc8236abc5d02b6429d9d97128ddc35ce9c3779492dcb6eec1d8db008623",
+      "released_mean_layer18.npy": "345388ffce61028761a59fb9ab4e037c3fc08c9246e31f60100b22fcee571a62",
+      "thesis_mixed_vintage_components_layer15.npy": "f1969529741f05ac94d129d071a61ba733302b91b784ee6827a011ae950ac69d",
+      "thesis_mixed_vintage_components_layer17.npy": "52eb1c1d8b6e24879e103a72f2e1704a175d06d681094137ba525e88495fbedc",
+      "thesis_mixed_vintage_components_layer18.npy": "1b133b913f7e7bb1b4fec069c2825900c108a51e3b8904e4dce794f3cf411bf3",
+      "thesis_mixed_vintage_eigenvalues_layer15.npy": "d4364eb8569627b1f3f81c57b2988502ff572da3f7bbcbcb057b44989bfc4b25",
+      "thesis_mixed_vintage_eigenvalues_layer17.npy": "34ceeab9a05d69d14d1ef51474687c7658019ed2d4ce691e9804327870f652ff",
+      "thesis_mixed_vintage_eigenvalues_layer18.npy": "b702878a05e53f2b85e15f2df7778ea109ef5d0cbccfb1a2bae6465fdd3062e1",
+      "thesis_mixed_vintage_mean_layer15.npy": "a1df765426c41e84b9fb9deb6a9eb8a274c5672ee9850f7a9ba9f8e07cf06545",
+      "thesis_mixed_vintage_mean_layer17.npy": "f91ee1b36ef4f2213792aea18ce7605d48b82ba747615527baf8c3f15675ac9b",
+      "thesis_mixed_vintage_mean_layer18.npy": "bfd50b07f1e3aefc09235b50964becbe0a48dbf8d07c6e2b28fff0e94f887054"
+    },
+    "responses_sha256": "5f6f9ed1fd2f60608cd7c08b1253a43ebbc8ad1b268a46ba1f1d7d48bea8b4af",
+    "runtime_fidelity_caveat": "Released environment pins transformers 4.47.1, torch 2.5.1, NNSight 0.4.5 and CUDA; local extraction used the versions/backend recorded in extraction metadata. The strict raw-mean fidelity gate therefore controls any use of the reconstructed cloud.",
+    "thesis_basis_root": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/pca/R1-1.5B__venhoff_official_direction_alignment",
+    "tokenizer_config_sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5",
+    "tokenizer_json_sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773"
+  },
+  "released_reconstruction_validation": {
+    "count_check": {
+      "adding-knowledge": {
+        "exact": true,
+        "official": 2004,
+        "reconstructed": 2004
+      },
+      "backtracking": {
+        "exact": true,
+        "official": 790,
+        "reconstructed": 790
+      },
+      "deduction": {
+        "exact": true,
+        "official": 7104,
+        "reconstructed": 7104
+      },
+      "example-testing": {
+        "exact": true,
+        "official": 784,
+        "reconstructed": 784
+      },
+      "initializing": {
+        "exact": true,
+        "official": 655,
+        "reconstructed": 655
+      },
+      "overall": {
+        "exact": true,
+        "official": 431,
+        "reconstructed": 431
+      },
+      "summarizing": {
+        "exact": true,
+        "official": 1,
+        "reconstructed": 1
+      },
+      "uncertainty-estimation": {
+        "exact": true,
+        "official": 1994,
+        "reconstructed": 1994
+      }
+    },
+    "released_direction_cells": {
+      "adding-knowledge": {
+        "cosine": 0.999115728559796,
+        "layer": 18,
+        "max_absolute_error": 0.304291125651031,
+        "norm_ratio": 1.017405469465214,
+        "official_norm": 23.96491923110856,
+        "reconstructed_norm": 24.38203990102194,
+        "relative_l2_error": 0.045850578696628515
+      },
+      "backtracking": {
+        "cosine": 0.9989381688088038,
+        "layer": 17,
+        "max_absolute_error": 0.4680381900582873,
+        "norm_ratio": 1.0160537949061794,
+        "official_norm": 33.33955852469062,
+        "reconstructed_norm": 33.87478495950857,
+        "relative_l2_error": 0.04914752845890557
+      },
+      "example-testing": {
+        "cosine": 0.9993100826873264,
+        "layer": 15,
+        "max_absolute_error": 0.1503122693325516,
+        "norm_ratio": 1.0188980949125523,
+        "official_norm": 17.166824423460692,
+        "reconstructed_norm": 17.491244700762373,
+        "relative_l2_error": 0.04198867540640268
+      },
+      "uncertainty-estimation": {
+        "cosine": 0.9993735051616872,
+        "layer": 18,
+        "max_absolute_error": 0.42966274453866404,
+        "norm_ratio": 1.0113782538964953,
+        "official_norm": 38.4710283031204,
+        "reconstructed_norm": 38.90876143081256,
+        "relative_l2_error": 0.03737259922762697
+      }
+    },
+    "released_mean_cells": {
+      "adding-knowledge": {
+        "15": {
+          "cosine": 0.9965827870434734,
+          "max_absolute_error": 2.5220910213809153,
+          "norm_ratio": 1.0000651839563839,
+          "official_norm": 59.853455471516995,
+          "reconstructed_norm": 59.857356956547875,
+          "relative_l2_error": 0.08267330679803493
+        },
+        "17": {
+          "cosine": 0.9970932291395518,
+          "max_absolute_error": 2.9091602807904975,
+          "norm_ratio": 0.9969089507521295,
+          "official_norm": 75.69227299406334,
+          "reconstructed_norm": 75.45830445055543,
+          "relative_l2_error": 0.07619137984434564
+        },
+        "18": {
+          "cosine": 0.9970312003127004,
+          "max_absolute_error": 3.2790841052704627,
+          "norm_ratio": 1.0008361828315204,
+          "official_norm": 84.48563006081692,
+          "reconstructed_norm": 84.55627549418395,
+          "relative_l2_error": 0.07709256445977637
+        }
+      },
+      "backtracking": {
+        "15": {
+          "cosine": 0.9976012649484213,
+          "max_absolute_error": 2.3654219979008433,
+          "norm_ratio": 1.0067715804109012,
+          "official_norm": 62.99881141270974,
+          "reconstructed_norm": 63.4254129299821,
+          "relative_l2_error": 0.06982700665925012
+        },
+        "17": {
+          "cosine": 0.9980103943746402,
+          "max_absolute_error": 2.6516600206565064,
+          "norm_ratio": 1.0026337906139127,
+          "official_norm": 81.06579146985553,
+          "reconstructed_norm": 81.27930179053823,
+          "relative_l2_error": 0.0632188936391683
+        },
+        "18": {
+          "cosine": 0.9981413462210398,
+          "max_absolute_error": 3.0319595941626085,
+          "norm_ratio": 1.0061968223728643,
+          "official_norm": 94.45359616654443,
+          "reconstructed_norm": 95.03890832446677,
+          "relative_l2_error": 0.061471486561515604
+        }
+      },
+      "deduction": {
+        "15": {
+          "cosine": 0.9969387912089269,
+          "max_absolute_error": 2.432491324674383,
+          "norm_ratio": 1.0030829284838683,
+          "official_norm": 57.255653752457434,
+          "reconstructed_norm": 57.432168838273384,
+          "relative_l2_error": 0.07842701706514695
+        },
+        "17": {
+          "cosine": 0.9975538764015108,
+          "max_absolute_error": 2.7940612821465463,
+          "norm_ratio": 1.0000261716861962,
+          "official_norm": 74.73029571811401,
+          "reconstructed_norm": 74.73225153596289,
+          "relative_l2_error": 0.06994552108815671
+        },
+        "18": {
+          "cosine": 0.9975897333203432,
+          "max_absolute_error": 3.1282934197755954,
+          "norm_ratio": 1.0028350719701795,
+          "official_norm": 84.5793717591224,
+          "reconstructed_norm": 84.81916036525207,
+          "relative_l2_error": 0.06958618793552071
+        }
+      },
+      "example-testing": {
+        "15": {
+          "cosine": 0.9971285891355386,
+          "max_absolute_error": 2.4418964804404375,
+          "norm_ratio": 1.0043359958974214,
+          "official_norm": 60.505412811666815,
+          "reconstructed_norm": 60.767764033389994,
+          "relative_l2_error": 0.07606920165744722
+        },
+        "17": {
+          "cosine": 0.9976381047214194,
+          "max_absolute_error": 2.810704789187092,
+          "norm_ratio": 1.000304428604586,
+          "official_norm": 77.30900724392018,
+          "reconstructed_norm": 77.33254231711736,
+          "relative_l2_error": 0.06874097243205067
+        },
+        "18": {
+          "cosine": 0.9976450355569252,
+          "max_absolute_error": 3.142535082734551,
+          "norm_ratio": 1.0032899652530711,
+          "official_norm": 87.48994636878277,
+          "reconstructed_norm": 87.77778525232911,
+          "relative_l2_error": 0.06882040583937137
+        }
+      },
+      "initializing": {
+        "15": {
+          "cosine": 0.9971305007708591,
+          "max_absolute_error": 2.132813460590274,
+          "norm_ratio": 1.0066236734547387,
+          "official_norm": 76.1427157991628,
+          "reconstructed_norm": 76.64706028457343,
+          "relative_l2_error": 0.076294723015825
+        },
+        "17": {
+          "cosine": 0.9965287749483897,
+          "max_absolute_error": 2.401758427588084,
+          "norm_ratio": 1.0062824883738386,
+          "official_norm": 85.17579084606014,
+          "reconstructed_norm": 85.71090676178302,
+          "relative_l2_error": 0.08381846828383113
+        },
+        "18": {
+          "cosine": 0.9966551859151318,
+          "max_absolute_error": 2.679151907062712,
+          "norm_ratio": 1.008174631249347,
+          "official_norm": 95.74265275784013,
+          "reconstructed_norm": 96.52531363896973,
+          "relative_l2_error": 0.08252961898180512
+        }
+      },
+      "overall": {
+        "15": {
+          "cosine": 0.9966673176857365,
+          "max_absolute_error": 2.482501487219555,
+          "norm_ratio": 0.9997814546235082,
+          "official_norm": 56.32395425202016,
+          "reconstructed_norm": 56.311644912232644,
+          "relative_l2_error": 0.08163305522878721
+        },
+        "17": {
+          "cosine": 0.9971399391393632,
+          "max_absolute_error": 2.8684778516796654,
+          "norm_ratio": 0.9978577643918427,
+          "official_norm": 70.86828865520866,
+          "reconstructed_norm": 70.7164720837623,
+          "relative_l2_error": 0.0755807981318018
+        },
+        "18": {
+          "cosine": 0.9971580850719888,
+          "max_absolute_error": 3.194656879798857,
+          "norm_ratio": 1.000200807946241,
+          "official_norm": 79.72070722466246,
+          "reconstructed_norm": 79.73671577615312,
+          "relative_l2_error": 0.07539901549790928
+        }
+      },
+      "summarizing": {
+        "15": {
+          "cosine": 0.9976576496982457,
+          "max_absolute_error": 1.880326747894287,
+          "norm_ratio": 1.0144570161805238,
+          "official_norm": 73.6037824878712,
+          "reconstructed_norm": 74.6678735622461,
+          "relative_l2_error": 0.07043743828943899
+        },
+        "17": {
+          "cosine": 0.9978676628146269,
+          "max_absolute_error": 2.3698506355285645,
+          "norm_ratio": 1.0030998575613441,
+          "official_norm": 94.59271703980104,
+          "reconstructed_norm": 94.88594098896495,
+          "relative_l2_error": 0.06547903000764703
+        },
+        "18": {
+          "cosine": 0.9979808817644604,
+          "max_absolute_error": 2.6257104873657227,
+          "norm_ratio": 1.0038839794286287,
+          "official_norm": 109.71611355900576,
+          "reconstructed_norm": 110.14224868705803,
+          "relative_l2_error": 0.06378876229135487
+        }
+      },
+      "uncertainty-estimation": {
+        "15": {
+          "cosine": 0.9972930963682741,
+          "max_absolute_error": 2.4583152375663206,
+          "norm_ratio": 1.0045147436692632,
+          "official_norm": 60.94481169261577,
+          "reconstructed_norm": 61.21996189537945,
+          "relative_l2_error": 0.07388255630336753
+        },
+        "17": {
+          "cosine": 0.9976663221729878,
+          "max_absolute_error": 2.7767352586025473,
+          "norm_ratio": 1.000645959631096,
+          "official_norm": 77.55772030342074,
+          "reconstructed_norm": 77.60781945981658,
+          "relative_l2_error": 0.068343162358836
+        },
+        "18": {
+          "cosine": 0.9978326143584653,
+          "max_absolute_error": 3.1645887446727086,
+          "norm_ratio": 1.0034472061305681,
+          "official_norm": 90.61629486393643,
+          "reconstructed_norm": 90.92866791112075,
+          "relative_l2_error": 0.06604239065416724
+        }
+      }
+    },
+    "summary": {
+      "all_counts_exact": true,
+      "gate_definition": "all released counts exact; every selected-layer mean cosine >=0.999; every protocol-layer target-minus-overall direction cosine >=0.98",
+      "high_fidelity_gate": false,
+      "minimum_released_mean_cosine": 0.9965287749483897,
+      "minimum_target_minus_overall_direction_cosine": 0.9989381688088038
+    }
+  },
+  "schema_version": "venhoff-corpus-latent-analysis-v2",
+  "status": {
+    "claim_boundary": "Compares PCA clouds and vector-to-subspace alignment across two corpora. It does not make activation-cloud PCA a property of a steering vector, does not establish statistical significance, and does not erase corpus/prompt/annotation/runtime differences.",
+    "confirmatory": false,
+    "empirical": "post-hoc exploratory reconstruction/sensitivity"
+  },
+  "thesis_basis_validation_against_prior_reconstruction": {
+    "15": {
+      "10": {
+        "maximum_principal_angle_degrees": 0.007045256897126813,
+        "mean_principal_cosine": 1.0000000007004148,
+        "minimum_principal_cosine": 0.999999992440059
+      },
+      "3": {
+        "maximum_principal_angle_degrees": 0.004850083918243041,
+        "mean_principal_cosine": 1.0000000004678664,
+        "minimum_principal_cosine": 0.9999999964171944
+      },
+      "5": {
+        "maximum_principal_angle_degrees": 0.0050064753748734715,
+        "mean_principal_cosine": 1.0000000004265146,
+        "minimum_principal_cosine": 0.9999999961824133
+      }
+    },
+    "17": {
+      "10": {
+        "maximum_principal_angle_degrees": 0.00789831773483405,
+        "mean_principal_cosine": 1.0000000008648093,
+        "minimum_principal_cosine": 0.9999999904984613
+      },
+      "3": {
+        "maximum_principal_angle_degrees": 0.006777183360602135,
+        "mean_principal_cosine": 1.000000000212084,
+        "minimum_principal_cosine": 0.9999999930044283
+      },
+      "5": {
+        "maximum_principal_angle_degrees": 0.006812910739606246,
+        "mean_principal_cosine": 1.0000000015144275,
+        "minimum_principal_cosine": 0.9999999929304766
+      }
+    },
+    "18": {
+      "10": {
+        "maximum_principal_angle_degrees": 0.0073334945418026464,
+        "mean_principal_cosine": 0.9999999995660437,
+        "minimum_principal_cosine": 0.9999999918088159
+      },
+      "3": {
+        "maximum_principal_angle_degrees": 0.0025563509965322714,
+        "mean_principal_cosine": 1.0000000013219201,
+        "minimum_principal_cosine": 0.9999999990046732
+      },
+      "5": {
+        "maximum_principal_angle_degrees": 0.004400008696044068,
+        "mean_principal_cosine": 1.000000001182689,
+        "minimum_principal_cosine": 0.9999999970512917
+      }
+    }
+  },
+  "two_by_two_alignment": {
+    "adding-knowledge": {
+      "cells": {
+        "official_venhoff": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.41334154516260757,
+                "retained_norm": 0.6429164371538556,
+                "subspace_angle_degrees": 49.99036375613061
+              },
+              "3": {
+                "captured_squared_norm": 0.12991865504761993,
+                "retained_norm": 0.3604423047418545,
+                "subspace_angle_degrees": 68.87263804868154
+              },
+              "5": {
+                "captured_squared_norm": 0.28200686916500906,
+                "retained_norm": 0.5310431895477138,
+                "subspace_angle_degrees": 57.92403392806702
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.7865050136378537,
+                "retained_norm": 0.88685117896852,
+                "subspace_angle_degrees": 27.519804015539872
+              },
+              "3": {
+                "captured_squared_norm": 0.2536888353402351,
+                "retained_norm": 0.5036753273094039,
+                "subspace_angle_degrees": 59.75654294168736
+              },
+              "5": {
+                "captured_squared_norm": 0.6212168068982935,
+                "retained_norm": 0.7881730818153418,
+                "subspace_angle_degrees": 37.9848905743775
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        },
+        "thesis_hybrid": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.6977775421325634,
+                "retained_norm": 0.835330798027083,
+                "subspace_angle_degrees": 33.349701129897795
+              },
+              "3": {
+                "captured_squared_norm": 0.5499699459146016,
+                "retained_norm": 0.7415995859725122,
+                "subspace_angle_degrees": 42.13214540334239
+              },
+              "5": {
+                "captured_squared_norm": 0.6631001988429189,
+                "retained_norm": 0.8143096455543917,
+                "subspace_angle_degrees": 35.480841707671196
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.7116446562894206,
+                "retained_norm": 0.8435903367686359,
+                "subspace_angle_degrees": 32.478784787762876
+              },
+              "3": {
+                "captured_squared_norm": 0.41676217116565184,
+                "retained_norm": 0.6455711975960915,
+                "subspace_angle_degrees": 49.791484578570625
+              },
+              "5": {
+                "captured_squared_norm": 0.5312207785937212,
+                "retained_norm": 0.7288489408606705,
+                "subspace_angle_degrees": 43.21001669059734
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        }
+      },
+      "direction_cosine_thesis_hybrid_vs_official": 0.5680216512062317,
+      "layer": 18
+    },
+    "backtracking": {
+      "cells": {
+        "official_venhoff": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.7529019356588885,
+                "retained_norm": 0.8676992195795087,
+                "subspace_angle_degrees": 29.807635158880075
+              },
+              "3": {
+                "captured_squared_norm": 0.48808521503815394,
+                "retained_norm": 0.6986309576866415,
+                "subspace_angle_degrees": 45.68273151718556
+              },
+              "5": {
+                "captured_squared_norm": 0.6831222177091371,
+                "retained_norm": 0.826512079590575,
+                "subspace_angle_degrees": 34.25790626652291
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.8659107283179616,
+                "retained_norm": 0.93054324365822,
+                "subspace_angle_degrees": 21.48034434171594
+              },
+              "3": {
+                "captured_squared_norm": 0.586796367834866,
+                "retained_norm": 0.7660263493084726,
+                "subspace_angle_degrees": 40.00161279024905
+              },
+              "5": {
+                "captured_squared_norm": 0.8451039224979122,
+                "retained_norm": 0.9192953401915579,
+                "subspace_angle_degrees": 23.176718074037506
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        },
+        "thesis_hybrid": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.9479319123451856,
+                "retained_norm": 0.9736179498885513,
+                "subspace_angle_degrees": 13.190199094452685
+              },
+              "3": {
+                "captured_squared_norm": 0.72457403365502,
+                "retained_norm": 0.8512191454936971,
+                "subspace_angle_degrees": 31.65548101910482
+              },
+              "5": {
+                "captured_squared_norm": 0.9323677598665923,
+                "retained_norm": 0.9655919220180916,
+                "subspace_angle_degrees": 15.073740612771214
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.6480465723055456,
+                "retained_norm": 0.8050133988360353,
+                "subspace_angle_degrees": 36.388450659136524
+              },
+              "3": {
+                "captured_squared_norm": 0.5084259567198757,
+                "retained_norm": 0.7130399404801078,
+                "subspace_angle_degrees": 44.51720538852114
+              },
+              "5": {
+                "captured_squared_norm": 0.6146198009302233,
+                "retained_norm": 0.7839769135186465,
+                "subspace_angle_degrees": 38.37384596271376
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        }
+      },
+      "direction_cosine_thesis_hybrid_vs_official": 0.8029166906192885,
+      "layer": 17
+    },
+    "example-testing": {
+      "cells": {
+        "official_venhoff": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.37256591630627356,
+                "retained_norm": 0.6103817791401326,
+                "subspace_angle_degrees": 52.382886796237656
+              },
+              "3": {
+                "captured_squared_norm": 0.035225387797767724,
+                "retained_norm": 0.1876842769061056,
+                "subspace_angle_degrees": 79.18232800716206
+              },
+              "5": {
+                "captured_squared_norm": 0.31383854308801906,
+                "retained_norm": 0.5602129444131214,
+                "subspace_angle_degrees": 55.92947445396574
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.48586011372984483,
+                "retained_norm": 0.6970366659866931,
+                "subspace_angle_degrees": 45.810263831370875
+              },
+              "3": {
+                "captured_squared_norm": 0.009845919220675636,
+                "retained_norm": 0.09922660540739886,
+                "subspace_angle_degrees": 84.30536327074573
+              },
+              "5": {
+                "captured_squared_norm": 0.40834683222875146,
+                "retained_norm": 0.6390202126918612,
+                "subspace_angle_degrees": 50.281202031780516
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        },
+        "thesis_hybrid": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.734556224241768,
+                "retained_norm": 0.8570625556175978,
+                "subspace_angle_degrees": 31.01165047068978
+              },
+              "3": {
+                "captured_squared_norm": 0.45006295161120313,
+                "retained_norm": 0.6708673129697132,
+                "subspace_angle_degrees": 47.865960229336025
+              },
+              "5": {
+                "captured_squared_norm": 0.6577507344727398,
+                "retained_norm": 0.8110183317735424,
+                "subspace_angle_degrees": 35.8044551684935
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.6958865683374957,
+                "retained_norm": 0.8341981589151919,
+                "subspace_angle_degrees": 33.467562889874124
+              },
+              "3": {
+                "captured_squared_norm": 0.3331151619757573,
+                "retained_norm": 0.5771612963251758,
+                "subspace_angle_degrees": 54.748869970860014
+              },
+              "5": {
+                "captured_squared_norm": 0.5650042826866553,
+                "retained_norm": 0.7516676677140339,
+                "subspace_angle_degrees": 41.26495636166436
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        }
+      },
+      "direction_cosine_thesis_hybrid_vs_official": 0.5660258647160905,
+      "layer": 15
+    },
+    "uncertainty-estimation": {
+      "cells": {
+        "official_venhoff": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.6818462008502917,
+                "retained_norm": 0.8257397900369654,
+                "subspace_angle_degrees": 34.336433496791074
+              },
+              "3": {
+                "captured_squared_norm": 0.5222874673814437,
+                "retained_norm": 0.7226945879010329,
+                "subspace_angle_degrees": 43.722598927975085
+              },
+              "5": {
+                "captured_squared_norm": 0.6496126074524403,
+                "retained_norm": 0.8059854883634322,
+                "subspace_angle_degrees": 36.29446315609305
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.9208946519010315,
+                "retained_norm": 0.9596325608799607,
+                "subspace_angle_degrees": 16.335224593786855
+              },
+              "3": {
+                "captured_squared_norm": 0.7041266944992831,
+                "retained_norm": 0.8391225741804847,
+                "subspace_angle_degrees": 32.952418720555514
+              },
+              "5": {
+                "captured_squared_norm": 0.8862439999637487,
+                "retained_norm": 0.9414053324491787,
+                "subspace_angle_degrees": 19.71108109432143
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        },
+        "thesis_hybrid": {
+          "thesis_mixed_vintage": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.965228834035262,
+                "retained_norm": 0.9824606017725404,
+                "subspace_angle_degrees": 10.746865105976834
+              },
+              "3": {
+                "captured_squared_norm": 0.6104790810490514,
+                "retained_norm": 0.7813316076091197,
+                "subspace_angle_degrees": 38.617341656469165
+              },
+              "5": {
+                "captured_squared_norm": 0.9303414525156493,
+                "retained_norm": 0.9645420947349314,
+                "subspace_angle_degrees": 15.303326946344999
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          },
+          "venhoff_released": {
+            "by_k": {
+              "10": {
+                "captured_squared_norm": 0.7560970567205272,
+                "retained_norm": 0.8695384158969213,
+                "subspace_angle_degrees": 29.59495531765478
+              },
+              "3": {
+                "captured_squared_norm": 0.4644747724206238,
+                "retained_norm": 0.681523860492517,
+                "subspace_angle_degrees": 47.0371620535669
+              },
+              "5": {
+                "captured_squared_norm": 0.7094279691016983,
+                "retained_norm": 0.8422754710317155,
+                "subspace_angle_degrees": 32.6188104307878
+              }
+            },
+            "random_isotropic_expected_captured_squared_norm": {
+              "10": 0.006510416666666667,
+              "3": 0.001953125,
+              "5": 0.0032552083333333335
+            }
+          }
+        }
+      },
+      "direction_cosine_thesis_hybrid_vs_official": 0.7427426042947678,
+      "layer": 18
+    }
+  }
+}
