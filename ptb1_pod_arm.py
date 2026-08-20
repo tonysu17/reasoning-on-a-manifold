@@ -333,6 +333,15 @@ def run_arm(arm: str) -> None:
         fail("arm", f"unknown arm {arm!r}")
     if not (STATUS / "DONE_preflight.json").exists():
         fail(f"arm_{arm}", "preflight has not passed on this host")
+    # Resume guard: a finished arm (gate passed + full battery on disk) is not
+    # retrained. Its merged checkpoint is deleted on completion, so without
+    # this the loop would pay the training cost again to reach a no-op.
+    bat = BAT_DIR / f"{arm}.json"
+    if (STATUS / f"DONE_arm_{arm}.json").exists() and bat.exists():
+        from ph2_executor import manifest_tasks
+        if len(json.loads(bat.read_text())) >= len(manifest_tasks()):
+            print(f"[skip] arm {arm} already complete")
+            return
     merged = train_arm(arm)
     report, tok, model = identity_gate(arm, merged)
     generate_arm(arm, tok, model)
