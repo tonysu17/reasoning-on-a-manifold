@@ -264,6 +264,30 @@ def stage_identity_reference(authorised: bool) -> None:
 
 ANNOTATION_MAX_TOKENS = 2400   # mirrors ph2_executor.py
 
+#: AnnotationCostLimitError covers SIX distinct conditions, and two of them are
+#: campaign-level protections that must never be swallowed: the cumulative
+#: spend ceiling ("could exceed the spend ceiling") and the proxy quota floor
+#: ("remaining proxy quota is below the frozen floor"). Only the four per-call
+#: conditions may retire a single chain. The allowlist is strict and the
+#: default is to RE-RAISE, so an unrecognised message is treated as fatal.
+_PER_CALL_SKIPPABLE = (
+    "reported call cost exceeded the approved per-call maximum",
+    "exceeds the authorised per-call maximum",
+    "exceeds the authorised",          # output allowance / prompt chars
+)
+_NEVER_SKIP = (
+    "spend ceiling",
+    "remaining proxy quota",
+)
+
+
+def _is_per_call_skippable(exc: Exception) -> bool:
+    """True only for per-call cost conditions; campaign ceilings stay fatal."""
+    msg = str(exc)
+    if any(f in msg for f in _NEVER_SKIP):
+        return False
+    return any(s in msg for s in _PER_CALL_SKIPPABLE)
+
 
 def stage_annotate(authorised: bool) -> None:
     """Six PT-B1 arm shards through the exact Phase-2 pipeline (A3 Sonnet-only,
@@ -282,7 +306,8 @@ def stage_annotate(authorised: bool) -> None:
                                 annotation_initial_request_count,
                                 max_prompt_chars)
     from src.annotation_budget import (AnnotationAttemptGuard,
-                                       AnnotationAttemptLimitError)
+                                       AnnotationAttemptLimitError,
+                                       AnnotationCostLimitError)
     from src.annotation_coverage import (COVERAGE_RULE_VERSION,
                                          region_source_text)
     from src.ph2_stages import (ANNOTATION_DEDUP_KEYS,
@@ -347,13 +372,42 @@ def stage_annotate(authorised: bool) -> None:
         raise SystemExit(f"annotation attempt guard refused execution: {exc}")
 
     status: dict = {}
+    skipped: list = []
+    skip_path = ann_dir / "skipped_chains.json"
+    if skip_path.exists():
+        skipped = json.loads(skip_path.read_text())
+    already_skipped = {(s["arm"], s["task_id"]) for s in skipped}
+
     for src_path, dst_path, rows, n_windowed in prepared:
-        annotated = annotate_chains(
-            rows, save_path=dst_path, dedup_keys=ANNOTATION_DEDUP_KEYS,
-            model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
-            shrink_on_retry=True, max_retries=3, attempt_guard=attempt_guard,
-            coverage_validation=True,
-            include_post_think=ANNOTATION_INCLUDE_POST_THINK)
+        arm = dst_path.stem
+        annotated = []
+        for row in rows:
+            if (arm, row["task_id"]) in already_skipped:
+                continue
+            try:
+                # One chain per call: annotate_chains loads, backs up and
+                # MERGES into save_path, so per-chain invocation is resume-safe
+                # and cannot lose earlier work. This granularity is what lets a
+                # single unaffordable chain be retired without killing the run.
+                annotated = annotate_chains(
+                    [row], save_path=dst_path,
+                    dedup_keys=ANNOTATION_DEDUP_KEYS,
+                    model=ANNOTATION_MODEL, max_tokens=ANNOTATION_MAX_TOKENS,
+                    shrink_on_retry=True, max_retries=3,
+                    attempt_guard=attempt_guard, coverage_validation=True,
+                    include_post_think=ANNOTATION_INCLUDE_POST_THINK)
+            except AnnotationCostLimitError as exc:
+                if not _is_per_call_skippable(exc):
+                    raise            # ceiling / quota breaches stay FATAL
+                skipped.append({"arm": arm, "task_id": row["task_id"],
+                                "reason": str(exc),
+                                "n_tokens": row.get("n_tokens")})
+                already_skipped.add((arm, row["task_id"]))
+                _atomic_json(skipped, skip_path)
+                print(f"[skip] {arm}/{row['task_id']}: {exc}", flush=True)
+                continue
+        if dst_path.exists():
+            annotated = json.loads(dst_path.read_text())
         status[dst_path.name] = {
             "n_rows": len(annotated), "n_windowed": n_windowed,
             "n_unresolved": sum(1 for r in annotated
@@ -365,6 +419,15 @@ def stage_annotate(authorised: bool) -> None:
                 and not r.get("annotation_coverage_complete", False)),
             "coverage_rule_version": COVERAGE_RULE_VERSION,
         }
+    status["_skipped_chains"] = {
+        "n": len(skipped),
+        "note": "chains retired UNRESOLVED because a call exceeded the "
+                "$0.05 per-call hard limit; they are pairwise-deleted by "
+                "the estimators and bounded by the sealed missingness "
+                "contract. Expensive calls correlate with long/dense "
+                "chains, so this missingness is NOT random and must be "
+                "disclosed adjacent to every prevalence citation.",
+        "ledger": "skipped_chains.json"}
     _atomic_json(status, ann_dir / "annotation_status.json")
     write_provenance("annotate", {
         "authorised": authorised, "counts": status,

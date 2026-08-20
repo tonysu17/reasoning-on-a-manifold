@@ -182,3 +182,31 @@ def test_sealed_documents_exist():
     for needle in ("--epochs 5", "--lr 1e-5", "--grad-accum 32",
                    "$15", "$60", "$75", "0.98", "0.95"):
         assert needle in text, needle
+
+
+# ── per-call skip must never swallow a campaign-level ceiling ────────────────
+
+@pytest.mark.parametrize("msg,skippable", [
+    ("reported call cost exceeded the approved per-call maximum", True),
+    ("theoretical maximum charge $0.06 exceeds the authorised per-call "
+     "maximum $0.05; no call made", True),
+    ("requested output allowance 3000 exceeds the authorised 2400; "
+     "no call made", True),
+    ("prompt of 9000 chars exceeds the authorised 4341; no call made", True),
+    # These two are CAMPAIGN protections and must stay fatal.
+    ("next annotation call could exceed the spend ceiling; no call made", False),
+    ("remaining proxy quota is below the frozen floor; no call made", False),
+    # Fail-safe: anything unrecognised is fatal.
+    ("some unrecognised future condition", False),
+])
+def test_only_per_call_cost_conditions_are_skippable(msg, skippable):
+    from src.annotation_budget import AnnotationCostLimitError
+    assert X._is_per_call_skippable(AnnotationCostLimitError(msg)) is skippable
+
+
+def test_spend_ceiling_message_is_never_skippable_even_if_it_mentions_per_call():
+    """Defence in depth: the NEVER_SKIP check runs before the allowlist."""
+    from src.annotation_budget import AnnotationCostLimitError
+    hybrid = ("next annotation call could exceed the spend ceiling; "
+              "exceeds the authorised per-call maximum")
+    assert X._is_per_call_skippable(AnnotationCostLimitError(hybrid)) is False
