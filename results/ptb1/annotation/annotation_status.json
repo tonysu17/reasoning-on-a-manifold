@@ -1,0 +1,49 @@
+{
+ "_skipped_chains": {
+  "ledger": "skipped_chains.json",
+  "n": 19,
+  "note": "chains retired UNRESOLVED because a call exceeded the $0.05 per-call hard limit; they are pairwise-deleted by the estimators and bounded by the sealed missingness contract. Expensive calls correlate with long/dense chains, so this missingness is NOT random and must be disclosed adjacent to every prevalence citation."
+ },
+ "control1000-s42.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 7,
+  "n_rows": 98,
+  "n_unresolved": 1,
+  "n_windowed": 50
+ },
+ "control1000-s43.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 10,
+  "n_rows": 99,
+  "n_unresolved": 1,
+  "n_windowed": 52
+ },
+ "control1000-s44.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 4,
+  "n_rows": 99,
+  "n_unresolved": 1,
+  "n_windowed": 47
+ },
+ "safety1000-s42.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 4,
+  "n_rows": 95,
+  "n_unresolved": 0,
+  "n_windowed": 50
+ },
+ "safety1000-s43.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 6,
+  "n_rows": 90,
+  "n_unresolved": 1,
+  "n_windowed": 51
+ },
+ "safety1000-s44.json": {
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "n_coverage_incomplete": 14,
+  "n_rows": 100,
+  "n_unresolved": 1,
+  "n_windowed": 48
+ }
+}

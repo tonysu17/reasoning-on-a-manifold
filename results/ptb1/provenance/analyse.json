@@ -1,0 +1,40 @@
+{
+ "amendments": [
+  {
+   "path": "results/prereg/PTB1_AMENDMENT_1_2026-08-20.md",
+   "sha256": "9b9abd71b5d50586b78cb0986c7f532ed833e1b724d016167c755c3f415d86b4"
+  }
+ ],
+ "authorised": false,
+ "bootstrap": {
+  "B": 10000,
+  "kind": "paired BCa",
+  "seed": 20260820
+ },
+ "generated_utc": "2026-08-20T21:13:49.410684+00:00",
+ "git_commit": "c4c5abef4feaa48680e64cee487d6270e8758b4e",
+ "git_dirty": true,
+ "inputs_sha256": {
+  "results/ptb1/annotation/control1000-s42.json": "c74bb4eb8574c488bac71043dc34da802af3b66716c6d85f4c9498a896ab535b",
+  "results/ptb1/annotation/control1000-s43.json": "d4b84ff2075a0d5d9d07d24e715544a38a123cde380674b379d5e51e1b558be1",
+  "results/ptb1/annotation/control1000-s44.json": "d4a34622d376fc2a6b68a67423ff0fe4c6b3190625d750d5f89912c882e8b6f7",
+  "results/ptb1/annotation/safety1000-s42.json": "32fb6fa8230635ceec11774e4347faf279e31038f7530a55aab2fe90029608ee",
+  "results/ptb1/annotation/safety1000-s43.json": "c81c50f4b8c3a2f354073b9ef98f7a60f9aa6f24f8e7d75b3b1540741feb993b",
+  "results/ptb1/annotation/safety1000-s44.json": "e9489d6ab8b0927b604593315dcac2b678924d4b91dd4d15e7fb53e3368fba51",
+  "results/ptb1/battery/control1000-s42.json": "c641104138dc5167b72e8511be66cc92d9a3a76590a0cb7c7b496e3d33aee341",
+  "results/ptb1/battery/control1000-s43.json": "b530e2ff2a4e62623a2ce6933ffe6ace91995fdd477563711cf0eac724eb3451",
+  "results/ptb1/battery/control1000-s44.json": "e0bdef5b4b782283330c44df5c840a9d70691705ac32478bcd17251a2b290db4",
+  "results/ptb1/battery/safety1000-s42.json": "a92056502a6eb03d3a18c17e9e14147cd3e69ab25a1e98e125b07843f0b9bfed",
+  "results/ptb1/battery/safety1000-s43.json": "ad41ea204e08d3e81881a56db1e2209a1b3c0a3cfb9a9207b1f32e0af56df146",
+  "results/ptb1/battery/safety1000-s44.json": "8615296b0ac8bb41b8e91e066e02022fe82c112f1037ec1b8064aa2bbb3b29bd"
+ },
+ "missingness_contract": "results/prereg/PH2_MISSINGNESS_BOUNDING_SPEC_2026-08-19.md",
+ "multiplicity": "Holm over the four behaviours",
+ "prereg": {
+  "path": "results/prereg/PTB1_SAFETY_CONTROL_BEHAVIOUR_PREREG_2026-08-20.md",
+  "sha256": "2eacb8351061bb2eab94292e129445957f708ac048f3f5228f61663907577daf"
+ },
+ "schema_version": "rom-result-provenance-v1",
+ "seed": 20260820,
+ "stage": "ptb1-analyse"
+}

@@ -1,0 +1,116 @@
+[
+ {
+  "arm": "safety1000-s42",
+  "n_tokens": 3791,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_119"
+ },
+ {
+  "arm": "safety1000-s42",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_124"
+ },
+ {
+  "arm": "safety1000-s42",
+  "n_tokens": 3509,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_126"
+ },
+ {
+  "arm": "safety1000-s42",
+  "n_tokens": 2323,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_117"
+ },
+ {
+  "arm": "safety1000-s42",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_121"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_119"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_124"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 4552,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "SPAT_119"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "SPAT_121"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "SPAT_125"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 2323,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_117"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_121"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_122"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "LATE_124"
+ },
+ {
+  "arm": "safety1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PROB_118"
+ },
+ {
+  "arm": "control1000-s42",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_117"
+ },
+ {
+  "arm": "control1000-s42",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_121"
+ },
+ {
+  "arm": "control1000-s43",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "MATH_124"
+ },
+ {
+  "arm": "control1000-s44",
+  "n_tokens": 8192,
+  "reason": "reported call cost exceeded the approved per-call maximum",
+  "task_id": "PATT_122"
+ }
+]

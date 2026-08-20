@@ -1,0 +1,106 @@
+{
+ "amendments": [
+  {
+   "path": "results/prereg/PTB1_AMENDMENT_1_2026-08-20.md",
+   "sha256": "9b9abd71b5d50586b78cb0986c7f532ed833e1b724d016167c755c3f415d86b4"
+  }
+ ],
+ "annotator": {
+  "caveat": "builder-annotator (Sonnet) \u2014 carried into every PT-B1 verdict sentence",
+  "model": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "provider": "lab AWS proxy"
+ },
+ "authorised": true,
+ "counts": {
+  "_skipped_chains": {
+   "ledger": "skipped_chains.json",
+   "n": 19,
+   "note": "chains retired UNRESOLVED because a call exceeded the $0.05 per-call hard limit; they are pairwise-deleted by the estimators and bounded by the sealed missingness contract. Expensive calls correlate with long/dense chains, so this missingness is NOT random and must be disclosed adjacent to every prevalence citation."
+  },
+  "control1000-s42.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 7,
+   "n_rows": 98,
+   "n_unresolved": 1,
+   "n_windowed": 50
+  },
+  "control1000-s43.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 10,
+   "n_rows": 99,
+   "n_unresolved": 1,
+   "n_windowed": 52
+  },
+  "control1000-s44.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 4,
+   "n_rows": 99,
+   "n_unresolved": 1,
+   "n_windowed": 47
+  },
+  "safety1000-s42.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 4,
+   "n_rows": 95,
+   "n_unresolved": 0,
+   "n_windowed": 50
+  },
+  "safety1000-s43.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 6,
+   "n_rows": 90,
+   "n_unresolved": 1,
+   "n_windowed": 51
+  },
+  "safety1000-s44.json": {
+   "coverage_rule_version": "ph2-annotation-coverage-4",
+   "n_coverage_incomplete": 14,
+   "n_rows": 100,
+   "n_unresolved": 1,
+   "n_windowed": 48
+  }
+ },
+ "generated_utc": "2026-08-20T20:53:43.910320+00:00",
+ "git_commit": "c4c5abef4feaa48680e64cee487d6270e8758b4e",
+ "git_dirty": true,
+ "inputs_sha256": {
+  "results/ptb1/battery/control1000-s42.json": "c641104138dc5167b72e8511be66cc92d9a3a76590a0cb7c7b496e3d33aee341",
+  "results/ptb1/battery/control1000-s43.json": "b530e2ff2a4e62623a2ce6933ffe6ace91995fdd477563711cf0eac724eb3451",
+  "results/ptb1/battery/control1000-s44.json": "e0bdef5b4b782283330c44df5c840a9d70691705ac32478bcd17251a2b290db4",
+  "results/ptb1/battery/safety1000-s42.json": "a92056502a6eb03d3a18c17e9e14147cd3e69ab25a1e98e125b07843f0b9bfed",
+  "results/ptb1/battery/safety1000-s43.json": "ad41ea204e08d3e81881a56db1e2209a1b3c0a3cfb9a9207b1f32e0af56df146",
+  "results/ptb1/battery/safety1000-s44.json": "8615296b0ac8bb41b8e91e066e02022fe82c112f1037ec1b8064aa2bbb3b29bd"
+ },
+ "prereg": {
+  "path": "results/prereg/PTB1_SAFETY_CONTROL_BEHAVIOUR_PREREG_2026-08-20.md",
+  "sha256": "2eacb8351061bb2eab94292e129445957f708ac048f3f5228f61663907577daf"
+ },
+ "schema_version": "rom-result-provenance-v1",
+ "seed": 20260820,
+ "spend": {
+  "approved_spend_ceiling_usd": 60.0,
+  "attempts_reserved": 1518,
+  "committed_cost_usd": 46.248892065000014,
+  "coverage_rule_version": "ph2-annotation-coverage-4",
+  "global_retry_capacity": 1735,
+  "initial_attempts_reserved": 1458,
+  "journal_path": "/Users/tonysu/Documents/Reasoning on a Manifold/reasoning-on-manifold/results/ptb1/annotation/api_attempt_journal.jsonl",
+  "last_remaining_quota_usd": 206.08958340749996,
+  "manifest_file_sha256": "e83ab895d9c0c98a70c57382d91e82f98d3eebf0cdf542842b64c8e3c2d6dcf3",
+  "max_attempts_per_scope": 3,
+  "max_cost_per_attempt_usd": 0.05,
+  "max_output_tokens": 2400,
+  "max_prompt_chars": 4341,
+  "max_scope_attempts_observed": 3,
+  "max_total_attempts": 3470,
+  "planned_initial_requests": 1735,
+  "prior_committed_spend_usd": 7.227889,
+  "remaining_quota_floor_usd": 5.0,
+  "reported_cost_usd": 37.771003065000016,
+  "response_telemetry_missing": false,
+  "retry_attempts_reserved": 60,
+  "scopes_attempted": 1458,
+  "worst_case_attempt_cost_usd": 0.041211
+ },
+ "stage": "ptb1-annotate"
+}
