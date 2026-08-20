@@ -25,8 +25,13 @@ PY="${PYBIN:-python3}"
 $PY -m pip install --no-cache-dir -q \
     "torch==2.6.0" "torchvision==0.21.0" "torchaudio==2.6.0" \
     --index-url https://download.pytorch.org/whl/cu124 || fail "pip install torch family"
+# transformers 4.x, NOT 5.x: src/safety_posttrain/sft.py passes TrainingArguments
+# kwargs (warmup_ratio, ...) that transformers 5.x rejects outright, so the July
+# recipe this run reproduces cannot have been trained under 5.x. Training under
+# the 4.x family it was written for is the faithful choice; the G1 identity gate
+# is the adjudicator of whether the adapter actually reproduced.
 $PY -m pip install --no-cache-dir -q \
-    "transformers==5.15.0" "peft==0.20.0" "accelerate==1.14.0" \
+    "transformers==4.57.6" "peft==0.17.1" "accelerate==1.14.0" \
     sentencepiece protobuf || fail "pip install"
 $PY - <<'EOF' || exit 1
 import torch, transformers, peft
