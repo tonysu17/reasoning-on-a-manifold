@@ -50,18 +50,56 @@ def done_marker(stage: str, payload: dict) -> None:
 
 # ── preflight (Amendment 1) ──────────────────────────────────────────────────
 
+#: Amendment 2 gate: >= MIN_PREFIX_PROBES probes must share a leading
+#: identical run of >= MIN_PREFIX_CHARS characters with their stored chain.
+MIN_PREFIX_CHARS = 200
+MIN_PREFIX_PROBES = 2
+MANIFEST_SHA256 = "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333"
+PROMPT_TEXT_SHA256 = "f6b91123016196596f265a4a910e780508f7c7277325c1c87344dc63e7252211"
+BASE_BATTERY_SHA256 = "fab5a0d1366a8158b77c2260147a8daa2928827d3752be784e452759d6983832"
+
+
+def _common_prefix_len(a: str, b: str) -> int:
+    n = 0
+    while n < min(len(a), len(b)) and a[n] == b[n]:
+        n += 1
+    return n
+
+
 def preflight() -> None:
+    """Amendment 2 gate: direct prompt-identity hashes + prefix agreement.
+
+    Exact chain reproduction is a DIAGNOSTIC, not a gate: greedy decoding is
+    hardware/library-sensitive, so a single flipped logit tie separates chains
+    irreversibly without any prompt drift. See PTB1_AMENDMENT_2_2026-08-20.md
+    (post-hoc, disclosed) for the diagnosis that motivated the replacement.
+    """
+    import hashlib
+
     import ph2_manifest
     from ph2_executor import manifest_tasks
     from src.ph2_stages import load_checkpoint
 
-    doc = json.loads((ROOT / "results/prereg/phase2_task_manifest.json").read_text())
+    manifest_path = ROOT / "results/prereg/phase2_task_manifest.json"
+    battery_path = ROOT / "results/ph2/battery/base.json"
+    doc = json.loads(manifest_path.read_text())
     if ph2_manifest.manifest_hash(doc["tasks"]) != doc["ids_sha256"]:
         fail("preflight", "task manifest ids_sha256 does not re-derive")
 
-    stored = [r for r in json.loads(
-        (ROOT / "results/ph2/battery/base.json").read_text())
-        if r["method"] == "vanilla"]
+    prompt_text = "".join(t["prompt"] for t in
+                          sorted(doc["tasks"], key=lambda x: x["id"]))
+    hashes = {
+        "manifest_file": (sha256(manifest_path), MANIFEST_SHA256),
+        "prompt_text": (hashlib.sha256(prompt_text.encode()).hexdigest(),
+                        PROMPT_TEXT_SHA256),
+        "base_battery": (sha256(battery_path), BASE_BATTERY_SHA256),
+    }
+    for name, (got, want) in hashes.items():
+        if got != want:
+            fail("preflight", f"{name} sha256 mismatch: {got} != {want}")
+
+    stored = [r for r in json.loads(battery_path.read_text())
+              if r["method"] == "vanilla"]
     stored.sort(key=lambda r: r["n_tokens"])
     probes = stored[:3]
     tasks = {t["id"]: t for t in manifest_tasks()}
@@ -73,21 +111,38 @@ def preflight() -> None:
     for row in probes:
         task = tasks[row["task_id"]]
         gen = engine.generate(task["prompt"], max_new_tokens=row["n_tokens"])
+        prefix = _common_prefix_len(gen["chain"], row["chain"])
         cases.append({"task_id": row["task_id"],
                       "stored_n_tokens": row["n_tokens"],
-                      "identical": gen["chain"] == row["chain"]})
-    n_ident = sum(1 for c in cases if c["identical"])
-    report = {"manifest_ids_sha256": doc["ids_sha256"], "cases": cases,
-              "n_identical": n_ident, "resolved_checkpoint": resolved,
-              "rule": "3/3 full verify; 1-2/3 proceed with env-divergence "
-                      "disclosure; 0/3 STOP (Amendment 1)"}
-    _atomic_json(report, STATUS / "preflight.json")
+                      "identical": gen["chain"] == row["chain"],
+                      "common_prefix_chars": prefix,
+                      "prefix_ok": prefix >= MIN_PREFIX_CHARS})
     del model
-    if n_ident == 0:
-        fail("preflight", "0/3 chain reproductions identical — prompt drift "
-                          "cannot be excluded")
+    n_ident = sum(1 for c in cases if c["identical"])
+    n_prefix = sum(1 for c in cases if c["prefix_ok"])
+    report = {
+        "amendment": "PTB1_AMENDMENT_2_2026-08-20.md",
+        "hashes_verified": {k: v[0] for k, v in hashes.items()},
+        "cases": cases, "n_identical": n_ident, "n_prefix_ok": n_prefix,
+        "resolved_checkpoint": resolved,
+        "rule": f"PASS if >= {MIN_PREFIX_PROBES}/3 probes share >= "
+                f"{MIN_PREFIX_CHARS} identical leading chars AND all three "
+                f"hashes match; exact reproduction is diagnostic only",
+        "environment_note": "PT-B1 arms are NOT byte-equivalent to the July "
+                            "Phase-2 environment; the safety-minus-control "
+                            "primary is unaffected (common environment, "
+                            "paired), base-referenced comparisons carry a "
+                            "disclosed environment confound",
+    }
+    _atomic_json(report, STATUS / "preflight.json")
+    if n_prefix < MIN_PREFIX_PROBES:
+        fail("preflight", f"only {n_prefix}/3 probes reached "
+                          f"{MIN_PREFIX_CHARS} identical leading chars — "
+                          f"prompt drift cannot be excluded")
     done_marker("preflight", report)
-    print(json.dumps({"n_identical": n_ident}, indent=1))
+    print(json.dumps({"n_prefix_ok": n_prefix, "n_identical": n_ident,
+                      "prefix_chars": [c["common_prefix_chars"]
+                                       for c in cases]}, indent=1))
 
 
 # ── per-arm pipeline ─────────────────────────────────────────────────────────
