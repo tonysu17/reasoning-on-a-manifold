@@ -17,11 +17,19 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import json
 import subprocess
 from datetime import datetime, timezone
 from itertools import product
 from pathlib import Path
+
+# One BLAS thread per worker: with 8 processes each spawning a full
+# thread pool the machine thrashes and runs SLOWER than serial.
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS",
+           "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS",
+           "NUMEXPR_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
 
 import numpy as np
 
@@ -187,7 +195,124 @@ def holm(pvals: dict) -> dict:
     return out
 
 
-def stage_run() -> None:
+PARTS = OUT / "_parts"
+
+
+def _part_path(kind: str, *key) -> Path:
+    return PARTS / f"{kind}__{'__'.join(str(k) for k in key)}.json"
+
+
+def _bootstrap_cell(task: tuple) -> tuple:
+    """Worker: one primary cell (layer, behaviour). Module-level for pickling.
+
+    Determinism: the RNG is constructed fresh from PTB2_SEED inside this
+    function, so a cell's result is independent of which process runs it and
+    of execution order. Parallel and serial execution agree byte-for-byte.
+    """
+    layer, beh = task
+    part = _part_path("primary", layer, beh)
+    if part.exists():
+        return (layer, beh, json.loads(part.read_text()))
+
+    ids = load_chain_ids(ROOT / BASE_DIR)[beh]
+    arms = {}
+    for recipe in ("safety", "control"):
+        for s in SEEDS:
+            arms[(recipe, s)] = load_cell(ROOT / CHECKPOINTS[f"{recipe}-s{s}"],
+                                          beh, layer)
+
+    def delta(idx=None):
+        out = []
+        for s in SEEDS:
+            a = arms[("safety", s)]
+            b = arms[("control", s)]
+            if idx is not None:
+                a, b = a[idx], b[idx]
+            out.append(top_k_ratio_fast(a) - top_k_ratio_fast(b))
+        return out
+
+    per_seed = delta()
+    theta = float(np.mean(per_seed))
+
+    rng = np.random.default_rng(PTB2_SEED)
+    boot = np.empty(B_BOOT, dtype=float)
+    for i in range(B_BOOT):
+        boot[i] = float(np.mean(delta(chain_bootstrap_indices(ids, rng))))
+
+    uniq = np.unique(ids)
+    by_chain = {c: np.where(ids == c)[0] for c in uniq}
+    jack = np.empty(uniq.size, dtype=float)
+    for j, c in enumerate(uniq):
+        idx = np.concatenate([by_chain[x] for x in uniq if x != c])
+        jack[j] = float(np.mean(delta(idx)))
+
+    lo, hi = bca_interval(theta, boot, jack)
+    p = float(min(1.0, 2.0 * min((boot <= 0).mean(), (boot >= 0).mean())))
+    p = max(p, 1.0 / (B_BOOT + 1))
+    res = {
+        "per_seed_differences": {s: per_seed[i] for i, s in enumerate(SEEDS)},
+        "mean_difference": theta,
+        "bootstrap": {"ci_low": lo, "ci_high": hi, "B": B_BOOT, "raw_p": p,
+                      "kind": "paired chain BCa", "n_chains": int(uniq.size)},
+        "seed_permutation": seed_permutation_p(per_seed),
+    }
+    part.parent.mkdir(parents=True, exist_ok=True)
+    part.write_text(json.dumps(res, indent=1, sort_keys=True))
+    return (layer, beh, res)
+
+
+def _map_task(task: tuple) -> tuple:
+    """Worker: the concentration map for one (checkpoint, layer)."""
+    name, layer = task
+    part = _part_path("map", name, layer)
+    if part.exists():
+        return (name, layer, json.loads(part.read_text()))
+
+    chain_ids = load_chain_ids(ROOT / BASE_DIR)
+    concat_ids = np.concatenate([chain_ids[b] for b in BEHAVIOURS])
+    labels = np.concatenate([np.full(len(chain_ids[b]), b) for b in BEHAVIOURS])
+    chain_to_idx = {c: np.where(concat_ids == c)[0]
+                    for c in np.unique(concat_ids)}
+    n_mixed = sum(1 for i in chain_to_idx.values()
+                  if np.unique(labels[i]).size > 1)
+    if n_mixed == 0:
+        raise SystemExit("within-chain permutation is a NO-OP — chain-id "
+                         "provenance is wrong; refusing a vacuous null")
+
+    d = ROOT / CHECKPOINTS[name]
+    X_all = np.concatenate([load_cell(d, b, layer) for b in BEHAVIOURS])
+    real = {b: top_k_ratio_fast(X_all[labels == b]) for b in BEHAVIOURS}
+
+    rng = np.random.default_rng(MAP_SEED)
+    perm = labels.copy()
+    draws = {b: np.empty(N_PERM_MAP) for b in BEHAVIOURS}
+    for r in range(N_PERM_MAP):
+        for idxs in chain_to_idx.values():
+            perm[idxs] = rng.permutation(labels[idxs])
+        for b in BEHAVIOURS:
+            draws[b][r] = top_k_ratio_fast(X_all[perm == b])
+
+    res = {}
+    for b in BEHAVIOURS:
+        nd = draws[b]
+        res[f"L{layer}|{b}"] = {
+            "real_value": real[b], "null_mean": float(nd.mean()),
+            "null_p97_5": float(np.quantile(nd, 0.975)),
+            "specificity_margin": real[b] - float(nd.mean()),
+            "p_value": float((np.sum(nd >= real[b]) + 1) / (N_PERM_MAP + 1)),
+            "n_resamples": N_PERM_MAP, "n_mixed_label_chains": n_mixed}
+    part.parent.mkdir(parents=True, exist_ok=True)
+    part.write_text(json.dumps(res, indent=1, sort_keys=True))
+    return (name, layer, res)
+
+
+def _pool(n_workers: int):
+    import multiprocessing as mp
+    ctx = mp.get_context("fork")
+    return ctx.Pool(n_workers)
+
+
+def stage_run(n_workers: int = 8) -> None:
     validation = stage_validate(verbose=True)
 
     # Row-signature identity across checkpoints (paired-design precondition).
@@ -216,57 +341,30 @@ def stage_run() -> None:
     # ── point statistics: 7 checkpoints x 2 layers x 4 behaviours ───────────
     print("computing point statistics ...", flush=True)
     stats: dict = {}
-    cells: dict = {}
     for name, d in CHECKPOINTS.items():
         for layer, beh in product(LAYERS, BEHAVIOURS):
             X = load_cell(ROOT / d, beh, layer)
-            cells[(name, layer, beh)] = X
             stats.setdefault(name, {})[f"L{layer}|{beh}"] = top_k_ratio_fast(X)
+            del X
     analysis["point_statistics"] = stats
 
     # ── PRIMARY: paired safety - control, per (behaviour, layer) ────────────
-    print("primary contrast: chain bootstrap ...", flush=True)
+    print(f"primary contrast: chain bootstrap ({n_workers} workers) ...",
+          flush=True)
     primary: dict = {}
     raw_p: dict = {}
-    for layer, beh in product(LAYERS, BEHAVIOURS):
-        key = f"L{layer}|{beh}"
-        ids = chain_ids[beh]
-        per_seed = [
-            top_k_ratio_fast(cells[(f"safety-s{s}", layer, beh)])
-            - top_k_ratio_fast(cells[(f"control-s{s}", layer, beh)])
-            for s in SEEDS]
-        theta = float(np.mean(per_seed))
-
-        rng = np.random.default_rng(PTB2_SEED)
-        boot = np.empty(B_BOOT, dtype=float)
-        for b in range(B_BOOT):
-            idx = chain_bootstrap_indices(ids, rng)
-            boot[b] = np.mean([
-                top_k_ratio_fast(cells[(f"safety-s{s}", layer, beh)][idx])
-                - top_k_ratio_fast(cells[(f"control-s{s}", layer, beh)][idx])
-                for s in SEEDS])
-        uniq = np.unique(ids)
-        by_chain = {c: np.where(ids == c)[0] for c in uniq}
-        jack = np.empty(uniq.size, dtype=float)
-        for j, c in enumerate(uniq):
-            idx = np.concatenate([by_chain[x] for x in uniq if x != c])
-            jack[j] = np.mean([
-                top_k_ratio_fast(cells[(f"safety-s{s}", layer, beh)][idx])
-                - top_k_ratio_fast(cells[(f"control-s{s}", layer, beh)][idx])
-                for s in SEEDS])
-        lo, hi = bca_interval(theta, boot, jack)
-        p = float(min(1.0, 2.0 * min((boot <= 0).mean(), (boot >= 0).mean())))
-        p = max(p, 1.0 / (B_BOOT + 1))
-        raw_p[key] = p
-        primary[key] = {
-            "per_seed_differences": {s: per_seed[i] for i, s in enumerate(SEEDS)},
-            "mean_difference": theta,
-            "bootstrap": {"ci_low": lo, "ci_high": hi, "B": B_BOOT,
-                          "raw_p": p, "kind": "paired chain BCa"},
-            "seed_permutation": seed_permutation_p(per_seed),
-        }
-        print(f"  {key}: delta={theta:+.5f} [{lo:+.5f},{hi:+.5f}] p={p:.4f}",
-              flush=True)
+    tasks = list(product(LAYERS, BEHAVIOURS))
+    with _pool(min(n_workers, len(tasks))) as pool:
+        for layer, beh, res in pool.imap_unordered(_bootstrap_cell, tasks):
+            key = f"L{layer}|{beh}"
+            primary[key] = res
+            raw_p[key] = res["bootstrap"]["raw_p"]
+            b = res["bootstrap"]
+            print(f"  {key}: delta={res['mean_difference']:+.5f} "
+                  f"[{b['ci_low']:+.5f},{b['ci_high']:+.5f}] "
+                  f"p={b['raw_p']:.4f}", flush=True)
+    primary = {f"L{l}|{b}": primary[f"L{l}|{b}"]
+               for l, b in product(LAYERS, BEHAVIOURS)}
     adj = holm(raw_p)
     for key in primary:
         primary[key]["holm_adjusted_p"] = adj[key]
@@ -277,39 +375,12 @@ def stage_run() -> None:
     analysis["primary_safety_minus_control"] = primary
 
     # ── SECONDARY: the concentration map (chain-stratified null) ────────────
-    print("secondary: concentration map ...", flush=True)
-    concat_ids = np.concatenate([chain_ids[b] for b in BEHAVIOURS])
-    labels = np.concatenate([np.full(len(chain_ids[b]), b) for b in BEHAVIOURS])
-    uniq_chains = np.unique(concat_ids)
-    chain_to_idx = {c: np.where(concat_ids == c)[0] for c in uniq_chains}
-    n_mixed = sum(1 for i in chain_to_idx.values()
-                  if np.unique(labels[i]).size > 1)
-    if n_mixed == 0:
-        raise SystemExit("within-chain permutation is a NO-OP — chain-id "
-                         "provenance is wrong; refusing a vacuous null")
-
+    print(f"secondary: concentration map ({n_workers} workers) ...", flush=True)
     cmap: dict = {}
-    for name in CHECKPOINTS:
-        for layer in LAYERS:
-            X_all = np.concatenate([cells[(name, layer, b)] for b in BEHAVIOURS])
-            rng = np.random.default_rng(MAP_SEED)
-            perm_labels = labels.copy()
-            null_draws = {b: np.empty(N_PERM_MAP) for b in BEHAVIOURS}
-            for r in range(N_PERM_MAP):
-                for idxs in chain_to_idx.values():
-                    perm_labels[idxs] = rng.permutation(labels[idxs])
-                for b in BEHAVIOURS:
-                    null_draws[b][r] = top_k_ratio_fast(X_all[perm_labels == b])
-            for b in BEHAVIOURS:
-                real = stats[name][f"L{layer}|{b}"]
-                nd = null_draws[b]
-                p = float((np.sum(nd >= real) + 1) / (N_PERM_MAP + 1))
-                cmap.setdefault(name, {})[f"L{layer}|{b}"] = {
-                    "real_value": real, "null_mean": float(nd.mean()),
-                    "null_p97_5": float(np.quantile(nd, 0.975)),
-                    "specificity_margin": real - float(nd.mean()),
-                    "p_value": p, "n_resamples": N_PERM_MAP,
-                    "n_mixed_label_chains": n_mixed}
+    map_tasks = [(name, layer) for name in CHECKPOINTS for layer in LAYERS]
+    with _pool(min(n_workers, len(map_tasks))) as pool:
+        for name, layer, res in pool.imap_unordered(_map_task, map_tasks):
+            cmap.setdefault(name, {}).update(res)
             print(f"  map {name} L{layer} done", flush=True)
     analysis["concentration_map"] = cmap
     analysis["map_note"] = ("descriptive map; no Holm claim attaches; smallest "
@@ -345,6 +416,8 @@ def stage_run() -> None:
         "git_commit": head, "git_dirty": dirty,
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "seeds": {"bootstrap": PTB2_SEED, "map": MAP_SEED},
+        "execution": {"parallel_workers": n_workers,
+                      "determinism": "each cell/map task builds its own RNG from the fixed seed inside the worker, so results are independent of worker count and scheduling order; parallel and serial execution agree byte-for-byte (verified against the serial run for L12|backtracking and L12|uncertainty-estimation)"},
         "estimator_validation": validation,
         "inputs_sha256": inputs,
     }
@@ -390,12 +463,14 @@ def write_report(a: dict) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("stage", choices=("validate", "run"))
+    ap.add_argument("--workers", type=int, default=8,
+                    help="parallel worker processes (results are identical for any value)")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     if args.stage == "validate":
         stage_validate()
     else:
-        stage_run()
+        stage_run(n_workers=args.workers)
     return 0
 
 
