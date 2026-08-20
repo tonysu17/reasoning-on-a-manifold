@@ -1,0 +1,94 @@
+{
+ "amendment": "REV4: re-binds ptb1_executor.py after adding the per-chain skip (the guard correctly refused REV3 on a bound-artifact hash mismatch \u2014 every code edit requires a manifest revision). Cap stays at the 0.05 hard limit; no scientific parameter changed; cumulative spend carried forward; sealed 60.00 ceiling unchanged.",
+ "annotation_window_tokens": 3000,
+ "bound_artifacts": [
+  {
+   "path": "ptb1_executor.py",
+   "sha256": "be4a8bcc02e1bbe479fbf1b428294a0031ccbd3ef80a2e9773565a1d65101e19"
+  },
+  {
+   "path": "results/prereg/PTB1_AMENDMENT_1_2026-08-20.md",
+   "sha256": "9b9abd71b5d50586b78cb0986c7f532ed833e1b724d016167c755c3f415d86b4"
+  },
+  {
+   "path": "results/prereg/PTB1_SAFETY_CONTROL_BEHAVIOUR_PREREG_2026-08-20.md",
+   "sha256": "2eacb8351061bb2eab94292e129445957f708ac048f3f5228f61663907577daf"
+  },
+  {
+   "path": "results/prereg/phase2_task_manifest.json",
+   "sha256": "69cbe32dc7991c42ee58c8b5fae683750abb6a8812444ab320e68e23b8214333"
+  },
+  {
+   "path": "src/annotation.py",
+   "sha256": "4e425f57e0ad5312ada1882fe4cdae4b77164ef56964906cc7f415154b1eda1f"
+  },
+  {
+   "path": "src/annotation_budget.py",
+   "sha256": "a7f1e5e96124776071d6a2bce0d043cece25fc2ca3262e79ba3c4f109694973b"
+  },
+  {
+   "path": "src/annotation_coverage.py",
+   "sha256": "affd89cba2eced10cf7585ce188167f11c771440715a4de2f67fccd51ea87ae1"
+  },
+  {
+   "path": "src/annotation_quarantine.py",
+   "sha256": "8052424c855410bf6b6b3266d545beeeb08ec5df8ca319a1658201214ce64db5"
+  },
+  {
+   "path": "src/delta_floor.py",
+   "sha256": "fbd9b98bd25ed3f5cd42d9c74756299638f0cf4d5afe708146aafc99f06f2285"
+  },
+  {
+   "path": "src/ph2_stages.py",
+   "sha256": "49e6255e7631db2b4ba068b6cbca1ae39b7a3ea08fe0d3dd8d55fcd226e63320"
+  }
+ ],
+ "coverage_rule_version": "ph2-annotation-coverage-4",
+ "guards": {
+  "approved_spend_ceiling_usd": 60.0,
+  "global_retry_capacity": 1735,
+  "max_attempts_per_scope": 3,
+  "max_cost_per_attempt_usd": 0.05,
+  "max_output_tokens": 2400,
+  "max_prompt_chars": 4341,
+  "max_total_attempts": 3470,
+  "planned_initial_requests": 1735,
+  "prior_committed_spend_usd": 7.227889,
+  "remaining_quota_floor_usd": 5.0
+ },
+ "manifest_internal_sha256": "a324a0c6c7291b20cc82633c601c36a65b8b82aef711768e23b8c95fd12c646f",
+ "model": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+ "rate_card": {
+  "input_usd_per_mtok": 3.0,
+  "output_usd_per_mtok": 15.0,
+  "tokens_per_char_upper": 0.4
+ },
+ "schema": "ph2-annotation-attempt-guard-2",
+ "source_artifacts": [
+  {
+   "path": "results/ptb1/battery/safety1000-s42.json",
+   "sha256": "a92056502a6eb03d3a18c17e9e14147cd3e69ab25a1e98e125b07843f0b9bfed"
+  },
+  {
+   "path": "results/ptb1/battery/safety1000-s43.json",
+   "sha256": "ad41ea204e08d3e81881a56db1e2209a1b3c0a3cfb9a9207b1f32e0af56df146"
+  },
+  {
+   "path": "results/ptb1/battery/safety1000-s44.json",
+   "sha256": "8615296b0ac8bb41b8e91e066e02022fe82c112f1037ec1b8064aa2bbb3b29bd"
+  },
+  {
+   "path": "results/ptb1/battery/control1000-s42.json",
+   "sha256": "c641104138dc5167b72e8511be66cc92d9a3a76590a0cb7c7b496e3d33aee341"
+  },
+  {
+   "path": "results/ptb1/battery/control1000-s43.json",
+   "sha256": "b530e2ff2a4e62623a2ce6933ffe6ace91995fdd477563711cf0eac724eb3451"
+  },
+  {
+   "path": "results/ptb1/battery/control1000-s44.json",
+   "sha256": "e0bdef5b4b782283330c44df5c840a9d70691705ac32478bcd17251a2b290db4"
+  }
+ ],
+ "status": "authorised"
+}
