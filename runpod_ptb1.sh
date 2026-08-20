@@ -1,10 +1,17 @@
 #!/bin/bash
 # PT-B1 mac-side turnkey: push | launch | status | pull  (RunPod 4090-class pod)
 #
-#   bash runpod_ptb1.sh push   --host H --port P [--key ~/.ssh/id_ed25519]
-#   bash runpod_ptb1.sh launch --host H --port P
-#   bash runpod_ptb1.sh status --host H --port P
-#   bash runpod_ptb1.sh pull   --host H --port P
+#   bash runpod_ptb1.sh push         --host H --port P [--key ~/.ssh/id_ed25519]
+#   bash runpod_ptb1.sh launch       --host H --port P
+#   bash runpod_ptb1.sh status       --host H --port P
+#   bash runpod_ptb1.sh pull-partial --host H --port P   (mid-run insurance)
+#   bash runpod_ptb1.sh pull         --host H --port P
+#
+# Runs on CONTAINER/EPHEMERAL DISK — no network volume (the rom volume sat at
+# ~60/70 GB and quota exhaustion killed the first J-space D2/D3 attempt; this
+# job churns ~20 GB writing and deleting six merged checkpoints). Ephemeral
+# disk means no persistence across a pod death, which is what pull-partial is
+# for. Size the container disk at >= 40 GB (peak need ~12 GB).
 #
 # House rules baked in (jspace ops lessons): tar payload, never a repo clone;
 # setsid-detached launch verified PPID=1; pull only on PTB1_ALL_DONE.marker,
@@ -15,7 +22,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-CMD="${1:?push|launch|status|pull}"; shift
+CMD="${1:?push|pull-partial|launch|status|pull}"; shift
 HOST=""; PORT=""; KEY="$HOME/.ssh/id_ed25519"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -61,6 +68,22 @@ case "$CMD" in
     ;;
   status)
     $SSH "cd $REMOTE && ls PTB1_JOB_RUNNING PTB1_ALL_DONE.marker PTB1_JOB_FAILED.marker 2>/dev/null; ls results/ptb1/status/ 2>/dev/null; tail -8 ptb1_job.log 2>/dev/null"
+    ;;
+  pull-partial)
+    # Ephemeral-disk insurance: mirror whatever has completed so far into a
+    # staging tree WITHOUT touching results/ptb1/. Safe to run repeatedly
+    # mid-run; a pod death then costs at most the in-flight arm. Never
+    # hash-verified (the run is still writing), so this tree is NEVER the
+    # artefact of record — only `pull` promotes files into results/ptb1/.
+    STAGING="results/ptb1/.partial_$(date -u +%Y%m%dT%H%M%SZ)"
+    mkdir -p "$STAGING"
+    rsync -az -e "ssh -p $PORT -i $KEY" \
+      --exclude 'identity_gate/extract_*' --exclude 'identity_gate/reference.npz' \
+      "root@$HOST:$REMOTE/results/ptb1/" "$STAGING/" || true
+    rsync -az -e "ssh -p $PORT -i $KEY" "root@$HOST:$REMOTE/ptb1_job.log" \
+      "$STAGING/ptb1_job.log" || true
+    echo "partial snapshot -> $STAGING (NOT verified, NOT of record)"
+    ls "$STAGING/battery" 2>/dev/null || true
     ;;
   pull)
     $SSH "cd $REMOTE && ls PTB1_ALL_DONE.marker" >/dev/null \

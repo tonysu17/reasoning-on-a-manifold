@@ -134,3 +134,5 @@ results/safety/p3_forgery/activations/
 results/ptb1/identity_gate/reference.npz
 results/ptb1/identity_gate/extract_*/
 PTB1_SOURCE_COMMIT.txt
+results/ptb1/.partial_*/
+results/ptb1/.pull_staging/
