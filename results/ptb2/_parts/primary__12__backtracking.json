@@ -1,0 +1,22 @@
+{
+ "bootstrap": {
+  "B": 2000,
+  "ci_high": -0.00011048350254229221,
+  "ci_low": -0.0002255433719505048,
+  "kind": "paired chain BCa",
+  "n_chains": 705,
+  "raw_p": 0.0004997501249375312
+ },
+ "mean_difference": -0.00016007820765177408,
+ "per_seed_differences": {
+  "42": -0.0002594888210296631,
+  "43": -0.00011962652206420898,
+  "44": -0.0001011192798614502
+ },
+ "seed_permutation": {
+  "floor": 0.25,
+  "note": "exact sign-flip permutation; 3v3 paired floor is 0.25",
+  "observed_mean": -0.00016007820765177408,
+  "p_two_sided": 0.25
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "L16|adding-knowledge": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.4621313314735889,
+  "null_p97_5": 0.46425170078873634,
+  "p_value": 1.0,
+  "real_value": 0.4528435468673706,
+  "specificity_margin": -0.009287784606218319
+ },
+ "L16|backtracking": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.4705827916562557,
+  "null_p97_5": 0.47209879010915756,
+  "p_value": 0.000999000999000999,
+  "real_value": 0.5026962757110596,
+  "specificity_margin": 0.032113484054803854
+ },
+ "L16|example-testing": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.47794147390127184,
+  "null_p97_5": 0.4797794438898563,
+  "p_value": 0.07292707292707293,
+  "real_value": 0.4793285131454468,
+  "specificity_margin": 0.0013870392441749368
+ },
+ "L16|uncertainty-estimation": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.474615189999342,
+  "null_p97_5": 0.47550398111343384,
+  "p_value": 0.000999000999000999,
+  "real_value": 0.4846836030483246,
+  "specificity_margin": 0.010068413048982594
+ }
+}

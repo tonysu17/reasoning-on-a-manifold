@@ -1,0 +1,371 @@
+{
+ "estimator_validation": {
+  "n_cells": 56,
+  "per_cell": {
+   "base|L12|adding-knowledge": {
+    "abs_delta": 2.384185791015625e-07,
+    "fast": 0.43236154317855835,
+    "reference": 0.43236130475997925
+   },
+   "base|L12|backtracking": {
+    "abs_delta": 3.5762786865234375e-07,
+    "fast": 0.49712181091308594,
+    "reference": 0.4971214532852173
+   },
+   "base|L12|example-testing": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.47086435556411743,
+    "reference": 0.4708642363548279
+   },
+   "base|L12|uncertainty-estimation": {
+    "abs_delta": 6.258487701416016e-07,
+    "fast": 0.48161107301712036,
+    "reference": 0.4816104471683502
+   },
+   "base|L16|adding-knowledge": {
+    "abs_delta": 5.960464477539063e-08,
+    "fast": 0.452566534280777,
+    "reference": 0.4525664746761322
+   },
+   "base|L16|backtracking": {
+    "abs_delta": 3.5762786865234375e-07,
+    "fast": 0.5023168325424194,
+    "reference": 0.5023164749145508
+   },
+   "base|L16|example-testing": {
+    "abs_delta": 1.4901161193847656e-07,
+    "fast": 0.4791828691959381,
+    "reference": 0.47918272018432617
+   },
+   "base|L16|uncertainty-estimation": {
+    "abs_delta": 3.8743019104003906e-07,
+    "fast": 0.4843425154685974,
+    "reference": 0.48434212803840637
+   },
+   "control-s42|L12|adding-knowledge": {
+    "abs_delta": 1.7881393432617188e-07,
+    "fast": 0.43268245458602905,
+    "reference": 0.4326822757720947
+   },
+   "control-s42|L12|backtracking": {
+    "abs_delta": 4.172325134277344e-07,
+    "fast": 0.49757400155067444,
+    "reference": 0.497573584318161
+   },
+   "control-s42|L12|example-testing": {
+    "abs_delta": 1.4901161193847656e-07,
+    "fast": 0.47127199172973633,
+    "reference": 0.4712718427181244
+   },
+   "control-s42|L12|uncertainty-estimation": {
+    "abs_delta": 6.556510925292969e-07,
+    "fast": 0.48208969831466675,
+    "reference": 0.4820890426635742
+   },
+   "control-s42|L16|adding-knowledge": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.4528602361679077,
+    "reference": 0.45286011695861816
+   },
+   "control-s42|L16|backtracking": {
+    "abs_delta": 2.980232238769531e-07,
+    "fast": 0.5027741193771362,
+    "reference": 0.5027738213539124
+   },
+   "control-s42|L16|example-testing": {
+    "abs_delta": 2.9802322387695312e-08,
+    "fast": 0.479633092880249,
+    "reference": 0.4796331226825714
+   },
+   "control-s42|L16|uncertainty-estimation": {
+    "abs_delta": 3.8743019104003906e-07,
+    "fast": 0.4848511517047882,
+    "reference": 0.48485076427459717
+   },
+   "control-s43|L12|adding-knowledge": {
+    "abs_delta": 8.940696716308594e-08,
+    "fast": 0.43255722522735596,
+    "reference": 0.4325573146343231
+   },
+   "control-s43|L12|backtracking": {
+    "abs_delta": 4.172325134277344e-07,
+    "fast": 0.49742770195007324,
+    "reference": 0.4974272847175598
+   },
+   "control-s43|L12|example-testing": {
+    "abs_delta": 2.682209014892578e-07,
+    "fast": 0.47113245725631714,
+    "reference": 0.47113218903541565
+   },
+   "control-s43|L12|uncertainty-estimation": {
+    "abs_delta": 5.066394805908203e-07,
+    "fast": 0.48193588852882385,
+    "reference": 0.48193538188934326
+   },
+   "control-s43|L16|adding-knowledge": {
+    "abs_delta": 2.9802322387695312e-08,
+    "fast": 0.4527665376663208,
+    "reference": 0.4527665078639984
+   },
+   "control-s43|L16|backtracking": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.5026640295982361,
+    "reference": 0.5026639103889465
+   },
+   "control-s43|L16|example-testing": {
+    "abs_delta": 3.2782554626464844e-07,
+    "fast": 0.47951540350914,
+    "reference": 0.47951507568359375
+   },
+   "control-s43|L16|uncertainty-estimation": {
+    "abs_delta": 5.066394805908203e-07,
+    "fast": 0.48473912477493286,
+    "reference": 0.48473861813545227
+   },
+   "control-s44|L12|adding-knowledge": {
+    "abs_delta": 2.9802322387695312e-08,
+    "fast": 0.4325920045375824,
+    "reference": 0.43259197473526
+   },
+   "control-s44|L12|backtracking": {
+    "abs_delta": 2.086162567138672e-07,
+    "fast": 0.4974493384361267,
+    "reference": 0.49744912981987
+   },
+   "control-s44|L12|example-testing": {
+    "abs_delta": 2.384185791015625e-07,
+    "fast": 0.47116100788116455,
+    "reference": 0.47116076946258545
+   },
+   "control-s44|L12|uncertainty-estimation": {
+    "abs_delta": 8.046627044677734e-07,
+    "fast": 0.4819777011871338,
+    "reference": 0.4819768965244293
+   },
+   "control-s44|L16|adding-knowledge": {
+    "abs_delta": 5.960464477539063e-08,
+    "fast": 0.4527754783630371,
+    "reference": 0.45277541875839233
+   },
+   "control-s44|L16|backtracking": {
+    "abs_delta": 2.980232238769531e-07,
+    "fast": 0.5026783347129822,
+    "reference": 0.5026780366897583
+   },
+   "control-s44|L16|example-testing": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.4795534312725067,
+    "reference": 0.47955331206321716
+   },
+   "control-s44|L16|uncertainty-estimation": {
+    "abs_delta": 4.76837158203125e-07,
+    "fast": 0.48475638031959534,
+    "reference": 0.48475590348243713
+   },
+   "safety-s42|L12|adding-knowledge": {
+    "abs_delta": 8.940696716308594e-08,
+    "fast": 0.4324246048927307,
+    "reference": 0.43242451548576355
+   },
+   "safety-s42|L12|backtracking": {
+    "abs_delta": 2.384185791015625e-07,
+    "fast": 0.4973145127296448,
+    "reference": 0.4973142743110657
+   },
+   "safety-s42|L12|example-testing": {
+    "abs_delta": 2.9802322387695312e-08,
+    "fast": 0.47074106335639954,
+    "reference": 0.47074103355407715
+   },
+   "safety-s42|L12|uncertainty-estimation": {
+    "abs_delta": 4.172325134277344e-07,
+    "fast": 0.4817870855331421,
+    "reference": 0.48178666830062866
+   },
+   "safety-s42|L16|adding-knowledge": {
+    "abs_delta": 5.960464477539063e-08,
+    "fast": 0.4528435468673706,
+    "reference": 0.4528436064720154
+   },
+   "safety-s42|L16|backtracking": {
+    "abs_delta": 3.5762786865234375e-07,
+    "fast": 0.5026962757110596,
+    "reference": 0.5026959180831909
+   },
+   "safety-s42|L16|example-testing": {
+    "abs_delta": 2.384185791015625e-07,
+    "fast": 0.4793285131454468,
+    "reference": 0.4793282747268677
+   },
+   "safety-s42|L16|uncertainty-estimation": {
+    "abs_delta": 5.066394805908203e-07,
+    "fast": 0.4846836030483246,
+    "reference": 0.484683096408844
+   },
+   "safety-s43|L12|adding-knowledge": {
+    "abs_delta": 8.940696716308594e-08,
+    "fast": 0.432399719953537,
+    "reference": 0.43239980936050415
+   },
+   "safety-s43|L12|backtracking": {
+    "abs_delta": 1.4901161193847656e-07,
+    "fast": 0.49730807542800903,
+    "reference": 0.4973079264163971
+   },
+   "safety-s43|L12|example-testing": {
+    "abs_delta": 5.960464477539063e-08,
+    "fast": 0.4707140326499939,
+    "reference": 0.4707139730453491
+   },
+   "safety-s43|L12|uncertainty-estimation": {
+    "abs_delta": 4.172325134277344e-07,
+    "fast": 0.4817693531513214,
+    "reference": 0.481768935918808
+   },
+   "safety-s43|L16|adding-knowledge": {
+    "abs_delta": 2.086162567138672e-07,
+    "fast": 0.45282113552093506,
+    "reference": 0.45282092690467834
+   },
+   "safety-s43|L16|backtracking": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.5026869177818298,
+    "reference": 0.5026867985725403
+   },
+   "safety-s43|L16|example-testing": {
+    "abs_delta": 1.1920928955078125e-07,
+    "fast": 0.4793177843093872,
+    "reference": 0.47931766510009766
+   },
+   "safety-s43|L16|uncertainty-estimation": {
+    "abs_delta": 3.8743019104003906e-07,
+    "fast": 0.48467954993247986,
+    "reference": 0.4846791625022888
+   },
+   "safety-s44|L12|adding-knowledge": {
+    "abs_delta": 1.7881393432617188e-07,
+    "fast": 0.4324477016925812,
+    "reference": 0.43244752287864685
+   },
+   "safety-s44|L12|backtracking": {
+    "abs_delta": 2.384185791015625e-07,
+    "fast": 0.49734821915626526,
+    "reference": 0.49734798073768616
+   },
+   "safety-s44|L12|example-testing": {
+    "abs_delta": 2.086162567138672e-07,
+    "fast": 0.47077175974845886,
+    "reference": 0.47077155113220215
+   },
+   "safety-s44|L12|uncertainty-estimation": {
+    "abs_delta": 5.066394805908203e-07,
+    "fast": 0.48182162642478943,
+    "reference": 0.48182111978530884
+   },
+   "safety-s44|L16|adding-knowledge": {
+    "abs_delta": 1.7881393432617188e-07,
+    "fast": 0.45282432436943054,
+    "reference": 0.4528241455554962
+   },
+   "safety-s44|L16|backtracking": {
+    "abs_delta": 5.960464477539063e-08,
+    "fast": 0.502676784992218,
+    "reference": 0.5026767253875732
+   },
+   "safety-s44|L16|example-testing": {
+    "abs_delta": 2.9802322387695312e-08,
+    "fast": 0.479320228099823,
+    "reference": 0.4793202579021454
+   },
+   "safety-s44|L16|uncertainty-estimation": {
+    "abs_delta": 7.152557373046875e-07,
+    "fast": 0.48466455936431885,
+    "reference": 0.48466384410858154
+   }
+  },
+  "tolerance": 1e-06,
+  "worst_abs_delta": 8.046627044677734e-07
+ },
+ "execution": {
+  "determinism": "each cell/map task builds its own RNG from the fixed seed inside the worker, so results are independent of worker count and scheduling order; parallel and serial execution agree byte-for-byte (verified against the serial run for L12|backtracking and L12|uncertainty-estimation)",
+  "parallel_workers": 8
+ },
+ "generated_utc": "2026-08-20T16:29:35.039721+00:00",
+ "git_commit": "d5296139345b2c45e6bdc59eaf51131ee86ebd4e",
+ "git_dirty": true,
+ "inputs_sha256": {
+  "data/activations/R1-1.5B-lora-control1000-s43/adding-knowledge_layer12.npy": "6425863350ccc38a1d33a013f2ba069c21cfa3b94fc871797627eb257504734a",
+  "data/activations/R1-1.5B-lora-control1000-s43/adding-knowledge_layer16.npy": "8a6f199278874c0959116ced44a044c25041bb5bd04a9c01181125fed1138641",
+  "data/activations/R1-1.5B-lora-control1000-s43/backtracking_layer12.npy": "d12af4f13588b67264ac77267ff893c683deb8ca02626140ebe915d7822eb207",
+  "data/activations/R1-1.5B-lora-control1000-s43/backtracking_layer16.npy": "a6fe41d9a72b08fe6767226aec3adca00e29eb772720c62ec96999af462fe0c4",
+  "data/activations/R1-1.5B-lora-control1000-s43/example-testing_layer12.npy": "9964838b7e03af4fb0c71415599198ec887aa85ee10bf7b1ef68a58006e4436f",
+  "data/activations/R1-1.5B-lora-control1000-s43/example-testing_layer16.npy": "a31e15116be680ae1282742d65db666e099988137b19bb6ab69666f8ff149d96",
+  "data/activations/R1-1.5B-lora-control1000-s43/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-control1000-s43/uncertainty-estimation_layer12.npy": "a99808d3cc0315b216d44c91640baccb150239d630ddd587c4a54aef75017881",
+  "data/activations/R1-1.5B-lora-control1000-s43/uncertainty-estimation_layer16.npy": "f383e74ee5eadfbc956b4ada1d8431bc47e670a75635d523a1d3b00ad246b9ce",
+  "data/activations/R1-1.5B-lora-control1000-s44/adding-knowledge_layer12.npy": "8a602245fa89ac7c081b9548aac019c6d2d6e1530d20098ff13d447b1feef881",
+  "data/activations/R1-1.5B-lora-control1000-s44/adding-knowledge_layer16.npy": "30842fe5170654a92b56508972b45742a3cc20fca35148e2535c97e0d4e91ccf",
+  "data/activations/R1-1.5B-lora-control1000-s44/backtracking_layer12.npy": "da28563f15f3b70bc29ab54619a92df3d0cd64d9eb36cfbc25a5e9150e5e5511",
+  "data/activations/R1-1.5B-lora-control1000-s44/backtracking_layer16.npy": "83571009a4ac8cf589467a71150d832bf9e2dd257ea658b87f0a1bd5d69e7cdc",
+  "data/activations/R1-1.5B-lora-control1000-s44/example-testing_layer12.npy": "84c950b79f9936217c50a654ea7aeb42e158fadcd2316cac94c3f46b4b372dff",
+  "data/activations/R1-1.5B-lora-control1000-s44/example-testing_layer16.npy": "4d1c21f22f95c8ed02284dbd0a64de654946d59ccb015e561537fb9ba2745f3e",
+  "data/activations/R1-1.5B-lora-control1000-s44/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-control1000-s44/uncertainty-estimation_layer12.npy": "8b23f5c637d98847acfb57d1ec9fb4f2d5281b413682219c077ee4648fa3ff2b",
+  "data/activations/R1-1.5B-lora-control1000-s44/uncertainty-estimation_layer16.npy": "a87b63fd83a03520c63e05d504b6d29f1ba8dff59bd85f8c86b26065d5038888",
+  "data/activations/R1-1.5B-lora-control1000/adding-knowledge_layer12.npy": "70c876c5c9b823ec21b868ce1def7f87def3b04e0794efd4eae26c7689a84052",
+  "data/activations/R1-1.5B-lora-control1000/adding-knowledge_layer16.npy": "adf99c7686dd09ebd87cc57877e2a2ed2595556e3d9980e3e2cda78b642d164a",
+  "data/activations/R1-1.5B-lora-control1000/backtracking_layer12.npy": "70b0de17c0d81b12a92fc067e018304490f291eddbcb6668ec726eef0e1084c8",
+  "data/activations/R1-1.5B-lora-control1000/backtracking_layer16.npy": "a46bba51dcd8d874132b10ecf1594c7cd8a9891bbbc1158278e32f556f068a9a",
+  "data/activations/R1-1.5B-lora-control1000/example-testing_layer12.npy": "9466c968bba61e1fc85371d1c6672e0905e2cf86527bc55e8936cfec24a32865",
+  "data/activations/R1-1.5B-lora-control1000/example-testing_layer16.npy": "85157a9e63ec01d0e054bfc30dc8cd4586d54d5a1a58d0bf8b10c86b5cfd1ef8",
+  "data/activations/R1-1.5B-lora-control1000/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-control1000/uncertainty-estimation_layer12.npy": "4e8bfa19030d7374e0114b12d979b4275ee8bf0df2d4053141c807a7790472fd",
+  "data/activations/R1-1.5B-lora-control1000/uncertainty-estimation_layer16.npy": "3545989fe587afa2ce28d8656f5b74b4935aa6534692a0bbd18cd27ed096dce6",
+  "data/activations/R1-1.5B-lora-safety1000-s43/adding-knowledge_layer12.npy": "018fcac26be051e0846d3352eee5b176c44c98a85a04032cd7de1bf3daa664cc",
+  "data/activations/R1-1.5B-lora-safety1000-s43/adding-knowledge_layer16.npy": "0d7604182813b792f642d5daa0d9a41693e9ce913c7d33f19f2100731815b862",
+  "data/activations/R1-1.5B-lora-safety1000-s43/backtracking_layer12.npy": "fc436848b909968c55e7f77595e6074bfcc63a709bb44a10591fcdc6583b2556",
+  "data/activations/R1-1.5B-lora-safety1000-s43/backtracking_layer16.npy": "1617391077eac9f1cf8aebd70994a58521268ead8c185b64d44db92163c55461",
+  "data/activations/R1-1.5B-lora-safety1000-s43/example-testing_layer12.npy": "df0d6c574c379e8309989bf08f631dbef8ecc571e5de701f126cfe9d96b1002b",
+  "data/activations/R1-1.5B-lora-safety1000-s43/example-testing_layer16.npy": "d463489a2b2a938130dc2cd0229133f892c2432e34f7b1807bd2a5d6f42ba2e8",
+  "data/activations/R1-1.5B-lora-safety1000-s43/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-safety1000-s43/uncertainty-estimation_layer12.npy": "85b76cf10cd6881bfadba855311d7a4ed18a663fa2175edba88bed41af8e01c7",
+  "data/activations/R1-1.5B-lora-safety1000-s43/uncertainty-estimation_layer16.npy": "f62a70ab6d2c1eec8e7f75ef4213b6e4bca910a66c47e1c19d8f83be7c335724",
+  "data/activations/R1-1.5B-lora-safety1000-s44/adding-knowledge_layer12.npy": "e1e32076126093fce8ed22306e1c8659c0cead3884ade5ea3c1024eadf7dd5df",
+  "data/activations/R1-1.5B-lora-safety1000-s44/adding-knowledge_layer16.npy": "48fdab4ebeb193e8b697f53c97c4fc02468ec4d9a7b38b73dc1aa3b5292a2d15",
+  "data/activations/R1-1.5B-lora-safety1000-s44/backtracking_layer12.npy": "ee54674a54f7d1d14df4758151b41fd07968adbcacd0a1b2a735c18f7f6031f9",
+  "data/activations/R1-1.5B-lora-safety1000-s44/backtracking_layer16.npy": "822b84b6b649307e30c364648216fed3502349b7b38ddba8bf576240a0dca98a",
+  "data/activations/R1-1.5B-lora-safety1000-s44/example-testing_layer12.npy": "76acc1e1c60df155ef064014e3a05fbcdc8912a313cef4944a305baf949f0584",
+  "data/activations/R1-1.5B-lora-safety1000-s44/example-testing_layer16.npy": "bc96cb2d2de8c12d8e52e91ede08ad1344c886b9750effddff7b8544a3d56b98",
+  "data/activations/R1-1.5B-lora-safety1000-s44/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-safety1000-s44/uncertainty-estimation_layer12.npy": "45469ca3c1bdd2331ac8a6739284351c6f9fa84c41f3e9b32998ec74b320b9f3",
+  "data/activations/R1-1.5B-lora-safety1000-s44/uncertainty-estimation_layer16.npy": "8db92c22cff5b18a940e10563a76f11d1fc6aecb86e0ad80d29cbd28230ce4a1",
+  "data/activations/R1-1.5B-lora-safety1000/adding-knowledge_layer12.npy": "c762a81edb0d5649761cace4a17079d5fc96caa83b91a7bac0d04b2fed0c65bc",
+  "data/activations/R1-1.5B-lora-safety1000/adding-knowledge_layer16.npy": "7372a699dd8cdefdd7604fe3bb1c5a98b2f6b62fafa6836880b0c37cb2c8e2d6",
+  "data/activations/R1-1.5B-lora-safety1000/backtracking_layer12.npy": "90cedcf942761be9ed7919f43e32c95cd59fea4b432eb337de33a9d53fda0114",
+  "data/activations/R1-1.5B-lora-safety1000/backtracking_layer16.npy": "57a7b8de69a0e92cc49fa6a372c152f8c639e0f20cdd1d6f8b0a29b829107a00",
+  "data/activations/R1-1.5B-lora-safety1000/example-testing_layer12.npy": "49f87b18ec54dfff4a2e0a7440863169a374f06a6bf31b112137fb47352dcb3f",
+  "data/activations/R1-1.5B-lora-safety1000/example-testing_layer16.npy": "1d6939edf71ff18aaf8306189d3e91d7fdd7377a06494d26b463a6ea1be66724",
+  "data/activations/R1-1.5B-lora-safety1000/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B-lora-safety1000/uncertainty-estimation_layer12.npy": "0e65fe414e2230393e9f0890be4a8f6066d118d0ce88d5378c913c84b11516b8",
+  "data/activations/R1-1.5B-lora-safety1000/uncertainty-estimation_layer16.npy": "9812e6dc11281cc837e37ecc6df67b956b625590b6289bbbc2f44ae54e13c3d2",
+  "data/activations/R1-1.5B/adding-knowledge_layer12.npy": "eef357e98ac35e0ee457daaad5958166a21d19bbe3d25fd71300e11412b6e3f3",
+  "data/activations/R1-1.5B/adding-knowledge_layer16.npy": "037d6407fd6a1846974c844fce5ce4ff539da15435051d3bb322db089294f33a",
+  "data/activations/R1-1.5B/backtracking_layer12.npy": "95581893832bd7b7ab17f46778732dc1110c3feb1de5682794f7d426bdf2df4a",
+  "data/activations/R1-1.5B/backtracking_layer16.npy": "bdd363c7e8315d2e46c0d9ae073de830c22cf8ac4a567532e98413a5a27f308b",
+  "data/activations/R1-1.5B/example-testing_layer12.npy": "32b3264ffd798c2f1802996176a57c984512adb2be66e7aa495779da8e665953",
+  "data/activations/R1-1.5B/example-testing_layer16.npy": "8a46bfed968e93347e028d3e7e388fb967b8fe048d188ba70f23a8d493304485",
+  "data/activations/R1-1.5B/row_index.json": "399b03af4fc77efbd7b742a2287538eb5ceb4f37ec18e69760f83cf8e2079734",
+  "data/activations/R1-1.5B/uncertainty-estimation_layer12.npy": "14c65ea8a12e4619da2abc2b066cd6e3d22eba4c26a95e64410f8a0ca8df12e8",
+  "data/activations/R1-1.5B/uncertainty-estimation_layer16.npy": "b744acae600df41e542c789d73773b1dc521b7a7df55b0b5e5f0baffbd4635f7"
+ },
+ "prereg": {
+  "path": "results/prereg/PTB2_POSTTRAINING_CONCENTRATION_PREREG_2026-08-20.md",
+  "sha256": "193a7d88b89883a0eb50e261e4d223a564bb1792fd3d43018de1477ca2c93c3c"
+ },
+ "schema_version": "rom-result-provenance-v1",
+ "seeds": {
+  "bootstrap": 20260820,
+  "map": 42
+ },
+ "stage": "ptb2-concentration"
+}

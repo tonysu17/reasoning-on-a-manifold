@@ -1,0 +1,38 @@
+{
+ "L12|adding-knowledge": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.4526083236038685,
+  "null_p97_5": 0.45476255267858506,
+  "p_value": 1.0,
+  "real_value": 0.4324477016925812,
+  "specificity_margin": -0.020160621911287313
+ },
+ "L12|backtracking": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.46108957651257515,
+  "null_p97_5": 0.46269221156835555,
+  "p_value": 0.000999000999000999,
+  "real_value": 0.49734821915626526,
+  "specificity_margin": 0.03625864264369011
+ },
+ "L12|example-testing": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.4726749055683613,
+  "null_p97_5": 0.47459848672151567,
+  "p_value": 0.9790209790209791,
+  "real_value": 0.47077175974845886,
+  "specificity_margin": -0.0019031458199024187
+ },
+ "L12|uncertainty-estimation": {
+  "n_mixed_label_chains": 956,
+  "n_resamples": 1000,
+  "null_mean": 0.4631794386804104,
+  "null_p97_5": 0.4641176171600819,
+  "p_value": 0.000999000999000999,
+  "real_value": 0.48182162642478943,
+  "specificity_margin": 0.018642187744379035
+ }
+}
