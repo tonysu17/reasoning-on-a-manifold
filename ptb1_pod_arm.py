@@ -187,10 +187,57 @@ def train_arm(arm: str) -> Path:
     return merged
 
 
-def identity_gate(arm: str, merged: Path):
-    """Sealed G1/G2 gate; returns (verdict_dict, tok, model) on PASS/AMENDED."""
-    import numpy as np
+def _extract_subset(model, tok, chains, save_dir: Path) -> None:
     from src.activation_extraction import extract_activations
+    extract_activations(model, tok, chains, layers=list(GATE_LAYERS),
+                        save_dir=save_dir, behaviours=list(BEHAVIOURS),
+                        n_preceding=1, n_execution=10, pooling="mean",
+                        sweep_modes=[], clip_to_sentence_end=False,
+                        keep_in_memory=False)
+
+
+def base_reference_currentenv() -> Path:
+    """Amendment 3: extract the BASE checkpoint on the verification subset in
+    THIS environment, once per session, and cache it.
+
+    The adapter displacement being gated is ~0.5% of activation norm, while
+    cross-environment drift on these activations is ~6x larger. Subtracting a
+    July baseline from a today extraction therefore measures drift, not the
+    adapter. Both terms of every G1/G2 cosine must come from one environment.
+    """
+    out = GATE_DIR / "base_currentenv"
+    if (out / "row_index.json").exists():
+        return out
+    from src.ph2_stages import load_checkpoint
+    chains = json.loads((GATE_DIR / "verification_chains.json").read_text())
+    tok, model, resolved = load_checkpoint("base")
+    _extract_subset(model, tok, chains, out)
+    del model
+    _atomic_json({"resolved_checkpoint": resolved,
+                  "amendment": "PTB1_AMENDMENT_3_2026-08-20.md",
+                  "purpose": "same-environment G1/G2 baseline"},
+                 out / "BASE_REFERENCE_META.json")
+    return out
+
+
+def _subset_rows(act_dir: Path, layer: int, ref_keys: list, idx: list):
+    import numpy as np
+    pos = key_positions(load_row_keys(act_dir))
+    mats = {b: np.load(act_dir / f"{b}_layer{layer}.npy", mmap_mode="r")
+            for b in BEHAVIOURS}
+    return np.stack([mats[ref_keys[i][0]][pos[ref_keys[i]]]
+                     for i in idx]).astype(np.float32)
+
+
+def identity_gate(arm: str, merged: Path):
+    """Sealed G1/G2 gate; returns (verdict_dict, tok, model) on PASS/AMENDED.
+
+    Amendment 3: the arm direction is (arm_new - base_new) with BOTH terms
+    extracted in the current environment; the reference direction stays the
+    within-July (arm_stored - base_stored). Environment drift cancels on both
+    sides, so the cosine compares adapter effects rather than library drift.
+    """
+    import numpy as np
     from src.ph2_stages import load_checkpoint
 
     ref = np.load(GATE_DIR / "reference.npz")
@@ -198,39 +245,40 @@ def identity_gate(arm: str, merged: Path):
                 json.loads((GATE_DIR / "reference_keys.json").read_text())]
     chains = json.loads((GATE_DIR / "verification_chains.json").read_text())
 
+    base_env_dir = base_reference_currentenv()
     tok, model, resolved = load_checkpoint("base", local_dir=merged)
-    tmp = OUT / "identity_gate" / f"extract_{arm}"
-    extract_activations(model, tok, chains, layers=list(GATE_LAYERS),
-                        save_dir=tmp, behaviours=list(BEHAVIOURS),
-                        n_preceding=1, n_execution=10, pooling="mean",
-                        sweep_modes=[], clip_to_sentence_end=False,
-                        keep_in_memory=False)
+    tmp = GATE_DIR / f"extract_{arm}"
+    _extract_subset(model, tok, chains, tmp)
 
     new_pos = key_positions(load_row_keys(tmp))
-    idx = [i for i, k in enumerate(ref_keys) if k in new_pos]
+    base_pos = key_positions(load_row_keys(base_env_dir))
+    idx = [i for i, k in enumerate(ref_keys)
+           if k in new_pos and k in base_pos]
     coverage = len(idx) / len(ref_keys)
     cos_same, cos_opp, norms = {}, {}, {}
+    cos = lambda u, v: float(np.dot(u, v)
+                             / (np.linalg.norm(u) * np.linalg.norm(v)))
     for layer in GATE_LAYERS:
-        mats = {b: np.load(tmp / f"{b}_layer{layer}.npy", mmap_mode="r")
-                for b in BEHAVIOURS}
-        new_rows = np.stack([mats[ref_keys[i][0]][new_pos[ref_keys[i]]]
-                             for i in idx]).astype(np.float32)
-        base_rows = ref[f"base_l{layer}"][idx].astype(np.float32)
+        arm_new = _subset_rows(tmp, layer, ref_keys, idx)
+        base_new = _subset_rows(base_env_dir, layer, ref_keys, idx)
+        base_stored = ref[f"base_l{layer}"][idx].astype(np.float32)
         stored_same = (ref[f"arm_{arm}_l{layer}"][idx].astype(np.float32)
-                       - base_rows).mean(axis=0)
+                       - base_stored).mean(axis=0)
         stored_opp = (ref[f"arm_{opposite_arm(arm)}_l{layer}"][idx]
-                      .astype(np.float32) - base_rows).mean(axis=0)
-        new_dir = (new_rows - base_rows).mean(axis=0)
-        cos = lambda u, v: float(np.dot(u, v)
-                                 / (np.linalg.norm(u) * np.linalg.norm(v)))
+                      .astype(np.float32) - base_stored).mean(axis=0)
+        new_dir = (arm_new - base_new).mean(axis=0)          # same-environment
+        env_drift = (base_new - base_stored).mean(axis=0)    # diagnostic only
         cos_same[str(layer)] = cos(new_dir, stored_same)
         cos_opp[str(layer)] = cos(new_dir, stored_opp)
-        norms[str(layer)] = {"new": float(np.linalg.norm(new_dir)),
-                             "stored": float(np.linalg.norm(stored_same))}
+        norms[str(layer)] = {
+            "new_same_env": float(np.linalg.norm(new_dir)),
+            "stored": float(np.linalg.norm(stored_same)),
+            "environment_drift_diagnostic": float(np.linalg.norm(env_drift))}
 
     verdict = gate_verdict(cos_same, cos_opp, coverage)
     report = {"arm": arm, "verdict": verdict, "cos_same_seed": cos_same,
               "cos_opposite_recipe": cos_opp, "direction_norms": norms,
+              "baseline": "same-environment (PTB1_AMENDMENT_3_2026-08-20.md)",
               "row_coverage": coverage, "n_rows_compared": len(idx),
               "n_rows_reference": len(ref_keys),
               "resolved_checkpoint": resolved,
