@@ -58,26 +58,26 @@ dissociation; §7.5 ends on what stands; ToC reads as findings (no "fails"/"amen
 
 ## §C — Residual integration (the actual writing)
 
-- [ ] **C1 — Transport into the thesis (blocker DISCHARGED).** The 08-19 missingness bounding
+- [x] **C1 — Transport into the thesis (blocker DISCHARGED).** The 08-19 missingness bounding
       removed the recorded blocker. Methods §3.3 gains the sealed transport design (~½pp);
       ch6 gains ~1pp: refit-recovers-frame FIRST (cos 0.934/0.787 vs null p95 0.055 —
       functional corroboration of bounded rotation), then the non-confirmatory verdict as a
       calibrated bound (injection-recovery power 0.04 at the registered weakening ⇒ downgraded
       not refuted; signs missingness-robust; Manski straddles zero; citation rule =
       complete-case + per-arm counts + robustness label, adjacency survives §A5). *(~3h)*
-- [ ] **C2 — Venhoff bridge appendix — APPROVED (D6, Tony, 2026-08-20).** Integrate; this
+- [x] **C2 — Venhoff bridge appendix — APPROVED (D6, Tony, 2026-08-20).** Integrate; this
       reverses the 08-19 analysis-only disposition for the bridge only — appendix section
       (operator 2×2, floor-convergence table incl. ak +31.9 vs +11.5 both landing ≈11.2%,
       lineage cos 0.999, caveat register) + 3 sentences in ch5's Venhoff-relation paragraph.
       It pre-answers "why are your effects smaller than published?" mechanistically.
       A0/O1 stay analysis-only (unchanged). *(~2.5h)*
-- [ ] **C3 — PT-B1 section (ch6) + asymmetry update.** Written as executed results in §A6
+- [x] **C3 — PT-B1 section (ch6) + asymmetry update.** Written as executed results in §A6
       order, with the P0.4 predicted-sign memo cited as a prediction. NOTE: PT-B1 *discharges*
       the reframe plan's "behavioural evaluation still outstanding" asymmetry (§7.2) and the
       "free-generation evaluation unrun" ledger entry — update both; this is a reframe-plan
       debt paid, say so in §7.2's asymmetry paragraph. Conclusion gains the
       intervention×endpoint 2×2 (training→behaviour cell filled). *(~3h once results land)*
-- [ ] **C4 — Everything-executed sweep (§A7).** Three categories, judged per hit:
+- [x] **C4 — Everything-executed sweep (§A7).** Three categories, judged per hit:
       **(a) limitations of executed runs** (no accuracy guard recorded; single dose;
       within-annotator) → ONE scope sentence in the chapter's limitations block — these are
       facts about executed work and are kept, phrased as scope, never as a pending run;
@@ -94,10 +94,10 @@ dissociation; §7.5 ends on what stands; ToC reads as findings (no "fails"/"amen
       (already §7.4 falsification tests — remove any residual inline mentions); appendix A.5
       title "Unexecuted deliberative-safety programme" (→ retitle; content to §7.4 pointer);
       SAE staged programme (→ §7.4). *(~2h)*
-- [ ] **C5 — H1/DS-H1 appendix refresh.** Executed pre-registered run (d=5.02, AUROC .979,
+- [x] **C5 — H1/DS-H1 appendix refresh.** Executed pre-registered run (d=5.02, AUROC .979,
       capability control retains .995), provisional pending H1V2; forward-ref from §7.4
       already required by the reframe plan — verify present. *(~30m)*
-- [ ] **C6a — J-SPACE REMOVAL (D-J, Tony, 2026-08-20).** Remove every J-space mention from
+- [x] **C6a — J-SPACE REMOVAL (D-J, Tony, 2026-08-20).** Remove every J-space mention from
       the thesis: ch6 §"Beyond safety: post-training and silent token readout" (delete
       section); appendix §"Stopped Jacobian-lens validity pilot and failure attribution"
       (delete); grep sweep `jacobian|j-space|jlens|silent (token )?readout|multihop|bridge.entity`
@@ -106,7 +106,7 @@ dissociation; §7.5 ends on what stands; ToC reads as findings (no "fails"/"amen
       untouched — removal is thesis-only. **Consequence: D4 (claim-ledger addendum) is MOOT
       for the thesis**; the addendum question survives only as analysis-repo bookkeeping.
       *(~1.5h)*
-- [ ] **C6 — Conclusion updates.** 2×2 table (C3); F5 check — no sentence leans on the
+- [x] **C6 — Conclusion updates.** 2×2 table (C3); F5 check — no sentence leans on the
       retracted DPO safety-specificity sub-claim; transport + bridge lines in §7.4 if D6/D7
       leave them out of main text. *(~1h)*
 
@@ -127,7 +127,7 @@ collapses to one §7.4 falsification-test line per C4 category (b). Kept for the
 move the fixed-top-ten variance-concentration map? 7 checkpoints × L{12,16} × 4 behaviours on
 byte-identical rows; within-session seed-paired primary (environment-validity rule from PT-B1
 Amendment 3); Holm over 8 cells.
-- [ ] On landing: read `results/ptb2/PTB2_REPORT.md` → **D2b (Tony): admit?** → if admitted,
+- [x] On landing: read `results/ptb2/PTB2_REPORT.md` → **D2b (Tony): admit?** → if admitted,
       ~½pp in ch6 adjacent to the rotation/contraction bounds (it is the *shape* refinement of
       the training→representation cell: second-moment structure at recipe contrast).
 - **Reading guardrails (from the prereg, binding):** seed-permutation floor is p = 0.25 ⇒ only
@@ -158,3 +158,34 @@ requirements · **D2** PT-B1 admission + **D2b** PT-B2 admission — both pendin
 **Handoff (27 Aug):** clean build; every new number in the register; ledger + handoff updated.
 Tony's pass = final voice/flow + Week-4 verify (extended consistency pass, hedge-density
 re-read, ToC check, snapshot regeneration from clean commits, three days buffer).
+
+---
+
+## EXECUTION RECORD — 2026-08-20 (campaign run)
+
+Both cells landed and were admitted (D2/D2b, Tony). Executed same day:
+P0.2/P0.3/P0.4 (sign memo `9c904a4` sealed pre-read; predictions bt+/unc+ matched,
+ex-/ak- not — moot, all cells unresolved) → analysis-repo landing commit `dbdf3dc`
+(ledger rows + change log) → full thesis integration, thesis commit `3685065`
+pushed (71pp, builds clean): C1 transport (methods + ch6), C2 bridge (appendix
+`app:venhoff-bridge` + ch5 pointer), C3 PT-B1 (`sec:safety-behaviour` +
+`tab:safety-behavioural-cell`), §E2 PT-B2 (concentration-map paragraph), C4
+sweep (registered-but-unexecuted analyses now live solely in
+`sec:conclusion-outlook`), C5 DS-H1 reframe, C6a J-space fully removed (ch6 +
+appendix, zero residual mentions), C6 conclusion (2x2 square table
+`tab:conclusion-intervention-endpoint`, asymmetry resolved, priority 3
+half-discharged, falsification list extended, coda updated), abstract updated.
+
+**New numbers introduced (for the Week-4 register/consistency pass):**
+PT-B1: +0.38 [-0.82,+1.65] / +0.17 [-1.78,+2.27] / +0.54 [-0.87,+2.17] /
++1.11 [+0.09,+2.28] pp (Holm 1.0/1.0/1.0/0.17); n=98; gates 0.988-0.993;
+length -75 [-351,+222]; base levels 7.7-15.9%. PT-B2: deltas -0.00016..-0.00045
+on 0.43-0.50; Holm .004; validation 8e-7; seed-perm floor 0.25. Transport:
+refit cos 0.934/0.787 vs null p95 0.055/0.052; power 0.04; loop excess
+0.50-0.69; trunc 0.38-0.47; deepscaler -0.059 -> -0.112 @q90. Bridge: 8.3/14.8/
+6.3/4.7 vs 5.5/2.5/4.5/0.1 pp; +17.4/+27.5/+25.4/+11.5 token endpoint;
+floor-convergence table; lineage cos 0.999; 2x2 energies 0.62-0.93 own /
+0.31-0.71 cross / 0.003 floor.
+
+**Remaining:** Tony's editing pass (Phase 4); D3 H1V2 labelling (optional);
+Week-4 verify-and-freeze (extended consistency pass, snapshot regeneration).
